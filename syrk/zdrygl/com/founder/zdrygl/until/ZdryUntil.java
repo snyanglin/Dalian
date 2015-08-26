@@ -343,7 +343,7 @@ public class ZdryUntil {
 		 message.setFsrdm(ywsqrId);
 		 message.setFsrssdw(shb.getXt_lrrbm());
 		 message.setFsrssdwdm(shb.getXt_lrrbmid());
-		 sysMessageDao.saveMessageByOrg(message, hbdd.getOrgcode(), false,true);
+	//	 sysMessageDao.saveMessageByOrg(message, hbdd.getOrgcode(), false,true);
 	}
 
 	/**
@@ -424,7 +424,7 @@ public class ZdryUntil {
 		if ("监管对象".equals(zdrylxylbdyb.getBz())) {
 			zdryJgdxxxbDao.delete(zdryJgdxxxbDao.queryById(zdryId));
 		} else if ("社区矫正人员".equals(zdrylxylbdyb.getBz())) {
-			zdryZszhjsbrxxbDao.delete(zdryZszhjsbrxxbDao.queryById(zdryId));
+			zdrySqjzryxxbDao.delete(zdrySqjzryxxbDao.queryById(zdryId));
 		} else if ("重点人口".equals(zdrylxylbdyb.getBz())) {
 			zdryZdrkxxbDao.delete(zdryZdrkxxbDao.queryById(zdryId));
 		} else if ("肇事肇祸精神病人".equals(zdrylxylbdyb.getBz())) {
@@ -552,8 +552,8 @@ public class ZdryUntil {
 		 message.setFsrdm(ywsqrId);
 		 message.setFsrssdw(zb.getXt_lrrbm());
 		 message.setFsrssdwdm(zb.getXt_lrrbmid());
-		sysMessageDao.saveMessageByUser(message, userIDString);
-		sysMessageDao.saveMessageByOrgAndPos(message, orgcode, "SZ");
+	//	sysMessageDao.saveMessageByUser(message, userIDString);
+	//	sysMessageDao.saveMessageByOrgAndPos(message, orgcode, "SZ");
 	}
 	
 	
@@ -595,7 +595,7 @@ public class ZdryUntil {
 		}  
 		message.setXxnr(xxnr);
 		message.setXxlb("1");
-		sysMessageDao.saveMessageByUser(message, userIDString);
-		sysMessageDao.saveMessageByOrgAndPos(message, orgcode, "SZ");
+	//	sysMessageDao.saveMessageByUser(message, userIDString);
+	//	sysMessageDao.saveMessageByOrgAndPos(message, orgcode, "SZ");
 	}
 }
