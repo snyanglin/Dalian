@@ -35,7 +35,7 @@ public class ZdrySqjzOperationServiceimpl extends ZdryZAOperationServiceimpl {
 	public void saveLg(ZdryVO vo) throws BussinessException {
 		super.saveLg(vo);
 		vo.getZdrySqjzryxxb().setId(vo.getZdryZdryzb().getId());
-		zdrySqjzryxxbDao.delete(vo.getZdrySqjzryxxb());
+		zdrySqjzryxxbDao.save(vo.getZdrySqjzryxxb());
 	}	
 
 }
