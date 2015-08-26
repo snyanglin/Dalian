@@ -79,7 +79,7 @@
 							<td align="right" width="200px" class="dialogTd">
 								<input class="easyui-validatebox" type="text" id="jzd2" name="dz_jzdzxz"
 								value="${entity.dz_jzdzxz}" style="width:200px;" data-options="required:false,validType:['maxLength[2000]'],tipPosition:'right'"/>
-								<!--<input class="easyui-combobox" id="jzd2" style="width:200px;" value='${fn:replace(entity.dz_jzdzxz, entity.dz_jzdzmlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">  -->
+								<!--<input class="easyui-combobox" id="jzd2" style="width:200px;" value="${fn:replace(entity.dz_jzdzxz, entity.dz_jzdzmlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">  -->
 								<input type='hidden' name='dz_jzdzdm' id='dz_jzdzdm' value="${entity.dz_jzdzdm}" />
 								<input type='hidden' name='dz_jzdzssxdm' id='dz_jzdzssxdm' value="${entity.dz_jzdzssxdm}" />
 								<!--<input type='hidden' name='dz_jzdzxz' id='dz_jzdzxz' value="${entity.dz_jzdzxz}" /> -->

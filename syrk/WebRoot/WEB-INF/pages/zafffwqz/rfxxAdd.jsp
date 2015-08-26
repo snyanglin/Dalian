@@ -80,7 +80,7 @@
 				    	<input type='hidden' name='dz_ffzrrjzdzmlpxz' id="dz_ffzrrjzdzmlpxz" value="${entity.dz_ffzrrjzdzmlpxz}"/>
 			    	</td>
 			    	<td width="30%" class="dialogTd">
-				    	<input class="easyui-combobox" id="jzd2" style="width:200px;" value='${fn:replace(entity.dz_ffzrrjzdzxz, entity.dz_ffzrrjzdzmlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+				    	<input class="easyui-combobox" id="jzd2" style="width:200px;" value="${fn:replace(entity.dz_ffzrrjzdzxz, entity.dz_ffzrrjzdzmlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 				    	<input type='hidden' name='dz_ffzrrjzdzdm' id="dz_ffzrrjzdzdm" value="${entity.dz_ffzrrjzdzdm}"/>
 				    	<input type='hidden' name='dz_ffzrrjzdzssxdm' id="dz_ffzrrjzdzssxdm" value="${entity.dz_ffzrrjzdzssxdm}"/>
 				    	<input type='hidden' name='dz_ffzrrjzdzxz' id="dz_ffzrrjzdzxz" value="${entity.dz_ffzrrjzdzxz}"/>
@@ -111,7 +111,7 @@
 				    	<input type='hidden' name='dz_ffzrrssdwdzmlpxz' id="dz_ffzrrssdwdzmlpxz" value="${entity.dz_ffzrrssdwdzmlpxz}"/>
 			    	</td>
 			    	<td width="30%" class="dialogTd">
-				    	<input class="easyui-combobox" id="fzd2" style="width:200px;" value='${fn:replace(entity.dz_ffzrrssdwdzxz, entity.dz_ffzrrssdwdzmlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+				    	<input class="easyui-combobox" id="fzd2" style="width:200px;" value="${fn:replace(entity.dz_ffzrrssdwdzxz, entity.dz_ffzrrssdwdzmlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 				    	<input type='hidden' name='dz_ffzrrssdwdzdm' id="dz_ffzrrssdwdzdm" value="${entity.dz_ffzrrssdwdzdm}"/>
 				    	<input type='hidden' name='dz_ffzrrssdwdzssxdm' id="dz_ffzrrssdwdzssxdm" value="${entity.dz_ffzrrssdwdzssxdm}"/>
 				    	<input type='hidden' name='dz_ffzrrssdwdzxz' id="dz_ffzrrssdwdzxz" value="${entity.dz_ffzrrssdwdzxz}"/>
@@ -159,7 +159,7 @@
 				    	<input type='hidden' name='dz_ffzzdzmlpxz' id="dz_ffzzjzdzmlpxz" value="${entity.dz_ffzzdzmlpxz}"/>
 			    	</td>
 			    	<td width="30%" class="dialogTd">
-				    	<input class="easyui-combobox" id="fzd4" style="width:200px;" value='${fn:replace(entity.dz_ffzzdzxz, entity.dz_ffzzdzmlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+				    	<input class="easyui-combobox" id="fzd4" style="width:200px;" value="${fn:replace(entity.dz_ffzzdzxz, entity.dz_ffzzdzmlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 				    	<input type='hidden' name='dz_ffzzdzdm' id="dz_ffzzjzdzdm" value="${entity.dz_ffzzdzdm}"/>
 				    	<input type='hidden' name='dz_ffzzdzssxdm' id="dz_ffzzjzdzssxdm" value="${entity.dz_ffzzdzssxdm}"/>
 				    	<input type='hidden' name='dz_ffzzdzxz' id="dz_ffzzjzdzxz" value="${entity.dz_ffzzdzxz}"/>

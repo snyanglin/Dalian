@@ -353,6 +353,9 @@ public class ZdryZdryzbControl extends BaseController {
 			Zdrylxylbdyb zdrylxylbdyb=new Zdrylxylbdyb();
 			zdrylxylbdyb.setLbdm(zdryZdryzb.getZdrygllxdm());
 			String zdrylxmc =  zdrylxylbdybService.query(zdrylxylbdyb).getBz();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String createTime=formatter.format(new Date());//申请时间
+			variables.put("createTime", createTime);
 			variables.put("lrrzrq", lrrzrq);//录入人管辖责任区
 	 		variables.put("zdryId", zdryZdryzb.getId()); //重点人员总表Id
 			variables.put("zdrylx", zdryZdryzb.getZdrygllxdm());//人员类型	
@@ -391,16 +394,25 @@ public class ZdryZdryzbControl extends BaseController {
 			processDefinitionService.startProcessInstance(sessionBean.getUserId(), "sgaj_lcg", zdryZdryzb.getId(), variables);	
 		}
 		else{//治安
+		
+		if(zdryZdryzb.getZdrygllxdm().equals("01")){
+			if("0104".equals(zdryZdryzbService.queryById(zdryZdryzb.getId()).getZdrylb())){
+				
+				variables.put("sqlx", "治安列管");//申请类型	
+				variables.put("sqlxdm", "01");//申请类型为列管
+				processDefinitionService.startProcessInstance(sessionBean.getUserId(), "zalcg", zdryZdryzb.getId(), variables);
+			}	
+			else{
+				zdryUntil.lgSuccess(zdryZdryzb.getId(), zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), null);
+			}	
 			
-		if("0104".equals(zdryZdryzbService.queryById(zdryZdryzb.getId()).getZdrylb())){
-			
-			variables.put("sqlx", "治安列管");//申请类型	
-			variables.put("sqlxdm", "01");//申请类型为列管
-			processDefinitionService.startProcessInstance(sessionBean.getUserId(), "zalcg", zdryZdryzb.getId(), variables);
 		}	
 		else{
-			zdryUntil.lgSuccess(zdryZdryzb.getId(), zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), null);
-		}	
+				variables.put("sqlx", "治安列管");//申请类型	
+				variables.put("sqlxdm", "01");//申请类型为列管
+				processDefinitionService.startProcessInstance(sessionBean.getUserId(), "zalcg", zdryZdryzb.getId(), variables);
+	
+		}
 	}	
 		
 			
@@ -936,6 +948,9 @@ public class ZdryZdryzbControl extends BaseController {
 			Zdrylxylbdyb zdrylxylbdyb=new Zdrylxylbdyb();
 			zdrylxylbdyb.setLbdm(zdryZdryzb.getZdrygllxdm());
 			String zdrylxmc =  zdrylxylbdybService.query(zdrylxylbdyb).getBz();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String createTime=formatter.format(new Date());//申请时间
+			variables.put("createTime", createTime);
 			variables.put("lrrzrq", lrrzrq);//录入人管辖责任区
 			variables.put("cghZdryId", zdryZdryzb.getId());
 			variables.put("zdryId", zdryYid); //重点人员总表Id
@@ -975,16 +990,26 @@ public class ZdryZdryzbControl extends BaseController {
 				processDefinitionService.startProcessInstance(sessionBean.getUserId(), "sgaj_lcg", zdryYid, variables);	
 			}
 			else{//治安
-				if("0104".equals(zdryZdryzbService.queryById(zdryZdryzb.getId()).getZdrylb())){
-				variables.put("sqlx", "治安撤管");//申请类型	
-				variables.put("sqlxdm", "02");//申请类型为列管
-				processDefinitionService.startProcessInstance(sessionBean.getUserId(), "zalcg", zdryYid, variables);
+				
+				if(zdryZdryzb.getZdrygllxdm().equals("01")){
+					if("0104".equals(zdryZdryzbService.queryById(zdryZdryzb.getId()).getZdrylb())){
+						
+						variables.put("sqlx", "治安撤管");//申请类型	
+						variables.put("sqlxdm", "02");//申请类型为撤管
+						processDefinitionService.startProcessInstance(sessionBean.getUserId(), "zalcg", zdryYid, variables);
+						}	
+					else{
+						zdryUntil.cgSuccess(zdryYid, zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), null);
+						}	
+					
 				}	
 				else{
-					zdryUntil.cgSuccess(zdryYid, zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), null);
-				}	
-			
-			
+						variables.put("sqlx", "治安撤管");//申请类型	
+						variables.put("sqlxdm", "02");//申请类型为撤管
+						processDefinitionService.startProcessInstance(sessionBean.getUserId(), "zalcg", zdryYid, variables);
+				
+				}
+				
 			}	
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
 			model.put(AppConst.MESSAGES, getAddSuccess());
