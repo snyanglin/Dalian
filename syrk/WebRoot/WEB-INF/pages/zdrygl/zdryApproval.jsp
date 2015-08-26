@@ -43,6 +43,15 @@
 	    	
 	    	<c:if test="${approvalMethod eq 'szzlApproval'}">
 	    	
+	    	  <tr class="dialogTr">
+		    	<td width="20%" class="dialogTd" align="right" id="cgrqText">重点人员已列管类别：</td>
+		    	<td width="30%" class="dialogTd"><input type="text" name="yzdrylbmc" id="yzdrylbmc" class="easyui-validatebox inputreadonly" style="width: 200px;"  readonly="readonly" /></td>
+	    		<td width="10%" class="dialogTd" align="right">重点人员转类类别：</td>
+		    	<td width="20%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="xzdrylbmc" id="xzdrylbmc" style="width:200px;" readonly="readonly" /></td>
+		 
+	    	
+	    	</tr>
+	    	
 	    	</c:if>
 		    <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right" id="cgsqyjText">申请意见：</td>
@@ -148,6 +157,11 @@ function getZdryXx() {
 					$("#zdrylxmc").val(data.workflowXx.zdrylxmc) ;
 					$("#sqlx").val(data.workflowXx.sqlx) ;
 					$("#sqyj").val(data.workflowXx.sqyj) ;
+					if(data.workflowXx.yzdrylbmc!='')
+					{
+					$("#yzdrylbmc").val(data.workflowXx.yzdrylbmc) ;
+					$("#xzdrylbmc").val(data.workflowXx.xzdrylbmc) ;
+					}
 			//		alert(approvalMethod);
 					xm=data.workflowXx.xm;
 					ryid=data.zdryZdryzb.ryid;

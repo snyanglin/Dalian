@@ -64,8 +64,7 @@ public class Zlywjs implements JavaDelegate{
 			String fsxOrgCode =orgOrganization.getOrgcode();//  得到本名等级为三级，派出所部门code
 			String taskParameter=fsxOrgCode+"_"+orgPositionService.queryByPosid("SZ").getId().toString();   //部门code+所长岗位ID
 			arg0.setVariableLocal("sz", taskParameter);
-			arg0.setVariableLocal("businessType", "1"); 
-			arg0.setVariableLocal("approvalMethod", "szApproval");
+			arg0.setVariableLocal("approvalMethod", "szzlApproval");
 		
 		} catch(BussinessException aa){
 			

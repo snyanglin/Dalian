@@ -1,6 +1,8 @@
 package com.founder.zdrygl.controller;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +10,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.commons.beanutils.MethodUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +24,7 @@ import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
+import com.founder.workflow.service.inteface.JProcessDefinitionService;
 import com.founder.zdrygl.service.ZdryEditService;
 import com.founder.zdrygl.service.ZdrySgafzdryxxbService;
 import com.founder.zdrygl.vo.ZdryVO;
@@ -47,6 +51,9 @@ public class ZdryEditController extends BaseController {
 	private ZdryEditService zdryEditService;
 	@Resource
 	private ZdrySgafzdryxxbService zdrySgafzdryxxbService;
+	@Autowired
+	private JProcessDefinitionService processDefinitionService;
+
 	/**
 	 * 
 	 * @Title: queryRyzsxx
@@ -215,7 +222,7 @@ public class ZdryEditController extends BaseController {
 	 * @throws
 	 */
 	@RequestMapping(value = "/zdryZL", method = RequestMethod.POST)
-	public ModelAndView zdryZL(ZdryVO zdryVO, SessionBean sessionBean,String yzdrylbmc) {
+	public ModelAndView zdryZL(ZdryVO zdryVO, SessionBean sessionBean,String xzdrylbmc) {
 		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
 		Map<String, Object> model = new HashMap<String, Object>();
 		sessionBean = getSessionBean(sessionBean);
@@ -225,6 +232,29 @@ public class ZdryEditController extends BaseController {
 			zdryVO.getZdryZdryzb().setZdrylb(null);//此时不修改小类，审批通过后修改
 			zdryEditService.zdryZl(zdryVO,sessionBean);
 			zdryVO.getZdryZdryzb().setZdrylb(zdrylb);//后续流程取用
+			
+			Map<String, Object> variables =  new HashMap<String, Object>();
+			String  lrrzrq= sessionBean.getUserOrgCode();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String createTime=formatter.format(new Date());//申请时间
+			variables.put("createTime", createTime);
+			variables.put("lrrzrq", lrrzrq);//录入人管辖责任区
+	 		variables.put("zdryId", zdryVO.getZdryZdryzb().getId()); //重点人员总表Id
+			variables.put("zdrylx", zdryVO.getZdryZdryzb().getZdrygllxdm());//人员类型	
+			variables.put("zdrylxmc", zdryVO.getZdryZdryzbVO().getZdrygllxmc());//人员类型名称	
+			variables.put("yzdrylbmc", zdryVO.getZdryZdryzbVO().getZdrylbmc());//转递前类型
+			variables.put("xzdrylbmc", xzdrylbmc);//转递后类型
+			
+			variables.put("xm", zdryVO.getZdryZdryzbVO().getXm());//被列管人员姓名
+			variables.put("zjhm", zdryVO.getZdryZdryzbVO().getZjhm());//证件号码
+			variables.put("sqlx", "重点人口转类");//申请类型	  			
+		    variables.put("sqyj", zdryVO.getYwsqyy());//申请意见		
+			variables.put("sqlxdm", "03");//列管01  撤管02 专类03
+			variables.put("approvalMethod", "szzlApproval");
+			variables.put("sqyj", "申请将"+zdryVO.getXm()+"转换重点人员类别");
+			
+			processDefinitionService.startProcessInstance(sessionBean.getUserId(), "zdryzl", zdryVO.getZdryZdryzb().getId(), variables);	
+
 			
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
 			model.put(AppConst.MESSAGES, getUpdateSuccess());

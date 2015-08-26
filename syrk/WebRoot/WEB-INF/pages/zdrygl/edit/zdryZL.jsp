@@ -10,7 +10,9 @@
 <div class="easyui-layout" data-options="fit:true">	
     <form action="<%=basePath%>zdryEdit/zdryZL"  id="dataForm" name="dataForm" method="post">     
     	<input type="hidden" id="id" name="zdryZdryzb.id" value="${zdryVO.zdryZdryzb.id}" />    	    	
-    	<input type="hidden" id="yzdrylbmc" name="yzdrylbmc" value="${zdryVO.zdryZdryzbVO.zdrylbmc}" />    
+    	<input type="hidden" id="zdrylbmc" name="zdryZdryzbVO.zdrylbmc" value="${zdryVO.zdryZdryzbVO.zdrylbmc}" />    
+    	<input type="hidden" id="yzdrylbmc" name="zdryZdryzbVO.zdrygllxmc" value="${zdryVO.zdryZdryzbVO.zdrygllxmc}" />  
+	  	 <input type="hidden" id="xzdrylbmc" name="xzdrylbmc" />   
 	    <div data-options="region:'center', split:true" style="width:500px; border-width: 0px;">
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 			<tr class="dialogTr">
@@ -75,6 +77,8 @@ function beforeSubmit() {
 		alert("该类型不可转类");
 		return false;
 	}
+	var zdrylbmc=$("#zdrylbStr").combotree('getText');
+	$("#xzdrylbmc").val(zdrylbmc);
 }
 
 function afterSubmit() {
