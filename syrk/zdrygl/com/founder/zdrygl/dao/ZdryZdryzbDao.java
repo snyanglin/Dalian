@@ -105,10 +105,12 @@ public class ZdryZdryzbDao extends BaseDaoImpl {
 			sort = "id";
 			order = "asc";
 		}
-		entity.setSrid(getSrid());
+		//entity.setSrid(getSrid());
 		map.put("sort", sort);
 		map.put("order", order);
-		map.put("zdryZdryzbVO", entity);
+		map.put("zdryZdryzbVO", entity);		
+		String  address =zdryUntil.querySYSConfig();
+		map.put("QYDM", address);
 		page.setTotal((Integer) queryForObject("ZdryZdryzb.queryCountZdryOnPT", map));
 		page.setRows(queryForList("ZdryZdryzb.queryZdryOnPT", map));
 		return page;

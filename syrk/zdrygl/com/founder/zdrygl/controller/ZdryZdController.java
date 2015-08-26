@@ -1,5 +1,6 @@
 package com.founder.zdrygl.controller;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.fileupload.FileItem;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.founder.framework.base.controller.BaseController;
@@ -28,6 +31,8 @@ import com.founder.framework.organization.user.service.OrgUserService;
 import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
+import com.founder.service.attachment.bean.ZpfjFjxxb;
+import com.founder.service.attachment.service.ZpfjFjxxbService;
 import com.founder.syrkgl.bean.SyrkSyrkxxzb;
 import com.founder.syrkgl.dao.SyrkSyrkxxzbDao;
 import com.founder.workflow.bean.JTask;
@@ -78,7 +83,8 @@ public class ZdryZdController extends BaseController {
 
 	@Autowired
 	private JTaskService taskService;
-	
+	@Resource(name = "zpfjFjxxbService")
+	private ZpfjFjxxbService zpfjFjxxbService;
 	
 	
 	/***
@@ -134,13 +140,64 @@ public class ZdryZdController extends BaseController {
 	 */
 	@RequestMapping(value = "/saveZd", method = RequestMethod.POST)
 	public ModelAndView saveZd(
-			ZdryZdryzbVO zdryZdryzbVO, SessionBean sessionBean) {
+			ZdryZdryzbVO zdryZdryzbVO, 
+			SessionBean sessionBean,
+			@RequestParam(value="uploadFile") CommonsMultipartFile[] uploadFile) {
 		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
 		Map<String, Object> model = new HashMap<String, Object>();
 		sessionBean = getSessionBean(sessionBean);
 		try {
 			zdryZdService.sendZd(zdryZdryzbVO, sessionBean);
 			
+			//处理上传的转递依据
+			List<ZpfjFjxxb> list = new ArrayList<ZpfjFjxxb>();
+			for (int i = 0; i < uploadFile.length; i++) {
+				CommonsMultipartFile multipartFile = uploadFile[i];
+				if (!multipartFile.isEmpty()) {
+					FileItem fileItem = multipartFile.getFileItem();
+					ZpfjFjxxb entity = new ZpfjFjxxb();
+					entity.setLybm("ZDRY_ZDRYZB");
+					entity.setLyid(zdryZdryzbVO.getId());//保存的是当前选择的重点人员id，因为后续 转递要改成一次只转一个类型
+					entity.setLyms("重点人员转递-转递依据");
+					String wjmc = fileItem.getName();
+					if (wjmc.indexOf("\\") != -1) { // 去除完整路径
+						wjmc = wjmc.substring(wjmc.lastIndexOf("\\") + 1);
+					}
+					String wjhzlx = "";
+					int atI = wjmc.lastIndexOf(".");
+					if (atI != -1) {
+						wjhzlx = wjmc.substring(atI + 1);
+						wjhzlx = wjhzlx.toLowerCase();
+					}
+					entity.setWjmc(wjmc);
+					entity.setWjhzlx(wjhzlx);
+					entity.setWj(multipartFile.getBytes());
+					long wjdx = entity.getWj().length;
+					entity.setWjdx(new Long(wjdx));
+					String wjdxsm = "";
+					if (wjdx < 1024) {
+						wjdxsm = "" + wjdx + " B";
+					} else if (wjdx > 1048576) {
+						double mb = Math.floor(wjdx / 1048576);
+						DecimalFormat formater = new DecimalFormat(
+								"###,###,###.00");
+						wjdxsm = "" + formater.format(mb) + " MB";
+					} else {
+						long kb = (long) Math.floor(wjdx / 1024);
+						wjdxsm = "" + kb + " KB";
+					}
+					entity.setWjdxsm(wjdxsm);
+					entity.setWjxzcs(new Long(0));
+					list.add(entity);
+				}
+			}
+			if (list.size() > 0) {
+				zpfjFjxxbService.saveZpfjFjxxb(list, sessionBean);
+				model.put(AppConst.STATUS, AppConst.SUCCESS);
+				model.put(AppConst.MESSAGES, getAddSuccess());
+			}
+			
+			//处理完毕
 			
 			Map<String, Object> variables =  new HashMap<String, Object>();
 			Zdrylxylbdyb zdrylxylbdyb=new Zdrylxylbdyb();

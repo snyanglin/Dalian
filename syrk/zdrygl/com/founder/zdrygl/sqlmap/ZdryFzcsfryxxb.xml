@@ -10,9 +10,12 @@
 		<![CDATA[ select * from ZDRY_FZCSFRYXXB t where ID = #id#  and rownum = 1 ]]>
 	</select>
 	
-	<select id="queryZsxxById" parameterClass="String" resultClass="zdryFzcsfryxxb">
-		<![CDATA[ select t.id , t.xxsb,t.sfyy,t.jkbm, t.jkjbdm,t.sfrylbdm,t.yjjsfsx, t.wjjsfsx,t.zzyldd,t.jfbm, t.cfqk,  t1.zdlgbmmc xt_lrrbm , (select wm_concat(t2.zdrylbdm) from zdry_zdrylbb t2 where t2.zdryid = t.id and t2.xt_zxbz='0' ) as bz
-  				from ZDRY_FZCSFRYXXB t, ZDRY_ZDRYZB t1 where t.ID = #id#  and t.id=t1.id and t.XT_ZXBZ = '0' and t1.xt_zxbz='0']]>
+	<select id="queryByMap" parameterClass="Map" resultClass="zdryFzcsfryxxb">
+		<![CDATA[ select t.id , t.xxsb,t.sfyy,t.jkbm, t.jkjbdm,t.sfrylbdm,t.yjjsfsx, t.wjjsfsx,t.zzyldd,t.jfbm, t.cfqk,  t1.zdlgbmmc xt_lrrbm,t2.bz
+  				from ZDRY_FZCSFRYXXB t, ZDRY_ZDRYZB t1 
+  				left join ZDRY_ZDRYLXYLBDYB t2 on (t2.LBDM=t1.ZDRYLB and QYDM=#qydm#)		
+  				where t.ID = #id#  and t.id=t1.id and t.XT_ZXBZ = '0' and t1.xt_zxbz='0'
+  		]]>
 	</select>
 
 	<!-- 新增 -->

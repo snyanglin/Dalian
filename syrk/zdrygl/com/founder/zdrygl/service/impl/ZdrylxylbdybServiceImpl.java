@@ -48,7 +48,7 @@ public class ZdrylxylbdybServiceImpl extends BaseService implements Zdrylxylbdyb
 	@Override
 	public List getTopList() {		
 		String  address =zdryUntil.querySYSConfig();
-		return zdrylxylbdybDao.queryByQydm(address);		
+		return zdrylxylbdybDao.queryListByQydm(address);		
 	}
 
 	/**

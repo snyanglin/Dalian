@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 		    
 		    <!-- 监管对象 -->
-		    <table id="jgdxDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;" style="display:none">
+		    <table id="jgdxDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;display:none">
 		    <tr class="dialogTr">
 				<td width="20%" class="dialogTd" align="right">监管类别：</td>
 				<td width="30%" class="dialogTd">
@@ -27,14 +27,14 @@
 			</tr>
 			<tr class="dialogTr">
 				<td width="20%" class="dialogTd" align="right">处理结果：</td>
-				<td width="80%" class="dialogTd" colspan="3"><input class="easyui-combotree " type="text" name="zdryJgdxxxb.wfxyrcljgdm" id="wfxyrcljgdm" style="width:619px;"
+				<td width="80%" class="dialogTd" colspan="3"><input class="easyui-combotree " type="text" name="zdryJgdxxxb.wfxyrcljgdm" id="wfxyrcljgdm" style="width:619px;" value="${zdryVO.zdryJgdxxxb.wfxyrcljgdm}"
 					data-options="url: contextPath + '/common/dict/XZ_D_WFXYRCLJG.js',onlyLeaf:false,multiple:false,method:'get',editable:true,lines:true"/>
 			</tr>
 			</table>
 		    
 		    
 		    <!-- 重点人口 -->
-		    <table id="zdrkDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;" style="display:none">
+		    <table id="zdrkDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;display:none">
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">重点人员管理方法：</td>
 		    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="glffdm" name="zdryZdrkxxb.glffdm" style="width:200px;" value="${zdryVO.zdryZdrkxxb.glffdm}"
@@ -50,7 +50,7 @@
 	    	</tr>
 	    	</table>
 	    	<!-- 肇事肇祸精神病人 -->
-	    	<table id="zszhjsbrDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;" style="display:none">
+	    	<table id="zszhjsbrDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;display:none">
 	    	<tr class="dialogTr">
 	    		<td width="20%" class="dialogTd" align="right">精神病类别：</td>
 		    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="jsblbdm" name="zdryZszhjsbrxxb.jsblbdm" style="width:200px;" value="${zdryVO.zdryZszhjsbrxxb.jsblbdm}"
@@ -91,7 +91,7 @@
 	    	
 	    	
 	    	<!-- 非正常访人员 -->
-	    	<table id="fzcfryDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;" style="display:none">
+	    	<table id="fzcfryDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;display:none">
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">交控部门：</td>
 		    	<td width="80%" class="dialogTd" colspan="3"><input type="text" name="zdryFzcsfryxxb.jkbm" id="jkbm" class="easyui-validatebox" style="width: 619px;" maxlength="50"  value="${zdryVO.zdryFzcsfryxxb.jkbm}"
@@ -109,43 +109,43 @@
 		    </tr>
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">信息上报：</td>
-		    	<td width="80%" class="dialogTd" colspan="3"><textarea name="zdryFzcsfryxxb.xxsb" class="easyui-validatebox" style="width: 619px; height:48px;" value="${zdryVO.zdryFzcsfryxxb.xxsb}"
-					data-options="validType:['maxLength[1000]'],invalidMessage:'信息上报不能超过1000个汉字，请重新输入！',required:false,tipPosition:'left'"></textarea></td>
+		    	<td width="80%" class="dialogTd" colspan="3"><textarea name="zdryFzcsfryxxb.xxsb" class="easyui-validatebox" style="width: 619px; height:48px;" value=""
+					data-options="validType:['maxLength[1000]'],invalidMessage:'信息上报不能超过1000个汉字，请重新输入！',required:false,tipPosition:'left'">${zdryVO.zdryFzcsfryxxb.xxsb}</textarea></td>
 	    	</tr>
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">上访原因：</td>
-		    	<td width="80%" class="dialogTd" colspan="3"><textarea name="zdryFzcsfryxxb.sfyy" class="easyui-validatebox" style="width: 619px; height:48px;" value="${zdryVO.zdryFzcsfryxxb.sfyy}"
-					data-options="validType:['maxLength[1000]'],invalidMessage:'上访原因不能超过1000个汉字，请重新输入！',required:false,tipPosition:'left'"></textarea></td>
+		    	<td width="80%" class="dialogTd" colspan="3"><textarea name="zdryFzcsfryxxb.sfyy" class="easyui-validatebox" style="width: 619px; height:48px;" value=""
+					data-options="validType:['maxLength[1000]'],invalidMessage:'上访原因不能超过1000个汉字，请重新输入！',required:false,tipPosition:'left'">${zdryVO.zdryFzcsfryxxb.sfyy}</textarea></td>
 	    	</tr>
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">已解决上访事项：</td>
-		    	<td width="80%" class="dialogTd" colspan="3"><textarea name="zdryFzcsfryxxb.yjjsfsx" class="easyui-validatebox" style="width: 619px; height:48px;" value="${zdryVO.zdryFzcsfryxxb.yjjsfsx}"
-					data-options="validType:['maxLength[1000]'],invalidMessage:'已解决上访事项能超过1000个汉字，请重新输入！',required:false,tipPosition:'left'"></textarea></td>
+		    	<td width="80%" class="dialogTd" colspan="3"><textarea name="zdryFzcsfryxxb.yjjsfsx" class="easyui-validatebox" style="width: 619px; height:48px;" value=""
+					data-options="validType:['maxLength[1000]'],invalidMessage:'已解决上访事项能超过1000个汉字，请重新输入！',required:false,tipPosition:'left'">${zdryVO.zdryFzcsfryxxb.yjjsfsx}</textarea></td>
 	    	</tr>
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">未解决上访事项：</td>
-		    	<td width="80%" class="dialogTd" colspan="3"><textarea name="zdryFzcsfryxxb.wjjsfsx" class="easyui-validatebox" style="width: 619px; height:48px;" value="${zdryVO.zdryFzcsfryxxb.wjjsfsx}"
-					data-options="validType:['maxLength[1000]'],invalidMessage:'未解决上访事项不能超过1000个汉字，请重新输入！',required:false,tipPosition:'left'"></textarea></td>
+		    	<td width="80%" class="dialogTd" colspan="3"><textarea name="zdryFzcsfryxxb.wjjsfsx" class="easyui-validatebox" style="width: 619px; height:48px;" value=""
+					data-options="validType:['maxLength[1000]'],invalidMessage:'未解决上访事项不能超过1000个汉字，请重新输入！',required:false,tipPosition:'left'">${zdryVO.zdryFzcsfryxxb.wjjsfsx}</textarea></td>
 	    	</tr>
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">制造舆论地点：</td>
-		    	<td width="80%" class="dialogTd" colspan="3"><textarea name="zdryFzcsfryxxb.zzyldd" class="easyui-validatebox" style="width: 619px; height:48px;" value="${zdryVO.zdryFzcsfryxxb.zzyldd}"
-					data-options="validType:['maxLength[500]'],invalidMessage:'制造舆论地点不能超过500个汉字，请重新输入！',required:false,tipPosition:'left'"></textarea></td>
+		    	<td width="80%" class="dialogTd" colspan="3"><textarea name="zdryFzcsfryxxb.zzyldd" class="easyui-validatebox" style="width: 619px; height:48px;" value=""
+					data-options="validType:['maxLength[500]'],invalidMessage:'制造舆论地点不能超过500个汉字，请重新输入！',required:false,tipPosition:'left'">${zdryVO.zdryFzcsfryxxb.zzyldd}</textarea></td>
 	    	</tr>
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">接访部门：</td>
-		    	<td width="80%" class="dialogTd" colspan="3"><textarea name="zdryFzcsfryxxb.jfbm" class="easyui-validatebox" style="width: 619px; height:48px;" value="${zdryVO.zdryFzcsfryxxb.jfbm}"
-					data-options="validType:['maxLength[500]'],invalidMessage:'接访部门不能超过500个汉字，请重新输入！',required:false,tipPosition:'left'"></textarea></td>
+		    	<td width="80%" class="dialogTd" colspan="3"><textarea name="zdryFzcsfryxxb.jfbm" class="easyui-validatebox" style="width: 619px; height:48px;" value=""
+					data-options="validType:['maxLength[500]'],invalidMessage:'接访部门不能超过500个汉字，请重新输入！',required:false,tipPosition:'left'">${zdryVO.zdryFzcsfryxxb.jfbm}</textarea></td>
 	    	</tr>
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">涉访处罚情况：</td>
-		    	<td width="80%" class="dialogTd" colspan="3"><textarea name="zdryFzcsfryxxb.cfqk" class="easyui-validatebox" style="width: 619px; height:48px;" value="${zdryVO.zdryFzcsfryxxb.cfqk}"
-					data-options="validType:['maxLength[1000]'],invalidMessage:'涉访处罚情况不能超过1000个汉字，请重新输入！',required:false,tipPosition:'left'"></textarea></td>
+		    	<td width="80%" class="dialogTd" colspan="3"><textarea name="zdryFzcsfryxxb.cfqk" class="easyui-validatebox" style="width: 619px; height:48px;" value=""
+					data-options="validType:['maxLength[1000]'],invalidMessage:'涉访处罚情况不能超过1000个汉字，请重新输入！',required:false,tipPosition:'left'">${zdryVO.zdryFzcsfryxxb.cfqk}</textarea></td>
 	    	</tr>
 	    	</table>
 	    	
 	    	<!-- 社区矫正人员 -->
-	    	 <table id="sqjzryDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;" style="display:none">
+	    	 <table id="sqjzryDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;display:none">
 		
 		    <tr class="dialogTr">
 	    		<td width="20%" class="dialogTd" align="right">监管单位机构名称：</td>
@@ -159,9 +159,9 @@
 				</td>
 			</tr>
 			 <tr class="dialogTr"> 
-		    	<td width="20%" class="dialogTd" align="right">违法嫌疑人处理结果代码：</td>
+		    	<td width="20%" class="dialogTd" align="right">违法嫌疑人处理结果：</td>
 		    	<td width="80%" class="dialogTd">
-					<input class="easyui-combobox" type="text"  id="wfxyrcljgdm" name="zdrySqjzryxxb.wfxyrcljgdm"   style="width:619px;" value=""
+					<input class="easyui-combobox" type="text"  id="wfxyrcljgdm" name="zdrySqjzryxxb.wfxyrcljgdm"   style="width:619px;" value="${zdryVO.zdrySqjzryxxb.wfxyrcljgdm}"
 					data-options="url: contextPath +  '/common/dict/XZ_D_WFXYRCLJGDM.js',
 					valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'right'"/>
 				</td>
@@ -180,14 +180,14 @@
 	     	<tr id="scpjs">
 	    		<td width="20%" class="dialogTd" align="right">上传判决书：</td>
 		    	<td width="80%" class="dialogTd">	    	
-                <input type="file" name="uploadFile" id="upload1" style="width:560px;" class="easyui-validatebox" data-options="tipPosition:'left',invalidMessage:'请选择要上传的判决书'" /></td></td>
+                	<input type="file" name="uploadFile" id="upload1" style="width:560px;" class="easyui-validatebox" data-options="tipPosition:'left',invalidMessage:'请选择要上传的判决书'" />
 		    	</td>
 	    	</tr> 
 			</table>
 			
 			
 	    	  <!-- 涉枪涉爆重点人员 -->
-		    <table id="sqsbzdryDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;" style="display:none">
+		    <table id="sqsbzdryDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;display:none">
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">重点人员管理方法：</td>
 		    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="sqsbzdryglffdm" name="zdrySqsbzdryxxb.glffdm" style="width:200px;" value="${zdryVO.zdrySqsbzdryxxb.glffdm}"
@@ -211,17 +211,16 @@
 	    	</table>
 	    	
 	    	  <!-- 涉公安访人员 -->
-		    <table id="sgafzdryDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;" style="display:none">
+		    <table id="sgafzdryDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;display:none">
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">是否协控：</td>
 		    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="sfxk" name="zdrySgafzdryxxb.sfxk" style="width:200px;" value="${zdryVO.zdrySgafzdryxxb.sfxk}"
 					data-options="url: contextPath + '/common/dict/DL_D_SF.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'right'"/></td>
 	    		<td width="20%" class="dialogTd" align="right">申请协控单位：</td>
 		    	<td width="30%" class="dialogTd">
-			   	<input type="hidden" id="sqxkdw" name="zdrySgafzdryxxb.sqxkdw" value=""  />
-			    <input type="text" id="sqxkdwmc" class="easyui-validatebox" name="zdrySgafzdryxxb.sqxkdwmc" style="width: 150px;" value="" />
-			   	<input type="hidden" id="sqxkdwid" name="zdrySgafzdryxxb.sqxkdwid" value=""  />
-			    <input type="button" id="orgbutton2" value="选择" onClick="public_singleSelectOrg('', '01', '', '', 'sqxkdw', 'sqxkdwmc', 'sqxkdwid', false, false, '', window, '', '')" style="cursor:pointer; background:#EEF2F8 ;border:1px solid #082F4F;HEIGHT: 18px; WIDTH: 48px;font-family:宋体;font-size:9pt;" />
+			   	<input type="hidden" id="sqxkdw" name="zdrySgafzdryxxb.sqxkdw" value="${zdryVO.zdrySgafzdryxxb.sqxkdw}"  />
+			    <input type="text" id="sqxkdwmc" class="easyui-validatebox" name="zdrySgafzdryxxb.sqxkdwmc" style="width: 150px;" value="${zdryVO.zdrySgafzdryxxb.sqxkdwmc}" />			   	
+			    <input type="button" id="orgbutton2" value="选择" onClick="public_singleSelectOrg('', '01', '', '', 'sqxkdw', 'sqxkdwmc', '', false, false, '', window, '', '')" style="cursor:pointer; background:#EEF2F8 ;border:1px solid #082F4F;HEIGHT: 18px; WIDTH: 48px;font-family:宋体;font-size:9pt;" />
 		    	</td>
 		    	<%-- <input class="easyui-validatebox" type="text" id="sqxkdw" name="zdrySgafzdryxxb.sqxkdw" style="width:200px;" value="${zdryVO.zdrySgafzdryxxb.sqxkdw}"
 					data-options="required:false,tipPosition:'left'" maxlength="100" />
@@ -233,21 +232,7 @@
 		    	<textarea class="easyui-validatebox" id="xfsqjzsqk" name="zdrySgafzdryxxb.xfsqjzsqk" style="width: 610px; height:48px;overflow: auto;"
 		    	data-options="validType:['maxLength[100]'],invalidMessage:'信访诉求及滋事情况不能超过100个汉字，请重新输入！',required:false">${zdryVO.zdrySgafzdryxxb.xfsqjzsqk}</textarea>
 		    	</td>
-	    	</tr>
-	    	<!--  
-	    	<tr class="dialogTr">
-		    	<td width="20%" class="dialogTd" align="right">案件管辖单位：</td>
-		    	<td width="80%" class="dialogTd" colspan="3"><input class="easyui-validatebox" type="text" name="zdrySgafzdryxxb.nrgzyj" maxlength="100" style="width: 619px;" data-options="required:false" value="${zdryVO.zdrySgafzdryxxb.nrgzyj}"/></td>
-	    	</tr>
-	    	<tr class="dialogTr">
-		    	<td width="20%" class="dialogTd" align="right">管辖单位联系人：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="gxdwlxr" name="zdrySgafzdryxxb.gxdwlxr" style="width:200px;" value="${zdryVO.zdrySgafzdryxxb.gxdwlxr}"
-					data-options="url: contextPath + '/common/dict/BD_D_SQSBZDRYSALBDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'right'"/></td>
-		    	<td width="20%" class="dialogTd" align="right">管辖单位电话：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="gxdwlxdh" name="zdrySgafzdryxxb.gxdwlxdh" style="width:200px;" value="${zdryVO.zdrySgafzdryxxb.gxdwlxdh}"
-					data-options="validType:['maxLength[30]'],tipPosition:'left',required:false" /></td>
-	    	</tr>
-	    	-->
+	    	</tr>	    	
 	    	</table>
 	    
 

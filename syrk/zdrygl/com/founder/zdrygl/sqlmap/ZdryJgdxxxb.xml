@@ -10,9 +10,14 @@
 		<![CDATA[ select * from ZDRY_JGDXXXB t where ID = #id#  and rownum = 1 ]]>
 	</select>
 	
-	<select id="queryZsxxById" parameterClass="String" resultClass="zdryJgdxxxb">
-		<![CDATA[ select t.id , t.jglbdm,t.jgdwjgdm,t.jgdwmc, t.fzxzdm,t.wfxyrcljgdm,t.pjjgmc ,  t1.zdlgbmmc xt_lrrbm , (select wm_concat(t2.zdrylbdm) from zdry_zdrylbb t2 where t2.zdryid = t.id and t2.xt_zxbz='0' ) as bz
-  				from ZDRY_JGDXXXB t, ZDRY_ZDRYZB t1 where t.ID = #id#  and t.id=t1.id and t.XT_ZXBZ = '0' and t1.xt_zxbz='0']]>
+	<select id="queryByMap" parameterClass="Map" resultClass="zdryJgdxxxb">
+		<![CDATA[ 
+			select t.id , t.jglbdm,t.jgdwjgdm,t.jgdwmc, t.fzxzdm,t.wfxyrcljgdm,t.pjjgmc ,  t1.zdlgbmmc xt_lrrbm ,t2.bz
+  			from ZDRY_JGDXXXB t, ZDRY_ZDRYZB t1 
+  			left join ZDRY_ZDRYLXYLBDYB t2 on (t2.LBDM=t1.ZDRYLB and QYDM=#qydm#)		
+  			where t.ID = #id#  and t.id=t1.id and t.XT_ZXBZ = '0' and t1.xt_zxbz='0'
+  				
+  		]]>
 	</select>
 	
 

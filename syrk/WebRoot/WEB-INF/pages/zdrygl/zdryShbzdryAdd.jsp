@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>涉环保重点人员登记</title>
-<script type="text/javascript" src="<%=contextPath%>/js/zdry/zdryShbzdryAdd.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/js/zdrygl/zdryShbzdryAdd.js"></script>
 
 <%
 	SessionBean userInfo = (SessionBean) session

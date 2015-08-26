@@ -1,5 +1,7 @@
 package com.founder.zdrygl.dao;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 import com.founder.zdrygl.bean.ZdryZszhjsbrxxb;
@@ -36,7 +38,7 @@ public class ZdryZszhjsbrxxbDao extends BaseDaoImpl {
 		return (ZdryZszhjsbrxxb) queryForObject("ZdryZszhjsbrxxb.queryById", id);
 	}
 
-	public ZdryZszhjsbrxxb queryZsxxById(String id) {
-		return (ZdryZszhjsbrxxb) queryForObject("ZdryZszhjsbrxxb.queryZsxxById", id);
+	public ZdryZszhjsbrxxb queryByMap(Map map) {
+		return (ZdryZszhjsbrxxb) queryForObject("ZdryZszhjsbrxxb.queryByMap", map);
 	}
 }

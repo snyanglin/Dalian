@@ -1,5 +1,6 @@
 package com.founder.zdrygl.service.impl;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -8,13 +9,14 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.fileupload.FileItem;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
 import com.founder.service.attachment.bean.ZpfjFjxxb;
+import com.founder.service.attachment.service.ZpfjFjxxbService;
 import com.founder.zdrygl.bean.ZdryFzcsfryxxb;
 import com.founder.zdrygl.bean.ZdryJgdxxxb;
 import com.founder.zdrygl.bean.ZdrySgafzdryxxb;
@@ -87,7 +89,8 @@ public class ZdryEditServiceImpl extends BaseService implements ZdryEditService 
 	@Resource(name = "ZdryUntil")
 	private ZdryUntil zdryUntil;
 
-	
+	@Resource(name = "zpfjFjxxbService")
+	private ZpfjFjxxbService zpfjFjxxbService;
 	
 	@Override
 	public List<ZdryZdryzb> queryZdryByRyid(String ryid) {
@@ -110,7 +113,7 @@ public class ZdryEditServiceImpl extends BaseService implements ZdryEditService 
 			map.remove("dlbh");
 			map.put("zdryid",zdrkMap.get("zdryid"));
 			map.put("isEdit",zdrkMap.get("isEdit"));
-			map.put("zdrylx",zdrkMap.get("zdrylx"));//由于各个区域的重点人员类型代码不一样，所以改用分组来区分用什么界面显示
+			map.put("zdrylx",zdrkMap.get("fz"));//由于各个区域的重点人员类型代码不一样，所以改用分组来区分用什么界面显示
 			map.put("gxzrq",zdrkMap.get("GXZRQ"));			
 			map.put("xxdxlxdm","1");
 			
@@ -125,6 +128,25 @@ public class ZdryEditServiceImpl extends BaseService implements ZdryEditService 
 				infoList.addAll(temp);
 			}
 		}
+		
+		//查询重点人员公共菜单
+		map.remove("dlbh");
+		//map.put("zdryid",zdrkMap.get("zdryid"));
+		map.put("isEdit","1");
+		map.put("zdrylx","ZDRYPUBLIC");//由于各个区域的重点人员类型代码不一样，所以改用分组来区分用什么界面显示
+		map.remove("gxzrq");			
+		map.put("xxdxlxdm","1");
+		
+		temp = zdryEditDao.queryRyzsxx(map);
+		if(temp != null && !temp.isEmpty()){
+			map.put("xxdxlxdm","2");
+			for (int i = 0; i < temp.size(); i++) {				
+				map.put("dlbh",temp.get(i).getXxbh().substring(0, 2));
+				temp.get(i).setList( zdryEditDao.queryRyzsxx(map));
+			}
+			infoList.addAll(temp);
+		}
+		
 		//实现排序接口
 		Comparator<Object> c = new Comparator<Object>(){
 			public int compare( Object a, Object b ){
@@ -136,7 +158,7 @@ public class ZdryEditServiceImpl extends BaseService implements ZdryEditService 
 		
 
 		Collections.sort(infoList,c);				
-		return null;
+		return infoList;
 	}
 
 	@Override
@@ -156,37 +178,54 @@ public class ZdryEditServiceImpl extends BaseService implements ZdryEditService 
 		map.put("qydm", zdryUntil.querySYSConfig());
 		return zdryZdrkxxbDao.queryByMap(map);
 	}
-
-	@Override
-	public ZdryZszhjsbrxxb zszhjsbrxxb_query(Map<String, Object> map) {
-		return zdryZszhjsbrxxbDao.queryZsxxById((String) map.get("zdryid"));
-	}
-
-	@Override
-	public ZdryJgdxxxb jgdxxxb_query(Map<String, Object> map) {
-		return zdryJgdxxxbDao.queryZsxxById((String) map.get("zdryid"));
-	}
-
-	@Override
-	public List<ZdrylgxxVO> lgxx_query(Map<String, Object> map) {
-		return zdryZdryzbDao.queryLgxxByZdryid(map);
-	}
-
-	
-	public ZdryShbzdryxxb shbzdry_query (Map<String,Object> map){
-		return zdryShbzdryxxbDao.queryById((String) map.get("zdryid"));
-	}
-
 	@Override
 	public ZdrySgafzdryxxb sgafzdryxxb_query(Map<String, Object> map) {
 		ZdrySgafzdryxxb entity = zdrySgafzdryxxbDao.queryById((String) map.get("zdryid"));
-		if(entity != null){
-			 String lbxc = this.zdrySgafzdryxxbDao.queryZdrygllxmc(entity.getId());
-			 if(StringUtils.isNotBlank(lbxc)){
-				 entity.setZdrygllxmc(lbxc);
-			 }
-		}
 		return entity;
+	}
+	
+	@Override
+	public ZdrySqjzryxxb sqjz_query(Map<String, Object> map) {
+		map.put("qydm", zdryUntil.querySYSConfig());
+		return zdrySqjzryxxbDao.queryByMap(map);		
+	}
+
+	@Override
+	public ZdryZszhjsbrxxb zszhjsbrxxb_query(Map<String, Object> map) {
+		map.put("qydm", zdryUntil.querySYSConfig());
+		return zdryZszhjsbrxxbDao.queryByMap(map);
+	}
+				
+	@Override
+	public ZdryFzcsfryxxb fzcfryxxb_query (Map<String,Object> map){
+		map.put("qydm", zdryUntil.querySYSConfig());
+		return zdryFzcsfryxxbDao.queryByMap(map);
+	}
+	@Override
+	public ZdrySqsbzdryxxb sqsbzdry_query (Map<String,Object> map){
+		return zdrySqsbzdryxxbDao.queryById((String) map.get("zdryid"));
+	}
+	@Override
+	public ZdryJgdxxxb jgdxxxb_query(Map<String, Object> map) {
+		map.put("qydm", zdryUntil.querySYSConfig());
+		return zdryJgdxxxbDao.queryByMap(map);
+	}
+
+	/**
+	 * 未调试，涉环保 可能不用
+	 */	
+	@Override
+	public ZdryShbzdryxxb shbzdry_query (Map<String,Object> map){
+		return zdryShbzdryxxbDao.queryById((String) map.get("zdryid"));
+	}
+	
+	
+	/**
+	 * 未调试，可能不用
+	 */	
+	@Override
+	public List<ZdrylgxxVO> lgxx_query(Map<String, Object> map) {
+		return zdryZdryzbDao.queryLgxxByZdryid(map);
 	}
 	
 	@Override
@@ -197,19 +236,16 @@ public class ZdryEditServiceImpl extends BaseService implements ZdryEditService 
 		
 		//查询重点人员 综合信息
 		ZdryZdryzbVO zdryZdryzbVO=zdryZdryzbDao.queryZdryVoByZdryid(zdryZdryzb.getId());
-		Zdrylxylbdyb entity=new Zdrylxylbdyb();
-		entity.setLbdm(zdryZdryzbVO.getZdrylb());
-		entity.setQydm(zdryUntil.querySYSConfig());
-		entity=zdrylxylbdybDao.query(entity);//查询子类的名字
-		zdryZdryzbVO.setZdrylbmc(entity.getBz());
+		Zdrylxylbdyb entity;
+		if(zdryZdryzbVO.getZdrylb() != null){
+			entity=zdrylxylbdybDao.query(zdryZdryzbVO.getZdrylb(),zdryUntil.querySYSConfig());//查询子类的名字
+			zdryZdryzbVO.setZdrylbmc(entity.getBz());
+		}
 		zdryVO.setZdryZdryzbVO(zdryZdryzbVO);
 		
 		if(zdryZdryzb!=null){			
-			String zdrylbs=zdryZdryzb.getZdrygllxdm();//重点人员大类，用以区分查什么类型
-			entity=new Zdrylxylbdyb();
-			entity.setLbdm(zdrylbs);
-			entity.setQydm(zdryUntil.querySYSConfig());
-			entity=zdrylxylbdybDao.query(entity);//主要为了查询分组，用以区分是什么类型，类型代码不同区域不同，所以不能用类型代码区分
+			String zdrylbs=zdryZdryzb.getZdrygllxdm();//重点人员大类，用以区分查什么类
+			entity=zdrylxylbdybDao.query(zdrylbs,zdryUntil.querySYSConfig());//主要为了查询分组，用以区分是什么类型，类型代码不同区域不同，所以不能用类型代码区分
 			
 			zdryVO.setZdrylbStr(entity.getFz());			
 			// 取得对应信息
@@ -242,7 +278,17 @@ public class ZdryEditServiceImpl extends BaseService implements ZdryEditService 
 		return zdryVO;
 	}
 	
-	public void updateZdryAllInfo(ZdryVO zdryVO,SessionBean sessionBean) {
+	/*
+	 * (非 Javadoc)
+	 * <p>Title: updateZdryAllInfo</p>
+	 * <p>Description: </p>
+	 * @param zdryVO
+	 * @param sessionBean
+	 * @param uploadFile
+	 * @see com.founder.zdrygl.service.ZdryEditService#updateZdryAllInfo(com.founder.zdrygl.vo.ZdryVO, com.founder.framework.base.entity.SessionBean, org.springframework.web.multipart.commons.CommonsMultipartFile[])
+	 */
+	@Override
+	public void updateZdryAllInfo(ZdryVO zdryVO,SessionBean sessionBean,CommonsMultipartFile[] uploadFile) {
 		ZdryZdryzb zdryZdryzb = zdryVO.getZdryZdryzb();
 		String type=zdryZdryzb.getZdrygllxdm();//列管类型
 		String strAry[]=type.split("/");
@@ -250,29 +296,102 @@ public class ZdryEditServiceImpl extends BaseService implements ZdryEditService 
 		zdryZdryzb.setZdrygllxdm(type);
 		//具体的类型不可修改，所以总表不用修改，子表修改即可		
 		if ("ZDRK".equals(type)) {// 重口
+			BaseService.setUpdateProperties(zdryVO.getZdryZdrkxxb(), sessionBean);
 			zdryVO.getZdryZdrkxxb().setId(zdryZdryzb.getId());
 			zdryZdrkxxbDao.update(zdryVO.getZdryZdrkxxb());			
 		} else if ("ZSZHJSBR".equals(type)) {// 精神病人
+			BaseService.setUpdateProperties(zdryVO.getZdryZszhjsbrxxb(), sessionBean);
 			zdryVO.getZdryZszhjsbrxxb().setId(zdryZdryzb.getId());
 			zdryZszhjsbrxxbDao.update(zdryVO.getZdryZszhjsbrxxb());			
 		} else if ("FZCSF".equals(type)) {// 非正常上访
+			BaseService.setUpdateProperties(zdryVO.getZdryFzcsfryxxb(), sessionBean);
 			zdryVO.getZdryFzcsfryxxb().setId(zdryZdryzb.getId());
 			zdryFzcsfryxxbDao.update(zdryVO.getZdryFzcsfryxxb());
 		} else if ("JGDX".equals(type)) {// 监管对象
+			BaseService.setUpdateProperties(zdryVO.getZdryJgdxxxb(), sessionBean);
 			zdryVO.getZdryJgdxxxb().setId(zdryZdryzb.getId());
 			zdryJgdxxxbDao.update(zdryVO.getZdryJgdxxxb());
 		}else if ("SHB".equals(type)) {// 涉环保
+			BaseService.setUpdateProperties(zdryVO.getZdryShbzdryxxb(), sessionBean);
 			zdryVO.getZdryShbzdryxxb().setId(zdryZdryzb.getId());
 			zdryShbzdryxxbDao.update(zdryVO.getZdryShbzdryxxb());
 		}else if ("SQJZRY".equals(type)) {// 社区矫正
+			BaseService.setUpdateProperties(zdryVO.getZdrySqjzryxxb(), sessionBean);
 			zdryVO.getZdrySqjzryxxb().setId(zdryZdryzb.getId());
 			zdrySqjzryxxbDao.update(zdryVO.getZdrySqjzryxxb());
+			
+			
+			List<ZpfjFjxxb> list = new ArrayList<ZpfjFjxxb>();
+
+			for (int i = 0; i < uploadFile.length; i++) {
+					CommonsMultipartFile multipartFile = uploadFile[i];
+					if (!multipartFile.isEmpty()) {
+						FileItem fileItem = multipartFile.getFileItem();
+						ZpfjFjxxb entity = new ZpfjFjxxb();
+						entity.setLybm("ZDRY_ZDRYZB");
+						entity.setLyid(zdryVO.getZdryZdryzb().getId());
+						entity.setLyms("社区矫正人员-判决书");
+						String wjmc = fileItem.getName();
+						if (wjmc.indexOf("\\") != -1) { // 去除完整路径
+							wjmc = wjmc.substring(wjmc.lastIndexOf("\\") + 1);
+						}
+						String wjhzlx = "";
+						int atI = wjmc.lastIndexOf(".");
+						if (atI != -1) {
+							wjhzlx = wjmc.substring(atI + 1);
+							wjhzlx = wjhzlx.toLowerCase();
+						}
+						entity.setWjmc(wjmc);
+						entity.setWjhzlx(wjhzlx);
+						entity.setWj(multipartFile.getBytes());
+						long wjdx = entity.getWj().length;
+						entity.setWjdx(new Long(wjdx));
+						String wjdxsm = "";
+						if (wjdx < 1024) {
+							wjdxsm = "" + wjdx + " B";
+						} else if (wjdx > 1048576) {
+							double mb = Math.floor(wjdx / 1048576);
+							DecimalFormat formater = new DecimalFormat(
+									"###,###,###.00");
+							wjdxsm = "" + formater.format(mb) + " MB";
+						} else {
+							long kb = (long) Math.floor(wjdx / 1024);
+							wjdxsm = "" + kb + " KB";
+						}
+						entity.setWjdxsm(wjdxsm);
+						entity.setWjxzcs(new Long(0));
+						list.add(entity);
+					}
+				}
+				if (list.size() > 0) {
+					zpfjFjxxbService.saveZpfjFjxxb(list, sessionBean);					
+				}
+			
 		}else if ("SQSB".equals(type)) {// 涉枪涉暴
+			BaseService.setUpdateProperties(zdryVO.getZdrySqsbzdryxxb(), sessionBean);
 			zdryVO.getZdrySqsbzdryxxb().setId(zdryZdryzb.getId());
 			zdrySqsbzdryxxbDao.update(zdryVO.getZdrySqsbzdryxxb());
 		}else if ("SGAF".equals(type)) {// 涉公安访
+			BaseService.setUpdateProperties(zdryVO.getZdrySgafzdryxxb(), sessionBean);
 			zdryVO.getZdrySgafzdryxxb().setId(zdryZdryzb.getId());
 			zdrySgafzdryxxbDao.update(zdryVO.getZdrySgafzdryxxb());
 		}
+	}
+	
+	
+	/**
+	 * 
+	 * @Title: zdryZl
+	 * @Description: TODO(重点人员转类)
+	 * @param @param zdryVO
+	 * @param @param sessionBean    设定文件
+	 * @return void    返回类型
+	 * @throws
+	 */
+	@Override
+	public void zdryZl(ZdryVO zdryVO,SessionBean sessionBean) {
+		ZdryZdryzb zdryZdryzb = zdryVO.getZdryZdryzb();		
+		BaseService.setUpdateProperties(zdryZdryzb, sessionBean);
+		zdryZdryzbDao.update(zdryZdryzb);
 	}
 }

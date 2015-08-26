@@ -83,4 +83,15 @@ public interface ZdryZdryzbService {
 	public List<ZdryZdryzb> queryZdrylxdmByGmsfhm(String zjhm);
 	
 	public Integer queryForCount(String syrkId);
+	
+	/**
+	 * 
+	 * @Title: queryKlglx
+	 * @Description: TODO(根据已列管类型查可列管类型)
+	 * @param @param 已列管类型 ylglxStr，如：“01,02”
+	 * @param @return    设定文件
+	 * @return String    返回类型 如：“03,04”
+	 * @throws
+	 */
+	public String queryKlglx(String ylglxStr);
 }

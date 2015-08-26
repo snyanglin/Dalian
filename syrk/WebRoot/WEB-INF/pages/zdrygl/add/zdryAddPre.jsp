@@ -22,6 +22,7 @@
     	<input type="hidden" id="zdryLczywblb.ywblr_id" name="zdryLczywblb.ywblr_id" value="${zdryLczywblb.ywblr_id}" />
     	<input type="hidden" id="zdryHsbId" name="zdryHsbId" value="${zdryHsbId}" />
     	<input type="hidden" id="syrkid" name="zdryZdryzb.syrkid" value="" />
+    	<input type="hidden" id="ryid" name="zdryZdryzb.ryid" value="" />
     	
 	    <table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 			<tr class="dialogTr">
@@ -64,9 +65,9 @@
 	    	
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right" id="lgrqText">申请日期：</td>
-		    	<td width="30%" class="dialogTd"><input type="text" name="ywclsj" id="ywclsj" class="easyui-validatebox inputreadonly" style="width: 200px;" value="${zdryLczywblb.ywclsj}" readonly="readonly" /></td>
+		    	<td width="30%" class="dialogTd"><input type="text" name="ywclsj" id="ywclsj" class="easyui-validatebox inputreadonly" style="width: 200px;" value="${applyUser}" readonly="readonly" /></td>
 		    	<td width="20%" class="dialogTd" align="right" id="lgrText">申请人：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" id="ywblr_xm" name="ywblr_xm" style="width:200px;" value="${zdryLczywblb.ywblr_xm }" readonly="readonly" />
+		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" id="ywblr_xm" name="ywblr_xm" style="width:200px;" value="${applyDate}" readonly="readonly" />
 		    	</td>
 	    	</tr>
 	    	<tr class="dialogTr">
@@ -162,7 +163,7 @@
 	    
 	    
 	    <div id="saveDiv" style="text-align:center; height:50px; padding-top: 10px;">
-			<a id="saveButton" class="l-btn l-btn-small" href="javascript:void(0)" group="" onclick="saveForm()">
+			<a id="saveButton" class="l-btn l-btn-small" href="javascript:void(0)" group="" onclick="saveForm(this)">
 				<span class="l-btn-left l-btn-icon-left">
 					<span class="l-btn-text">保存</span>
 					<span class="l-btn-icon icon-save"> </span>
@@ -276,32 +277,57 @@ function selectSyrk(index){
 	$("#xm").val(rowData.xm);
 	$("#zjhm").val(rowData.zjhm);
 	$("#syrkid").val(rowData.id);	
+	$("#ryid").val(rowData.ryid);
 	querySyrkClose();
-	queryYlglx(rowData.ryid,rowData.id)
+	queryYlglx(rowData.ryid,rowData.id);	
 }
 
 //查询已列管类型
-function queryYlglx(ryid,syrkid){
+function queryYlglx(ryid,syrkid){	
 	$.ajax({
 		type: "POST",
 		url: contextPath + "/zdryzb/queryYlglx",
 		dataType: "json",
 		data:"ryid=" + ryid + "&syrkid=" + syrkid,
 		success: function(data) {
-			if (data) {								
+			if (data) {				
+				var resAry=data.split("/");
 				$("#ylglxTr").show();
-				$("#ylglx").text(data);
-
+				$("#ylglx").text(resAry[0]);
+				queryKlglx(resAry[1]);//查询可列管类型				
 			}else{
 				$("#ylglxTr").hide();
+				$("#zdrygllxdm").combobox("setDataFilter", "");
 			}
 		},		
 		error: function() {
 			$("#ylglxTr").hide();
+			$("#zdrygllxdm").combobox("setDataFilter", "");
+		}
+	});		
+}
+
+//查询可列管类型
+function queryKlglx(ylglxStr){
+	$.ajax({
+		type: "POST",
+		url: contextPath + "/zdryzb/queryklglx",
+		dataType: "json",
+		data:"ylglxStr=" + ylglxStr,
+		success: function(data) {
+			if (data) {								
+				$("#zdrygllxdm").combobox("setDataFilter", data);	
+				$("#zdrygllxdm").combobox("setValue", "");
+				$('#zdrylbStr').combotree('tree').tree('loadData', [''])
+			}else{
+				$("#zdrygllxdm").combobox("setDataFilter", "");					
+			}
+		},		
+		error: function() {
+			$("#zdrygllxdm").combobox("setDataFilter", "");	
 		}
 	});	
 }
-
 </script>
 
 </html>

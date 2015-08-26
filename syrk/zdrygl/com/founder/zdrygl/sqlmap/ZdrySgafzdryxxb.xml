@@ -5,12 +5,7 @@
 	
 	<typeAlias alias="zdrySgafzdryxxb" type="com.founder.zdrygl.bean.ZdrySgafzdryxxb" />
 
-	<select id="queryZdrygllxmc" parameterClass="Map" resultClass="String">
-		<![CDATA[ select L.BZ as zdrygllxmc 
-					from ZDRY_ZDRYZB z
-					left join ZDRY_ZDRYLXYLBDYB l on (l.LBDM = z.ZDRYGLLXDM and L.QYDM = #qydm#)
-					where z.id = #zdryId#]]>
-	</select>
+	<!-- 查重点人员类型的sql删除了，改为在zdrylxylbdybDao中查 -->
 
 	<select id="queryCount" parameterClass="Map" resultClass="Integer">
 		<![CDATA[ select count(1) from zdry_sgafzdryxxb t where t.gmsfhm = #gmsfhm# and t.xt_zxbz = '0']]>
@@ -29,10 +24,10 @@
 	<!-- 新增 -->
 	<insert id="save" parameterClass="zdrySgafzdryxxb">
 		<![CDATA[ insert into ZDRY_SGAFZDRYXXB (ID,PC,XM,XBDM,GMSFHM,SFGANBFDM,HJD_XZQHDM,HJD_MLPDM,HJD_MLPXZ,HJD_DZID,HJD_DZXZ,JZD_XZQHDM,JZD_MLPDM,JZD_MLPXZ,JZD_DZID,JZD_DZXZ,
-					JZD_ZBX,JZD_ZBY,XFSQJZSQK,SSSJ,SJZRLD,SJZRDW,SJZRDWLD,SSFJ,FJZRLD,FJZRDW,FJZRDWLD,SSPCS,PCSZRLD,SSZRQ,ZRQMJ,MJLXDH,SFXK,SQXKDW,AJGXDW,GXDWLXR,GXDWLXDH,]]><include refid="insertXtzd"/>)
+					JZD_ZBX,JZD_ZBY,XFSQJZSQK,SSSJ,SJZRLD,SJZRDW,SJZRDWLD,SSFJ,FJZRLD,FJZRDW,FJZRDWLD,SSPCS,PCSZRLD,SSZRQ,ZRQMJ,MJLXDH,SFXK,SQXKDW,SQXKDWMC,AJGXDW,GXDWLXR,GXDWLXDH,]]><include refid="insertXtzd"/>)
 		<![CDATA[ values (#id#,#pc#,#xm#,#xbdm#,#gmsfhm#,#sfganbfdm#,#hjd_xzqhdm#,#hjd_mlpdm#,#hjd_mlpxz#,#hjd_dzid#,#hjd_dzxz#,#jzd_xzqhdm#,#jzd_mlpdm#,#jzd_mlpxz#,#jzd_dzid#
 				,#jzd_dzxz#,#jzd_zbx#,#jzd_zby#,#xfsqjzsqk#,#sssj#,#sjzrld#,#sjzrdw#,#sjzrdwld#,#ssfj#,#fjzrld#,#fjzrdw#,#fjzrdwld#,#sspcs#,#pcszrld#,#sszrq#,#zrqmj#
-				,#mjlxdh#,#sfxk#,#sqxkdw#,#ajgxdw#,#gxdwlxr#,#gxdwlxdh#,]]>
+				,#mjlxdh#,#sfxk#,#sqxkdw#,#sqxkdwmc#,#ajgxdw#,#gxdwlxr#,#gxdwlxdh#,]]>
 		<include refid="insertXtzdVal"/>)
 	</insert>
 	
@@ -73,6 +68,7 @@
 			<isNotNull prepend="," property="mjlxdh"><![CDATA[ mjlxdh = #mjlxdh# ]]></isNotNull>
 			<isNotNull prepend="," property="sfxk"><![CDATA[ sfxk = #sfxk# ]]></isNotNull>
 			<isNotNull prepend="," property="sqxkdw"><![CDATA[ sqxkdw = #sqxkdw# ]]></isNotNull>
+			<isNotNull prepend="," property="sqxkdwmc"><![CDATA[ sqxkdwmc = #sqxkdwmc# ]]></isNotNull>
 			<isNotNull prepend="," property="ajgxdw"><![CDATA[ ajgxdw = #ajgxdw# ]]></isNotNull>
 			<isNotNull prepend="," property="gxdwlxr"><![CDATA[ gxdwlxr = #gxdwlxr# ]]></isNotNull>
 			<isNotNull prepend="," property="gxdwlxdh"><![CDATA[ gxdwlxdh = #gxdwlxdh# ]]></isNotNull>,

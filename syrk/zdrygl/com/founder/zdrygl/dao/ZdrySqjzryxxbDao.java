@@ -69,4 +69,17 @@ public class ZdrySqjzryxxbDao extends BaseDaoImpl {
 		}
 	}
 	
+	/**
+	 * 
+	 * @Title: queryByMap
+	 * @Description: TODO(查询带类型名字的对象)
+	 * @param @param map
+	 * @param @return    设定文件
+	 * @return ZdrySqjzryxxb    返回类型
+	 * @throws
+	 */
+	public ZdrySqjzryxxb queryByMap(Map map) {
+		return (ZdrySqjzryxxb) queryForObject("ZdrySqjzryxxb.queryByMap", map);
+	}
+	
 }

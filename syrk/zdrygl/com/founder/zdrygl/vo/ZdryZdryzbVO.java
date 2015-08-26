@@ -137,9 +137,9 @@ public class ZdryZdryzbVO implements Serializable {
 	private String sfsjsp;
 	private String sfjm;
 	private String sfzkdm;
-	private String ssfxjdm;
-	private String sspcsdm;
-	private String sszrqdm;
+	private String ssfxjdm;//分市县局
+	private String sspcsdm;//所属派出所
+	private String sszrqdm;//所属责任区
 	private String zywtjxsbx;
 	
 	private String jgbmdm;

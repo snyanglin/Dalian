@@ -1,7 +1,9 @@
 package com.founder.zdrygl.controller;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -175,18 +177,13 @@ public class ZdryZdryzbControl extends BaseController {
 	EasyUIPage queryDwDzOnPT(EasyUIPage page,
 			@RequestParam(value = "rows") Integer rows, ZdryZdryzbVO entity) {
 		page.setPagePara(rows);
-		if(entity.getType()!=null &&!"".equals(entity.getType())){
-			if(entity.getType().equals("3")){
-				
-			}else if(entity.getType().equals("2")){
-				String[] str =  entity.getZbz().split(",");
-				entity.setZbz(str[0]+" "+str[1]);
-			}else{
-				
-				entity.setZbz(MapUtils.getSdeZbz(entity.getZbz()));
-			}
-		}
-		return zdryZdryzbService.queryDwDzOnPT(page, entity);
+		try{
+			String type=entity.getZdrygllxdm();//列管类型,查询时可能为空		
+			String strAry[]=type.split("/");
+			type=strAry[0];
+			entity.setZdrygllxdm(type);	
+		}catch(Exception e){}
+		return zdryZdryzbService.queryDwDzOnPT(page,entity);
 	}
 	
 	/**
@@ -198,8 +195,13 @@ public class ZdryZdryzbControl extends BaseController {
 	 * @throws
 	 */
 	@RequestMapping(value="/zdryAddPre",method = RequestMethod.GET)
-	public String zdryAddPre(){
-		return "zdrygl/add/zdryAddPre";
+	public ModelAndView zdryAddPre(SessionBean sessionBean){
+		ModelAndView mv = new ModelAndView("zdrygl/add/zdryAddPre");
+		sessionBean = getSessionBean(sessionBean);
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		mv.addObject("applyUser",sessionBean.getUserName());
+		mv.addObject("applyDate",formatter.format(new Date()));
+		return mv;
 	}
 	
 	/***
@@ -277,6 +279,17 @@ public class ZdryZdryzbControl extends BaseController {
 		String strAry[]=type.split("/");
 		type=strAry[0];
 		zdryZdryzb.setZdrygllxdm(type);
+		
+		//验证是否可列管
+		String ylgStr=this.queryYlglx(zdryZdryzb.getRyid(), zdryZdryzb.getSyrkid());
+		if(ylgStr.contains("/")){
+			String[] ylgStrAry=ylgStr.split("/");
+			String klgStr=this.queryklglx(ylgStrAry[1]);	
+			if(!klgStr.contains(type)){//不在可列管类型中
+				throw new BussinessException("当前列管类型不在可列管类型中");
+			}
+		}
+		
 		try {			
 			
 			zdryUntil.initZdryEntity(strAry[1],zdryVO,sessionBean);
@@ -378,10 +391,17 @@ public class ZdryZdryzbControl extends BaseController {
 			processDefinitionService.startProcessInstance(sessionBean.getUserId(), "sgaj_lcg", zdryZdryzb.getId(), variables);	
 		}
 		else{//治安
-		variables.put("sqlx", "治安列管");//申请类型	
-		variables.put("sqlxdm", "01");//申请类型为列管
-		processDefinitionService.startProcessInstance(sessionBean.getUserId(), "zalcg", zdryZdryzb.getId(), variables);
+			
+		if("0104".equals(zdryZdryzbService.queryById(zdryZdryzb.getId()).getZdrylb())){
+			
+			variables.put("sqlx", "治安列管");//申请类型	
+			variables.put("sqlxdm", "01");//申请类型为列管
+			processDefinitionService.startProcessInstance(sessionBean.getUserId(), "zalcg", zdryZdryzb.getId(), variables);
 		}	
+		else{
+			zdryUntil.lgSuccess(zdryZdryzb.getId(), zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), null);
+		}	
+	}	
 		
 			
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
@@ -518,8 +538,11 @@ public class ZdryZdryzbControl extends BaseController {
 					map.put("isEdit", "0");
 				}
 			}*/
-
-			zdrylxList.add(map);
+					
+			//只取当前重点人员id的重点人员类型
+			if(temp.getId().equals(id)){
+				zdrylxList.add(map);
+			}
 		}
 		((ZdryZdryzbVO)zdryList.get(0)).setId(id);//设置从列表点击过来的重点人员id，区分后续操作是哪个类型
 		mv.addObject("zdry", zdryList.get(0));
@@ -607,7 +630,10 @@ public class ZdryZdryzbControl extends BaseController {
 	 * @throws
 	 */
 	@RequestMapping(value = "/queryYlglx" ,method = RequestMethod.POST)
-	public @ResponseBody String queryYlglx(String ryid,String syrkid) throws BussinessException{				
+	public @ResponseBody String queryYlglx(String ryid,String syrkid){	
+		if(ryid==null || syrkid==null)
+			return "";
+			
 		List zdryList =zdryZdryzbService.queryList(ryid);
 		
 		if(zdryList.isEmpty())
@@ -615,17 +641,30 @@ public class ZdryZdryzbControl extends BaseController {
 		
 		ZdryZdryzbVO temp = null;		
 		StringBuffer resStrBuffer=new StringBuffer("");
+		StringBuffer klgStrBuffer=new StringBuffer("");
 		for (int i = 0; i < zdryList.size(); i++) {			
 			temp = (ZdryZdryzbVO) zdryList.get(i);
 						
 			if(syrkid.equals(temp.getSyrkid())){
-				if(resStrBuffer.length()>0)
-					resStrBuffer.append("，");
-				resStrBuffer.append(temp.getZdrygllxmc());							
+				if(resStrBuffer.length()>0){
+					resStrBuffer.append("，");//中文符号，显示页面用
+					klgStrBuffer.append(",");//英文符号，后续查询用
+				}
+				resStrBuffer.append(temp.getZdrygllxmc());	
+				klgStrBuffer.append(temp.getZdrygllxdm());
 			}
 		}
 					
-		return resStrBuffer.toString();
+		return resStrBuffer.append("/").append(klgStrBuffer).toString();
+	}
+	
+	@RequestMapping(value = "/queryklglx" ,method = RequestMethod.POST)
+	public @ResponseBody String queryklglx(String ylglxStr) {	
+		String klgStr=zdryZdryzbService.queryKlglx(ylglxStr);
+		if("".equals(klgStr)){//没有课列管的类型，不能返回“”，此时应该没有匹配的选项
+			klgStr="999999";
+		}
+		return 	klgStr;	
 	}
 	
 	/**
@@ -936,9 +975,16 @@ public class ZdryZdryzbControl extends BaseController {
 				processDefinitionService.startProcessInstance(sessionBean.getUserId(), "sgaj_lcg", zdryYid, variables);	
 			}
 			else{//治安
+				if("0104".equals(zdryZdryzbService.queryById(zdryZdryzb.getId()).getZdrylb())){
 				variables.put("sqlx", "治安撤管");//申请类型	
 				variables.put("sqlxdm", "02");//申请类型为列管
 				processDefinitionService.startProcessInstance(sessionBean.getUserId(), "zalcg", zdryYid, variables);
+				}	
+				else{
+					zdryUntil.cgSuccess(zdryYid, zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), null);
+				}	
+			
+			
 			}	
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
 			model.put(AppConst.MESSAGES, getAddSuccess());

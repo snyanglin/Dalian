@@ -38,12 +38,17 @@ public class ZdrylxylbdybDao extends BaseDaoImpl {
 	public Zdrylxylbdyb query(Zdrylxylbdyb entity) {
 		return (Zdrylxylbdyb) super.queryForObject("Zdrylxylbdyb.query", entity);
 	}		
-	
+	public Zdrylxylbdyb query(String lbdm,String qydm) {
+		Zdrylxylbdyb entity=new Zdrylxylbdyb();
+		entity.setLbdm(lbdm);
+		entity.setQydm(qydm);
+		return (Zdrylxylbdyb) super.queryForObject("Zdrylxylbdyb.query", entity);
+	}
 	
 	/**
 	 * 
 	 * @Title: queryByQydm
-	 * @Description: 查询当前区域下的一级类型
+	 * @Description: 查询当前区域下的所有一级类型
 	 * @param @param qydm
 	 * @param @return    设定文件
 	 * @return List<ZdryZdrylbb>    返回类型
@@ -51,6 +56,19 @@ public class ZdrylxylbdybDao extends BaseDaoImpl {
 	 */
 	public List<ZdryZdrylbb> queryByQydm(String qydm){
 		return queryForList("Zdrylxylbdyb.queryByQydm", qydm);
+	}
+	
+	/**
+	 * 
+	 * @Title: queryListByQydm
+	 * @Description: 查询当前区域下的可列管一级类型
+	 * @param @param qydm
+	 * @param @return    设定文件
+	 * @return List<ZdryZdrylbb>    返回类型
+	 * @throws
+	 */
+	public List<ZdryZdrylbb> queryListByQydm(String qydm){
+		return queryForList("Zdrylxylbdyb.queryListByQydm", qydm);
 	}
 	
 	/**

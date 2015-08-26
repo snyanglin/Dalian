@@ -32,7 +32,7 @@
 	}
 	
 	</style>
-    <script type="text/javascript" src="<%=contextPath%>/js/zdry/zdryzbManage.js"></script>
+    <script type="text/javascript" src="<%=contextPath%>/js/zdrygl/zdryzbManage.js"></script>
   </head>
   <body class="easyui-layout" data-options="fit:true,border:false">
        <div data-options="region:'west',border:false" style="width:538px;">

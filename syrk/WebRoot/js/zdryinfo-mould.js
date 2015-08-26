@@ -1,10 +1,118 @@
 var refresh ="<div class='uline_rt' style='display:none'><a class='ulup_btn ulrt_btn1' href='javascript:void(0);'></a><a class='ulrefresh_btn ulrt_btn1' href='javascript:void(0);'></a></div>";
 /************************************select t.*, t.rowid from SYS_XXZSNRB t;********************/
 
+/****************************************************重点人口******************************************************************************************/
+//重点人口
+function info_zdrk_(){
+	var sb = new StringBuffer();
+	sb.append("<ul>");
+	sb.append("<li><span class='spantitle'>重点人员类别：</span><span name='bz' class='edit_word input_w1'></span></li>");
+	sb.append("<li><span class='spantitle'>管理方法：</span><span name='glffdm' dict='/common/dict/ZA_D_ZDRKGLFF' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>列管来源：</span><span name='lglydm' dict='/common/dict/ZA_D_LGLY' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>纳入工作依据：</span><span name='nrgzyj' class='edit_word input_w1'></span></li>");
+	sb.append("<input type='hidden' name='id' /><input type='hidden' name='method' value='zdrkxxb'/><input type='hidden' name='openUrl' value='/zdryEdit/zdryUpdatePre' />");
+	sb.append("</ul>");	
+	return sb.toString();
+}
+
+/****************************************************涉公安访******************************************************************************************/
+//涉公安访
+function info_sgaf_(){
+	var sb = new StringBuffer();
+	sb.append("<ul>");
+	sb.append("<li><span class='spantitle'>是否协控：</span><span name='sfxk' dict='/common/dict/BD_D_SFDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>申请协控单位：</span><span name='sqxkdwmc' class='edit_word input_w1'></span></li>");	
+	sb.append("<li><span class='spantitle'>信访诉求及滋事情况：</span><span name='xfsqjzsqk' class='edit_word input_w1'></span></li>");	
+	sb.append("<input type='hidden' name='id' /><input type='hidden' name='method' value='sgafzdryxxb' /><input type='hidden' name='openUrl' value='/zdryEdit/zdryUpdatePre' />");
+	sb.append("</ul>");	
+	return sb.toString();
+}
+
+/****************************************************社区矫正******************************************************************************************/
+function info_sqjz_(){
+	var sb = new StringBuffer();
+	sb.append("<ul>");
+	sb.append("<li><span class='spantitle'>重点人员类别：</span><span name='bz' class='edit_word input_w1'></span></li>");
+	sb.append("<li><span class='spantitle'>监管单位机构名称：</span><span name='jgdw_gajgmc' class='edit_word input_w2'></span></li>");	
+	sb.append("<li><span class='spantitle'>犯罪性质：</span><span name='fzxzdm' dict='/common/dict/DL_D_FZXZDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>违法嫌疑人处理结果：</span><span name='wfxyrcljgdm' dict='/common/dict/XZ_D_WFXYRCLJGDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>判决机关名称：</span><span name='pjjgmc' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>考验截止日期：</span><span name='ky_jzrq' class='edit_word input_w1'></span></li>");
+	sb.append("<input type='hidden' name='id' /><input type='hidden' name='method' value='sqjz' /><input type='hidden' name='openUrl' value='/zdryEdit/zdryUpdatePre' />");
+	sb.append("</ul>");		
+	return sb.toString();
+}
+
+/****************************************************监管对象******************************************************************************************/
+//监管对象
+function info_jgdx_(){
+	var sb = new StringBuffer();
+	sb.append("<ul>");
+	sb.append("<li><span class='spantitle'>重点人员类别：</span><span name='bz' class='edit_word input_w1'></span></li>");	
+	sb.append("<li><span class='spantitle'>监管类别：</span><span name='jglbdm' dict='/common/dict/DL_D_JGLBDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>监管单位：</span><span name='jgdwmc' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>犯罪性质：</span><span name='fzxzdm' dict='/common/dict/DL_D_FZXZDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>处理结果：</span><span name='wfxyrcljgdm' dict='/common/dict/XZ_D_WFXYRCLJGDM'  class='edit_word input_w2'></span></li>"); 
+	sb.append("<li><span class='spantitle'>判决机关：</span><span name='pjjgmc' class='edit_word input_w2'></span></li>");
+	sb.append("<input type='hidden' name='id' /><input type='hidden' name='method' value='jgdxxxb' /><input type='hidden' name='openUrl' value='/zdryEdit/zdryUpdatePre' />");
+	sb.append("</ul>");
+	return sb.toString(); 
+}
+
+/****************************************************肇事肇祸精神病人******************************************************************************************/
+//肇事肇祸精神病人
+function info_jsbr_(){
+	var sb = new StringBuffer();
+	sb.append("<ul>");
+	sb.append("<li><span class='spantitle'>重点人员类别：</span><span name='bz' class='edit_word input_w1'></span></li>");	
+	sb.append("<li><span class='spantitle'>精神病类别：</span><span name='jsblbdm' dict='/common/dict/DL_D_JSBLBDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>是否已肇事滋事：</span><span name='sfyzszsdm' dict='/common/dict/DL_D_SFDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>是否持证：</span><span name='sfcjslcjzdm' dict='/common/dict/DL_D_SFDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>鉴定机构：</span><span name='jdjg' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>证件取得时间：</span><span name='zjqdsj' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>简要案情：</span><span name='jyaq' class='edit_word input_w1'></span></li>");
+	sb.append("<li><span class='spantitle'>精神病成因：</span><span name='jsbcy' class='edit_word input_w1'></span></li>");
+	sb.append("<input type='hidden' name='id' /><input type='hidden' name='method' value='zszhjsbrxxb' /><input type='hidden' name='openUrl' value='/zdryEdit/zdryUpdatePre' />");
+	sb.append("</ul>");	
+	return sb.toString();
+}
+
+/****************************************************非正常上访******************************************************************************************/
+function info_fzcsf_(){
+	var sb = new StringBuffer();
+	sb.append("<ul>");
+	sb.append("<li><span class='spantitle'>重点人员类别：</span><span name='bz' class='edit_word input_w1'></span></li>");
+	sb.append("<li><span class='spantitle'>信息上报：</span><span name='xxsb' class='edit_word input_w1'></span></li>");
+	sb.append("<li><span class='spantitle'>上访原因：</span><span name='sfyy'  class='edit_word input_w1'></span></li>");
+	sb.append("<li><span class='spantitle'>交控部门：</span><span name='jkbm' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>交控级别：</span><span name='jkjbdm' dict='/common/dict/DL_D_JKJBDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>上访人员类别：</span><span name='sfrylbdm' dict='/common/dict/DL_D_SFRYLBDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>已解决事项：</span><span name='yjjsfsx'  class='edit_word input_w1'></span></li>");
+	sb.append("<li><span class='spantitle'>未解决事项：</span><span name='wjjsfsx' class='edit_word input_w1'></span></li>");
+	sb.append("<li><span class='spantitle'>制造舆论地点：</span><span name='zzyldd' class='edit_word input_w1'></span></li>");
+	sb.append("<li><span class='spantitle'>接访部门：</span><span name='jfbm' class='edit_word input_w1'></span></li>");
+	sb.append("<li><span class='spantitle'>涉访处罚情况：</span><span name='cfqk'  class='edit_word input_w1'></span></li>");
+	sb.append("<input type='hidden' name='id' /><input type='hidden' name='method' value='fzcfryxxb' /><input type='hidden' name='openUrl' value='/zdryEdit/zdryUpdatePre' />");
+	sb.append("</ul>");
+	return sb.toString();
+}
+
+/****************************************************涉枪涉暴******************************************************************************************/
+function info_sqsb_(){
+	var sb = new StringBuffer();
+	sb.append("<ul>");	
+	sb.append("<li><span class='spantitle'>重点人员管理方法：</span><span name='glffdm' dict='/common/dict/BD_D_ZDRKGLFFDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>列管来源：</span><span name='lglydm' dict='/common/dict/BD_D_LGLYDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>纳入工作依据：</span><span name='nrgzyj' class='edit_word input_w1'></span></li>");
+	sb.append("<li><span class='spantitle'>案件类别代码：</span><span name='ajlbdm'  dict='/common/dict/BD_D_SQSBZDRYSALBDM'  class='edit_word input_w1'></span></li>");	
+	sb.append("<input type='hidden' name='id' /><input type='hidden' name='method' value='sqsbzdry' /><input type='hidden' name='openUrl' value='/zdryEdit/zdryUpdatePre' />");
+	sb.append("</ul>");
+	return sb.toString();
+}
 
 /****************************************************涉环保重点人员******************************************************************************************/
-//监管对象
-function info_shbzdry_(){
+//可能不用了，涉环保 不关联 人员基本表 和 实有人口表，所以不在这显示了
+function info_shb_(){
 	var sb = new StringBuffer();
 	sb.append("<ul>");
 	sb.append("<li><span class='spantitle'>是否死亡代码：</span><span name='sfswdm' dict='/common/dict/BD_D_SFDM'  class='edit_word input_w2'></span></li>");
@@ -18,66 +126,28 @@ function info_shbzdry_(){
 	sb.append("<li><span class='spantitle'>数据密级：</span><span name='sjmj' class='edit_word input_w1'></span></li>");
 	sb.append("<li><span class='spantitle'>人口编码：</span><span name='rkbm' class='edit_word input_w1'></span></li>");
 	sb.append("<input type='hidden' name='id' /><input type='hidden' name='method' value='shbzdry' read='true' />");
-	sb.append("</ul>");
-	sb.append("<ul url='info_lgxx' level='2'><li class='uline' ><span>列管信息</span></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='lgxx' /><input type='hidden' name='openUrl' value='' /></ul>");
-	sb.append("<div class='clear'></div>");
+	sb.append("</ul>");	
 	return sb.toString(); 
 }
 
-/****************************************************监管对象******************************************************************************************/
-//监管对象
-function info_jgdx_(){
+/****************************************************附件信息******************************************************************************************/
+//附件信息
+function info_fjxx_(){
 	var sb = new StringBuffer();
-	sb.append("<ul>");
-	sb.append("<li><span class='spantitle'>重点人员类别：</span><span name='bz' dict='/common/dict/DL_D_ZDRYLBDM'  class='edit_word input_w1'></span></li>");
-	sb.append("<li><span class='spantitle'>指定列管单位：</span><span name='xt_lrrbm'   class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>监管类别：</span><span name='jglbdm' dict='/common/dict/DL_D_JGLBDM' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>监管单位：</span><span name='jgdwmc' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>犯罪性质：</span><span name='fzxzdm' dict='/common/dict/DL_D_FZXZDM' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>处理结果：</span><span name='wfxyrcljgdm' dict='/common/dict/XZ_D_WFXYRCLJGDM'  class='edit_word input_w2'></span></li>"); 
-	sb.append("<li><span class='spantitle'>判决机关：</span><span name='pjjgmc' class='edit_word input_w2'></span></li>");
-	sb.append("<input type='hidden' name='id' /><input type='hidden' name='method' value='jgdxxxb' /><input type='hidden' name='openUrl' value='/zdryEdit/zdryUpdatePre' />");
+	sb.append("<ul level='1'>");
+	sb.append("<input type='hidden' name='method' value='fjxx' fj=true read='true' /><input type='hidden' name='openUrl' value='' />");
 	sb.append("</ul>");
-	sb.append("<ul url='info_lgxx' level='2'><li class='uline' ><span>列管信息</span></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='lgxx' /><input type='hidden' name='openUrl' value='' /></ul>");
-	sb.append("<div class='clear'></div>");
-	sb.append("<ul url='info_qxjdjb' level='2'><li class='uline' ><span>请销假登记</span><a href='javascript:void(0);' class='addfw_btn' ></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='qxjdjb' /><input type='hidden' name='openUrl' value='/zdryJgdxqxjdjb/add' /><input type='hidden' name='editUrl' value='/zdryJgdxqxjdjb/{id}' /></ul>");
-	sb.append("<div class='clear'></div>");
-	sb.append("<ul url='info_psjdb' level='2'><li class='uline' ><span>评审鉴定</span><a href='javascript:void(0);' class='addfw_btn' ></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='psjdb' /><input type='hidden' name='openUrl' value='/zdryPsjdb/add' /><input type='hidden' name='editUrl' value='/zdryPsjdb/{id}' /></ul>");
-	sb.append("<div class='clear'></div>");
-	sb.append("<ul url='info_dtgljsb' level='2'><li class='uline' ><span>动态管理纪实</span><a href='javascript:void(0);' class='addfw_btn' ></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='dtgljsb' /><input type='hidden' name='openUrl' value='/zdryDtgljsxxb/add' /><input type='hidden' name='editUrl' value='/zdryDtgljsxxb/{id}' /></ul>");
-	sb.append("<div class='clear'></div>");
-	sb.append("<ul url='info_zdrykcb' level='2'><li class='uline' ><span>重点人员考察</span><a href='javascript:void(0);' class='addfw_btn' ></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='zdrykcb' /><input type='hidden' name='openUrl' value='/zdryZdrykcxxb/add' /><input type='hidden' name='editUrl' value='/zdryZdrykcxxb/{id}' /></ul>");
-	sb.append("<div class='clear'></div>");
-	sb.append("<ul url='info_jkbjryxxb' level='2'><li class='uline' ><span>帮教力量</span><a href='javascript:void(0);' class='addfw_btn' ></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='jkbjryxxb' /><input type='hidden' name='openUrl' value='/zdryJkbjllxxb/add' /><input type='hidden' name='editUrl' value='/zdryJkbjllxxb/{id}' /></ul>");
-	sb.append("<div class='clear'></div>");
-	sb.append("<ul url='info_zagltdb' level='2'><li class='uline' ><span>作案规律特点</span><a href='javascript:void(0);' class='addfw_btn' ></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='zagltdb' /><input type='hidden' name='openUrl' value='/zdryZagltdxxb/add' /><input type='hidden' name='editUrl' value='/zdryZagltdxxb/{id}' /></ul>");
-	sb.append("<div class='clear'></div>");
-	sb.append("<ul url='info_wffzjlb' level='2'><li class='uline' ><span>违法犯罪记录</span><a href='javascript:void(0);' class='addfw_btn' ></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='wffzjlb' /><input type='hidden' name='openUrl' value='/zdryWffzjlxxb/add' /><input type='hidden' name='editUrl' value='/zdryWffzjlxxb/{id}' /></ul>");
-	sb.append("<div class='clear'></div>");
-	sb.append("<ul url='info_syrkfj' level='2'><li class='uline' ><span>附件</span><a href='javascript:void(0);' class='addfw_btn' ></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='fjxx' fj='true' /><input type='hidden' name='openUrl' value='/zdry/edit' /></ul>");
-	sb.append("<div class='clear'></div>");
-	return sb.toString(); 
+	return sb.toString();
 }
+
+
+
+/***************************************************************************************************************************************************/
+/****************************************************我是分割线 ****************************************************************************************/
+/****************************************************下方 暂时无用，没调试*********************************************************************************/
+/***************************************************************************************************************************************************/
+
+
 //请销假登记
 function info_qxjdjb_(){
 	var sb = new StringBuffer();
@@ -179,64 +249,6 @@ function info_jkbjryxxb_(){
 	return sb.toString();
 }
 
-
-
-/****************************************************重点人口******************************************************************************************/
-//重点人口
-function info_zdrk_(){
-	var sb = new StringBuffer();
-	sb.append("<ul>");
-	sb.append("<li><span class='spantitle'>重点人员类别：</span><span name='bz' class='edit_word input_w1'></span></li>");
-	sb.append("<li><span class='spantitle'>指定列管单位：</span><span name='xt_lrrbm'   class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>管理方法：</span><span name='glffdm' dict='/common/dict/ZA_D_ZDRKGLFF' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>列管来源：</span><span name='lglydm' dict='/common/dict/ZA_D_LGLY' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>纳入工作依据：</span><span name='nrgzyj' class='edit_word input_w1'></span></li>");
-	sb.append("<input type='hidden' name='id' /><input type='hidden' name='method' value='zdrkxxb'/><input type='hidden' name='openUrl' value='/zdryEdit/zdryUpdatePre' />");
-	sb.append("</ul>");	
-	return sb.toString();
-}
-
-
-
-/****************************************************肇事肇祸精神病人******************************************************************************************/
-//肇事肇祸精神病人
-function info_jsbr_(){
-	var sb = new StringBuffer();
-	sb.append("<ul>");
-	sb.append("<li><span class='spantitle'>重点人员类别：</span><span name='bz' dict='/common/dict/DL_D_ZDRYLBDM'  class='edit_word input_w1'></span></li>");
-	sb.append("<li><span class='spantitle'>指定列管单位：</span><span name='xt_lrrbm'   class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>精神病类别：</span><span name='jsblbdm' dict='/common/dict/DL_D_JSBLBDM' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>是否已肇事滋事：</span><span name='sfyzszsdm' dict='/common/dict/DL_D_SFDM' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>是否持证：</span><span name='sfcjslcjzdm' dict='/common/dict/DL_D_SFDM' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>鉴定机构：</span><span name='jdjg' dict='/common/dict/DL_D_SFDM' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>证件取得时间：</span><span name='zjqdsj' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>简要案情：</span><span name='jyaq' class='edit_word input_w1'></span></li>");
-	sb.append("<li><span class='spantitle'>精神病成因：</span><span name='jsbcy' class='edit_word input_w1'></span></li>");
-	sb.append("<input type='hidden' name='id' /><input type='hidden' name='method' value='zszhjsbrxxb' /><input type='hidden' name='openUrl' value='/zdryEdit/zdryUpdatePre' />");
-	sb.append("</ul>");
-	sb.append("<ul url='info_lgxx' level='2'><li class='uline' ><span>列管信息</span></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='lgxx' /><input type='hidden' name='openUrl' value='' /></ul>");
-	sb.append("<div class='clear'></div>");
-	sb.append("<ul url='info_dtgljsb' level='2'><li class='uline' ><span>动态管理纪实</span><a href='javascript:void(0);' class='addfw_btn' ></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='dtgljsb' /><input type='hidden' name='openUrl' value='/zdryDtgljsxxb/add' /></ul>");
-	sb.append("<div class='clear'></div>");
-	sb.append("<ul url='info_zagltdb' level='2'><li class='uline' ><span>作案规律特点</span><a href='javascript:void(0);' class='addfw_btn' ></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='zagltdb' /><input type='hidden' name='openUrl' value='/zdryZagltdxxb/add' /><input type='hidden' name='editUrl' value='/zdryZagltdxxb/{id}' /></ul>");
-	sb.append("<div class='clear'></div>");
-	sb.append("<ul url='info_wffzjlb' level='2'><li class='uline' ><span>违法犯罪记录</span><a href='javascript:void(0);' class='addfw_btn' ></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='wffzjlb' /><input type='hidden' name='openUrl' value='/zdryWffzjlxxb/add' /><input type='hidden' name='editUrl' value='/zdryWffzjlxxb/{id}' /></ul>");
-	sb.append("<div class='clear'></div>");
-	sb.append("<ul url='info_syrkfj' level='2'><li class='uline' ><span>附件</span><a href='javascript:void(0);' class='addfw_btn' ></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='fjxx' fj='true' /><input type='hidden' name='openUrl' value='/zdry/edit' /></ul>");
-	sb.append("<div class='clear'></div>");
-	return sb.toString();
-}
-
 /****************************************************轻微滋事精神病人******************************************************************************************/
 //轻微滋事精神病人
 function info_qwjsbr_(){
@@ -277,63 +289,9 @@ function info_qwjsbr_(){
 }
 
 
-/****************************************************非正常访******************************************************************************************/
-//非正常访
-function info_fzcf_(){
-	var sb = new StringBuffer();
-	sb.append("<ul>");
-	sb.append("<li><span class='spantitle'>重点人员类别：</span><span name='bz' dict='/common/dict/DL_D_ZDRYLBDM'  class='edit_word input_w1'></span></li>");
-	sb.append("<li><span class='spantitle'>指定列管单位：</span><span name='xt_lrrbm'   class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>信息上报：</span><span name='xxsb' class='edit_word input_w1'></span></li>");
-	sb.append("<li><span class='spantitle'>上访原因：</span><span name='sfyy'  class='edit_word input_w1'></span></li>");
-	sb.append("<li><span class='spantitle'>交控部门：</span><span name='jkbm' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>交控级别：</span><span name='jkjbdm' dict='/common/dict/DL_D_JKJBDM' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>上访人员类别：</span><span name='sfrylbdm' dict='/common/dict/DL_D_SFRYLBDM' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>已解决事项：</span><span name='yjjsfsx'  class='edit_word input_w1'></span></li>");
-	sb.append("<li><span class='spantitle'>未解决事项：</span><span name='wjjsfsx' class='edit_word input_w1'></span></li>");
-	sb.append("<li><span class='spantitle'>制造舆论地点：</span><span name='zzyldd' class='edit_word input_w1'></span></li>");
-	sb.append("<li><span class='spantitle'>接访部门：</span><span name='jfbm' class='edit_word input_w1'></span></li>");
-	sb.append("<li><span class='spantitle'>涉访处罚情况：</span><span name='cfqk'  class='edit_word input_w1'></span></li>");
-	sb.append("<input type='hidden' name='id' /><input type='hidden' name='method' value='fzcfryxxb' /><input type='hidden' name='openUrl' value='/zdryEdit/zdryUpdatePre' />");
-	sb.append("</ul>");
-	sb.append("<ul url='info_lgxx' level='2'><li class='uline' ><span>列管信息</span></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='lgxx' /><input type='hidden' name='openUrl' value='' /></ul>");
-	sb.append("<div class='clear'></div>");
-	sb.append("<ul url='info_dtgljsb' level='2'><li class='uline' ><span>动态管理纪实</span><a href='javascript:void(0);' class='addfw_btn' ></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='dtgljsb' /><input type='hidden' name='openUrl' value='/zdryDtgljsxxb/add' /></ul>");
-	sb.append("<div class='clear'></div>");
-	sb.append("<ul url='info_zagltdb' level='2'><li class='uline' ><span>作案规律特点</span><a href='javascript:void(0);' class='addfw_btn' ></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='zagltdb' /><input type='hidden' name='openUrl' value='/zdryZagltdxxb/add' /><input type='hidden' name='editUrl' value='/zdryZagltdxxb/{id}' /></ul>");
-	sb.append("<div class='clear'></div>");
-	sb.append("<ul url='info_wffzjlb' level='2'><li class='uline' ><span>违法犯罪记录</span><a href='javascript:void(0);' class='addfw_btn' ></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='wffzjlb' /><input type='hidden' name='openUrl' value='/zdryWffzjlxxb/add' /><input type='hidden' name='editUrl' value='/zdryWffzjlxxb/{id}' /></ul>");
-	sb.append("<div class='clear'></div>");
-	sb.append("<ul url='info_syrkfj' level='2'><li class='uline' ><span>附件</span><a href='javascript:void(0);' class='addfw_btn' ></a>");
-	sb.append(refresh+"</li>");
-	sb.append("<input type='hidden' name='method2' value='fjxx' fj='true' /><input type='hidden' name='openUrl' value='/zdry/edit' /></ul>");
-	sb.append("<div class='clear'></div>");
-	return sb.toString();
-}
 
 
-/****************************************************涉公安访******************************************************************************************/
-//涉公安访
-function info_sgaf_(){
-	var sb = new StringBuffer();
-	sb.append("<ul>");
-	sb.append("<li><span class='spantitle'>重点人员类别：</span><span name='zdrygllxmc' class='edit_word input_w1'></span></li>");
-	sb.append("<li><span class='spantitle'>批次：</span><span name='pc' class='edit_word input_w1'></span></li>");
-	sb.append("<li><span class='spantitle'>是否公安内部访代码：</span><span name='sfganbfdm' dict='/common/dict/BD_D_SFDM' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>信访诉求及滋事情况：</span><span name='xfsqjzsqk' class='edit_word input_w1'></span></li>");
-	sb.append("<li><span class='spantitle'>是否协控：</span><span name='sfxk' dict='/common/dict/BD_D_SFDM' class='edit_word input_w2'></span></li>");
-	sb.append("<input type='hidden' name='id' /><input type='hidden' name='method' value='sgafzdryxxb' /><input type='hidden' name='openUrl' value='/zdryEdit/zdryUpdatePre' />");
-	sb.append("</ul>");	
-	return sb.toString();
-}
+
 
 
 
@@ -420,18 +378,6 @@ function info_wffzjlb_(){
 	sb.append("<li class='uline2'></li>");
 	sb.append("<li class='uline2'><a class='delfw_btn ulrt_btn' href='javascript:void(0);'></a><a class='editfw_btn ulrt_btn' href='javascript:void(0);'></a></li>");
 	sb.append("<input type='hidden' name='id' />");
-	sb.append("</ul>");
-	return sb.toString();
-}
-
-
-
-/****************************************************附件信息******************************************************************************************/
-//附件信息
-function info_syrkfj_(){
-	var sb = new StringBuffer();
-	sb.append("<ul level='1'>");
-	sb.append("<input type='hidden' name='id' /><input type='hidden'  fj='true' value='fjxx' />");
 	sb.append("</ul>");
 	return sb.toString();
 }

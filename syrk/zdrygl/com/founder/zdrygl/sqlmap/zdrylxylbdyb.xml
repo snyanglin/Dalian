@@ -6,9 +6,14 @@
 	<typeAlias alias="zdrylxylbdyb" type="com.founder.zdrygl.bean.Zdrylxylbdyb" />
 	
 	
-	<!-- 根据区域查一级类别 -->
+	<!-- 根据区域查一级所有类别  -->
 	<select id="queryByQydm" parameterClass="String" resultClass="zdrylxylbdyb">
 		<![CDATA[ select * from ZDRY_ZDRYLXYLBDYB  where QYDM = #qydm# and LBDM_P='999999' and XT_ZXBZ = '0' order by LBDM ASC ]]>
+	</select>
+	
+	<!-- 根据区域查一级 可列管 类别  -->
+	<select id="queryListByQydm" parameterClass="String" resultClass="zdrylxylbdyb">
+		<![CDATA[ select * from ZDRY_ZDRYLXYLBDYB  where QYDM = #qydm# and LBDM_P='999999' and XT_ZXBZ = '0' and SHOWFLAG = '0' order by LBDM ASC ]]>
 	</select>
 	
 	<!-- 查询当前区域下的子类型列表 -->

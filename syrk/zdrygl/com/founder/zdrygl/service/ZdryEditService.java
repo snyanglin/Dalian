@@ -3,11 +3,16 @@ package com.founder.zdrygl.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.service.attachment.bean.ZpfjFjxxb;
+import com.founder.zdrygl.bean.ZdryFzcsfryxxb;
 import com.founder.zdrygl.bean.ZdryJgdxxxb;
 import com.founder.zdrygl.bean.ZdrySgafzdryxxb;
 import com.founder.zdrygl.bean.ZdryShbzdryxxb;
+import com.founder.zdrygl.bean.ZdrySqjzryxxb;
+import com.founder.zdrygl.bean.ZdrySqsbzdryxxb;
 import com.founder.zdrygl.bean.ZdryZdrkxxb;
 import com.founder.zdrygl.bean.ZdryZdryzb;
 import com.founder.zdrygl.bean.ZdryZszhjsbrxxb;
@@ -104,6 +109,23 @@ public interface ZdryEditService {
 	 * @return void    返回类型
 	 * @throws
 	 */
-	public void updateZdryAllInfo(ZdryVO zdryVO,SessionBean sessionBean) ;
+	public void updateZdryAllInfo(ZdryVO zdryVO,SessionBean sessionBean,CommonsMultipartFile[] uploadFile) ;
+
+	public ZdrySqjzryxxb sqjz_query(Map<String, Object> map);
+
+	public ZdrySqsbzdryxxb sqsbzdry_query(Map<String, Object> map);
+
+	public ZdryFzcsfryxxb fzcfryxxb_query(Map<String, Object> map);
+
+	/**
+	 * 
+	 * @Title: zdryZl
+	 * @Description: TODO(重点人员转类)
+	 * @param @param zdryVO
+	 * @param @param sessionBean    设定文件
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public void zdryZl(ZdryVO zdryVO, SessionBean sessionBean);
 	
 }

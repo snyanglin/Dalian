@@ -9,8 +9,9 @@
 </head>
 
 <div class="easyui-layout" data-options="fit:true">
-    <form action="<%=basePath%>zdryZd/saveZd" id="dataForm" name="dataForm" method="post" >
+    <form action="<%=basePath%>zdryZd/saveZd" id="dataForm" name="dataForm" method="post" enctype="multipart/form-data">
     	<input type="hidden" id="syrkid" name="syrkid" value="${zdryZdryzb.syrkid}" />
+    	<input type="hidden" id="id" name="id" value="${zdryZdryzb.id}" />
     	<input type="hidden" id="ryid" name="ryid" value="${syrkSyrkxxzb.ryid }" />
 	    <div data-options="region:'center', split:true" style="width:500px; border-width: 0px;">
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
@@ -31,7 +32,7 @@
 		    <tr class="dialogTr">
 	    		<td width="20%" class="dialogTd" align="right">现居住地址：</td>
 		    	<td width="80%" class="dialogTd" colspan="3"><input class="easyui-validatebox inputreadonly"  type="text" id="dz_hjdzmlpxz" name="dz_hjdzmlpxz" value="${syrkSyrkxxzb.jzd_dzxz}" maxlength="50"  readonly="readonly"
-		    		style="width: 619px;" data-options=""/>
+		    		style="width: 665px;" data-options=""/>
 		    	</td>
 		    </tr>
 		    <tr class="dialogTr">
@@ -51,12 +52,13 @@
 		    	<td width="50%" class="dialogTd" colspan="2">
 					<input class="easyui-combobox" id="xjzd1" style="width:400px;" value="" data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					<input type='hidden' name='dz_jzdzmlpdm' id="dz_jzdzmlpdm" value=""/>
-					<input type='hidden' name='dz_jzdzmlpxz' id="dz_jzdzmlpxz" value=""/></td>
-					<td width="30%" class="dialogTd">
+					<input type='hidden' name='dz_jzdzmlpxz' id="dz_jzdzmlpxz" value=""/>
+				</td>
+				<td width="30%" class="dialogTd">
 					    	<input class="easyui-combobox" id="xjzd2" style="width:200px;" value='' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    	<input type='hidden' name='dz_jzdzdm' id='dz_jzdzdm' value="" />
 					    	<input type='hidden' name='dz_jzdzxz' id='dz_jzdzxz' value="" /> 
-				    </td>	
+				</td>	
 		    	
     	   </tr>
     	   <tr class="dialogTr">
@@ -73,15 +75,15 @@
 		    </tr>
 		    <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">转递原因：</td>
-		    	<td width="30%" class="dialogTd">
-							<input class="easyui-combobox" type="text" id="ywfqyy"
-								name="ywfqyy" style="width: 200px;" value=""
-								data-options="url: contextPath + '/common/dict/D_RK_ZDYY.js',valueField:'text',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'right',
-								formatter: function(row){
-										var opts = $(this).combobox('options');
-										return row[opts.textField];
-									}" />
-						</td>
+		    	<td width="30%" class="dialogTd" colspan="3">
+		    		<input class="easyui-validatebox" type="text" id="ywfqyy" name="ywfqyy" style="width: 665px;" value=""  />
+				</td>
+		    </tr>
+		    <tr class="dialogTr">
+		    	<td width="20%" class="dialogTd" align="right">转递依据：</td>
+		    	<td width="30%" class="dialogTd" colspan="3">
+		    		<input type="file" name="uploadFile" id="uploadFile" style="width:665px;" class="easyui-validatebox" data-options="tipPosition:'left',invalidMessage:'请选择要上传的转递依据'" />
+				</td>
 		    </tr>
 		    
 	    	</table>

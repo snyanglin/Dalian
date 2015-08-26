@@ -1,6 +1,8 @@
 package com.founder.zdrygl.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -9,7 +11,9 @@ import org.springframework.stereotype.Service;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
 import com.founder.framework.utils.EasyUIPage;
+import com.founder.zdrygl.bean.ZdryGzb;
 import com.founder.zdrygl.bean.ZdryZdryzb;
+import com.founder.zdrygl.dao.ZdryGzbDao;
 import com.founder.zdrygl.dao.ZdryZdryzbDao;
 import com.founder.zdrygl.service.ZdryZdryzbService;
 import com.founder.zdrygl.vo.ZdryZdryzbVO;
@@ -20,6 +24,9 @@ public class ZdryZdryzbServiceImpl extends BaseService implements
 
 	@Resource(name="zdryZdryzbDao")
 	private ZdryZdryzbDao zdryZdryzbDao;
+	
+	@Resource(name="zdryGzbDao")
+	private ZdryGzbDao zdryGzbDao;
 	
 	@Override
 	public List<ZdryZdryzb> queryZdryByRyid(String ryid) {
@@ -90,5 +97,53 @@ public class ZdryZdryzbServiceImpl extends BaseService implements
 		return zdryZdryzbDao.queryCount(syrkId);
 	}
 	
-
+	/*
+	 * (非 Javadoc)
+	 * <p>Title: queryKlglx</p>
+	 * <p>Description: 根据已列管类型查可列管类型，取交集</p>
+	 * @param ylglxStr
+	 * @return
+	 * @see com.founder.zdrygl.service.ZdryZdryzbService#queryKlglx(java.lang.String)
+	 */
+	@Override
+	public String queryKlglx(String ylglxStr){
+		String[] ylglxAry=ylglxStr.split(",");		
+		String queryStr;
+		String[] queryAry;
+		ZdryGzb zdryGzb;
+		Map map=new HashMap();
+		for(int i=0;i<ylglxAry.length;i++){
+			zdryGzb=zdryGzbDao.queryByZdrylx(ylglxAry[i]);
+			if(zdryGzb!=null){
+				queryStr=zdryGzb.getTslglx();//同时可列管的类型
+				if(queryStr==null) continue;
+				queryAry=queryStr.split(",");
+				if(i>0){//已查询有可列管的类型
+					if(map.size()==0)//已不能再列管其他类型
+						break;
+					if(queryAry.length>0){
+						Map tempMap=new HashMap();//临时存储可列管类型的交集
+						for(int j=0;j<queryAry.length;j++){
+							if(map.get(queryAry[j])!=null){//可列管此类型，是交集
+								tempMap.put(queryAry[j], true);//该类型可列管
+							}
+						}
+						
+						//保存最新可列管的类型
+						map=tempMap;
+					}
+				}else{//还没有可列管类型，所以本次查询结果全都可列管
+					for(int j=0;j<queryAry.length;j++){	
+						map.put(queryAry[j],true);//该类型可列管										
+					}
+				}
+				
+				
+			}
+		}		
+		String klglxStr=map.keySet().toString();
+		klglxStr=klglxStr.replaceAll(",", "|");
+		klglxStr=klglxStr.replaceAll(" ", "");
+		return klglxStr.substring(1,klglxStr.length()-1);
+	}
 }

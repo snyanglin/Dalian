@@ -4,7 +4,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
+
 import org.apache.commons.beanutils.MethodUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
@@ -150,12 +154,72 @@ public class ZdryEditController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/zdryUpdate", method = RequestMethod.POST)
-	public ModelAndView zdryUpdate(ZdryVO zdryVO, SessionBean sessionBean) {
+	public ModelAndView zdryUpdate(ZdryVO zdryVO, SessionBean sessionBean,@RequestParam(value="uploadFile") CommonsMultipartFile[] uploadFile) {
 		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
 		Map<String, Object> model = new HashMap<String, Object>();
 		sessionBean = getSessionBean(sessionBean);
 		try {
-			zdryEditService.updateZdryAllInfo(zdryVO,sessionBean);
+			zdryEditService.updateZdryAllInfo(zdryVO,sessionBean,uploadFile);
+			model.put(AppConst.STATUS, AppConst.SUCCESS);
+			model.put(AppConst.MESSAGES, getUpdateSuccess());
+		}catch(BussinessException e){
+			e.printStackTrace();			
+			model.put(AppConst.STATUS, AppConst.FAIL);
+			model.put(AppConst.MESSAGES, e.getLocalizedMessage());
+		}
+		catch (Exception e) {
+			e.printStackTrace();			
+			model.put(AppConst.STATUS, AppConst.FAIL);
+			model.put(AppConst.MESSAGES, getUpdateFail());
+		}
+		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
+		return mv;
+	}
+	
+	/**
+	 * 
+	 * @Title: zdryZLPre
+	 * @Description: TODO(重点人员转类 载入页面)
+	 * @param @param zdryid
+	 * @param @param sessionBean
+	 * @param @return
+	 * @param @throws BussinessException    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throws
+	 */
+	@RequestMapping(value = "/zdryZLPre", method = RequestMethod.GET)
+	public ModelAndView zdryZLPre( String id,
+			SessionBean sessionBean) throws BussinessException {
+			ModelAndView mv = new ModelAndView("zdrygl/edit/zdryZL");
+			ZdryVO zdryVO =zdryEditService.queryZdryAllInfo(id);
+			//String glzt=zdryVO.getZdryZdryzb().getGlzt();
+			//Map<String, Object> model = new HashMap<String, Object>();
+			//if("5".equals(glzt)){//如果是 。。。。状态，不能转类，
+				//throw new BussinessException("该重点人员正在。。。。。中，不能转类");
+			//}
+		
+			mv.addObject("zdryVO", zdryVO);
+			return mv;
+	}
+	
+	/**
+	 * 
+	 * @Title: zdryZL
+	 * @Description: TODO(重点人员转类)
+	 * @param @param zdryVO
+	 * @param @param sessionBean
+	 * @param @param uploadFile
+	 * @param @return    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throws
+	 */
+	@RequestMapping(value = "/zdryZL", method = RequestMethod.POST)
+	public ModelAndView zdryZL(ZdryVO zdryVO, SessionBean sessionBean) {
+		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
+		Map<String, Object> model = new HashMap<String, Object>();
+		sessionBean = getSessionBean(sessionBean);
+		try {
+			zdryEditService.zdryZl(zdryVO,sessionBean);
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
 			model.put(AppConst.MESSAGES, getUpdateSuccess());
 		}catch(BussinessException e){

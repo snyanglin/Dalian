@@ -79,6 +79,8 @@ public class ZdrySgafzdryxxb extends BaseEntity implements Serializable {
 	private String sfxk;
 	@FieldDesc("申请协控单位")
 	private String sqxkdw;
+	@FieldDesc("申请协控单位名称")
+	private String sqxkdwmc;
 	@FieldDesc("案件管辖单位")
 	private String ajgxdw;
 	@FieldDesc("管辖单位联系人")
@@ -92,12 +94,21 @@ public class ZdrySgafzdryxxb extends BaseEntity implements Serializable {
 	private String searchStatus;
 	//为了配置编辑页面展示类型名称
 	private String zdrygllxmc;
+	//添加小类名字
+	private String zdrygllbmc;
 	
 	public String getZdrygllxmc() {
 		return zdrygllxmc;
 	}
 	public void setZdrygllxmc(String zdrygllxmc) {
 		this.zdrygllxmc = zdrygllxmc;
+	}
+	
+	public String getZdrygllbmc() {
+		return zdrygllbmc;
+	}
+	public void setZdrygllbmc(String zdrygllbmc) {
+		this.zdrygllbmc = zdrygllbmc;
 	}
 	public String getSearchStatus() {
 		return searchStatus;
@@ -314,6 +325,12 @@ public class ZdrySgafzdryxxb extends BaseEntity implements Serializable {
 	}
 	public void setSqxkdw(String sqxkdw) {
 		this.sqxkdw = sqxkdw;
+	}	
+	public String getSqxkdwmc() {
+		return sqxkdwmc;
+	}
+	public void setSqxkdwmc(String sqxkdwmc) {
+		this.sqxkdwmc = sqxkdwmc;
 	}
 	public String getAjgxdw() {
 		return ajgxdw;

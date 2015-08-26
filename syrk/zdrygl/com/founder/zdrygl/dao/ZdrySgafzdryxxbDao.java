@@ -88,15 +88,7 @@ public class ZdrySgafzdryxxbDao extends BaseDaoImpl {
 			return (ZdrySgafzdryxxb) queryForObject("ZdrySgafzdryxxb.queryById", id);
 		}
 	}
-	
-	public String queryZdrygllxmc(String zdryzbId){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("zdryId", zdryzbId);
-		String  address =zdryUntil.querySYSConfig();
-		map.put("qydm", address);
-		return (String)queryForObject("ZdrySgafzdryxxb.queryZdrygllxmc", map);
-	}
-
+		
 	/**
 	 * 更新<br>
 	 * 
