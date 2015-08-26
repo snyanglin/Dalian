@@ -378,10 +378,17 @@ public class ZdryZdryzbControl extends BaseController {
 			processDefinitionService.startProcessInstance(sessionBean.getUserId(), "sgaj_lcg", zdryZdryzb.getId(), variables);	
 		}
 		else{//治安
-		variables.put("sqlx", "治安列管");//申请类型	
-		variables.put("sqlxdm", "01");//申请类型为列管
-		processDefinitionService.startProcessInstance(sessionBean.getUserId(), "zalcg", zdryZdryzb.getId(), variables);
+			
+		if("0104".equals(zdryZdryzbService.queryById(zdryZdryzb.getId()).getZdrylb())){
+			
+			variables.put("sqlx", "治安列管");//申请类型	
+			variables.put("sqlxdm", "01");//申请类型为列管
+			processDefinitionService.startProcessInstance(sessionBean.getUserId(), "zalcg", zdryZdryzb.getId(), variables);
 		}	
+		else{
+			zdryUntil.lgSuccess(zdryZdryzb.getId(), zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), null);
+		}	
+	}	
 		
 			
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
@@ -936,9 +943,16 @@ public class ZdryZdryzbControl extends BaseController {
 				processDefinitionService.startProcessInstance(sessionBean.getUserId(), "sgaj_lcg", zdryYid, variables);	
 			}
 			else{//治安
+				if("0104".equals(zdryZdryzbService.queryById(zdryZdryzb.getId()).getZdrylb())){
 				variables.put("sqlx", "治安撤管");//申请类型	
 				variables.put("sqlxdm", "02");//申请类型为列管
 				processDefinitionService.startProcessInstance(sessionBean.getUserId(), "zalcg", zdryYid, variables);
+				}	
+				else{
+					zdryUntil.cgSuccess(zdryYid, zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), null);
+				}	
+			
+			
 			}	
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
 			model.put(AppConst.MESSAGES, getAddSuccess());
