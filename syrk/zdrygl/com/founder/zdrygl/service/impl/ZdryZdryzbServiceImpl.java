@@ -16,6 +16,7 @@ import com.founder.zdrygl.bean.ZdryZdryzb;
 import com.founder.zdrygl.dao.ZdryGzbDao;
 import com.founder.zdrygl.dao.ZdryZdryzbDao;
 import com.founder.zdrygl.service.ZdryZdryzbService;
+import com.founder.zdrygl.until.ZdryUntil;
 import com.founder.zdrygl.vo.ZdryZdryzbVO;
 
 @Service("zdryZdryzbService")
@@ -27,6 +28,9 @@ public class ZdryZdryzbServiceImpl extends BaseService implements
 	
 	@Resource(name="zdryGzbDao")
 	private ZdryGzbDao zdryGzbDao;
+	
+	@Resource(name="ZdryUntil")
+	private ZdryUntil zdryUntil;
 	
 	@Override
 	public List<ZdryZdryzb> queryZdryByRyid(String ryid) {
@@ -113,7 +117,7 @@ public class ZdryZdryzbServiceImpl extends BaseService implements
 		ZdryGzb zdryGzb;
 		Map map=new HashMap();
 		for(int i=0;i<ylglxAry.length;i++){
-			zdryGzb=zdryGzbDao.queryByZdrylx(ylglxAry[i]);
+			zdryGzb=zdryGzbDao.queryByZdrylx(ylglxAry[i],zdryUntil.querySYSConfig());
 			if(zdryGzb!=null){
 				queryStr=zdryGzb.getTslglx();//同时可列管的类型
 				if(queryStr==null) continue;

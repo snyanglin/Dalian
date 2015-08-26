@@ -1,5 +1,8 @@
 package com.founder.zdrygl.dao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 import com.founder.zdrygl.bean.ZdryGzb;
@@ -29,8 +32,11 @@ public class ZdryGzbDao extends BaseDaoImpl{
 	 * @return ZdryGzb    返回类型
 	 * @throws
 	 */
-	public ZdryGzb queryByZdrylx(String zdrylx){
-		return (ZdryGzb) queryForObject("ZdryGzb.queryLglxByZdrylx", zdrylx);
-	}
+	public ZdryGzb queryByZdrylx(String zdrylx,String qydm){
+		Map map=new HashMap();
+		map.put("qydm", qydm);
+		map.put("zdrylx", zdrylx);
+		return (ZdryGzb) queryForObject("ZdryGzb.queryLglxByZdrylx", map);
+	}		
 	
 }

@@ -128,4 +128,15 @@ public interface ZdryEditService {
 	 */
 	public void zdryZl(ZdryVO zdryVO, SessionBean sessionBean);
 	
+	/**
+	 * 
+	 * @Title: queryIsZL
+	 * @Description: TODO(查询是否可转类)
+	 * @param @param zdrylx
+	 * @param @return    设定文件
+	 * @return boolean    返回类型
+	 * @throws
+	 */
+	public boolean queryIsZL(String zdrylx);
+	
 }

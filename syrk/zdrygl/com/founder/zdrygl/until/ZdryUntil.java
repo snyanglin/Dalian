@@ -143,34 +143,7 @@ public class ZdryUntil {
 
 		return null;
 	}
-
-	/***
-	 * 
-	 * @Title: queryLglxByZdrylx
-	 * @Description: TODO(根据当前类型查询可并列列管类型)
-	 * @param @return 设定文件
-	 * @return String 返回类型
-	 * @throws
-	 */
-	@ResponseBody
-	public String queryLglxByZdrylx(String zdrylx) {
-		ZdryGzb zdryGzb = zdryGzbDao.queryByZdrylx(zdrylx);
-		return zdryGzb.getTslglx();
-	}
-
-	/***
-	 * 
-	 * @Title: queryCglxByZdrylx
-	 * @Description: TODO(根据当前类型查询可撤管类型)
-	 * @param @return 设定文件
-	 * @return String 返回类型
-	 * @throws
-	 */
-	@ResponseBody
-	public String queryCglxByZdrylx(String zdrylx) {
-		ZdryGzb zdryGzb = zdryGzbDao.queryByZdrylx(zdrylx);
-		return zdryGzb.getCglx();
-	}
+	
 
 	/***
 	 * 

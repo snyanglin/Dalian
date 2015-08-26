@@ -13,11 +13,13 @@ import org.apache.commons.fileupload.FileItem;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
 import com.founder.service.attachment.bean.ZpfjFjxxb;
 import com.founder.service.attachment.service.ZpfjFjxxbService;
 import com.founder.zdrygl.bean.ZdryFzcsfryxxb;
+import com.founder.zdrygl.bean.ZdryGzb;
 import com.founder.zdrygl.bean.ZdryJgdxxxb;
 import com.founder.zdrygl.bean.ZdrySgafzdryxxb;
 import com.founder.zdrygl.bean.ZdryShbzdryxxb;
@@ -29,6 +31,7 @@ import com.founder.zdrygl.bean.ZdryZszhjsbrxxb;
 import com.founder.zdrygl.bean.Zdrylxylbdyb;
 import com.founder.zdrygl.dao.ZdryEditDao;
 import com.founder.zdrygl.dao.ZdryFzcsfryxxbDao;
+import com.founder.zdrygl.dao.ZdryGzbDao;
 import com.founder.zdrygl.dao.ZdryJgdxxxbDao;
 import com.founder.zdrygl.dao.ZdrySgafzdryxxbDao;
 import com.founder.zdrygl.dao.ZdryShbzdryxxbDao;
@@ -88,6 +91,8 @@ public class ZdryEditServiceImpl extends BaseService implements ZdryEditService 
 	private ZdrySqsbzdryxxbDao zdrySqsbzdryxxbDao;
 	@Resource(name = "ZdryUntil")
 	private ZdryUntil zdryUntil;
+	@Resource(name = "zdryGzbDao")
+	private ZdryGzbDao zdryGzbDao;
 
 	@Resource(name = "zpfjFjxxbService")
 	private ZpfjFjxxbService zpfjFjxxbService;
@@ -394,4 +399,22 @@ public class ZdryEditServiceImpl extends BaseService implements ZdryEditService 
 		BaseService.setUpdateProperties(zdryZdryzb, sessionBean);
 		zdryZdryzbDao.update(zdryZdryzb);
 	}
+	
+	/**
+	 * 
+	 * @Title: queryIsZL
+	 * @Description: TODO(查询是否可转类)
+	 * @param @param zdrylx(重点人员类型)
+	 * @param @return    设定文件
+	 * @return boolean    返回类型
+	 * @throws
+	 */
+	@Override
+	public boolean queryIsZL(String zdrylx){
+		ZdryGzb zdryGzb=zdryGzbDao.queryByZdrylx(zdrylx,zdryUntil.querySYSConfig());
+		if(zdryGzb!=null && "0".equals(zdryGzb.getSfkzl())){//可转类
+			return true;
+		}
+		return false;
+	} 
 }
