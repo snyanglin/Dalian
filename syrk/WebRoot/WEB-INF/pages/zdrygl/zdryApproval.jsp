@@ -40,6 +40,10 @@
 		 
 	    	
 	    	</tr>
+	    	
+	    	<c:if test="${approvalMethod eq 'szzlApproval'}">
+	    	
+	    	</c:if>
 		    <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right" id="cgsqyjText">申请意见：</td>
 		    	<td width="80%" class="dialogTd" colspan="3">
@@ -138,7 +142,7 @@ function getZdryXx() {
 				if (data) {
 					$("#zdryName").val(data.workflowXx.xm) ;
 					$("#zjhm").val(data.workflowXx.zjhm) ;
-					$("#sqsj").val(data.zdryZdryzb.xt_lrsj) ;						
+					$("#sqsj").val(data.workflowXx.createTime) ;						
 					$("#sqrId").val(data.zdryZdryzb.xt_lrrxm) ;	
 					$("#zdrylx").val(data.workflowXx.zdrylx) ;
 					$("#zdrylxmc").val(data.workflowXx.zdrylxmc) ;

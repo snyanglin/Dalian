@@ -10,7 +10,7 @@
 <div class="easyui-layout" data-options="fit:true">	
     <form action="<%=basePath%>zdryEdit/zdryZL"  id="dataForm" name="dataForm" method="post">     
     	<input type="hidden" id="id" name="zdryZdryzb.id" value="${zdryVO.zdryZdryzb.id}" />    	    	
-    	
+    	<input type="hidden" id="yzdrylbmc" name="yzdrylbmc" value="${zdryVO.zdryZdryzbVO.zdrylbmc}" />    
 	    <div data-options="region:'center', split:true" style="width:500px; border-width: 0px;">
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 			<tr class="dialogTr">

@@ -61,10 +61,11 @@ public class Zaywjs implements JavaDelegate{
 		String zdryId=(String) arg0.getVariable("zdryId");
 		String lrrzrq=(String) arg0.getVariable("lrrzrq");
 		OrgOrganization orgOrganization =new OrgOrganization();	
-		
-		if(zdrygllxdm.equals("01")){  //人口类别为社区矫正或者居住地为户籍地
+		String zdry_jzd_mlpdm=syrkSyrkxxzbService.queryById(zdryZdryzbService.queryById(zdryId).getSyrkid()).getJzd_mlpdm();//重点人员居住地门楼盘代码
+		String zdry_jzd_zrqdm=dzService.queryMldzDx(zdry_jzd_mlpdm).getZrqdm();//重点人员居住地责任区
+		if(zdrygllxdm.equals("01")){  //人口类别为社区矫正
 			
-			orgOrganization =orgOrganizationService.queryUpOrgByLevel(lrrzrq,"32");	
+			orgOrganization =orgOrganizationService.queryUpOrgByLevel(zdry_jzd_zrqdm,"32");	
 			String fsxOrgCode =orgOrganization.getOrgcode();//  得到本名等级为三级，派出所部门code
 			String taskParameter=fsxOrgCode+"_"+orgPositionService.queryByPosid("SZ").getId().toString();   //部门code+所长岗位ID
 			arg0.setVariableLocal("sz", taskParameter);
@@ -74,12 +75,11 @@ public class Zaywjs implements JavaDelegate{
 		
 		else{
 			String zdry_hjd_mlpdm=syrkSyrkxxzbService.queryById(zdryZdryzbService.queryById(zdryId).getSyrkid()).getHjd_mlpdm();//重点人员户籍地门楼盘代码
+			
 			BzdzxxbVO bzdzxxbVO=dzService.queryMldzDx(zdry_hjd_mlpdm);
 			
-			
 			if(zdry_hjd_mlpdm==null||bzdzxxbVO==null){
-				
-				orgOrganization =orgOrganizationService.queryUpOrgByLevel(lrrzrq,"32");	
+				orgOrganization =orgOrganizationService.queryUpOrgByLevel(zdry_jzd_zrqdm,"32");	
 				String fsxOrgCode =orgOrganization.getOrgcode();//  得到本名等级为三级，派出所部门code
 				String taskParameter=fsxOrgCode+"_"+orgPositionService.queryByPosid("SZ").getId().toString();   //部门code+所长岗位ID
 				arg0.setVariableLocal("sz", taskParameter);
@@ -90,9 +90,9 @@ public class Zaywjs implements JavaDelegate{
 			else{
 				
 				String zdry_hjd_zrqdm=dzService.queryMldzDx(zdry_hjd_mlpdm).getZrqdm();//重点人员户籍地责任区
-				if(lrrzrq.equals(zdry_hjd_zrqdm)){  //人口类别为社区矫正或者居住地为户籍地
+				if(zdry_hjd_mlpdm.equals(zdry_jzd_mlpdm)){  //居住地为户籍地
 					
-					orgOrganization =orgOrganizationService.queryUpOrgByLevel(lrrzrq,"32");	
+					orgOrganization =orgOrganizationService.queryUpOrgByLevel(zdry_hjd_zrqdm,"32");	
 					String fsxOrgCode =orgOrganization.getOrgcode();//  得到本名等级为三级，派出所部门code
 					String taskParameter=fsxOrgCode+"_"+orgPositionService.queryByPosid("SZ").getId().toString();   //部门code+所长岗位ID
 					arg0.setVariableLocal("sz", taskParameter);

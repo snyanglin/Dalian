@@ -215,7 +215,7 @@ public class ZdryEditController extends BaseController {
 	 * @throws
 	 */
 	@RequestMapping(value = "/zdryZL", method = RequestMethod.POST)
-	public ModelAndView zdryZL(ZdryVO zdryVO, SessionBean sessionBean) {
+	public ModelAndView zdryZL(ZdryVO zdryVO, SessionBean sessionBean,String yzdrylbmc) {
 		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
 		Map<String, Object> model = new HashMap<String, Object>();
 		sessionBean = getSessionBean(sessionBean);

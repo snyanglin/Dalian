@@ -197,8 +197,7 @@ public class ZdryApprovalController extends BaseController {
 				String zdrylx =(String)processDefinitionService.getVariables(task.getExecutionId()).get("zdrylx");
 				String approvalMethod =(String)processDefinitionService.getVariables(task.getExecutionId()).get("approvalMethod");
 				String sqrId=(String)processDefinitionService.getVariables(task.getExecutionId()).get("applyUserId");//申请人ID
-			    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			    String createTime=formatter.format(task.getCreateTime());//申请时间
+			    String createTime=(String)processDefinitionService.getVariables(task.getExecutionId()).get("createTime");
 				String sqlx=(String)processDefinitionService.getVariables(task.getExecutionId()).get("sqlx");//申请类型
 				String sqlxdm=(String)processDefinitionService.getVariables(task.getExecutionId()).get("sqlxdm");//申请类型
 				String zdryId=(String)processDefinitionService.getVariables(task.getExecutionId()).get("zdryId");//人员USERID
