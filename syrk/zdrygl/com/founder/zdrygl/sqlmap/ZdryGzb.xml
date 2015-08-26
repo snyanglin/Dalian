@@ -10,8 +10,13 @@
 		<![CDATA[ select * from ZDRY_GZB t where ID = #id# and XT_ZXBZ = '0' and rownum = 1 ]]>
 	</select>
 	<!--根据重点人员类型查询单条-->
-	<select id="queryLglxByZdrylx" parameterClass="String" resultClass="zdryGzb">
-		<![CDATA[ select * from ZDRY_GZB t where zdrylx = #zdrylx# and XT_ZXBZ = '0' and rownum = 1  ]]>
+	<select id="queryLglxByZdrylx" parameterClass="Map" resultClass="zdryGzb">
+		<![CDATA[ 
+			select * from ZDRY_GZB t 
+			where zdrylx = #zdrylx# 
+			and QYDM = #qydm#
+			and XT_ZXBZ = '0' and rownum = 1  
+		]]>
 	</select>
 
 	<!-- 新增 -->

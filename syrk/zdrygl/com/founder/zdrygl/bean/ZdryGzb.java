@@ -27,6 +27,8 @@ public class ZdryGzb extends BaseEntity implements Serializable{
 	@FieldDesc("CGLX")private String cglx;
 	@FieldDesc("ZGBM")private String zgbm;
 	@FieldDesc("备注")private String bz;
+	@FieldDesc("区域代码")private String qydm;
+	@FieldDesc("是否可转类:0 可以")private String sfkzl;
 	public String getId() {
 		return id;
 	}
@@ -62,6 +64,18 @@ public class ZdryGzb extends BaseEntity implements Serializable{
 	}
 	public void setBz(String bz) {
 		this.bz = bz;
+	}
+	public String getQydm() {
+		return qydm;
+	}
+	public void setQydm(String qydm) {
+		this.qydm = qydm;
+	}
+	public String getSfkzl() {
+		return sfkzl;
+	}
+	public void setSfkzl(String sfkzl) {
+		this.sfkzl = sfkzl;
 	}
 	
 	

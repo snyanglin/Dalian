@@ -192,12 +192,13 @@ public class ZdryEditController extends BaseController {
 			SessionBean sessionBean) throws BussinessException {
 			ModelAndView mv = new ModelAndView("zdrygl/edit/zdryZL");
 			ZdryVO zdryVO =zdryEditService.queryZdryAllInfo(id);
+			boolean sfkzl=zdryEditService.queryIsZL(zdryVO.getZdryZdryzb().getZdrygllxdm());//是否可转类
 			//String glzt=zdryVO.getZdryZdryzb().getGlzt();
 			//Map<String, Object> model = new HashMap<String, Object>();
 			//if("5".equals(glzt)){//如果是 。。。。状态，不能转类，
 				//throw new BussinessException("该重点人员正在。。。。。中，不能转类");
 			//}
-		
+			mv.addObject("sfkzl",sfkzl);
 			mv.addObject("zdryVO", zdryVO);
 			return mv;
 	}

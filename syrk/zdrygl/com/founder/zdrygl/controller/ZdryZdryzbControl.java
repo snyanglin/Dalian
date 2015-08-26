@@ -759,7 +759,7 @@ public class ZdryZdryzbControl extends BaseController {
 		for (int i = 0; i < list.size(); i++) {
 			zdrylx=list.get(i).getZdrygllxdm();
 		}
-		ZdryGzb zdryGzb = zdryGzbDao.queryByZdrylx(zdrylx);
+		ZdryGzb zdryGzb = zdryGzbDao.queryByZdrylx(zdrylx,zdryUntil.querySYSConfig());
 		return zdryGzb.getTslglx();
 	}
 
@@ -779,7 +779,7 @@ public class ZdryZdryzbControl extends BaseController {
 		for (int i = 0; i < list.size(); i++) {
 			zdrylx=list.get(i).getZdrygllxdm();
 		}
-		ZdryGzb zdryGzb = zdryGzbDao.queryByZdrylx(zdrylx);
+		ZdryGzb zdryGzb = zdryGzbDao.queryByZdrylx(zdrylx,zdryUntil.querySYSConfig());
 		return zdryGzb.getCglx();
 	}
 
