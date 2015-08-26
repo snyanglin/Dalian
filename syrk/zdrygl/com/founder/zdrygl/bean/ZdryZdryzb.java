@@ -28,7 +28,7 @@ public class ZdryZdryzb  extends BaseEntity implements Serializable {
 	@FieldDesc("重点人员类别") private String zdrylb;
 	@FieldDesc("实有人口总表ID") private String syrkid;
 	@FieldDesc("重点人员管理类型代码") private String zdrygllxdm;
-	@FieldDesc("管理状态") private String glzt;
+	@FieldDesc("管理状态:1列管申请中,2已列管,3撤管申请中,4已撤管,5转递申请中,6涉公安访下发中,7转类申请中") private String glzt;
 	@FieldDesc("主要问题及现实表现") private String zywtjxsbx;
 	@FieldDesc("指定列管部门ID") private String zdlgbmid;
 	@FieldDesc("指定列管部门名称") private String zdlgbmmc;

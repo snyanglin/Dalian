@@ -191,13 +191,13 @@ public class ZdryEditController extends BaseController {
 	public ModelAndView zdryZLPre( String id,
 			SessionBean sessionBean) throws BussinessException {
 			ModelAndView mv = new ModelAndView("zdrygl/edit/zdryZL");
-			ZdryVO zdryVO =zdryEditService.queryZdryAllInfo(id);
-			boolean sfkzl=zdryEditService.queryIsZL(zdryVO.getZdryZdryzb().getZdrygllxdm());//是否可转类
-			//String glzt=zdryVO.getZdryZdryzb().getGlzt();
-			//Map<String, Object> model = new HashMap<String, Object>();
-			//if("5".equals(glzt)){//如果是 。。。。状态，不能转类，
-				//throw new BussinessException("该重点人员正在。。。。。中，不能转类");
-			//}
+			ZdryVO zdryVO =zdryEditService.queryZdryAllInfo(id);			
+			String glzt=zdryVO.getZdryZdryzb().getGlzt();
+			boolean sfkzl=false;
+			if(!"7".equals(glzt))//不是 转类申请中，查询是否可转类
+				sfkzl=zdryEditService.queryIsZL(zdryVO.getZdryZdryzb().getZdrygllxdm());//是否可转类
+			
+			mv.addObject("glzt",glzt);
 			mv.addObject("sfkzl",sfkzl);
 			mv.addObject("zdryVO", zdryVO);
 			return mv;
@@ -215,12 +215,17 @@ public class ZdryEditController extends BaseController {
 	 * @throws
 	 */
 	@RequestMapping(value = "/zdryZL", method = RequestMethod.POST)
-	public ModelAndView zdryZL(ZdryVO zdryVO, SessionBean sessionBean) {
+	public ModelAndView zdryZL(ZdryVO zdryVO, SessionBean sessionBean,String yzdrylbmc) {
 		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
 		Map<String, Object> model = new HashMap<String, Object>();
 		sessionBean = getSessionBean(sessionBean);
 		try {
+			zdryVO.getZdryZdryzb().setGlzt("7");//转类申请中
+			String zdrylb=zdryVO.getZdryZdryzb().getZdrylb();
+			zdryVO.getZdryZdryzb().setZdrylb(null);//此时不修改小类，审批通过后修改
 			zdryEditService.zdryZl(zdryVO,sessionBean);
+			zdryVO.getZdryZdryzb().setZdrylb(zdrylb);//后续流程取用
+			
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
 			model.put(AppConst.MESSAGES, getUpdateSuccess());
 		}catch(BussinessException e){

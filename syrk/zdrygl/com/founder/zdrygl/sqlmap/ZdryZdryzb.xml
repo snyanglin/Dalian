@@ -8,13 +8,13 @@
 	<typeAlias alias="zdrylgxxVO" type="com.founder.zdrygl.vo.ZdrylgxxVO" />
 	<!-- 查询人员所有类型列表 -->
 	<select id="queryList" parameterClass="String" resultClass="zdryZdryzb">
-		<![CDATA[  select * from ZDRY_ZDRYZB t where  ryid = #ryid#  and glzt in (1,3,2,5)  and  t.XT_ZXBZ = '0']]>
+		<![CDATA[  select * from ZDRY_ZDRYZB t where  ryid = #ryid#  and glzt in (1,2,3,5,7)  and  t.XT_ZXBZ = '0']]>
 	</select>
 	
 	<!-- 根据身份证查询重口类型 -->
 	<select id="queryZdrylxdmByGmsfhm" parameterClass="String"
 		resultClass="zdryZdryzb">
-		 select * from ZDRY_ZDRYZB t where  glzt in (1,2,3,5) and zdrygllxdm='7'  and  t.XT_ZXBZ = '0' and ZJHM= #zjhm# and 	CYZJDM='111'
+		 select * from ZDRY_ZDRYZB t where  glzt in (1,2,3,5,7) and zdrygllxdm='7'  and  t.XT_ZXBZ = '0' and ZJHM= #zjhm# and 	CYZJDM='111'
 	</select>
 
 	<!-- 查询单条（根据主键） -->
@@ -24,13 +24,13 @@
 	
 	<select id="queryZdryBySyrkid" parameterClass="String" resultClass="zdryZdryzb">
 		<![CDATA[ select t.* from ZDRY_ZDRYZB t 
-  			 where  t.syrkid = #id# and t.glzt in (3,2,1,5)  and t.XT_ZXBZ = '0'  ]]>
+  			 where  t.syrkid = #id# and t.glzt in (1,2,3,5,7)  and t.XT_ZXBZ = '0'  ]]>
 	</select>
 	
 	<select id="queryLgxxByZdryid" parameterClass="String" resultClass="zdrylgxxVO">
 		<![CDATA[ 
 		   			select t.* from ZDRY_ZDRYZB t 
-  			           where  t.id = #zdryid# and t.glzt in (3,2,1,5)  and t.XT_ZXBZ = '0'  		
+  			           where  t.id = #zdryid# and t.glzt in (1,2,3,5,7)  and t.XT_ZXBZ = '0'  		
 			]]>		
 	</select>
 
@@ -42,7 +42,7 @@
 				from ZDRY_ZDRYZB z,RY_RYJBXXB r,BZDZ_ADD_MLDZDXB b 
 				where z.ryid = #ryid# 
 					and  (b.mldzid=r.Jzd_mlpdm or (r.Hjd_mlpdm = b.mldzid and  r.Jzd_mlpdm is null)) 
-					and r.ID=z.RYID and z.glzt in (1,3,2,5)  and  z.XT_ZXBZ = '0' and b.xt_zxbz='0'
+					and r.ID=z.RYID and z.glzt in (1,2,3,5,7)  and  z.XT_ZXBZ = '0' and b.xt_zxbz='0'
 
 			) m  
 			left join  ZDRY_ZDRYLXYLBDYB L on (L.LBDM=m.ZDRYGLLXDM and L.QYDM=#QYDM#)  
@@ -57,7 +57,7 @@
 				from ZDRY_ZDRYZB z,RY_RYJBXXB r,BZDZ_ADD_MLDZDXB b 
 				where z.id = #zdryid# 
 					and  (b.mldzid=r.Jzd_mlpdm or (r.Hjd_mlpdm = b.mldzid and  r.Jzd_mlpdm is null)) 
-					and r.ID=z.RYID and z.glzt in (1,3,2,5)  and  z.XT_ZXBZ = '0' and b.xt_zxbz='0'
+					and r.ID=z.RYID and z.glzt in (1,2,3,5,7)  and  z.XT_ZXBZ = '0' and b.xt_zxbz='0'
 
 			) m  
 			left join  ZDRY_ZDRYLXYLBDYB L on (L.LBDM=m.ZDRYGLLXDM and L.QYDM=#QYDM#)  
@@ -189,7 +189,7 @@
 			     <![CDATA[ r.ZJHM || r.XM|| r.Jzd_dzxz   like '%' || #zdryZdryzbVO.condition# || '%']]>
 			</isNotEmpty>
 
-		<![CDATA[ and  (b.mldzid=r.Jzd_mlpdm or ((r.Hjd_mlpdm = b.mldzid and  r.Jzd_mlpdm is null))) and r.ID=z.RYID and z.glzt in (3,2,5)  and  z.XT_ZXBZ = '0' and b.xt_zxbz='0' ]]>
+		<![CDATA[ and  (b.mldzid=r.Jzd_mlpdm or ((r.Hjd_mlpdm = b.mldzid and  r.Jzd_mlpdm is null))) and r.ID=z.RYID and z.glzt in (2,3,5,7)  and  z.XT_ZXBZ = '0' and b.xt_zxbz='0' ]]>
 	</select>
 	<select id="query" parameterClass="Map" resultClass="zdryZdryzbVO">
 		<![CDATA[ select * from ( select rownum r ,m.*,L.BZ as zdrygllxmc from (
@@ -218,7 +218,7 @@
 			     <![CDATA[ r.ZJHM || r.XM|| r.Jzd_dzxz   like '%' || #zdryZdryzbVO.condition# || '%']]>
 			</isNotEmpty>
 
-			<![CDATA[ and  (b.mldzid=r.Jzd_mlpdm or ((r.Hjd_mlpdm = b.mldzid and  r.Jzd_mlpdm is null))) and r.ID=z.RYID and z.glzt in (3,2,5)  and  z.XT_ZXBZ = '0' and b.xt_zxbz='0' order by z.$sort$ $order$) m  left join  ZDRY_ZDRYLXYLBDYB L on (L.LBDM=m.ZDRYGLLXDM and L.QYDM=#QYDM#) where rownum <= #end# ) where r > #begin# ]]>
+			<![CDATA[ and  (b.mldzid=r.Jzd_mlpdm or ((r.Hjd_mlpdm = b.mldzid and  r.Jzd_mlpdm is null))) and r.ID=z.RYID and z.glzt in (2,3,5,7)  and  z.XT_ZXBZ = '0' and b.xt_zxbz='0' order by z.$sort$ $order$) m  left join  ZDRY_ZDRYLXYLBDYB L on (L.LBDM=m.ZDRYGLLXDM and L.QYDM=#QYDM#) where rownum <= #end# ) where r > #begin# ]]>
 	</select>
 	
 	
@@ -248,7 +248,7 @@
 			<isNotEmpty prepend="and" property="zdryZdryzbVO.glzt">
 				z.xt_zxbz = #zdryZdryzbVO.glzt#
 			</isNotEmpty>
-			<![CDATA[ and  (b.mldzid=r.Jzd_mlpdm or ((r.Hjd_mlpdm = b.mldzid and  r.Jzd_mlpdm is null))) and r.ID=z.RYID and z.glzt in (3,2,5)  
+			<![CDATA[ and  (b.mldzid=r.Jzd_mlpdm or ((r.Hjd_mlpdm = b.mldzid and  r.Jzd_mlpdm is null))) and r.ID=z.RYID and z.glzt in (2,3,5,7)  
 				and  z.XT_ZXBZ = '0' and b.xt_zxbz='0' order by z.$sort$ $order$) m  
 				left join  ZDRY_ZDRYLXYLBDYB L on (L.LBDM=m.ZDRYGLLXDM and L.QYDM=#QYDM#)
 				left join  (
@@ -311,7 +311,7 @@
 			<isNotEmpty prepend="and" property="zdryZdryzbVO.ssfxjdm">
 				g.SSFXJDM = #zdryZdryzbVO.ssfxjdm#
 			</isNotEmpty>
-			<![CDATA[ and  (b.mldzid=r.Jzd_mlpdm or ((r.Hjd_mlpdm = b.mldzid and  r.Jzd_mlpdm is null))) and r.ID=z.RYID and z.glzt in (3,2,5)  and  z.XT_ZXBZ = '0' and b.xt_zxbz='0' ]]>
+			<![CDATA[ and  (b.mldzid=r.Jzd_mlpdm or ((r.Hjd_mlpdm = b.mldzid and  r.Jzd_mlpdm is null))) and r.ID=z.RYID and z.glzt in (2,3,5,7)  and  z.XT_ZXBZ = '0' and b.xt_zxbz='0' ]]>
 	</select>	
 		
 	
@@ -328,7 +328,7 @@
 	
 		<!-- 根据查询可以注销的实有人口 是不是重口 -->
 	<select id="queryCountBySyrk" parameterClass="String" resultClass="Integer">
-		<![CDATA[ select count(1) from ZDRY_ZDRYZB t where t.XT_ZXBZ = '0' and t.SYRKID = #syrkId# and (t.GLZT = '1' or t.GLZT = '2' or t.GLZT = '3' or t.GLZT = '5')]]>
+		<![CDATA[ select count(1) from ZDRY_ZDRYZB t where t.XT_ZXBZ = '0' and t.SYRKID = #syrkId# and t.GLZT  in (2,3,5,7)]]>
 		
 	</select>
 	
