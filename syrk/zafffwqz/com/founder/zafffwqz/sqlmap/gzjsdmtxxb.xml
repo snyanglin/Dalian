@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Gzjsdmtxxb">
+
+<typeAlias alias="gzjsdmtxxb" type="com.founder.zafffwqz.bean.Gzjsdmtxxb"/>
+
+	<resultMap class="gzjsdmtxxb" id="gzjsdmtxxbResult">
+		<result property="id" column="id" javaType="String" jdbcType="VARCHAR"/>
+		<result property="gzjsid" column="gzjsid" javaType="String" jdbcType="VARCHAR"/>
+		<result property="gzjsxczp" column="gzjsxczp" javaType="byte" jdbcType="BLOB" typeHandler="com.ibatis.sqlmap.engine.type.BlobTypeHandlerCallback"/>
+		<result property="bz" column="bz" javaType="String" jdbcType="VARCHAR"/>
+		
+		<result property="xt_cjsj" column="xt_cjsj" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_lrsj" column="xt_lrsj" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_lrrxm" column="xt_lrrxm" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_lrrid" column="xt_lrrid" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_lrrbm" column="xt_lrrbm" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_lrrbmid" column="xt_lrrbmid" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_lrip" column="xt_lrip" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_zhxgsj" column="xt_zhxgsj" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_zhxgrxm" column="xt_zhxgrxm" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_zhxgrid" column="xt_zhxgrid" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_zhxgrbm" column="xt_zhxgrbm" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_zhxgrbmid" column="xt_zhxgrbmid" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_zhxgip" column="xt_zhxgip" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_zxbz" column="xt_zxbz" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_zxyy" column="xt_zxyy" javaType="String" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterClass="gzjsdmtxxb">
+		<![CDATA[
+		insert into ZAFF_GZJSDMTXXB
+  			(id,gzjsid,gzjsxczp,bz,]]> <include refid="insertXtzd"/> <![CDATA[ )
+		values
+  			(#id#,#gzjsid#,#gzjsxczp#,#bz#,]]> <include refid="insertXtzdVal"/> <![CDATA[ )
+  		]]>
+	</insert>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterClass="String">
+		<![CDATA[ delete from ZAFF_GZJSDMTXXB where gzjsid = #gzjsid# ]]>	
+	</delete>
+	
+	<!-- 查询 -->
+	<select id="queryList" parameterClass="String" resultMap="gzjsdmtxxbResult">
+		select * from ZAFF_GZJSDMTXXB where XT_ZXBZ = '0' and gzjsid = #gzjsid#
+	</select>
+	
+</sqlMap>

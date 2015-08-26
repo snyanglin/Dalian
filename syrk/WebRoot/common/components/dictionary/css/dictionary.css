@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* CSS Document */
+.tips_slect:focus{ border-bottom:solid 1px #1c84d1; background-color:#ffffff;}
+.tips_slect{border:none; position:relative;left:0;top:0; border-bottom:solid 1px #bbb; height:16px; line-height:18px; background:url(../images/tips_slect.png) center right no-repeat; width:152px;}
+.inputfocus{ border-bottom:solid 1px #1c84d1; background-color:#ffffff;}
+.selct_div{ width:auto; position:absolute; top:16px; left:-4px; z-index:1999; overflow-y:auto; overflow-x:auto; display:none; height:115px; background:#eaf4fd;border:solid 1px #c7d8e7;}
+.tips_ct .selct_div{ width:100%;}
+.selct_div ul{ margin:0; padding:0 0 0 0; width:100%; overflow:visible;  list-style:none;}
+.selct_div .li1,.selct_div .li2{ margin:0; padding:0 5px; width:100%; cursor:pointer; background:#eaf4fd; overflow:hidden;white-space:nowrap;}
+.selct_div .li2{ background:#1c84d1; color:#ffffff;}
+.selct_div .mztreeview{background-color:#eaf4fd; padding:3px;}
+.clear_span{display:none;}
+.zzjg_slect{border:none; border-bottom:solid 1px #bbb; height:16px; line-height:18px; background:url(../images/tips_slect.png) center right no-repeat; width:152px;}
+.selct_rtdiv .selct_ul{ margin:18px 0 0 0;}
+.selct_tree{ width:auto; position:absolute; top:16px; left:-4px; z-index:1999; overflow-y:auto; overflow-x:auto; display:none; background-color:#eaf4fd;border:solid 1px #c7d8e7; height:155px;}
+.selct_tree .mztreeview{background-color:#eaf4fd; padding:3px;}

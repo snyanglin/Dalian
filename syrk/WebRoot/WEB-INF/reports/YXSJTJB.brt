@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<report version="5.0">
+	<head>
+		<property name="type">0</property>
+		<name><![CDATA[YXSJTJB]]></name>
+		<dataSets>
+			<dataSet name="dwmc" type="DB_SQL" >
+				<property name="dataSource">jwzh177</property>
+				<property name="desc"><![CDATA[]]></property>
+				<property name="query"><![CDATA[="select orgname from org_organization o where o.orgcode='"+case(@ORG_FJ='0' and @ORG_PCS='0' and @ORG_ZRQ='0',"210200000000",@ORG_FJ!='0' and @ORG_PCS='0' and @ORG_ZRQ='0',@ORG_FJ,@ORG_FJ!='0' and @ORG_PCS!='0' and @ORG_ZRQ='0',@ORG_PCS,@ORG_FJ!='0' and @ORG_PCS!='0' and @ORG_ZRQ!='0',@ORG_ZRQ)+"'"]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+			<dataSet name="data" type="DB_SQL" >
+				<property name="dataSource">jwzh177</property>
+				<property name="desc"><![CDATA[]]></property>
+				<property name="query"><![CDATA[="select * from tjbb_yxsj where "
+
++if(@ORG_ZRQ!='0'," orgcode='"+@ORG_ZRQ,if(@ORG_PCS!='0'," uporgcode='"+@ORG_PCS,if(@ORG_FJ!='0'," uporgcode='"+@ORG_FJ," uporgcode='210200000000"))) +"'"
+
+
+
++" order by orgcode"]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+		</dataSets>
+		<parameters>
+			<parameter name="ORG_FJ" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">分局</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ORG_PCS" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">派出所</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ORG_ZRQ" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">责任区</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="zzjglx" type="17">
+				<property name="dateFormat"></property>
+				<property name="default">11</property>
+				<property name="desc">组织机构类型</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="dw" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">单位</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+		</parameters>
+		<variables/>
+	</head>
+	<body>
+		<sheet id="sheet1">
+			<page>
+				<property name="paginateType">3</property>
+			</page>
+			<grid row="6" col="18">
+				<properties>
+				</properties>
+				<rows>
+					<row id="1">
+						<property name="type">1</property>
+						<property name="height">50</property>
+					</row>
+					<row id="2">
+						<property name="type">2</property>
+						<property name="height">30</property>
+					</row>
+					<row id="3">
+						<property name="type">2</property>
+						<property name="height">30</property>
+					</row>
+					<row id="4">
+					</row>
+					<row id="5">
+						<property name="type">4</property>
+					</row>
+					<row id="6">
+						<property name="type">4</property>
+					</row>
+				</rows>
+				<columns>
+					<column id="1">
+						<property name="width">200</property>
+					</column>
+					<column id="2">
+						<property name="width">80</property>
+					</column>
+					<column id="3">
+						<property name="width">80</property>
+					</column>
+					<column id="4">
+						<property name="width">80</property>
+					</column>
+					<column id="5">
+						<property name="width">80</property>
+					</column>
+					<column id="6">
+						<property name="width">80</property>
+					</column>
+					<column id="7">
+						<property name="width">80</property>
+					</column>
+					<column id="8">
+						<property name="width">80</property>
+					</column>
+					<column id="9">
+						<property name="width">80</property>
+					</column>
+					<column id="10">
+						<property name="visible"><![CDATA[1]]></property>
+						<property name="width">80</property>
+					</column>
+					<column id="11">
+						<property name="width">80</property>
+					</column>
+					<column id="12">
+						<property name="width">181</property>
+					</column>
+					<column id="13">
+						<property name="width">80</property>
+					</column>
+					<column id="14">
+						<property name="width">80</property>
+					</column>
+					<column id="15">
+					</column>
+					<column id="16">
+						<property name="width">80</property>
+					</column>
+					<column id="17">
+						<property name="width">80</property>
+					</column>
+					<column id="18">
+						<property name="visible"><![CDATA[1]]></property>
+					</column>
+				</columns>
+				<cells>
+					<cell id="1,1" type="0" colspan="17" >
+						<property name="value"><![CDATA[=dwmc.select(ORGNAME)+"社区警务数据统计"]]></property>
+						<property name="font-size">20</property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="0">1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1</border>
+						<border type="1">1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="1,18" type="0" >
+					</cell>
+					<cell id="2,1" type="0" rowspan="2" >
+						<property name="value"><![CDATA[单位]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1;1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1;1:0,0,0:1</border>
+					</cell>
+					<cell id="2,2" type="0" colspan="5" >
+						<property name="value"><![CDATA[实有人口]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<property name="web-html">0</property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,7" type="0" colspan="5" >
+						<property name="value"><![CDATA[实有单位]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<property name="web-html">0</property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,12" type="0" rowspan="2" >
+						<property name="value"><![CDATA[从业人员]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1;1:0,0,0:1</border>
+					</cell>
+					<cell id="2,13" type="0" colspan="2" >
+						<property name="value"><![CDATA[实有房屋]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,15" type="0" rowspan="2" >
+						<property name="value"><![CDATA[承租人]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1;1:0,0,0:1</border>
+					</cell>
+					<cell id="2,16" type="0" colspan="2" >
+						<property name="value"><![CDATA[标准地址]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,18" type="0" >
+					</cell>
+					<cell id="3,2" type="0" >
+						<property name="value"><![CDATA[常住人口]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,3" type="0" >
+						<property name="value"><![CDATA[寄住人口]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,4" type="0" >
+						<property name="value"><![CDATA[流动人口]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,5" type="0" >
+						<property name="value"><![CDATA[境外人口]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,6" type="0" >
+						<property name="value"><![CDATA[未落户人口]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,7" type="0" >
+						<property name="value"><![CDATA[旅店业]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,8" type="0" >
+						<property name="value"><![CDATA[特种行业]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,9" type="0" >
+						<property name="value"><![CDATA[娱乐场所]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,10" type="0" >
+						<property name="value"><![CDATA[内保单位]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,11" type="0" >
+						<property name="value"><![CDATA[其他]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,13" type="0" >
+						<property name="value"><![CDATA[实有房屋]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<property name="web-html">0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,14" type="0" >
+						<property name="value"><![CDATA[出租房屋]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<property name="web-html">0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,16" type="0" >
+						<property name="value"><![CDATA[门楼牌地址]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<property name="web-html">0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,17" type="0" >
+						<property name="value"><![CDATA[层户地址]]></property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<property name="web-html">0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,18" type="0" >
+					</cell>
+					<cell id="4,1" type="0" >
+						<property name="value"><![CDATA[=if(@zzjglx+1<14,"<u><span style='cursor:hand'>","")+data.select(ORGNAME)+if(@zzjglx+1<14,"</span></u>","")]]></property>
+						<property name="ext-direction">3</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<property name="web-event"><![CDATA[onclick:="window.location.href='"+if(@zzjglx+1<14,"ReportEmitter?rpt=YXSJTJB.brt&params=ORG_FJ=" +if(@ORG_FJ="0",R4{},@ORG_FJ)+";ORG_PCS="+if(@ORG_PCS="0",if(@ORG_FJ="0",'0',R4{}),@ORG_PCS)+";zzjglx="+(@zzjglx+1)+";dw="+R4,"javascript:void(0)")+"'"]]></property>
+						<property name="web-html">0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,2" type="0" >
+						<property name="value"><![CDATA[=data.select(CZ)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,3" type="0" >
+						<property name="value"><![CDATA[=data.select(JZ)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,4" type="0" >
+						<property name="value"><![CDATA[=data.select(LD)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,5" type="0" >
+						<property name="value"><![CDATA[=data.select(JW)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,6" type="0" >
+						<property name="value"><![CDATA[=data.select(WL)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,7" type="0" >
+						<property name="value"><![CDATA[=data.select(LDY)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,8" type="0" >
+						<property name="value"><![CDATA[=data.select(TZHY)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,9" type="0" >
+						<property name="value"><![CDATA[=data.select(YLCS)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,10" type="0" >
+						<property name="value"><![CDATA[=data.select(NBDW)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,11" type="0" >
+						<property name="value"><![CDATA[=data.select(QT)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,12" type="0" >
+						<property name="value"><![CDATA[=data.select(CYRY)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,13" type="0" >
+						<property name="value"><![CDATA[=data.select(SYFW)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,14" type="0" >
+						<property name="value"><![CDATA[=data.select(CZFW)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,15" type="0" >
+						<property name="value"><![CDATA[=data.select(CZR)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,16" type="0" >
+						<property name="value"><![CDATA[=data.select(ML)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,17" type="0" >
+						<property name="value"><![CDATA[=data.select(CH)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,18" type="0" >
+						<property name="value"><![CDATA[=data.select(ORGCODE)]]></property>
+					</cell>
+					<cell id="5,1" type="0" >
+						<property name="value"><![CDATA[分合计]]></property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,2" type="0" >
+						<property name="value"><![CDATA[=sum(B4{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,3" type="0" >
+						<property name="value"><![CDATA[=sum(C4{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,4" type="0" >
+						<property name="value"><![CDATA[=sum(D4{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,5" type="0" >
+						<property name="value"><![CDATA[=sum(E4{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,6" type="0" >
+						<property name="value"><![CDATA[=sum(F4{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,7" type="0" >
+						<property name="value"><![CDATA[=sum(G4{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,8" type="0" >
+						<property name="value"><![CDATA[=sum(H4{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,9" type="0" >
+						<property name="value"><![CDATA[=sum(I4{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,10" type="0" >
+						<property name="value"><![CDATA[=sum(J4{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,11" type="0" >
+						<property name="value"><![CDATA[=sum(K4{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,12" type="0" >
+						<property name="value"><![CDATA[=sum(L4{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,13" type="0" >
+						<property name="value"><![CDATA[=sum(M4{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,14" type="0" >
+						<property name="value"><![CDATA[=sum(N4{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,15" type="0" >
+						<property name="value"><![CDATA[=sum(O4{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,16" type="0" >
+						<property name="value"><![CDATA[=sum(P4{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,17" type="0" >
+						<property name="value"><![CDATA[=sum(Q4{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,18" type="0" >
+					</cell>
+					<cell id="6,1" type="0" >
+						<property name="value"><![CDATA[总合计]]></property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,2" type="0" colspan="5" >
+						<property name="value"><![CDATA[=sum(B5+C5+D5+E5+F5)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,7" type="0" colspan="5" >
+						<property name="value"><![CDATA[=sum(G5+H5+I5+J5+K5)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,12" type="0" >
+						<property name="value"><![CDATA[=sum(L5)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,13" type="0" colspan="2" >
+						<property name="value"><![CDATA[=sum(M5+N5)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,15" type="0" >
+						<property name="value"><![CDATA[=sum(O5)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,16" type="0" colspan="2" >
+						<property name="value"><![CDATA[=sum(P5+Q5)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,18" type="0" >
+					</cell>
+				</cells>
+			</grid>
+		</sheet>
+	</body>
+</report>

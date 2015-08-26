@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                     http://www.springframework.org/schema/beans/spring-beans.xsd
+                     http://www.springframework.org/schema/tx
+                     http://www.springframework.org/schema/tx/spring-tx.xsd
+                     http://www.springframework.org/schema/context 
+                     http://www.springframework.org/schema/context/spring-context.xsd
+                     http://www.springframework.org/schema/aop
+                     http://www.springframework.org/schema/aop/spring-aop.xsd
+                     http://www.springframework.org/schema/jdbc
+                     http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+                     http://www.springframework.org/schema/util      
+          			 http://www.springframework.org/schema/util/spring-util-3.2.xsd
+                     http://www.springframework.org/schema/mvc 
+  					 http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+
+		
+	<bean id="logInterceptor" class="com.founder.framework.interceptor.LogInterceptor" />
+	<!-- <bean id="privilegeInterceptor" class="com.founder.framework.interceptor.PrivilegeInterceptor" /> -->
+	
+	<bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller" />
+	
+	<!-- 工作监控定时任务 -->
+	<bean id="gzjkJob" class="com.founder.gzjk.romcache.GzjkQuartz" />
+	<bean id="gzjkJobFactory" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject"><ref bean="gzjkJob" /></property>
+		<property name="targetMethod" value="init" />
+		<property name="concurrent"><value>false</value></property>
+	</bean>
+	<bean id="gzjkTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">         
+		<property name="jobDetail"><ref bean="gzjkJobFactory" /></property>
+		<property name="cronExpression"><value>0 0 0 * * ?</value></property>
+	</bean>
+			<!-- 工作量统计job-->
+	<bean id="gzltjbJob" class="com.founder.gzjk.quartzjob.GzltjbJob" />
+    <bean id="gzltjbJobFactory" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject"><ref bean="gzltjbJob" /></property>
+		<property name="targetMethod" value="tj" />
+		<property name="concurrent"><value>false</value></property>
+	</bean>
+	<bean id="gzltjbTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">         
+		<property name="jobDetail"><ref bean="gzltjbJobFactory" /></property>
+		<property name="cronExpression"><value>0 30 1 ? * *</value></property>
+	</bean>
+	
+	<!-- 重点人员-动态管理纪实定时任务
+	<bean id="zdryDtgljsxxbJob" class="com.founder.zdrygl.quartzjob.ZdryDtgljsxxbJob" />
+	<bean id="zdryDtgljsxxbMessageJobFactory" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject"><ref bean="zdryDtgljsxxbJob" /></property>
+		<property name="targetMethod" value="messageRemind" />
+		<property name="concurrent"><value>false</value></property>
+	</bean>
+	<bean id="zdryDtgljsxxbMessageTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">         
+		<property name="jobDetail"><ref bean="zdryDtgljsxxbMessageJobFactory" /></property>
+		<property name="cronExpression"><value>0 0 0 * * ?</value></property>
+	</bean>
+	<bean id="zdryDtgljsxxbAutoAddJobFactory" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject"><ref bean="zdryDtgljsxxbJob" /></property>
+		<property name="targetMethod" value="autoAdd" />
+		<property name="concurrent"><value>false</value></property>
+	</bean>
+	<bean id="zdryDtgljsxxbAutoAddTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">         
+		<property name="jobDetail"><ref bean="zdryDtgljsxxbAutoAddJobFactory" /></property>
+		<property name="cronExpression"><value>0 0 23 * * ?</value></property>
+	</bean> -->
+	
+	<!-- 治安考核 采集信息周统计 -->
+	<bean id="zakhJbxxCjJob" class="com.founder.zakh.quartzjob.ZakhJbxxCjJob" />
+	<bean id="zakhJbxxCjJobFactory" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject"><ref bean="zakhJbxxCjJob" /></property>
+		<property name="targetMethod" value="cj" />
+		<property name="concurrent"><value>false</value></property>
+	</bean>
+	<bean id="zakhJbxxCjTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">         
+		<property name="jobDetail"><ref bean="zakhJbxxCjJobFactory" /></property>
+		<property name="cronExpression"><value>* * 3 ? * mon</value></property>
+	</bean>
+	
+		<!-- 治安考核分数统计job -->
+	<bean id="zakhFstjJob" class="com.founder.zakh.quartzjob.ZakhFstjJob" />
+	<bean id="zakhFstjJobFactory" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject"><ref bean="zakhFstjJob" /></property>
+		<property name="targetMethod" value="khfstj" />
+		<property name="concurrent"><value>false</value></property>
+	</bean>
+	<bean id="zakhFstjTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">         
+		<property name="jobDetail"><ref bean="zakhFstjJobFactory" /></property>
+		<property name="cronExpression"><value>0 0 4 ? * mon</value></property>
+	</bean>
+	
+	<!-- 定时设置 -->
+	<!-- <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="gzjkTrigger" />
+				<ref bean="zdryDtgljsxxbMessageTrigger" />
+				<ref bean="zdryDtgljsxxbAutoAddTrigger" />
+				<ref bean="zakhJbxxCjTrigger" />
+				<ref bean="gzltjbTrigger" />
+				<ref bean="zakhFstjTrigger"/>
+			</list>
+		</property>
+	</bean> -->
+		
+	<!-- AOP自动注解功能 -->
+	<aop:aspectj-autoproxy/> 
+	
+	 <bean id="messageSource"  class="org.springframework.context.support.ResourceBundleMessageSource">  
+    	<property name="basename" value="messages"></property> 
+	</bean> 
+	
+	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+		<property name="dataSource" ref="dataSource" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="databaseSchemaUpdate" value="true" />  <!-- 是否更新数据库结构，如果表不存在，启动时会自动创建 -->
+		<property name="jobExecutorActivate" value="false" />
+	</bean>
+
+	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+	</bean>
+
+	<bean id="repositoryService" factory-bean="processEngine"	factory-method="getRepositoryService" />
+	<bean id="runtimeService" factory-bean="processEngine"	factory-method="getRuntimeService" />
+	<bean id="formService" factory-bean="processEngine"	factory-method="getFormService" />
+	<bean id="identityService" factory-bean="processEngine"	factory-method="getIdentityService" />
+	<bean id="taskService" factory-bean="processEngine"	factory-method="getTaskService" />
+	<bean id="historyService" factory-bean="processEngine"	factory-method="getHistoryService" />
+	<bean id="managementService" factory-bean="processEngine"	factory-method="getManagementService" />
+	
+	<bean id="processDefinitionService" class="com.founder.workflow.service.ActivitiProcessDefinitionService" />
+	<bean id="processManageService" class="com.founder.workflow.service.ActivitiProcessManageService" />
+	<bean id="tasksService" class="com.founder.workflow.service.ActivitiTaskService" />
+	<import resource="spring-source.xml" />
+
+
+</beans>

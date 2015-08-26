@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Ldym">
+<typeAlias alias="gpsRealtime" type="com.founder.ldym.pojo.TGpsRealtime"/>
+<typeAlias alias="gpsdict" type="com.founder.ldym.pojo.SysDict"/>
+<typeAlias alias="lsgj" type="com.founder.ldym.pojo.TZhddSsjlLsgj"/>
+
+	
+	<select id ="queryTGpsRealtimeList" parameterClass="String" resultClass="gpsRealtime">
+			$value$
+	</select>
+	
+	<select id ="findDictList" parameterClass="String" resultClass="gpsdict">
+			$value$
+	</select>
+	
+	<select id ="queryListMap" parameterClass="String" resultClass="HashMap">
+			$value$
+	</select>
+	
+	<select id ="queryGpsMap" parameterClass="String" resultClass="HashMap">
+			$value$
+	</select>
+	
+	<select id ="queryListMap2" parameterClass="String" resultClass="HashMap">
+			$value$
+	</select>
+	
+	<select id ="queryGpsMap3" parameterClass="String" resultClass="HashMap">
+			$value$
+	</select>
+	
+	<select id ="lsgj" parameterClass="String" resultClass="lsgj">
+			$value$
+	</select>
+</sqlMap>

@@ -1,0 +1,451 @@
+* {
+   font:9pt "宋体"; 
+}
+
+.queryTable {
+   border: 1px solid #3774A8;
+}
+
+.inputText {
+   padding-top: 3px; 
+   height:22px; 
+   width: 330px;
+   background-color: #F0F6FB; 
+   border: 1px solid #3774A8;
+}
+
+.inputSelect {
+   width: 330px;
+}
+
+
+/****** 多选小按钮 ******/
+
+.buttonMultiSelect {
+   cursor: pointer;
+   width: 32px; 
+   height: 30px;
+}
+
+.buttonAddAll {
+   width: 18px;
+   height : 18px;
+   background-image: url('images/but_leftRight1.gif');
+   background-position: top; 
+   background-repeat: no-repeat;;
+}
+
+.buttonAddSelect {
+   width: 18px;
+   height : 18px;
+   background-image: url('images/but_leftRight2.gif');
+   background-position: top; 
+   background-repeat: no-repeat;;
+}
+
+.buttonRemoveSelect {
+   width: 18px;
+   height : 18px;
+   background-image: url('images/but_leftRight3.gif');
+   background-position: top; 
+   background-repeat: no-repeat;;
+}
+
+.buttonRemoveAll {
+   width: 18px;
+   height : 18px;
+   background-image: url('images/but_leftRight4.gif');
+   background-position: top; 
+   background-repeat: no-repeat;;
+}
+
+
+.buttonAddAll2 {
+   width: 18px;
+   height : 18px;
+   background-image: url('images/but_upDown1.gif');
+   background-position: top; 
+   background-repeat: no-repeat;;
+}
+
+.buttonAddSelect2 {
+   width: 18px;
+   height : 18px;
+   background-image: url('images/but_upDown2.gif');
+   background-position: top; 
+   background-repeat: no-repeat;;
+}
+
+.buttonRemoveSelect2 {
+   width: 18px;
+   height : 18px;
+   background-image: url('images/but_upDown3.gif');
+   background-position: top; 
+   background-repeat: no-repeat;;
+}
+
+.buttonRemoveAll2 {
+   width: 18px;
+   height : 18px;
+   background-image: url('images/but_upDown4.gif');
+   background-position: top; 
+   background-repeat: no-repeat;;
+}
+
+/****** 对话框按钮 ******/
+
+.button4char {
+   cursor: pointer; 
+   width: 76px; 
+   height: 26px;
+}
+
+.buttonText {
+   padding-top: 2px; 
+}
+
+.buttonOkImg {
+   height: 24px;
+   width: 74px;
+   border: 0px;
+   background: url(images/dialog_ok.gif) no-repeat top;
+   cursor: pointer;
+}
+ 
+.buttonCancelImg {
+   height: 24px;
+   width: 74px;
+   border: 0px;
+   background: url(images/dialog_cancel.gif) no-repeat top;
+   cursor: pointer;
+}
+
+.buttonCloseImg {
+   height: 24px;
+   width: 74px;
+   border: 0px;
+   background: url(images/dialog_close.gif) no-repeat top;
+   cursor: pointer;
+}
+
+.buttonClearImg {
+   height: 24px;
+   width: 74px;
+   border: 0px;
+   background: url(images/dialog_clear.gif) no-repeat top;
+   cursor: pointer;
+}
+
+.buttonBackImg {
+   height: 24px;
+   width: 74px;
+   border: 0px;
+   background: url(images/dialog_back.gif) no-repeat top;
+   cursor: pointer;
+}
+
+.buttonResetImg {
+   height: 24px;
+   width: 74px;
+   border: 0px;
+   background: url(images/dialog_reset.gif) no-repeat top;
+   cursor: pointer;
+}
+
+.buttonPreviewImg {
+   height: 24px;
+   width: 74px;
+   border: 0px;
+   background: url(images/dialog_Preview.gif) no-repeat top;
+   cursor: pointer;
+}
+
+.dialog_PreviewAndSaveImg {
+   height: 24px;
+   width: 95px;
+   border: 0px;
+   background: url(images/dialog_PreviewAndSave.gif) no-repeat top;
+   cursor: pointer;
+}
+
+.dataFormTable {
+   background: #939393;
+}
+
+.dataFormTableTr {
+   background: #FFFFFF;
+   height: 22px;
+}
+
+.dataFormTdText {
+   color: #222222;
+   background: #F0F7FD;
+   padding-right: 6px; 
+   height: 22px; 
+}
+
+.dataFormTdInput {
+   padding-left: 1px; 
+   padding-right: 1px; 
+}
+
+/* 输入框正常样式  */
+
+.queryFormInput {
+   color: #222222;
+   padding-top: 3px; 
+   height: 20px; 
+   border: #939393 1px solid; 
+   background: #FFFFFF;
+}
+
+.queryFormDictShow {
+   color: #222222;
+   z-index: 20;
+   padding-top: 3px; 
+   height: 20px; 
+   border: #939393 1px solid; 
+   background: #FFFFFF url(images/query_dictBg.gif) no-repeat right;
+}
+
+.dataFormInput {
+   color: #222222;
+   padding-top: 3px; 
+   border: #FFFFFF 1px solid; 
+   height: 20px; 
+   background: #FFFFFF;
+}
+
+.dataFormDictShow {
+   color: #222222;
+   z-index: 20;
+   padding-top: 3px; 
+   height: 20px; 
+   border: #FFFFFF 1px solid; 
+   background: #FFFFFF url(images/data_dictBg.gif) no-repeat right;
+}
+
+/* 输入框错误样式  */
+/* dotted 为细虚线*/
+
+.queryFormInputError {
+   color: #222222;
+   padding-top: 3px; 
+   height: 20px; 
+   border: red 1px dashed; 
+   background: #FFFFFF;
+}
+
+.queryFormDictShowError {
+   color: #222222;
+   z-index: 20;
+   padding-top: 3px; 
+   height: 20px; 
+   border: red 1px dashed;  
+   background: #FFFFFF url(images/query_dictBg.gif) no-repeat right;
+}
+
+.dataFormInputError {
+   color: #222222;
+   padding-top: 3px; 
+   border: red 1px dashed; 
+   height: 20px; 
+   background: #FFFFFF;
+}
+
+.dataFormDictShowError {
+   color: #222222;
+   z-index: 20;
+   padding-top: 3px; 
+   height: 20px; 
+   border: red 1px dashed; 
+   background: #FFFFFF url(images/data_dictBg.gif) no-repeat right;
+}
+
+/* 输入框只读样式  */
+
+.queryFormInputRead {
+   color: #222222;
+   padding-top: 3px; 
+   height: 20px; 
+   border: #939393 1px solid; 
+   background: #E8E8E8;
+}
+
+.queryFormDictShowRead {
+   color: #222222;
+   z-index: 20;
+   padding-top: 3px; 
+   height: 20px; 
+   border: #939393 1px solid; 
+   background: #E8E8E8 url(images/query_dictBg.gif) no-repeat right;
+}
+
+.dataFormInputRead {
+   color: #222222;
+   padding-top: 3px; 
+   border: #E8E8E8 1px solid; 
+   height: 20px; 
+   background: #E8E8E8;
+}
+
+.dataFormDictShowRead {
+   color: #222222;
+   z-index: 20;
+   padding-top: 3px; 
+   height: 20px; 
+   border: #E8E8E8 1px solid; 
+   background: #E8E8E8 url(images/data_dictBg.gif) no-repeat right;
+}
+
+/* 输入框只读错误样式  */
+
+.queryFormInputReadError {
+   color: #222222;
+   padding-top: 3px; 
+   height: 20px; 
+   border: red 1px dashed;
+   background: #E8E8E8;
+}
+
+.queryFormDictShowReadError {
+   color: #222222;
+   z-index: 20;
+   padding-top: 3px; 
+   height: 20px; 
+   border: red 1px dashed;
+   background: #E8E8E8 url(images/query_dictBg.gif) no-repeat right;
+}
+
+.queryFormInputReadError {
+   color: #222222;
+   padding-top: 3px; 
+   height: 20px; 
+   border: red 1px dashed;
+   background: #E8E8E8;
+}
+
+.queryFormDictShowReadError {
+   color: #222222;
+   z-index: 20;
+   padding-top: 3px; 
+   height: 20px; 
+   border: red 1px dashed;
+   background: #E8E8E8 url(images/query_dictBg.gif) no-repeat right;
+}
+
+/* 弹出选择框样式  */
+
+.dataFormDictList {
+   color: #222222;
+   z-index: 60;
+   position: absolute; 
+   top: 0px;
+   left: 0px;
+   border: thin solid #3774A8;
+   background-color: #FFFAEE;
+}
+
+.dataFormTreeFrame {
+   z-index: 20;
+   position: absolute; 
+   top: 0px;
+   left: 0px;
+   border: 1px solid #3774A8;
+   background-color: #FFFAEE;
+}
+
+.dataFormInputRead2 {
+   color: #222222;
+   padding-top: 3px; 
+   border: #E8E8E8 1px solid; 
+   height: 20px; 
+   background: #E8E8E8;
+}
+
+.dataFormDictShowRead2 {
+   color: #222222;
+   z-index: 20;
+   padding-top: 3px; 
+   height: 20px; 
+   border: #E8E8E8 1px solid; 
+   background: #E8E8E8 url(images/data_dictBg.gif) no-repeat right;
+}
+
+
+.ajaxTableHide {
+   filter: alpha(opacity = 0);
+   -moz-opacity: 0;
+}
+
+.ajaxTableShow {
+   filter: alpha(opacity = 100);
+   -moz-opacity: 1;
+}
+
+.alarmDiv {
+   z-index: 10;
+   position: relative; 
+   top: expression(document.body.scrollTop);
+   overflow-y: auto;
+   border: #ECECEC 1px solid;
+   vertical-align: top;
+}
+
+.alarmTr1 {
+   height: 50px;
+   background-color: #F0F7FD;
+}
+
+.alarmTr2 {
+   height: 50px;
+   background-color: #FFFFFF;
+}
+
+.alarmTd {
+   padding: 5px;
+   color: #FF0000;
+   line-height: 20px;
+}
+
+
+/* 公用对话框样式  */
+
+.tdQuestion {
+   height: 32px; 
+   background: url(images/question.jpg) no-repeat center;
+}
+
+/* 公用字典选择对话框样式  */
+
+.dictSearchInput {
+   color: #222222;
+   padding-top: 3px; 
+   height: 20px; 
+   border: #939393 1px solid; 
+   background: #FFFFFF;
+}
+
+.dictDiv {
+   overflow-y: auto;
+   vertical-align: top;
+   width: 100%;
+   z-index: 60;
+   padding: 0;
+   border: 1px solid #3774A8;
+}
+
+.tdDictText {
+   color: #222222;
+   font-weight: bold; 
+   background: #F0F7FD;
+}
+
+.tdDictSelect {
+   color: #FF0000;
+   font-weight: bold;
+}
+
+.tdDict {
+   color: #222222;
+}

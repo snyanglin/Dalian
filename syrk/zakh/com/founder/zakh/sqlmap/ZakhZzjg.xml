@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZakhZzjg">
+	<typeAlias alias="zakhZzjg" type="com.founder.zakh.bean.ZakhZzjgBean" />
+	
+	<!-- 查询分局-->
+	<select id="query" resultClass="zakhZzjg">
+		<![CDATA[ select * from org_organization t1 where t1.orglevel = '21' and t1.orgbiztype = '01' ]]>
+	</select>
+	<!-- 查询派出所-->
+	<select id="pcsQuery" parameterClass="String" resultClass="zakhZzjg">
+		<![CDATA[select * from org_organization where orglevel = '32' and parentid = (select id from org_organization where orgcode = #orgcode#) ]]>
+	</select>
+	<!-- 查询社区-->
+	<select id="xqquery" parameterClass="String" resultClass="zakhZzjg">
+		<![CDATA[ select * from org_organization where orglevel = '50' and orgbiztype = '04' and parentid = (select id from org_organization where orgcode = #orgcode#) ]]>
+	</select>
+	<!-- 根据机构编码得到机构类-->
+	<select id="getOrgByCode" parameterClass="String" resultClass="zakhZzjg">
+		<![CDATA[ select * from org_organization where orgcode = #orgcode# ]]>
+	</select>
+</sqlMap>

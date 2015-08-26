@@ -1,0 +1,44 @@
+@CHARSET "UTF-8";
+a{text-decoration:none;}
+body {
+	background: url(../images/sqjw/homePage/bgImg.png);
+}
+
+.bodyTable {
+	width: 100%;
+	height: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	padd: expression(this.cellPadding =  0);
+}
+
+.modTable {
+	width: 100%;
+	height: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	padd: expression(this.cellPadding =  0);
+	background: #FFF;
+}
+
+.titleBg {
+	background: url("../images/sqjw/homePage/title-bg.png");
+	width: 100%;
+	color: #636363;
+	font-weight: bold;
+	font-family: "微软雅黑";
+}
+
+.modTd {
+	border-bottom: solid 2px #d5d5d5;
+	border-left: solid 2px #d5d5d5;
+	border-right: solid 2px #d5d5d5;
+}
+
+.titleBg a:hover {
+	color: #1498d6;
+}
+
+.titleBg a:link,a:visited {
+	color: #555459;
+}

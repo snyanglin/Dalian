@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Czfwxxb">
+
+<typeAlias alias="czfwxxb" type="com.founder.syfw.bean.Czfwxxb"/>
+
+	<!-- 添加出租房屋子表记录 -->
+	<insert id="save" parameterClass="czfwxxb">
+		<![CDATA[
+		insert into SYFW_CZFWXXB (id]]>	
+			<isNotEmpty prepend="," property="fwid">
+				<![CDATA[ fwid]]>
+			</isNotEmpty>
+  			<isNotEmpty prepend="," property="zazrr_xm">
+				<![CDATA[ zazrr_xm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zazrr_id">
+				<![CDATA[ zazrr_id]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zrs_qd_rq">
+				<![CDATA[ zrs_qd_rq]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cz_mjpfm">
+				<![CDATA[ cz_mjpfm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cz_fjs">
+				<![CDATA[ cz_fjs]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cz_rq">
+				<![CDATA[ cz_rq]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zj">
+				<![CDATA[ zj]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bz">
+				<![CDATA[ bz]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="czur_ryid">
+				<![CDATA[ CZUR_RYID]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="czur_xm">
+				<![CDATA[ CZUR_XM]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="czur_cyzjdm">
+					<![CDATA[ CZUR_CYZJDM]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="czur_zjhm">
+					<![CDATA[ CZUR_ZJHM]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="czur_wwx">
+					<![CDATA[ CZUR_WWX]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="czur_wwm">
+					<![CDATA[ CZUR_WWM]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="czur_lxdh">
+					<![CDATA[ CZUR_LXDH]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="czur_yfzgx_rygxdm">
+					<![CDATA[ CZUR_YFZGX_RYGXDM]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fwdjdm">
+					<![CDATA[ fwdjdm]]>
+			</isNotEmpty>
+			,<include refid="insertXtzd"/>)
+		values
+  			( #id#
+  			<isNotEmpty prepend="," property="fwid">
+				<![CDATA[ #fwid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zazrr_xm">
+				<![CDATA[ #zazrr_xm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zazrr_id">
+				<![CDATA[ #zazrr_id# ]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zrs_qd_rq">
+				<![CDATA[ #zrs_qd_rq# ]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cz_mjpfm">
+				<![CDATA[ #cz_mjpfm# ]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cz_fjs">
+				<![CDATA[ #cz_fjs# ]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cz_rq">
+				<![CDATA[ #cz_rq# ]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zj">
+				<![CDATA[ #zj# ]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bz">
+				<![CDATA[ #bz# ]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="czur_ryid">
+				<![CDATA[ #czur_ryid#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="czur_xm">
+					<![CDATA[ #czur_xm#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="czur_cyzjdm">
+					<![CDATA[ #czur_cyzjdm#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="czur_zjhm">
+					<![CDATA[ #czur_zjhm#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="czur_wwx">
+					<![CDATA[ #czur_wwx#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="czur_wwm">
+					<![CDATA[ #czur_wwm#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="czur_lxdh">
+					<![CDATA[ #czur_lxdh#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="czur_yfzgx_rygxdm">
+					<![CDATA[ #czur_yfzgx_rygxdm#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fwdjdm">
+					<![CDATA[ #fwdjdm# ]]>
+			</isNotEmpty>
+			,<include refid="insertXtzdVal"/>)
+	</insert>
+	
+	<!-- 修改出租房屋子表记录 -->
+	<update id="update" parameterClass="czfwxxb">
+		 <![CDATA[ update SYFW_CZFWXXB ]]>	
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="fwid">
+				<![CDATA[ fwid=#fwid#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="zazrr_xm">
+				<![CDATA[ zazrr_xm=#zazrr_xm#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="zazrr_id">
+				<![CDATA[ zazrr_id=#zazrr_id# ]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="zrs_qd_rq">
+				<![CDATA[ zrs_qd_rq=#zrs_qd_rq# ]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="cz_mjpfm">
+				<![CDATA[ cz_mjpfm=#cz_mjpfm# ]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="cz_fjs">
+				<![CDATA[ cz_fjs=#cz_fjs# ]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="cz_rq">
+				<![CDATA[ cz_rq=#cz_rq# ]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="zj">
+				<![CDATA[zj= #zj# ]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="bz">
+				<![CDATA[ bz=#bz# ]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="czur_ryid">
+				<![CDATA[ czur_ryid=#czur_ryid#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="czur_xm">
+				<![CDATA[ czur_xm=#czur_xm#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="czur_cyzjdm">
+				<![CDATA[ czur_cyzjdm=#czur_cyzjdm#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="czur_zjhm">
+				<![CDATA[ czur_zjhm=#czur_zjhm#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="czur_wwx">
+				<![CDATA[ czur_wwx=#czur_wwx#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="czur_wwm">
+				<![CDATA[ czur_wwm=#czur_wwm#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="czur_lxdh">
+				<![CDATA[ czur_lxdh=#czur_lxdh#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="czur_yfzgx_rygxdm">
+				<![CDATA[ czur_yfzgx_rygxdm=#czur_yfzgx_rygxdm#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="fwdjdm">
+				<![CDATA[ fwdjdm=#fwdjdm#]]>
+			</isNotNull>
+			,<include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>	
+	</update>
+	
+	<!-- 查询列表 -->
+	<select id="czfwxxb_query" parameterClass="Map" resultClass="czfwxxb">
+		<![CDATA[SELECT t.* , (select count(*) from syfw_czqkdjxxb c where c.czfwid=t.id and c.xt_zxbz='0') czrs FROM SYFW_CZFWXXB t WHERE t.fwid=#fwid# AND t.XT_ZXBZ='0'  and rownum =1 ORDER BY xt_cjsj DESC ]]>
+	</select>
+	<!-- 注销出租房-->
+	<update id="removeCzfwxxb" parameterClass="czfwxxb">
+	 	<![CDATA[ update SYFW_CZFWXXB set ]]>	
+	 			<include refid="deleteXtzd"/>
+	 	 <![CDATA[ where id = #id#]]>	
+	</update>
+	
+	<!-- 查询 -->
+	<select id="query" parameterClass="String" resultClass="czfwxxb">
+		<![CDATA[ 	SELECT t.* , (select count(*) from syfw_czqkdjxxb c where c.czfwid=t.id and c.xt_zxbz='0') czrs FROM SYFW_CZFWXXB t WHERE t.id=#value# AND t.XT_ZXBZ='0'  ]]>
+	</select>
+	
+</sqlMap>

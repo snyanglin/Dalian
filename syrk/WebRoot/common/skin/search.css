@@ -1,0 +1,126 @@
+* {
+   font: 9pt "宋体"; 
+}
+
+body {
+   margin: 2px; 
+   -moz-user-select: none;
+   -khtml-user-select: none;
+   scrollbar-face-color: #E4E4E4; 
+   scrollbar-highlight-color: #FBFDFC; 
+   scrollbar-shadow-color: #170708; 
+   scrollbar-3dlight-color: #170708;
+   scrollbar-arrow-color: #000000; 
+   scrollbar-darkshadow-color: #FFFFFF; 
+   scrollbar-base-color: #170708;
+}
+
+.dataFormTable {
+   background: #939393;
+}
+
+.dataFormTableTr {
+   background: #FFFFFF;
+   height: 22px;
+}
+
+.dataFormTdSummary {
+   color: #222222;
+   font-weight: bold; 
+   background: #FFFFFF;
+   padding-top: 2px; 
+   padding-left: 6px; 
+   height: 22px; 
+}
+
+.dataFormTdInput {
+   padding-left: 1px; 
+   padding-right: 1px; 
+}
+
+.tdSelected {
+   padding-top: 2px;
+   padding-left: 2px;
+   color: #FF0000; 
+   font-weight: bold;
+}
+
+.tdUnSelected {
+   padding-top: 2px;
+   padding-left: 2px;
+   cursor: pointer; 
+   color: #222222; 
+} 
+
+.tdNormal {
+   padding-top: 2px;
+   padding-left: 2px;
+   color: #222222; 
+}
+
+.tdNormalRead {
+   padding-top: 2px;
+   padding-left: 2px;
+   color: #CCCCCC; 
+}
+
+/* 上一个下一个 */
+.query_arrow1 {
+   height: 20px;
+   width: 32px;
+   border: 0px;
+   background: url(images/query_arrow1.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.query_arrow1Disabled {
+   height: 20px;
+   width: 32px;
+   border: 0px;
+   background: url(images/query_arrow1.jpg) no-repeat bottom;
+}
+
+.query_arrow2 {
+   height: 20px;
+   width: 32px;
+   border: 0px;
+   background: url(images/query_arrow2.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.query_arrow2Disabled {
+   height: 20px;
+   width: 32px;
+   border: 0px;
+   background: url(images/query_arrow2.jpg) no-repeat bottom;
+}
+
+.query_arrow3 {
+   height: 20px;
+   width: 32px;
+   border: 0px;
+   background: url(images/query_arrow3.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.query_arrow3Disabled {
+   height: 20px;
+   width: 32px;
+   border: 0px;
+   background: url(images/query_arrow3.jpg) no-repeat bottom;
+}
+
+.query_arrow4 {
+   height: 20px;
+   width: 32px;
+   border: 0px;
+   background: url(images/query_arrow4.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.query_arrow4Disabled {
+   height: 20px;
+   width: 32px;
+   border: 0px;
+   background: url(images/query_arrow4.jpg) no-repeat bottom;
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Dwjczgxx">
+	<typeAlias alias="dwzdhzyhzgtzs" type="com.founder.sydw.bean.Dwzdhzyhzgtzs" />
+	<typeAlias alias="dwzlzgtzs" type="com.founder.sydw.bean.Dwzlzgtzs" />
+	<typeAlias alias="dwlscftzs" type="com.founder.sydw.bean.Dwlscftzs" />
+	
+	<!-- 新增责令整改通知书 -->
+	<insert id="saveZlzgtzs" parameterClass="dwzlzgtzs">
+		<![CDATA[INSERT INTO DW_ZLZGTZS(ID, JCID, DWID, BH, XH, ZZJGMC, JCRQ, ZGNR, ZLLJZGX, ZGX, ZGXZGRQ, HZYHZGRQ, HZYH, DWFZRQM, DWFZRQMRQ, JCRYQM, JCRYQMRQ,ZLLJZGX_XX,ZGX_XX,]]>
+		<include refid="insertXtzd"/>)
+		<![CDATA[values(#id#,#jcid#,#dwid#,#bh#,#xh#,#zzjgmc#,#jcrq#,#zgnr#,#zlljzgx#,#zgx#,#zgxzgrq#,#hzyhzgrq#,#hzyh#,#dwfzrqm#,#dwfzrqmrq#,#jcryqm#,#jcryqmrq#,#zlljzgx_xx#,#zgx_xx#,]]>
+		<include refid="insertXtzdVal"/>)
+	</insert>
+	
+	<!-- 查询责令整改通知书 -->
+	<select id="queryZlzgtzs" parameterClass="Map" resultClass="dwzlzgtzs">
+		SELECT T.*,D.DWMC FROM DW_ZLZGTZS T,DW_DWJBXXB D WHERE T.DWID=D.ID 
+		<isNotEmpty prepend="and" property="id">
+			T.ID =#id#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jcid">
+			T.JCID =#jcid#
+		</isNotEmpty>
+	</select>
+	
+	<!-- 新增临时查封通知书 -->
+	<insert id="saveLscftzs" parameterClass="dwlscftzs">
+		<![CDATA[INSERT INTO DW_LSCFTZS(ID, JCID, DWID, GWH, XXH, BH, XH, ZZJGMC, JCRQ, HZYH, HZYHHG, XFF, CFFW, CF_QSRQ, CF_JSRQ, ZZJGMC2,]]>
+		<include refid="insertXtzd"/>)
+		<![CDATA[values(#id#,#jcid#,#dwid#,#gwh#,#xxh#,#bh#,#xh#,#zzjgmc#,#jcrq#,#hzyh#,#hzyhhg#,#xff#,#cffw#,#cf_qsrq#,#cf_jsrq#,#zzjgmc2#,]]>
+		<include refid="insertXtzdVal"/>)
+	</insert>
+	
+	<!-- 查询临时查封通知书 -->
+	<select id="queryLscftzs" parameterClass="Map" resultClass="dwlscftzs">
+		SELECT T.*,D.DWMC FROM DW_LSCFTZS T,DW_DWJBXXB D WHERE T.DWID=D.ID 
+		<isNotEmpty prepend="and" property="id">
+			T.ID =#id#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jcid">
+			T.JCID =#jcid#
+		</isNotEmpty>
+	</select>
+	
+	<!-- 新增重大火灾隐患整改通知书  -->
+	<insert id="saveZdhzyhzgtzs" parameterClass="dwzdhzyhzgtzs">
+		<![CDATA[INSERT INTO DW_ZDHZYHZGTZS(ID, JCID, DWID, GWH, XXH, BH, XH, HZYHDM, HZYHNR, DWFZRQM, DWFZRQMRQ,]]>
+		<include refid="insertXtzd"/>)
+		<![CDATA[values(#id#,#jcid#,#dwid#,#gwh#,#xxh#,#bh#,#xh#,#hzyhdm#,#hzyhnr#,#dwfzrqm#,#dwfzrqmrq#,]]>
+		<include refid="insertXtzdVal"/>)
+	</insert>
+	
+	<!-- 查询重大火灾隐患整改通知书 -->
+	<select id="queryZdhzyhzgtzs" parameterClass="Map" resultClass="dwzdhzyhzgtzs">
+		SELECT T.*,D.DWMC FROM DW_ZDHZYHZGTZS T,DW_DWJBXXB D WHERE T.DWID=D.ID 
+		<isNotEmpty prepend="and" property="id">
+			T.ID =#id#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jcid">
+			T.JCID =#jcid#
+		</isNotEmpty>
+	</select>
+	
+	<!-- 查询序号-->
+	<select id="queryXh" parameterClass="Map" resultClass="String">
+		SELECT TO_CHAR(SEQ_XH.NEXTVAL,'FM0000') FROM DUAL
+	</select>
+</sqlMap>

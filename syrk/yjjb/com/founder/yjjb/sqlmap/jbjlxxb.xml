@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="jbjlxxb">
+	
+	<typeAlias alias="jbjlxxb" type="com.founder.yjjb.bean.Jbjlxxb" />
+	
+	<!-- 添加 -->
+	<insert id="save" parameterClass="jbjlxxb">
+		<![CDATA[
+		INSERT INTO YJJB_JBJLXXB
+  			(ID,JBRXM,JBRSFZH,XSBH,AJBH,JLBH,XZFS,XZFSNR,]]> <include refid="insertXtzd"/> <![CDATA[ )
+		VALUES
+  			(#id#,#jbrxm#,#jbrsfzh#,#xsbh#,#ajbh#,#jlbh#,#xzfs#,#xzfsnr#,]]> <include refid="insertXtzdVal"/> <![CDATA[ )
+  		]]>
+	</insert>
+	
+	<!-- 查询-->
+	<select id="queryById" parameterClass="jbjlxxb" resultClass="jbjlxxb">
+		<![CDATA[ SELECT * FROM YJJB_JBJLXXB WHERE id = #id# ]]>
+	</select>
+	 
+	 <!-- 查询列表 -->
+	<select id="queryCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ SELECT COUNT(*) FROM YJJB_JBJLXXB  WHERE XT_ZXBZ = '0'  ]]>
+		<isNotEmpty prepend="and" property="jbjlxxb.starttime">	<![CDATA[XT_CJSJ >= #jbjlxxb.starttime#]]>	</isNotEmpty>
+		<isNotEmpty prepend="and" property="jbjlxxb.endtime">	<![CDATA[XT_CJSJ <= #jbjlxxb.endtime#]]>	</isNotEmpty>		
+		<isNotEmpty prepend="and" property="jbjlxxb.xsbh">		<![CDATA[XSBH = #jbjlxxb.xsbh#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="jbjlxxb.ajbh">		<![CDATA[AJBH = #jbjlxxb.ajbh#]]>			</isNotEmpty>
+	</select>
+	
+	<!-- 数据查询 -->
+	<select id="queryList" parameterClass="Map" resultClass="jbjlxxb">
+		<![CDATA[ SELECT * FROM ( SELECT ROWNUM r, t.* FROM ( SELECT * FROM YJJB_JBJLXXB WHERE XT_ZXBZ = '0'  ]]>
+		<isNotEmpty prepend="and" property="jbjlxxb.starttime">	<![CDATA[XT_CJSJ >= #jbjlxxb.starttime#]]>	</isNotEmpty>
+		<isNotEmpty prepend="and" property="jbjlxxb.endtime">	<![CDATA[XT_CJSJ <= #jbjlxxb.endtime#]]>	</isNotEmpty>		
+		<isNotEmpty prepend="and" property="jbjlxxb.xsbh">		<![CDATA[XSBH = #jbjlxxb.xsbh#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="jbjlxxb.ajbh">		<![CDATA[AJBH = #jbjlxxb.ajbh#]]>			</isNotEmpty>
+		<![CDATA[ ORDER BY $sort$ $order$ ) t WHERE rownum <= #end# ) WHERE r > #begin# ]]>
+	</select>
+	
+	<!-- 删除-->
+	<update id="delete" parameterClass="jbjlxxb">
+		<![CDATA[UPDATE YJJB_JBJLXXB SET]]> <include refid="deleteXtzd"/>
+		<![CDATA[WHERE id = #id#]]>
+	</update>
+	
+	<!-- 查询-->
+	<select id="queryId" parameterClass="jbjlxxb" resultClass="jbjlxxb">
+		<![CDATA[ SELECT * FROM YJJB_JBJLXXB WHERE xsbh = #xsbh# and ajbh = #ajbh# ]]>
+	</select>
+	
+	<!-- 通过案件编号和线索编号查询-->
+	<select id="queryByXsbhAjbh" parameterClass="jbjlxxb" resultClass="jbjlxxb">
+		<![CDATA[ SELECT * FROM YJJB_JBJLXXB WHERE xsbh = #xsbh# and ajbh = #ajbh# ]]>
+	</select>
+</sqlMap>

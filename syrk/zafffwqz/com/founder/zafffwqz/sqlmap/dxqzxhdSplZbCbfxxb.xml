@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--  
+	@Author:       [wu.w@founder.com.cn]
+	@CreateDate:   [2015-5-15 上午8:51:54]
+	* @review      : tian_chengwei@founder.com.cn
+	* @reviewDate  : 20150604
+-->
+<sqlMap namespace="dxqzxhdsplzbcbfxxb">
+	<typeAlias alias="cbf" type="com.founder.zafffwqz.bean.DxqzxhdSplZbCbfxxb"/>
+	<!-- 大型群众性活动审批类-承办方信息类-sql -->
+	<!-- 注销数据 -->
+	<update id="delete" parameterClass="cbf" >
+		<![CDATA[UPDATE DXQZXHDSPL_ZB_CBFXXB SET ]]><include refid="deleteXtzd"/>
+		<![CDATA[ WHERE hdid = #hdid#]]>
+	</update>
+	
+	<!-- 查询数据 -->
+	<select id="query" parameterClass="String" resultClass="cbf">
+		select * from DXQZXHDSPL_ZB_CBFXXB  where XT_ZXBZ = '0' and HDID=#hdid#
+	</select>
+	
+	<!-- 新增数据 -->
+	<update id="save" parameterClass="cbf" >
+		INSERT INTO DXQZXHDSPL_ZB_CBFXXB (
+			HDID,HDCBZDM,CBBMMC,FRXM,FRZJZLDM,FRZJHM,HDFZR,HDFZRZW,HDFZRZJZLDM,HDFZRZJHM,HDFZRLXDH,HDLXR,HDLXRZW,HDLXRZJZLDM,
+			HDLXRZJHM,HDLXRLXDH,HDAQFZR,HDAQFZRZW,HDAQFZRZJZLDM,HDAQFZRZJHM,HDAQFZRLXDH,BZ,
+  			<include refid="insertXtzd"/> 
+  		) VALUES (
+  			#hdid#,#hdcbzdm#,#cbbmmc#,#frxm#,#frzjzldm#,#frzjhm#,#hdfzr#,#hdfzrzw#,#hdfzrzjzldm#,#hdfzrzjhm#,#hdfzrlxdh#,
+  			#hdlxr#,#hdlxrzw#,#hdlxrzjzldm#,#hdlxrzjhm#,#hdlxrlxdh#,#hdaqfzr#,#hdaqfzrzw#,#hdaqfzrzjzldm#,#hdaqfzrzjhm#,
+  			#hdaqfzrlxdh#,#bz#,<include refid="insertXtzdVal"/>)
+	</update>
+	
+	<!-- 修改数据 -->
+	<update id="update" parameterClass="cbf" >
+		UPDATE DXQZXHDSPL_ZB_CBFXXB SET 
+		bz=''
+		<isNotNull prepend = "," property = "hdcbzdm"> <![CDATA[hdcbzdm = #hdcbzdm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "cbbmmc"> <![CDATA[cbbmmc = #cbbmmc#]]> </isNotNull>
+		<isNotNull prepend = "," property = "frxm"> <![CDATA[frxm = #frxm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "frzjzldm"> <![CDATA[frzjzldm = #frzjzldm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "frzjhm"> <![CDATA[frzjhm = #frzjhm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "hdfzr"> <![CDATA[hdfzr = #hdfzr#]]> </isNotNull>
+		<isNotNull prepend = "," property = "hdfzrzw"> <![CDATA[hdfzrzw = #hdfzrzw#]]> </isNotNull>
+		<isNotNull prepend = "," property = "hdfzrzjzldm"> <![CDATA[hdfzrzjzldm = #hdfzrzjzldm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "hdfzrzjhm"> <![CDATA[hdfzrzjhm = #hdfzrzjhm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "hdfzrlxdh"> <![CDATA[hdfzrlxdh = #hdfzrlxdh#]]> </isNotNull>
+		<isNotNull prepend = "," property = "hdlxr"> <![CDATA[hdlxr = #hdlxr#]]> </isNotNull>
+		<isNotNull prepend = "," property = "hdlxrzw"> <![CDATA[hdlxrzw = #hdlxrzw#]]> </isNotNull>
+		<isNotNull prepend = "," property = "hdlxrzjzldm"> <![CDATA[hdlxrzjzldm = #hdlxrzjzldm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "hdlxrzjhm"> <![CDATA[hdlxrzjhm = #hdlxrzjhm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "hdlxrlxdh"> <![CDATA[hdlxrlxdh = #hdlxrlxdh#]]> </isNotNull>
+		<isNotNull prepend = "," property = "hdaqfzr"> <![CDATA[hdaqfzr = #hdaqfzr#]]> </isNotNull>
+		<isNotNull prepend = "," property = "hdaqfzrzw"> <![CDATA[hdaqfzrzw = #hdaqfzrzw#]]> </isNotNull>
+		<isNotNull prepend = "," property = "hdaqfzrzjzldm"> <![CDATA[hdaqfzrzjzldm = #hdaqfzrzjzldm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "hdaqfzrzjhm"> <![CDATA[hdaqfzrzjhm = #hdaqfzrzjhm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "hdaqfzrlxdh"> <![CDATA[hdaqfzrlxdh = #hdaqfzrlxdh#]]> </isNotNull>
+		,<include refid="updateXtzd"/>				
+		WHERE hdid = #hdid#
+	</update>
+</sqlMap>

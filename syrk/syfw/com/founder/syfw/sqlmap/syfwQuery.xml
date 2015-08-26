@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="SyfwQuery">
+	<typeAlias alias="syfwquery" type="com.founder.syfw.vo.SyfwListVo" />
+	<typeAlias alias="fwjbxxb" type="com.founder.syfw.bean.Fwjbxxb" />
+
+	<!-- 注销 -->
+	<update id="delete" parameterClass="syfwquery">
+		<![CDATA[ update SYFW_FWJBXXB set ]]>
+		<include refid="deleteXtzd" /> 
+		<![CDATA[where ID = #id# ]]>
+	</update>
+
+	<!-- 实有房屋的查询 v3 -->
+	<select id="queryFw" parameterClass="Map" resultClass="syfwquery">
+		<![CDATA[
+		select * from (
+				SELECT ROWNUM R ,M.* FROM(
+				 SELECT f.*,B.ZBX,B.ZBY,B.mldzID AS BZDZID  FROM BZDZ_ADD_MLDZDXB B,SYFW_FWJBXXB F WHERE B.XT_ZXBZ='0' and F.XT_ZXBZ ='0' and B.mldzID = F.fwdz_mlpdm  ]]>
+
+		<isNotEmpty prepend="and" property="fwjbxxb.fwdz_dzxz">
+			     <![CDATA[F.fwdz_dzxz like '%' || #fwjbxxb.fwdz_dzxz# ||'%']]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.fwlbdm">
+			   	 <![CDATA[F.fwlbdm = #fwjbxxb.fwlbdm# ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.fz_xm">
+			   	 <![CDATA[F.fz_xm like '%' || #fwjbxxb.fz_xm# ||'%' ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.sfczfw">
+			     <![CDATA[F.sfczfw = #fwjbxxb.sfczfw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.ss4jbmdm">
+			     <![CDATA[b.zrqdm= #fwjbxxb.ss4jbmdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.condition">
+				  <![CDATA[ f.fwdz_dzxz || f.fz_xm  like '%' || #fwjbxxb.condition#|| '%']]>
+		</isNotEmpty>
+		<isNotEmpty property="sort">
+		   		<![CDATA[ order by $sort$ $order$ ]]>
+		</isNotEmpty>
+		   <![CDATA[) m 
+		     where rownum <= #end# ) 
+		     	where r > #begin# ]]>
+	</select>
+	<!-- 统计房屋数量 v3 -->
+	<select id="queryCountFw" parameterClass="Map" resultClass="Integer">
+		<![CDATA[SELECT COUNT(1) FROM 
+							(SELECT B.mldzID AS BZDZID FROM BZDZ_ADD_MLDZDXB B,SYFW_FWJBXXB F WHERE B.XT_ZXBZ='0' and F.XT_ZXBZ ='0' and B.mldzID = F.fwdz_mlpdm ]]>
+		<isNotEmpty prepend="and" property="fwjbxxb.fwdz_dzxz">
+			     <![CDATA[F.fwdz_dzxz like '%' || #fwjbxxb.fwdz_dzxz# ||'%']]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.fwlbdm">
+			   	 <![CDATA[F.fwlbdm = #fwjbxxb.fwlbdm# ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.fz_xm">
+			   	 <![CDATA[F.fz_xm like '%' || #fwjbxxb.fz_xm# ||'%' ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.sfczfw">
+			     <![CDATA[F.sfczfw = #fwjbxxb.sfczfw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.ss4jbmdm">
+			     <![CDATA[b.zrqdm = #fwjbxxb.ss4jbmdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.condition">
+				 <![CDATA[ f.fwdz_dzxz || f.fz_xm  like '%' || #fwjbxxb.condition#|| '%']]>
+		</isNotEmpty>
+		    <![CDATA[)]]>
+	</select>
+
+	<!-- 实有房屋的查询 v3 -->
+	<select id="querySyfw" parameterClass="Map" resultClass="syfwquery">
+		<![CDATA[select * from ( SELECT ROWNUM R ,M.* FROM(
+				 SELECT * FROM $tableName$ WHERE  T.XT_ZXBZ ='0'   ]]>
+
+		<isNotEmpty prepend="and" property="fwjbxxb.fwdz_dzxz">
+			     <![CDATA[T.fwdz_dzxz like '%' || #fwjbxxb.fwdz_dzxz# ||'%']]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.fwlbdm">
+			   	 <![CDATA[T.fwlbdm = #fwjbxxb.fwlbdm# ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.fz_xm">
+			   	 <![CDATA[T.fz_xm like '%' || #fwjbxxb.fz_xm# ||'%' ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.tgr_xm">
+			   	 <![CDATA[T.tgr_xm like '%' || #fwjbxxb.tgr_xm# ||'%' ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.sfczfw">
+			     <![CDATA[T.sfczfw = #fwjbxxb.sfczfw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.fwytdm">
+			     <![CDATA[T.fwytdm = #fwjbxxb.fwytdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.condition">
+				 <![CDATA[ T.fwdz_dzxz || T.fz_xm || T.tgr_xm like '%' || #fwjbxxb.condition#|| '%']]>
+		</isNotEmpty>
+		<!-- 以下空间查询条件 开始-->
+        <isNotEmpty prepend="AND" property="fwjbxxb.drawType">
+             T.fwdz_mlpdm = P.MLDZID
+        </isNotEmpty>
+        <isEqual prepend="AND" property="fwjbxxb.drawType" compareValue="drawCircle">
+                   SDE.ST_WITHIN(P.SHAPE,SDE.ST_BUFFER(SDE.ST_POINT('POINT($fwjbxxb.drawZbz$)',$fwjbxxb.drawSrid$),$fwjbxxb.drawRadius$))=1
+   	    </isEqual>
+	    <isEqual prepend="AND" property="fwjbxxb.drawType" compareValue="drawRect">
+                SDE.ST_ENVINTERSECTS(P.SHAPE,$fwjbxxb.drawZbz$)=1
+	    </isEqual>
+	    <isEqual prepend="AND" property="fwjbxxb.drawType" compareValue="drawPolygon">
+               	 SDE.ST_WITHIN(P.SHAPE,SDE.ST_POLYGON('polygon(($fwjbxxb.drawZbz$))',$fwjbxxb.drawSrid$))=1
+	    </isEqual>
+	    <!-- 以下空间查询条件 结束-->
+		<isNotEmpty property="sort">
+		   		<![CDATA[ order by $sort$ $order$ ]]>
+		</isNotEmpty>
+		   <![CDATA[) m 
+		     where rownum <= #end# ) 
+		     	where r > #begin# ]]>
+	</select>
+		
+	<select id="querySyfwCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ SELECT COUNT(T.ID) FROM $tableName$ WHERE  T.XT_ZXBZ ='0'   ]]>
+
+		<isNotEmpty prepend="and" property="fwjbxxb.fwdz_dzxz">
+			     <![CDATA[T.fwdz_dzxz like '%' || #fwjbxxb.fwdz_dzxz# ||'%']]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.fwlbdm">
+			   	 <![CDATA[T.fwlbdm = #fwjbxxb.fwlbdm# ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.fz_xm">
+			   	 <![CDATA[T.fz_xm like '%' || #fwjbxxb.fz_xm# ||'%' ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.tgr_xm">
+			   	 <![CDATA[T.tgr_xm like '%' || #fwjbxxb.tgr_xm# ||'%' ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.sfczfw">
+			     <![CDATA[T.sfczfw = #fwjbxxb.sfczfw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.fwytdm">
+			     <![CDATA[T.fwytdm = #fwjbxxb.fwytdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="fwjbxxb.condition">
+				 <![CDATA[ T.fwdz_dzxz || T.fz_xm || T.tgr_xm like '%' || #fwjbxxb.condition#|| '%']]>
+		</isNotEmpty>
+		<!-- 以下空间查询条件 开始-->
+        <isNotEmpty prepend="AND" property="fwjbxxb.drawType">
+             T.fwdz_mlpdm = P.MLDZID
+        </isNotEmpty>
+        <isEqual prepend="AND" property="fwjbxxb.drawType" compareValue="drawCircle">
+                   SDE.ST_WITHIN(P.SHAPE,SDE.ST_BUFFER(SDE.ST_POINT('POINT($fwjbxxb.drawZbz$)',$fwjbxxb.drawSrid$),$fwjbxxb.drawRadius$))=1
+   	    </isEqual>
+	    <isEqual prepend="AND" property="fwjbxxb.drawType" compareValue="drawRect">
+                SDE.ST_ENVINTERSECTS(P.SHAPE,$fwjbxxb.drawZbz$)=1
+	    </isEqual>
+	    <isEqual prepend="AND" property="fwjbxxb.drawType" compareValue="drawPolygon">
+               	 SDE.ST_WITHIN(P.SHAPE,SDE.ST_POLYGON('polygon(($fwjbxxb.drawZbz$))',$fwjbxxb.drawSrid$))=1
+	    </isEqual>
+	</select>
+
+</sqlMap>

@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<report version="5.0">
+	<head>
+		<property name="type">0</property>
+		<name><![CDATA[SYCZFWTJBB]]></name>
+		<dataSets>
+			<dataSet name="data" type="DB_SQL" >
+				<property name="dataSource">DB</property>
+				<property name="desc"><![CDATA[]]></property>
+				<property name="query"><![CDATA[="select  sum(tb.xjhs) as xjhs,sum(tb.fxjhs) as fxjhs, 
+sum(tb.zhs) as zhs, sum(tb.zzx) as zzx, tb.orgname, tb.orgcode from TJBB_SYCZFWTJB tb
+
+where tb.orglevel = '"
++if(@ORG_FJ='0','02',if(@ORG_PCS='0',32,50))+ 
+
+"' "+if(@ORG_FJ!='0' and @ORG_PCS!='0' and @ORG_ZRQ!='0',"and tb.orgcode='"+@ORG_ZRQ+"'","")
++case(if(@ORG_FJ='0','02',if(@ORG_PCS='0','32','50'))='32'," and substr(tb.orgcode,1,6)=substr('"+@ORG_FJ+"',1,6)  ",if(@ORG_FJ='0','02',if(@ORG_PCS='0','32','50'))='50'," and substr(tb.orgcode,1,8)=substr('"+@ORG_PCS+"',1,8)")+
+" and tb.hssj >= '"+tostr(@ZQ_KS)+"' and tb.hssj <= '"+tostr(@ZQ_JS)+
+"' group by tb.orgname,tb.orgcode order by orgcode "
+]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+			<dataSet name="dwmc" type="DB_SQL" >
+				<property name="dataSource">DB</property>
+				<property name="desc"><![CDATA[]]></property>
+				<property name="query"><![CDATA[="select orgname from org_organization o where o.orgcode='"+case(@ORG_FJ='0' and @ORG_PCS='0' and @ORG_ZRQ='0',"210200000000",@ORG_FJ!='0' and @ORG_PCS='0' and @ORG_ZRQ='0',@ORG_FJ,@ORG_FJ!='0' and @ORG_PCS!='0' and @ORG_ZRQ='0',@ORG_PCS,@ORG_FJ!='0' and @ORG_PCS!='0' and @ORG_ZRQ!='0',@ORG_ZRQ)+"'"]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+			<dataSet name="dhs" type="DB_SQL" >
+				<property name="dataSource">DB</property>
+				<property name="desc"><![CDATA[]]></property>
+				<property name="query"><![CDATA[
+="select nvl(tb1.dhs,0) as dhs,tb.orgname,tb.orgcode from
+
+
+(select orgname,orgcode from jwzh.org_organization o where trim(bjzbz) is not null 
+and o.parenttreepath like '%"+case(@ORG_FJ='0',"210200000000",@ORG_FJ!='0' and @ORG_PCS='0',@ORG_FJ,@ORG_PCS)+"%'
+and orglevel = '"+if(@ORG_FJ='0','02',if(@ORG_PCS='0',32,50))+ "'
+and orgcode like '"+if(@ORG_FJ='0','%000000',if(@ORG_PCS='0','%0000','%%'))+"'
+and orgcode "+if(@ORG_FJ='0'," like '%000000'",if(@ORG_PCS='0', "like '%0000'","not like '%00'"))+"
+) tb left join 
+
+(select sum(case when (select sfcj from bzdz_bzdzxxb where sffw='1' and id=b.dz_fwdzid)='1' then 0 else 1 end) as dhs,
+
+	(select orgname from jwzh.org_organization o where o.orgcode="+case(@ORG_FJ='0' and @ORG_PCS='0'," b.ssfxjid",@ORG_FJ!='0' and @ORG_PCS='0'," b.sspcsid",@ORG_FJ!='0' and @ORG_PCS!='0'," b.xt_zhxgrbmid")+") as orgname,
+       "+case(@ORG_FJ='0' and @ORG_PCS='0'," b.ssfxjid",@ORG_FJ!='0' and @ORG_PCS='0'," b.sspcsid",@ORG_FJ!='0' and @ORG_PCS!='0'," b.xt_zhxgrbmid")+" as orgcode
+       
+       from fw_czfwzb b where 1=1  "+case(@ORG_FJ!='0' and @ORG_PCS='0',"and b.ssfxjid='"+@ORG_FJ+"'",@ORG_FJ!='0' and @ORG_PCS!='0',"and b.sspcsid='"+@ORG_PCS+"'")+
+" and substr(xt_zhxgsj,1,10) <= to_char(sysdate,'yyyy-MM-dd') group by "+case(@ORG_FJ='0' and @ORG_PCS='0'," b.ssfxjid",@ORG_FJ!='0' and @ORG_PCS='0'," b.sspcsid",@ORG_FJ!='0' and @ORG_PCS!='0'," b.sszrqid")+" ) tb1 on tb.orgcode=tb1.orgcode order by tb.orgcode"]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+		</dataSets>
+		<parameters>
+			<parameter name="ZQ_KS" type="2">
+				<property name="dateFormat">yyyy-MM-dd</property>
+				<property name="default"></property>
+				<property name="desc">开始时间</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ZQ_JS" type="2">
+				<property name="dateFormat">yyyy-MM-dd</property>
+				<property name="default"></property>
+				<property name="desc">结束时间</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ORG_FJ" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">分局代码</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ORG_PCS" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">派出所代码</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ORG_ZRQ" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">责任区代码</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="dw" type="6">
+				<property name="dateFormat"></property>
+				<property name="default"></property>
+				<property name="desc">单位</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="zzjglx" type="17">
+				<property name="dateFormat"></property>
+				<property name="default">11</property>
+				<property name="desc">组织结构类型</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="HSSJBZ" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">01</property>
+				<property name="desc">统计周期</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+		</parameters>
+		<variables/>
+	</head>
+	<body>
+		<sheet id="sheet1">
+			<page>
+				<property name="paginateType">3</property>
+			</page>
+			<grid row="6" col="7">
+				<properties>
+				</properties>
+				<rows>
+					<row id="1">
+						<property name="type">1</property>
+						<property name="height">60</property>
+					</row>
+					<row id="2">
+						<property name="type">1</property>
+					</row>
+					<row id="3">
+						<property name="type">2</property>
+					</row>
+					<row id="4">
+					</row>
+					<row id="5">
+						<property name="height">27</property>
+					</row>
+					<row id="6">
+						<property name="type">4</property>
+					</row>
+				</rows>
+				<columns>
+					<column id="1">
+						<property name="width">200</property>
+					</column>
+					<column id="2">
+						<property name="width">200</property>
+					</column>
+					<column id="3">
+						<property name="width">200</property>
+					</column>
+					<column id="4">
+						<property name="width">200</property>
+					</column>
+					<column id="5">
+						<property name="width">200</property>
+					</column>
+					<column id="6">
+						<property name="width">200</property>
+					</column>
+					<column id="7">
+						<property name="visible"><![CDATA[1]]></property>
+					</column>
+				</columns>
+				<cells>
+					<cell id="1,1" type="0" colspan="6" >
+						<property name="value"><![CDATA[=dwmc.select(ORGNAME)+"出租房屋统计"]]></property>
+						<property name="font-size">20</property>
+					</cell>
+					<cell id="1,7" type="0" >
+					</cell>
+					<cell id="2,1" type="0" >
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,2" type="0" >
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,3" type="0" >
+						<property name="align">2</property>
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,4" type="0" >
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,5" type="0" >
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,6" type="0" >
+						<property name="value"><![CDATA[="统计开始时间："+tostr(@ZQ_KS)+"  结束时间："+tostr(@ZQ_JS)]]></property>
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,7" type="0" >
+					</cell>
+					<cell id="3,1" type="0" >
+						<property name="value"><![CDATA[单位]]></property>
+						<property name="font-size">12</property>
+						<property name="bold">0</property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,2" type="0" >
+						<property name="value"><![CDATA[未采集]]></property>
+						<property name="font-size">12</property>
+						<property name="bold">0</property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,3" type="0" >
+						<property name="value"><![CDATA[新增]]></property>
+						<property name="font-size">12</property>
+						<property name="bold">0</property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,4" type="0" >
+						<property name="value"><![CDATA[采集]]></property>
+						<property name="font-size">12</property>
+						<property name="bold">0</property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,5" type="0" >
+						<property name="value"><![CDATA[总采集]]></property>
+						<property name="font-size">12</property>
+						<property name="bold">0</property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,6" type="0" >
+						<property name="value"><![CDATA[注销]]></property>
+						<property name="font-size">12</property>
+						<property name="bold">0</property>
+						<property name="background"><![CDATA[='213,213,213']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,7" type="0" >
+						<property name="value"><![CDATA[id]]></property>
+						<property name="visible"><![CDATA[1]]></property>
+					</cell>
+					<cell id="4,1" type="0" >
+						<property name="value"><![CDATA[=if(@zzjglx+1<14,"<u><span style='cursor:hand'>&nbsp;","")+data.select(ORGNAME)+if(@zzjglx+1<14,"</span></u>","")]]></property>
+						<property name="ext-direction">3</property>
+						<property name="font-color"><![CDATA[=if(@zzjglx+1<14,'0,0,255','0,0,0')]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<property name="web-url"><![CDATA[=if(@zzjglx+1<14,"ReportEmitter?rpt=SYCZFWTJBB.brt&params=ORG_FJ=" +if(@ORG_FJ="0",G4{},@ORG_FJ)+";ORG_PCS="+if(@ORG_PCS="0",if(@ORG_FJ="0",'0',G4{}),@ORG_PCS)+";ZQ_KS="+tostr(@ZQ_KS)+";ZQ_JS="+tostr(@ZQ_JS)+";zzjglx="+(@zzjglx+1)+";dw="+G4,"")]]></property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<property name="web-event"><![CDATA[onclick:="window.location.href='"+if(@zzjglx+1<14,"ReportEmitter?rpt=SYCZFWTJBB.brt&params=ORG_FJ=" +if(@ORG_FJ="0",G4{},@ORG_FJ)+";ORG_PCS="+if(@ORG_PCS="0",if(@ORG_FJ="0",'0',G4{}),@ORG_PCS)+";ZQ_KS="+tostr(@ZQ_KS)+";ZQ_JS="+tostr(@ZQ_JS)+";zzjglx="+(@zzjglx+1)+";dw="+G4,"")+"';window.parent.window.mask();"]]></property>
+						<property name="web-html">0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,2" type="0" >
+						<property name="value"><![CDATA[=dhs.select(DHS)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<property name="web-url"><![CDATA[=if(@zzjglx<14,"ReportEmitter?rpt=SYCZFW_whsxx.brt&params=ORG_FJ=" +if(@ORG_FJ="0",G4{},@ORG_FJ)+";ORG_PCS="+if(@ORG_PCS="0",if(@ORG_FJ="0",'0',G4{}),@ORG_PCS)+";ORG_ZRQ="+if(@ORG_PCS="0",'0',G4{})+";ZQ_KS="+tostr(@ZQ_KS)+";zzjglx="+(@zzjglx+1)+";ZQ_JS="+tostr(@ZQ_JS)+";dw="+G4,"")]]></property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<property name="web-event"><![CDATA[onclick:="window.location.href='"+if(@zzjglx<14,"ReportEmitter?rpt=SYCZFW_whsxx.brt&params=ORG_FJ=" +if(@ORG_FJ="0",G4{},@ORG_FJ)+";ORG_PCS="+if(@ORG_PCS="0",if(@ORG_FJ="0",'0',G4{}),@ORG_PCS)+";ORG_ZRQ="+if(@ORG_PCS="0",'0',G4{})+";ZQ_KS="+tostr(@ZQ_KS)+";zzjglx="+(@zzjglx+1)+";ZQ_JS="+tostr(@ZQ_JS)+";dw="+G4,"")+"';window.parent.window.mask();"]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,3" type="0" >
+						<property name="value"><![CDATA[=data.select(XJHS)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<property name="web-url"><![CDATA[=if(@zzjglx<14,"ReportEmitter?rpt=SYCZFW_xjxx.brt&params=ORG_FJ=" +if(@ORG_FJ="0",G4{},@ORG_FJ)+";ORG_PCS="+if(@ORG_PCS="0",if(@ORG_FJ="0",'0',G4{}),@ORG_PCS)+";ORG_ZRQ="+if(@ORG_PCS="0",'0',G4{})+";ZQ_KS="+tostr(@ZQ_KS)+";zzjglx="+(@zzjglx+1)+";ZQ_JS="+tostr(@ZQ_JS)+";dw="+G4,"")]]></property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<property name="web-event"><![CDATA[onclick:="window.location.href='"+if(@zzjglx<14,"ReportEmitter?rpt=SYCZFW_xjxx.brt&params=ORG_FJ=" +if(@ORG_FJ="0",G4{},@ORG_FJ)+";ORG_PCS="+if(@ORG_PCS="0",if(@ORG_FJ="0",'0',G4{}),@ORG_PCS)+";ORG_ZRQ="+if(@ORG_PCS="0",'0',G4{})+";ZQ_KS="+tostr(@ZQ_KS)+";zzjglx="+(@zzjglx+1)+";ZQ_JS="+tostr(@ZQ_JS)+";dw="+G4,"")+"';window.parent.window.mask();"]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,4" type="0" >
+						<property name="value"><![CDATA[=data.select(FXJHS)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<property name="web-url"><![CDATA[=if(@zzjglx<14,"ReportEmitter?rpt=SYCZFW_hsxx.brt&params=ORG_FJ=" +if(@ORG_FJ="0",G4{},@ORG_FJ)+";ORG_PCS="+if(@ORG_PCS="0",if(@ORG_FJ="0",'0',G4{}),@ORG_PCS)+";ORG_ZRQ="+if(@ORG_PCS="0",'0',G4{})+";ZQ_KS="+tostr(@ZQ_KS)+";zzjglx="+(@zzjglx+1)+";ZQ_JS="+tostr(@ZQ_JS)+";dw="+G4,"")]]></property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<property name="web-event"><![CDATA[onclick:="window.location.href='"+if(@zzjglx<14,"ReportEmitter?rpt=SYCZFW_hsxx.brt&params=ORG_FJ=" +if(@ORG_FJ="0",G4{},@ORG_FJ)+";ORG_PCS="+if(@ORG_PCS="0",if(@ORG_FJ="0",'0',G4{}),@ORG_PCS)+";ORG_ZRQ="+if(@ORG_PCS="0",'0',G4{})+";ZQ_KS="+tostr(@ZQ_KS)+";zzjglx="+(@zzjglx+1)+";ZQ_JS="+tostr(@ZQ_JS)+";dw="+G4,"")+"';window.parent.window.mask();"]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,5" type="0" >
+						<property name="value"><![CDATA[=data.select(ZHS)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<property name="web-url"><![CDATA[=if(@zzjglx<14,"ReportEmitter?rpt=SYCZFW_zsxx.brt&params=ORG_FJ=" +if(@ORG_FJ="0",G4{},@ORG_FJ)+";ORG_PCS="+if(@ORG_PCS="0",if(@ORG_FJ="0",'0',G4{}),@ORG_PCS)+";ORG_ZRQ="+if(@ORG_PCS="0",'0',G4{})+";ZQ_KS="+tostr(@ZQ_KS)+";zzjglx="+(@zzjglx+1)+";ZQ_JS="+tostr(@ZQ_JS)+";dw="+G4,"")]]></property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<property name="web-event"><![CDATA[onclick:="window.location.href='"+if(@zzjglx<14,"ReportEmitter?rpt=SYCZFW_zsxx.brt&params=ORG_FJ=" +if(@ORG_FJ="0",G4{},@ORG_FJ)+";ORG_PCS="+if(@ORG_PCS="0",if(@ORG_FJ="0",'0',G4{}),@ORG_PCS)+";ORG_ZRQ="+if(@ORG_PCS="0",'0',G4{})+";ZQ_KS="+tostr(@ZQ_KS)+";zzjglx="+(@zzjglx+1)+";ZQ_JS="+tostr(@ZQ_JS)+";dw="+G4,"")+"';window.parent.window.mask();"]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,6" type="0" >
+						<property name="value"><![CDATA[=data.select(ZZX)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<property name="web-url"><![CDATA[=if(@zzjglx<14,"ReportEmitter?rpt=SYCZFW_zzxxx.brt&params=ORG_FJ=" +if(@ORG_FJ="0",G4{},@ORG_FJ)+";ORG_PCS="+if(@ORG_PCS="0",if(@ORG_FJ="0",'0',G4{}),@ORG_PCS)+";ORG_ZRQ="+if(@ORG_PCS="0",'0',G4{})+";ZQ_KS="+tostr(@ZQ_KS)+";zzjglx="+(@zzjglx+1)+";ZQ_JS="+tostr(@ZQ_JS)+";dw="+G4,"")]]></property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<property name="web-event"><![CDATA[onclick:="window.location.href='"+if(@zzjglx<14,"ReportEmitter?rpt=SYCZFW_zzxxx.brt&params=ORG_FJ=" +if(@ORG_FJ="0",G4{},@ORG_FJ)+";ORG_PCS="+if(@ORG_PCS="0",if(@ORG_FJ="0",'0',G4{}),@ORG_PCS)+";ORG_ZRQ="+if(@ORG_PCS="0",'0',G4{})+";ZQ_KS="+tostr(@ZQ_KS)+";zzjglx="+(@zzjglx+1)+";ZQ_JS="+tostr(@ZQ_JS)+";dw="+G4,"")+"';window.parent.window.mask();"]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,7" type="0" >
+						<property name="value"><![CDATA[=data.select(ORGCODE)]]></property>
+						<property name="visible"><![CDATA[1]]></property>
+					</cell>
+					<cell id="5,1" type="0" >
+						<property name="value"><![CDATA[合计]]></property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,2" type="0" >
+						<property name="value"><![CDATA[=sum(B4{})]]></property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,3" type="0" >
+						<property name="value"><![CDATA[=sum(C4{})]]></property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,4" type="0" >
+						<property name="value"><![CDATA[=sum(D4{})]]></property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,5" type="0" >
+						<property name="value"><![CDATA[=sum(E4{})]]></property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,6" type="0" >
+						<property name="value"><![CDATA[=sum(F4{})]]></property>
+						<property name="background"><![CDATA[='202,239,253']]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,7" type="0" >
+					</cell>
+					<cell id="6,1" type="0" >
+					</cell>
+					<cell id="6,2" type="0" >
+					</cell>
+					<cell id="6,3" type="0" >
+					</cell>
+					<cell id="6,4" type="0" >
+					</cell>
+					<cell id="6,5" type="0" >
+						<property name="value"><![CDATA[制表日期：]]></property>
+						<property name="align">2</property>
+					</cell>
+					<cell id="6,6" type="0" >
+						<property name="value"><![CDATA[=tostr(now(),'yyyy-MM-dd')]]></property>
+						<property name="align">0</property>
+					</cell>
+					<cell id="6,7" type="0" >
+					</cell>
+				</cells>
+			</grid>
+		</sheet>
+	</body>
+</report>

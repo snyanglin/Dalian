@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="JFjczgxx">
+	<typeAlias alias="jfdwzlzgtzs" type="com.founder.sydw.bean.JFDwzlzgtzs" />
+	<typeAlias alias="jffcyjs" type="com.founder.sydw.bean.JfFcyjs" />
+	
+	<!-- 新增责令整改通知书 -->
+	<insert id="saveJFzlzgtzs" parameterClass="jfdwzlzgtzs">
+		<![CDATA[INSERT INTO DW_JFZLZGTZS(ID, JCID, DWID, ZZJGMC, ZZJGID, WH, JCRQ, WFNR, GZRQ, HGNR, LXDH, FSRQ,]]>
+		<include refid="insertXtzd"/>)
+		<![CDATA[values(#id#,#jcid#,#dwid#,#zzjgmc#,#zzjgid#,#wh#,#jcrq#,#wfnr#,#gzrq#,#hgnr#,#lxdh#,#fsrq#,]]>
+		<include refid="insertXtzdVal"/>)
+	</insert>
+	
+	<!-- 查询责令整改通知书 -->
+	<select id="queryJFzlzgtzs" parameterClass="Map" resultClass="jfdwzlzgtzs">
+		SELECT * FROM DW_JFZLZGTZS WHERE 1=1
+		<isNotEmpty prepend="and" property="id">
+			ID =#id#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jcid">
+			JCID =#jcid#
+		</isNotEmpty>
+	</select>
+	
+	<!-- 新增技防复查意见书 -->
+	<insert id="saveJFfcyjs" parameterClass="jffcyjs">
+		<![CDATA[INSERT INTO DW_JFFCYJS(ID, JCID, DWID, ZZJGMC, ZZJGID, WH, JCRQ, FCYJ, XIAN, HAO,  FSRQ,]]>
+		<include refid="insertXtzd"/>)
+		<![CDATA[values(#id#,#jcid#,#dwid#,#zzjgmc#,#zzjgid#,#wh#,#jcrq#,#fcyj#,#xian#,#hao#,#fsrq#,]]>
+		<include refid="insertXtzdVal"/>)
+	</insert>
+	
+	<!-- 查询技防复查意见书 -->
+	<select id="queryJFfcyjs" parameterClass="Map" resultClass="jffcyjs">
+		SELECT * FROM DW_JFFCYJS WHERE 1=1
+		<isNotEmpty prepend="and" property="id">
+			ID =#id#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jcid">
+			JCID =#jcid#
+		</isNotEmpty>
+	</select>
+</sqlMap>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Syfwglpz">
+
+	<typeAlias alias="syfwxxzsVO" type="com.founder.syfw.vo.SyfwxxzsVO" />
+	<typeAlias alias="syfwgnVo" type="com.founder.syfw.vo.SyfwgnVO" />
+
+	<!-- 单挑查询 -->
+	<select id="queryZhxxzspz" parameterClass="Map" resultClass="syfwxxzsVO">
+		<![CDATA[SELECT A.px as px , A.cshzk cshzk, B.xxdxlxdm xxdxlxdm , B.xxbh xxbh ,B.xxbtmc  xxbtmc, B.gnlxdm  gnlxdm, B.xxurl xxurl , B.xxzsjlzds  xxzsjlzds , B.ys icon , B.sfdt sfdt
+		 FROM SYS_SYFWXXZSPZB A,SYS_XXZSNRB B WHERE A.XXID=B.ID AND A.XT_ZXBZ='0' AND B.XT_ZXBZ='0' ]]>
+		<![CDATA[ and xxdxlxdm=#xxdxlxdm#  AND A.SYFWLX=#fwlxdm#  order by A.px ]]>
+	</select>
+	
+	<select id="queryYwglgn" parameterClass="Map" resultClass="syfwgnVo">
+		<![CDATA[SELECT A.ID, A.SYFWLX, B.* FROM SYS_SYFWGNPZB A, SYS_GNB B WHERE A.GNID = B.ID]]>
+   		<![CDATA[ AND B.GNLXDM = #gnlxdm# AND A.XT_ZXBZ = '0'  AND B.XT_ZXBZ = '0']]>
+  		<![CDATA[  AND A.SYFWLX = #fwlxdm#  ]]>
+	</select>
+	
+	
+	<!-- 查询表名 -->
+	<select  id="queryxxzsnrbByxxdybm" parameterClass="String" resultClass="String">
+		 <![CDATA[select xxdybm  from sys_xxzsnrb where xxurl=#value# and XT_ZXBZ = '0' ]]>
+	</select>
+	<update  id="updateTableByxxdybm" parameterClass="Map">
+		 <![CDATA[ update $tablename$ set xt_zxbz ='1' , xt_zxyy = #xt_zxyy#,xt_zhxgrxm=#xt_zhxgrxm#,xt_zhxgrid=#xt_zhxgrid#,xt_zhxgrbm=#xt_zhxgrbm#,xt_zhxgip=#xt_zhxgip#,
+		 	xt_zhxgrbmid=#xt_zhxgrbmid#,xt_zhxgsj=#xt_zhxgsj#
+		 ]]>	
+			 <![CDATA[ where id = #id#]]>		
+	</update>
+	
+</sqlMap>

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZakhJbxxCj">
+	<typeAlias alias="zakhJbxxCj" type="com.founder.zakh.bean.ZakhJbxxCjBean" />
+	
+	<!-- 新增 -->
+	<insert id="save" parameterClass="zakhJbxxCj">
+		<![CDATA[ 
+			insert into KH_JBXXCJB(ID,ORGID,ORGNAME,CL,ADDNUM,DELNUM,CJXX,WEEK,WEEKBTIME,WEEKETIME,COUNTTIME) 
+			values 
+			(#id#,#orgid#,#orgname#,#cl#,#addnum#,#delnum#,#cjxx#,#week#,#weekbtime#,#weeketime#,#counttime#)
+		]]>
+	</insert>
+	
+	<!-- 新增 by list -->
+	<insert id="saveByList" parameterClass="java.util.List">
+		insert all
+		<iterate conjunction="">
+		<![CDATA[ 
+			into KH_JBXXCJB(ID,ORGID,ORGNAME,CL,ADDNUM,DELNUM,CJXX,WEEK,WEEKBTIME,WEEKETIME,COUNTTIME) 
+			values 
+			(#list[].id#,#list[].orgid#,#list[].orgname#,#list[].cl#
+			,#list[].addnum#,#list[].delnum#,#list[].cjxx#,#list[].week#,#list[].weekbtime#
+			,#list[].weeketime#,#list[].counttime#)
+		]]>
+		</iterate>
+		select * from dual
+	</insert>
+	
+	<!-- 查询 -->
+	<select id="query" parameterClass="Map" resultClass="zakhJbxxCj">
+		<![CDATA[ 
+			select * from KH_JBXXCJB where week between #bweek# and #eweek# 
+		]]>
+		<isNotEmpty prepend="and" property="orgid">
+			ORGID in(select ORGCODE AS ORGID 
+					   from ORG_ORGANIZATION 
+					  where PARENTTREEPATH like '%$orgid$%'
+					    and ORGLEVEL = '50'
+					    and ORGBIZTYPE = '04')
+			    or ORGID=#orgid#
+		</isNotEmpty>
+	</select>
+	
+	<!-- 统计人户一致人口 -->
+	<select id="getRHYZRK" parameterClass="Map" resultClass="java.util.HashMap">
+		<![CDATA[
+			 select max(XT_LRRBMID) as ORGID
+				   ,count(1) as ADDNUM
+				   ,0 as DELNUM
+			   from SYRK_CZRKXXB
+			  where XT_LRSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			    and SFRHYZDM = '1'
+			  group by XT_LRRBMID
+			  union
+		     select max(XT_LRRBMID) as ORGID
+		           ,0 as ADDNUM
+				   ,count(1) as DELNUM
+			   from SYRK_CZRKXXB
+			  where XT_ZHXGSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			    and SFRHYZDM = '1'
+			 	and XT_ZXBZ='1'
+			  group by XT_LRRBMID
+		]]>
+	</select>
+	
+	<!-- 统计口挂人口 -->
+	<select id="getKGRK" parameterClass="Map" resultClass="java.util.HashMap">
+		<![CDATA[
+			 select max(XT_LRRBMID) as ORGID
+				   ,count(1) as ADDNUM
+				   ,0 as DELNUM
+			   from SYRK_SYRKXXZB
+			  where XT_LRSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			    and JZD_DZXZ like '%空挂%'
+			  group by XT_LRRBMID
+			  union
+		     select max(XT_LRRBMID) as ORGID
+		           ,0 as ADDNUM
+				   ,count(1) as DELNUM
+			   from SYRK_SYRKXXZB
+			  where XT_ZHXGSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			    and JZD_DZXZ like '%空挂%'
+			 	and XT_ZXBZ='1'
+			  group by XT_LRRBMID
+		]]>
+	</select>
+	
+	<!-- 统计寄住人口 -->
+	<select id="getJZRK" parameterClass="Map" resultClass="java.util.HashMap">
+		<![CDATA[
+			 select max(XT_LRRBMID) as ORGID
+				   ,count(1) as ADDNUM
+				   ,0 as DELNUM
+			   from SYRK_SYRKXXZB
+			  where XT_LRSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			    and JZD_DZXZ not like '%空挂%'
+			    and SYRKYWLXDM='2'
+			  group by XT_LRRBMID
+			  union
+		     select max(XT_LRRBMID) as ORGID
+		           ,0 as ADDNUM
+				   ,count(1) as DELNUM
+			   from SYRK_SYRKXXZB
+			  where XT_ZHXGSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			    and JZD_DZXZ not like '%空挂%'
+			    and SYRKYWLXDM='2'
+			 	and XT_ZXBZ='1'
+			  group by XT_LRRBMID
+		]]>
+	</select>
+	
+	<!-- 统计流动/暂住人口 -->
+	<select id="getZZRK" parameterClass="Map" resultClass="java.util.HashMap">
+		<![CDATA[
+			 select max(XT_LRRBMID) as ORGID
+				   ,count(1) as ADDNUM
+				   ,0 as DELNUM
+			   from SYRK_SYRKXXZB
+			  where XT_LRSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			    and JZD_DZXZ not like '%空挂%'
+			    and SYRKYWLXDM='3'
+			  group by XT_LRRBMID
+			  union
+		     select max(XT_LRRBMID) as ORGID
+		           ,0 as ADDNUM
+				   ,count(1) as DELNUM
+			   from SYRK_SYRKXXZB
+			  where XT_ZHXGSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			    and JZD_DZXZ not like '%空挂%'
+			    and SYRKYWLXDM='3'
+			 	and XT_ZXBZ='1'
+			  group by XT_LRRBMID
+		]]>
+	</select>
+	
+	<!-- 统计境外人口 -->
+	<select id="getJWRK" parameterClass="Map" resultClass="java.util.HashMap">
+		<![CDATA[
+			select max(XT_LRRBMID) as ORGID
+				   ,count(1) as ADDNUM
+				   ,0 as DELNUM
+			   from SYRK_SYRKXXZB
+			  where XT_LRSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			    and JZD_DZXZ not like '%空挂%'
+			    and SYRKYWLXDM='4'
+			  group by XT_LRRBMID
+			  union
+		     select max(XT_LRRBMID) as ORGID
+		           ,0 as ADDNUM
+				   ,count(1) as DELNUM
+			   from SYRK_SYRKXXZB
+			  where XT_ZHXGSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			    and JZD_DZXZ not like '%空挂%'
+			    and SYRKYWLXDM='4'
+			 	and XT_ZXBZ='1'
+			  group by XT_LRRBMID
+		]]>
+	</select>
+	
+	<!-- 统计未落户人口 -->
+	<select id="getWLHRK" parameterClass="Map" resultClass="java.util.HashMap">
+		<![CDATA[
+			select max(XT_LRRBMID) as ORGID
+				   ,count(1) as ADDNUM
+				   ,0 as DELNUM
+			   from SYRK_SYRKXXZB
+			  where XT_LRSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			    and JZD_DZXZ not like '%空挂%'
+			    and SYRKYWLXDM='5'
+			  group by XT_LRRBMID
+			  union
+		     select max(XT_LRRBMID) as ORGID
+		           ,0 as ADDNUM
+				   ,count(1) as DELNUM
+			   from SYRK_SYRKXXZB
+			  where XT_ZHXGSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			    and JZD_DZXZ not like '%空挂%'
+			    and SYRKYWLXDM='5'
+			 	and XT_ZXBZ='1'
+			  group by XT_LRRBMID
+		]]>
+	</select>
+	
+	<!-- 统计出租房屋 -->
+	<select id="getCZFW" parameterClass="Map" resultClass="java.util.HashMap">
+		<![CDATA[
+			 select max(XT_LRRBMID) as ORGID
+				   ,count(1) as ADDNUM
+				   ,0 as DELNUM
+			   from FW_FWJBXXB
+			  where XT_LRSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			    and SFCZFW='1'
+			  group by XT_LRRBMID
+			  union
+		     select max(XT_LRRBMID) as ORGID
+		           ,0 as ADDNUM
+				   ,count(1) as DELNUM
+			   from FW_FWJBXXB
+			  where XT_ZHXGSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			    and SFCZFW='1'
+			 	and XT_ZXBZ='1'
+			  group by XT_LRRBMID
+		]]>
+	</select>
+	
+	<!-- 统计承租人 -->
+	<select id="getCZR" parameterClass="Map" resultClass="java.util.HashMap">
+		<![CDATA[
+			 select max(XT_LRRBMID) as ORGID
+				   ,count(1) as ADDNUM
+				   ,0 as DELNUM
+			   from FW_CZQKDJXXB
+			  where XT_LRSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			  group by XT_LRRBMID
+			  union
+		     select max(XT_LRRBMID) as ORGID
+		           ,0 as ADDNUM
+				   ,count(1) as DELNUM
+			   from FW_CZQKDJXXB
+			  where XT_ZHXGSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			 	and XT_ZXBZ='1'
+			  group by XT_LRRBMID
+		]]>
+	</select>
+	
+	<!-- 统计单位基本信息 -->
+	<select id="getDWJBXX" parameterClass="Map" resultClass="java.util.HashMap">
+		<![CDATA[
+			 select max(XT_LRRBMID) as ORGID
+				   ,count(1) as ADDNUM
+				   ,0 as DELNUM
+			   from DW_DWJBXXB 
+			  where XT_LRSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			  group by XT_LRRBMID
+			  union
+		     select max(XT_LRRBMID) as ORGID
+		           ,0 as ADDNUM
+				   ,count(1) as DELNUM
+			   from DW_DWJBXXB
+			  where XT_ZHXGSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			 	and XT_ZXBZ='1'
+			  group by XT_LRRBMID
+		]]>
+	</select>
+	
+	<!-- 统计从业人员 -->
+	<select id="getCYRY" parameterClass="Map" resultClass="java.util.HashMap">
+		<![CDATA[
+			 select max(XT_LRRBMID) as ORGID
+				   ,count(1) as ADDNUM
+				   ,0 as DELNUM
+			   from DW_CYRYXXB 
+			  where XT_LRSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			  group by XT_LRRBMID
+			  union
+		     select max(XT_LRRBMID) as ORGID
+		           ,0 as ADDNUM
+				   ,count(1) as DELNUM
+			   from DW_CYRYXXB
+			  where XT_ZHXGSJ between #btime#||' 00:00:00' and #etime#||' 23:59:59'
+			 	and XT_ZXBZ='1'
+			  group by XT_LRRBMID
+		]]>
+	</select>
+	
+	<!-- 得到组织机构-->
+	<select id="getORG" parameterClass="Map" resultClass="java.util.HashMap">
+		<![CDATA[
+			 select ORGCODE AS ORGID,ORGNAME,PARENTTREEPATH 
+			   from ORG_ORGANIZATION t where ORGLEVEL = #level# 
+		]]>
+		<isNotEmpty prepend="and" property="type">
+			 ORGBIZTYPE = #type#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="orgid">
+			PARENTTREEPATH like '%$orgid$%'
+		</isNotEmpty>
+	</select>
+</sqlMap>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="DxqzxhdFspxxb">
+	<!-- 大型群众性活动-非审批信息表
+	 * @Author:       [xu_haibo@founder.com.cn]  
+ * @CreateDate:   [2015-5-21 上午9:30:52]   
+	 -->
+	<typeAlias alias="dxqzxhdFspxxb" type="com.founder.zafffwqz.bean.DxqzxhdFspxxb" />
+	<!-- 查询单条 -->
+	<select id="queryDxqzxhdFspxxb" parameterClass="dxqzxhdFspxxb" resultClass="dxqzxhdFspxxb">
+		<![CDATA[select * from DXQZXHDFSPL_JBXXB t where id= #id# ]]>
+	</select>
+	<!-- 新增 -->
+	<insert id="save" parameterClass="dxqzxhdFspxxb">
+		 INSERT INTO DXQZXHDFSPL_JBXXB
+		 	(id			
+			<isNotEmpty prepend="," property="tbdw">
+				<![CDATA[ tbdw]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tbsj">
+				<![CDATA[ tbsj]]>	
+			</isNotEmpty>
+	    	<isNotEmpty prepend="," property="hdmc">
+				<![CDATA[ hdmc]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hdgm">
+				<![CDATA[ hdgm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hddd">
+				<![CDATA[ hddd]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hdkssj">
+				<![CDATA[ hdkssj]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hdjssj">
+				<![CDATA[ hdjssj]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="jbdw">
+				<![CDATA[ jbdw]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cbdw">
+				<![CDATA[ cbdw]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cbdwfzr">
+				<![CDATA[ cbdwfzr]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="lxfs">
+				<![CDATA[ lxfs]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hdzynr">
+				<![CDATA[ hdzynr]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sxqjyj">
+				<![CDATA[ sxqjyj]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tbr">
+				<![CDATA[ tbr]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="shr">
+				<![CDATA[ shr]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bz">
+				<![CDATA[ bz]]>	
+			</isNotEmpty>
+			,
+			<include refid="insertXtzd"/>
+			)
+	    	 values 
+	    	 (
+	    	<isNotEmpty  property="id">
+				<![CDATA[ #id#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tbdw">
+				<![CDATA[ #tbdw#]]>	
+			</isNotEmpty>
+	    	<isNotEmpty prepend="," property="tbsj">
+				<![CDATA[ #tbsj#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hdmc">
+				<![CDATA[ #hdmc#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hdgm">
+				<![CDATA[ #hdgm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hddd">
+				<![CDATA[ #hddd#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hdkssj">
+				<![CDATA[ #hdkssj#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hdjssj">
+				<![CDATA[ #hdjssj#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="jbdw">
+				<![CDATA[ #jbdw#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cbdw">
+				<![CDATA[ #cbdw#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cbdwfzr">
+				<![CDATA[ #cbdwfzr#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="lxfs">
+				<![CDATA[ #lxfs#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hdzynr">
+				<![CDATA[ #hdzynr#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sxqjyj">
+				<![CDATA[ #sxqjyj#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tbr">
+				<![CDATA[ #tbr#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="shr">
+				<![CDATA[ #shr#]]>	
+			</isNotEmpty>
+	    	<isNotEmpty prepend="," property="bz">
+				<![CDATA[ #bz#]]>	
+			</isNotEmpty>
+			,
+			<include refid="insertXtzdVal"/>									
+	    	  )	    	
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="modifyFsp" parameterClass="dxqzxhdFspxxb">
+	 <![CDATA[ update DXQZXHDFSPL_JBXXB]]>	
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="tbdw"><![CDATA[ tbdw=#tbdw#]]></isNotNull>	
+			<isNotNull prepend="," property="tbsj"><![CDATA[tbsj=#tbsj#]]></isNotNull>
+			<isNotNull prepend="," property="hdmc"><![CDATA[hdmc=#hdmc#]]></isNotNull>
+			<isNotNull prepend="," property="hdgm"><![CDATA[hdgm=#hdgm#]]></isNotNull>
+			<isNotNull prepend="," property="hddd"><![CDATA[hddd=#hddd#]]></isNotNull>
+			<isNotNull prepend="," property="hdkssj"><![CDATA[hdkssj=#hdkssj#]]></isNotNull>
+			<isNotNull prepend="," property="hdjssj"><![CDATA[hdjssj=#hdjssj#]]></isNotNull>
+			<isNotNull prepend="," property="jbdw"><![CDATA[jbdw=#jbdw#]]></isNotNull>
+			<isNotNull prepend="," property="cbdw"><![CDATA[cbdw=#cbdw#]]></isNotNull>
+	    	<isNotNull prepend="," property="cbdwfzr"><![CDATA[cbdwfzr=#cbdwfzr#]]></isNotNull>
+	    	<isNotNull prepend="," property="lxfs"><![CDATA[lxfs=#lxfs#]]></isNotNull>
+			<isNotNull prepend="," property="hdzynr"><![CDATA[hdzynr=#hdzynr#]]></isNotNull>
+			<isNotNull prepend="," property="sxqjyj"><![CDATA[sxqjyj=#sxqjyj#]]></isNotNull>
+			<isNotNull prepend="," property="tbr"><![CDATA[tbr=#tbr#]]></isNotNull>
+			<isNotNull prepend="," property="shr"><![CDATA[shr=#shr#]]></isNotNull>
+			<isNotNull prepend="," property="bz"><![CDATA[bz=#bz#]]></isNotNull>							
+			,<include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>	
+	</update>
+	
+	<!-- 注销 -->
+	<update id="delete" parameterClass="dxqzxhdFspxxb">
+		<![CDATA[ update DXQZXHDFSPL_JBXXB set ]]> <include refid="deleteXtzd" /> 
+		<![CDATA[where ID = #id# ]]>	
+	</update>
+	
+	<!-- 根据条件查询记录数 -->
+	<select id="queryCount" parameterClass="map" resultClass="Integer">
+		<![CDATA[ select count(*) from DXQZXHDFSPL_JBXXB  where XT_ZXBZ = '0' ]]>
+		<isNotEmpty prepend="and" property="hdmc">
+			hdmc like  '%$hdmc$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jbdw">
+			jbdw like  '%$jbdw$%'  
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="hdgmbegin">
+			<![CDATA[ hdgm >=  #hdgmbegin#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="hdgmend">
+			<![CDATA[ hdgm <= #hdgmend#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="hdkssjbegin">
+			<![CDATA[ hdkssj >= #hdkssjbegin#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="hdkssjend">
+			<![CDATA[ hdkssj <= #hdkssjend#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="hdjssjbegin">
+			<![CDATA[ hdjssj >= #hdjssjbegin#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="hdjssjend">
+			<![CDATA[ hdjssj <= #hdjssjend#]]>
+		</isNotEmpty>
+	</select>
+	
+	<!-- 查询显示列表 -->
+	<select id="queryViewList" parameterClass="Map" resultClass="dxqzxhdFspxxb">
+				<![CDATA[ select * from ( 
+						select rownum r, t.* from ( 
+							select * from DXQZXHDFSPL_JBXXB where XT_ZXBZ = '0']]>
+		<isNotEmpty prepend="and" property="hdmc">
+			hdmc like  '%$hdmc$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jbdw">
+			jbdw like  '%$jbdw$%'  
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="hdgmbegin">
+			<![CDATA[ hdgm >=  #hdgmbegin#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="hdgmend">
+			<![CDATA[ hdgm <= #hdgmend#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="hdkssjbegin">
+			<![CDATA[ hdkssj >= #hdkssjbegin#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="hdkssjend">
+			<![CDATA[ hdkssj <= #hdkssjend#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="hdjssjbegin">
+			<![CDATA[ hdjssj >= #hdjssjbegin#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="hdjssjend">
+			<![CDATA[ hdjssj <= #hdjssjend#]]>
+		</isNotEmpty>
+		<![CDATA[ order by $sort$ $order$ ) t
+			where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+
+</sqlMap>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="JzzblBhSequence">
+	<typeAlias alias="jzzblBhSequence" type="com.founder.syrkgl.bean.JzzblBhSequence" />
+	<!-- 新增序列信息 -->
+	<insert id="save" parameterClass="jzzblBhSequence">
+		<![CDATA[
+		insert into RY_JZZBHSEQUENCE
+  			(CODE,SEQUENCE,VERSION )
+		values
+  			(#code#,$sequence$,$version$ )
+  		]]>	
+  	</insert>
+  	
+  	<!-- 修改居住证办理信息 -->
+  	<update  id="update" parameterClass="jzzblBhSequence" >
+	 <![CDATA[ update RY_JZZBHSEQUENCE]]>	
+		<dynamic prepend="set">
+	     <isNotNull prepend="," property="sequence"><![CDATA[ SEQUENCE=#sequence# ]]></isNotNull>
+		 <isNotNull prepend="," property="version"><![CDATA[ VERSION=$version$+1 ]]></isNotNull>
+		</dynamic>
+	 <![CDATA[ where code = #code# and VERSION = $version$]]>	
+	</update>
+  	
+  	<!--查询编号信息-->
+  	<select id="queryBhSequenceByCode" parameterClass="Map" resultClass="jzzblBhSequence">
+		<![CDATA[select *  from RY_JZZBHSEQUENCE t 
+					where t.code = #code# ]]>
+	</select>
+	
+</sqlMap>

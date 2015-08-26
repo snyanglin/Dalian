@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="DbrwDbpzb">
+	
+	<typeAlias alias="dbrwDbpzb" type="com.founder.dbrw.bean.DbrwDbpzb" />
+	
+	<!-- 查询所有 -->
+	<select id="queryAll" resultClass="dbrwDbpzb">
+		<![CDATA[ select * from DBRW_DBPZB where XT_ZXBZ = '0' ]]>
+	</select>
+
+	<!-- 查询单条 -->
+	<select id="query" parameterClass="String" resultClass="dbrwDbpzb">
+		<![CDATA[ select * from DBRW_DBPZB where ID = #id# and rownum = 1 ]]>
+	</select>
+
+	<!-- 根据 dbmxbh 查询单条 -->
+	<select id="queryByDbmxbh" parameterClass="String" resultClass="dbrwDbpzb">
+		<![CDATA[ select * from DBRW_DBPZB where XT_ZXBZ = '0' and DBMXBH = #dbmxbh# and rownum = 1 ]]>
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Jzzblxxb">
+	<typeAlias alias="jzzblxxb" type="com.founder.syrkgl.bean.Jzzblxxb" />
+	<!-- 新增居住证办理 -->
+	<insert id="save" parameterClass="jzzblxxb">
+		<![CDATA[
+		insert into RY_JZZBLXXB
+  			(ID,SYRKID,RYID,JZZ_BH,CYZJDM,ZJHM,XM,XBDM,MZDM,CSRQ,HJD_DZXZ,JZD_DZXZ,BL_FJDM,BL_FJMC,BL_PCSDM,BL_PCSMC,BL_ZRQDM,BL_ZRQMC,BLR_ID,BLR_XM,JZZBLRQ,
+  			JZZ_QFRQ,YXQ_JZRQ,JZZ_YXQDM,JZZ_BLZTDM,JZZ_LQFSDM,JZZ_LQRQ,JZZ_KDDZ,JZZ_KDSJR,JZZ_KDLXDH,JZZ_KDGS,JZZ_KDDH,ZZR_XM,ZZR_ID,DY_BH,]]> <include refid="insertXtzd"/> <![CDATA[ )
+		values
+  			(#id#,#syrkid#,#ryid#,#jzz_bh#,#cyzjdm#,#zjhm#,#xm#,#xbdm#,#mzdm#,#csrq#,#hjd_dzxz#,#jzd_dzxz#,#bl_fjdm#,#bl_fjmc#,#bl_pcsdm#,
+  			#bl_pcsmc#,#bl_zrqdm#,#bl_zrqmc#,#blr_id#,#blr_xm#,#jzzblrq#,#jzz_qfrq#,#yxq_jzrq#,#jzz_yxqdm#,#jzz_blztdm#,#jzz_lqfsdm#,#jzz_lqrq#,
+  			#jzz_kddz#,#jzz_kdsjr#,#jzz_kdlxdh#,#jzz_kdgs#,#jzz_kddh#,#zzr_xm#,#zzr_id#,#dy_bh#,]]> <include refid="insertXtzdVal"/> <![CDATA[ )
+  		]]>	
+  	</insert>
+  	
+  	<!-- 查询居住证办理信息列表 -->
+  	<select id="queryJzzblxxList" parameterClass="String" resultClass="jzzblxxb">
+		<![CDATA[select * from RY_JZZBLXXB t where t.ryid=#ryid# and t.xt_zxbz='0' order by xt_zhxgsj desc]]>
+	</select>
+	
+  	
+  	<!-- 统计居住证数量 -->
+  	<select id="queryZzCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) from RY_JZZBLXXB  where xt_zxbz='0'  ]]>
+		<isNotEmpty prepend="and" property="jzzblxxb.bl_fjdm">
+			<![CDATA[bl_fjdm = #jzzblxxb.bl_fjdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.bl_pcsdm">
+			<![CDATA[bl_pcsdm = #jzzblxxb.bl_pcsdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.bl_zrqdm">
+			<![CDATA[bl_zrqdm = #jzzblxxb.bl_zrqdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.jzz_blztdm">
+			<![CDATA[jzz_blztdm = #jzzblxxb.jzz_blztdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.jzzblrq">
+			<![CDATA[jzzblrq >= #jzzblxxb.jzzblrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.jzzbljsrq">
+			<![CDATA[jzzblrq <= #jzzblxxb.jzzbljsrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.jzz_yxqdm">
+			<![CDATA[jzz_yxqdm = #jzzblxxb.jzz_yxqdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.jzz_lqfsdm">
+			<![CDATA[jzz_lqfsdm = #jzzblxxb.jzz_lqfsdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.xm">
+			<![CDATA[xm like '%' || #jzzblxxb.xm# || '%']]>
+		</isNotEmpty>
+	</select>
+	
+	<!-- 查询居住证列表 -->
+	<select id="queryZzList" parameterClass="Map" resultClass="jzzblxxb">
+		<![CDATA[ select * from ( 
+						select rownum r, t.* from ( 
+							select * from RY_JZZBLXXB where xt_zxbz='0' 
+							]]>
+		<isNotEmpty prepend="and" property="jzzblxxb.bl_fjdm">
+			<![CDATA[bl_fjdm = #jzzblxxb.bl_fjdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.bl_pcsdm">
+			<![CDATA[bl_pcsdm = #jzzblxxb.bl_pcsdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.bl_zrqdm">
+			<![CDATA[bl_zrqdm = #jzzblxxb.bl_zrqdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.jzz_blztdm">
+			<![CDATA[jzz_blztdm = #jzzblxxb.jzz_blztdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.jzzblrq">
+			<![CDATA[jzzblrq >= #jzzblxxb.jzzblrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.jzzbljsrq">
+			<![CDATA[jzzblrq <= #jzzblxxb.jzzbljsrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.jzz_yxqdm">
+			<![CDATA[jzz_yxqdm = #jzzblxxb.jzz_yxqdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.jzz_lqfsdm">
+			<![CDATA[jzz_lqfsdm = #jzzblxxb.jzz_lqfsdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.xm">
+			<![CDATA[ xm like '%' || #jzzblxxb.xm# || '%']]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.zjhm">
+			<![CDATA[ zjhm like '%' || #jzzblxxb.zjhm# || '%']]>
+		</isNotEmpty>
+		<![CDATA[ order by $sort$ $order$ ) t
+			where rownum <= #end# ) where r >#begin# ]]>
+	</select>
+  	<!-- 通过ID查询居住证办理信息 -->
+  	<select id="queryJzzblxxb" parameterClass="String" resultClass="jzzblxxb">
+		<![CDATA[select * from RY_JZZBLXXB t where t.id = #id# and t.xt_zxbz ='0']]>
+	</select>
+  	
+  	<!-- 修改居住证办理信息 -->
+  	<update  id="updateJzzblxxb" parameterClass="jzzblxxb">
+	 <![CDATA[ update RY_JZZBLXXB]]>	
+		<dynamic prepend="set">
+	     <isNotNull prepend="," property="id"><![CDATA[ ID=#id# ]]></isNotNull>
+		 <isNotNull prepend="," property="syrkid"><![CDATA[ SYRKID=#syrkid# ]]></isNotNull>
+		 <isNotNull prepend="," property="ryid"><![CDATA[ RYID=#ryid# ]]></isNotNull>
+		 <isNotNull prepend="," property="jzz_bh"><![CDATA[ JZZ_BH=#jzz_bh# ]]></isNotNull>
+		 <isNotNull prepend="," property="cyzjdm"><![CDATA[ CYZJDM=#cyzjdm# ]]></isNotNull>
+		 <isNotNull prepend="," property="zjhm"><![CDATA[ ZJHM=#zjhm# ]]></isNotNull>
+		 <isNotNull prepend="," property="xm"><![CDATA[ XM=#xm# ]]></isNotNull>
+		 <isNotNull prepend="," property="xbdm"><![CDATA[ XBDM=#xbdm# ]]></isNotNull>
+		 <isNotNull prepend="," property="mzdm"><![CDATA[ MZDM=#mzdm# ]]></isNotNull>
+		 <isNotNull prepend="," property="csrq"><![CDATA[ CSRQ=#csrq# ]]></isNotNull>
+		 <isNotNull prepend="," property="hjd_dzxz"><![CDATA[ HJD_DZXZ=#hjd_dzxz# ]]></isNotNull>
+		 <isNotNull prepend="," property="jzd_dzxz"><![CDATA[ JZD_DZXZ=#jzd_dzxz# ]]></isNotNull>
+		 <isNotNull prepend="," property="bl_fjdm"><![CDATA[ BL_FJDM=#bl_fjdm# ]]></isNotNull>
+		 <isNotNull prepend="," property="bl_fjmc"><![CDATA[ BL_FJMC=#bl_fjmc# ]]></isNotNull>
+		 <isNotNull prepend="," property="bl_pcsdm"><![CDATA[ BL_PCSDM=#bl_pcsdm# ]]></isNotNull>
+		 <isNotNull prepend="," property="bl_pcsmc"><![CDATA[ BL_PCSMC=#bl_pcsmc# ]]></isNotNull>
+		 <isNotNull prepend="," property="bl_zrqdm"><![CDATA[ BL_ZRQDM=#bl_zrqdm# ]]></isNotNull>
+		 <isNotNull prepend="," property="bl_zrqmc"><![CDATA[ BL_ZRQMC=#bl_zrqmc# ]]></isNotNull>
+		 <isNotNull prepend="," property="blr_id"><![CDATA[ BLR_ID=#blr_id# ]]></isNotNull>
+		 <isNotNull prepend="," property="blr_xm"><![CDATA[ BLR_XM=#blr_xm# ]]></isNotNull>
+		 <isNotNull prepend="," property="jzzblrq"><![CDATA[ JZZBLRQ=#jzzblrq# ]]></isNotNull>
+		 <isNotNull prepend="," property="jzz_qfrq"><![CDATA[ JZZ_QFRQ=#jzz_qfrq# ]]></isNotNull>
+		 <isNotNull prepend="," property="yxq_jzrq"><![CDATA[ YXQ_JZRQ=#yxq_jzrq# ]]></isNotNull>
+		 <isNotNull prepend="," property="jzz_yxqdm"><![CDATA[ JZZ_YXQDM=#jzz_yxqdm# ]]></isNotNull>
+		 <isNotNull prepend="," property="jzz_blztdm"><![CDATA[ JZZ_BLZTDM=#jzz_blztdm# ]]></isNotNull>
+		 <isNotNull prepend="," property="jzz_lqfsdm"><![CDATA[ JZZ_LQFSDM=#jzz_lqfsdm# ]]></isNotNull>
+		 <isNotNull prepend="," property="jzz_lqrq"><![CDATA[ JZZ_LQRQ=#jzz_lqrq# ]]></isNotNull>
+		 <isNotNull prepend="," property="jzz_kddz"><![CDATA[ JZZ_KDDZ=#jzz_kddz# ]]></isNotNull>
+		 <isNotNull prepend="," property="jzz_kdsjr"><![CDATA[ JZZ_KDSJR=#jzz_kdsjr# ]]></isNotNull>
+		 <isNotNull prepend="," property="jzz_kdlxdh"><![CDATA[ JZZ_KDLXDH=#jzz_kdlxdh# ]]></isNotNull>
+		 <isNotNull prepend="," property="jzz_kdgs"><![CDATA[ JZZ_KDGS=#jzz_kdgs# ]]></isNotNull>
+		 <isNotNull prepend="," property="jzz_kddh"><![CDATA[ JZZ_KDDH=#jzz_kddh# ]]></isNotNull>
+		 <isNotNull prepend="," property="zzr_xm"><![CDATA[ ZZR_XM=#zzr_xm# ]]></isNotNull>
+		 <isNotNull prepend="," property="zzr_id"><![CDATA[ ZZR_ID=#zzr_id# ]]></isNotNull>
+		 <isNotNull prepend="," property="bz"><![CDATA[ BZ=#bz# ]]></isNotNull>
+		 <isNotNull prepend="," property="dy_bh"><![CDATA[ DY_BH=#dy_bh# ]]></isNotNull>
+			,<include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>	
+	</update>
+  	
+  	
+  	<!-- 查询导出数据，根据IDS -->
+  	<select id="queryJzzblxxbByIds"  resultClass="jzzblxxb">
+		<![CDATA[select * from RY_JZZBLXXB t where t.xt_zxbz ='0' and  t.id in]]> 
+		<iterate open="(" conjunction="," close=")"  >
+		#[]#
+		</iterate>
+	</select>
+  	
+  	<!--查询最大的打印编号-->
+  	<select id="queryMaxDybhJzzblxxb" parameterClass="String" resultClass="jzzblxxb">
+		<![CDATA[select MAX(SUBSTR(DY_BH,-8)) AS DY_BH  from RY_JZZBLXXB t ]]>
+	</select>
+  	<!--查询最大的居住证编号-->
+  	<select id="queryMaxJzzbhJzzblxxb" parameterClass="String" resultClass="jzzblxxb">
+		<![CDATA[select MAX(SUBSTR(JZZ_BH,-6)) AS JZZ_BH  from RY_JZZBLXXB t ]]>
+	</select>
+	
+	<!-- 查询打印编号Sequence -->
+	<select id="queryDyBhSequence" resultClass="Long">
+		<![CDATA[SELECT SEQ_JZZBLXXB_DY.NEXTVAL FROM DUAL ]]>
+	</select>
+	<!-- 查询居住编号Sequence -->
+	<select id="queryJzzBhSequence" resultClass="Long">
+		<![CDATA[SELECT SEQ_JZZBLXXB_JZZ.NEXTVAL FROM DUAL ]]>
+	</select>
+	
+	<!-- 查询人口居住证有效期内部可重复申请 -->
+	<select id="queryJzzblxxbByryidAndDate" parameterClass="String" resultClass="jzzblxxb">
+		<![CDATA[select * from RY_JZZBLXXB where ryid=#ryid# and (YXQ_JZRQ>(select to_char(sysdate,'yyyy-mm-dd') as nowTime from dual) or YXQ_JZRQ is null) and  rownum=1 and xt_zxbz='0' ]]>
+	</select>
+	
+	<!-- 取得所有查询条件的居住证ID，用于查询结果打印 -->
+  	<select id="queryIdsForPrint" parameterClass="Map" resultClass="jzzblxxb">
+		<![CDATA[ select * from RY_JZZBLXXB  where xt_zxbz='0'  ]]>
+		<isNotEmpty prepend="and" property="jzzblxxb.bl_fjdm">
+			<![CDATA[bl_fjdm = #jzzblxxb.bl_fjdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.bl_pcsdm">
+			<![CDATA[bl_pcsdm = #jzzblxxb.bl_pcsdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.bl_zrqdm">
+			<![CDATA[bl_zrqdm = #jzzblxxb.bl_zrqdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.jzz_blztdm">
+			<![CDATA[jzz_blztdm = #jzzblxxb.jzz_blztdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.jzzblrq">
+			<![CDATA[jzzblrq >= #jzzblxxb.jzzblrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.jzzbljsrq">
+			<![CDATA[jzzblrq <= #jzzblxxb.jzzbljsrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.jzz_yxqdm">
+			<![CDATA[jzz_yxqdm = #jzzblxxb.jzz_yxqdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.jzz_lqfsdm">
+			<![CDATA[jzz_lqfsdm = #jzzblxxb.jzz_lqfsdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.xm">
+			<![CDATA[xm like '%' || #jzzblxxb.xm# || '%']]>
+		</isNotEmpty>
+	</select>
+</sqlMap>

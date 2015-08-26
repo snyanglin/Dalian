@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Jcjglpz">
+
+	<typeAlias alias="jcjxxzsVO" type="com.founder.jcj.vo.JcjxxzsVO" />
+	<typeAlias alias="jcjgnVo" type="com.founder.jcj.vo.JcjgnVO" />
+	<typeAlias alias="jcjjjxxb" type="com.founder.jcj.bean.JcjJjxxb" />
+	<typeAlias alias="jcjcjxxb" type="com.founder.jcj.bean.JcjCjxxb" />
+	<typeAlias alias="jcjfkxxb" type="com.founder.jcj.bean.JcjFkxxb" />
+	<typeAlias alias="jcjcshpz" type="com.founder.jcj.bean.JcjCshpz" />
+	<typeAlias alias="jcjCwrzb" type="com.founder.jcj.bean.JcjCwrzb" />
+
+	<!-- 单挑查询 -->
+	<select id="queryZhxxzspz" parameterClass="Map" resultClass="jcjxxzsVO">
+		<![CDATA[SELECT A.px as px , A.cshzk cshzk, B.xxdxlxdm xxdxlxdm , B.xxbh xxbh ,B.xxbtmc  xxbtmc, B.gnlxdm  gnlxdm, B.xxurl xxurl , B.xxzsjlzds  xxzsjlzds , B.ys icon , B.sfdt sfdt
+		 FROM SYS_jcjXXZSPZB A,SYS_XXZSNRB B WHERE A.XXID=B.ID AND A.XT_ZXBZ='0' AND B.XT_ZXBZ='0' ]]>
+		<isNotEmpty prepend="and" property="dlbh">
+			 B.xxbh like '%$dlbh$__'
+		</isNotEmpty>
+		<![CDATA[ and xxdxlxdm=#xxdxlxdm#  AND A.jcjlx=#jcjlx#  order by A.px ]]>
+	</select>
+	
+	<select id="queryYwglgn" parameterClass="Map" resultClass="jcjgnVo">
+		<![CDATA[SELECT A.ID, A.jcjlx, B.* FROM SYS_jcjGNPZB A, SYS_GNB B WHERE A.GNID = B.ID]]>
+   		<![CDATA[ AND B.GNLXDM = #gnlxdm# AND A.XT_ZXBZ = '0'  AND B.XT_ZXBZ = '0']]>
+  		<![CDATA[  AND A.jcjlx = #jcjlx#  ]]>
+	</select>
+	
+	
+	<!-- 查询表名 -->
+	<select  id="queryxxzsnrbByxxdybm" parameterClass="String" resultClass="String">
+		 <![CDATA[select xxdybm  from sys_xxzsnrb where xxurl=#value# and XT_ZXBZ = '0' ]]>
+	</select>
+	<update  id="updateTableByxxdybm" parameterClass="Map">
+		 <![CDATA[ update $tablename$ set xt_zxbz ='1' , xt_zxyy = #xt_zxyy#,xt_zhxgrxm=#xt_zhxgrxm#,xt_zhxgrid=#xt_zhxgrid#,xt_zhxgrbm=#xt_zhxgrbm#,xt_zhxgip=#xt_zhxgip#,
+		 	xt_zhxgrbmid=#xt_zhxgrbmid#,xt_zhxgsj=#xt_zhxgsj#
+		 ]]>	
+			 <![CDATA[ where id = #id#]]>		
+	</update>
+	
+	
+	
+	
+	<select id ="queryJcjNoPt" parameterClass="Map" resultClass="jcjjjxxb">
+		<![CDATA[select *
+				  from (select rownum r, M.*
+				          from (SELECT A.ID, 
+				          			   a.ZDDW_ZXDHZB,
+				          			   a.ZDDW_ZXDZZB,
+				          			   a.SGDW_ZXDHHB,
+				          			   a.SGDW_ZXDZZB,
+				          			   a.jq_zxdhzb,
+				          			   a.jq_zxdzzb,
+				          			   a.BJNR,
+				          			   a.BJ_SJ,
+				          			   a.JJ_SJ,
+				          			   a.jjbh,
+				          			   a.jqlxdm,
+				          			   a.jqlbdm,
+				          			   a.jjlxdm,
+				          			   a.XZQHDM,
+				          			   b.cjdbh,
+				          			   a.orgseatno
+				          			   
+				                  FROM JCJ.JCJ_JJXXB A, JCJ.JCJ_CJXXB B
+				                 WHERE b.jjbh(+) = a.jjbh 
+				                   and a.xt_zxbz = '0'
+				                    ]]>
+			<!-- //增加查询条件 begin -->			
+			<isNotEmpty prepend="and" property="jcjjjxxb.stationhousecode">
+				     <![CDATA[a.stationhousecode = #jcjjjxxb.stationhousecode# ]]>
+			</isNotEmpty>
+			<!-- //增加查询条件 end -->	
+			
+			<isNotEmpty prepend="and" property="jcjjjxxb.jjbh">
+				     <![CDATA[ A.jjbh like '%' || #jcjjjxxb.jjbh# || '%']]>
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="jcjjjxxb.xt_lrsj">
+				     <![CDATA[ A.xt_lrsj like #jcjjjxxb.xt_lrsj# || '%']]>
+			</isNotEmpty>	
+
+			<isNotEmpty prepend="and" property="jcjjjxxb.bjfsdm">
+				     <![CDATA[ A.bjfsdm = #jcjjjxxb.bjfsdm# ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="jcjjjxxb.jj_sj1">
+				     <![CDATA[ A.bj_sj <= #jcjjjxxb.jj_sj1#]]>
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="jcjjjxxb.jj_sj">
+				     <![CDATA[ A.bj_sj >= #jcjjjxxb.jj_sj# ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="jcjjjxxb.jqlxdm">
+				     <![CDATA[ A.jqlxdm = #jcjjjxxb.jqlxdm# ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="jcjjjxxb.currrentDay">
+				     <![CDATA[ A.xt_lrsj like #jcjjjxxb.currrentDay# || '%' ]]>
+			</isNotEmpty>
+			
+			 
+			<isNotEmpty prepend="and" property="jcjjjxxb.jqlbdm">
+				     <![CDATA[ A.jqlbdm = #jcjjjxxb.jqlbdm# ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="jcjjjxxb.cljgdm">
+				     <![CDATA[ b.cljgdm = #jcjjjxxb.cljgdm# ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="jcjjjxxb.cjy_xm">
+				     <![CDATA[ b.cjy_xm = #jcjjjxxb.cjy_xm# ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="jcjjjxxb.bjnr">
+				     <![CDATA[ a.bjnr like '%' || #jcjjjxxb.bjnr# || '%']]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jcjjjxxb.jjlxdm">
+				     <![CDATA[ a.jjlxdm like '%' || #jcjjjxxb.jjlxdm# || '%']]>
+			</isNotEmpty>
+		<![CDATA[order by a.xt_lrsj desc) m  
+			where rownum <= #end# ) where r > #begin# 
+		]]>
+	</select>
+	
+	
+	
+	<select id ="queryCountJcjNoPt" parameterClass="Map" resultClass="Integer">
+		<![CDATA[SELECT count(*)
+				                  FROM JCJ.JCJ_JJXXB A, JCJ.JCJ_CJXXB B
+				                 WHERE b.jjbh(+) = a.id 
+				                   and a.xt_zxbz = '0'
+				                    ]]>
+			<!-- //增加查询条件 begin -->			
+			<isNotEmpty prepend="and" property="jcjjjxxb.stationhousecode">
+				     <![CDATA[a.stationhousecode = #jcjjjxxb.stationhousecode# ]]>
+			</isNotEmpty>
+			<!-- //增加查询条件 end -->	
+			
+			<isNotEmpty prepend="and" property="jcjjjxxb.jjbh">
+				     <![CDATA[ A.jjbh like '%' || #jcjjjxxb.jjbh# || '%']]>
+			</isNotEmpty>	
+            <isNotEmpty prepend="and" property="jcjjjxxb.xt_lrsj">
+				     <![CDATA[ A.xt_lrsj like #jcjjjxxb.xt_lrsj# || '%']]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jcjjjxxb.bjfsdm">
+				     <![CDATA[ A.bjfsdm = #jcjjjxxb.bjfsdm# ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="jcjjjxxb.jj_sj1">
+				   <![CDATA[ A.bj_sj <= #jcjjjxxb.jj_sj1# ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="jcjjjxxb.jj_sj">
+				    <![CDATA[ A.bj_sj >= #jcjjjxxb.jj_sj# ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="jcjjjxxb.jqlxdm">
+				     <![CDATA[ A.jqlxdm = #jcjjjxxb.jqlxdm# ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="jcjjjxxb.jqlbdm">
+				     <![CDATA[ A.jqlbdm = #jcjjjxxb.jqlbdm# ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="jcjjjxxb.cljgdm">
+				     <![CDATA[ b.cljgdm = #jcjjjxxb.cljgdm# ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="jcjjjxxb.cjy_xm">
+				     <![CDATA[ b.cjy_xm = #jcjjjxxb.cjy_xm# ]]>
+			</isNotEmpty>
+			
+		    <isNotEmpty prepend="and" property="jcjjjxxb.currrentDay">
+				     <![CDATA[ A.xt_lrsj like  #jcjjjxxb.currrentDay# || '%' ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="jcjjjxxb.bjnr">
+				     <![CDATA[ a.bjnr like '%' || #jcjjjxxb.bjnr# || '%']]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jcjjjxxb.jjlxdm">
+				     <![CDATA[ a.jjlxdm like '%' || #jcjjjxxb.jjlxdm# || '%']]>
+			</isNotEmpty>
+						
+	</select>
+	
+	
+
+    <!-- 新增处警信息表 -->
+	<insert id="insertCjxxb" parameterClass="jcjcjxxb">
+		<![CDATA[
+		insert into jcj.JCJ_CJXXB
+  			(ID,XZQHDM,CJDBH,JJBH,CJDWDM,CJ_JYBH,CJY_XM,CJLYH,CJYJ,CDDWDM,CDJYBH,CDJY_XM,CJ_SJ,PDDD_SJ,PDJS_SJ,CDRY,CDCL,JQZTDM,]]> <include refid="insertXtzd"/> <![CDATA[ )
+		values
+  			(#id#,#xzqhdm#,#cjdbh#,#jjbh#,#cjdwdm#,#cj_jybh#,#cjy_xm#,#cjlyh#,#cjyj#,#cddwdm#,#cdjybh#,#cdjy_xm#,#cj_sj#,#pddd_sj#,#pdjs_sj#,#cdry#,#cdcl#,#jqztdm#,]]> <include refid="insertXtzdVal"/> <![CDATA[ )
+  		]]>
+	</insert>
+	<!-- 通过接警编号查询处警信息 -->
+	<select id="queryJcjxxbById" parameterClass="String" resultClass="jcjcjxxb">
+		<![CDATA[select * from jcj.JCJ_CJXXB T WHERE T.jjbh=#jjbh#  and t.xt_zxbz='0' and rownum =1]]>
+	</select>
+	
+	
+	
+	<update  id="updateJcxxbBy" parameterClass="jcjcjxxb">
+	 <![CDATA[ update jcj.JCJ_CJXXB]]>	
+		<dynamic prepend="set">
+	    	<isNotNull prepend="," property="xzqhdm"><![CDATA[ xzqhdm=#xzqhdm#]]></isNotNull>	
+	    	<isNotNull prepend="," property="cjdbh"><![CDATA[ cjdbh=#cjdbh#]]></isNotNull>	
+	    	<isNotNull prepend="," property="jjbh"><![CDATA[ jjbh=#jjbh#]]></isNotNull>	
+	    	<isNotNull prepend="," property="cjdwdm"><![CDATA[ cjdwdm=#cjdwdm#]]></isNotNull>	
+	    	<isNotNull prepend="," property="cj_jybh"><![CDATA[ cj_jybh=#cj_jybh#]]></isNotNull>	
+	    	<isNotNull prepend="," property="cjy_xm"><![CDATA[ cjy_xm=#cjy_xm#]]></isNotNull>	
+	    	<isNotNull prepend="," property="cjlyh"><![CDATA[ cjlyh=#cjlyh#]]></isNotNull>	
+	    	<isNotNull prepend="," property="cjyj"><![CDATA[ cjyj=#cjyj#]]></isNotNull>	
+	    	<isNotNull prepend="," property="cddwdm"><![CDATA[ cddwdm=#cddwdm#]]></isNotNull>
+	    	<isNotNull prepend="," property="cdjybh"><![CDATA[ cdjybh=#cdjybh#]]></isNotNull>
+	    	<isNotNull prepend="," property="cdjy_xm"><![CDATA[ cdjy_xm=#cdjy_xm#]]></isNotNull>	
+	    	<isNotNull prepend="," property="pddd_sj"><![CDATA[ pddd_sj=#pddd_sj#]]></isNotNull>	
+	    	<isNotNull prepend="," property="pdjs_sj"><![CDATA[ pdjs_sj=#zjhm#]]></isNotNull>	
+	    	<isNotNull prepend="," property="cdry"><![CDATA[ cdry=#cdry#]]></isNotNull>	
+	    	<isNotNull prepend="," property="cdcl"><![CDATA[ cdcl=#cdcl#]]></isNotNull>	
+	    	<isNotNull prepend="," property="jqztdm"><![CDATA[ jqztdm=#jqztdm#]]></isNotNull>	
+	    						
+			,<include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ where jjbh = #jjbh#]]>	
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	 <!-- 新增反馈信息表 -->
+	<insert id="insertjcjfkxxb" parameterClass="jcjfkxxb">
+		<![CDATA[
+		insert into jcj.JCJ_FKXXB
+  			(ID,XZQHDM,FKDBH,JJBH,CJDBH,FKLYH,FKDWDM,FKJYBH,FKJY_XM,JQLBDM,JQLXDM,JQXLDM,JQFS_SJ,JQJS_SJ,JQDJDM,HZDJDM,DDXC_SJ,CLWB_SJ,CJQK,CLJGDM,CLJG,CDCLQK,CDRYQK,ZH_RS,SA_RS,JZ_RS,JZRSSM,JJ_RS,JJRSSM,JJ_RF,SS_RS,SSRSSM,SW_RS,SWRSSM,DJY_RS,CJRYSS_RS,CJRYSW_RS,JJSSQK,WHJJSSQK,SFPHXSAJ,SFCCZAAJ,SFJJJF,LZSC_RS,JQCL_JG,TQDM,SSQKMS,FK_SJ,HZYYDM,ZHSGLXDM,QHWDM,QHJZJGDM,HZCSDM,DYCD_SJ,DYDC_SJ,HCPM_SJ,CL_SJ,XCZZH,CDSQS,SFZDDW,ZD_DWMC,XLBM_RS,DLJTSGXTDM,SFWHP,SGCCYYDM,NJDDM,DLLMZKDM,SHJDCS,SHFJDCS,DLLXDM,JQZTDM,]]> <include refid="insertXtzd"/> <![CDATA[ )
+		values
+  			(#id#,#xzqhdm#,#fkdbh#,#jjbh#,#cjdbh#,#fklyh#,#fkdwdm#,#fkjybh#,#fkjy_xm#,#jqlbdm#,#jqlxdm#,#jqxldm#,#jqfs_sj#,#jqjs_sj#,#jqdjdm#,#hzdjdm#,#ddxc_sj#,#clwb_sj#,#cjqk#,#cljgdm#,#cljg#,#cdclqk#,#cdryqk#,#zh_rs#,#sa_rs#,#jz_rs#,#jzrssm#,#jj_rs#,#jjrssm#,#jj_rf#,#ss_rs#,#ssrssm#,#sw_rs#,#swrssm#,#djy_rs#,#cjryss_rs#,#cjrysw_rs#,#jjssqk#,#whjjssqk#,#sfphxsaj#,#sfcczaaj#,#sfjjjf#,#lzsc_rs#,#jqcl_jg#,#tqdm#,#ssqkms#,#fk_sj#,#hzyydm#,#zhsglxdm#,#qhwdm#,#qhjzjgdm#,#hzcsdm#,#dycd_sj#,#dydc_sj#,#hcpm_sj#,#cl_sj#,#xczzh#,#cdsqs#,#sfzddw#,#zd_dwmc#,#xlbm_rs#,#dljtsgxtdm#,#sfwhp#,#sgccyydm#,#njddm#,#dllmzkdm#,#shjdcs#,#shfjdcs#,#dllxdm#,#jqztdm#,]]> <include refid="insertXtzdVal"/> <![CDATA[ )
+  		]]>
+	</insert>
+	<!-- 通过ID查询反馈信息 -->
+	<select id="queryJcjfkxxbById" parameterClass="String" resultClass="jcjfkxxb">
+		<![CDATA[select * from jcj.JCJ_FKXXB T WHERE T.ID=#id# and t.xt_zxbz='0']]>
+	</select>
+	
+	<!-- 通过警情编号查询反馈信息 -->
+	<select id="queryJcjfkxxbByJjbh" parameterClass="String" resultClass="jcjfkxxb">
+		<![CDATA[select * from jcj.JCJ_FKXXB T WHERE T.jjbh=#jjbh# and t.xt_zxbz='0']]>
+	</select>
+	
+	<!-- 修改反馈信息 -->
+	<update  id="updatefkxxbByid" parameterClass="jcjfkxxb">
+	 <![CDATA[ update jcj.JCJ_FKXXB]]>	
+		<dynamic prepend="set">
+	    	<isNotNull prepend="," property="xzqhdm"><![CDATA[ xzqhdm=#xzqhdm#]]></isNotNull>
+	    	<isNotNull prepend="," property="jqlbdm"><![CDATA[ jqlbdm=#jqlbdm#]]></isNotNull>
+	    	<isNotNull prepend="," property="jqlxdm"><![CDATA[ jqlxdm=#jqlxdm#]]></isNotNull>	
+	    	<isNotNull prepend="," property="jqxldm"><![CDATA[ jqxldm=#jqxldm#]]></isNotNull>
+	    	<isNotNull prepend="," property="jqfs_sj"><![CDATA[ jqfs_sj=#jqfs_sj#]]></isNotNull>
+	    	<isNotNull prepend="," property="jqjs_sj"><![CDATA[ jqjs_sj=#jqjs_sj#]]></isNotNull>
+	    	<isNotNull prepend="," property="jqdjdm"><![CDATA[ jqdjdm=#jqdjdm#]]></isNotNull>
+	    	<isNotNull prepend="," property="hzdjdm"><![CDATA[ hzdjdm=#hzdjdm#]]></isNotNull>
+	    	<isNotNull prepend="," property="ddxc_sj"><![CDATA[ ddxc_sj=#ddxc_sj#]]></isNotNull>
+	    	<isNotNull prepend="," property="clwb_sj"><![CDATA[ clwb_sj=#clwb_sj#]]></isNotNull>
+	    	<isNotNull prepend="," property="cjqk"><![CDATA[ cjqk=#cjqk#]]></isNotNull>
+	    	<isNotNull prepend="," property="cljgdm"><![CDATA[ cljgdm=#cljgdm#]]></isNotNull>
+	    	<isNotNull prepend="," property="cljg"><![CDATA[ cljg=#cljg#]]></isNotNull>
+	    	<isNotNull prepend="," property="cdclqk"><![CDATA[ cdclqk=#cdclqk#]]></isNotNull>
+	    	<isNotNull prepend="," property="cdryqk"><![CDATA[ cdryqk=#cdryqk#]]></isNotNull>	
+	    	<isNotNull prepend="," property="zh_rs"><![CDATA[ zh_rs=#zh_rs#]]></isNotNull>
+	    	<isNotNull prepend="," property="sa_rs"><![CDATA[ sa_rs=#sa_rs#]]></isNotNull>
+	    	<isNotNull prepend="," property="jz_rs"><![CDATA[ jz_rs=#jz_rs#]]></isNotNull>
+	    	<isNotNull prepend="," property="jzrssm"><![CDATA[ jzrssm=#jzrssm#]]></isNotNull>
+	    	<isNotNull prepend="," property="jj_rs"><![CDATA[ jj_rs=#jj_rs#]]></isNotNull>
+	    	<isNotNull prepend="," property="jjrssm"><![CDATA[ jjrssm=#jjrssm#]]></isNotNull>
+	    	<isNotNull prepend="," property="jj_rf"><![CDATA[ jj_rf=#jj_rf#]]></isNotNull>
+	    	<isNotNull prepend="," property="ss_rs"><![CDATA[ ss_rs=#ss_rs#]]></isNotNull>
+	    	<isNotNull prepend="," property="ssrssm"><![CDATA[ ssrssm=#ssrssm#]]></isNotNull>
+	    	<isNotNull prepend="," property="sw_rs"><![CDATA[ sw_rs=#sw_rs#]]></isNotNull>
+	    	<isNotNull prepend="," property="swrssm"><![CDATA[ swrssm=#swrssm#]]></isNotNull>
+	    	<isNotNull prepend="," property="djy_rs"><![CDATA[ djy_rs=#djy_rs#]]></isNotNull>	
+	    	<isNotNull prepend="," property="cjryss_rs"><![CDATA[ cjryss_rs=#cjryss_rs#]]></isNotNull>
+	    	<isNotNull prepend="," property="cjrysw_rs"><![CDATA[ cjrysw_rs=#cjrysw_rs#]]></isNotNull>
+	    	<isNotNull prepend="," property="jjssqk"><![CDATA[ jjssqk=#jjssqk#]]></isNotNull>
+	    	<isNotNull prepend="," property="whjjssqk"><![CDATA[ whjjssqk=#whjjssqk#]]></isNotNull>
+	    	<isNotNull prepend="," property="sfphxsaj"><![CDATA[ sfphxsaj=#sfphxsaj#]]></isNotNull>
+	    	<isNotNull prepend="," property="sfcczaaj"><![CDATA[ sfcczaaj=#sfcczaaj#]]></isNotNull>
+	    	<isNotNull prepend="," property="sfjjjf"><![CDATA[ sfjjjf=#sfjjjf#]]></isNotNull>
+	    	<isNotNull prepend="," property="lzsc_rs"><![CDATA[ lzsc_rs=#lzsc_rs#]]></isNotNull>
+	    	<isNotNull prepend="," property="jqcl_jg"><![CDATA[ jqcl_jg=#jqcl_jg#]]></isNotNull>
+	    	<isNotNull prepend="," property="tqdm"><![CDATA[ tqdm=#tqdm#]]></isNotNull>
+	    	<isNotNull prepend="," property="ssqkms"><![CDATA[ ssqkms=#ssqkms#]]></isNotNull>
+	    	<isNotNull prepend="," property="fk_sj"><![CDATA[ fk_sj=#fk_sj#]]></isNotNull>	
+	    	<isNotNull prepend="," property="hzyydm"><![CDATA[ hzyydm=#hzyydm#]]></isNotNull>
+	    	<isNotNull prepend="," property="zhsglxdm"><![CDATA[ zhsglxdm=#zhsglxdm#]]></isNotNull>
+	    	<isNotNull prepend="," property="qhwdm"><![CDATA[ qhwdm=#qhwdm#]]></isNotNull>
+	    	<isNotNull prepend="," property="qhjzjgdm"><![CDATA[ qhjzjgdm=#qhjzjgdm#]]></isNotNull>
+	    	<isNotNull prepend="," property="hzcsdm"><![CDATA[ hzcsdm=#hzcsdm#]]></isNotNull>
+	    	<isNotNull prepend="," property="dycd_sj"><![CDATA[ dycd_sj=#dycd_sj#]]></isNotNull>
+	    	<isNotNull prepend="," property="dydc_sj"><![CDATA[ dydc_sj=#dydc_sj#]]></isNotNull>
+	    	<isNotNull prepend="," property="hcpm_sj"><![CDATA[ hcpm_sj=#hcpm_sj#]]></isNotNull>
+	    	<isNotNull prepend="," property="cl_sj"><![CDATA[ cl_sj=#cl_sj#]]></isNotNull>
+	    	<isNotNull prepend="," property="xczzh"><![CDATA[ xczzh=#xczzh#]]></isNotNull>
+	    	<isNotNull prepend="," property="cdsqs"><![CDATA[ cdsqs=#cdsqs#]]></isNotNull>
+	    	<isNotNull prepend="," property="sfzddw"><![CDATA[ sfzddw=#sfzddw#]]></isNotNull>	
+	    	<isNotNull prepend="," property="zd_dwmc"><![CDATA[ zd_dwmc=#zd_dwmc#]]></isNotNull>
+	    	<isNotNull prepend="," property="xlbm_rs"><![CDATA[ xlbm_rs=#xlbm_rs#]]></isNotNull>
+	    	<isNotNull prepend="," property="dljtsgxtdm"><![CDATA[ dljtsgxtdm=#dljtsgxtdm#]]></isNotNull>
+	    	<isNotNull prepend="," property="sfwhp"><![CDATA[ sfwhp=#sfwhp#]]></isNotNull>
+	    	<isNotNull prepend="," property="sgccyydm"><![CDATA[ sgccyydm=#sgccyydm#]]></isNotNull>
+	    	<isNotNull prepend="," property="njddm"><![CDATA[ njddm=#njddm#]]></isNotNull>
+	    	<isNotNull prepend="," property="dllmzkdm"><![CDATA[ dllmzkdm=#dllmzkdm#]]></isNotNull>
+	    	<isNotNull prepend="," property="shjdcs"><![CDATA[ shjdcs=#shjdcs#]]></isNotNull>
+	    	<isNotNull prepend="," property="shfjdcs"><![CDATA[ shfjdcs=#shfjdcs#]]></isNotNull>
+	    	<isNotNull prepend="," property="dllxdm"><![CDATA[ dllxdm=#dllxdm#]]></isNotNull>
+	    	<isNotNull prepend="," property="jqztdm"><![CDATA[ jqztdm=#jqztdm#]]></isNotNull>
+	    	
+	    	
+	    
+	    	
+			,<include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>	
+	</update>
+	
+	<!-- 统计反馈编号 -->
+	<select id="queryCountFkxxb" parameterClass="String" resultClass="Integer">
+		<![CDATA[select count(*) from jcj.jcj_fkxxb t where t.jjbh =#jjbh#]]>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	 <!-- 新增接警信息表 -->
+	<insert id="insertJjxxb" parameterClass="jcjjjxxb">
+		<![CDATA[
+		insert into jcj.jcj_jjxxb
+  			(ID,XZQHDM,JJDWDM,JJBH,JJLXDM,BJFSDM,CFJQBH,LHLXDM,GLJQBH,JJLYH,TFHM,JJJYBH,JJY_XM,BJ_SJ,JJ_SJ,HZ_SJ,BJR_GMSFHM,BJ_LXDH,BJDHYH_XM,BJDHYHDZ,BJR_XM,BJR_XBDM,BJR_LXDH,JQDZ_ZXZQHDM,JQDZ_MLPDM,JQDZ_MLPXZ,JQDZDM,JQDZXZ,JQDZMS,JQ_ZXDHZB,JQ_ZXDZZB,BJNR,GXDWDM,JQLBDM,JQLXDM,JQXLDM,LDGBH,YWWXWZ,YWBZXL,BJCHPZLDM,BJCPH,BK_RS,SS_RS,SW_RS,SFSW,SFSWYBJ,ZDDW_ZXDHZB,ZDDW_ZXDZZB,SGDW_ZXDHHB,SGDW_ZXDZZB,BCJJNR,JQZTDM,ZAGJDM,JQDJDM,HZDJDM,QHJZJGDM,HZCSDM,QHJZQKMS,PLQK,QHWDM,YWTY,SFSWHCL,MSGID,MSGTYPE,ORGSEATNO,CASEKIND,EVENTLEVEL,PROCESSID,STATIONHOUSECODE,STATIONHOUSE,]]> <include refid="insertXtzd"/> <![CDATA[ )
+		values
+  			(#id#,#xzqhdm#,#jjdwdm#,#jjbh#,#jjlxdm#,#bjfsdm#,#cfjqbh#,#lhlxdm#,#gljqbh#,#jjlyh#,#tfhm#,#jjjybh#,#jjy_xm#,#bj_sj#,#jj_sj#,#hz_sj#,#bjr_gmsfhm#,#bj_lxdh#,#bjdhyh_xm#,#bjdhyhdz#,#bjr_xm#,#bjr_xbdm#,#bjr_lxdh#,#jqdz_zxzqhdm#,#jqdz_mlpdm#,#jqdz_mlpxz#,#jqdzdm#,#jqdzxz#,#jqdzms#,#jq_zxdhzb#,#jq_zxdzzb#,#bjnr#,#gxdwdm#,#jqlbdm#,#jqlxdm#,#jqxldm#,#ldgbh#,#ywwxwz#,#ywbzxl#,#bjchpzldm#,#bjcph#,#bk_rs#,#ss_rs#,#sw_rs#,#sfsw#,#sfswybj#,#zddw_zxdhzb#,#zddw_zxdzzb#,#sgdw_zxdhhb#,#sgdw_zxdzzb#,#bcjjnr#,#jqztdm#,#zagjdm#,#jqdjdm#,#hzdjdm#,#qhjzjgdm#,#hzcsdm#,#qhjzqkms#,#plqk#,#qhwdm#,#ywty#,#sfswhcl#,#msgid#,#msgtype#,#orgseatno#,#casekind#,#eventlevel#,#processid#,#stationhousecode#,#stationhouse#,]]> <include refid="insertXtzdVal"/> <![CDATA[ )
+  		]]>
+	</insert>
+	
+	
+	 <!-- 新增初始化配置信息表 -->
+	<insert id="insertCshpzb" parameterClass="jcjcshpz">
+		<![CDATA[
+		insert into jcj.JCJ_CSHPZ
+  			(ID,MSGID,MSGTYPE,IP,DISTRICT,BZ,]]> <include refid="insertXtzd"/> <![CDATA[ )
+		values
+  			(#id#,#msgid#,#msgtype#,#ip#,#district#,#bz#,]]> <include refid="insertXtzdVal"/> <![CDATA[ )
+  		]]>
+	</insert>
+	
+	
+	
+	<!-- 修改初始化配置表信息 -->
+	<update  id="updateCshpz" parameterClass="jcjcshpz">
+	 <![CDATA[ update jcj.JCJ_CSHPZ]]>	
+		<dynamic prepend="set">
+	    	<isNotNull prepend="," property="msgid"><![CDATA[ msgid=#msgid#]]></isNotNull>	
+	    	<isNotNull prepend="," property="msgtype"><![CDATA[ msgtype=#msgtype#]]></isNotNull>	
+	    	<isNotNull prepend="," property="ip"><![CDATA[ ip=#ip#]]></isNotNull>
+			,<include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ where district = #district#]]>	
+	</update>
+	
+	<!-- 通过行政区划代码查询 -->
+	<select id="queryCshpzByXzqh" parameterClass="String" resultClass="jcjcshpz">
+		<![CDATA[select * from jcj.JCJ_CSHPZ T WHERE T.district=#district# and t.xt_zxbz='0' and rownum =1]]>
+	</select>
+	
+	
+	<!-- 通过ID查询接警信息表 -->
+	<select id="queryJcjjjxxbById" parameterClass="String" resultClass="jcjjjxxb">
+		<![CDATA[select * from jcj.JCJ_jjXXB T WHERE T.ID=#id# and t.xt_zxbz='0']]>
+	</select>
+	
+	<!-- 通过接警单编号查询接警信息表 -->
+	<select id="queryJcjjjxxbByJJXBH" parameterClass="String" resultClass="jcjjjxxb">
+		<![CDATA[select * from jcj.JCJ_jjXXB T WHERE T.jjbh=#jjbh# and t.xt_zxbz='0']]>
+	</select>
+	
+	
+	<!-- 查询接警信息表 -->
+	<select id="queryJcjjjxxb" parameterClass="jcjjjxxb" resultClass="jcjjjxxb">
+		<![CDATA[select * from jcj.JCJ_jjXXB A WHERE A.xt_zxbz='0']]>
+		
+		<isNotEmpty prepend="and" property="jjbh">
+				     <![CDATA[ A.jjbh = #jjbh# ]]>
+		</isNotEmpty>
+			
+		<isNotEmpty prepend="and" property="id">
+				     <![CDATA[ A.id <= #id#]]>
+		</isNotEmpty>
+			
+		<isNotEmpty prepend="and" property="stationhousecode">
+				 <![CDATA[ A.stationhousecode = #stationhousecode# ]]>
+		</isNotEmpty>
+		
+		<isNotEmpty prepend="and" property="rownum">
+				 <![CDATA[ rownum < #rownum# ]]>
+		</isNotEmpty>
+		
+		<isNotEmpty prepend="and" property="xt_lrsj">
+				 <![CDATA[ A.xt_lrsj like  #xt_lrsj# || '%' ]]>
+		</isNotEmpty>
+		<![CDATA[ order by xt_lrsj desc ]]>
+	</select>
+	
+	
+	<!-- 注销接警信息 -->
+	<update id="cancelJjxxb" parameterClass="jcjjjxxb">
+	 	<![CDATA[ update jcj.JCJ_JJXXB set ]]>
+		<include refid="deleteXtzd" />
+	 	 <![CDATA[ where jjbh = #jjbh#]]>
+	</update>
+	
+	
+	
+	 <!-- 新增错误日志表 -->
+	<insert id="insertJkCwrzb" parameterClass="jcjCwrzb">
+		<![CDATA[
+		insert into jcj.jcj_cwrzb
+  			(ID,JKMC,YWBM,YWID,FWDZ,SUCCESSTYPE,STATUSCODE,SENDTIME,PARAMETER,SFCXCW,]]> <include refid="insertXtzd"/> <![CDATA[ )
+		values
+  			(#id#,#jkmc#,#ywbm#,#ywid#,#fwdz#,#successtype#,#statuscode#,#sendtime#,#parameter#,#sfcxcw#,]]> <include refid="insertXtzdVal"/> <![CDATA[ )
+  		]]>
+	</insert>
+	
+</sqlMap>

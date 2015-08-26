@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<report version="5.0">
+	<head>
+		<property name="type">0</property>
+		<name><![CDATA[hsxqb]]></name>
+		<dataSets>
+			<dataSet name="hsxqb" type="DB_SQL" >
+				<property name="dataSource">bzdz</property>
+				<property name="desc"><![CDATA[核实详情表]]></property>
+				<property name="query"><![CDATA[="select b.dzqc as dzqc,b.xt_zhxgrbm hsdw,b.xt_zhxgrxm as hsr,
+  (select orgname from jwzh.org_organization where orgcode = b.pcsdm) as pcs,
+  (select orgname from jwzh.org_organization where orgcode = b.fxjdm) as fj,
+  b.xt_zhxgsj as xgsj from bzdz_bzdzxxb b  where  b.ZTBS = '02' and substr(xt_zhxgsj,1,10) < '"+tostr(@ZQ_JS,"yyyy-MM-dd")+"'  and substr(xt_zhxgsj,1,10) > '"+tostr(@ZQ_KS,"yyyy-MM-dd")+"'  "
+  +case(@fjdm='*' and @pcsdm='*' and @zrqdm='*',"",
+        @fjdm!='*' and @pcsdm='*' and @zrqdm='*'," and b.FXJDM="+@fjdm,
+        @fjdm!='*' and @pcsdm!='*' and @zrqdm='*'," and b.pcsdm="+@pcsdm,@fjdm!='*' and @pcsdm!='*' and @zrqdm!='*'," and b.xt_zhxgrbmid ="+@zrqdm)]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+			<dataSet name="dwmc" type="DB_SQL" >
+				<property name="dataSource">bzdz</property>
+				<property name="desc"><![CDATA[]]></property>
+				<property name="query"><![CDATA[="select orgname from org_organization o where o.orgcode='"+case(@fjdm='*' and @pcsdm='*' and @zrqdm='*',"210200000000",@fjdm!='*' and @pcsdm='*' and @zrqdm='*',@fjdm,@fjdm!='*' and @pcsdm!='*' and @zrqdm='*',@pcsdm,@fjdm!='*' and @pcsdm!='*' and @zrqdm!='*',@zrqdm)+"'"]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+		</dataSets>
+		<parameters>
+			<parameter name="fjdm" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">*</property>
+				<property name="desc">分局代码</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="pcsdm" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">*</property>
+				<property name="desc">派出所代码</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="zrqdm" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">*</property>
+				<property name="desc">责任区代码</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ZQ_KS" type="2">
+				<property name="dateFormat">yyyy-MM-dd</property>
+				<property name="default"></property>
+				<property name="desc"></property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ZQ_JS" type="2">
+				<property name="dateFormat">yyyy-MM-dd</property>
+				<property name="default"></property>
+				<property name="desc"></property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="dw" type="6">
+				<property name="dateFormat"></property>
+				<property name="default"></property>
+				<property name="desc"></property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="zzjglx" type="17">
+				<property name="dateFormat"></property>
+				<property name="default"></property>
+				<property name="desc"></property>
+				<property name="valueCalc">false</property>
+			</parameter>
+		</parameters>
+		<variables/>
+	</head>
+	<body>
+		<sheet id="sheet1">
+			<page>
+			</page>
+			<grid row="4" col="7">
+				<properties>
+				</properties>
+				<rows>
+					<row id="1">
+						<property name="type">1</property>
+						<property name="height">46</property>
+					</row>
+					<row id="2">
+						<property name="type">2</property>
+					</row>
+					<row id="3">
+						<property name="height">61</property>
+					</row>
+					<row id="4">
+						<property name="type">4</property>
+					</row>
+				</rows>
+				<columns>
+					<column id="1">
+						<property name="width">53</property>
+					</column>
+					<column id="2">
+						<property name="width">120</property>
+					</column>
+					<column id="3">
+						<property name="width">113</property>
+					</column>
+					<column id="4">
+						<property name="width">84</property>
+					</column>
+					<column id="5">
+						<property name="width">116</property>
+					</column>
+					<column id="6">
+						<property name="width">77</property>
+					</column>
+					<column id="7">
+						<property name="width">78</property>
+					</column>
+				</columns>
+				<cells>
+					<cell id="1,1" type="0" colspan="7" >
+						<property name="value"><![CDATA[=dwmc.select(ORGNAME)+"核实详情表"]]></property>
+						<property name="font-size">16</property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1</border>
+					</cell>
+					<cell id="2,1" type="0" >
+						<property name="value"><![CDATA[序号]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,2" type="0" >
+						<property name="value"><![CDATA[地址全称]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,3" type="0" >
+						<property name="value"><![CDATA[核实单位]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,4" type="0" >
+						<property name="value"><![CDATA[核实人]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,5" type="0" >
+						<property name="value"><![CDATA[派出所]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,6" type="0" >
+						<property name="value"><![CDATA[分局]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,7" type="0" >
+						<property name="value"><![CDATA[时间]]></property>
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,1" type="0" >
+						<property name="value"><![CDATA[=(row()-2)]]></property>
+						<property name="ext-left"><![CDATA[B3]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,2" type="0" >
+						<property name="value"><![CDATA[=hsxqb.select(DZQC)]]></property>
+						<property name="ext-direction">3</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,3" type="0" >
+						<property name="value"><![CDATA[=hsxqb.select(HSDW)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,4" type="0" >
+						<property name="value"><![CDATA[=hsxqb.select(HSR)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,5" type="0" >
+						<property name="value"><![CDATA[=hsxqb.select(PCS)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,6" type="0" >
+						<property name="value"><![CDATA[=hsxqb.select(FJ)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,7" type="0" >
+						<property name="value"><![CDATA[=hsxqb.select(XGSJ)]]></property>
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,1" type="0" >
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,2" type="0" >
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,3" type="0" >
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,4" type="0" >
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,5" type="0" >
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,6" type="0" >
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,7" type="0" >
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+				</cells>
+			</grid>
+		</sheet>
+	</body>
+</report>

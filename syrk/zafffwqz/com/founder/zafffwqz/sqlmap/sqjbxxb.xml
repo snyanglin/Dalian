@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Sqjbxxb">
+
+<typeAlias alias="sqjbxxb" type="com.founder.zafffwqz.bean.Sqjbxxb"/>
+
+	<!-- 添加 -->
+	<insert id="save" parameterClass="sqjbxxb">
+		<![CDATA[
+		insert into ZAFF_SQJBXXB
+  			(ID,SQMC,BGSDH,dz_sqdzdm,dz_sqdzssxdm,dz_sqdzxz,SQFZRCYZJDM,SQFZRZJHM,SQFZRXM,SQFZRLXDH,BZ,dz_sqdzmlpdm,dz_sqdzmlpxz,SQJWSID, ]]> <include refid="insertXtzd"/> <![CDATA[ )
+		values
+  			(#id#,#sqmc#,#bgsdh#,#dz_sqdzdm#,#dz_sqdzssxdm#,#dz_sqdzxz#,#sqfzrcyzjdm#,#sqfzrzjhm#,#sqfzrxm#,#sqfzrlxdh#,#bz#,#dz_sqdzmlpdm#,#dz_sqdzmlpxz#,#sqjwsid#, ]]> <include refid="insertXtzdVal"/> <![CDATA[ )
+  		]]>
+	</insert>
+	
+	<!-- 查询 -->
+	<select id="queryById" parameterClass="sqjbxxb" resultClass="sqjbxxb">
+		<![CDATA[ select * from ZAFF_SQJBXXB where id = #id# ]]>
+	</select>
+	
+	<!-- 修改 -->
+	<update id="updateSqjbxxb" parameterClass="sqjbxxb">
+		 <![CDATA[ update ZAFF_SQJBXXB ]]>	
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="id">
+				<![CDATA[ id=#id#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="sqmc">
+				<![CDATA[ sqmc=#sqmc#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="bgsdh">
+				<![CDATA[ bgsdh=#bgsdh#]]>	
+			</isNotNull>
+	    	<isNotNull prepend="," property="dz_sqdzdm">
+				<![CDATA[ dz_sqdzdm=#dz_sqdzdm#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="dz_sqdzssxdm">
+				<![CDATA[ dz_sqdzssxdm=#dz_sqdzssxdm#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="dz_sqdzxz">
+				<![CDATA[ dz_sqdzxz=#dz_sqdzxz#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="sqfzrcyzjdm">
+				<![CDATA[ sqfzrcyzjdm=#sqfzrcyzjdm#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="sqfzrzjhm">
+				<![CDATA[ sqfzrzjhm=#sqfzrzjhm#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="sqfzrxm">
+				<![CDATA[ sqfzrxm=#sqfzrxm#]]>	
+			</isNotNull>
+	    	<isNotNull prepend="," property="sqfzrlxdh">
+				<![CDATA[ sqfzrlxdh=#sqfzrlxdh#]]>	
+			</isNotNull>
+			
+			,<![CDATA[ bz=#bz#]]>	
+			
+			<isNotNull prepend="," property="dz_sqdzmlpdm">
+				<![CDATA[ dz_sqdzmlpdm=#dz_sqdzmlpdm#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="dz_sqdzmlpxz">
+				<![CDATA[ dz_sqdzmlpxz=#dz_sqdzmlpxz#]]>	
+			</isNotNull>
+			,
+			<include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>	
+	</update>
+	
+	<!-- 查询列表 -->
+	<select id="sqjbxxb_query" parameterClass="Map" resultClass="sqjbxxb">
+		<![CDATA[ SELECT * FROM ZAFF_SQJBXXB WHERE sqjwsid=#jwsid# AND XT_ZXBZ='0' and rownum =1 ORDER BY xt_cjsj DESC  ]]>
+	</select>
+
+</sqlMap>

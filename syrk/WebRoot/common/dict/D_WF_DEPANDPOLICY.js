@@ -1,0 +1,9 @@
+[
+{"id":"1","text":"与依赖环节的执行者相同","py":"YYLHJDZXZXT"},
+{"id":"2","text":"与依赖环节的执行者有相同的部门","py":"YYLHJDZXZYXTDBM"},
+{"id":"3","text":"为依赖环节的执行者的上级部门","py":"WYLHJDZXZDSJBM"},
+{"id":"4","text":"为依赖环节的执行者的上两级部门","py":"WYLHJDZXZDSLJBM"},
+{"id":"5","text":"为依赖环节的执行者的平级部门","py":"WYLHJDZXZDPJBM"},
+{"id":"6","text":"为依赖环节的执行者的上级业务部门","py":"WYLHJDZXZDSJYWBM"},
+{"id":"9","text":"其他指定部门算法","py":"QTZDBMSF"}
+]

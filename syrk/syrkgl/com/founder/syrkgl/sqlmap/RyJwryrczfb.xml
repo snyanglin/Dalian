@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="RyJwryrczfb">
+   	<typeAlias alias="ryJwryrczfb" type="com.founder.syrkgl.bean.RyJwryrczfb"/>
+   	<!-- 境外人员核实下发列表 -->
+	<select id="queryJwryrczfList" parameterClass="Map" resultClass="ryJwryrczfb">
+		SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+	 		SELECT * 
+	 		  FROM RY_JWRYRCZFB T
+	 	    WHERE T.XT_ZXBZ= '0'
+	 	    <isNotEmpty prepend="AND" property="entity.cyzjdm">
+	              T.CYZJDM = #entity.cyzjdm#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="entity.zjhm">
+		          UPPER(T.ZJHM) LIKE UPPER('%'||#entity.zjhm#||'%') 
+		    </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="entity.wwx">
+	              UPPER(T.WWX) LIKE UPPER('%'||#entity.wwx#||'%')
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="entity.wwm">
+		          UPPER(T.WWM) LIKE UPPER('%'||#entity.wwm#||'%')
+		    </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="entity.jzd_gxdwdm">
+	              T.JZD_GXDWDM = #entity.jzd_gxdwdm#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="entity.gzd_gxdwdm">
+		          T.GZD_GXDWDM = #entity.gzd_gxdwdm#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="entity.zt">
+		          T.ZT = #entity.zt#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="entity.jzd_gxdwdm">
+		          T.JZD_GXDWDM = #entity.jzd_gxdwdm#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="entity.gzd_gxdwdm">
+		          T.GZD_GXDWDM = #entity.gzd_gxdwdm#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="entity.zrqdm">
+		          INSTR(T.JZD_GXDWDM||T.GZD_GXDWDM,#entity.zrqdm#,1,1)>0
+		    </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="entity.pcsdm">
+		          INSTR(T.JZD_GXDWDM||T.GZD_GXDWDM,#entity.pcsdm#,1,1)>0
+		    </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="entity.fxjdm">
+		          INSTR(SUBSTR(T.JZD_GXDWDM, 0, 6)||SUBSTR(T.GZD_GXDWDM, 0, 6),SUBSTR(#entity.fxjdm#, 0, 6),1,1)>0
+		    </isNotEmpty>
+	 	    )M
+        <![CDATA[WHERE ROWNUM <= #end# ) WHERE R > #begin#]]> 
+	</select>
+	<!--  境外人员核实下发列表总数  -->
+	<select id="queryJwryrczfCount" parameterClass="Map" resultClass="Integer">
+	 	SELECT COUNT(T.ID)
+	 	  FROM RY_JWRYRCZFB T
+	    WHERE T.XT_ZXBZ= '0'
+	    <isNotEmpty prepend="AND" property="entity.cyzjdm">
+              T.CYZJDM = #entity.cyzjdm#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="entity.zjhm">
+	          UPPER(T.ZJHM) LIKE UPPER('%'||#entity.zjhm#||'%') 
+	    </isNotEmpty>
+	    <isNotEmpty prepend="AND" property="entity.wwx">
+              UPPER(T.WWX) LIKE UPPER('%'||#entity.wwx#||'%')
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="entity.wwm">
+	          UPPER(T.WWM) LIKE UPPER('%'||#entity.wwm#||'%')
+	    </isNotEmpty>
+	    <isNotEmpty prepend="AND" property="entity.jzd_gxdwdm">
+              T.JZD_GXDWDM = #entity.jzd_gxdwdm#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="entity.gzd_gxdwdm">
+	          T.GZD_GXDWDM = #entity.gzd_gxdwdm#
+	    </isNotEmpty>
+	    <isNotEmpty prepend="AND" property="entity.zt">
+	          T.ZT = #entity.zt#
+	    </isNotEmpty>
+	    <isNotEmpty prepend="AND" property="entity.jzd_gxdwdm">
+	          T.JZD_GXDWDM = #entity.jzd_gxdwdm#
+	    </isNotEmpty>
+	    <isNotEmpty prepend="AND" property="entity.gzd_gxdwdm">
+	          T.GZD_GXDWDM = #entity.gzd_gxdwdm#
+	    </isNotEmpty>
+	    <isNotEmpty prepend="AND" property="entity.zrqdm">
+	          INSTR(T.JZD_GXDWDM||T.GZD_GXDWDM,#entity.zrqdm#,1,1)>0
+	    </isNotEmpty>
+	    <isNotEmpty prepend="AND" property="entity.pcsdm">
+	          INSTR(T.JZD_GXDWDM||T.GZD_GXDWDM,#entity.pcsdm#,1,1)>0
+	    </isNotEmpty>
+	    <isNotEmpty prepend="AND" property="entity.fxjdm">
+	          INSTR(SUBSTR(T.JZD_GXDWDM, 0, 6)||SUBSTR(T.GZD_GXDWDM, 0, 6),SUBSTR(#entity.fxjdm#, 0, 6),1,1)>0
+	    </isNotEmpty>
+	</select>
+	<!--  境外人员日常走访更新  -->
+	<update id="update" parameterClass="ryJwryrczfb">
+	    UPDATE RY_JWRYRCZFB 
+	    <dynamic prepend="set">
+	        <isNotEmpty prepend="," property="zt">
+		      ZT = #zt#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="," property="zfjg">
+		      zfjg = #zfjg#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="," property="zfsj">
+		      zfsj = #zfsj#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="," property="zfr">
+		      zfr = #zfr#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="," property="zfrid">
+		      zfrid = #zfrid#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="," property="zfdw">
+		      zfdw = #zfdw#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="," property="zfdwid">
+		      zfdwid = #zfdwid#
+		    </isNotEmpty>
+	    	,
+			<include refid="updateXtzd"/>
+	    </dynamic>
+	     WHERE XT_ZXBZ = '0' 
+           AND ID = #id#
+	</update>
+</sqlMap>

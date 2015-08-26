@@ -1,0 +1,49 @@
+@CHARSET "UTF-8";
+*{
+	font: 14px "微软雅黑";
+}
+LI,UL {
+	LIST-STYLE-TYPE: none;
+}
+#xxfbUl{
+	width:95%;
+}
+.xxflModuleLi{
+	width:45%;
+	height:150px;
+	float:left;
+	padding: 5px;
+}
+.flTitleDiv{
+		height:25px;
+		border-bottom:1px solid #17a9ff;
+}
+.flDiv{
+	float:left;
+	width:85%;
+
+}
+.moreDiv{
+	float:right;
+	width:30;
+	text-align:right;
+	cursor: pointer;
+	
+}
+.titleDiv{
+	float:left;
+	width:60%;
+	height: 25px;
+	cursor: pointer;
+}
+.titleDiv:HOVER,.moreDiv:HOVER{
+	color:#17a9ff
+}
+.timeDiv{
+	float:right;
+	height: 25px;
+}
+.listUl{
+	padding-left:0;
+}
+

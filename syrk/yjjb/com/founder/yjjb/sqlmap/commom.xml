@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Common">
+	
+	<typeAlias alias="orguser" type="com.founder.framework.organization.user.bean.OrgUser" />
+	
+	<!-- 本单位和所有下属单位列表 -->
+	<select id="searchOrgListChildren" parameterClass="String" resultClass="comboBox">
+		<![CDATA[
+			select t.orgcode as id,t.orgname as text from ORG_ORGANIZATION t 
+				where (PARENTTREEPATH like '%$orgcode$%' or t.orgcode=#orgcode#) AND T.XT_ZXBZ = '0' order by t.orgcode asc
+		 ]]>
+	</select>
+	
+	<!-- 下属分局和派出所列表 -->
+	<select id="searchOrgListLower" parameterClass="String" resultClass="comboBox">
+		<![CDATA[
+			select t.orgcode as id,t.orgname as text from 	ORG_ORGANIZATION t 
+			where (PARENTTREEPATH like '%$orgcode$%' or t.orgcode=#orgcode#) 
+			and (t.orgname like '%派出所' or t.orgname like '%分局' or t.orgname like '%公安局') AND T.XT_ZXBZ = '0' order by t.orgcode asc
+		 ]]>
+	</select>
+	
+	<!-- 下属分局和公安局列表 -->
+	<select id="searchOrgListHigher" parameterClass="String" resultClass="comboBox">
+		<![CDATA[
+			select t.orgcode as id,t.orgname as text from ORG_ORGANIZATION t 
+				where (PARENTTREEPATH like '%$orgcode$%' or t.orgcode=#orgcode#) 
+				and (t.orgname ='大连市公安局' or t.orgname like '%分局') AND T.XT_ZXBZ = '0' order by t.orgcode asc
+		 ]]>
+	</select>
+	
+	<!-- 单位列表 -->
+	<select id="searchOrgList" parameterClass="Map" resultClass="comboBox">
+		<![CDATA[select t.orgcode as id,t.orgname as text from ORG_ORGANIZATION t WHERE T.XT_ZXBZ = '0' ]]>
+		<isNotEmpty prepend="and" property="orgCode">	<![CDATA[T.ORGCODE = #orgCode#]]>	</isNotEmpty>
+		<![CDATA[ order by t.orgcode asc ]]>
+	</select>
+	
+	<!-- 查询上级单位ID-->
+	<select id="queryUpOrgID" parameterClass="String" resultClass="String">
+		<![CDATA[ SELECT SUBSTR(PARENTTREEPATH,LENGTH(PARENTTREEPATH)-12,12) PARENTTREEPATH FROM ORG_ORGANIZATION 
+			 WHERE ORGCODE = #orgcode# AND XT_ZXBZ = '0']]>
+	</select>
+	
+	<!-- 查询机构名称-->
+	<select id="queryNameOrgID" parameterClass="String" resultClass="String">
+		<![CDATA[ SELECT ORGNAME FROM ORG_ORGANIZATION 
+			 WHERE ORGCODE = #orgcode# AND XT_ZXBZ = '0']]>
+	</select>
+	
+	<!-- 根据用户ID查询用户名称-->
+	<select id="queryUserNameByUserId" parameterClass="String" resultClass="String">
+		<![CDATA[ SELECT USERNAME FROM ORG_USER
+			 WHERE USERID = #userid# AND XT_ZXBZ = '0']]>
+	</select>
+	
+	<!-- 中心查询下级单位ID-->
+	<!--select id="queryDownOrg00" parameterClass="String" resultClass="comboBox">
+		<![CDATA[ SELECT ORGCODE AS ID,ORGNAME AS TEXT  FROM ORG_ORGANIZATION
+		 WHERE (SUBSTR(ORGNAME,LENGTH(ORGNAME)-1,2)='分局' 
+		 OR SUBSTR(ORGNAME,LENGTH(ORGNAME)-1,2)='支队')
+		 AND SUBSTR(PARENTTREEPATH,LENGTH(PARENTTREEPATH)-12,12) = #orgcode#  
+		 ORDER BY ORGLEVEL DESC,ORGCODE]]>
+	</select-->
+	
+	<select id="queryDownOrg00" parameterClass="String" resultClass="comboBox">
+		<![CDATA[ SELECT ORGCODE AS ID,ORGNAME AS TEXT  FROM ORG_ORGANIZATION
+		 WHERE ORGCODE IN 
+		   ('210200360000','210200421600','210200530000','210200990000','210202000000','210203000000',
+			'210200190000','210200200000','210200210000','210200220000','210200240000','210200280000',
+			'210200290000','210200300000','210294000000','210295000000','210296000000','210204000000',
+			'210213000000','210212000000','210211000000','210283000000','210224000000','210251000000',
+			'210280000000','210281000000','210297000000','210298000000','210299000000','210282000000')
+ 			ORDER BY ORGLEVEL DESC,ORGCODE]]>
+	</select>
+	
+	<!-- 支队查询下级单位ID-->
+	<select id="queryDownOrg01" parameterClass="String" resultClass="comboBox">
+		<![CDATA[ SELECT ORGCODE AS ID,ORGNAME AS TEXT  FROM ORG_ORGANIZATION
+		 WHERE SUBSTR(PARENTTREEPATH,LENGTH(PARENTTREEPATH)-12,12) = #orgcode#  AND XT_ZXBZ = '0'
+		 ORDER BY ORGLEVEL DESC,ORGCODE]]>
+	</select>
+	
+	<!-- 分局查询下级单位ID-->
+	<select id="queryDownOrg02" parameterClass="String" resultClass="comboBox">
+		<![CDATA[ SELECT ORGCODE AS ID,ORGNAME AS TEXT  FROM ORG_ORGANIZATION
+		 WHERE SUBSTR(PARENTTREEPATH,LENGTH(PARENTTREEPATH)-12,12) = #orgcode#  AND XT_ZXBZ = '0'
+		 ORDER BY ORGLEVEL DESC,ORGCODE]]>
+	</select>
+	
+	<!-- 根据地址ID查询所属派出所-->
+	<select id="queryPcsByDZID" parameterClass="String" resultClass="String">
+		<![CDATA[ SELECT T.PCSDM FROM BZDZ_BZDZXXB T WHERE T.ID =#dzid# AND T.XT_ZXBZ = '0']]>
+	</select>
+	
+	<!-- 根据类型和机构号获取编号-->
+	<select id="createNewSeq" parameterClass="Map" resultClass="String">
+		<![CDATA[ select f_get_new_bh(#type#,#orgcode#) from dual]]>
+	</select>
+	
+	<!-- 递转申请接收单位 -->
+	<select id="myOrgOfDZSQ"  resultClass="comboBox">
+		<![CDATA[
+			SELECT DISTINCT T2.ORGCODE AS ID,T2.ORGNAME AS TEXT FROM YJJB_XSDZSQB T1,ORG_ORGANIZATION T2
+			WHERE T1.DZJSDW=T2.ORGCODE AND T1.XT_ZXBZ='0' AND T2.XT_ZXBZ = '0' ORDER BY T2.ORGCODE ASC
+		 ]]>
+	</select>
+	
+	<!-- 递转审批单位 -->
+	<select id="myOrgOfDZSP"  resultClass="comboBox">
+		<![CDATA[
+			SELECT DISTINCT T2.ORGCODE AS ID,T2.ORGNAME AS TEXT FROM YJJB_XSDZSPB T1,ORG_ORGANIZATION T2
+			WHERE T1.SQDW=T2.ORGCODE AND T1.XT_ZXBZ='0' AND T2.XT_ZXBZ = '0' ORDER BY T2.ORGCODE ASC
+		 ]]>
+	</select>
+	
+	<!-- 举报奖励申请单位 -->
+	<select id="myOrgOfJBJLSP"  resultClass="comboBox">
+		<![CDATA[
+			SELECT DISTINCT T2.ORGCODE AS ID,T2.ORGNAME AS TEXT FROM YJJB_JBJLSPB T1,ORG_ORGANIZATION T2
+			WHERE T1.SQDW=T2.ORGCODE AND T1.XT_ZXBZ='0' AND T2.XT_ZXBZ = '0' ORDER BY T2.ORGCODE ASC
+		 ]]>
+	</select>
+	
+	<!-- 仲裁申请单位 -->
+	<select id="myOrgOfZCSQ"  resultClass="comboBox">
+		<![CDATA[
+			SELECT DISTINCT T2.ORGCODE AS ID,T2.ORGNAME AS TEXT FROM YJJB_XSZCSQB T1,ORG_ORGANIZATION T2
+			WHERE T1.ZCFQDW=T2.ORGCODE AND T1.XT_ZXBZ='0' AND T2.XT_ZXBZ = '0' ORDER BY T2.ORGCODE ASC
+		 ]]>
+	</select>
+	
+	<!-- 仲裁审批申请单位 -->
+	<select id="myOrgOfZCSPSQ"  resultClass="comboBox">
+		<![CDATA[
+			SELECT DISTINCT T2.ORGCODE AS ID,T2.ORGNAME AS TEXT FROM YJJB_XSZCSPB T1,ORG_ORGANIZATION T2
+			WHERE T1.SQDW=T2.ORGCODE AND T1.XT_ZXBZ='0' AND T2.XT_ZXBZ = '0' ORDER BY T2.ORGCODE ASC
+		 ]]>
+	</select>
+	
+	<!-- 线索征集申请单位 -->
+	<select id="myOrgOfXSZJSQ"  resultClass="comboBox">
+		<![CDATA[
+			SELECT DISTINCT T2.ORGCODE AS ID,T2.ORGNAME AS TEXT FROM YJJB_XSZJXXB T1,ORG_ORGANIZATION T2
+			WHERE T1.SQDW=T2.ORGCODE AND T1.XT_ZXBZ='0' AND T2.XT_ZXBZ = '0' and (T2.PARENTTREEPATH like '%$orgCode$%' OR T2.ORGCODE = #orgCode#)  ORDER BY T2.ORGCODE ASC
+		 ]]>
+	</select>
+	
+	<!-- 线索征集审批单位 -->
+	<select id="myOrgOfXSZJSP"  resultClass="comboBox">
+		<![CDATA[
+			SELECT DISTINCT T2.ORGCODE AS ID,T2.ORGNAME AS TEXT FROM YJJB_XSZJSPB T1,ORG_ORGANIZATION T2 
+			WHERE T1.SQDW=T2.ORGCODE AND T1.XT_ZXBZ='0' AND T2.XT_ZXBZ = '0' and T1.SPDW = #orgCode#  ORDER BY T2.ORGCODE ASC
+		 ]]>
+	</select>
+	
+	<!-- 举报奖励申请的管辖单位 -->
+	<select id="myOrgOfJBJLSQ"  resultClass="comboBox">
+		<![CDATA[
+			SELECT DISTINCT T2.ORGCODE AS ID,T2.ORGNAME AS TEXT FROM YJJB_JBJLXXB T1,ORG_ORGANIZATION T2
+			WHERE T1.SQDW=T2.ORGCODE AND T1.XT_ZXBZ='0' AND T2.XT_ZXBZ = '0' ORDER BY T2.ORGCODE ASC
+		 ]]>
+	</select>
+	
+	<!-- 举报奖励待申请的管辖单位 -->
+	<select id="myOrgOfJLDSQ"  resultClass="comboBox">
+		<![CDATA[
+			SELECT DISTINCT xt_lrrbmid AS ID,xt_lrrbm AS TEXT FROM V_YJJB_XSAJGXB ORDER BY　xt_lrrbmid ASC
+		 ]]>
+	</select>
+	
+	<!-- 老警综案件状态 -->
+	<select id="myOldAjzt"  resultClass="comboBox">
+		<![CDATA[
+			SELECT DISTINCT T2.DIC_CODE AS ID, T2.DIC_VALUE AS TEXT 
+			FROM 
+			jwzh.ga_jcxx_aj_ajjbxx@ldy T1,JWZH.DIC_TREE@jwzh_aj T2
+			WHERE T1.AJZT=T2.DIC_CODE AND T2.PARENT_ID='8354596' ORDER BY T2.DIC_CODE ASC
+		 ]]>
+	</select>
+	
+	<!-- 通过坐标返回责任区 -->
+	<select id="mapBzZrq" parameterClass="Map" resultClass="java.util.HashMap">
+		<![CDATA[
+			SELECT
+			A.ORGCODE AS SLFZDM,
+			SUBSTR(PARENTTREEPATH,LENGTH(PARENTTREEPATH)-12,12) AS SLZDM,
+			SUBSTR(PARENTTREEPATH,2,12) AS SLZXDM,
+			A.BJZBZ
+			FROM GIS210200000000.DLORG_XQ_PG T 
+			LEFT JOIN ORG_ORGANIZATION A ON T.ORGCODE = A.ORGCODE
+			WHERE T.ORGBIZTYPE='01' AND T.ORGLEVEL='32' AND sde.st_within (sde.st_point(#x#,#y#,3),T.shape) = 1
+		 ]]>
+	</select>
+	<select id="getDwjb" parameterClass="String" resultClass="java.util.HashMap">
+		SELECT * FROM YJJB_DWJB WHERE ORGCODE = #orgcode#
+	</select>
+	
+	<select id="selectByOrgId" parameterClass="String" resultClass="String">
+		SELECT ALARM FROM ORG_USER WHERE USERID = #orgId#
+	</select>
+	
+	<select id="getUserByalarm" parameterClass="String" resultClass="OrgUser">
+		SELECT * FROM ORG_USER WHERE (ALARM = #orgId# OR USERID = #orgId#) AND XT_ZXBZ='0'
+	</select>
+	
+		<!-- 用户列表 -->
+	<select id="queryUserList"  resultClass="comboBox">
+		<![CDATA[
+			SELECT DISTINCT USERID AS ID,USERNAME AS TEXT FROM ORG_USER 
+		 ]]>
+	</select>
+	
+	
+	<!-- 根据组织机构代码获取单位下所有有权限人员 -->
+	<select id="queryOrgUserByOrgCode" parameterClass="Map" resultClass="orguser">
+		<![CDATA[
+		SELECT T1.* FROM ORG_USER T1
+		LEFT JOIN ORG_ORG_USER T2 ON T1.ID = T2.USERID
+		LEFT JOIN ORG_ORGANIZATION T3 ON T2.ORGID = T3.ID
+		LEFT JOIN ORG_ROLE_ASSIGN T4 ON T1.ID = T4.ASSIGNID
+		LEFT JOIN ORG_ROLE T5 ON T4.ROLEID = T5.ID
+		WHERE T3.ORGCODE = #orgcode# AND T5.ID = #roleid#
+		]]>
+	</select>
+</sqlMap>

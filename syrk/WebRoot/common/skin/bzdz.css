@@ -1,0 +1,222 @@
+* {
+   font: 9pt "宋体"; 
+}
+
+/******************************************* 图标部分 *******************************************/
+
+a:link {
+   color: #0178B4; text-decoration: none;
+}
+a:visited {
+   color: #0178B4; text-decoration: none;
+}
+a:active {
+   color: #0178B4; text-decoration: none;
+}
+a:hover {
+   color: #FF0000; text-decoration: none;
+}
+
+.dzTconText {
+   font: 16px "宋体"; 
+   padding-left: 32px;
+   padding-right: 8px;
+   padding-top: 6px;
+}
+
+.dzIconFh {
+   background: url(images/dzIconFh.gif) no-repeat left;
+   height: 28px;
+}
+
+.dzIconCht {
+   background: url(images/dzIconCht.gif) no-repeat left;
+   height: 28px;
+}
+
+.dzIconWh {
+   background: url(images/dzIconWh.gif) no-repeat left;
+   height: 28px;
+}
+
+.dzIconBz {
+   background: url(images/dzIconBz.gif) no-repeat left;
+   height: 28px;
+}
+
+.dzIconOk {
+   background: url(images/dzIconOk.gif) no-repeat left;
+   height: 28px;
+}
+
+.dzIconAdd {
+   background: url(images/dzIconAdd.gif) no-repeat left;
+   height: 28px;
+}
+
+.dzIconPrev {
+   background: url(images/dzIconPrev.gif) no-repeat left;
+   height: 28px;
+}
+
+.dzIconNext {
+   background: url(images/dzIconNext.gif) no-repeat left;
+   height: 28px;
+}
+
+.searchTable {
+   background-color: #007be3;
+}
+
+.searchIcon {
+   background: url(images/dz_search.jpg) no-repeat center;
+   cursor: pointer;
+}
+
+.searchText {
+   font-size: 18px;
+   font-color: #222222;
+   height: 24px;
+   border: 1px solid #FFFFFF;
+   padding-left: 5px;
+   padding-top: 2px;
+}
+
+.dzTitle {
+   font-family: 黑体;
+   font-size: 20px;
+   font-color: #222222;
+   height: 40px;
+   padding-left: 10px;
+}
+
+.dzDetailTable {
+	background-color: #FFFFFF;
+}
+
+.dzDetailTableHeadTd {
+   height: 25px;
+   background-color: #F3F3F3;
+}
+
+.dzDetailTableTd1 {
+   height: 25px;
+   background-color: #F3F3F3;
+}
+
+.dzDetailTableTd2 {
+   height: 25px;
+   background-color: #E9E9E9;
+}
+
+.dzZt01_1 {
+   border: 0px;
+   height: 25px;
+   width: 25px;
+   background: url(images/dz_zt01.gif) no-repeat top;
+}
+
+.dzZt01_2 {
+   border: 0px;
+   height: 25px;
+   width: 25px;
+   background: url(images/dz_zt01.gif) no-repeat bottom;
+}
+
+.dzZt02_1 {
+   border: 0px;
+   height: 25px;
+   width: 25px;
+   background: url(images/dz_zt02.gif) no-repeat top;
+}
+
+.dzZt02_2 {
+   border: 0px;
+   height: 25px;
+   width: 25px;
+   background: url(images/dz_zt02.gif) no-repeat bottom;
+}
+
+.dzHouseTop {
+   height: 43px;
+   width: 100%;
+   background-image:url(images/dz_house_top.gif);
+   background-size:cover;
+   filter : progid:DXImageTransform.Microsoft.AlphaImageLoader ( sizingMethod='scale' , src='images/dz_house_top.gif') 
+}
+
+.dzHouseWall {
+   width: 13px;
+   background: url(images/dz_house_wall.gif) repeat-y left;
+}
+
+.dzHouseHorizon {
+   height: 8px;
+   background: url(images/dz_house_horizon.gif) repeat-x top;
+}
+
+.dzHouseDyTd {
+   background-color: #FBD279;
+}
+
+.dzHouseTable {
+   background-color: #6C291A;
+}
+
+.dzHouseTd {
+   width: 50px;
+   background-color: #FFFFFF;
+   padding: 1px;
+   padding-top: 4px;
+}
+
+.dzHouseDiv1 {
+   height: 16px; 
+   width: 40px;
+   font-size: 11px;
+   background-color: #FF6666;
+   border: 1px solid #660000;
+   padding-top: 2px;
+   color: #222222;
+}
+
+.dzHouseDiv2 {
+   height: 16px; 
+   width: 40px;
+   font-size: 11px;
+   background-color: #99FF66;
+   border: 1px solid #336600;
+   padding-top: 2px;
+   color: #222222;
+}
+
+.dzHouseDiv3 {
+   height: 16px; 
+   width: 40px;
+   font-size: 11px;
+   background-color: #FFCC33;
+   border: 1px solid #996600;
+   padding-top: 2px;
+   color: #222222;
+}
+
+.dzHouseColor1 {
+   color: #CC0000;
+   font-weight: bold;
+}
+
+.dzHouseColor2 {
+   color: #339900;
+   font-weight: bold;
+}
+
+.dzHouseColor3 {
+   color: #CC9900;
+   font-weight: bold;
+}
+
+.dzHouseDesc {
+   font-size: 16px; 	
+   padding-top: 8px; 	
+   padding-bottom: 8px; 	
+}

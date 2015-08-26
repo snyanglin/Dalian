@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+#infoDiv{
+	overflow: auto;
+}
+#infoDiv input{
+	border:0;
+	width:100%;
+	height:28px;
+	font: 16px "微软雅黑";
+}
+#zdryOpButtonTr td{
+	border:0;
+}
+
+#otherInfoListDiv{
+	overflow: none;
+	border:1px solid #17a9ff;
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>地图缩放组件demo</title>
+  </head>
+  
+  <body>
+  	<!-- 地图层begin -->
+	<div id="mapContainer">
+		<div id="map" style="width:100%; height:100%;border: 0px solid #FF0000;"></div>
+	</div>
+	<!-- 地图层end -->
+	
+	<script type="text/javascript" src="../../../framework/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="http://172.29.213.102:9080/PGIS_S_TileMap/js/EzMapAPI.js"></script>
+	<script type="text/javascript" src="../../tools/SysTool.js"></script>
+	<script type="text/javascript" src="js/zoomMap.js"></script>
+	<script type="text/javascript">
+		var _MapApp;
+		function onLoadMap() {
+			if (typeof EzMap == "undefined") {
+				window.setTimeout("onLoadMap()", 100);
+				return;
+			}
+			if (_compatIE()) {
+				_MapApp = new EzMap(document.getElementById("map"));
+				/* var pOverview = new OverView();
+				pOverview.width = 200;
+				pOverview.height = 200;
+				pOverview.minLevel = 8;
+				pOverview.maxLevel = 10; */
+				if (_MapApp.initialize) {
+					_MapApp.initialize();
+				}
+				//_MapApp.addOverView(pOverview);
+				_MapApp.zoomTo(11);
+				//_MapApp.showMapControl();
+				//_MapApp.showSmallMapControl();
+				_MapApp.showMapServer();
+				_MapApp.addMapEventListener(EzEvent.MAP_MOUSEMOVE, function(e) {
+					window.status = "X:" + e.mapPoint.x + "  Y:" + e.mapPoint.y;
+				});
+			} else if (_MapApp == null) {
+				var pEle=document.getElementById("map");
+				pEle.innerHTML = "<p>目前EzMap地图引擎不支持你使用的浏览器，我们当前支持如下浏览器类型:</p><ul><li><a href='http://www.microsoft.com/windows/ie/downloads/default.asp'>IE</a> 5.5+ (Windows)</li>";
+			}
+		}
+	
+		$(document).ready(function() {
+			onLoadMap();
+			/**
+			 * 初始化调用示例：ZoomMap.init({mapApp: _MapApp, mapContainerId: "mapContainer"});
+             * 初始化调用函数参数说明：@param {Object} param JSON对象（包括：mapApp 地图对象，mapContainerId 地图容器id）
+			 */
+			ZoomMap.init({mapApp: _MapApp, mapContainerId: "mapContainer"});
+			
+			/**
+			 * 设置缩放工具距离页面左边的位置调用示例：ZoomMap.setZoomToolLeftPosition(50);
+             * 设置缩放工具距离页面左边的位置调用函数参数说明：@param {Int} pxNumber 像素数
+             */
+            //ZoomMap.setZoomToolLeftPosition(50);
+             
+            /**
+             * 设置缩放工具距离页面顶部的位置调用示例：ZoomMap.setZoomToolTopPosition(10);
+             * 设置缩放工具距离页面顶部的位置调用函数参数说明：@param {Int} pxNumber 像素数
+             */
+            //ZoomMap.setZoomToolTopPosition(100);
+		});
+	</script>
+  </body>
+</html>

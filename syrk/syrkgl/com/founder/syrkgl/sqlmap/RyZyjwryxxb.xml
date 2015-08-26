@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="RyZyjwryxxb">
+	
+	<typeAlias alias="ryZyjwryxxb" type="com.founder.syrkgl.bean.RyZyjwryxxb" />
+	
+	<!-- 查询显示列表 -->
+	<select id="queryViewList" parameterClass="Map" resultClass="ryZyjwryxxb">
+		<![CDATA[ select * from (
+			select * from RY_ZYJWRYXXB t where t.XT_ZXBZ = '0' and RYID = #ryid# ]]>
+			<![CDATA[ order by XT_CJSJ desc) m where rownum <= #maxNum# ]]>
+	</select>
+
+	<!-- 查询单条（根据主键） -->
+	<select id="queryById" parameterClass="String" resultClass="ryZyjwryxxb">
+		<![CDATA[ select * from RY_ZYJWRYXXB t where ID = #id# and XT_ZXBZ = '0' and rownum = 1 ]]>
+	</select>
+
+	<!-- 新增 -->
+	<insert id="save" parameterClass="ryZyjwryxxb">
+		<![CDATA[ insert into RY_ZYJWRYXXB (ID,RYID,ZYJWRY_RYID,CYZJDM,ZJHM,XM,XBDM,MZDM,CSRQ,JGGJDQDM,JGSSXDM,JZD_XZQHDM,JZD_MLPDM,JZD_MLPXZ,JZD_DZID,JZD_DZXZ,LXDH,GZDWID,GZDW,ZYLBDM,ZY,RYGXDM,BZ,]]><include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#,#ryid#,#zyjwry_ryid#,#cyzjdm#,#zjhm#,#xm#,#xbdm#,#mzdm#,#csrq#,#jggjdqdm#,#jgssxdm#,#jzd_xzqhdm#,#jzd_mlpdm#,#jzd_mlpxz#,#jzd_dzid#,#jzd_dzxz#,#lxdh#,#gzdwid#,#gzdw#,#zylbdm#,#zy#,#rygxdm#,#bz#,]]>
+			<include refid="insertXtzdVal"/>)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterClass="ryZyjwryxxb">
+		<![CDATA[ update RY_ZYJWRYXXB ]]>	
+		<dynamic prepend="set">
+			 <isNotNull prepend="," property="zyjwry_ryid"><![CDATA[ ZYJWRY_RYID=#zyjwry_ryid# ]]></isNotNull>
+			 <isNotNull prepend="," property="cyzjdm"><![CDATA[ CYZJDM=#cyzjdm# ]]></isNotNull>
+			 <isNotNull prepend="," property="zjhm"><![CDATA[ ZJHM=#zjhm# ]]></isNotNull>
+			 <isNotNull prepend="," property="xm"><![CDATA[ XM=#xm# ]]></isNotNull>
+			 <isNotNull prepend="," property="xbdm"><![CDATA[ XBDM=#xbdm# ]]></isNotNull>
+			 <isNotNull prepend="," property="mzdm"><![CDATA[ MZDM=#mzdm# ]]></isNotNull>
+			 <isNotNull prepend="," property="csrq"><![CDATA[ CSRQ=#csrq# ]]></isNotNull>
+			 <isNotNull prepend="," property="jggjdqdm"><![CDATA[ JGGJDQDM=#jggjdqdm# ]]></isNotNull>
+			 <isNotNull prepend="," property="jgssxdm"><![CDATA[ JGSSXDM=#jgssxdm# ]]></isNotNull>
+			 <isNotNull prepend="," property="jzd_xzqhdm"><![CDATA[ JZD_XZQHDM=#jzd_xzqhdm# ]]></isNotNull>
+			 <isNotNull prepend="," property="jzd_mlpdm"><![CDATA[ JZD_MLPDM=#jzd_mlpdm# ]]></isNotNull>
+			 <isNotNull prepend="," property="jzd_mlpxz"><![CDATA[ JZD_MLPXZ=#jzd_mlpxz# ]]></isNotNull>
+			 <isNotNull prepend="," property="jzd_dzid"><![CDATA[ JZD_DZID=#jzd_dzid# ]]></isNotNull>
+			 <isNotNull prepend="," property="jzd_dzxz"><![CDATA[ JZD_DZXZ=#jzd_dzxz# ]]></isNotNull>
+			 <isNotNull prepend="," property="lxdh"><![CDATA[ LXDH=#lxdh# ]]></isNotNull>
+			 <isNotNull prepend="," property="gzdwid"><![CDATA[ GZDWID=#gzdwid# ]]></isNotNull>
+			 <isNotNull prepend="," property="gzdw"><![CDATA[ GZDW=#gzdw# ]]></isNotNull>
+			 <isNotNull prepend="," property="zylbdm"><![CDATA[ ZYLBDM=#zylbdm# ]]></isNotNull>
+			 <isNotNull prepend="," property="zy"><![CDATA[ ZY=#zy# ]]></isNotNull>
+			 <isNotNull prepend="," property="rygxdm"><![CDATA[ RYGXDM=#rygxdm# ]]></isNotNull>
+ 			 <isNotNull prepend="," property="bz"><![CDATA[ BZ=#bz# ]]></isNotNull>
+			,<include refid="updateXtzd"/>				
+		</dynamic>
+		<![CDATA[ where ID = #id#]]>	
+	</update>
+	
+	<!-- 注销 -->
+	<update id="delete" parameterClass="ryZyjwryxxb">
+		<![CDATA[ update RY_ZYJWRYXXB set ]]><include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>	
+	</update>
+	
+	<!-- 根据条件查询记录数 -->
+	<select id="queryCount" parameterClass="ryZyjwryxxb" resultClass="Integer">
+		<![CDATA[ select count(1) from RY_ZYJWRYXXB t where t.XT_ZXBZ = '0' and CYZJDM=#cyzjdm#  and RYID = #ryid# and ZJHM=#zjhm#]]>
+		   <isNotEmpty prepend="and" property="id">
+			<![CDATA[ t.id != #id#]]>
+		  </isNotEmpty>
+	</select>
+
+
+</sqlMap>

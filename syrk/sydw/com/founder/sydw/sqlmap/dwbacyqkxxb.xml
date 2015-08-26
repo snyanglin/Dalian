@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Dwbacyqkxxb">
+	<typeAlias alias="dwbacyqkxxb" type="com.founder.sydw.bean.Dwbacyqkxxb" />
+	
+	<select id="dwbacyqkxxb_queryById" parameterClass="String" resultClass="dwbacyqkxxb">
+		select * from DW_DWBAYCYQK t where BAYBM=#id# and XT_ZXBZ = '0'
+	</select>
+	
+	<insert id="dwbacyqkxxb_insert" parameterClass="dwbacyqkxxb">
+		insert into DW_DWBAYCYQK (id
+		<isNotEmpty prepend="," property="dwxh">
+				<![CDATA[ dwxh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="baybm">
+				<![CDATA[ baybm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfqdldht">
+				<![CDATA[sfqdldht]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jnsbxz">
+				<![CDATA[ jnsbxz]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfzdgw">
+				<![CDATA[ sfzdgw]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfgrhy">
+				<![CDATA[ sfgrhy]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zzqk">
+				<![CDATA[ zzqk]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="rzrq">
+				<![CDATA[ rzrq]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="lzrq">
+				<![CDATA[ lzrq]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="lzyy">
+				<![CDATA[ lzyy]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ygswqk">
+				<![CDATA[ ygswqk]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bacyxxbm">
+				<![CDATA[ bacyxxbm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="tbr">
+				<![CDATA[ tbr]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="tbsj">
+				<![CDATA[ tbsj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ssdsgajgdmid">
+				<![CDATA[ ssdsgajgdmid]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ssdsgajgdm">
+				<![CDATA[ ssdsgajgdm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwmc">
+				<![CDATA[ dwmc]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzd" />
+		) values (#id#
+		<isNotEmpty prepend="," property="dwxh">
+				<![CDATA[ #dwxh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="baybm">
+				<![CDATA[ #baybm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfqdldht">
+				<![CDATA[ #sfqdldht#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jnsbxz">
+				<![CDATA[ #jnsbxz#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfzdgw">
+				<![CDATA[ #sfzdgw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfgrhy">
+				<![CDATA[ #sfgrhy#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zzqk">
+				<![CDATA[ #zzqk#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="rzrq">
+				<![CDATA[ #rzrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="lzrq">
+				<![CDATA[ #lzrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="lzyy">
+				<![CDATA[ #lzyy#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ygswqk">
+				<![CDATA[ #ygswqk#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bacyxxbm">
+				<![CDATA[ #bacyxxbm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="tbr">
+				<![CDATA[ #tbr#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="tbsj">
+				<![CDATA[ #tbsj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ssdsgajgdmid">
+				<![CDATA[ #ssdsgajgdmid#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ssdsgajgdm">
+				<![CDATA[ #ssdsgajgdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwmc">
+				<![CDATA[ #dwmc#]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzdVal" />
+		)
+	</insert>
+	
+	<update id="dwbacyqkxxb_update" parameterClass="dwbacyqkxxb">
+		 <![CDATA[ update DW_DWBAYCYQK ]]>
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="id"><![CDATA[ ID=#id# ]]></isNotNull>
+			<isNotNull prepend="," property="dwxh"><![CDATA[ DWXH=#dwxh# ]]></isNotNull>
+			<isNotNull prepend="," property="baybm"><![CDATA[ BAYBM=#baybm# ]]></isNotNull>	
+			<isNotNull prepend="," property="sfqdldht"><![CDATA[ SFQDLDHT=#sfqdldht# ]]></isNotNull>
+			<isNotNull prepend="," property="jnsbxz"><![CDATA[ JNSBXZ=#jnsbxz# ]]></isNotNull>
+		    <isNotNull prepend="," property="sfzdgw"><![CDATA[ SFZDGW=#sfzdgw# ]]></isNotNull>
+			<isNotNull prepend="," property="sfgrhy"><![CDATA[ SFGRHY=#sfgrhy# ]]></isNotNull>
+		    <isNotNull prepend="," property="zzqk"><![CDATA[ ZZQK=#zzqk# ]]></isNotNull>
+			<isNotNull prepend="," property="rzrq"><![CDATA[ RZRQ=#rzrq#]]></isNotNull>
+			<isNotNull prepend="," property="lzrq"><![CDATA[ LZRQ=#lzrq#]]></isNotNull>
+			<isNotNull prepend="," property="lzyy"><![CDATA[ LZYY=#lzyy#]]></isNotNull>
+			<isNotNull prepend="," property="ygswqk"><![CDATA[ YGSWQK=#ygswqk#]]></isNotNull>
+			<isNotNull prepend="," property="bacyxxbm"><![CDATA[ BACYXXBM=#bacyxxbm#]]></isNotNull>
+			<isNotNull prepend="," property="tbr"><![CDATA[ TBR=#tbr#]]></isNotNull>
+			<isNotNull prepend="," property="tbsj"><![CDATA[ TBSJ=#tbsj#]]></isNotNull>
+			<isNotNull prepend="," property="ssdsgajgdmid"><![CDATA[ SSDSGAJGDMID=#ssdsgajgdmid#]]></isNotNull>
+			<isNotNull prepend="," property="ssdsgajgdm"><![CDATA[ SSDSGAJGDM=#ssdsgajgdm#]]></isNotNull>
+			<isNotNull prepend="," property="dwmc"><![CDATA[ DWMC=#dwmc#]]></isNotNull>
+			,
+			<include refid="updateXtzd" />
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>
+	</update>
+		
+</sqlMap>

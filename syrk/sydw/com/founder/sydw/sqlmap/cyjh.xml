@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Cyjh">
+<typeAlias alias="xfdwcccsxxb" type="com.founder.sydw.bean.Xfdwcccsxxb" />
+<typeAlias alias="dwcyjcrwxxb" type="com.founder.sydw.bean.Dwcyjcrwxxb" />
+
+<resultMap class="java.util.HashMap" id="queryXfdwlxByJbdwlbMap">
+	<result property="jgdwlb" column="jgdwlb" javaType="String" jdbcType="VARCHAR"/>
+	<result property="val" column="val" javaType="String" jdbcType="VARCHAR"/>
+</resultMap>
+	<!-- 按照消防监管类别统计本辖区消防单位数量 -->
+	<select id="queryXfdwlxByJbdwlb" parameterClass="Map" resultMap="queryXfdwlxByJbdwlbMap">
+		SELECT JGDWLB,COUNT(JGDWLB) VAL FROM DW_DWJBXXB T,DW_DWXFXXB D 
+		WHERE T.ID=D.DWID AND T.XT_ZXBZ='0'
+		<isNotEmpty prepend="and" property="glbmid">
+			GLBMID = #glbmid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="glpcsid">
+			GLPCSID = #glpcsid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="glfxjid">
+			GLFXJID = #glfxjid#
+		</isNotEmpty>
+		GROUP BY D.JGDWLB
+	</select>
+	<!-- 新增 -->
+	<insert id="saveXfdwcccsxxb" parameterClass="xfdwcccsxxb">
+		<![CDATA[ INSERT INTO DW_XFDWCCCSXXB (ID ]]>
+		<isNotEmpty prepend="," property="zzjcrs"><![CDATA[ZZJCRS]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jzjcrs"><![CDATA[JZJCRS]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zddwzccdwdbfb"><![CDATA[ZDDWZCCDWDBFB]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zs"><![CDATA[ZS]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zddws"><![CDATA[ZDDWS]]></isNotEmpty>
+		<isNotEmpty prepend="," property="fzddws"><![CDATA[FZDDWS]]></isNotEmpty>
+		<isNotEmpty prepend="," property="nf"><![CDATA[NF]]></isNotEmpty>
+		,<include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#]]>
+		<isNotEmpty prepend="," property="zzjcrs"><![CDATA[#zzjcrs#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jzjcrs"><![CDATA[#jzjcrs#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zddwzccdwdbfb"><![CDATA[#zddwzccdwdbfb#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zs"><![CDATA[#zs#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zddws"><![CDATA[#zddws#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="fzddws"><![CDATA[#fzddws#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="nf"><![CDATA[#nf#]]></isNotEmpty>
+		,<include refid="insertXtzdVal"/>)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="modifyXfdwcccsxxb" parameterClass="xfdwcccsxxb">
+		<![CDATA[ UPDATE DW_XFDWCCCSXXB SET]]>	
+			<include refid="updateXtzd"/>
+			<isNotEmpty prepend="," property="zzjcrs"><![CDATA[ZZJCRS=#zzjcrs#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jzjcrs"><![CDATA[JZJCRS=#jzjcrs#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="zddwzccdwdbfb"><![CDATA[ZDDWZCCDWDBFB=#zddwzccdwdbfb#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="zs"><![CDATA[ZS=#zs#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="zddws"><![CDATA[ZDDWS=#zddws#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="fzddws"><![CDATA[FZDDWS=#fzddws#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="nf"><![CDATA[NF=#nf#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="xt_zxbz"><![CDATA[XT_ZXBZ=#xt_zxbz#]]></isNotEmpty>
+		<![CDATA[ WHERE ID = #id#]]>	
+	</update>
+	
+	<!-- 查询单条-->
+	<select id="queryXfdwcccsxxb" parameterClass="xfdwcccsxxb" resultClass="xfdwcccsxxb">
+		SELECT * FROM DW_XFDWCCCSXXB T WHERE 1=1 
+		<isNotEmpty prepend="and" property="id">
+			T.ID = #id#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="nf">
+			T.NF = #nf#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="xt_lrrid">
+			XT_LRRID = #xt_lrrid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="xt_zxbz">
+			XT_ZXBZ = #xt_zxbz#
+		</isNotEmpty>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="queryXfdwcccsxxbForPage" parameterClass="Map" resultClass="xfdwcccsxxb">
+		<![CDATA[ SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+			SELECT * FROM DW_XFDWCCCSXXB T WHERE T.XT_ZXBZ = '0' ]]>
+			<isNotEmpty prepend="and" property="xfdwcccsxxb.xt_lrrid">
+				XT_LRRID = #xfdwcccsxxb.xt_lrrid#
+			</isNotEmpty>
+		<![CDATA[ ORDER BY $sort$ $order$) M  
+		WHERE ROWNUM <= #end# ) WHERE R > #begin# ]]>
+	</select>
+	
+	<!-- 查询列表技术 -->
+	<select id="queryXfdwcccsxxbCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ SELECT COUNT(*) FROM DW_XFDWCCCSXXB T WHERE T.XT_ZXBZ = '0' ]]>
+		<isNotEmpty prepend="and" property="xfdwcccsxxb.xt_lrrid">
+			XT_LRRID = #xfdwcccsxxb.xt_lrrid#
+		</isNotEmpty>
+	</select>
+	
+	<!-- 单位抽样检查任务分页查询 -->
+	<select id="queryDwcyjcrwxxbForPage" parameterClass="Map" resultClass="dwcyjcrwxxb">
+		<![CDATA[ SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+			SELECT T3.ID,T3.DWID,T3.CCRWID,T1.DWLBDM,T1.ZAGLDWBM DWBM,T1.DWMC,T1.DZ_DWDZDM DWDZDM,T2.XFGX,T2.JGDWLB,T4.CCCS,T4.CCSJKS,T4.CCSJJS
+			FROM DW_DWJBXXB T1,DW_DWXFXXB T2,DW_DWCYJCRWXXB T3,DW_CYXXB T4 
+			WHERE T1.ID=T2.DWID AND T1.ID=T3.DWID AND T3.CCRWID=T4.ID AND T4.XT_ZXBZ='0' AND T1.XT_ZXBZ='0' AND T3.XT_ZXBZ='0' ]]>
+			<isNotEmpty prepend="and" property="dwcyjcrwxxb.fpryid">
+				FPRYID = #dwcyjcrwxxb.fpryid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dwcyjcrwxxb.dwmc">
+				T1.DWMC like '%$dwcyjcrwxxb.dwmc$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dwcyjcrwxxb.jgdwlb">
+				T2.JGDWLB = #dwcyjcrwxxb.jgdwlb#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dwcyjcrwxxb.dwdzxz">
+				T1.DZ_DWDZXZ like '%$dwcyjcrwxxb.dwdzxz$%'
+			</isNotEmpty>
+		<![CDATA[ ORDER BY $sort$ $order$) M  
+		WHERE ROWNUM <= #end# ) WHERE R > #begin# ]]>
+	</select>
+	
+	<!-- 单位抽样检查任务计数 -->
+	<select id="queryDwcyjcrwxxbCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ SELECT COUNT(*) FROM DW_DWJBXXB T1,DW_DWXFXXB T2,DW_DWCYJCRWXXB T3,DW_CYXXB T4 
+		WHERE T1.ID=T2.DWID AND T1.ID=T3.DWID AND T3.CCRWID=T4.ID AND T4.XT_ZXBZ='0' AND T1.XT_ZXBZ='0' AND T3.XT_ZXBZ='0' ]]>
+		<isNotEmpty prepend="and" property="dwcyjcrwxxb.fpryid">
+			FPRYID = #dwcyjcrwxxb.fpryid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="dwcyjcrwxxb.dwmc">
+			T1.DWMC like '%$dwcyjcrwxxb.dwmc$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="dwcyjcrwxxb.jgdwlb">
+			T2.JGDWLB = #dwcyjcrwxxb.jgdwlb#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="dwcyjcrwxxb.dwdzxz">
+			T1.DZ_DWDZXZ like '%$dwcyjcrwxxb.dwdzxz$%'
+		</isNotEmpty>
+	</select>
+	
+	<!-- 更新抽样检查任务表 -->
+	<update id="modifyDwcyjcrwxxb" parameterClass="dwcyjcrwxxb">
+		<![CDATA[ UPDATE DW_DWCYJCRWXXB SET]]>	
+			<include refid="updateXtzd"/>
+			<isNotEmpty prepend="," property="xt_zxbz"><![CDATA[XT_ZXBZ=#xt_zxbz#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jcid"><![CDATA[JCID=#jcid#]]></isNotEmpty>
+		<![CDATA[ WHERE ID = #id#]]>	
+	</update>
+	
+	<!-- 新增抽样检查任务表 -->
+	<insert id="saveDwcyjcrwxxb" parameterClass="dwcyjcrwxxb">
+		<![CDATA[ INSERT INTO DW_DWCYJCRWXXB (ID ]]>
+		<isNotEmpty prepend="," property="dwid"><![CDATA[DWID]]></isNotEmpty>
+		<isNotEmpty prepend="," property="ccrwid"><![CDATA[CCRWID]]></isNotEmpty>
+		<isNotEmpty prepend="," property="fpryid"><![CDATA[FPRYID]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jcid"><![CDATA[JCID]]></isNotEmpty>
+		,<include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#]]>
+		<isNotEmpty prepend="," property="dwid"><![CDATA[#dwid#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="ccrwid"><![CDATA[#ccrwid#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="fpryid"><![CDATA[#fpryid#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jcid"><![CDATA[#jcid#]]></isNotEmpty>
+		,<include refid="insertXtzdVal"/>)
+	</insert>
+	
+	<select id="queryDwcyjcrwxxbsByRwid" parameterClass="Map" resultClass="dwcyjcrwxxb">
+		SELECT * FROM DW_DWCYJCRWXXB T WHERE 1=1
+		<isNotEmpty prepend="and" property="ccrwid">
+			CCRWID = #ccrwid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="xt_zxbz">
+			XT_ZXBZ = #xt_zxbz#
+		</isNotEmpty>
+		
+	</select>
+</sqlMap>

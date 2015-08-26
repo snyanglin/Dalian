@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Sqjwsxxb">
+	
+	<typeAlias alias="sqjwsxxb" type="com.founder.zafffwqz.bean.Sqjwsxxb" />
+	<typeAlias alias="sqjwszrqglxxb" type="com.founder.zafffwqz.bean.Sqjwszrqglxxb" />
+	
+	<!-- 查询单条 -->
+	<select id="query" parameterClass="sqjwsxxb" resultClass="sqjwsxxb">
+		<![CDATA[select * from ZAFF_SQJWSXXB t where id= #id# ]]>
+	</select>
+	
+	<select id="queryByZrqdm" parameterClass="sqjwszrqglxxb" resultClass="sqjwszrqglxxb">
+		<![CDATA[select * from ZAFF_SQJWSZRQGLXXB t where zrqdm= #zrqdm# ]]>
+	</select>
+	
+	<select id="sqjwsxxb_query" parameterClass="Map" resultClass="sqjwsxxb">
+		<![CDATA[ select * from ( select rownum r ,m.* from (
+				SELECT * FROM ZAFF_SQJWSXXB WHERE id=#id# AND XT_ZXBZ='0' ORDER BY xt_cjsj DESC ]]>
+				<![CDATA[ ) m  where rownum <= #maxNum# ) where r > 0 ]]>
+	</select>
+	
+	<insert id="insertSqjwsxxb" parameterClass="sqjwsxxb">
+		 INSERT INTO ZAFF_SQJWSXXB
+		 	(id			
+	    	<isNotEmpty prepend="," property="jwsmc">
+				<![CDATA[ jwsmc]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="jwslb">
+				<![CDATA[ jwslb]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="jwsdh">
+				<![CDATA[ jwsdh]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="dz_jwsdzdm">
+				<![CDATA[ dz_jwsdzdm]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="dz_jwsdzssxdm">
+				<![CDATA[ dz_jwsdzssxdm]]>	
+			</isNotEmpty>		
+	    	<isNotEmpty prepend="," property="dz_jwsdzxz">
+				<![CDATA[ dz_jwsdzxz]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="jwsmj">
+				<![CDATA[ jwsmj]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="sfdldm">
+				<![CDATA[ sfdldm]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="mjrs">
+				<![CDATA[ mjrs]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="bgyppz">
+				<![CDATA[ bgyppz]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="jsjts">
+				<![CDATA[ jsjts]]>	
+			</isNotEmpty>
+	    	<isNotEmpty prepend="," property="ljgawts">
+				<![CDATA[ ljgawts]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="bz">
+				<![CDATA[ bz]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="dz_jwsdzmlpdm">
+				<![CDATA[ dz_jwsdzmlpdm]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="dz_jwsdzmlpxz">
+				<![CDATA[ dz_jwsdzmlpxz]]>	
+			</isNotEmpty>
+			,
+			<include refid="insertXtzd"/>
+			)
+	    	 values 
+	    	 (
+	    	<isNotEmpty  property="id">
+				<![CDATA[ #id#]]>	
+			</isNotEmpty>
+	    	<isNotEmpty prepend="," property="jwsmc">
+				<![CDATA[ #jwsmc#]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="jwslb">
+				<![CDATA[ #jwslb#]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="jwsdh">
+				<![CDATA[ #jwsdh#]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="dz_jwsdzdm">
+				<![CDATA[ #dz_jwsdzdm#]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="dz_jwsdzssxdm">
+				<![CDATA[ #dz_jwsdzssxdm#]]>	
+			</isNotEmpty>		
+	    	<isNotEmpty prepend="," property="dz_jwsdzxz">
+				<![CDATA[ #dz_jwsdzxz#]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="jwsmj">
+				<![CDATA[ #jwsmj#]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="sfdldm">
+				<![CDATA[ #sfdldm#]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="mjrs">
+				<![CDATA[ #mjrs#]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="bgyppz">
+				<![CDATA[ #bgyppz#]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="jsjts">
+				<![CDATA[ #jsjts#]]>	
+			</isNotEmpty>
+	    	<isNotEmpty prepend="," property="ljgawts">
+				<![CDATA[ #ljgawts#]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="bz">
+				<![CDATA[#bz#]]>	
+			</isNotEmpty>		
+	    	<isNotEmpty prepend="," property="dz_jwsdzmlpdm">
+				<![CDATA[ #dz_jwsdzmlpdm#]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="dz_jwsdzmlpxz">
+				<![CDATA[ #dz_jwsdzmlpxz#]]>	
+			</isNotEmpty>
+			,
+			<include refid="insertXtzdVal"/>									
+	    	  )	    	
+	</insert>
+	
+	<update  id="updateSqjwsxxb" parameterClass="sqjwsxxb">
+	 <![CDATA[ update ZAFF_SQJWSXXB]]>	
+		<dynamic prepend="set">
+		<isNotEmpty prepend="," property="jwsmc">
+				<![CDATA[ jwsmc=#jwsmc#]]>	
+			</isNotEmpty>			
+	    	,<![CDATA[ jwslb=#jwslb#]]>	
+			,<![CDATA[ jwsdh=#jwsdh#]]>	
+	    	,<![CDATA[ dz_jwsdzdm=#dz_jwsdzdm#]]>		
+	    	,<![CDATA[ dz_jwsdzssxdm=#dz_jwsdzssxdm#]]>	
+			,<![CDATA[ dz_jwsdzxz=#dz_jwsdzxz#]]>	
+			,<![CDATA[ jwsmj=#jwsmj#]]>		
+			,<![CDATA[ sfdldm=#sfdldm#]]>				
+			,<![CDATA[ mjrs=#mjrs#]]>	
+	    	,<![CDATA[ bgyppz=#bgyppz#]]>		
+			,<![CDATA[ jsjts=#jsjts#]]>	
+			,<![CDATA[ ljgawts=#ljgawts#]]>		
+	    	,<![CDATA[bz=#bz#]]>	
+	    	,<![CDATA[ dz_jwsdzmlpdm=#dz_jwsdzmlpdm#]]>				
+	    	,<![CDATA[ dz_jwsdzmlpxz=#dz_jwsdzmlpxz#]]>	
+	    	,
+	    	<include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>	
+	</update>
+	
+	<insert id="insertSqjwszrqglxxb" parameterClass="sqjwszrqglxxb">
+		 INSERT INTO ZAFF_SQJWSZRQGLXXB
+		 	(id			
+	    	<isNotEmpty prepend="," property="sqjwsid">
+				<![CDATA[ sqjwsid]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="zrqdm">
+				<![CDATA[ zrqdm]]>	
+			</isNotEmpty>	
+	    	<isNotEmpty prepend="," property="bz">
+				<![CDATA[ bz]]>	
+			</isNotEmpty>	
+			,
+			<include refid="insertXtzd"/>
+			)
+	    	 values 
+	    	 (
+	    	<isNotEmpty  property="id">
+				<![CDATA[ #id#]]>	
+			</isNotEmpty>
+	    	<isNotEmpty prepend="," property="sqjwsid">
+				<![CDATA[ #sqjwsid#]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="zrqdm">
+				<![CDATA[ #zrqdm#]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="bz">
+				<![CDATA[ #bz#]]>	
+			</isNotEmpty>		
+			,
+			<include refid="insertXtzdVal"/>									
+	    	  )	    	
+	</insert>
+	
+</sqlMap>

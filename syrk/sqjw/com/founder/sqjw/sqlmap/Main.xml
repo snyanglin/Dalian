@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Main">
+     <typeAlias alias="mainvo" type="com.founder.sqjw.vo.MainVo"/>
+    <!-- 查询派出所辖区概况统计 -->
+    <select id="queryPcsXqgkTj" parameterClass="mainvo" resultClass="mainvo">
+	      SELECT Z.ORGCODE,
+		       Z.ORGNAME,
+		       DECODE(S.SYRKNUM, NULL, 0, S.SYRKNUM) AS SYRKNUM,
+		       DECODE(B.BZDZNUM, NULL, 0, B.BZDZNUM) AS BZDZNUM,
+		       DECODE(D.SYDWNUM, NULL, 0, D.SYDWNUM) AS SYDWNUM,
+		       DECODE(F.SYFWNUM, NULL, 0, F.SYFWNUM) AS SYFWNUM
+		  FROM (SELECT T.ORGCODE, T.ORGNAME, T.ORGLEVEL
+		          FROM ORG_ORGANIZATION T
+		         WHERE T.XT_ZXBZ = '0'
+		           AND T.ORGLEVEL = '50'
+		           AND T.ORGCODE LIKE '%21020441%') Z
+		  LEFT JOIN (SELECT COUNT(S.ID) AS SYRKNUM, S.GXZRQDM
+		               FROM SYRK_SYRKXXZB S
+		              WHERE S.XT_ZXBZ = '0'
+		                AND S.GXPCSDM = '210204410000'
+		              GROUP BY S.GXZRQDM) S
+		    ON S.GXZRQDM = Z.ORGCODE
+		  LEFT JOIN (SELECT COUNT(B.MLDZID) AS BZDZNUM, B.ZRQDM
+		               FROM BZDZ_ADD_MLDZDXB B
+		              WHERE B.XT_ZXBZ = '0'
+		                AND B.PCSDM = '210204410000'
+		              GROUP BY B.ZRQDM) B
+		    ON B.ZRQDM = Z.ORGCODE
+		  LEFT JOIN (SELECT COUNT(D.ID) AS SYDWNUM, D.GLBMID
+		               FROM DW_DWJBXXB D
+		              WHERE D.XT_ZXBZ = '0'
+		                AND D.GLPCSID = '210204410000'
+		              GROUP BY D.GLBMID) D
+		    ON D.GLBMID = Z.ORGCODE
+		  LEFT JOIN (SELECT COUNT(F.ID) AS SYFWNUM, F.SS4JBMDM
+		               FROM SYFW_FWJBXXB F
+		              WHERE F.XT_ZXBZ = '0'
+		                AND F.SS3JBMDM = '210204410000'
+		              GROUP BY F.SS4JBMDM) F
+		    ON F.SS4JBMDM = Z.ORGCODE
+    </select>
+    <!--  查询派出所辖区概况详情 -->
+    <select id="queryPcsXqgkXq" parameterClass="mainvo" resultClass="mainvo">
+    
+    
+    </select>
+</sqlMap>	

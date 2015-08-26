@@ -1,0 +1,178 @@
+body {
+   -moz-user-select: none;
+   font: 9pt "宋体";
+}
+
+.tabBody {
+   margin: 0;
+   border-top: 1px solid #97c5ff;
+   border-left: 1px solid #016dc9;
+   border-right: 1px solid #016dc9;
+   background: #72C0F4;
+}
+
+.tabTable1 {
+   height: 1px;
+   background: #72C0F4;
+}
+
+.tabTable2 {
+   height: 24px;
+   background: url(images/tab_bg.jpg) repeat-x top;
+}
+
+.divTitles {
+   z-index: 2; 
+   position: absolute; 
+   top: 0px; 
+   left: 0; 
+   width: 0px; 
+   -moz-user-select:none;
+}
+
+.tableStart {
+   cursor: pointer;	
+   position: absolute; 
+   top: 2px; 
+   left: 5; 
+   height: 24px;
+   overflow: hidden;
+}
+
+.tableOther {
+   cursor: pointer;	
+   position: absolute; 
+   top: 2px; 
+   left: 0; 
+   height: 24px; 
+   overflow: hidden;
+   display: none;
+}
+
+.cursorDefault {
+   cursor: default;
+}
+
+.cursorPointer {
+   cursor: pointer;
+}
+
+.tab_titleFirst1 {
+   cursor: default;
+   background: url(images/tab_titleBgFirst.gif) no-repeat top;
+}
+
+.tab_titleFirst2 {
+   cursor: pointer;
+   background: url(images/tab_titleBgFirst.gif) no-repeat center;
+}
+
+.tab_titleFirst3 {
+   cursor: pointer;
+   background: url(images/tab_titleBgFirst.gif) no-repeat bottom;
+}
+
+.tab_title11 {
+   cursor: default;
+   background: url(images/tab_titleBg1.gif) no-repeat top;
+}
+
+.tab_title12 {
+   cursor: default;
+   background: url(images/tab_titleBg2.gif) repeat-x top;
+   font: 9pt "宋体";
+   color: #355368;
+   padding-top:1px;
+}
+
+.tab_title13 {
+   cursor: default;
+   background: url(images/tab_titleBg3.gif) no-repeat top;
+}
+
+.tab_title21 {
+   cursor: pointer;
+   background: url(images/tab_titleBg1.gif) no-repeat center;
+}
+
+.tab_title22 {
+   cursor: pointer;
+   background: url(images/tab_titleBg2.gif) repeat-x center;
+   font: 9pt "宋体";
+   color: #355368;
+   padding-top:1px;
+}
+
+.tab_title23 {
+   cursor: pointer;
+   background: url(images/tab_titleBg3.gif) no-repeat center;
+}
+
+.tab_title31 {
+   cursor: pointer;
+   background: url(images/tab_titleBg1.gif) no-repeat bottom;
+}
+
+.tab_title32 {
+   cursor: pointer;
+   background: url(images/tab_titleBg2.gif) repeat-x bottom;
+   font: 9pt "宋体";
+   color: #222222;
+   padding-top:1px;
+}
+
+.tab_title33 {
+   cursor: pointer;
+   background: url(images/tab_titleBg3.gif) no-repeat bottom;
+}
+
+.tab_scrollLeft1 {
+   cursor: pointer;
+   background: url(images/tab_scrollLeft.gif) no-repeat top;
+}
+
+.tab_scrollLeft2 {
+   background: url(images/tab_scrollLeft.gif) no-repeat bottom; 
+}
+
+.tab_scrollRight1 {
+   cursor: pointer;
+   background: url(images/tab_scrollRight.gif) no-repeat top;
+}
+
+.tab_scrollRight2 {
+   background: url(images/tab_scrollRight.gif) no-repeat bottom; 
+}
+
+.div_title1 {
+   font-size: 1px; 
+   width: 25px; 
+   height: 22px;
+}
+
+.div_title2 {
+   font-size: 1px; 
+   height: 5px;
+}
+
+.div_title3 {
+   font-size: 1px; 
+   width: 14px;
+   height:2px;
+}
+
+.div_close1 {
+   font-size: 1px; 
+   width: 11px;
+   height:11px;
+   cursor: pointer;
+   background: url(images/tab_close.gif) no-repeat top;
+}
+
+.div_close2 {
+   font-size: 1px; 
+   width: 11px;
+   height:11px;
+   cursor: pointer;
+   background: url(images/tab_close.gif) no-repeat bottom;
+}

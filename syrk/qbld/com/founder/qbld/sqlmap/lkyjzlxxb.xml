@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Lkyjzl">
+
+	<typeAlias alias="lkyjzl" type="com.founder.qbld.bean.Lkyjzlb" />
+	<typeAlias alias="lkyjzlQs" type="com.founder.qbld.bean.LkyjzlQsb" />
+	<typeAlias alias="lkyjzlFk" type="com.founder.qbld.bean.LkyjzlczFkb" />
+	
+	<!-- 临控指令信息列表查询 -->
+	<select id="queryLkyjzlList" parameterClass="Map" resultClass="lkyjzl">
+      select * from ( select rownum R ,m.* from (
+	       select * from qbld_lk_zlxxb
+		   where 1=1
+		   	  <isNotEmpty prepend="and" property="lkyjzlb.lkzlbh">
+				   lkzlbh = #lkyjzlb.lkzlbh#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lkyjzlb.lkzljb">
+				   lkzljb in($lkyjzlb.lkzljb$)
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lkyjzlb.zljsdw">
+				   zljsdw like '$lkyjzlb.zljsdw$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lkyjzlb.qsfkzt">
+				   qsfkzt = #lkyjzlb.qsfkzt#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lkyjzlb.zlfbsjB">
+				   <![CDATA[ zlfbsj >= #lkyjzlb.zlfbsjB#  ]]> 
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lkyjzlb.zlfbsjE">
+				    <![CDATA[ zlfbsj <= #lkyjzlb.zlfbsjE# ]]> 
+			  </isNotEmpty>
+			  <![CDATA[ 
+			  	order by $sort$ $order$
+			     ) m
+			  ]]>
+      <![CDATA[where rownum <= #end# ) where R > #begin#]]> 
+    </select>
+    
+    <!-- 临控指令信息列表总数 -->
+    <select id="queryLkyjzlCount" parameterClass="Map" resultClass="Integer">
+         select count(1)
+			from qbld_lk_zlxxb
+		  where 1=1
+		      <isNotEmpty prepend="and" property="lkyjzlb.lkzlbh">
+				   lkzlbh = #lkyjzlb.lkzlbh#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lkyjzlb.lkzljb">
+				   lkzljb in($lkyjzlb.lkzljb$)
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lkyjzlb.zljsdw">
+				   zljsdw like '$lkyjzlb.zljsdw$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lkyjzlb.qsfkzt">
+				   qsfkzt = #lkyjzlb.qsfkzt#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lkyjzlb.zlfbsjB">
+				   <![CDATA[ zlfbsj >= #lkyjzlb.zlfbsjB#  ]]> 
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lkyjzlb.zlfbsjE">
+				    <![CDATA[ zlfbsj <= #lkyjzlb.zlfbsjE# ]]> 
+			  </isNotEmpty>
+    </select>
+    
+	<!-- 临控指令信息详情-->
+    <select id="queryLkyjzl" parameterClass="Map" resultClass="lkyjzl">
+         select *
+			from qbld_lk_zlxxb a left join qbld_lk_zlqsb b
+			on(a.lkzlbh = b.lkzlbh)
+		  where 1=1
+		      <isNotEmpty prepend="and" property="lkyjzlb.lkzlbh">
+				   a.lkzlbh = #lkyjzlb.lkzlbh#
+			  </isNotEmpty>
+    </select>
+    
+    <!-- 反馈记录查询服务-根据lkzlbh查询临控指令信息反馈表详情 -->
+    <select id="queryLkyjzlFkb" parameterClass="Map" resultClass="lkyjzlFk">
+         select *
+			from qbld_lk_zlczfkb
+		  where 1=1
+		      <isNotEmpty prepend="and" property="lkyjzlfkb.lkzlbh">
+				   lkzlbh = #lkyjzlfkb.lkzlbh#
+			  </isNotEmpty>
+    </select>
+    
+    <!-- 更新临控指令信息签收表 -->
+	<update id="updateLkyjzlb" parameterClass="lkyjzl">
+       update qbld_lk_zlxxb
+      <dynamic prepend="set">
+			<isNotNull prepend="," property="qsfkzt">
+				<![CDATA[ qsfkzt = #qsfkzt# ]]>
+			</isNotNull>	
+		</dynamic>
+       where lkzlbh = #lkzlbh#
+    </update>
+    
+    <!-- 更新临控指令信息签收表 -->
+	<update id="updateLkyjzlqsb" parameterClass="lkyjzlQs">
+       update qbld_lk_zlqsb
+      <dynamic prepend="set">
+			<isNotNull prepend="," property="fszt">
+				<![CDATA[ fszt = #fszt# ]]>
+			</isNotNull>
+			<isNotNull prepend="," property="code">
+				<![CDATA[ code = #code# ]]>
+			</isNotNull>	
+		</dynamic>
+       where lkzlbh = #lkzlbh#
+    </update>
+    
+    <!-- 更新临控预警调用ws接口状态表 -->
+	<update id="updateLkyjzlczFkb" parameterClass="lkyjzlFk">
+       update qbld_lk_zlczfkb
+      <dynamic prepend="set">
+			<isNotNull prepend="," property="fszt">
+				<![CDATA[ fszt = #fszt# ]]>
+			</isNotNull>
+			<isNotNull prepend="," property="code">
+				<![CDATA[ code = #code# ]]>
+			</isNotNull>	
+		</dynamic>
+       where czfkxxbh = #czfkxxbh#
+    </update>
+    
+    <!-- 插入临控指令信息签收表 -->
+    <insert id="saveLkyjzlQs" parameterClass="lkyjzlQs">
+       insert into qbld_lk_zlqsb
+       (
+			lkzlbh
+		<isNotEmpty prepend="," property="qssj">
+			qssj
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qsrsfzh">
+			qsrsfzh
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qsrxm">
+			qsrxm
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qsdw">
+			qsdw
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qsdwjgdm">
+			qsdwjgdm
+		</isNotEmpty>
+       )VALUES(
+			#lkzlbh#
+		<isNotEmpty prepend="," property="qssj">
+			#qssj#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qsrsfzh">
+			#qsrsfzh#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qsrxm">
+			#qsrxm#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qsdw">
+			#qsdw#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qsdwjgdm">
+			#qsdwjgdm#
+		</isNotEmpty>
+       )
+    </insert>
+    
+    <!-- 新增临控指令信息反馈表 -->
+    <insert id="saveLkyjzlFk" parameterClass="lkyjzlFk">
+       insert into qbld_lk_zlczfkb
+       (
+       	lkzlbh
+		<isNotEmpty prepend="," property="ldxxbh">
+			ldxxbh
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="lkzllx">
+			lkzllx
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fksj">
+			fksj
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fkrsfzh">
+			fkrsfzh
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fkrxm">
+			fkrxm
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fkdw">
+			fkdw
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fkdwjgdm">
+			fkdwjgdm
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="mbfxzt">
+			mbfxzt
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxmbhdlb">
+			fxmbhdlb
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfxsj">
+			hdfxsj
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfxddqh">
+			hdfxddqh
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfxddxz">
+			hdfxddxz
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfxddssshcs">
+			hdfxddssshcs
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfxddssshcsdm">
+			hdfxddssshcsdm
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxhdxgxx">
+			fxhdxgxx
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxmbzrmjsfzh">
+			fxmbzrmjsfzh
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxmbzrmjxm">
+			fxmbzrmjxm
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxmbzrdw">
+			fxmbzrdw
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxmbzrdwjgdm">
+			fxmbzrdwjgdm
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="cqczcs">
+			cqczcs
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czsj">
+			czsj
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czddqh">
+			czddqh
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czddxz">
+			czddxz
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czzrmjsfzh">
+			czzrmjsfzh
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czzrmjxm">
+			czzrmjxm
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czzrdw">
+			czzrdw
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czzrdwjgdm">
+			czzrdwjgdm
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czjgms">
+			czjgms
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czjg">
+			czjg
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czfkxxbh">
+			czfkxxbh
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czcsxl">
+			czcsxl
+		</isNotEmpty>
+       )VALUES(
+       	#lkzlbh#
+		<isNotEmpty prepend="," property="ldxxbh">
+			#ldxxbh#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="lkzllx">
+			#lkzllx#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fksj">
+			#fksj#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fkrsfzh">
+			#fkrsfzh#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fkrxm">
+			#fkrxm#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fkdw">
+			#fkdw#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fkdwjgdm">
+			#fkdwjgdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="mbfxzt">
+			#mbfxzt#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxmbhdlb">
+			#fxmbhdlb#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfxsj">
+			#hdfxsj#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfxddqh">
+			#hdfxddqh#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfxddxz">
+			#hdfxddxz#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfxddssshcs">
+			#hdfxddssshcs#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfxddssshcsdm">
+			#hdfxddssshcsdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxhdxgxx">
+			#fxhdxgxx#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxmbzrmjsfzh">
+			#fxmbzrmjsfzh#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxmbzrmjxm">
+			#fxmbzrmjxm#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxmbzrdw">
+			#fxmbzrdw#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxmbzrdwjgdm">
+			#fxmbzrdwjgdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="cqczcs">
+			#cqczcs#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czsj">
+			#czsj#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czddqh">
+			#czddqh#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czddxz">
+			#czddxz#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czzrmjsfzh">
+			#czzrmjsfzh#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czzrmjxm">
+			#czzrmjxm#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czzrdw">
+			#czzrdw#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czzrdwjgdm">
+			#czzrdwjgdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czjgms">
+			#czjgms#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czjg">
+			#czjg#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czfkxxbh">
+			#czfkxxbh#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czcsxl">
+			#czcsxl#
+		</isNotEmpty>
+       )
+    </insert>
+    
+    <!-- 临控指令反馈信息列表查询 -->
+	<select id="queryLkyjzlFkList" parameterClass="Map" resultClass="lkyjzlFk">
+      select * from ( select rownum R ,m.* from (
+	       select * from qbld_lk_zlczfkb
+		   where 1=1
+		   	  <isNotEmpty prepend="and" property="lkyjzlczFkb.fkdwjgdm">
+				   fkdwjgdm = #lkyjzlczFkb.fkdwjgdm#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lkyjzlczFkb.lkzlbh">
+				  lkzlbh = #lkyjzlczFkb.lkzlbh#
+			  </isNotEmpty>
+			  <![CDATA[ 
+			  	order by $sort$ $order$
+			     ) m
+			  ]]>
+      <![CDATA[where rownum <= #end# ) where R > #begin#]]> 
+    </select>
+    
+    <!-- 临控指令信息反馈列表总数 -->
+    <select id="queryLkyjzlFkCount" parameterClass="Map" resultClass="Integer">
+         select count(1)
+			from qbld_lk_zlczfkb
+		  where 1=1
+		       <isNotEmpty prepend="and" property="lkyjzlczFkb.fkdwjgdm">
+				   fkdwjgdm = #lkyjzlczFkb.fkdwjgdm#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lkyjzlczFkb.lkzlbh">
+				  lkzlbh = #lkyjzlczFkb.lkzlbh#
+			  </isNotEmpty>
+    </select>
+    
+    <!-- 临控指令信息导出 -->
+	<select id="queryLkyjzlListExport" parameterClass="Map" resultClass="java.util.HashMap">
+	       select * from qbld_lk_zlxxb
+		   where 1=1
+			  <isNotEmpty prepend="and" property="lkyjzlb.lkzlbh">
+				   lkzlbh = #lkyjzlb.lkzlbh#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lkyjzlb.lkzljb">
+				   lkzljb in($lkyjzlb.lkzljb$)
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lkyjzlb.zljsdw">
+				   zljsdw like '$lkyjzlb.zljsdw$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lkyjzlb.qsfkzt">
+				   qsfkzt = #lkyjzlb.qsfkzt#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lkyjzlb.zlfbsjB">
+				   <![CDATA[ zlfbsj >= #lkyjzlb.zlfbsjB#  ]]> 
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lkyjzlb.zlfbsjE">
+				    <![CDATA[ zlfbsj <= #lkyjzlb.zlfbsjE# ]]> 
+			  </isNotEmpty>
+    </select>
+    
+    
+</sqlMap>

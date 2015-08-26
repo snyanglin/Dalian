@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZpfjFjxxb">
+	
+	<typeAlias alias="zpfjFjxxb" type="com.founder.service.attachment.bean.ZpfjFjxxb" />
+	<typeAlias alias="zpfjFjxzjlb" type="com.founder.service.attachment.bean.ZpfjFjxzjlb" />
+	
+	<!-- 查询列表 -->
+	<select id="queryCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) from ZPFJ_FJXXB t where t.XT_ZXBZ = '0' and LYBM = #zpfjFjxxb.lybm# and LYID = #zpfjFjxxb.lyid# ]]>
+		<isNotEmpty prepend="and" property="zpfjFjxxb.wjmc">
+			WJMC like '%$zpfjFjxxb.wjmc$%'
+		</isNotEmpty>
+	</select>
+	<select id="queryList" parameterClass="Map" resultClass="zpfjFjxxb">
+		<![CDATA[ select * from ( select rownum r ,m.* from (
+				select ID,WJMC,WJHZLX,WJDX,WJDXSM,WJXZCS,LYMS,XT_CJSJ from ZPFJ_FJXXB t where t.XT_ZXBZ = '0' and 
+				LYBM = #zpfjFjxxb.lybm# and LYID = #zpfjFjxxb.lyid# ]]>
+				<isNotEmpty prepend="and" property="zpfjFjxxb.wjmc">
+					WJMC like '%$zpfjFjxxb.wjmc$%'
+				</isNotEmpty>
+				<![CDATA[ order by $sort$ $order$) m where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+
+	<!-- 查询单个附件 -->
+	<select id="queryZpfjFjxxbById" parameterClass="String" resultClass="zpfjFjxxb">
+		<![CDATA[ select * from ZPFJ_FJXXB where XT_ZXBZ = '0' and ID = #id# and rownum = 1 ]]>
+	</select>
+
+	<!-- 查询附件ID，唯一附件更新时用 -->
+	<select id="queryZpfjId" parameterClass="Map" resultClass="String">
+		<![CDATA[ select ID from ZPFJ_FJXXB where XT_ZXBZ = '0' and LYBM = #lybm# and LYID = #lyid# and rownum = 1 ]]>
+	</select>
+	
+	<!-- 新增附件 -->
+	<insert id="saveZpfjFjxxb" parameterClass="zpfjFjxxb">
+		<![CDATA[ insert into ZPFJ_FJXXB (ID,WJMC,WJHZLX,WJ,WJDX,WJDXSM,WJXZCS,LYMS,LYID,LYBM,WJMS,BZ, ]]><include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#,#wjmc#,#wjhzlx#,#wj#,#wjdx#,#wjdxsm#,#wjxzcs#,#lyms#,#lyid#,#lybm#,#wjms#,#bz#, ]]><include refid="insertXtzdVal"/>)
+	</insert>
+	
+	<!-- 更新附件 -->
+	<update id="updateZpfjFjxxb" parameterClass="zpfjFjxxb">
+		<![CDATA[ update ZPFJ_FJXXB set WJMC=#wjmc#,WJHZLX=#wjhzlx#,WJ=#wj#,WJDX=#wjdx#,WJDXSM=#wjdxsm#,
+			WJXZCS=#wjxzcs#,LYMS=#lyms#,LYID=#lyid#,LYBM=#lybm#,WJMS=#wjms#,BZ=#bz#, ]]><include refid="updateXtzd"/><![CDATA[ where ID = #id# ]]>		
+	</update>
+
+	<!-- 注销附件 -->
+	<update id="deleteZpfjFjxxb" parameterClass="zpfjFjxxb">
+		<![CDATA[ update ZPFJ_FJXXB set ]]><include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>	
+	</update>
+		
+	<!-- 增加下载次数 -->
+	<update id="addDownLoadTimes" parameterClass="String">
+		<![CDATA[ update ZPFJ_FJXXB set WJXZCS = WJXZCS + 1 where ID = #id# ]]>	
+	</update>
+			
+	<!-- 新增下载记录 -->
+	<insert id="saveZpfjFjxzjlb" parameterClass="zpfjFjxzjlb">
+		<![CDATA[ insert into ZPFJ_FJXZJLB (ID,WJID,XZSJ,XZRRXM,XZRID,XZRBM,XZRBMID,XZIP,BZ, ]]><include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#,#wjid#,#xzsj#,#xzrrxm#,#xzrid#,#xzrbm#,#xzrbmid#,#xzip#,#bz#, ]]><include refid="insertXtzdVal"/>)
+	</insert>
+	
+	<!-- 查询附件ID列表，多个时用（如多张图片时控制上一张、下一张显示） -->
+	<select id="queryZpfjIdList" parameterClass="Map" resultClass="String">
+		<![CDATA[ select ID from ZPFJ_FJXXB where XT_ZXBZ = '0' and LYBM = #lybm# and LYID = #lyid# and upper(wjhzlx) in ('JPG','PNG','GIF','JPEG') order by xt_cjsj asc ]]>
+	</select>
+
+	<select id="fjxx_query" parameterClass="Map" resultClass="zpfjFjxxb">
+		<![CDATA[
+			select ID,WJMC,WJHZLX,WJDX,WJDXSM,WJXZCS,LYMS,XT_CJSJ from ZPFJ_FJXXB t where t.XT_ZXBZ = '0' and 
+			LYBM = #lybm# and LYID = #id#
+		]]>
+		<isNotEmpty prepend="and" property="maxNum"><![CDATA[ rownum <= #maxNum#]]></isNotEmpty>
+	</select>
+	
+	<select id="queryZpByLyid" parameterClass="String" resultClass="zpfjFjxxb">
+		<![CDATA[ select * from (select * from ZPFJ_FJXXB where XT_ZXBZ = '0' and upper(wjhzlx) in ('JPG','PNG','GIF','JPEG')   and LYID = #lyid# order by xt_lrsj desc) where rownum = 1 ]]>
+	</select>
+
+</sqlMap>

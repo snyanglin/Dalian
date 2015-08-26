@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--  
+	@Author:       [wu.w@founder.com.cn]
+	@CreateDate:   [2015-5-15 上午8:51:54]
+	* @review      : tian_chengwei@founder.com.cn
+	* @reviewDate  : 20150604
+-->
+<sqlMap namespace="dxqzxhdsplzbxclsssjzwdjxxb">
+	<typeAlias alias="lsjz" type="com.founder.zafffwqz.bean.DxqzxhdSplZbXclsssjzwdjxxb"/>
+	<!-- 大型群众性活动审批类-现场临时性建筑物搭建信息类-sql -->
+	<!-- 注销数据 -->
+	<update id="delete" parameterClass="lsjz" >
+		<![CDATA[UPDATE DXQZXHDSPL_ZB_XCLSSSJZWDJXXB SET ]]><include refid="deleteXtzd"/>
+		<![CDATA[ WHERE hdid = #hdid#]]>
+	</update>
+	
+	<!-- 查询数据 -->
+	<select id="query" parameterClass="String" resultClass="lsjz">
+		select * from DXQZXHDSPL_ZB_XCLSSSJZWDJXXB  where XT_ZXBZ = '0' and HDID=#hdid#
+	</select>
+	
+	<!-- 新增数据 -->
+	<update id="save" parameterClass="lsjz" >
+		INSERT INTO DXQZXHDSPL_ZB_XCLSSSJZWDJXXB (
+			HDID,DWMC,QYLX,QYZCH,ZYFZR,ZYFZRZW,ZYFZRLXDH,BZ,<include refid="insertXtzd"/> 
+  		) VALUES (
+  			#hdid#,#dwmc#,#qylx#,#qyzch#,#zyfzr#,#zyfzrzw#,#zyfzrlxdh#,#bz#,<include refid="insertXtzdVal"/>)
+	</update>
+	
+	<!-- 修改数据 -->
+	<update id="update" parameterClass="lsjz" >
+		UPDATE DXQZXHDSPL_ZB_XCLSSSJZWDJXXB SET 
+		bz=''
+		<isNotNull prepend = "," property = "dwmc"> <![CDATA[dwmc = #dwmc#]]> </isNotNull>
+		<isNotNull prepend = "," property = "qylx"> <![CDATA[qylx = #qylx#]]> </isNotNull>
+		<isNotNull prepend = "," property = "qyzch"> <![CDATA[qyzch = #qyzch#]]> </isNotNull>
+		<isNotNull prepend = "," property = "zyfzr"> <![CDATA[zyfzr = #zyfzr#]]> </isNotNull>
+		<isNotNull prepend = "," property = "zyfzrzw"> <![CDATA[zyfzrzw = #zyfzrzw#]]> </isNotNull>
+		<isNotNull prepend = "," property = "zyfzrlxdh"> <![CDATA[zyfzrlxdh = #zyfzrlxdh#]]> </isNotNull>
+		,<include refid="updateXtzd"/>				
+		WHERE hdid = #hdid#
+	</update>
+</sqlMap>

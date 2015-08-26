@@ -1,0 +1,83 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+ pageEncoding="UTF-8"%>
+<%@page import="com.founder.framework.config.SystemConfig" %>
+<%@include file="/WEB-INF/pages/commonInclude.jsp"%>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/tools/flashChart/swfobject.js"></script>
+<script type="text/javascript">
+  <!--
+  var orgcode = "";
+  var lx = "";
+  function getParm(name){
+	  var temp = "";
+	  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	  var r = window.location.search.substr(1).match(reg);
+	  if(r != null){
+		  temp = unescape(r[2]);
+	  } 
+	  return temp;
+   }
+
+	function init(){
+		orgcode = getParm("gxdwdm");
+     	drawChart('jqChart');
+    }
+      
+  function drawChart(type){
+ 	  var mini = new Date().getMilliseconds();
+ 	  swfobject.embedSWF(
+ 		contextPath+"/js/tools/flashChart/open-flash-chart.swf",
+ 		type,
+ 		"30%",
+ 	 	"90%",
+ 	  	"9.0.0",
+ 	  	"expressInstall.swf",
+ 	  	{"data-file":contextPath+"/homePage/querySyrkChart?zzjgdm=" + orgcode + "~"},
+ 	  	{wmode:"transparent"}
+ 	  );
+ 	  swfobject.embedSWF(
+ 		contextPath+"/js/tools/flashChart/open-flash-chart.swf",
+ 		type + "1",
+ 		"30%",
+ 	 	"90%",
+ 	  	"9.0.0",
+ 	  	"expressInstall.swf",
+ 	  	{"data-file":contextPath+"/homePage/querySydwChart?zzjgdm=" + orgcode + "~"},
+ 	  	{wmode:"transparent"}
+ 	  );
+ 	  swfobject.embedSWF(
+ 		contextPath+"/js/tools/flashChart/open-flash-chart.swf",
+ 		type + "2",
+ 		"30%",
+ 	 	"90%",
+ 	  	"9.0.0",
+ 	  	"expressInstall.swf",
+ 	  	{"data-file":contextPath+"/homePage/querySyfwChart?zzjgdm=" + orgcode + "~"},
+ 	  	{wmode:"transparent"}
+ 	  );
+   }
+  -->
+</script>
+</head>
+<body onload="init();" class="easyui-layout" data-options="fit:true">  
+    <div data-options="region:'center',border:false">
+    	<div class="easyui-layout" data-options="fit:true,border:false">   
+            <div style="height: 200px;"></div>
+            <div data-options="region:'center',split:true,title:'',border:false" >
+            	<!-- <div id="jqChart"></div> -->
+            	<span id="jqChart"></span>
+            	<span id="jqChart1"></span>
+            	<span id="jqChart2"></span>
+			</div>
+        </div>
+    </div>   
+</body>
+<script type="text/javascript">
+<!--
+
+-->
+</script>  
+</html>

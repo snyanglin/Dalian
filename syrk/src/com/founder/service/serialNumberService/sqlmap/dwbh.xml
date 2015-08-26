@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="dwbh">
+
+	<typeAlias alias="ywgzxxb"
+		type="com.founder.service.serialNumberService.bean.GgYwgzxxb" />
+	<!-- 建立序列 -->
+	<statement id="creatSequence" parameterClass="String">
+		create sequence dw_2102
+		start with 1
+		increment by 1
+		nomaxvalue
+		minvalue 0
+	</statement>
+	<!-- 重置序列重新重1开始 -->
+		<!-- 生成单位编号的序号 -->
+	<parameterMap id="dwbh_map" class="java.util.HashMap">
+		<parameter property="sequenceName" jdbcType="VARCHAR" javaType="String" mode="IN" />
+	</parameterMap>
+	<procedure id="resetSequence" parameterMap="dwbh_map">
+	begin
+		 seq_reset(?);
+		end;
+		
+	</procedure>
+
+	<!-- 查询业务规则表 -->
+	<select id="queryYwgzsj" parameterClass="String" resultClass="ywgzxxb">
+		<![CDATA[ select t.* from GG_YWGZXXB t where t.xt_zxbz='0' and ywmc=#ywmc#]]>
+	</select>
+	
+	<!-- 修改业务规则表 -->
+	<update  id="updateYwgzb" parameterClass="ywgzxxb">
+	 <![CDATA[ update GG_YWGZXXB ]]>	
+		<dynamic prepend="set">
+ <isNotNull prepend="," property="ywmc"><![CDATA[ YWMC=#ywmc# ]]></isNotNull>
+ <isNotNull prepend="," property="ywms"><![CDATA[ YWMS=#ywms# ]]></isNotNull>
+ <isNotNull prepend="," property="ywgz"><![CDATA[ YWGZ=#ywgz# ]]></isNotNull>
+ <isNotNull prepend="," property="ywxx1"><![CDATA[ YWXX1=#ywxx1# ]]></isNotNull>
+ <isNotNull prepend="," property="ywxx2"><![CDATA[ YWXX2=#ywxx2# ]]></isNotNull>
+ <isNotNull prepend="," property="xt_lrsj"><![CDATA[ XT_LRSJ=#xt_lrsj# ]]></isNotNull>
+ <isNotNull prepend="," property="xt_lrrxm"><![CDATA[ XT_LRRXM=#xt_lrrxm# ]]></isNotNull>
+ <isNotNull prepend="," property="xt_zxbz"><![CDATA[ XT_ZXBZ=#xt_zxbz# ]]></isNotNull>
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>	
+	</update>
+
+
+	<!-- 新增 -->
+	<insert id="save" parameterClass="ywgzxxb">
+		<![CDATA[ insert into GG_YWGZXXB (ID,YWMC,YWMS,YWGZ,YWXX1,YWXX2,xt_lrsj,xt_lrrxm,xt_zxbz)]]>)
+		<![CDATA[ values (#id#,#ywmc#,#ywms#,#ywgz#,#ywxx1#,#ywxx2#,#xt_lrsj#,#xt_lrrxm#,#xt_zxbz#)]]>>)
+	</insert>
+
+
+</sqlMap>

@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Ckyjzl">
+
+	<typeAlias alias="ckyjzl" type="com.founder.qbld.bean.Ckyjzlb" />
+	<typeAlias alias="ckyjzlQs" type="com.founder.qbld.bean.CkyjzlQsb" />
+	<typeAlias alias="ckyjzlFk" type="com.founder.qbld.bean.CkyjzlczFkb" />
+	
+	<!-- 预警指令列表信息 -->
+	<select id="queryCkyjzlList" parameterClass="Map" resultClass="ckyjzl">
+      select * from ( select rownum r ,m.* from (
+	       select * from qbld_ck_zlxxb
+		   where 1=1
+		   	  <isNotEmpty prepend="and" property="ckyjzlb.yjzlbh">
+				   yjzlbh = #ckyjzlb.yjzlbh#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="ckyjzlb.zlbt">
+				   zlbt like '%$ckyjzlb.zlbt$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="ckyjzlb.zljb">
+				   zljb in($ckyjzlb.zljb$)
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="ckyjzlb.fbsjB">
+				   fbsj gt;= #ckyjzlb.fbsjB#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="ckyjzlb.fbsjE">
+				   fbsj lt;= #ckyjzlb.fbsjE#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="ckyjzlb.xfjsdw">
+				   xfjsdw like '$ckyjzlb.xfjsdw$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="ckyjzlb.qsfkzt">
+				   qsfkzt = #ckyjzlb.qsfkzt#
+			  </isNotEmpty>
+			  <![CDATA[ 
+			  	order by $sort$ $order$
+			     ) m
+			  ]]>
+      <![CDATA[where rownum <= #end# ) where r > #begin#]]> 
+    </select>
+    
+    <!-- 预警指令列表总数 -->
+    <select id="queryCkyjzlCount" parameterClass="Map" resultClass="Integer">
+         select count(1)
+			from qbld_ck_zlxxb
+		  where 1=1
+		      <isNotEmpty prepend="and" property="ckyjzlb.yjzlbh">
+				   yjzlbh = #ckyjzlb.yjzlbh#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="ckyjzlb.zlbt">
+				   zlbt like '%$ckyjzlb.zlbt$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="ckyjzlb.zljb">
+				   zljb in($ckyjzlb.zljb$)
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="ckyjzlb.fbsjB">
+				   fbsj gt;= #ckyjzlb.fbsjB#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="ckyjzlb.fbsjE">
+				   fbsj lt;= #ckyjzlb.fbsjE#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="ckyjzlb.xfjsdw">
+				   xfjsdw like '$xfjsdw.xfjsdw$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="ckyjzlb.qsfkzt">
+				   qsfkzt = #ckyjzlb.qsfkzt#
+			  </isNotEmpty>
+    </select>
+    
+	<!-- 预警指令详情-->
+    <select id="queryCkyjzl" parameterClass="Map" resultClass="ckyjzl">
+         select a.*, b.qssj qsrq, b.qsdw_mc, b.qsrxm
+			from qbld_ck_zlxxb a left join qbld_ck_zlqsb b
+			on(a.yjzlbh = b.yjzlbh)
+		  where 1=1
+		      <isNotEmpty prepend="and" property="ckyjzlb.yjzlbh">
+				   a.yjzlbh = #ckyjzlb.yjzlbh#
+			  </isNotEmpty>
+    </select>
+    
+    <!-- 反馈记录查询服务-根据yjzlbh查询预警指令反馈表详情 -->
+    <select id="queryCkyjzlFkb" parameterClass="Map" resultClass="ckyjzlFk">
+         select *
+			from qbld_ck_yjzlfkb
+		  where 1=1
+		      <isNotEmpty prepend="and" property="ckyjzlfkb.yjzlbh">
+				   yjzlbh = #ckyjzlfkb.yjzlbh#
+			  </isNotEmpty>
+    </select>
+    
+    <!-- 更新临控警情签收表 -->
+	<update id="updateCkyjzlb" parameterClass="ckyjzl">
+       update qbld_ck_zlxxb
+       <dynamic prepend="set">
+			<isNotNull prepend="," property="qsfkzt">
+				<![CDATA[ qsfkzt = #qsfkzt# ]]>
+			</isNotNull>
+			<isNotNull prepend="," property="qssj">
+				<![CDATA[ qssj = #qssj# ]]>
+			</isNotNull>
+		</dynamic>
+       where yjzlbh = #yjzlbh#
+    </update>
+    
+    <!-- 插入预警指令签收表 -->
+    <insert id="saveCkyjzlQs" parameterClass="ckyjzlQs">
+       insert into qbld_ck_zlqsb
+       (
+       yjzlbh
+        <isNotEmpty prepend="," property="qssj">
+			qssj
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qsrxm">
+			qsrxm
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qsrsfzh">
+			qsrsfzh
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qsdw_dm">
+			qsdw_dm
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qsdw_mc">
+			qsdw_mc
+		</isNotEmpty>
+       )VALUES(
+       #yjzlbh#
+        <isNotEmpty prepend="," property="qssj">
+			#qssj#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qsrxm">
+			#qsrxm#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qsrsfzh">
+			#qsrsfzh#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qsdw_dm">
+			#qsdw_dm#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qsdw_mc">
+			#qsdw_mc#
+		</isNotEmpty>
+       )
+    </insert>
+    
+    <!-- 新增预警指令反馈表 -->
+    <insert id="saveCkyjzlFk" parameterClass="ckyjzlFk">
+       insert into qbld_ck_yjzlfkb
+       (
+			yjzlbh
+		<isNotEmpty prepend="," property="fksj">
+			fksj
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fkrsfzh">
+			fkrsfzh
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fkrxm">
+			fkrxm
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fkdw">
+			fkdw
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fkdwjgdm">
+			fkdwjgdm
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dtxxlb">
+			dtxxlb
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfssj">
+			hdfssj
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfsddqh">
+			hdfsddqh
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfsddxz">
+			hdfsddxz
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfsddssshcs">
+			hdfsddssshcs
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfsddssshcsdm">
+			hdfsddssshcsdm
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxhdxgxx">
+			fxhdxgxx
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="mbfxzt">
+			mbfxzt
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxmbzrmjsfzh">
+			fxmbzrmjsfzh
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxmbzrmjxm">
+			fxmbzrmjxm
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxmbzrdw">
+			fxmbzrdw
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxmbzrdwjgdm">
+			fxmbzrdwjgdm
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="cqczcs">
+			cqczcs
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="gkcs">
+			gkcs
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czsj">
+			czsj
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czddqh">
+			czddqh
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czddxz">
+			czddxz
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czzrmjsfzh">
+			czzrmjsfzh
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czzrmjxm">
+			czzrmjxm
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czzrdwjgdm">
+			czzrdwjgdm
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czjgms">
+			czjgms
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czjg">
+			czjg
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ssdqid">
+			ssdqid
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfsb">
+			sfsb
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="b_sfsbst">
+			b_sfsbst
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="b_gklx">
+			b_gklx
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="b_zdryjb">
+			b_zdryjb
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xdchnjxx">
+			xdchnjxx
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xcchwpxx">
+			xcchwpxx
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="lxzcgzpg">
+			lxzcgzpg
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="lxzcgzpgyj">
+			lxzcgzpgyj
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="mbcszylx">
+			mbcszylx
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czfkbcxx">
+			czfkbcxx
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zbxl">
+			zbxl
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jyxl">
+			jyxl
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="yjcsyy">
+			yjcsyy
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="wzhyy">
+			wzhyy
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xcxxcj">
+			xcxxcj
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="txfs">
+			txfs
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sswp">
+			sswp
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jtgj">
+			jtgj
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="txryqk">
+			txryqk
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qtyy">
+			qtyy
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdmd">
+			hdmd
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="txfs_sf">
+			txfs_sf
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sswp_sf">
+			sswp_sf
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jtgj_sf">
+			jtgj_sf
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="txryqk_sf">
+			txryqk_sf
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czfkxxbh">
+			czfkxxbh
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czfkxxbh">
+			czcsxl
+		</isNotEmpty>
+       )VALUES(
+			#yjzlbh#
+		<isNotEmpty prepend="," property="fksj">
+			#fksj#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fkrsfzh">
+			#fkrsfzh#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fkrxm">
+			#fkrxm#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fkdw">
+			#fkdw#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fkdwjgdm">
+			#fkdwjgdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dtxxlb">
+			#dtxxlb#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfssj">
+			#hdfssj#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfsddqh">
+			#hdfsddqh#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfsddxz">
+			#hdfsddxz#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfsddssshcs">
+			#hdfsddssshcs#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdfsddssshcsdm">
+			#hdfsddssshcsdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxhdxgxx">
+			#fxhdxgxx#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="mbfxzt">
+			#mbfxzt#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxmbzrmjsfzh">
+			#fxmbzrmjsfzh#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxmbzrmjxm">
+			#fxmbzrmjxm#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxmbzrdw">
+			#fxmbzrdw#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fxmbzrdwjgdm">
+			#fxmbzrdwjgdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="cqczcs">
+			#cqczcs#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="gkcs">
+			#gkcs#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czsj">
+			#czsj#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czddqh">
+			#czddqh#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czddxz">
+			#czddxz#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czzrmjsfzh">
+			#czzrmjsfzh#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czzrmjxm">
+			#czzrmjxm#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czzrdwjgdm">
+			#czzrdwjgdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czjgms">
+			#czjgms#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czjg">
+			#czjg#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ssdqid">
+			#ssdqid#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfsb">
+			#sfsb#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="b_sfsbst">
+			#b_sfsbst#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="b_gklx">
+			#b_gklx#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="b_zdryjb">
+			#b_zdryjb#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xdchnjxx">
+			#xdchnjxx#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xcchwpxx">
+			#xcchwpxx#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="lxzcgzpg">
+			#lxzcgzpg#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="lxzcgzpgyj">
+			#lxzcgzpgyj#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="mbcszylx">
+			#mbcszylx#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czfkbcxx">
+			#czfkbcxx#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zbxl">
+			#zbxl#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jyxl">
+			#jyxl#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="yjcsyy">
+			#yjcsyy#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="wzhyy">
+			#wzhyy#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xcxxcj">
+			#xcxxcj#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="txfs">
+			#txfs#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sswp">
+			#sswp#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jtgj">
+			#jtgj#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="txryqk">
+			#txryqk#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qtyy">
+			#qtyy#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdmd">
+			#hdmd#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="txfs_sf">
+			#txfs_sf#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sswp_sf">
+			#sswp_sf#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jtgj_sf">
+			#jtgj_sf#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="txryqk_sf">
+			#txryqk_sf#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czfkxxbh">
+			#czfkxxbh#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czfkxxbh">
+			#czcsxl#
+		</isNotEmpty>
+       )
+    </insert>
+    
+    <!-- 预警指令反馈列表信息 yjzlbh，zlbt,zljb,fbsj -->
+	<select id="queryCkyjzlFkList" parameterClass="Map" resultClass="ckyjzlFk">
+      select * from ( select rownum r ,m.* from (
+	       select * from qbld_ck_yjzlfkb
+		   where 1=1
+		   	  <isNotEmpty prepend="and" property="ckyjzlczFkb.yjzlbh">
+				   yjzlbh = #ckyjzlczFkb.yjzlbh#
+			  </isNotEmpty>
+			   <![CDATA[ 
+			  	order by $sort$ $order$
+			     ) m
+			  ]]>
+      <![CDATA[where rownum <= #end# ) where r > #begin#]]> 
+    </select>
+    
+    <!-- 预警指令反馈列表总数 -->
+    <select id="queryCkyjzlFkCount" parameterClass="Map" resultClass="Integer">
+         select count(1)
+			from qbld_ck_yjzlfkb
+		  where 1=1
+		      <isNotEmpty prepend="and" property="ckyjzlczFkb.yjzlbh">
+				   yjzlbh = #ckyjzlczFkb.yjzlbh#
+			  </isNotEmpty>
+    </select>
+    
+    <!-- 更新长控预警指令反馈表调用接口状态 -->
+	<update id="updateCkyjzlczFkb" parameterClass="ckyjzlFk">
+       update qbld_ck_yjzlfkb
+       <dynamic prepend="set">
+			<isNotNull prepend="," property="xdchnjxx">
+				<![CDATA[ xdchnjxx = #xdchnjxx# ]]>
+			</isNotNull>
+			<isNotNull prepend="," property="xcchwpxx">
+				<![CDATA[ xcchwpxx = #xcchwpxx# ]]>
+			</isNotNull>
+			<isNotNull prepend="," property="fszt">
+				<![CDATA[ fszt = #fszt# ]]>
+			</isNotNull>
+			<isNotNull prepend="," property="code">
+				<![CDATA[ code = #code# ]]>
+			</isNotNull>			
+		</dynamic>
+       where yjzlbh = #yjzlbh#
+    </update>
+    
+    <!-- 更新长控预警指令签收表调用接口状态 -->
+	<update id="updateCkzlyjqsb" parameterClass="ckyjzlQs">
+       update qbld_ck_zlqsb
+       <dynamic prepend="set">
+			<isNotNull prepend="," property="fszt">
+				<![CDATA[ fszt = #fszt# ]]>
+			</isNotNull>
+			<isNotNull prepend="," property="code">
+				<![CDATA[ code = #code# ]]>
+			</isNotNull>			
+		</dynamic>
+       where yjzlbh = #yjzlbh#
+    </update>
+    
+    <!-- 常控预警指令导出 -->
+	<select id="queryCkyjzlListExport" parameterClass="Map" resultClass="java.util.HashMap">
+	       select * from qbld_ck_zlxxb
+		   where 1=1
+			  <isNotEmpty prepend="and" property="ckyjzlb.yjzlbh">
+				   yjzlbh = #ckyjzlb.yjzlbh#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="ckyjzlb.zlbt">
+				   zlbt like '%$ckyjzlb.zlbt$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="ckyjzlb.zljb">
+				   zljb in($ckyjzlb.zljb$)
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="ckyjzlb.fbsjB">
+				   fbsj gt;= #ckyjzlb.fbsjB#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="ckyjzlb.fbsjE">
+				   fbsj lt;= #ckyjzlb.fbsjE#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="ckyjzlb.xfjsdw">
+				   xfjsdw like '$xfjsdw.xfjsdw$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="ckyjzlb.qsfkzt">
+				   qsfkzt = #ckyjzlb.qsfkzt#
+			  </isNotEmpty>
+    </select>
+    
+</sqlMap>

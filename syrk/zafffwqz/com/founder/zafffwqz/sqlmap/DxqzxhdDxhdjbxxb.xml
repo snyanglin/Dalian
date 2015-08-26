@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="DxqzxhdDxhdjbxxb">
+	
+	<typeAlias alias="dxqzxhdDxhdjbxxb" type="com.founder.zafffwqz.bean.DxqzxhdDxhdjbxxb" />
+	
+	<!-- 查询显示列表 -->
+	<select id="queryViewList" parameterClass="Map" resultClass="dxqzxhdDxhdjbxxb">
+
+	</select>
+
+	<!-- 查询单条（根据主键） -->
+	<select id="queryById" parameterClass="String" resultClass="dxqzxhdDxhdjbxxb">
+
+	</select>
+
+	<!-- 新增 -->
+	<insert id="save" parameterClass="dxqzxhdDxhdjbxxb">
+
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterClass="dxqzxhdDxhdjbxxb">
+
+	</update>
+	
+	<!-- 注销 -->
+	<update id="delete" parameterClass="dxqzxhdDxhdjbxxb">
+
+	</update>
+	
+	<!-- 根据条件查询记录数 -->
+	<select id="queryCount" parameterClass="dxqzxhdDxhdjbxxb" resultClass="Integer">
+
+	</select>
+	<select id="queryList" parameterClass="Map" resultClass="dxqzxhdDxhdjbxxb">
+
+	</select>
+
+</sqlMap>

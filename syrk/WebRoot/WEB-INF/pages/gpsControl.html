@@ -1,0 +1,350 @@
+
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<object id="GpsMsgCtrl" name="GpsMsgCtrl" classid="CLSID:A7854466-25C4-43DB-AD4C-F69CB107F8D3" width="1" height="1"></object>
+<OBJECT id="GpsCtrl10"  name ="GpsCtrl10" style="Z-INDEX: -100; LEFT: 8px; WIDTH: 0px; POSITION: absolute; TOP: 118px; HEIGHT: 0px" border="0" data=data:application/x-oleobject;base64,0T3kHodPLECn0V/9gdBgjQADAAA6ggAAXBcAAA== classid=CLSID:1EE43DD1-4F87-402C-A7D1-5FFD81D0608D></OBJECT>	
+
+<script ID="PositionMsgReceiverV2" language="javascript" for="GpsMsgCtrl" event="SendMessageV2(GpsId,GpsX,GpsY,Speed,Direction,Height,GpsTime,Remark)">
+   ezGpsLib.Global.locateRealTimeGPS(GpsId , GpsX, GpsY, Speed, Direction,GpsTime)
+</script>
+<script ID="GPSClickEventHandlers" language="javascript" for="GpsCtrl10" event="ClickOnGPS(id,x,y)">
+try{
+	ezGpsLib.Global.openInfoWindow(id,x,y);
+
+}catch(e){}
+</script>
+<script ID="SendMessages" language="javascript" for="GpsCtrl10" event="OnClickLink2(GpsID,CallNo)">
+   var info = "点击第二个按钮的触发事件: " + GpsID;
+   _switchTrack(GpsID);
+</script>
+<!-- <script ID="OnClick3" language="javascript" for="GpsCtrl10" event="OnClickLink3(AdditionalLinkIndex, GpsID, CallNo)">
+   alert(AdditionalLinkIndex);
+  // _switchTrack(GpsID);
+</script> -->
+<script ID="SendMessages" language="javascript" for="GpsCtrl10" event="OnClickLink(GpsID,CallNo)">
+	if(ezGpsLib.Global.infoWindowButtonFunc){
+		var property = GpsMsgCtrl.GetGpsInfoByID(GpsID);	
+		var trl = GpsCtrl10.GetGPSInfo(GpsID);	
+		
+		var gpsObj = new ezGpsLib.Global.GpsObject();
+		gpsObj.gpsID = GpsID;
+		gpsObj.x = trl.X;
+		gpsObj.y = trl.Y;
+		gpsObj.orgName = property.GpsOrg;
+		gpsObj.carType = property.GpsType;
+		gpsObj.style = property.GpsStyle;
+		gpsObj.callNO = property.GpsCall;
+		gpsObj.carNO = property.CarNo;
+		gpsObj.policeType = property.PoliceType;
+		gpsObj.modeType = property.GpsMode;
+		gpsObj.xinDao = property.GpsXinDao;
+		gpsObj.remark = property.Remark;
+		gpsObj.remark1 = property.Remark1;
+		gpsObj.remark2 = property.Remark2;
+		gpsObj.remark3 = property.Remark3;
+		gpsObj.remark4 = property.Remark4;
+		gpsObj.remark5 = property.Remark5;
+		
+		ezGpsLib.Global.infoWindowButtonFunc(gpsObj);
+	}
+</script>
+
+<script ID="OnSetMonitorHandlers" language="javascript" for="GpsCtrl10" event="OnSetMonitor(id,Monitor)">
+try{
+		if(ezGpsLib.Global._gpsresultArr == null){
+			ezGpsLib.Global._gpsresultArr = new ezGpsLib.Global.Map();
+		}
+		if(Monitor){
+			
+			if(ezGpsLib.Global._gpsresultArr.get(id)){
+				if(ezGpsLib.Global._gpsresultArr.get(id).split("#")[2] == "1"){
+					ezGpsLib.Global._gpsresultArr.put(id,(id+"#1#1"));
+					GpsCtrl10.SetMonitor(id, 3);
+					}else{
+						ezGpsLib.Global._gpsresultArr.put(id,(id+"#1#0"));
+						GpsCtrl10.SetMonitor(id, 1);
+						}
+			}else{
+				ezGpsLib.Global._gpsresultArr.put(id,(id+"#1#0"));
+				GpsCtrl10.SetMonitor(id, 1);
+			}
+			
+			ezGpsLib.Global.CurrMonitorSet(id);
+			
+		}else{
+		   	if(ezGpsLib.Global._gpsresultArr.get(id).split("#")[2] == "1"){
+		   		ezGpsLib.Global._gpsresultArr.put(id,(id+"#0#1"));
+
+				GpsCtrl10.SetMonitor(id, 2);
+		   	}	else{
+		   		///ezGpsLib.Global._gpsresultArr.remove(id);
+		   		ezGpsLib.Global._gpsresultArr.put(id,(id+"#0#0"));
+				GpsCtrl10.SetMonitor(id, 0);
+		   	}
+			var flag = GpsCtrl10.GetMonitor(id);
+			if(flag == 2){  //
+				GpsCtrl10.SetGpsZoomRatio(id, obj.getMainMonitorImageLevel());				
+			}else{
+				GpsCtrl10.SetGpsZoomRatio(id, obj.getGpsImageLevel());
+			}
+	   	}
+		ezGpsLib.Global.JKModel();
+		
+	}catch(e){};
+</script>
+
+<script ID="OnSetMainMonitorHandlers" language="javascript" for="GpsCtrl10" event="OnSetMainMonitor(id,Monitor)">
+	try{ 		
+		if(Monitor) {
+			if(ezGpsLib.Global._gpsMainMonitorId != "" && ezGpsLib.Global._gpsMainMonitorId != id) {
+				GpsCtrl10.SetMonitor(ezGpsLib.Global._gpsMainMonitorId ,0 )
+				
+				var status = GpsMsgCtrl.GetGPSStatus1(ezGpsLib.Global._gpsMainMonitorId);
+				GpsCtrl10.SetGPSStatus(ezGpsLib.Global._gpsMainMonitorId, status);
+			}
+			
+			GpsCtrl10.FlashGPS(id , 5 , 100);
+			GpsCtrl10.SetGPSStatus(id,5);
+			ezGpsLib.Global.SetJKModel(id);
+			ezGpsLib.Global._gpsMainMonitorId = id;
+		}
+		else{
+			GpsCtrl10.SetMonitor(id ,0 )
+			var status = GpsMsgCtrl.GetGPSStatus1(id);
+			GpsCtrl10.SetGPSStatus(id, status);
+			
+			ezGpsLib.Global._gpsMainMonitorId = "";
+		}
+		
+	}catch(e){
+	}
+</script>
+ <script ID="clientEventHandlersJS6" language="javascript" for="GpsCtrl10" event="OutOfBounds(gpsid,x,y)">
+ try{
+	 ezGpsLib.Global.ongpsmoved(gpsid , x, y);
+ }
+ catch(e){}
+ </script>
+ 
+ <script ID="clientEventHandlersJS5" language="javascript" for="GpsMsgCtrl" event="HSendMessage(gpsid,x,y,time,nCur)">
+	var nGpsHCount=GpsMsgCtrl.HGpsHisNum();
+	var obj =globalCtrl;
+	playspeed.max=nGpsHCount
+	playspeed.setValue(nCur+1);
+	if(nCur+1==nGpsHCount){		
+		playspeed.setValue(0);
+		$j4('#id_historyTrack_playImg').removeClass('class_historyTrack_porsImg');
+		$j4('#id_historyTrack_playImg').addClass('class_historyTrack_playImg');
+	}
+	GpsCtrl10.OnHisGPSChanged(gpsid,x,y,time);
+	var boundMinMaxXY = obj._gpsMapApp.getBoundsLatLng().toString();
+	var MinMaxXY=boundMinMaxXY.split(",");
+	if(x<=MinMaxXY[0]||x>=MinMaxXY[2]||y <=MinMaxXY[1]||y >=MinMaxXY[3]){
+		obj._gpsMapApp.centerAtLatLng(new Point(x,y));
+	}
+	var obj=new Object();
+	obj.time=time;
+	addtr(obj)
+ </script>
+ 
+  <script ID="clientEventHandlersJS5" language="javascript" for="GpsMsgCtrl" event="HSendMessage(gpsid,x,y,time,nCur)">
+	var nGpsHCount=GpsMsgCtrl.HGpsHisNum();
+	var obj =globalCtrl;
+	playspeed.max=nGpsHCount
+	playspeed.setValue(nCur+1);
+	if(nCur+1==nGpsHCount){		
+		playspeed.setValue(0);
+		$j4('#id_historyTrack_playImg').removeClass('class_historyTrack_porsImg');
+		$j4('#id_historyTrack_playImg').addClass('class_historyTrack_playImg');
+	}
+	GpsCtrl10.OnHisGPSChanged(gpsid,x,y,time);
+	var boundMinMaxXY = obj._gpsMapApp.getBoundsLatLng().toString();
+	var MinMaxXY=boundMinMaxXY.split(",");
+	if(x<=MinMaxXY[0]||x>=MinMaxXY[2]||y <=MinMaxXY[1]||y >=MinMaxXY[3]){
+		obj._gpsMapApp.centerAtLatLng(new Point(x,y));
+	}
+	var obj=new Object();
+	obj.time=time;
+	addtr(obj)
+ </script>
+ <script ID="outline" language="javascript" for="GpsMsgCtrl" event="OutLine(GpsId)">
+	try {
+     	// GpsCtrl10.SetGPSStatus(GpsId,0);
+     	/*
+		if(ezGpsLib.Global._gpsresultArr != null){
+			if(ezGpsLib.Global.get(GpsId)){
+				if(ezGpsLib.Global._gpsresultArr.get(GpsId).split("#")[2] == "1"){
+					ezGpsLib.Global._gpsMainMonitor = null;
+		     	}
+				ezGpsLib.Global._gpsresultArr.remove(GpsId);
+				GpsCtrl10.SetMonitor(GpsId, 0);
+			}
+		}
+		*/
+		GpsCtrl10.OnGPSRemoved(GpsId);
+	}catch(e) {GpsCtrl10.OnGPSRemoved(GpsId);} 
+</script>
+
+<script ID="trackPlay" language="javascript" for="GpsMsgCtrl" event="HOnMessage(gpsid,dx,dy,time,status,ncur);">
+	try {
+		
+		if(ncur==0){
+			//globalCtrl._gpsMapApp.zoomAtPoint(new Point(dx,dy),globalCtrl.trackPlaylevel);
+			globalCtrl.trackStartTime=time;
+			$j4('#id_historyTrack_start_time').text(time);
+			}
+			var nGpsHCount=GpsMsgCtrl.HGpsHisNum();
+			$j4('#id_historyTrack_play_time').text(getIntervalTime(globalCtrl.trackStartTime,time));
+			var autoTrack=false;
+			
+			if($j4('#id_historyTrack_autoFollow')[0].className=="class_historyTrack_autoFollow_imgBottomOn"){
+				autoTrack=true;
+			}
+	    var array = status.split("|");
+		var eventObj=new Object();
+		eventObj.alarm=array[0].split("=")[1];
+		eventObj.msg=array[1].split("=")[1];
+		eventObj.speed="20";//array[2].split("=")[1];
+		var direction="0";//array[3].split("=")[1];
+		eventObj.dir=direction;
+		eventObj.pointtype=array[4].split("=")[1];
+		eventObj.ncur=ncur;
+		eventObj.maxcur=nGpsHCount;
+		eventObj.autoTrack=autoTrack;
+		eventObj.time=time;
+		playspeed.setValue(ncur+1);	
+		$j4('#id_historyTrack_end_time').text(time);
+		if(ncur+1==nGpsHCount){	
+			playspeed.setValue(0);
+			$j4('#id_historyTrack_playImg').removeClass('class_historyTrack_porsImg');
+			$j4('#id_historyTrack_playImg').addClass('class_historyTrack_playImg');
+		}
+		
+		//GpsCtrl10.OnHisGPSChanged(gpsid,dx,dy,time);
+		
+	    var nevent  = -1;
+ 		var emsg = "";
+//  		if(ncur > 2 && ncur < 5 ){
+//  			emsg = 	"1" + "|" + "500";
+//  			eventObj.alarm="500";
+//  			eventObj.msg="1";
+//  			nevent = 2;
+//  		}
+		
+//  		if(ncur > 10 && ncur < 20 ){
+//  			emsg = 	"1" + "|" + "500";
+//  			eventObj.alarm="500";
+//  			eventObj.msg="1";
+//  			nevent = 2;
+//  		}
+//  		if(ncur > 25 && ncur <35 ){
+//  			emsg ="1";
+//  			eventObj.msg="1";
+//  			nevent = 0;
+// 		}
+		
+//  		if(ncur > 40 && ncur <65 ) {
+//  			nevent = 1;
+//  			eventObj.alarm="300";
+//  			emsg ="300";
+//  		}
+ 		if(eventObj.msg != "" && eventObj.alarm != "" )  {
+ 			emsg = 	eventObj.msg + "|" + eventObj.alarm;
+ 			nevent = 2;
+ 		}
+ 		else if(eventObj.msg != "") {
+ 			emsg = eventObj.msg;
+ 			nevent = 0;
+ 		}
+ 		else if(eventObj.alarm != "") {
+ 			nevent = 1;
+ 			emsg = eventObj.alarm;
+ 		} 
+		GpsCtrl10.OnHisGPSChanged2(gpsid,dx,dy,time,nevent, emsg);
+
+		if(autoTrack){
+			globalCtrl._gpsMapApp.centerAtLatLng(new Point(dx,dy));
+			}
+		trackDetails(eventObj);
+	}catch(e) {} 
+</script>
+
+	
+<script ID="eventtype" language="javascript" for="GpsMsgCtrl" event="EventNotify(eventType, status, remark)">
+	switch(eventType)
+		{ 
+		case 0:
+			if(status==1){
+				ezGpsLib.Global.initViewCtrlData();
+				//ezgps.OnMapChange();
+			}
+			break;
+		case 1:
+			break;
+		default:
+			break;
+		}
+</script>
+	
+<script ID="clientEventHandlersJS6" language="javascript" for="GpsCtrl10" event="ClickOnEventImage(eventType, dx, dy, Time, content)">
+		globalCtrl.openInfoWindow(eventType,Time,dx,dy,content,true);
+</script>
+ 
+<script ID="clientEventHandlersJS11" language="javascript" for="GpsMsgCtrl" event="SendMessageFromCtrl(GpsId,GpsX,GpsY,GpsTime,GpsStatus)">
+   	   	
+   	   	/*
+   	var status = GpsMsgCtrl.GetGPSStatus1( GpsId );
+   	var isShow = GpsMsgCtrl.IsShow2(GpsId , status) ;
+   	if(!isShow) return;*/
+   	ezGpsLib.Global.locateGPS(GpsId,GpsX,GpsY,0,0);
+   	if(GetGroupSelected().length>0) {
+	   	var isSet = GpsMsgCtrl.GetGroupGPSStatus( GpsId );	
+		if( isSet ) {
+			if( ezGpsLib.Global._gpsMainMonitorId == GpsId ) 
+				GpsCtrl10.SetGPSStatus(GpsId, 5 );
+			else 
+			{
+			  if(status < 1)
+		    	  GpsCtrl10.SetGPSStatus(GpsId, 41 );
+		       else 
+	              GpsCtrl10.SetGPSStatus(GpsId, 4 );
+			}
+		}
+		else{
+			//var status = GpsMsgCtrl.GetGPSStatus1( GpsId );
+			//GpsCtrl10.SetGPSStatus(GpsId,status); 
+			GpsCtrl10.SetGPSStatus(GpsId,GpsStatus);
+		}
+   	}
+   	else
+   		GpsCtrl10.SetGPSStatus(GpsId,GpsStatus);
+	
+</script>
+ 
+<script ID="AlarmMessageInfo" language="javascript" for="GpsMsgCtrl" event="AlarmMessageV2(GpsId,GpsX,GpsY,GpsTime,AlarmInfo)">
+    var msgInfo = AlarmInfo.split(":");
+    var MsgType = msgInfo[0];
+    var FactorID = msgInfo[2];
+    var RegionID = msgInfo[3];
+    var obj=new Object();
+    obj.gpsId=GpsId;
+    obj.alarmTime=GpsTime;
+    obj.regionID=RegionID;
+    obj.factorId=FactorID;
+    obj.alarmName=ezGpsLib.Global._gpsAlarmArr.get(MsgType);
+    _addRealAlarm(obj,false);
+</script>
+ <script ID="SendSMSMessageID" language="javascript" for="GpsMsgCtrl" event="SendSMSMessage(Sender,SenderType,Receiver,ReceiverType,MsgType,dx,dy,Time,Content)">
+    //alert(MsgType+"  "+Receiver);
+    if(MsgType=="10"){
+    	var obj=new Object();
+    	obj.sendId=Sender;
+    	obj.recvId=Receiver;
+    	obj.time=Time;
+    	obj.msgctn=Content;
+    	obj.msgType=MsgType;
+    	_addRealMsg(obj);
+	}else{
+        }
+ </script>
+
+ 

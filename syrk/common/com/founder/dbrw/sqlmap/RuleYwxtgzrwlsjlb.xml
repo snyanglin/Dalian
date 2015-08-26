@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="RuleYwxtgzrwlsjlb">
+
+
+	<typeAlias alias="ruleYwxtgzrwlsjlb" type="com.founder.dbrw.bean.RuleYwxtgzrwlsjlb" />
+	<select id="query" parameterClass="Map" resultClass="ruleYwxtgzrwlsjlb">
+		<![CDATA[ select * from (select rownum r ,a.* from RULE_YWXTGZRWB a  where xt_zxbz = '0'  ]]>
+		<isNotEmpty prepend="and" property="fqrbmid">
+			fqrbmid=#fqrbmid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="rwclrbmid">
+			rwclrbmid=#rwclrbmid#
+		</isNotEmpty>
+		<![CDATA[ and rownum <= #end#  order by RWCLSJ desc) where r>#begin# ]]>
+	</select>
+
+	<select id="queryCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) from RULE_YWXTGZRWB  where xt_zxbz = '0'  ]]>
+		<isNotEmpty prepend="and" property="fqrbmid">
+			fqrbmid=#fqrbmid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="rwclrbm">
+			rwclrbm=#rwclrbm#
+		</isNotEmpty>
+	</select>
+	
+	<select id="querys" parameterClass="Map" resultClass="ruleYwxtgzrwlsjlb">
+		<![CDATA[ select * from (select rownum r ,a.* from RULE_YWXTGZRWB a  where xt_zxbz = '0'  ]]>
+			<isNotEmpty prepend="and" property="db.rwclrbmid">
+				<![CDATA[ rwclrbmid = #db.rwclrbmid# ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.ywxtrwms">
+				<![CDATA[ ywxtrwms like '%' || #db.ywxtrwms# || '%' ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.fqsj">
+				<![CDATA[ fqsj >= #db.fqsj# ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.jssj">
+				<![CDATA[ fqsj <= #db.jssj# ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.rwclrbm">
+				<![CDATA[ rwclrbm = #db.rwclrbm# ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.rwcljgdm">
+				<![CDATA[ rwcljgdm like '%' || #db.rwcljgdm# || '%' ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.cjjgdm">
+				<![CDATA[ cjjgdm = #db.cjjgdm# ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.fqrbm">
+				<![CDATA[ fqrbm like '%' || #db.fqrbm# || '%' ]]>
+			</isNotEmpty>
+		<![CDATA[ and rownum <= #end#  order by RWCLSJ desc) where r>#begin# ]]>
+	</select>
+
+	<select id="queryCounts" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) from RULE_YWXTGZRWB  where xt_zxbz = '0'  ]]>
+		    <isNotEmpty prepend="and" property="db.rwclrbmid">
+				<![CDATA[ rwclrbmid = #db.rwclrbmid# ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.ywxtrwms">
+				<![CDATA[ ywxtrwms like '%' || #db.ywxtrwms# || '%' ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.fqsj">
+				<![CDATA[ fqsj >= #db.fqsj# ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.jssj">
+				<![CDATA[ fqsj <= #db.jssj# ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.rwclrbm">
+				<![CDATA[ rwclrbm = #db.rwclrbm# ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.rwcljgdm">
+				<![CDATA[ rwcljgdm = #db.rwcljgdm# ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.cjjgdm">
+				<![CDATA[ cjjgdm = #db.cjjgdm# ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.fqrbm">
+				<![CDATA[ fqrbm = #db.fqrbm# ]]>
+			</isNotEmpty>
+	</select>
+	
+	<select id="queryById" parameterClass="Map" resultClass="ruleYwxtgzrwlsjlb">
+		<![CDATA[select * from RULE_YWXTGZRWB where xt_zxbz = '0'  ]]>
+		<isNotEmpty prepend="and" property="db.id">
+			id=#db.id#
+		</isNotEmpty>
+		<![CDATA[ and rownum < 2 ]]>
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,10 @@
+[
+{"id":"PARAMETER1","text":"自定义参数1","py":"ZDYCS1"},
+{"id":"PARAMETER2","text":"自定义参数2","py":"ZDYCS2"},
+{"id":"PARAMETER3","text":"自定义参数3","py":"ZDYCS3"},
+{"id":"PARAMETER4","text":"自定义参数4","py":"ZDYCS4"},
+{"id":"PARAMETER5","text":"自定义参数5","py":"ZDYCS5"},
+{"id":"PARAMETER6","text":"自定义参数6","py":"ZDYCS6"},
+{"id":"PARAMETER7","text":"自定义参数7","py":"ZDYCS7"},
+{"id":"PARAMETER8","text":"自定义参数8","py":"ZDYCS8"}
+]

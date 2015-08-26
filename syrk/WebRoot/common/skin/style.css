@@ -1,0 +1,2122 @@
+/******************************************* 全局设置 *******************************************/
+
+* {
+   font: 9pt "宋体"; 
+}
+
+/*
+body {
+   scrollbar-face-color: #E4E4E4; 
+   scrollbar-highlight-color: #FBFDFC; 
+   scrollbar-shadow-color: #170708; 
+   scrollbar-3dlight-color: #170708;
+   scrollbar-arrow-color: #000000; 
+   scrollbar-darkshadow-color: #FFFFFF; 
+   scrollbar-base-color: #170708;
+}
+*/
+
+.defaultBody {
+   margin: 0px;
+}
+
+a:link {
+   color: #0178B4; text-decoration: none;
+}
+a:visited {
+   color: #0178B4; text-decoration: none;
+}
+a:active {
+   color: #0178B4; text-decoration: none;
+}
+a:hover {
+   color: #FF0000; text-decoration: none;
+}
+
+/******************************************* 查询结果列表 *******************************************/
+/* #86B6CF 查询列表框颜色 */
+
+.queryListFrameHide {
+   filter: alpha(opacity = 0);
+   -moz-opacity: 0;
+}
+
+.queryListFrameShow {
+   filter: alpha(opacity = 100);
+   -moz-opacity: 1;
+}
+
+.queryListBody {
+   margin-left: 2px;
+   margin-top: 0px;
+   margin-right: 2px;
+   margin-bottom: 0px;
+   border: 0px;
+}
+
+.gridDiv {
+   overflow-y: auto;
+   vertical-align: top;
+}
+
+.gridTableIE {
+   /*
+   table-layout: fixed;
+   */
+}
+
+.gridTableFF {
+   -moz-user-select: none;
+}
+
+.gridHeadTr {
+   position: relative; 
+   top: expression(this.offsetParent.scrollTop);
+   height: 25px;
+   background-color: #E7EEF7;
+   -moz-user-select: none;
+   -khtml-user-select: none;
+}
+
+.gridHeadTd1 {
+   background: url(images/gridHeadBg.jpg) repeat-x top;
+   border: 1px solid #86B6CF;
+   white-space: nowrap;
+   padding-left: 5px;
+}
+
+.gridHeadTd2 {
+   background: url(images/gridHeadBg.jpg) repeat-x top;
+   border-top: 1px solid #86B6CF;
+   border-right: 1px solid #86B6CF;
+   border-bottom: 1px solid #86B6CF;
+   white-space: nowrap;
+   padding-left: 5px;
+}
+
+.gridHeadTdTitle {
+   padding-top: 2px;
+   color: #013050;
+   word-break: keep-all;
+}
+
+.gridHeadTdResize {
+   cursor: col-resize;
+   width: 3;
+   /*
+   background-color: red;
+   */
+}
+
+.gridHeadTdResizeDiv {
+   width: 3px;
+}
+
+.gridDataTr1 {
+   height: 25px;
+   background-color: #EDF5FC;
+}
+
+.gridDataTr2 {
+   height: 25px;
+   background-color: #FFFFFF;
+}
+
+.gridDataTrCrossout {
+   height: 25px;
+   background-color: #FFCC99;
+}
+
+.gridDataTrAlarm {
+   height: 25px;
+   background-color: #FF9999;
+}
+
+.gridDataTrAlarm2 {
+   height: 25px;
+   background-color: #FF3333;
+}
+
+.gridDataTrFocus {
+   cursor: pointer;
+   height: 25px;
+   background-color: #CBE2FD;
+}
+
+.gridDataTrSelected {
+   cursor: pointer;
+   height: 25px;
+   background-color: #90C2FF;
+}
+
+.gridDataTd1 {
+   color: #222222;
+   border-left: 1px solid #86B6CF;
+   border-right: 1px solid #86B6CF;
+   border-bottom: 1px solid #86B6CF;
+   padding-left: 3px;
+   padding-right: 3px;
+   white-space: nowrap;
+}
+
+.gridDataTd2 {
+   color: #222222;
+   border-right: 1px solid #86B6CF;
+   border-bottom: 1px solid #86B6CF;
+   padding-left: 3px;
+   padding-right: 3px;
+   white-space: nowrap;
+}
+
+
+.gridDataDele {
+   width: 13px;
+   height: 13px;
+   background: url(images/dele_ok.gif) no-repeat top;
+}
+
+.gridDataDeleOk {
+   width: 13px;
+   height: 13px;
+   background: url(images/dele_ok.gif) no-repeat bottom;
+}
+
+.gridDataTd1Dele {
+   color: #FF0000;
+   border-left: 1px solid #86B6CF;
+   border-right: 1px solid #86B6CF;
+   border-bottom: 1px solid #86B6CF;
+   padding-left: 3px;
+   padding-right: 3px;
+   white-space: nowrap;
+}
+
+.gridDataTd2Dele {
+   color: #FF0000;
+   border-right: 1px solid #86B6CF;
+   border-bottom: 1px solid #86B6CF;
+   padding-left: 3px;
+   padding-right: 3px;
+   white-space: nowrap;
+}
+
+.gridResizeLineDiv {
+   z-index: 10;
+   width: 2px;
+   border-left: 2px dashed #990066;
+   position: absolute;
+}
+
+.gridFirstPage {
+   cursor: pointer;
+   border: 0px;
+   height: 19px;
+   width: 50px;
+   background: url(images/query_firstPage.gif) no-repeat top;
+}
+
+.gridPrevPage {
+   cursor: pointer;
+   border: 0px;
+   height: 19px;
+   width: 50px;
+   background: url(images/query_prevPage.gif) no-repeat top;
+}
+
+.gridNextPage {
+   cursor: pointer;
+   border: 0px;
+   height: 19px;
+   width: 50px;
+   background: url(images/query_nextPage.gif) no-repeat top;
+}
+
+.gridLastPage {
+   cursor: pointer;
+   border: 0px;
+   height: 19px;
+   width: 50px;
+   background: url(images/query_lastPage.gif) no-repeat top;
+}
+
+.gridExport {
+   cursor: pointer;
+   border: 0px;
+   height: 19px;
+   width: 50px;
+   background: url(images/query_export.gif) no-repeat top;
+}
+
+.gridFirstPageDisabled {
+   cursor: default;
+   border: 0px;
+   height: 19px;
+   width: 50px;
+   background: url(images/query_firstPageDisabled.gif) no-repeat top;
+}
+
+.gridPrevPageDisabled {
+   cursor: default;
+   border: 0px;
+   height: 19px;
+   width: 50px;
+   background: url(images/query_prevPageDisabled.gif) no-repeat top;
+}
+
+.gridNextPageDisabled {
+   cursor: default;
+   border: 0px;
+   height: 19px;
+   width: 50px;
+   background: url(images/query_nextPageDisabled.gif) no-repeat top;
+}
+
+.gridLastPageDisabled {
+   cursor: default;
+   border: 0px;
+   height: 19px;
+   width: 50px;
+   background: url(images/query_lastPageDisabled.gif) no-repeat top;
+}
+
+.gridExportDisabled {
+   cursor: default;
+   border: 0px;
+   height: 19px;
+   width: 50px;
+   background: url(images/query_exportDisabled.gif) no-repeat top;
+}
+
+.gridErrorMessage {
+   color: #FF0000;
+}
+
+.divMessageRead1 {
+   border: 0px;
+   height: 13px;
+   width: 18px;
+   background: url(images/messageRead.gif) no-repeat top;
+}
+
+.divMessageRead2 {
+   border: 0px;
+   height: 13px;
+   width: 18px;
+   background: url(images/messageRead.gif) no-repeat bottom;
+}
+
+.gridGoPage {
+   color: #222222;
+   padding-top: 3px; 
+   height: 19px; 
+   border: #939393 1px solid; 
+   background: #FFFFFF;
+   width: 30px;
+   text-align: center;
+}
+
+.gridGoPageRead {
+   color: #222222;
+   padding-top: 3px; 
+   height: 19px; 
+   border: #939393 1px solid; 
+   background: #E8E8E8;
+   width: 30px;
+   text-align: center;
+}
+
+.buttonUpDown11 {
+   cursor: pointer;
+   border: 0px;
+   width: 20px;
+   height : 20px;
+   background: url('images/but_upDown11.gif') no-repeat top;
+}
+
+.buttonUpDown12 {
+   cursor: pointer;
+   border: 0px;
+   width: 20px;
+   height : 20px;
+   background: url('images/but_upDown12.gif') no-repeat top;
+}
+
+/******************************************* 报表列表（表格线打印为实线） *******************************************/
+/* #86B6CF 查询列表框颜色 */
+
+.reportTable {
+   border: #86B6CF 1px solid; 
+   border-collapse: collapse;
+}
+
+.reportTableBlack {
+   border: #000000 1px solid; 
+   border-collapse: collapse;
+}
+
+.reportTableHeadTr {
+   height: 25px;
+}
+
+.reportTableHeadTd {
+   background: url(images/gridHeadBg.jpg) repeat-x top;
+   white-space: nowrap;
+   color: #013050;
+}
+
+.reportTableHeadTd2h {
+   background: url(images/gridHeadBg2h.jpg) repeat-x top;
+   white-space: nowrap;
+   color: #013050;
+}
+
+.reportTableTr1 {
+   background-color: #EDF5FC;
+}
+
+.reportTableTr2 {
+   background-color: #FFFFFF;
+}
+
+.reportTableTrFocus {
+   cursor: pointer;
+   background-color: #CBE2FD;
+}
+
+.reportTableTd {
+   height: 25px;
+   color: #222222;
+   padding-left: 3px;
+   padding-right: 3px;
+   white-space: nowrap;
+}
+
+
+/******************************************* 查询条件输入表单 *******************************************/
+
+.queryFormBody {
+   margin-top: 10px;
+   margin-left: 10px;
+   margin-right: 10px;
+   margin-bottom: 0px;
+   background: #FFFFFF;
+}
+
+.queryFormBodyTable {
+   position: absolute; 
+   top: 0; 
+   left: 0; 
+}
+
+.queryFormDiv {
+   filter: alpha(opacity = 0);
+   -moz-opacity: 0;
+   z-index: 10;
+   position: relative; 
+   top: expression(document.body.scrollTop); 
+   width: 780; 
+   height: 1;
+   overflow-y: auto;
+   border: 1px solid #AECCDB;
+   background: #F6FAFD;
+   vertical-align: top;
+}
+
+
+.queryFormDivShow {
+   filter: alpha(opacity = 100);
+   -moz-opacity: 1;
+   z-index: 10;
+   position: relative; 
+   top: expression(document.body.scrollTop); 
+   width: 780; 
+   height: 1;
+   overflow-y: auto;
+   border: 1px solid #AECCDB;
+   background: #F6FAFD;
+   vertical-align: top;
+}
+
+
+.queryButtonTable {
+   filter: alpha(opacity = 0);
+   -moz-opacity: 0;
+}
+
+.queryButtonTableShow {
+   filter: alpha(opacity = 100);
+   -moz-opacity: 1;
+}
+
+.queryFormTdText {
+   color: #222222;
+   padding-left: 24px;
+   padding-right: 6px; 
+   height: 20px; 
+}
+
+.insertEditFrame {
+   z-index: 20;
+   position: absolute;
+   top: 0;
+   left: 0;
+}
+
+/* 输入框正常样式  */
+
+.queryFormInput {
+   color: #222222;
+   padding-top: 3px; 
+   height: 20px; 
+   border: #939393 1px solid; 
+   background: #FFFFFF;
+}
+
+.queryFormDictShow {
+   color: #222222;
+   z-index: 20;
+   padding-top: 3px; 
+   height: 20px; 
+   border: #939393 1px solid; 
+   background: #FFFFFF url(images/query_dictBg.gif) no-repeat right;
+}
+
+.queryFormDate {
+   color: #222222;
+   padding-top: 3px; 
+   border: #939393 1px solid; 
+   height: 20px; 
+   background: #FFFFFF url(images/query_dateBg.gif) no-repeat right;
+}
+.queryFormDateYear {
+   color: #222222;
+   padding-top: 3px; 
+   border: #939393 1px solid; 
+   height: 20px; 
+   background: #FFFFFF url(images/query_dateBg.gif) no-repeat right;
+}
+.queryFormTextarea {
+   color: #222222;
+   padding-top: 3px; 
+   border: #939393 1px solid;
+   background: #FFFFFF;
+   word-break: break-all;
+}
+
+.queryFormPageLen {
+   color: #222222;
+   text-align: center;
+   padding-top: 3px; 
+   height: 20px; 
+   border: #939393 1px solid; 
+}
+
+.queryFormInputRead {
+   color: #222222;
+   padding-top: 3px; 
+   height: 20px; 
+   border: #939393 1px solid; 
+   background: #E8E8E8;
+}
+
+.queryFormDictShowRead {
+   color: #222222;
+   z-index: 20;
+   padding-top: 3px; 
+   height: 20px; 
+   border: #939393 1px solid; 
+   background: #E8E8E8 url(images/query_dictBg.gif) no-repeat right;
+}
+
+.queryFormDateRead {
+   color: #222222;
+   padding-top: 3px; 
+   border: #939393 1px solid; 
+   height: 20px; 
+   background: #E8E8E8 url(images/query_dateBg.gif) no-repeat right;
+}
+
+.queryFormTextareaRead {
+   color: #222222;
+   padding-top: 3px; 
+   border: #939393 1px solid; 
+   background: #E8E8E8;
+   word-break: break-all;
+}
+
+/* 输入框错误样式  */
+
+.queryFormInputError {
+   color: #222222;
+   padding-top: 3px; 
+   height: 20px; 
+   border: red 1px dashed; 
+   background: #FFFFFF;
+}
+
+.queryFormDictShowError {
+   color: #222222;
+   z-index: 20;
+   padding-top: 3px; 
+   height: 20px; 
+   border: red 1px dashed;  
+   background: #FFFFFF url(images/query_dictBg.gif) no-repeat right;
+}
+
+.queryFormDateError {
+   color: #222222;
+   padding-top: 3px; 
+   border: red 1px dashed;  
+   height: 20px; 
+   background: #FFFFFF url(images/query_dateBg.gif) no-repeat right;
+}
+
+.queryFormTextareaError {
+   color: #222222;
+   padding-top: 3px; 
+   border: red 1px dashed; 
+   background: #FFFFFF;
+   word-break: break-all;
+}
+
+.queryFormPageLenError {
+   color: #222222;
+   text-align: center;
+   padding-top: 3px; 
+   height: 20px; 
+   border: red 1px dashed;  
+}
+
+/* 输入框只读错误样式  */
+
+.queryFormInputReadError {
+   color: #222222;
+   padding-top: 3px; 
+   height: 20px; 
+   border: red 1px dashed;
+   background: #E8E8E8;
+}
+
+.queryFormDictShowReadError {
+   color: #222222;
+   z-index: 20;
+   padding-top: 3px; 
+   height: 20px; 
+   border: red 1px dashed;
+   background: #E8E8E8 url(images/query_dictBg.gif) no-repeat right;
+}
+
+.queryFormDateReadError {
+   color: #222222;
+   padding-top: 3px; 
+   border: red 1px dashed;
+   height: 20px; 
+   background: #E8E8E8 url(images/query_dateBg.gif) no-repeat right;
+}
+
+.queryFormTextareaReadError {
+   color: #222222;
+   padding-top: 3px; 
+   border: red 1px dashed;
+   background: #E8E8E8;
+   word-break: break-all;
+}
+
+/******************************************* 详细输入表单 *******************************************/
+
+.dataFormBody {
+   margin: 0;
+   border: 0;
+   background: #FFFFFF;
+}
+
+.dataFormFuncTable {
+   height: 28px;
+   background: #FFFFFF url(images/data_FuncTableBg.gif) repeat-x top;
+}
+
+.dataFormTitleTable {
+   width: 780;
+}
+
+.dataFormTitleTd {
+   font: 11pt "宋体"; 
+   color: #393939;
+   font-weight: bold; 
+   padding-left: 6px; 
+}
+
+.dataFormTitle {
+   font: 11pt "宋体"; 
+   font-weight: bold;
+   color: #393939;
+}
+A.dataFormTitle:link {
+   color: #0178B4; text-decoration: none
+}
+A.dataFormTitle:visited {
+   color: #0178B4; text-decoration: none
+}
+A.dataFormTitle:active {
+   color: #0178B4; text-decoration: none
+}
+A.dataFormTitle:hover {
+   color: #FF0000; text-decoration: none
+}
+
+.dataFormTitleError {
+   font: 11pt "宋体"; 
+   color: #FF0000;
+   font-weight: bold; 
+}
+
+.dataFormDiv {
+   z-index: 10;
+   position: relative; 
+   top: expression(document.body.scrollTop);
+   width: 780;
+   overflow-y: auto;
+   border: #ECECEC 1px solid;
+   vertical-align: top;
+}
+
+.dataFormDiv2 {
+   z-index: 10;
+   position: relative; 
+   top: expression(document.body.scrollTop);
+   width: 780;
+   overflow-y: hidden;
+   border: #ECECEC 1px solid;
+   vertical-align: top;
+}
+
+.dataFormTable {
+   background: #939393;
+}
+
+.dataFormTableTr {
+   background: #FFFFFF;
+   height: 22px;
+}
+
+.dataFormTdText {
+   color: #222222;
+   background: #F0F7FD;
+   padding-right: 6px; 
+   height: 22px; 
+}
+
+.dataFormTdSummary {
+   color: #393939;
+   font-weight: bold; 
+   background: #FFFFFF;
+   padding-top: 2px; 
+   padding-left: 6px; 
+   height: 22px; 
+}
+
+.dataFormTdTab1 {
+   cursor: pointer;
+   color: #990000;
+   font-weight: bold; 
+   background: #F8FDF7 url(images/tab_subBg1.jpg) repeat-x top;
+   padding-top: 2px; 
+   padding-left: 16px; 
+   padding-right: 16px; 
+   height: 22px; 
+   position: relative; 
+   top: 1px; 
+   border-bottom: 1px solid #FFFFFF;
+   border-right: 1px solid #939393;
+}
+
+.dataFormTdTab2 {
+   cursor: pointer;
+   color: #385670;
+   font-weight: bold; 
+   background: #FFFFFF url(images/tab_subBg2.jpg) repeat-x top;
+   padding-top: 2px; 
+   padding-left: 16px; 
+   padding-right: 16px; 
+   height: 22px; 
+   position: relative; 
+   top: 0px; 
+   border-right: 1px solid #939393;
+}
+
+.dataFormTdInput {
+   padding-left: 1px; 
+   padding-right: 1px; 
+}
+
+.dataFormTdInputRead {
+   background: #E8E8E8;
+   padding-left: 1px; 
+   padding-right: 1px; 
+}
+
+/* 输入框正常样式  */
+
+.dataFormInput {
+   color: #222222;
+   padding-top: 3px; 
+   border: #FFFFFF 1px solid; 
+   height: 20px; 
+   background: #FFFFFF;
+}
+
+.dataFormTextarea {
+   color: #222222;
+   padding-top: 3px; 
+   border: #FFFFFF 1px solid; 
+   background: #FFFFFF;
+   word-break: break-all;
+}
+
+.dataFormDate {
+   color: #222222;
+   padding-top: 3px; 
+   border: #FFFFFF 1px solid; 
+   height: 20px; 
+   background: #FFFFFF url(images/data_dateBg.gif) no-repeat right;
+}
+
+.dataFormDictShow {
+   color: #222222;
+   z-index: 20;
+   padding-top: 3px; 
+   height: 20px; 
+   border: #FFFFFF 1px solid; 
+   background: #FFFFFF url(images/data_dictBg.gif) no-repeat right;
+}
+
+.dataFormCheck {
+   color: #222222;
+}
+
+/* 输入框错误样式  */
+/* dotted 为细虚线*/
+
+.dataFormInputError {
+   color: #222222;
+   padding-top: 3px; 
+   border: red 1px dashed; 
+   height: 20px; 
+   background: #FFFFFF;
+}
+
+.dataFormTextareaError {
+   color: #222222;
+   padding-top: 3px; 
+   border: red 1px dashed; 
+   background: #FFFFFF;
+   word-break: break-all;
+}
+
+.dataFormDateError {
+   color: #222222;
+   padding-top: 3px; 
+   border: red 1px dashed;
+   height: 20px; 
+   background: #FFFFFF url(images/data_dateBg.gif) no-repeat right;
+}
+
+.dataFormDictShowError {
+   color: #222222;
+   z-index: 20;
+   padding-top: 3px; 
+   height: 20px; 
+   border: red 1px dashed; 
+   background: #FFFFFF url(images/data_dictBg.gif) no-repeat right;
+}
+
+/* 输入框只读样式  */
+
+.dataFormInputRead {
+   color: #222222;
+   padding-top: 3px; 
+   border: #E8E8E8 1px solid; 
+   height: 20px; 
+   background: #E8E8E8;
+}
+
+.dataFormTextareaRead {
+   color: #222222;
+   padding-top: 3px; 
+   border: #E8E8E8 1px solid; 
+   background: #E8E8E8;
+   word-break: break-all;
+}
+
+.dataFormDateRead {
+   color: #222222;
+   padding-top: 3px; 
+   border: #E8E8E8 1px solid; 
+   height: 20px; 
+   background: #E8E8E8 url(images/data_dateBg.gif) no-repeat right;
+}
+
+.dataFormDictShowRead {
+   color: #222222;
+   z-index: 20;
+   padding-top: 3px; 
+   height: 20px; 
+   border: #E8E8E8 1px solid; 
+   background: #E8E8E8 url(images/data_dictBg.gif) no-repeat right;
+}
+
+/* 输入框只读错误样式  */
+
+.dataFormInputReadError {
+   color: #222222;
+   padding-top: 3px; 
+   border: red 1px dashed; 
+   height: 20px; 
+   background: #E8E8E8;
+}
+
+.dataFormTextareaReadError {
+   color: #222222;
+   padding-top: 3px; 
+   border: red 1px dashed; 
+   background: #E8E8E8;
+   word-break: break-all;
+}
+
+.dataFormDateReadError {
+   color: #222222;
+   padding-top: 3px; 
+   border: red 1px dashed; 
+   height: 20px; 
+   background: #E8E8E8 url(images/data_dateBg.gif) no-repeat right;
+}
+
+.dataFormDictShowReadError {
+   color: #222222;
+   z-index: 20;
+   padding-top: 3px; 
+   height: 20px; 
+   border: red 1px dashed; 
+   background: #E8E8E8 url(images/data_dictBg.gif) no-repeat right;
+}
+
+/* 弹出选择框样式  */
+
+.dataFormDictList {
+   color: #222222;
+   z-index: 60;
+   position: absolute; 
+   top: 0px;
+   left: 0px;
+   border: thin solid #3774A8;
+   background-color: #FFFAEE;
+}
+
+.dataFormTreeFrame {
+   z-index: 20;
+   position: absolute; 
+   top: 0px;
+   left: 0px;
+   border: 1px solid #3774A8;
+   background-color: #FFFAEE;
+}
+
+/******************************************* 详细输入表单中的子项列表 *******************************************/
+.subGridHeadTd1 {
+   background: url(images/gridHeadBg.jpg) repeat-x top;
+   border: 1px solid #86B6CF;
+   white-space: nowrap;
+   color: #013050;
+}
+
+.subGridHeadTd2 {
+   background: url(images/gridHeadBg.jpg) repeat-x top;
+   border-top: 1px solid #86B6CF;
+   border-right: 1px solid #86B6CF;
+   border-bottom: 1px solid #86B6CF;
+   white-space: nowrap;
+   color: #013050;
+}
+
+.subGridDataTr1 {
+   cursor: pointer;
+   height: 25px;
+   background-color: #EDF5FC;;
+}
+
+.subGridDataTr2 {
+   cursor: pointer;
+   height: 25px;
+   background-color: #FFFFFF;
+}
+
+.subGridDataTrFocus {
+   cursor: pointer;
+   height: 25px;
+   background-color: #CBE2FD;;
+}
+
+.subGridDataTrCrossout {
+   cursor: pointer;
+   height: 25px;
+   background-color: #FFCC99;
+}
+
+.subGridDataTd {
+   color: #222222;
+   padding-right: 3px;
+   word-break: break-all;
+   border-bottom: 1px solid #86B6CF;
+}
+
+.subDataFormTitleError {
+   color: #FF0000;
+   font-weight: bold; 
+}
+
+/******************************************* 子项信息、关联信息、关联业务 *******************************************/
+
+.floatPromptDiv1 {
+   z-index: 15;
+   position: absolute; 
+   top: 28px;
+   width: 160px;
+   height: 23px;
+   background: url(images/float_prompt2.jpg) no-repeat top left;
+   cursor: pointer;
+}
+
+.floatPromptDiv2 {
+   z-index: 15;
+   position: absolute; 
+   top: 28px;
+   width: 160px;
+   height: 23px;
+   background: url(images/float_prompt2.jpg) no-repeat bottom left;
+   cursor: pointer;
+}
+
+.floatDiv {
+   z-index: 30;
+   border: 1px solid #72C0F4;
+   position: absolute; 
+   width: 200px;
+   top: 29px;
+   background: #F6FAFD;
+}
+
+.floatBarTable {
+   cursor: pointer;
+   -moz-user-select: none;
+   z-index: 35;
+   height: 20;
+}
+
+.floatBarTd1 {
+   width: 5px;
+   height: 20px;
+   background: url(images/float_barBg1.jpg) no-repeat bottom;
+}
+
+.floatBarTd2 {
+   padding-top: 5px;
+   color: #376585;
+   width: 186px;
+   height: 20px;
+   background: url(images/float_barBg2.jpg) repeat-x bottom;
+}
+
+.floatBarTd3 {
+   width: 5px;
+   height: 20px;
+   background: url(images/float_barBg3.jpg) no-repeat bottom;
+}
+
+.floatContentDiv {
+   width: 100%;
+   vertical-align: top;
+   overflow-y: auto;
+}
+
+.floatContentTable {
+   width: 100%;
+}
+
+.floatContentImg1 {
+   padding-left: 1px;
+   height: 20px;
+   width: 26px;
+   background: url(images/float_content1.gif) no-repeat center;
+}
+
+.floatContentImg2 {
+   padding-left: 1px;
+   height: 20px;
+   width: 26px;
+   background: url(images/float_content2.gif) no-repeat center;
+}
+
+.floatContentImg3 {
+   height: 20px;
+   width: 26px;
+   background: url(images/float_content3.gif) no-repeat center;
+}
+
+.floatContentImg4 {
+   height: 20px;
+   width: 26px;
+   background: url(images/float_content4.gif) no-repeat center;
+}
+
+.floatContentLink {
+   padding-top: 3px;
+}
+
+.childFrame {
+   z-index: 60;
+   position: absolute;
+   top: 0;
+   left: 0;
+}
+
+/******************************************* 模态对话框 *******************************************/
+.divSavingMask {
+   z-index: 50; 
+   position: absolute; 
+   left: 0; 
+   top: 0; 
+   width: 0px; 
+   height: 0px;
+}
+
+.divModelDialog {
+   z-index: 50; 
+   background: Silver; 
+   filter: alpha(opacity=75); 
+   -moz-opacity: 0.75;
+   position: absolute; 
+   left: 0; 
+   top: 0; 
+   width: 0px; 
+   height: 0px;
+}
+
+.tableModelDialog {
+   -moz-user-select: none;
+   width: 480px;
+   z-index:51;
+   position:absolute; 
+   left:0; 
+   top:0; 
+   background: #1975A6; 
+}
+
+.modelDialogTitle {
+   color: #222222;
+   background-color: #DCE9F0;
+   border-left: #F8FCFF 1px solid;
+   border-top: #F8FCFF 1px solid;
+   border-right: #C8C8C8 1px solid;
+   border-bottom: #C8C8C8 1px solid;
+}
+
+.modelDialogContent {
+   background-color: #FFFFFF;
+}
+
+.modelDialogTextarea {
+   color: #222222;
+   border: #939393 1px solid; 
+   background: #FFFFFF;
+   word-break: break-all;
+}
+
+.modelDialogOk {
+   height: 24px;
+   width: 74px;
+   border: 0px;
+   background: url(images/dialog_ok.gif) no-repeat top;
+   cursor: pointer;
+}
+ 
+.modelDialogCancel {
+   height: 24px;
+   width: 74px;
+   border: 0px;
+   background: url(images/dialog_cancel.gif) no-repeat top;
+   cursor: pointer;
+}
+
+.modelDialogClose {
+   height: 24px;
+   width: 74px;
+   border: 0px;
+   background: url(images/dialog_close.gif) no-repeat top;
+   cursor: pointer;
+}
+
+/******************************************* 流转意见 *******************************************/
+
+.ideaDiv {
+   position: relative; 
+   width: 460; 
+   overflow-y: auto;
+   border: 1px solid #AECCDB;
+   background: #F6FAFD;
+   vertical-align: top;
+}
+
+.ideaTdOdd {
+   background-color: #F8F8F8;
+   padding-left: 5px;
+   padding-right: 5px;
+}
+
+.ideaTdEven {
+   background-color: #FFFFFF;
+   padding-left: 5px;
+   padding-right: 5px;
+}
+
+/******************************************* 人员照片 *******************************************/
+
+.personPhoto {
+   width: 130px;
+   height: 154px;
+}
+
+
+/******************************************* 按钮 *******************************************/
+
+.butTableHide {
+   filter: alpha(opacity = 0);
+   -moz-opacity: 0;
+}
+
+.butTableShow {
+   filter: alpha(opacity = 100);
+   -moz-opacity: 1;
+}
+
+.butTD {
+   padding-left: 4px;
+   padding-right: 4px;
+}
+
+.butBase3 {
+   height: 22px;
+   width: 49px;
+   border: 0px;
+   background: url(images/but_bgBase3.jpg) no-repeat top;
+   cursor: pointer;
+   padding-top: 3px; 
+   padding-left: 1px;
+   color: #034278;
+}
+
+.butBase4 {
+   height: 22px;
+   width: 61px;
+   border: 0px;
+   background: url(images/but_bgBase4.jpg) no-repeat top;
+   cursor: pointer;
+   padding-top: 3px; 
+   padding-left: 1px;
+   color: #034278;
+}
+
+.butBase5 {
+   height: 22px;
+   width: 73px;
+   border: 0px;
+   background: url(images/but_bgBase5.jpg) no-repeat top;
+   cursor: pointer;
+   padding-top: 3px; 
+   padding-left: 1px;
+   color: #034278;
+}
+
+.butBase6 {
+   height: 22px;
+   width: 85px;
+   border: 0px;
+   background: url(images/but_bgBase6.jpg) no-repeat top;
+   cursor: pointer;
+   padding-top: 3px; 
+   padding-left: 1px;
+   color: #034278;
+}
+
+.butBase7 {
+   height: 22px;
+   width: 97px;
+   border: 0px;
+   background: url(images/but_bgBase7.jpg) no-repeat top;
+   cursor: pointer;
+   padding-top: 3px; 
+   padding-left: 1px;
+   color: #034278;
+}
+
+.butBase8 {
+   height: 22px;
+   width: 109px;
+   border: 0px;
+   background: url(images/but_bgBase8.jpg) no-repeat top;
+   cursor: pointer;
+   padding-top: 3px; 
+   padding-left: 1px;
+   color: #034278;
+}
+
+.butBase9 {
+   height: 22px;
+   width: 121px;
+   border: 0px;
+   background: url(images/but_bgBase9.jpg) no-repeat top;
+   cursor: pointer;
+   padding-top: 3px; 
+   padding-left: 1px;
+   color: #034278;
+}
+
+.butBack {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgBack.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butClose {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgClose.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butCrossout {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgCrossout.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butDelete {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgDelete.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butModify {
+   height: 22px;
+   width: 80px;
+   border: 0px;
+   background: url(images/but_bgModify.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.but_Modi {
+   height: 22px;
+   width: 56px;
+   border: 0px;
+   background: url(images/but_modi.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butHelp {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgHelp.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butNew {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgNew.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butNewNext {
+   height: 22px;
+   width: 94px;
+   border: 0px;
+   background: url(images/but_bgNewNext.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butNew6 {
+   height: 22px;
+   width: 108px;
+   border: 0px;
+   background: url(images/but_bgNew6.jpg) no-repeat top;
+   cursor: pointer;
+   padding-top: 3px; 
+   padding-left: 24px;
+   color: #034278;
+}
+
+.butNew7 {
+   height: 22px;
+   width: 80px;
+   border: 0px;
+   background: url(images/but_bgNew7.jpg) no-repeat top;
+   cursor: pointer;
+   padding-top: 3px; 
+   padding-left: 24px;
+   color: #034278;
+}
+
+.butImport {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgImport.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butConfig {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgConfig.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butQuery {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgQuery.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butCompositeQuery {
+   height: 22px;
+   width: 80px;
+   border: 0px;
+   background: url(images/but_bgCompositeQuery.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butHistoryQuery {
+   height: 22px;
+   width: 80px;
+   border: 0px;
+   background: url(images/but_bgHistoryQuery.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butReset {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgReset.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butChoice {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgChoice.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butRefresh {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgRefresh.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butSave {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgSave.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butSaveTemp {
+   height: 22px;
+   width: 80px;
+   border: 0px;
+   background: url(images/but_bgSaveTemp.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butSaveAs {
+   height: 22px;
+   width: 72px;
+   border: 0px;
+   background: url(images/but_bgSaveAs.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butAttachEdit {
+   height: 22px;
+   width: 80px;
+   border: 0px;
+   background: url(images/but_bgAttachEdit.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butAttachView {
+   height: 22px;
+   width: 80px;
+   border: 0px;
+   background: url(images/but_bgAttachView.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butPreview {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgPreview.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butPreviewLaw {
+   height: 22px;
+   width: 108px;
+   border: 0px;
+   background: url(images/but_bgPreviewLaw.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butPreviewList {
+   height: 22px;
+   width: 80px;
+   border: 0px;
+   background: url(images/but_bgPreviewList.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butPrint {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgPrint.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butPrintEmpty {
+   height: 22px;
+   width: 108px;
+   border: 0px;
+   background: url(images/but_bgPrintEmpty.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butAccount {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgAccount.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butArchive {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgArchive.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butSign {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgSign.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butSend {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgSend.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butFinish {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgFinish.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butViewProcess {
+   height: 22px;
+   width: 94px;
+   border: 0px;
+   background: url(images/but_bgViewProcess.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butDict {
+   height: 22px;
+   width: 94px;
+   border: 0px;
+   background: url(images/but_bgDict.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+/* 启动流程 */
+.butFlowStart {
+   height: 22px;
+   width: 80px;
+   border: 0px;
+   background: url(images/but_bgFlowStart.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+/* 流转 */
+.butFlowNext {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgFlowNext.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+/* 退回上一步 */
+.butFlowBack {
+   height: 22px;
+   width: 94px;
+   border: 0px;
+   background: url(images/but_bgFlowBack.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+/* 退回发起人 */
+.butFlowSponsor {
+   height: 22px;
+   width: 94px;
+   border: 0px;
+   background: url(images/but_bgFlowSponsor.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+/******************************************* 动态按钮图标开始 *******************************************/
+.butCustomBgLeft {
+   cursor: pointer;
+   height: 22px;
+   background: url(images/but_bgFlowCustomLeft.jpg) no-repeat left top;
+}
+
+.butCustomBgMiddle {
+   height: 22px;
+   background: url(images/but_bgFlowCustomMiddle.jpg) repeat-x top;
+   padding-top: 2px; 
+   color: #034278;
+}
+
+.butCustomBgRight {
+   height: 22px;
+   width: 6px;
+   background: url(images/but_bgFlowCustomRight.jpg) no-repeat right top;
+}
+
+.butCustomStart {
+   width: 26px;
+   background: url(images/icon_start.gif) no-repeat center 2px;
+}
+
+.butCustomAdd {
+   width: 26px;
+   background: url(images/icon_add.gif) no-repeat center 2px;
+}
+
+.butCustomBack {
+   width: 26px;
+   background: url(images/icon_back.gif) no-repeat center 2px;
+}
+
+.butCustomEdit {
+   width: 26px;
+   background: url(images/icon_edit.gif) no-repeat center 2px;
+}
+
+.butCustomCancel {
+   width: 26px;
+   background: url(images/icon_delete.gif) no-repeat center 2px;
+}
+
+.butCustomChoose {
+   width: 26px;
+   background: url(images/icon_choose.gif) no-repeat center 2px;
+}
+
+.butCustomOk {
+   width: 26px;
+   background: url(images/icon_ok.gif) no-repeat center 2px;
+}
+
+.butCustomPigeonhole {
+   width: 26px;
+   background: url(images/icon_pigeonhole.gif) no-repeat center 2px;
+}
+
+.butCustomEnd {
+   width: 26px;
+   background: url(images/icon_end.gif) no-repeat center 2px;
+}
+
+.butCustomPrint {
+   width: 26px;
+   background: url(images/icon_print.gif) no-repeat center 2px;
+}
+
+.butCustomSave {
+   width: 26px;
+   background: url(images/icon_save.gif) no-repeat center 2px;
+}
+
+.butCustomRollBack {
+   width: 26px;
+   background: url(images/icon_rollback.gif) no-repeat center 2px;
+}
+
+.butCustomSend {
+   width: 26px;
+   background: url(images/icon_send.gif) no-repeat center 2px;
+}
+
+.butCustomWrite {
+   width: 26px;
+   background: url(images/icon_write.gif) no-repeat center 2px;
+}
+
+.butCustomStamp {
+   width: 26px;
+   background: url(images/icon_stamp.gif) no-repeat center 2px;
+}
+
+.butCustomQuery {
+   width: 26px;
+   background: url(images/icon_query.gif) no-repeat center 2px;
+}
+
+.butCustomCount {
+   width: 26px;
+   background: url(images/icon_count.gif) no-repeat center 2px;
+}
+
+.butCustomReport {
+   width: 26px;
+   background: url(images/icon_report.gif) no-repeat center 2px;
+}
+
+.butCustomLeft {
+   width: 26px;
+   background: url(images/icon_moveLeft.gif) no-repeat center 2px;
+}
+
+.butCustomRight {
+   width: 26px;
+   background: url(images/icon_moveRight.gif) no-repeat center 2px;
+}
+
+.butCustomUp {
+   width: 26px;
+   background: url(images/icon_moveUp.gif) no-repeat center 2px;
+}
+
+.butCustomDown {
+   width: 26px;
+   background: url(images/icon_moveDown.gif) no-repeat center 2px;
+}
+
+.butCustomFavorite {
+   width: 26px;
+   background: url(images/icon_favorite.gif) no-repeat center 2px;
+}
+
+.butCustomData {
+   width: 26px;
+   background: url(images/icon_data.gif) no-repeat center 2px;
+}
+
+.butCustomReward {
+   width: 26px;
+   background: url(images/icon_reward.gif) no-repeat center 2px;
+}
+
+.butCustomTime {
+   width: 26px;
+   background: url(images/icon_time.gif) no-repeat center 2px;
+}
+
+.butCustomEmpty {
+   width: 26px;
+   background: no-repeat center 2px;
+}
+
+/******************************************* 动态按钮图标结束 *******************************************/
+
+/* 导出 Excel */
+.butExportExcel {
+   height: 22px;
+   width: 94px;
+   border: 0px;
+   background: url(images/but_bgExportExcel.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+/* 本页导出 Excel */
+.butExportExcelPage {
+   height: 22px;
+   width: 121px;
+   border: 0px;
+   background: url(images/but_bgExportExcelPage.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+/* 全部导出 Excel */
+.butExportExcelAll {
+   height: 22px;
+   width: 121px;
+   border: 0px;
+   background: url(images/but_bgExportExcelAll.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+/* 收回 */
+.butFlowCatchBack {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgFlowCatchBack.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+/* 协管 */
+.butXg {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgXg.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+/* 同意协管 */
+.butTyxg {
+   height: 22px;
+   width: 80px;
+   border: 0px;
+   background: url(images/but_bgTyxg.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+/* 生成法律文书 */
+.butCreateLaw {
+   height: 22px;
+   width: 108px;
+   border: 0px;
+   background: url(images/but_bgCreateLaw.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+/* 生成呈请报告 */
+.butCreateReport {
+   height: 22px;
+   width: 108px;
+   border: 0px;
+   background: url(images/but_bgCreateReport.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+/* 生成笔录 */
+.butCreateNote {
+   height: 22px;
+   width: 80px;
+   border: 0px;
+   background: url(images/but_bgCreateNote.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+/* 送审 */
+.butSendCheck {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgSendCheck.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+/* 承办意见 */
+.butTransactIdea {
+   height: 22px;
+   width: 80px;
+   border: 0px;
+   background: url(images/but_bgTransactIdea.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+/* 电子签名 */
+.butPersonalSign {
+   height: 22px;
+   width: 80px;
+   border: 0px;
+   background: url(images/but_bgPersonalSign.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+/* 查看案卷 */
+.butViewArchive {
+   height: 22px;
+   width: 80px;
+   border: 0px;
+   background: url(images/but_bgViewArchive.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+/* 选择小按钮 */
+.butSelect {
+   height: 20px;
+   width: 48px;
+   border: 0px;
+   background: url(images/but_bgSelect.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butSelectDisabled {
+   height: 20px;
+   width: 48px;
+   border: 0px;
+   background: url(images/but_bgSelect.jpg) no-repeat bottom;
+   cursor: pointer;
+}
+
+.butSelect2 {
+   height: 40px;
+   width: 48px;
+   border: 0px;
+   background: url(images/but_bgSelect2.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butSelect2Disabled {
+   height: 40px;
+   width: 48px;
+   border: 0px;
+   background: url(images/but_bgSelect2.jpg) no-repeat bottom;
+   cursor: pointer;
+}
+
+/* 配置小按钮 */
+.butConfig2 {
+   height: 40px;
+   width: 48px;
+   border: 0px;
+   background: url(images/but_bgConfig2.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butConfig2Disabled {
+   height: 40px;
+   width: 48px;
+   border: 0px;
+   background: url(images/but_bgConfig2.jpg) no-repeat bottom;
+   cursor: pointer;
+}
+
+/* 历史记录小按钮 */
+.butHistoryRecord {
+   height: 40px;
+   width: 48px;
+   border: 0px;
+   background: url(images/but_bgHistoryRecord.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butHistoryRecordDisabled {
+   height: 40px;
+   width: 48px;
+   border: 0px;
+   background: url(images/but_bgHistoryRecord.jpg) no-repeat bottom;
+   cursor: pointer;
+}
+
+/* 预览小按钮 */
+.butPreview2 {
+   height: 40px;
+   width: 48px;
+   border: 0px;
+   background: url(images/but_bgPreview2.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butPreview2Disabled {
+   height: 40px;
+   width: 48px;
+   border: 0px;
+   background: url(images/but_bgPreview2.jpg) no-repeat bottom;
+   cursor: pointer;
+}
+
+/* 轨迹小按钮 */
+.butTrace {
+   height: 20px;
+   width: 48px;
+   border: 0px;
+   background: url(images/but_bgTrace.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butTraceDisabled {
+   height: 20px;
+   width: 48px;
+   border: 0px;
+   background: url(images/but_bgTrace.jpg) no-repeat bottom;
+   cursor: pointer;
+}
+
+/* 统计小按钮 */
+.butCount {
+   height: 20px;
+   width: 48px;
+   border: 0px;
+   background: url(images/but_bgCount.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butCountDisabled {
+   height: 20px;
+   width: 48px;
+   border: 0px;
+   background: url(images/but_bgCount.jpg) no-repeat bottom;
+   cursor: pointer;
+}
+
+/* 图片放大缩小按钮 */
+.butImgOriginal {
+   height: 44px;
+   width: 48px;
+   border: 0px;
+   background: url(images/but_bgImgOriginal.jpg) no-repeat;
+   cursor: pointer;
+}
+
+.butImgZoomIn {
+   height: 44px;
+   width: 48px;
+   border: 0px;
+   background: url(images/but_bgImgZoomIn.jpg) no-repeat;
+   cursor: pointer;
+}
+
+.butImgZoomOut {
+   height: 44px;
+   width: 48px;
+   border: 0px;
+   background: url(images/but_bgImgZoomOut.jpg) no-repeat;
+   cursor: pointer;
+}
+
+.butEmpty {
+   padding-top: 2px; 
+   padding-left: 3px; 
+   color: #004175;
+   border: 1px solid #2C84E6;
+   height: 22px;
+   width: 60px;
+   background: url(images/but_bg_Empty.gif) repeat-x top;
+   cursor: pointer;
+}
+
+/* 向下小按钮 */
+.buttonDown {
+   width: 18px;
+   height : 18px;
+   background-image: url('images/but_upDown2.gif');
+   background-position: top; 
+   background-repeat: no-repeat;;
+}
+
+/******************************************* 等待屏蔽层 *******************************************/
+.waitingTable {
+   width: 380px;
+   height : 80px;
+   background-image: url('images/sys_waiting_bg.jpg');
+   background-position: top; 
+   background-repeat: no-repeat;;
+}
+
+/******************************************* 比对报警 *******************************************/
+.alarmDiv {
+   position: absolute;
+   top: 40px;
+   border: 0px;
+   height: 27px;
+   width: 15px;
+   background: url(images/alarm.gif) no-repeat top;
+   cursor: pointer;
+}
+
+
+/**************************************** 案事件人员选择 ****************************************/
+.selectPersonDiv {
+   position: absolute;
+   vertical-align: top;
+   height: 100px;
+   z-index: 60;
+   border: 1px solid #3774A8;
+   background-color: #FFFAEE;
+   padding: 0;
+}
+
+.selectPersonDivIn {
+   overflow-y: auto;
+   vertical-align: top;
+   width: 100%;
+   z-index: 60;
+   padding: 0;
+}
+
+.selectPersonDivIn2 {
+   width: 100%;
+   height:25px;
+   z-index: 60;
+   text-align: center;
+   border-top: 1px solid #3774A8;
+   padding: 0px;
+   vertical-align: top;
+}
+
+.selectPersonTable {
+}
+
+.selectPersonTr {
+   height: 25px;
+   background: #FFFAEE;
+}
+
+.selectPersonTrFocus {
+   cursor: pointer;
+   height: 25px;
+   background: #D7E9FF;
+}
+
+.selectPersonTd {
+   color: #222222;
+   padding-left: 5px;
+   padding-right: 5px;
+   white-space: nowrap;
+   text-overflow:ellipsis; 
+   word-break:keep-all; 
+   overflow:hidden;
+}

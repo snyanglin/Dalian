@@ -1,0 +1,81 @@
+@charset "utf-8";
+/* CSS Document */
+*{margin:0px;padding:0px;}
+body{margin:0px; padding:0px; background-color:#f8f8f8; font-size:12px;}
+.wrapper{width:96%; background-color:#fff; border:1px solid #dbdbdb; height:auto; overflow:hidden; padding:10px; margin:10px auto 0 auto;}
+
+.dbrwTitle{height:40px; z-index:999;}
+.wrap_01{width:98%; height:auto; overflow:hidden;margin:45px 0 0 10px; float:left; clear:both;display:inline; }
+.wrap_02{width:98%; height:auto; overflow:hidden;margin:10px 0 0 10px; float:left; clear:both;display:inline; }
+/*=====2014-10-30start======*/
+img{border:0px;}
+.title_son{width:100%; border-bottom:1px solid #e4e4e4; font-size:14px; color:#474747; font-weight:bold; line-height:32px;height:32px;}
+.title_son_text{ width:70px; float:left;font-size:14px; color:#474747; font-weight:bold; line-height:32px;}
+.title_son_text6{ width:100px; float:left;font-size:14px; color:#474747; font-weight:bold; line-height:32px;}
+.title_img{width:40px; float:left; line-height:32px; cursor:pointer; height:8px; margin-top:12px;}
+.duban_btn{width:65px; height:24px; float:right;}
+
+.duban_time_wrap{width:220px; height:28px; float:right; margin-right:10px;}
+.duban_time_wrap ul{margin:0px; padding:0px; list-style:none; width:100%; height:auto; overflow:hidden; margin-top:7px;}
+.duban_time_wrap ul li{width:66px; float:left;  height:24px; margin-left:5px; display:inline; cursor:pointer;}
+.duban_time_wrap ul li.default{border-right:1px solid #e4e4e4;border-left:1px solid #e4e4e4;border-top:1px solid #e4e4e4; background-color:#f6f4f4;font-size:12px; text-align:center; color:#686868; line-height:24px; font-weight:normal;}
+.duban_time_wrap ul li.checked{border-right:1px solid #a8d0ed;border-left:1px solid #a8d0ed;border-top:1px solid #a8d0ed; background-color:#e9f6ff;font-size:12px; text-align:center; color:#0c8be3; line-height:24px; font-weight:normal;}
+
+.tab_time_wrap{width:98%; background:url(../images/timeBg.jpg) repeat-x; height:27px; float:left; margin-top:10px;}
+.tab_time_wrap ul{margin:0px; padding:0px; width:100%; list-style:none;}
+.tab_time_wrap ul li{ list-style:none; width:72px; height:27px; float:left; text-align:center; line-height:27px; margin-left:20px; color:#686868; cursor:pointer;}
+.tab_time_wrap ul li.default1{background:url(../images/dbtimeBtn.png) no-repeat;font-size:12px; text-align:center; color:#686868; line-height:27px; font-weight:normal;}
+.tab_time_wrap ul li.checked1{ background:url(../images/dbtimeBtn_over.png) no-repeat;font-size:12px; text-align:center; color:#0c8be3; line-height:27px; font-weight:normal;}
+
+/*=====2014-10-30end======*/
+.total_left{width:28%; float:left; height:auto; overflow:hidden; margin-top:10px;}
+.table_right{ width:72%; float:right; overflow:hidden;}
+.title_son_wrap{width:100%; float:left; height:35px;text-align:left;}
+
+.red_title{width:250px; float:left; height:35px; background:url(../images/dbrw/red_title.gif) no-repeat left top; 
+         font-size:12px; color:#616161; line-height:32px; font-weight:bold; text-indent:8px;}
+.more{width:60px; font-size:12px; color:#999999; line-height:32px; float:right; text-align:center;}
+.more a{ font-size:12px; color:#999999; line-height:32px; text-decoration:none;}
+.more a:hover{ font-size:12px; color:#167dde; line-height:32px; text-decoration:none;}
+.bg_wrap{width:100%; height:auto; overflow:hidden; overflow:hidden; float:left;}
+
+.tab_wrap{width:99.8%; height:auto; overflow:hidden; background-color:#fff; float:left; margin:10px 0 0 0; border:1px solid #cfcfcf;}
+.tabTitle{width:100%; background:url(../images/dbrw/tab_topBg.gif) repeat-x; height:32px; float:left; overflow: hidden;}
+.tabTitle ul{width:900px; height:32px; list-style:none; margin:0px; padding:0px; float:left;}
+.tabTitle ul li{list-style:none; width:170px; float:left; font-size:12px; color:#616161; line-height:30px; font-weight:bold; border-right:1px solid #cfcfcf;  text-align:center; margin-top:2px;}
+.normaltab { width:170px; float:left;font-size:12px; color:#616161; line-height:30px;   text-align:center; cursor:pointer;}
+.hovertab{ width:170px; background-color:#fff; float:left;font-size:12px; color:#616161; line-height:30px;
+ text-align:center; cursor:pointer; }
+ .normaltab a{color:#616161;line-height:30px;text-decoration:none; font-weight:bold;background:none;}
+ .normaltab a:hover{color:#616161;line-height:30px;text-decoration:none;font-weight:bold;background:none;}
+ .hovertab a{color:#616161;line-height:30px;text-decoration:none;font-weight:bold;background:none;}
+ .hovertab a:hover{color:#616161;line-height:30px;text-decoration:none;font-weight:bold;background:none;}
+
+.normaltab1{ width:170px; float:left;font-size:12px; color:#616161; line-height:30px;   text-align:center; cursor:pointer;}
+.hovertab1{ width:170px; background-color:#fff; float:left;font-size:12px; color:#616161; line-height:30px;
+ text-align:center; cursor:pointer; }
+
+.rwdb_dis{display:block;}
+.rwdb_undis{display:none;}
+.rwdb_tab_wrap{width:98%;height:100%;overflow:hidden;float:left;margin:10px 0 10px 10px;display:inline;}
+
+.rwdb_table{width:100%;background-color:#dbdbdb; margin:10px auto;}
+.rwdb_table tr{background-color:#fff;}
+.rwdb_table th{height:27px;background:url(../images/dbrw/rwdbTabletitle.gif) repeat-x;font-size:12px;font-weight:normal;
+    line-height:27px;text-align:center;text-indent:8px;}
+.rwdb_table td{height:27px;font-size:12px;color:#616161;line-height:27px;text-indent:8px;}
+
+.rwdb_table td.rwdbRed{font-size:12px;color:#f00;}
+.rwdb_table td.rwdbRed a{font-size:12px;color:#f00;text-decoration:none;}
+.rwdb_table td.rwdbRed a:hover{font-size:12px;color:#f00;text-decoration:underline;}
+
+.dbrwck a{font-size:12px;color:#f00;text-decoration:none;}
+.dbrwck a:hover{font-size:12px;color:#f00;text-decoration:underline;}
+
+/*=======任务概况=====*/
+.table_rwgk{width:98%; background-color:#dbdbdb; margin:10px auto;}
+.table_rwgk tr{ background:#fff; height:27px;}
+.table_rwgk th{ background-color:#f6f6f7;font-weight:bold;}
+.table_rwgk td{ background-color:#fff; text-indent:10px;}
+.wrap_03{width:98%; height:auto; overflow:hidden;margin:0 0 0 10px; float:left; clear:both;display:inline; }
+.rwmxText{width:98%; line-height:24px; font-size:12px; text-indent:25px; margin:10px 0 0 10px;}

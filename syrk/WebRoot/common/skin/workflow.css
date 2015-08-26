@@ -1,0 +1,539 @@
+* {
+   font: 9pt "宋体"; 
+}
+
+.defaultBody {
+   margin: 0px;
+}
+
+.dataFormFuncTable {
+   height: 28px;
+   background: #FFFFFF url(images/data_FuncTableBg.gif) repeat-x top;
+}
+
+.tacheName {
+   color: #003050;
+   line-height: 13px;
+}
+
+.butTD {
+   padding-left: 4px;
+   padding-right: 4px;
+}
+
+.butBack {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgBack.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.butSave {
+   height: 22px;
+   width: 58px;
+   border: 0px;
+   background: url(images/but_bgSave.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.panelDiv {
+   position: absolute;
+   overflow: auto;
+   background: url(images/flowBack.jpg);
+   background-attachment: local;
+}
+
+.flowButtonStep1 {
+   height: 22px;
+   width: 23px;
+   background: url(images/flowButtonStep.gif) no-repeat top;
+   cursor: pointer;
+}
+
+.flowButtonStep2 {
+   height: 22px;
+   width: 23px;
+   background: url(images/flowButtonStep.gif) no-repeat bottom;
+   cursor: pointer;
+}
+
+.flowButtonEnd1 {
+   height: 22px;
+   width: 23px;
+   background: url(images/flowButtonEnd.gif) no-repeat top;
+   cursor: pointer;
+}
+
+.flowButtonEnd2 {
+   height: 22px;
+   width: 23px;
+   background: url(images/flowButtonEnd.gif) no-repeat bottom;
+   cursor: pointer;
+}
+
+.flowButtonLine1 {
+   height: 22px;
+   width: 23px;
+   background: url(images/flowButtonLine.gif) no-repeat top;
+   cursor: pointer;
+}
+
+.flowButtonLine2 {
+   height: 22px;
+   width: 23px;
+   background: url(images/flowButtonLine.gif) no-repeat bottom;
+   cursor: pointer;
+}
+
+.flowButtonCheck1 {
+   height: 22px;
+   width: 23px;
+   background: url(images/flowButtonCheck.gif) no-repeat top;
+   cursor: pointer;
+}
+
+.flowButtonCheck2 {
+   height: 22px;
+   width: 23px;
+   background: url(images/flowButtonCheck.gif) no-repeat bottom;
+   cursor: pointer;
+}
+
+.flowButtonRefresh1 {
+   height: 22px;
+   width: 23px;
+   background: url(images/flowButtonRefresh.gif) no-repeat top;
+   cursor: pointer;
+}
+
+.flowButtonRefresh2 {
+   height: 22px;
+   width: 23px;
+   background: url(images/flowButtonRefresh.gif) no-repeat bottom;
+   cursor: pointer;
+}
+
+.flowButtonNew1 {
+   height: 22px;
+   width: 23px;
+   background: url(images/flowButtonNew.gif) no-repeat top;
+   cursor: pointer;
+}
+
+.flowButtonNew2 {
+   height: 22px;
+   width: 23px;
+   background: url(images/flowButtonNew.gif) no-repeat bottom;
+   cursor: pointer;
+}
+
+.flowButtonAlign1 {
+   height: 22px;
+   width: 23px;
+   background: url(images/flowButtonAlign.gif) no-repeat top;
+   cursor: pointer;
+}
+
+.flowButtonAlign2 {
+   height: 22px;
+   width: 23px;
+   background: url(images/flowButtonAlign.gif) no-repeat center;
+   cursor: pointer;
+}
+
+.flowButtonAlign3 {
+   height: 22px;
+   width: 23px;
+   background: url(images/flowButtonAlign.gif) no-repeat bottom;
+   cursor: pointer;
+}
+
+.flowStart1 {
+   position: absolute;
+   height: 43px;
+   width: 103px;
+   background: url(images/flowStart.png) no-repeat top;
+   cursor: pointer;
+}
+
+.flowStart2 {
+   position: absolute;
+   height: 43px;
+   width: 103px;
+   background: url(images/flowStart.png) no-repeat bottom;
+   cursor: pointer;
+}
+
+.flowStart3 {
+   height: 43px;
+   width: 103px;
+   background: url(images/flowStart.png) no-repeat top;
+}
+
+.flowStartPass1 {
+   position: absolute;
+   height: 43px;
+   width: 103px;
+   background: url(images/flowStartPass.png) no-repeat top;
+   cursor: pointer;
+}
+
+.flowStartPass2 {
+   position: absolute;
+   height: 43px;
+   width: 103px;
+   background: url(images/flowStartPass.png) no-repeat bottom;
+   cursor: pointer;
+}
+
+.flowStep1 {
+   position: absolute;
+   height: 43px;
+   width: 103px;
+   background: url(images/flowStep.png) no-repeat top;
+   cursor: pointer;
+}
+
+.flowStep2 {
+   position: absolute;
+   height: 43px;
+   width: 103px;
+   background: url(images/flowStep.png) no-repeat bottom;
+   cursor: pointer;
+}
+
+.flowStep3 {
+   height: 43px;
+   width: 103px;
+   background: url(images/flowStep.png) no-repeat top;
+}
+
+.flowStepNow1 {
+   position: absolute;
+   height: 43px;
+   width: 103px;
+   background: url(images/flowStepNow.png) no-repeat top;
+   cursor: pointer;
+}
+
+.flowStepNow2 {
+   position: absolute;
+   height: 43px;
+   width: 103px;
+   background: url(images/flowStepNow.png) no-repeat bottom;
+   cursor: pointer;
+}
+
+.flowStepNow3 {
+   height: 43px;
+   width: 103px;
+   background: url(images/flowStepNow.png) no-repeat top;
+}
+
+.flowStepPass1 {
+   position: absolute;
+   height: 43px;
+   width: 103px;
+   background: url(images/flowStepPass.png) no-repeat top;
+   cursor: pointer;
+}
+
+.flowStepPass2 {
+   position: absolute;
+   height: 43px;
+   width: 103px;
+   background: url(images/flowStepPass.png) no-repeat bottom;
+   cursor: pointer;
+}
+
+.flowEnd1 {
+   position: absolute;
+   height: 43px;
+   width: 55px;
+   background: url(images/flowEnd.png) no-repeat top;
+   cursor: pointer;
+}
+
+.flowEnd2 {
+   position: absolute;
+   height: 43px;
+   width: 55px;
+   background: url(images/flowEnd.png) no-repeat bottom;
+   cursor: pointer;
+}
+
+.flowEnd3 {
+   height: 43px;
+   width: 55px;
+   background: url(images/flowEnd.png) no-repeat top;
+}
+
+.flowEndPass1 {
+   position: absolute;
+   height: 43px;
+   width: 55px;
+   background: url(images/flowEndPass.png) no-repeat top;
+   cursor: pointer;
+}
+
+.flowEndPass2 {
+   position: absolute;
+   height: 43px;
+   width: 55px;
+   background: url(images/flowEndPass.png) no-repeat bottom;
+   cursor: pointer;
+}
+
+/* 流向连线样式 */
+
+.transDiv {
+   z-index: 121; 
+   width: 0px;
+   height: 0px; 
+   position: absolute; 
+   top: 0px;
+   left: 0px;
+   font-size: 1px;
+}
+
+.transDivSelect {
+   z-index: 122; 
+   width: 0px;
+   height: 0px; 
+   position: absolute; 
+   top: 0px;
+   left: 0px;
+   font-size: 1px;
+}
+
+.tDataDiv {
+   position: absolute; 
+   display: none; 
+}
+
+.flowArrowUp1 {
+   position: absolute;
+   height: 16px;
+   width: 7px;
+   background: url(images/flowArrowUp.gif) no-repeat top;
+   cursor: pointer;
+   z-index: 120;
+   font-size: 1px;
+}
+
+.flowArrowUp2 {
+   position: absolute;
+   height: 16px;
+   width: 7px;
+   background: url(images/flowArrowUp.gif) no-repeat bottom;
+   cursor: pointer;
+   z-index: 120;
+   font-size: 1px;
+}
+
+.flowArrowDown1 {
+   position: absolute;
+   height: 16px;
+   width: 7px;
+   background: url(images/flowArrowDown.gif) no-repeat top;
+   cursor: pointer;
+   z-index: 120;
+   font-size: 1px;
+}
+
+.flowArrowDown2 {
+   position: absolute;
+   height: 16px;
+   width: 7px;
+   background: url(images/flowArrowDown.gif) no-repeat bottom;
+   cursor: pointer;
+   z-index: 120;
+   font-size: 1px;
+}
+
+.flowArrowLeft1 {
+   position: absolute;
+   height: 7px;
+   width: 16px;
+   background: url(images/flowArrowLeft.gif) no-repeat top;
+   cursor: pointer;
+   z-index: 120;
+   font-size: 1px;
+}
+
+.flowArrowLeft2 {
+   position: absolute;
+   height: 7px;
+   width: 16px;
+   background: url(images/flowArrowLeft.gif) no-repeat bottom;
+   cursor: pointer;
+   z-index: 120;
+   font-size: 1px;
+}
+
+.flowArrowRight1 {
+   position: absolute;
+   height: 7px;
+   width: 16px;
+   background: url(images/flowArrowRight.gif) no-repeat top;
+   cursor: pointer;
+   z-index: 120;
+   font-size: 1px;
+}
+
+.flowArrowRight2 {
+   position: absolute;
+   height: 7px;
+   width: 16px;
+   background: url(images/flowArrowRight.gif) no-repeat bottom;
+   cursor: pointer;
+   z-index: 120;
+   font-size: 1px;
+}
+
+.flowLineHorizontal1 {
+   position: absolute;
+   height: 7px;
+   background: url(images/flowLineHorizontal.gif) repeat-x top;
+   cursor: pointer;
+   z-index: 120;
+   font-size: 1px;
+}
+
+.flowLineHorizontal2 {
+   position: absolute;
+   height: 7px;
+   background: url(images/flowLineHorizontal.gif) repeat-x bottom;
+   cursor: pointer;
+   z-index: 120;
+   font-size: 1px;
+}
+
+.flowLineVertical1 {
+   position: absolute;
+   width: 7px;
+   background: url(images/flowLineVertical.gif) repeat-y left;
+   cursor: pointer;
+   z-index: 120;
+   font-size: 1px;
+}
+
+.flowLineVertical2 {
+   position: absolute;
+   width: 7px;
+   background: url(images/flowLineVertical.gif) repeat-y right;
+   cursor: pointer;
+   z-index: 120;
+   font-size: 1px;
+}
+
+.radioSelect {
+   color: #FF0000;
+   font-weight: bold; 
+}
+
+.radioUnSelect {
+   color: #222222;
+}
+
+.tacheResultMainTable {
+   position: absolute;
+   z-index: 130;
+}
+
+.tacheResultDiv {
+   width: 420; 
+   overflow-y: auto;
+   border: 1px solid #AECCDB;
+   background: #FFFFFF;
+   vertical-align: top;
+   padding: 1px;
+}
+
+.tacheResultTable {
+   background: #AECCDB;
+}
+
+.tacheResultTr {
+   background: #FFFFFF;
+   height: 22px;
+}
+
+.tacheResultTdText1 {
+   width: 80px;
+   color: #3399CC;
+   background: #F0F7FD;
+   height: 22px; 
+}
+
+.tacheResultTdInput1 {
+   width: 130px;
+   padding-left: 6px; 
+   color: #006699;
+}
+
+.tacheResultTdIdea1 {
+   padding-left: 6px; 
+   color: #006699;
+   word-break: break-all;
+}
+
+.tacheResultTdText2 {
+   width: 80px;
+   color: #CC9966;
+   background: #fdf9f0;
+   height: 22px; 
+}
+
+.tacheResultTdInput2 {
+   width: 130px;
+   padding-left: 6px; 
+   color: #996600;
+}
+
+.tacheResultTdIdea2 {
+   padding-left: 6px; 
+   color: #996600;
+   word-break: break-all;
+}
+
+.sysBox1 {
+   background: url(images/sys_box_1.png) no-repeat;
+}
+
+.sysBox2 {
+   background: url(images/sys_box_2.png) no-repeat;
+}
+
+.sysBox3 {
+   background: url(images/sys_box_3.png) no-repeat;
+}
+
+.flowLineHorizontalShow {
+   height: 7px;
+   width: 60x;
+   background: url(images/flowLineHorizontal.gif) repeat-x top;
+   font-size: 1px;
+}
+
+.flowArrowRightShow {
+   height: 7px;
+   width: 16px;
+   background: url(images/flowArrowRight.gif) no-repeat top;
+   font-size: 1px;
+}
+
+.divMessageRead1 {
+   border: 0px;
+   height: 13px;
+   width: 18px;
+   background: url(images/messageRead.gif) no-repeat top;
+}
+
+.divMessageRead2 {
+   border: 0px;
+   height: 13px;
+   width: 18px;
+   background: url(images/messageRead.gif) no-repeat bottom;
+}

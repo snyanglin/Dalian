@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="jlxxb">
+	
+	<typeAlias alias="jlxxb" type="com.founder.yjjb.bean.Jlxxb" />
+	
+	<!-- 添加 -->
+	<insert id="save" parameterClass="jlxxb">
+		<![CDATA[
+		INSERT INTO YJJB_JLXXB
+  			(ID,SQJE,SQSJ,SQDW,SQR,JLJE,SPZT,JYNR,SLFZCLJG,SLZCLJG,SLZXCLJG,SLFZSPSJ,SLZSPSJ,SLZXSPSJ,JLLX,BZ,]]> <include refid="insertXtzd"/> <![CDATA[ )
+		VALUES
+  			(#id#,#sqje#,#sqsj#,#sqdw#,#sqr#,#jlje#,#spzt#,#jynr#,#slfzcljg#,#slzcljg#,#slzxcljg#,#slfzspsj#,#slzspsj#,#slzxspsj#,#jllx#,#bz#,]]> <include refid="insertXtzdVal"/> <![CDATA[ )
+  		]]>
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update" parameterClass="jlxxb">
+		 <![CDATA[ UPDATE YJJB_JLXXB ]]>	
+		<dynamic prepend="set">
+		<isNotNull prepend = "," property = "slfzcljg"> <![CDATA[slfzcljg = #slfzcljg#]]> </isNotNull>
+		<isNotNull prepend = "," property = "sqje"> <![CDATA[sqje = #sqje#]]> </isNotNull>
+		<isNotNull prepend = "," property = "sqsj"> <![CDATA[sqsj = #sqsj#]]> </isNotNull>
+		<isNotNull prepend = "," property = "sqdw"> <![CDATA[sqdw = #sqdw#]]> </isNotNull>
+		<isNotNull prepend = "," property = "sqr"> <![CDATA[sqr = #sqr#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jlje"> <![CDATA[jlje = #jlje#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jynr"> <![CDATA[JYNR = #jynr#]]> </isNotNull>
+		<isNotNull prepend = "," property = "spzt"> <![CDATA[spzt = #spzt#]]> </isNotNull>
+		<isNotNull prepend = "," property = "slzxcljg"> <![CDATA[slzxcljg = #slzxcljg#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jllx"> <![CDATA[jllx = #jllx#]]> </isNotNull>
+		<isNotNull prepend = "," property = "bz"> <![CDATA[bz = #bz#]]> </isNotNull>
+		<isNotNull prepend = "," property = "slzcljg"> <![CDATA[slzcljg = #slzcljg#]]> </isNotNull>
+		<isNotNull prepend = "," property = "slfzspsj"> <![CDATA[slfzspsj = #slfzspsj#]]> </isNotNull>
+		<isNotNull prepend = "," property = "slzspsj"> <![CDATA[slzspsj = #slzspsj#]]> </isNotNull>
+		<isNotNull prepend = "," property = "slzxspsj"> <![CDATA[slzxspsj = #slzxspsj#]]> </isNotNull>
+			, <include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ WHERE id = #id#]]>
+	</update>
+	
+	<!-- 查询-->
+	<select id="queryById" parameterClass="jlxxb" resultClass="jlxxb">
+		<![CDATA[ SELECT * FROM YJJB_JLXXB WHERE id = #id# ]]>
+	</select>
+	 
+	 <!-- 查询列表 -->
+	<select id="queryCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ SELECT COUNT(*) FROM YJJB_JLXXB  WHERE XT_ZXBZ = '0'  ]]>
+		<isNotEmpty prepend="and" property="jlxxb.starttime">	<![CDATA[substr(SQSJ,0,10) >= #jlxxb.starttime#]]>	</isNotEmpty>
+		<isNotEmpty prepend="and" property="jlxxb.endtime">		<![CDATA[substr(SQSJ,0,10) <= #jlxxb.endtime#]]>		</isNotEmpty>		
+		<isNotEmpty prepend="and" property="jlxxb.id">			<![CDATA[ID like '%$jlxxb.id$%']]>	</isNotEmpty>
+		<isNotEmpty prepend="and" property="jlxxb.spzt">		<![CDATA[SPZT = #jlxxb.spzt#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="jlxxb.jllx">		<![CDATA[JLLX = #jlxxb.jllx#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="jlxxb.sqdw">		<![CDATA[SQDW like '%$jlxxb.sqdw$%']]>			</isNotEmpty>
+	</select>
+	
+	<!-- 数据查询 -->
+	<select id="queryList" parameterClass="Map" resultClass="jlxxb">
+		<![CDATA[ SELECT * FROM ( SELECT ROWNUM r, t.* FROM ( SELECT * FROM YJJB_JLXXB WHERE XT_ZXBZ = '0'  ]]>
+		<isNotEmpty prepend="and" property="jlxxb.starttime">	<![CDATA[substr(SQSJ,0,10) >= #jlxxb.starttime#]]>	</isNotEmpty>
+		<isNotEmpty prepend="and" property="jlxxb.endtime">		<![CDATA[substr(SQSJ,0,10) <= #jlxxb.endtime#]]>		</isNotEmpty>		
+		<isNotEmpty prepend="and" property="jlxxb.id">			<![CDATA[ID like '%$jlxxb.id$%']]>	</isNotEmpty>
+		<isNotEmpty prepend="and" property="jlxxb.spzt">		<![CDATA[SPZT = #jlxxb.spzt#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="jlxxb.jllx">		<![CDATA[JLLX = #jlxxb.jllx#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="jlxxb.sqdw">		<![CDATA[SQDW like '%$jlxxb.sqdw$%']]>			</isNotEmpty>
+		<![CDATA[ ORDER BY $sort$ $order$ ) t WHERE rownum <= #end# ) WHERE r > #begin# ]]>
+	</select>
+	
+	<!-- 删除-->
+	<update id="delete" parameterClass="jlxxb">
+		<![CDATA[UPDATE YJJB_JLXXB SET]]> <include refid="deleteXtzd"/>
+		<![CDATA[WHERE id = #id#]]>
+	</update>
+	
+</sqlMap>

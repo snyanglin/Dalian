@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="relationRyxx">
+	
+	<typeAlias alias="relationRyxxTitle" type="com.founder.service.relationmessage.bean.RelationRyxxTitle" />
+	
+	<!-- 查询人员关信息（返回最新1条数据） -->
+	<select id="queryRelationRyxxTitle" remapResults="true" parameterClass="String" resultClass="relationRyxxTitle">
+		<![CDATA[ $querySqlString$ ]]>
+	</select>
+	
+	<select id="queryFrfzr" parameterClass="String" resultClass="relationRyxxTitle">
+		<![CDATA[select  distinct b.dwmc id , (select t.ct from SYS_DICT2 t where t.zdbh = 'D_DW_DWRYLX' and t.dm = a.dwrylxdm) title
+		 from dw_frfzrllrb a,DW_DWJBXXB B WHERE A.DWID=B.ID and  a.zjhm = #value# ]]>
+	</select>
+	
+	<select id="queryCyry" parameterClass="String" resultClass="relationRyxxTitle">
+		<![CDATA[select distinct b.dwmc title from dw_cyryxxb a,DW_DWJBXXB B WHERE A.DWID=B.ID and a.zjhm =#value# ]]>
+	</select>
+	
+	
+</sqlMap>

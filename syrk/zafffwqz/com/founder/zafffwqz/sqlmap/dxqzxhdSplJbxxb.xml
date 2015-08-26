@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--  
+	@Author:       [wu.w@founder.com.cn]
+	@CreateDate:   [2015-5-15 上午8:51:54]
+	 * @review      : tian_chengwei@founder.com.cn
+	* @reviewDate  : 20150604
+-->
+<sqlMap namespace="dxqzxhdspljbxxb">
+	<typeAlias alias="jbxxb" type="com.founder.zafffwqz.bean.DxqzxhdSplJbxxb"/>
+	<!-- 大型群众性活动审批类-安保责任单位信息类-sql -->
+	<!-- 查询数据 -->
+	<select id="queryList" parameterClass="Map" resultClass="jbxxb">
+	       SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+		       SELECT *  FROM DXQZXHDSPL_JBXXB T 
+		       WHERE T.XT_ZXBZ = '0'
+		       <isNotEmpty prepend="AND" property="entity.hdlxdm">
+		             T.HDLXDM = #entity.hdlxdm#
+		       </isNotEmpty>
+		       <isNotEmpty prepend="AND" property="entity.hdxzdm">
+		             T.HDXZDM = #entity.hdxzdm#
+		       </isNotEmpty>
+		       <isNotEmpty prepend="AND" property="entity.hdmc">
+		             T.HDMC LIKE '%'||#entity.hdmc#||'%'
+		       </isNotEmpty>
+		       <isNotEmpty prepend="AND" property="entity.cljgdm">
+				     T.CLJGDM = #entity.cljgdm#
+			   </isNotEmpty>
+			   <isNotEmpty prepend="AND" property="entity.hdkssj">
+				     <![CDATA[T.HDKSSJ >= #entity.hdkssj#]]>
+			   </isNotEmpty>
+			   <isNotEmpty prepend="AND" property="entity.hdkssjjz">
+				     <![CDATA[T.HDKSSJ <= #entity.hdkssjjz#]]>
+			   </isNotEmpty>
+			   <isNotEmpty prepend="AND" property="entity.hdjssj">
+				     <![CDATA[T.HDJSSJ >= #entity.hdjssj#]]>
+			   </isNotEmpty>
+			   <isNotEmpty prepend="AND" property="entity.hdjssjjz">
+				     <![CDATA[T.HDJSSJ <= #entity.hdjssjjz#]]>
+			   </isNotEmpty>
+		       ORDER BY T.$sort$ $order$) M 
+		  <![CDATA[WHERE ROWNUM <= #end# ) WHERE R > #begin#]]> 
+	</select>
+	
+	<!-- 查询数据总数 -->
+	<select id="queryListCount" parameterClass="Map" resultClass="Integer">
+		   SELECT COUNT(1) FROM DXQZXHDSPL_JBXXB T 
+	       WHERE T.XT_ZXBZ = '0'
+	      <isNotEmpty prepend="AND" property="entity.hdlxdm">
+		             T.HDLXDM = #entity.hdlxdm#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="entity.hdxzdm">
+	             T.HDXZDM = #entity.hdxzdm#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="entity.hdmc">
+	             T.HDMC LIKE '%'||#entity.hdmc#||'%'
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="entity.cljgdm">
+			     T.CLJGDM = #entity.cljgdm#
+		   </isNotEmpty>
+		   <isNotEmpty prepend="AND" property="entity.hdkssj">
+			     <![CDATA[T.HDKSSJ >= #entity.hdkssj#]]>
+		   </isNotEmpty>
+		   <isNotEmpty prepend="AND" property="entity.hdkssjjz">
+			     <![CDATA[T.HDKSSJ <= #entity.hdkssjjz#]]>
+		   </isNotEmpty>
+		   <isNotEmpty prepend="AND" property="entity.hdjssj">
+			     <![CDATA[T.HDJSSJ >= #entity.hdjssj#]]>
+		   </isNotEmpty>
+		   <isNotEmpty prepend="AND" property="entity.hdjssjjz">
+			     <![CDATA[T.HDJSSJ <= #entity.hdjssjjz#]]>
+		   </isNotEmpty>
+	</select>
+	
+	<!-- 判断数据有无 -->
+	<select id="isExist" parameterClass="String" resultClass="Integer">
+		select count(1) from DXQZXHDSPL_JBXXB  where XT_ZXBZ = '0' and HDID=#hdid#
+	</select>
+	
+	<!-- 注销数据 -->
+	<update id="delete" parameterClass="jbxxb" >
+		<![CDATA[UPDATE DXQZXHDSPL_JBXXB SET ]]><include refid="deleteXtzd"/>
+		<![CDATA[ WHERE hdid = #hdid#]]>
+	</update>
+	
+	<!-- 查询数据 -->
+	<select id="query" parameterClass="String" resultClass="jbxxb">
+		select * from DXQZXHDSPL_JBXXB  where XT_ZXBZ = '0' and HDID=#hdid#
+	</select>
+	
+	<!-- 新增数据 -->
+	<update id="save" parameterClass="jbxxb" >
+		INSERT INTO DXQZXHDSPL_JBXXB (
+			HDID,HDLXDM,HDXZDM,HDMC,HDCC,MCCYJRSDM,EDRL,NFSPS,DZ_HDDDSSXDM,DZ_HDDDMLPDM,DZ_HDDDMLPXZ,DZ_HDDDDZDM,
+  			DZ_HDDDXZ,BCSM, MCCSJRS,DZ_HDLXQSMLPDM,DZ_HDLXQSMLPXZ,DZ_HDLXJSMLPDM,DZ_HDLXJSMLPXZ,CDMJ,LC,HDKSSJ,HDJSSJ,
+  			HDZYNR,CLJGDM,BZ,<include refid="insertXtzd"/> 
+  		) VALUES (
+  			#hdid#,#hdlxdm#,#hdxzdm#,#hdmc#,#hdcc#,#mccyjrsdm#,#edrl#,#nfsps#,#dz_hdddssxdm#,#dz_hdddmlpdm#,#dz_hdddmlpxz#,
+  			#dz_hddddzdm#,#dz_hdddxz#,#bcsm#,#mccsjrs#,#dz_hdlxqsmlpdm#,#dz_hdlxqsmlpxz#,#dz_hdlxjsmlpdm#,#dz_hdlxjsmlpxz#
+  			,#cdmj#,#lc#,#hdkssj#,#hdjssj#,#hdzynr#,#cljgdm#,#bz#,<include refid="insertXtzdVal"/>)
+	</update>
+	
+	<!-- 修改数据 -->
+	<update id="update" parameterClass="jbxxb" >
+		UPDATE DXQZXHDSPL_JBXXB
+		<dynamic prepend="set">
+			<isNotNull prepend = "," property = "hdlxdm"> <![CDATA[hdlxdm = #hdlxdm#]]> </isNotNull>
+			<isNotNull prepend = "," property = "hdxzdm"> <![CDATA[hdxzdm = #hdxzdm#]]> </isNotNull>
+			<isNotNull prepend = "," property = "hdmc"> <![CDATA[hdmc = #hdmc#]]> </isNotNull>
+			<isNotNull prepend = "," property = "hdcc"> <![CDATA[hdcc = #hdcc#]]> </isNotNull>
+			<isNotNull prepend = "," property = "mccyjrsdm"> <![CDATA[mccyjrsdm = #mccyjrsdm#]]> </isNotNull>
+			<isNotNull prepend = "," property = "edrl"> <![CDATA[edrl = #edrl#]]> </isNotNull>
+			<isNotNull prepend = "," property = "nfsps"> <![CDATA[nfsps = #nfsps#]]> </isNotNull>
+			<isNotNull prepend = "," property = "dz_hdddssxdm"> <![CDATA[dz_hdddssxdm = #dz_hdddssxdm#]]> </isNotNull>
+			<isNotNull prepend = "," property = "dz_hdddmlpdm"> <![CDATA[dz_hdddmlpdm = #dz_hdddmlpdm#]]> </isNotNull>
+			<isNotNull prepend = "," property = "dz_hdddmlpxz"> <![CDATA[dz_hdddmlpxz = #dz_hdddmlpxz#]]> </isNotNull>
+			<isNotNull prepend = "," property = "dz_hddddzdm"> <![CDATA[dz_hddddzdm = #dz_hddddzdm#]]> </isNotNull>
+			<isNotNull prepend = "," property = "dz_hdddxz"> <![CDATA[dz_hdddxz = #dz_hdddxz#]]> </isNotNull>
+			<isNotNull prepend = "," property = "bcsm"> <![CDATA[bcsm = #bcsm#]]> </isNotNull>
+			<isNotNull prepend = "," property = "mccsjrs"> <![CDATA[mccsjrs = #mccsjrs#]]> </isNotNull>
+			<isNotNull prepend = "," property = "dz_hdlxqsmlpdm"> <![CDATA[dz_hdlxqsmlpdm = #dz_hdlxqsmlpdm#]]> </isNotNull>
+			<isNotNull prepend = "," property = "dz_hdlxqsmlpxz"> <![CDATA[dz_hdlxqsmlpxz = #dz_hdlxqsmlpxz#]]> </isNotNull>
+			<isNotNull prepend = "," property = "dz_hdlxjsmlpdm"> <![CDATA[dz_hdlxjsmlpdm = #dz_hdlxjsmlpdm#]]> </isNotNull>
+			<isNotNull prepend = "," property = "dz_hdlxjsmlpxz"> <![CDATA[dz_hdlxjsmlpxz = #dz_hdlxjsmlpxz#]]> </isNotNull>
+			<isNotNull prepend = "," property = "cdmj"> <![CDATA[cdmj = #cdmj#]]> </isNotNull>
+			<isNotNull prepend = "," property = "lc"> <![CDATA[lc = #lc#]]> </isNotNull>
+			<isNotNull prepend = "," property = "hdkssj"> <![CDATA[hdkssj = #hdkssj#]]> </isNotNull>
+			<isNotNull prepend = "," property = "hdjssj"> <![CDATA[hdjssj = #hdjssj#]]> </isNotNull>
+			<isNotNull prepend = "," property = "hdzynr"> <![CDATA[hdzynr = #hdzynr#]]> </isNotNull>
+			<isNotNull prepend = "," property = "cljgdm"> <![CDATA[cljgdm = #cljgdm#]]> </isNotNull>
+			<isNotNull prepend = "," property = "bz"> <![CDATA[bz = #bz#]]> </isNotNull>
+			,<include refid="updateXtzd"/>				
+		</dynamic>
+		WHERE hdid = #hdid#
+	</update>
+</sqlMap>

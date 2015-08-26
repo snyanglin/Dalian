@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Ldxxb">
+
+<typeAlias alias="ldxxb" type="com.founder.sydw.bean.Ldxxb"/>
+
+	<!-- 添加旅馆信息表记录 -->
+	<insert id="save" parameterClass="ldxxb">
+		<![CDATA[
+		insert into DW_LDXXB
+  			(id,dwid,lgbm,xj,ds,lcs,kefs,cws,sfswdm,fsylxm,fsfwxm,jyztdm,jyq,kufs,kfmcs,kfywfdmdm,ywrzsrdm,gz_rs,ywdzjksbdm,ywbldsjksb,bz, ]]> <include refid="insertXtzd"/> <![CDATA[ )
+		values
+  			(#id#,#dwid#,#lgbm#,#xj#,#ds#,#lcs#,#kefs#,#cws#,#sfswdm#,#fsylxm#,#fsfwxm#,#jyztdm#,#jyq#,#kufs#,#kfmcs#,#kfywfdmdm#,#ywrzsrdm#,#gz_rs#,#ywdzjksbdm#,#ywbldsjksb#,#bz#, ]]> <include refid="insertXtzdVal"/> <![CDATA[ )
+  		]]>
+	</insert>
+	
+	<!-- 查询旅馆信息表记录 -->
+	<select id="queryById" parameterClass="ldxxb" resultClass="ldxxb">
+		<![CDATA[ select * from DW_LDXXB where id = #id# ]]>
+	</select>
+	
+	<!-- 修改旅馆信息表记录 -->
+	<update id="updateLdxxb" parameterClass="ldxxb">
+		 <![CDATA[ update DW_LDXXB ]]>	
+		<dynamic prepend="set">
+		 <isNotNull prepend="," property="dwid"><![CDATA[ DWID=#dwid# ]]></isNotNull>
+		 <isNotNull prepend="," property="lgbm"><![CDATA[ LGBM=#lgbm# ]]></isNotNull>
+		 <isNotNull prepend="," property="xj"><![CDATA[ XJ=#xj# ]]></isNotNull>
+		 <isNotNull prepend="," property="ds"><![CDATA[ DS=#ds# ]]></isNotNull>
+		 <isNotNull prepend="," property="lcs"><![CDATA[ LCS=#lcs# ]]></isNotNull>
+		 <isNotNull prepend="," property="kefs"><![CDATA[ KEFS=#kefs# ]]></isNotNull>
+		 <isNotNull prepend="," property="cws"><![CDATA[ CWS=#cws# ]]></isNotNull>
+		 <isNotNull prepend="," property="sfswdm"><![CDATA[ SFSWDM=#sfswdm# ]]></isNotNull>
+		 <isNotNull prepend="," property="fsylxm"><![CDATA[ FSYLXM=#fsylxm# ]]></isNotNull>
+		 <isNotNull prepend="," property="fsfwxm"><![CDATA[ FSFWXM=#fsfwxm# ]]></isNotNull>
+		 <isNotNull prepend="," property="jyztdm"><![CDATA[ JYZTDM=#jyztdm# ]]></isNotNull>
+		 <isNotNull prepend="," property="jyq"><![CDATA[ JYQ=#jyq# ]]></isNotNull>
+		 <isNotNull prepend="," property="kufs"><![CDATA[ KUFS=#kufs# ]]></isNotNull>
+		 <isNotNull prepend="," property="kfmcs"><![CDATA[ KFMCS=#kfmcs# ]]></isNotNull>
+		 <isNotNull prepend="," property="kfywfdmdm"><![CDATA[ KFYWFDMDM=#kfywfdmdm# ]]></isNotNull>
+		 <isNotNull prepend="," property="ywrzsrdm"><![CDATA[ YWRZSRDM=#ywrzsrdm# ]]></isNotNull>
+		 <isNotNull prepend="," property="gz_rs"><![CDATA[ GZ_RS=#gz_rs# ]]></isNotNull>
+		 <isNotNull prepend="," property="ywdzjksbdm"><![CDATA[ YWDZJKSBDM=#ywdzjksbdm# ]]></isNotNull>
+		 <isNotNull prepend="," property="ywbldsjksb"><![CDATA[ YWBLDSJKSB=#ywbldsjksb# ]]></isNotNull>
+		 <isNotNull prepend="," property="bz"><![CDATA[ BZ=#bz# ]]></isNotNull>
+			,
+			<include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>	
+	</update>
+	
+	<!-- 查询列表 -->
+	<select id="ldxxb_query" parameterClass="Map" resultClass="ldxxb">
+		<![CDATA[ 
+				SELECT * FROM DW_LDXXB WHERE dwid=#dwid# AND XT_ZXBZ='0' ORDER BY xt_cjsj DESC ]]>
+				
+	</select>
+
+</sqlMap>

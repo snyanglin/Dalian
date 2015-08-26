@@ -1,0 +1,182 @@
+@CHARSET "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #eaeff3;
+	overflow: auto;
+}
+
+a {
+	color: #666;
+	text-decoration: none;
+}
+
+.leftDiv {
+	width: 32.9%;
+	height: 100%;
+	float: left;
+}
+
+.leftDiv .leftCss {
+	height: 47.6%;
+	margin-left: 10px;
+	margin-top: 10px;
+	border: 1px solid rgb(17, 144, 241);
+}
+
+.centerDiv {
+	width: 45%;
+	height: 100%;
+	float: left;
+}
+
+.centerDiv .centerCss {
+	height: 47.6%;
+	margin: 10px;
+}
+
+.centerDiv .centerCss1 {
+	height: 47.6%;
+	margin: 10px;
+	border: 1px solid rgb(17, 144, 241);
+}
+
+.titleCss {
+	font: normal 16px "微软雅黑";
+	color: #FFF;
+	line-height: 26px;
+	text-align: left;
+	background: rgb(17, 144, 241);
+}
+
+.centerTopCss {
+	width: 48.6%;
+	height: 100%;
+	float: left;
+	border: 1px solid #17a9ff;
+}
+
+.centerTopCss1 {
+	width: 48.6%;
+	height: 100%;
+	float: left;
+	margin-left: 10px;
+	border: 1px solid #17a9ff;
+}
+
+.centerDiv .centerDiv2 {
+	background: #FFF;
+	height: 47.6%;
+	margin: 10px;
+	border: 1px solid #17a9ff;
+}
+
+.centerDiv .dgCss {
+	height: 90%;
+	overflow: auto;
+}
+
+.rightDiv {
+	width: 21.9%;
+	height: 100%;
+	float: left;
+}
+
+.rightDiv .rightCss {
+	height: 31.2%;
+	margin-right: 10px;
+	margin-top: 10px;
+	border: 1px solid rgb(17, 144, 241);
+}
+
+.rightDiv .rightCss1 {
+	height: 64.2%;
+	margin-right: 10px;
+	margin-top: 10px;
+	border: 1px solid rgb(17, 144, 241);
+}
+
+.messageCss {
+	height: 85%;
+	overflow: hidden;
+}
+
+.messageCss li {
+	padding: 5px;
+	height: 18px;
+	line-height: 18px;
+}
+
+.messageCss li a {
+	line-height: 18px;
+}
+
+.messageCss li a:hover {
+	color: #FF0000;
+}
+
+.messageCss li a font {
+	color: #626262;
+	font-weight: bold;
+}
+
+.messageCss li span {
+	float: right;
+	color: #009900;
+	font-weight: bold;
+}
+
+.xqTitle {
+	font: normal 16px "微软雅黑";
+	clear: both;
+	color: #FFF;
+	width: 75px;
+	line-height: 26px;
+	text-align: left;
+	background: rgb(17, 144, 241);
+}
+
+.jobVal {
+	float: left;
+	width: 22%;
+	margin: 1%;
+	cursor: pointer;
+	line-height: 20px;
+	white-space: nowrap;
+}
+
+.jobVal em {
+	width: 2px;
+	background: rgb(17, 144, 241);
+}
+
+.jobVal a {
+	color: #000000;
+}
+
+.jobVal a:hover {
+	color: #FF0000;
+}
+
+.menuCss {
+	float: left;
+	width: 46%;
+	height: 23%;
+	margin: 5px;
+	cursor:pointer;
+	text-align: center;
+}
+
+.menuCss span{
+	color:#FFF;
+	font: normal 18px "微软雅黑";
+	line-height: 100px;
+}
+
+.menuCss font{
+	font-size: 100px;
+}

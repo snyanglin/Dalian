@@ -1,0 +1,123 @@
+* {
+   font:9pt "宋体"; 
+}
+
+a:link {
+   color: #0178B4; text-decoration: none;
+}
+a:visited {
+   color: #0178B4; text-decoration: none;
+}
+a:active {
+   color: #0178B4; text-decoration: none;
+}
+a:hover {
+   color: #FF0000; text-decoration: none;
+}
+
+.messageBody {
+   margin: 0;
+   border: 0;
+   background: #FFFFFF;
+}
+
+.messageTable {
+   background: #AECCDB;
+}
+
+.messageTableTitleBg {
+   height: 25px;
+   background: url(images/home_titleBg.jpg);
+}
+
+.messageTableTitleIcon {
+   background: url(images/home_titleIcon.gif) no-repeat center;
+   padding-left: 2px;
+}
+
+.messageTableTitleImg1 {
+   background: url(images/float_content2.gif) no-repeat center;
+   padding-left: 6px;
+}
+
+.messageTableTitleImg2 {
+   background: url(images/float_content3.gif) no-repeat center;
+   padding-left: 6px;
+}
+
+.messageTableTitleText {
+   color: #355368;
+   font-weight: bold; 
+   padding-top: 2px;
+}
+
+.messageTableTd {
+   background: #FFFFFF;
+}
+
+.messageContentTd1 {
+   color: #222222;
+   font-weight: bold; 
+   background: #FFFFFF;
+   padding-left: 6px; 
+   height: 22px; 
+}
+
+.messageContentTd2 {
+   color: #222222;
+   background: #FFFFFF;
+   height: 22px; 
+}
+
+.image1 {
+   display: none;
+   cursor: pointer;
+}
+
+.image2 {
+   display: block;
+   cursor: pointer;
+}
+
+.imageTitle1 {
+   display: none;
+}
+
+.imageTitle2 {
+   display: block;
+}
+
+.switchImage1 {
+   height: 16px;
+   width: 16px;
+   border: 0px;
+   background: url(images/home_switchImage.gif) no-repeat top;
+   cursor: pointer;
+}
+
+.switchImage2 {
+   height: 16px;
+   width: 16px;
+   border: 0px;
+   background: url(images/home_switchImage.gif) no-repeat bottom;
+   cursor: pointer;
+}
+
+.divMessageRead1 {
+   position:relative;
+   left: 2px;
+   top: -1px;
+   border: 0px;
+   height: 13px;
+   width: 18px;
+   background: url(images/messageRead.gif) no-repeat top;
+}
+
+.divMessageRead2 {
+   position:relative;
+   left: 2px;
+   border: 0px;
+   height: 13px;
+   width: 18px;
+   background: url(images/messageRead.gif) no-repeat bottom;
+}

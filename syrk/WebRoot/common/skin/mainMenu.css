@@ -1,0 +1,164 @@
+body {
+   -moz-user-select: none;
+}
+
+.menuBody {
+   margin: 0;
+   border: 0;
+}
+
+.bodyTd {
+   border-right: 1px solid #72C0F4;
+}
+
+.tabTable1 {
+   height: 1px;
+   background: #97C5FF;
+}
+
+.tabTable2 {
+   height: 24px;
+   border-top: 1px solid #72C0F4;
+   border-bottom: 1px solid #72C0F4;
+   background: url(images/foot_bg.jpg) repeat-x top;
+}
+
+.menuTitle {
+   width: 218px;
+   height: 24px;
+   background: url(images/menu_title.jpg) no-repeat center;
+}
+
+.menuTitleKSS {
+   width: 120px;
+   height: 24px;
+   background: url(images/menu_title_kss.jpg) no-repeat left;
+}
+
+.menuTitleJQ {
+   width: 120px;
+   height: 24px;
+   background: url(images/menu_title_jq.jpg) no-repeat left;
+}
+
+.menuDiv {
+   position: absolute; 
+   left: 0; 
+   top: 30; 
+   width: 218; 
+   overflow: hidden; 
+   /*background: #feF487;*/
+}
+
+.menuTable {
+   position: absolute; 
+   left: 1;
+   width: 216; 
+}
+
+.butUp1 {
+   font-size: 9pt;
+   z-index: 30;
+   position: absolute; 
+   left: 197;
+   top: 32;
+   cursor: pointer;
+   width: 15;
+   height: 15;
+   background: url(images/menu_arrow.gif) no-repeat left top;
+}
+
+.butUp2 {
+   font-size: 9pt;
+   z-index: 30;
+   position: absolute; 
+   left: 197;
+   top: 32;
+   cursor: pointer;
+   width: 15;
+   height: 15;
+   background: url(images/menu_arrow.gif) no-repeat right top;
+}
+
+.butDown1 {
+   font-size: 9pt;
+   z-index: 30;
+   position: absolute; 
+   left: 197;
+   cursor: pointer;
+   width: 15;
+   height: 15;
+   background: url(images/menu_arrow.gif) no-repeat left bottom;
+}
+
+.butDown2 {
+   font-size: 9pt;
+   z-index: 30;
+   position: absolute; 
+   left: 197;
+   cursor: pointer;
+   width: 15;
+   height: 15;
+   background: url(images/menu_arrow.gif) no-repeat right bottom;
+}
+
+.menuDivGroup {
+   position: absolute; 
+   left: 0; 
+   top: 27; 
+   width: 218; 
+   overflow: hidden; 
+   text-align: center;
+   /*background: #feF487;*/
+}
+
+/* 分组菜单样式  */
+
+.menuGroupBodyHide {
+   margin: 0;
+   border: 0;
+   background: #F3FAFF;
+   border-left: 1px solid #87B2F6;
+   filter: alpha(opacity = 0);
+   -moz-opacity: 0;
+}
+
+.menuGroupBodyShow {
+   margin: 0;
+   border: 0;
+   background: #F3FAFF;
+   border-left: 1px solid #87B2F6;
+   filter: alpha(opacity = 100);
+   -moz-opacity: 1;
+}
+
+.menuBarTable1 {
+   height: 26px;
+   width: 216px;
+   background: url(images/menuBar.gif) no-repeat left top;
+   cursor: pointer;
+   -moz-user-select: none;
+   z-index: 35;
+}
+
+.menuBarTable2 {
+   height: 26px;
+   width: 216px;
+   background: url(images/menuBar.gif) no-repeat left bottom;
+   cursor: pointer;
+   -moz-user-select: none;
+   z-index: 35;
+}
+
+.menuBarTd {
+   font-size: 9pt;
+   color: #333333;
+   padding-left: 30px;
+   padding-top: 2px;
+}
+
+.menuGroupDiv {
+   width: 214px;
+   vertical-align: top;
+   overflow: auto;
+}

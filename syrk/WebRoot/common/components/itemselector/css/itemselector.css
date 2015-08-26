@@ -1,0 +1,36 @@
+@charset "utf-8";
+/* CSS Document */
+
+.itemselector{font-size:12px;height:230px;margin:5px 0 0;}
+.itemselector dl{margin: 0;padding: 0;float: left;width:113px;height:100%;border: solid 1px #b6cde0;background: #eaf4fd;}
+.itemselector dl dt{margin: 0;padding: 0 5px 0 3px;height: 24px; line-height:24px;border-bottom: solid 1px #b6cde0; background: #d5e2ed;}
+.itemselector dl dt span.checkbox2,.itemselector dl dt span.checkbox1{margin:4px 0 0;}
+.itemselector dl dd{margin: 0;padding: 0;height:100%;overflow:auto;}
+.itemselector .itemselectorbtn{float: left;width: 24px;overflow: hidden;height:100%;}
+.itemselector .itemselectorbtna{display:block;width:20px;height:20px; margin:80px 2px 0;background: url("../images/itemselectorbtn.png") no-repeat;}
+.itemselector .itemselectorbtna:hover{background-position: 0 -40px;}
+.itemselector .itemselectorbtnb{display:block;width:20px;height:20px; margin:25px 2px;background: url("../images/itemselectorbtn.png") 0 -20px no-repeat;}
+.itemselector .itemselectorbtnb:hover{background-position: 0 -60px;}
+.itemselector div.itemdiv{cursor: pointer;overflow: hidden;padding: 0 0 0 3px;}
+.itemselector div.itemselect{background: #97c7eb;}
+.itemselector dd div:hover{background: none repeat scroll 0 0 #1c84d1; color:#fff;}
+.itemselector span{float: left;}
+.itemselector span.checkbox2 {
+	background: url("../images/checkbox2.png");
+	width: 16px;
+	height: 16px;
+	display: block;
+	cursor: pointer;
+	float: left;
+	margin:3px 0 0;
+}
+
+.itemselector span.checkbox1{
+	background: url("../images/checkbox1.png");
+	width: 16px;
+	height: 16px;
+	display: block;
+	cursor: pointer;
+	float: left;
+	margin:3px 0 0;
+}

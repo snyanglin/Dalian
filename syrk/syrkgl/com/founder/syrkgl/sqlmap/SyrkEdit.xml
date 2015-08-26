@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="SyrkEdit">
+	
+	<typeAlias alias="syrkxxzsvo" type="com.founder.syrkgl.vo.SyrkxxzsVo" />
+	<typeAlias alias="syrkgnvo" type="com.founder.syrkgl.vo.SyrkgnVo" />
+	
+	<select id="queryYwglgn" parameterClass="Map" resultClass="syrkgnvo">
+		SELECT A.ID,A.SYRKLX,A.SyrkLX,A.PX,A.GNID,B.GNBH,B.GNMC,B.GNANMC,B.GNANURL,B.GNLXDM,B.GNDYBM,B.BCTSXX,B.DKFS
+		       FROM SYS_SYRKGLGNPZB A,SYS_GNB B WHERE A.GNID=B.ID(+) AND  B.GNLXDM = #gnlxdm# AND A.SYRKLX=#syrklx#
+		 and A.XT_ZXBZ='0' and B.XT_ZXBZ='0' ORDER BY A.PX 
+	</select>
+	<select id="queryXxzsBySyrklx" parameterClass="Map" resultClass="syrkxxzsvo">
+		<![CDATA[SELECT  a.px as px , a.cshzk cshzk, b.xxdxlxdm xxdxlxdm , b.xxbh xxbh ,b.xxbtmc  xxbtmc, b.gnlxdm  gnlxdm, b.xxurl xxurl , b.xxzsjlzds  xxzsjlzds , b.ys icon , b.sfdt sfdt,
+		#syrkid# Syrkid,#isEdit# isEdit,#gxzrq# gxzrq
+		FROM SYS_SYRKGLXXZSPZB A,SYS_XXZSNRB B WHERE A.XXID=B.ID    ]]>
+		<isNotEmpty prepend="and" property="syrklx">
+			A.SyrkLX= #syrklx# 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="dlbh">
+			 b.xxbh like '%$dlbh$__'
+		</isNotEmpty>
+		<![CDATA[and xxdxlxdm=#xxdxlxdm#  and a.xt_zxbz='0' and B.XT_ZXBZ='0' order by a.px ]]>
+	</select>
+	
+	<!-- 查询表名 -->
+	<select  id="queryxxzsnrbByxxdybm" parameterClass="String" resultClass="String">
+		 <![CDATA[select xxdybm  from sys_xxzsnrb where xxurl=#value# and XT_ZXBZ = '0' ]]>
+	</select>
+	<update  id="updateTableByxxdybm" parameterClass="Map">
+		 <![CDATA[ update $tablename$ set xt_zxbz ='1' , xt_zxyy = #xt_zxyy#,xt_zhxgrxm=#xt_zhxgrxm#,xt_zhxgrid=#xt_zhxgrid#,xt_zhxgrbm=#xt_zhxgrbm#,xt_zhxgip=#xt_zhxgip#,
+		 	xt_zhxgrbmid=#xt_zhxgrbmid#,xt_zhxgsj=#xt_zhxgsj#
+		 ]]>	
+			 <![CDATA[ where id = #id#]]>		
+	</update>
+</sqlMap>

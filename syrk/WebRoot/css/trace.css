@@ -1,0 +1,32 @@
+.timelinebody{position:relative; padding:5px 10px; font-size:12px;line-height:22px; overflow:hidden;}
+.timeline{position:relative;width:2px; top:0; left:80px; background:#1d84d2;}
+.timeliall{position:relative;width:130px;padding:0 0 0 2px; margin:0; float:left; top:0; left:70px;border-left:solid 1px #ccc}
+.timeyear{width:77px;height:24px;color:#ffffff;position:relative; margin:10px 0 0 -85px;padding:0 0 0 5px; background:url(../images/edit/timeyearbg.png) no-repeat;}
+.timelidiv{display:block; float:left; background:#b5cbde; margin:0; width:120px; position:relative;top:0;left:10px;}
+.timelicont{ width:100%; position:relative; clear:both;width:130px;padding:10px 0 0;float:none;}
+.timelidiv .timedate{display:block; width:65px;position:absolute; text-align:right; left:-90px; top:5px; line-height:12px; color:#666666;white-space:normal;  float:none; z-index:400;padding:0;}
+.timelidiv .timedate span{padding:0;display:block;float:none;}
+.timelidiv .timeicon{display:block;position:absolute; left:-22px; top:5px; width:16px;height:16px;background:url(../images/edit/timelineicon.png) no-repeat;white-space:normal;  float:none; z-index:400;padding:0;}
+.timelidiv .timesjx{ width:0;height:0;line-height:0;  border-width:12px 9px 11px 5px;  border-style:solid;  border-color:transparent #b5cbde transparent transparent; position:absolute;top:0; left:-14px; z-index:400;}
+.timelidiv a.timetitle{display:block; background:#b5cbde; padding:0 8px; *padding:0 10px; height:22px;height:auto;width:110px;*width:120px;white-space:normal; font:normal 12px/16px "微软雅黑"; color:#000;text-align:left;}
+.jqsjmsinfo{ background:#e7f3ff;border:solid 1px #d0deea; padding:5px 2px; line-height:18px; width:120px; position:relative;overflow:hidden;}
+.jqsjmsinfo span{display:blck;float:left; color:#000000;line-height:18px;white-space:normal;  float:none;}
+.jqsjmsinfo span.spanbt{width:96px;text-align:right;color:#1c84d1}
+.timeinfobg{width:18px;height:17px;background:url(../images/edit/timeinfobg.png) no-repeat; position:absolute;right:-1px;bottom:-1px;}
+
+.jqhf_title{height:30px;background:#d5e2ed;}
+.jqhf_title .backbtn{padding:0 5px;float:left;line-height:30px; color:#1d84d2;cursor:pointer;}
+.jqhf_title .backspan{ width:0;height:0;line-height:0;  border-width:7px;  border-style:solid;  border-color:transparent #1d84d2 transparent transparent; float:left; margin:7px 0;}
+.jqhf_mc{width:195px; padding:0 10px 0 0; float:right; text-align:left;font:bold 12px/30px Arial,"宋体"; overflow:hidden;white-space: nowrap;text-overflow: ellipsis;}
+.jqhf_btndiv{float:left;margin:0;cursor:hand;width:56px;}
+.jqhf_btndiv span{float:left;}
+.icon_btn_msg{display:block; float:left; width:16px; height:16px; margin:0; padding:0; background:url(../images/xxwd.png) 0 0 no-repeat;cursor:hand}
+.rtul li a.icon_btn_img,.rtul li a.icon_btn_voice,.rtul li a.icon_btn_video,.rtul li a.icon_btn_file,.rtul li a.icon_btn_msg{display:block; float:left; width:16px; height:16px; margin:0; padding:0; background:url(../images/edit/annex_btn.png) 0 2px no-repeat;cursor:hand;}
+.rtul li a.icon_btn_voice{ background-position:0 -14px;}
+.rtul li a.icon_btn_video{ background-position:0 -34px;}
+.rtul li a.icon_btn_file{ background-position:0 -52px;}
+.rtul li a.icon_btn_msg{ background-position:0 -70px;}
+
+.rtul_title{ width:203px; display:block; background:#8aa8c3; *height:30px;margin:10px auto 0; font:normal 14px/30px "微软雅黑"; color:#fff; text-align:center;}
+.rtshowxx{padding:5px 0; background:#ffffff; color:#222222; font:normal 12px/18px "微软雅黑"; width:201px;*width:100%;border:solid 1px #8aa8c3;border-top:none;}
+.rtshowSplit{background:#ffffff;height:2px;}

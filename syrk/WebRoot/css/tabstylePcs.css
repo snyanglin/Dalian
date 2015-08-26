@@ -1,0 +1,14 @@
+*{margin:0;padding:0;}
+/*内容区域*/
+.tabmain{width:100%;height:457px;margin:0px auto;background: #F3F3F3;}
+.tabmain .tabGroup{float:right;width:7%;height:auto; z-index:3;}
+.tabmain .tabGroup li{height:48px;line-height:48px;padding-left:8px;text-align:left;cursor:pointer;-webkit-user-select:none; -moz-user-select:none;font-size:14px;font-family:'Microsoft yahei';color:#666;}
+.tabmain .tabGroup li.selectedTab{padding-left:10px;background:#fff;color:#1d9fd3;font-weight:bold;}
+.tabmain .tabContent{padding:5px 15px;background-color:#fff;color:#777; min-height:457px;}
+.tabContent h3{margin-bottom:5px;background:orange;color:#fff;font-size:14px;font-weight:bold;line-height:28px;text-align:center;}
+.tabmain .blueline{position:absolute;top:0px;right:0px;width:3px;height:48px;background:#1d9fd3;overflow:hidden;}
+/*左边滚动条*/
+#container{float:left;width:93%;height:457px;background:#fff;overflow:hidden;}
+#slider{position:absolute;top:0px;left:0;width:6px;border-radius:6px;background:#ccc;cursor:pointer;}
+#sliderParent{position:absolute;left:0;height:0;width:100%;z-index:999;}
+#outerWrap{position:relative;z-index:999}

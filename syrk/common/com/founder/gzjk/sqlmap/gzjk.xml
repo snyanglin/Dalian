@@ -1,0 +1,1332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Gzjk">
+
+	<typeAlias alias="gzjk" type="com.founder.gzjk.vo.Gzjk"/>
+	
+	<typeAlias alias="gzdt" type="com.founder.gzjk.bean.Gzdt"/>
+	<typeAlias alias="dttjb" type="com.founder.gzjk.bean.Dttjb"/>
+	
+	<typeAlias alias="gzjkTemp" type="com.founder.gzjk.vo.GzjkTemp"/>
+	<typeAlias alias="gzjkbzdz" type="com.founder.gzjk.vo.GzjkBzdz"/>
+	<typeAlias alias="gzjkzdry" type="com.founder.gzjk.vo.GzjkZdry"/>
+	<typeAlias alias="gzjksydw" type="com.founder.gzjk.vo.GzjkSydw"/>
+	<typeAlias alias="gzjksyfw" type="com.founder.gzjk.vo.GzjkSyfw"/>
+	<typeAlias alias="countBean" type="com.founder.gzjk.vo.CountBean"/>
+	<typeAlias alias="combo" type="com.founder.framework.utils.ComboBox"/>
+	<typeAlias alias="orgOrganization" type="com.founder.framework.organization.department.bean.OrgOrganization" />	
+	
+	<!-- 取得所有部门对象 -->
+	<select id="queryOrganization"  resultClass="orgOrganization">
+		<![CDATA[ select a.orgcode from ORG_ORGANIZATION a where a.XT_ZXBZ = '0' and a.ORGTYPE = '01' and substr(t.orgcode ,9,12) = '0000' ]]>
+	</select>
+	
+	
+	<!-- 实有人口 - 查询变动数据 -->
+	<select id="queryInitGzjk" parameterClass="Map" resultClass="gzjk">
+		<![CDATA[
+			select     b.id,
+				       a.id        as ryjzdzzbId,
+				       a.DZ_JZDZXZ as jzdz,
+				       b.xm,
+				       b.ZJHM,
+				       a.xt_zxbz   as zxbz,
+				       a.xt_lrsj   as lrsj,
+				       a.xt_zhxgsj as zhxgsj,
+       				   substr( a.xt_lrrbmid,0,8) || '0000' as ssbmid,
+		               a.dz_jzdzdm as jzdzdm,
+		               c.zbx,
+		               c.zby
+			  from rk_ryjzdzzb a, rk_ryjbxxb b,bzdz_bzdzxxb c
+			 where a.ryid = b.id
+			   	and (a.xt_lrsj >= #startTime# or a.xt_zhxgsj >= #startTime#)
+			    and a.dz_jzdzdm = c.id 
+         		and (a.xt_zxbz = '0' or a.xt_zxbz = '1') 
+         		and	a.xt_lrrbmid is not null 
+			   order by a.xt_zhxgsj asc ,a.xt_lrsj asc
+		 ]]>
+	</select>
+	
+	<!-- 实有人口 - 实时查询变动数据 -->
+	<select id="queryDynamicGzjk" parameterClass="Map" resultClass="gzjk">
+		<![CDATA[
+			select     b.id,
+				       a.id        as ryjzdzzbId,
+				       a.DZ_JZDZXZ as jzdz,
+				       b.xm,
+				       b.ZJHM,
+				       a.xt_zxbz   as zxbz,
+				       a.xt_lrsj   as lrsj,
+				       a.xt_zhxgsj as zhxgsj,
+       				   substr( a.xt_lrrbmid,0,8) || '0000' as ssbmid,
+		               a.dz_jzdzdm as jzdzdm,
+		               c.zbx,
+		               c.zby
+			  from rk_ryjzdzzb a, rk_ryjbxxb b,bzdz_bzdzxxb c
+			 where a.ryid = b.id 
+			 		and ((a.xt_lrsj >= #startTime# and a.xt_lrsj <=  #endTime#)	or		   
+			        	(a.xt_zhxgsj >=  #startTime# and a.xt_zhxgsj <=  #endTime#)) 
+			        and	 a.dz_jzdzdm = c.id 
+			        and  (a.xt_zxbz = '0' or a.xt_zxbz = '1') 
+			        and	 a.xt_lrrbmid is not null 
+			   	order by a.xt_zhxgsj asc ,a.xt_lrsj asc
+		 ]]>
+	</select>
+	
+		<!-- 实有人口 - 统计总数据  市局-->
+	<select id="queryInitCountSj" parameterClass="String" resultClass="Integer">
+		<![CDATA[
+			SELECT COUNT(DISTINCT B.ZJHM||B.XM) 
+			  FROM  RK_RYJZDZZB A, RK_RYJBXXB B
+			  WHERE A.RYID = B.ID
+			    AND A.XT_LRRBMID IS NOT NULL
+			    AND A.XT_ZXBZ = '0'
+		 ]]>
+	</select>
+	
+	<!-- 实有人口 - 统计总数据  分县局 -->
+	<select id="queryInitCountFxj" parameterClass="String" resultClass="Integer">
+		<![CDATA[
+			SELECT COUNT(DISTINCT B.ZJHM||B.XM) 
+			  FROM  RK_RYJZDZZB A, RK_RYJBXXB B
+			  WHERE A.RYID = B.ID
+			    AND SUBSTR(A.XT_LRRBMID,1,6)=#bmdm#
+			    AND A.XT_ZXBZ = '0'
+		 ]]>
+	</select>
+	
+	<!-- 实有人口 - 统计总数据  派出所-->
+	<select id="queryInitCountPcs" parameterClass="String" resultClass="Integer">
+		<![CDATA[
+			SELECT COUNT(DISTINCT B.ZJHM||B.XM) 
+			  FROM  RK_RYJZDZZB A, RK_RYJBXXB B
+			  WHERE A.RYID = B.ID
+			    AND SUBSTR(A.XT_LRRBMID,1,8)=#bmdm#
+			    AND A.XT_ZXBZ = '0'
+		 ]]>
+	</select>
+	
+	
+	
+	<!-- 标准地址 - 查询变动数据 -->
+	<select id="queryBzdzInitGzjk" parameterClass="Map" resultClass="gzjkbzdz">
+		<![CDATA[
+				select 
+				        a.id, 
+				        a.xt_zhxgsj as zhxgsj,
+				        a.dzdm,
+				        a.dzqc,
+				        a.xzqh,
+				        substr( a.pcsdm,0,8) || '0000' as pcsdm,
+				        a.xt_zxbz as zxbz,
+				        a.zby,
+				        a.zbx,
+				        a.dmdm,
+				        a.dmmc,
+				        a.xt_czsj as xtczsj,
+				        b.jzwid
+				  from bzdz_bzdzxxb a, BZDZ_DZJZWGLB b
+				 where a.dzjb = '10'
+				   and (a.xt_czsj >= #startTime#  or a.xt_zhxgsj >= #startTime#)
+				   and a.id = b.bzdzid
+				   and b.xt_zxbz = '0'
+				   and a.pcsdm is not null
+				   and a.XT_CZSJ is not null
+				   and a.xt_zxbz != '2'
+				   and ZTBS='02'
+				 order by b.xt_zhxgsj asc, b.xt_czsj asc
+		 ]]>
+	</select>
+	
+	<!-- 标准地址 - 实时查询变动数据 -->
+	<select id="queryBzdzDynamicGzjk" parameterClass="Map" resultClass="gzjkbzdz">
+		<![CDATA[
+			select 
+				        a.id, 
+				        a.xt_zhxgsj as zhxgsj,
+				        a.dzdm,
+				        a.dzqc,
+				        a.xzqh,
+				        substr( a.pcsdm,0,8) || '0000' as pcsdm,
+				        a.xt_zxbz as zxbz,
+				        a.zby,
+				        a.zbx,
+				        a.dmdm,
+				        a.dmmc,
+				        a.xt_czsj as xtczsj,
+				        b.jzwid
+				  from bzdz_bzdzxxb a, BZDZ_DZJZWGLB b
+				 where a.dzjb = '10'
+				 
+				   and ( (a.xt_czsj >= #startTime#  and a.xt_czsj <=  #endTime#)
+				   or (a.xt_zhxgsj >= #startTime#  and a.xt_zhxgsj <= #endTime# ) )
+				   
+				   and a.id = b.bzdzid
+				   and b.xt_zxbz = '0'
+				   and a.pcsdm is not null
+				   and a.xt_zxbz != '2'
+				   and a.XT_CZSJ is not null
+				   and ZTBS='02'
+				 order by b.xt_zhxgsj asc, b.xt_czsj asc
+		 ]]>
+	</select>
+	
+    
+		<!-- 标准地址 - 统计总数据 SJ -->
+	<select id="queryInitBzdzCountSj" parameterClass="String" resultClass="Integer">
+		<![CDATA[
+			SELECT COUNT(1) FROM  BZDZ_BZDZXXB
+			  WHERE XT_CZRBMID IS NOT NULL 
+			    AND DZJB='10'
+			    AND ZTBS='02'
+		 ]]>
+	</select>
+	
+	<!-- 标准地址 - 统计总数据  QXS-->
+	<select id="queryInitBzdzCountFxj" parameterClass="String" resultClass="Integer">
+		<![CDATA[
+			SELECT COUNT(1) FROM  BZDZ_BZDZXXB
+				  WHERE XT_CZRBMID IS NOT NULL 
+				    AND DZJB='10'
+				    AND ZTBS='02'
+				    AND SUBSTR(XT_CZRBMID,1,6)=#bmdm#
+		 ]]>
+	</select>
+	
+	<!-- 标准地址 - 统计总数据  派出所-->
+	<select id="queryInitBzdzCountPcs" parameterClass="String" resultClass="Integer">
+		<![CDATA[
+			SELECT COUNT(1) FROM  BZDZ_BZDZXXB
+			  WHERE XT_CZRBMID IS NOT NULL 
+			    AND DZJB='10'
+			    AND ZTBS='02'  
+			    AND SUBSTR(XT_CZRBMID,1,8)=#bmdm#
+		 ]]>
+	</select>
+	
+	
+	<!-- 部门查询 - 一级 -->
+	<select id="searchOrgList" resultClass="combo">
+		SELECT T.ORGCODE AS ID,T.ORGNAME AS TEXT 
+		   FROM ORG_ORGANIZATION T  
+		WHERE T.XT_ZXBZ = '0'
+		   AND T.ORGLEVEL = '21'
+		   AND T.ORGBIZTYPE = '01'
+		 ORDER BY T.ORGCODE ASC
+	</select>
+	
+	
+	<!-- 标准地址 - 二级 -->
+	<select id="searchOrgListLower" parameterClass="String" resultClass="combo">
+		 SELECT T.ORGCODE AS ID, T.ORGNAME AS TEXT
+		  	FROM ORG_ORGANIZATION T
+		 WHERE SUBSTR(T.ORGCODE, 0, 6) = #ORGCODE#
+		   AND T.ORGLEVEL = '32'
+		   AND T.ORGBIZTYPE = '01'
+		 ORDER BY T.ORGCODE ASC
+	</select>
+	<!-- 常东旭 2014-09-12 添加 -->
+	<select id="searchOrgListLowest" parameterClass="String" resultClass="combo">
+		<![CDATA[
+			select t.orgcode as id,t.orgname as text from 
+				ORG_ORGANIZATION t 
+				where substr(t.orgcode,0,8) = #orgCode# and t.orgname like '%责任区%' order by t.orgcode asc
+		 ]]>
+	</select>
+	
+	<!-- 新********************************************************  -->
+	
+	<resultMap id="countMap" class="java.util.HashMap">
+		<result property="key" column="ORGCODE" />
+		<result property="value" column="COUNTBEAN" javaType="countBean" select="Gzjk.selectCountBean"/>
+	</resultMap>
+	
+	<resultMap id="countMapBzdz" class="java.util.HashMap">
+		<result property="key" column="ORGCODE" />
+		<result property="value" column="COUNTBEAN" javaType="countBean" select="Gzjk.selectCountBeanBzdz"/>
+	</resultMap>
+	
+	
+	<resultMap id="countMapZdry" class="java.util.HashMap">
+		<result property="key" column="ORGCODE" />
+		<result property="value" column="COUNTBEAN" javaType="countBean" select="Gzjk.selectCountBeanZdry"/>
+	</resultMap>
+	
+	<resultMap id="countMapSydw" class="java.util.HashMap">
+		<result property="key" column="ORGCODE" />
+		<result property="value" column="COUNTBEAN" javaType="countBean" select="Gzjk.selectCountBeanDw"/>
+	</resultMap>
+	
+	<resultMap id="countMapSyfw" class="java.util.HashMap">
+		<result property="key" column="ORGCODE" />
+		<result property="value" column="COUNTBEAN" javaType="countBean" select="Gzjk.selectCountBeanFw"/>
+	</resultMap>
+	
+	
+	<select id="selectCountBean" parameterClass="String" resultClass="countBean">
+		<![CDATA[SELECT  
+       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+          WHERE A.RYID=B.ID AND A.XT_ZXBZ='0' AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.GXFXJDM,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.GXFXJDM,A.GXPCSDM))=#value#) Count,
+       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B WHERE A.RYID=B.ID AND A.XT_ZXBZ='0' AND A.XT_LRSJ=A.XT_ZHXGSJ AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.GXFXJDM,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.GXFXJDM,A.GXPCSDM))=#value#) addCount,
+       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B WHERE A.RYID=B.ID AND A.XT_ZXBZ='0' AND ((SUBSTR(B.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND B.XT_LRSJ<B.XT_ZHXGSJ) OR (SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.XT_LRSJ<A.XT_ZHXGSJ)) AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.GXFXJDM,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.GXFXJDM,A.GXPCSDM))=#value#) editCount,
+       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B WHERE A.RYID=B.ID AND A.XT_ZXBZ='1' AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.GXFXJDM,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.GXFXJDM,A.GXPCSDM))=#value#) CancellCont
+ 		 FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND  T.ORGCODE=#value#  ]]>
+	</select>
+	
+	<select id="selectCountBeanBzdz" parameterClass="String" resultClass="countBean">
+		<![CDATA[SELECT 
+       (SELECT COUNT(1) FROM BZDZ_BZDZXXB C 
+          WHERE C.ZTBS='02' AND C.XT_ZXBZ='0' AND C.DZJB='10' AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(C.FXJDM,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',C.FXJDM,C.PCSDM))=#value#) Count,
+       (SELECT COUNT(1) FROM BZDZ_BZDZXXB C 
+          WHERE C.ZTBS='02' AND C.XT_ZXBZ='0' AND C.DZJB='10' AND C.XT_CZSJ=C.XT_ZHXGSJ AND SUBSTR(C.XT_CZSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(C.FXJDM,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',C.FXJDM,C.PCSDM))=#value#) addCount,
+       (SELECT COUNT(1) FROM BZDZ_BZDZXXB C 
+          WHERE C.ZTBS='02' AND C.XT_ZXBZ='0' AND C.DZJB='10' AND ((SUBSTR(C.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND C.XT_CZSJ<C.XT_ZHXGSJ)) AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(C.FXJDM,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',C.FXJDM,C.PCSDM))=#value#) editCount,
+       (SELECT COUNT(1) FROM BZDZ_BZDZXXB C 
+          WHERE C.XT_ZXBZ='1' AND SUBSTR(C.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND 
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(C.FXJDM,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',C.FXJDM,C.PCSDM))=#value#) CancellCont
+		  FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND T.ORGCODE=#value# ]]>
+	</select>
+	
+	<select id="selectCountBeanDw" parameterClass="String" resultClass="countBean">
+		<![CDATA[SELECT 
+       	(SELECT COUNT(1) FROM DW_DWJBXXB A    WHERE A.XT_ZXBZ='0' AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.GLFXJID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.GLFXJID,A.GLPCSID))=#value#) Count,
+   		(SELECT COUNT(1) FROM DW_DWJBXXB A WHERE A.XT_ZXBZ='0' AND A.XT_LRSJ=A.XT_ZHXGSJ AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.GLFXJID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.GLFXJID,A.GLPCSID))=#value#) addCount,
+       (SELECT COUNT(1) FROM DW_DWJBXXB A WHERE A.XT_ZXBZ='0' AND (SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.XT_LRSJ<A.XT_ZHXGSJ) AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.GLFXJID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.GLFXJID,A.GLPCSID))=#value#) editCount,
+       (SELECT COUNT(1) FROM DW_DWJBXXB A WHERE A.XT_ZXBZ='1' AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.GLFXJID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.GLFXJID,A.GLPCSID))=#value#) CancellCont
+ 		 FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND T.ORGCODE=#value# ]]>
+	</select>
+	
+	<select id="selectCountBeanFw" parameterClass="String" resultClass="countBean">
+		<![CDATA[ SELECT 
+       (SELECT COUNT(1) FROM FW_FWJBXXB A  
+          WHERE A.XT_ZXBZ='0' AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.SSFXJID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.SSFXJID,A.SSPCSID))=#value#) Count,
+       (SELECT COUNT(1) FROM FW_FWJBXXB A  
+          WHERE A.XT_ZXBZ='0' AND SFCZFDM='1' AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.SSFXJID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.SSFXJID,A.SSPCSID))=#value#) addCount,
+       (SELECT COUNT(1) FROM FW_FWJBXXB A   
+          WHERE A.XT_ZXBZ='0' AND A.XT_LRSJ=A.XT_ZHXGSJ AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.SSFXJID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.SSFXJID,A.SSPCSID))=#value#) editCount,
+       (SELECT COUNT(1) FROM FW_FWJBXXB A   
+          WHERE A.XT_ZXBZ='0' AND SFCZFDM='1' AND A.XT_LRSJ=A.XT_ZHXGSJ AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.SSFXJID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.SSFXJID,A.SSPCSID))=#value#) CancellCont
+  	FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND T.ORGCODE=#value#]]>
+	</select>
+	
+	<!-- 重点人员4个展示值 -->
+	<select id="selectCountBeanZdry" parameterClass="String" resultClass="countBean">
+		<![CDATA[SELECT 
+       (SELECT COUNT(DISTINCT A.GMSFHM) FROM RK_ZDRYJBXXB A WHERE A.XT_ZXBZ='0' AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(XT_LRRBMID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',SUBSTR(XT_LRRBMID,1,6)||'000000',SUBSTR(XT_LRRBMID,1,8)||'0000'))=#value#) Count,
+       (SELECT COUNT(1) FROM RK_ZDRYJBXXB A WHERE A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(XT_LRRBMID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',SUBSTR(XT_LRRBMID,1,6)||'000000',SUBSTR(XT_LRRBMID,1,8)||'0000'))=#value#) addCount,
+       (SELECT COUNT(1) FROM RK_DTGLJSB WHERE XT_ZXBZ='0' AND SUBSTR(XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(XT_LRRBMID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',SUBSTR(XT_LRRBMID,1,6)||'000000',SUBSTR(XT_LRRBMID,1,8)||'0000'))=#value#) editCount,
+       (SELECT COUNT(1) FROM RK_ZDRYJBXXB A WHERE A.XT_ZXBZ='1' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(XT_LRRBMID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',SUBSTR(XT_LRRBMID,1,6)||'000000',SUBSTR(XT_LRRBMID,1,8)||'0000'))=#value#) CancellCont
+ 	 FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND T.ORGCODE=#value# ]]>
+	</select>
+	
+	<!-- 重点人员类别展示四个值 -->
+	<select id="selectCountBeanZdryLbzs" parameterClass="gzjkzdry" resultClass="countBean">
+		<![CDATA[
+		SELECT 
+       (SELECT COUNT(DISTINCT A.GMSFHM) FROM RK_ZDRYJBXXB A,RK_ZDRYLBZB B WHERE A.XT_ZXBZ='0' AND A.ID=B.ZDRYID  AND A.XT_ZXBZ='0' AND B.ZDRYLBDM = #bdlx# AND
+                DECODE(SUBSTR(#xm#,5),'00000000',SUBSTR(A.XT_LRRBMID,1,4)||'00000000',DECODE(SUBSTR(#xm#,7),'000000',SUBSTR(A.XT_LRRBMID,1,6)||'000000',SUBSTR(A.XT_LRRBMID,1,8)||'0000'))=#xm#) Count,
+       (SELECT COUNT(1) FROM RK_ZDRYJBXXB A,RK_ZDRYLBZB B WHERE A.XT_ZXBZ='0'  AND A.ID=B.ZDRYID  AND A.XT_ZXBZ='0' AND B.ZDRYLBDM = #bdlx# AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+                DECODE(SUBSTR(#xm#,5),'00000000',SUBSTR(A.XT_LRRBMID,1,4)||'00000000',DECODE(SUBSTR(#xm#,7),'000000',SUBSTR(A.XT_LRRBMID,1,6)||'000000',SUBSTR(A.XT_LRRBMID,1,8)||'0000'))=#xm#) addCount,
+       (SELECT COUNT(1) FROM RK_DTGLJSB A,RK_ZDRYLBZB B WHERE A.XT_ZXBZ='0' AND A.ID=B.ZDRYID  AND A.XT_ZXBZ='0' AND B.ZDRYLBDM = #bdlx# AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+                DECODE(SUBSTR(#xm#,5),'00000000',SUBSTR(A.XT_LRRBMID,1,4)||'00000000',DECODE(SUBSTR(#xm#,7),'000000',SUBSTR(A.XT_LRRBMID,1,6)||'000000',SUBSTR(A.XT_LRRBMID,1,8)||'0000'))=#xm#) editCount,
+       (SELECT COUNT(1) FROM RK_ZDRYJBXXB A,RK_ZDRYLBZB B WHERE A.XT_ZXBZ='1' AND A.ID=B.ZDRYID  AND A.XT_ZXBZ='0' AND B.ZDRYLBDM = #bdlx# AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+                DECODE(SUBSTR(#xm#,5),'00000000',SUBSTR(A.XT_LRRBMID,1,4)||'00000000',DECODE(SUBSTR(#xm#,7),'000000',SUBSTR(A.XT_LRRBMID,1,6)||'000000',SUBSTR(A.XT_LRRBMID,1,8)||'0000'))=#xm#) CancellCont
+         FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND T.ORGCODE=#xm# 
+ 	 ]]>
+	</select>
+	
+	
+	<!-- 
+	<select id="queryGzjkByRyid" parameterClass="String" resultClass="gzjk">
+		<![CDATA[ select     b.id, b.DZ_JZDZXZ as jzdz, b.xm, b.ZJHM,  b.xt_zxbz   as zxbz, b.xt_lrsj   as lrsj,
+				       b.xt_zhxgsj as zhxgsj, substr( decode(b.xt_lrrbmid,null,'210200000000',b.xt_lrrbmid),0,8) || '0000' as ssbmid,
+		               b.dz_jzdzdm as jzdzdm, c.zbx, c.zby
+			  from  rk_ryjbxxb b,bzdz_bzdzxxb c
+			 where  b.id = #value# and	 b.dz_jzdzdm = c.id  ]]>
+	</select>-->
+	
+	<!-- 2014.11.1 修改 -->
+	<select id="queryGzjkByRyid" parameterClass="Map" resultClass="gzjkTemp">
+				 <![CDATA[select   r.DZ_JZDZXZ as dz, b.xm mc , b.ZJHM, '01' ywlx , r.xt_cjsj  , r.xt_lrsj  ,
+			        r.XT_LRRXM ,  r.xt_lrrid , c.zbx, c.zby ,r.gxfxjdm , r.gxpcsdm  , r.gxzrqdm ,'syrkgl/view?id='||b.id||'&jzdzdm='||r.DZ_JZDZDM||'&zdryid=&jzdzzbid='||r.id url
+			        from  rk_ryjbxxb b,bzdz_bzdzxxb c ,RK_RYJZDZZB r 
+				 where  b.id = #ryid# and	 b.dz_jzdzdm = c.id and]]>
+				<isEqual property="level" compareValue="0">
+					r.gxfxjdm = #orgcode# 
+				</isEqual>
+				 <isEqual property="level" compareValue="1">
+					r.gxpcsdm = #orgcode#
+				</isEqual>
+				<isEqual property="level" compareValue="2">
+					r.gxzrqdm = #orgcode# 
+				</isEqual>
+				<![CDATA[
+				 and b.id = r.ryid and rownum = 1]]>
+	</select>
+	
+	
+	<select id="queryGzjkByZdryid" parameterClass="Map" resultClass="gzjkTemp">
+				 <![CDATA[select   r.DZ_JZDZXZ as dz, b.xm mc , b.ZJHM, '01' ywlx , r.xt_cjsj  , r.xt_lrsj  ,
+			        r.XT_LRRXM ,  r.xt_lrrid , c.zbx, c.zby ,r.gxfxjdm , r.gxpcsdm  , r.gxzrqdm ,'syrkgl/view?id='||b.id||'&jzdzdm='||r.DZ_JZDZDM||'&zdryid=&jzdzzbid='||r.id url,b.xm||'('||b.zjhm||')已被管控' as gznr
+			        from  rk_ryjbxxb b,bzdz_bzdzxxb c ,RK_RYJZDZZB r 
+				 where  b.id = #ryid# and	 b.dz_jzdzdm = c.id and]]>
+				<isEqual property="level" compareValue="0">
+					r.gxfxjdm = #orgcode# 
+				</isEqual>
+				 <isEqual property="level" compareValue="1">
+					r.gxpcsdm = #orgcode#
+				</isEqual>
+				<isEqual property="level" compareValue="2">
+					r.gxzrqdm = #orgcode# 
+				</isEqual>
+				<![CDATA[
+				 and b.id = r.ryid and rownum = 1]]>
+	</select>
+	
+	
+	<select id="queryGzjkByBzdzId" parameterClass="String" resultClass="gzjkTemp">
+		<![CDATA[select '02' ywlx,t.dzqc dz,t.zbx,t.zby,'/forward/sqjw%7Cbuilding%7CbuildingShow?bzdzid='||t.id||'&&bs=3' url,t.fxjdm gxfxjdm,t.pcsdm gxpcsdm,t.zrqdm gxzrqdm,t.xt_czsj xt_cjsj, t.xt_zhxgsj xt_lrsj,
+             t.xt_czrxm as XT_LRRXM,t.xt_czrid as xt_lrrid from bzdz_bzdzxxb t where t.id= #value#]]>
+	</select>
+	 
+	<!-- 2014.11.1 插入历史表 -->
+	<insert id="insertLSB" parameterClass="gzjkTemp">
+		insert into GZTS_LSB values(sys_guid() ,#ywlx# ,#zjhm#,#mc#,#dz#,#gznr#,#dwmc#,#glbmdm#,#glbmmc#,#bdlx#,#zbx#,#zby#,#xt_cjsj#
+		,to_char(sysdate,'YYYYMMDDHH24MISS'),#xt_lrrxm#,#xt_lrrid#,#xt_lrrbm#,#xt_lrrbmid#,#gxfxjdm# ,#gxpcsdm#,#gxzrqdm#,#url# )
+	</insert>
+	<!-- 2014.11.1修改  syrkgl/view?id=3D2AB16F54004C14914463A2B21D5B36&jzdzdm=21020491267&zdryid=&jzdzzbid=F866351B1C3B4FE893FA178C805CB236-->
+	<insert id="insertTop20" parameterClass="String" >
+		<![CDATA[ INSERT into GZTS_LSB (ID,url,dz,mc,ZJHM,ywlx ,xt_cjsj,xt_lrsj ,XT_LRRXM,XT_LRRID , bdlx ,gxfxjdm ,gxpcsdm  , gxzrqdm) 
+			SELECT id, 'syrkgl/view?id='||ywid||'&jzdzdm='||DZ_JZDZDM||'&zdryid=&jzdzzbid='||jzdzzbid url,dz,mc,ZJHM,ywlx ,xt_cjsj, to_char(sysdate,'YYYYMMDDHH24MISS')  XT_LRSJ ,XT_LRRXM,XT_LRRID , bdlx ,gxfxjdm ,gxpcsdm  , gxzrqdm  FROM (
+				SELECT * FROM (
+				SELECT sys_guid() id, B.ID ywid,A.DZ_JZDZXZ AS dz,B.XM mc,B.ZJHM, '01' ywlx ,a.xt_cjsj, A.XT_LRSJ ,A.XT_LRRXM,A.XT_LRRID ,'0' bdlx ,A.gxfxjdm , A.gxpcsdm  , A.gxzrqdm ,A.XT_ZHXGSJ ZHXGSJ ,a.DZ_JZDZDM ,a.id jzdzzbid
+				  FROM RK_RYJZDZZB A,RK_RYJBXXB B,BZDZ_BZDZXXB C 
+				  WHERE A.RYID=B.ID AND A.DZ_JZDZDM=C.ID(+) AND A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+				                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.GXFXJDM,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.GXFXJDM,A.GXPCSDM))=#value#
+				UNION ALL
+				SELECT  sys_guid() id, B.ID ywid,A.DZ_JZDZXZ AS dz,B.XM mc,B.ZJHM, '01' ywlx ,a.xt_cjsj, A.XT_LRSJ ,A.XT_LRRXM,A.XT_LRRID ,'1' bdlx ,A.gxfxjdm , A.gxpcsdm  , A.gxzrqdm ,A.XT_ZHXGSJ ZHXGSJ,a.DZ_JZDZDM ,a.id jzdzzbid
+				  FROM RK_RYJZDZZB A,RK_RYJBXXB B,BZDZ_BZDZXXB C 
+				  WHERE A.RYID=B.ID AND A.DZ_JZDZDM=C.ID(+) AND A.XT_ZXBZ='0' AND ((SUBSTR(B.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND B.XT_LRSJ<B.XT_ZHXGSJ) OR (SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.XT_LRSJ<A.XT_ZHXGSJ)) AND
+				                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.GXFXJDM,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.GXFXJDM,A.GXPCSDM))=#value#
+				UNION ALL
+				SELECT  sys_guid() id ,B.ID ywid,A.DZ_JZDZXZ AS dz,B.XM mc,B.ZJHM, '01' ywlx ,a.xt_cjsj, A.XT_LRSJ ,A.XT_LRRXM,A.XT_LRRID ,'2' bdlx ,A.gxfxjdm , A.gxpcsdm  , A.gxzrqdm ,A.XT_ZHXGSJ ZHXGSJ,a.DZ_JZDZDM ,a.id jzdzzbid
+				  FROM RK_RYJZDZZB A,RK_RYJBXXB B,BZDZ_BZDZXXB C 
+				  WHERE A.RYID=B.ID AND A.DZ_JZDZDM=C.ID(+) AND A.XT_ZXBZ='1' AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+				                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.GXFXJDM,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.GXFXJDM,A.GXPCSDM))=#value#)
+				ORDER BY ZHXGSJ DESC) WHERE ROWNUM<21 ]]>
+	</insert>
+	
+	<!-- 
+	<select id="queryTop20" parameterClass="String" resultClass="gzjk">
+		<![CDATA[ SELECT * FROM (
+				SELECT * FROM (
+				SELECT B.ID,A.ID AS RYJZDZZBID,A.DZ_JZDZXZ AS JZDZ,B.XM,B.ZJHM,A.XT_ZXBZ AS ZXBZ,A.XT_LRSJ LRSJ,A.XT_ZHXGSJ ZHXGSJ,A.DZ_JZDZDM AS JZDZDM,'0' bdlx
+				  FROM RK_RYJZDZZB A,RK_RYJBXXB B,BZDZ_BZDZXXB C 
+				  WHERE A.RYID=B.ID AND A.DZ_JZDZDM=C.ID(+) AND A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+				                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.GXFXJDM,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.GXFXJDM,A.GXPCSDM))=#value#
+				UNION ALL
+				SELECT B.ID,A.ID AS RYJZDZZBID,A.DZ_JZDZXZ AS JZDZ,B.XM,B.ZJHM,A.XT_ZXBZ AS ZXBZ,A.XT_LRSJ LRSJ,A.XT_ZHXGSJ ZHXGSJ,A.DZ_JZDZDM AS JZDZDM,'1' bdlx
+				  FROM RK_RYJZDZZB A,RK_RYJBXXB B,BZDZ_BZDZXXB C 
+				  WHERE A.RYID=B.ID AND A.DZ_JZDZDM=C.ID(+) AND A.XT_ZXBZ='0' AND ((SUBSTR(B.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND B.XT_LRSJ<B.XT_ZHXGSJ) OR (SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.XT_LRSJ<A.XT_ZHXGSJ)) AND
+				                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.GXFXJDM,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.GXFXJDM,A.GXPCSDM))=#value#
+				UNION ALL
+				SELECT B.ID,A.ID AS RYJZDZZBID,A.DZ_JZDZXZ AS JZDZ,B.XM,B.ZJHM,A.XT_ZXBZ AS ZXBZ,A.XT_LRSJ LRSJ,A.XT_ZHXGSJ ZHXGSJ,A.DZ_JZDZDM AS JZDZDM,'2' bdlx
+				  FROM RK_RYJZDZZB A,RK_RYJBXXB B,BZDZ_BZDZXXB C 
+				  WHERE A.RYID=B.ID AND A.DZ_JZDZDM=C.ID(+) AND A.XT_ZXBZ='1' AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+				                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.GXFXJDM,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.GXFXJDM,A.GXPCSDM))=#value#)
+				ORDER BY ZHXGSJ DESC) WHERE ROWNUM<21 ]]>
+	</select> -->
+	
+	
+	<insert id="insertBzdzTop20" parameterClass="String" >
+		<![CDATA[INSERT into GZTS_LSB (ID,url,mc,ywlx ,xt_cjsj,xt_lrsj ,XT_LRRXM,XT_LRRID , bdlx ,gxfxjdm ,gxpcsdm  , gxzrqdm , zbx,zby)  
+		SELECT id, url,mc,ywlx, xt_cjsj,to_char(sysdate,'YYYYMMDDHH24MISS')  xt_lrsj , XT_LRRXM,XT_LRRID , bdlx ,gxfxjdm ,gxpcsdm  , gxzrqdm , zbx,zby FROM
+		  (SELECT sys_guid() ID,A.ID ywid, 'forward/sqjw|building|buildingShow?bzdzid='||a.id||'&bs=3' url,A.XT_ZHXGSJ AS ZHXGSJ,A.DZDM,A.DZQC dz,A.ZBY,A.ZBX,A.DMMC mc,A.XT_CZSJ xt_cjsj,
+		       DECODE(A.XT_CZSJ,A.XT_ZHXGSJ,'0',DECODE(A.XT_ZXBZ,'1','2','1')) AS BDLX , A.FXJDM gxfxjdm ,A.PCSDM gxpcsdm,A.ZRQDM gxzrqdm , '02' ywlx ,A.XT_CZRXM XT_LRRXM ,A.XT_CZRID XT_LRRID
+		   FROM BZDZ_BZDZXXB A,BZDZ_DZJZWGLB B
+		   WHERE A.ID=B.BZDZID(+) AND A.DZJB='10' AND (A.XT_ZXBZ='0' OR A.XT_ZXBZ='1') AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND 
+		         DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.FXJDM,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.FXJDM,A.PCSDM))=#value# 
+		   ORDER BY A.XT_ZHXGSJ DESC) WHERE ROWNUM<21
+  		 ]]>
+	</insert>
+	
+	<!-- <select id="queryTop20Bzdz" parameterClass="String" resultClass="gzjkbzdz">
+		<![CDATA[ SELECT * FROM
+		  (SELECT A.ID,A.XT_ZHXGSJ AS ZHXGSJ,A.DZDM,A.DZQC,A.XZQH,A.XT_ZXBZ AS ZXBZ,A.ZBY,A.ZBX,A.DMDM,A.DMMC,A.XT_CZSJ AS XTCZSJ,B.JZWID,
+		       DECODE(A.XT_CZSJ,A.XT_ZHXGSJ,'0',DECODE(A.XT_ZXBZ,'1','2','1')) AS BDLX
+		   FROM BZDZ_BZDZXXB A,BZDZ_DZJZWGLB B
+		   WHERE A.ID=B.BZDZID(+) AND A.DZJB='10' AND (A.XT_ZXBZ='0' OR A.XT_ZXBZ='1') AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND 
+		         DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.FXJDM,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.FXJDM,A.PCSDM))=#value# 
+		   ORDER BY A.XT_ZHXGSJ DESC) WHERE ROWNUM<21
+  		 ]]>
+	</select> -->
+	<!-- 2014.11.3 -->
+	<insert id="insertZdryTop20" parameterClass="String">
+		<![CDATA[INSERT into GZTS_LSB (ID,url,mc,ywlx ,xt_cjsj,xt_lrsj ,XT_LRRXM,XT_LRRID , bdlx ,gxfxjdm ,gxpcsdm  , gxzrqdm , zbx,zby) 
+				SELECT sys_guid() ID, 'syrkgl/view?id='||ywid||'&jzdzdm='||jzdzdm||'&zdryid='||zdryid||'&jzdzzbid='||jzdzzbid url, xm mc ,'03' ywlx , xt_cjsj,to_char(sysdate,'YYYYMMDDHH24MISS')  xt_lrsj ,XT_LRRXM,XT_LRRID , bdlx ,gxfxjdm ,gxpcsdm  , gxzrqdm , zbx,zby FROM (
+				SELECT A.RYID ywid, A.XM , a.id zdryid, A.DZ_JZDZDM jzdzdm, '列管重点人员'||A.XM||'('||A.GMSFHM||')' GZDT,A.XT_LRRBM,'列管' bdlx,A.XT_ZHXGSJ ZHXGSJ,B.ZBX,B.ZBY ,c.id jzdzzbid, c.gxfxjdm,c.gxpcsdm,c.gxzrqdm FROM RK_ZDRYJBXXB A,BZDZ_BZDZXXB B ,rk_ryjzdzzb c
+				  WHERE A.DZ_JZDZDM=B.ID AND A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+				        DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(a.XT_LRRBMID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',SUBSTR(a.XT_LRRBMID,1,6)||'000000',SUBSTR(a.XT_LRRBMID,1,8)||'0000'))=#value#
+				UNION ALL        
+				SELECT  B.RYID ywid, b.XM , b.id zdryid,B.DZ_JZDZDM jzdzdm,'动态管控重点人员'||B.XM||'('||B.GMSFHM||')' GZDT,A.XT_LRRBM,'管控' bdlx,A.XT_ZHXGSJ ZHXGSJ,C.ZBX,C.ZBY ,c.id jzdzzbid FROM RK_DTGLJSB A,RK_ZDRYJBXXB B,BZDZ_BZDZXXB C WHERE A.ZDRYID=B.ID(+) AND B.DZ_JZDZDM=C.ID AND A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+				        DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.XT_LRRBMID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',SUBSTR(A.XT_LRRBMID,1,6)||'000000',SUBSTR(A.XT_LRRBMID,1,8)||'0000'))=#value#
+				UNION ALL
+				SELECT  A.RYID ywid,A.XM , a.id zdryid,A.DZ_JZDZDM jzdzdm,'撤管重点人员'||A.XM||'('||A.GMSFHM||')' GZDT,A.XT_LRRBM,'撤管' bdlx,A.XT_ZHXGSJ ZHXGSJ,B.ZBX,B.ZBY ,c.id jzdzzbid FROM RK_ZDRYJBXXB A,BZDZ_BZDZXXB B ,rk_ryjzdzzb c
+				  WHERE A.DZ_JZDZDM=B.ID AND A.XT_ZXBZ='1' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND a.ryid= c.ryid and
+				        DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(a.XT_LRRBMID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',SUBSTR(a.XT_LRRBMID,1,6)||'000000',SUBSTR(a.XT_LRRBMID,1,8)||'0000'))=#value# 
+				ORDER BY ZHXGSJ DESC)	WHERE ROWNUM<21  ]]>
+	</insert>
+	<!-- 重点人员前20条数据 
+	<select id="queryTop20Zdry" parameterClass="String" resultClass="gzjkzdry">
+		<![CDATA[SELECT * FROM (
+				SELECT * FROM (
+				SELECT A.RYID ID, A.XM , A.DZ_JZDZDM jzdzdm, '列管重点人员'||A.XM||'('||A.GMSFHM||')' GZDT,A.XT_LRRBM,'列管' bdlx,A.XT_ZHXGSJ ZHXGSJ,B.ZBX,B.ZBY FROM RK_ZDRYJBXXB A,BZDZ_BZDZXXB B
+				  WHERE A.DZ_JZDZDM=B.ID AND A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+				        DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(XT_LRRBMID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',SUBSTR(XT_LRRBMID,1,6)||'000000',SUBSTR(XT_LRRBMID,1,8)||'0000'))=#value#
+				UNION ALL        
+				SELECT  B.RYID ID, b.XM , B.DZ_JZDZDM jzdzdm,'动态管控重点人员'||B.XM||'('||B.GMSFHM||')' GZDT,A.XT_LRRBM,'管控' bdlx,A.XT_ZHXGSJ ZHXGSJ,C.ZBX,C.ZBY FROM RK_DTGLJSB A,RK_ZDRYJBXXB B,BZDZ_BZDZXXB C WHERE A.ZDRYID=B.ID(+) AND B.DZ_JZDZDM=C.ID AND A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+				                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.XT_LRRBMID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',SUBSTR(A.XT_LRRBMID,1,6)||'000000',SUBSTR(A.XT_LRRBMID,1,8)||'0000'))=#value#
+				UNION ALL
+				SELECT  A.RYID ID,A.XM , A.DZ_JZDZDM jzdzdm,'撤管重点人员'||A.XM||'('||A.GMSFHM||')' GZDT,A.XT_LRRBM,'撤管' bdlx,A.XT_ZHXGSJ ZHXGSJ,B.ZBX,B.ZBY FROM RK_ZDRYJBXXB A,BZDZ_BZDZXXB B
+				  WHERE A.DZ_JZDZDM=B.ID AND A.XT_ZXBZ='1' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+				                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(XT_LRRBMID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',SUBSTR(XT_LRRBMID,1,6)||'000000',SUBSTR(XT_LRRBMID,1,8)||'0000'))=#value#)
+				ORDER BY ZHXGSJ DESC)
+				WHERE ROWNUM<21  ]]>
+	</select>-->
+	
+	<!-- 2014.11.3 -->
+	<insert id="insertSydwTop20" parameterClass="String" >
+		<![CDATA[ INSERT into GZTS_LSB (ID,url,dz,ywlx ,xt_cjsj,xt_lrsj ,XT_LRRXM,XT_LRRID , bdlx ,gxfxjdm ,gxpcsdm  , gxzrqdm , zbx,zby) 
+			SELECT sys_guid() ID,
+             'sydwgl/view?id=' || ywid url,
+             dz,
+             '04' ywlx,
+             xt_cjsj,
+             to_char(sysdate, 'YYYYMMDDHH24MISS') xt_lrsj,
+             XT_LRRXM,
+             XT_LRRID,
+             bdlx,
+             gxfxjdm,
+             gxpcsdm,
+             gxzrqdm,
+             zbx,
+             zby
+        FROM (
+        SELECT A.ID ywid, A.DZ_DWDZXZ AS dz, A.DWMC, A.XT_cjSJ, A.XT_ZHXGSJ ZHXGSJ, A.XT_LRRXM, A.XT_LRRID, '0' BDLX, A.GLFXJID gxfxjdm,
+                     A.GLPCSID gxpcsdm, A.GLBMID gxzrqdm, B.ZBX, B.ZBY FROM DW_DWJBXXB A, BZDZ_BZDZXXB B
+               WHERE A.DZ_DWDZDM = B.ID(+) AND A.XT_ZXBZ = '0' AND A.XT_LRSJ = A.XT_ZHXGSJ AND 
+                     SUBSTR(A.XT_LRSJ, 1, 10) = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+              UNION ALL
+        SELECT A.ID ywid, A.DZ_DWDZXZ AS dz, A.DWMC, A.XT_cjSJ, A.XT_ZHXGSJ ZHXGSJ, A.XT_LRRXM, A.XT_LRRID, '1' BDLX, A.GLFXJID gxfxjdm,
+                     A.GLPCSID gxpcsdm, A.GLBMID gxzrqdm, B.ZBX, B.ZBY FROM DW_DWJBXXB A, BZDZ_BZDZXXB B
+               WHERE A.DZ_DWDZDM = B.ID(+) AND A.XT_ZXBZ = '0' AND
+                    (SUBSTR(A.XT_ZHXGSJ, 1, 10) = TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND A.XT_LRSJ < A.XT_ZHXGSJ)
+              UNION ALL
+        SELECT A.ID ywid, A.DZ_DWDZXZ AS dz, A.DWMC, A.XT_cjSJ, A.XT_ZHXGSJ ZHXGSJ, A.XT_LRRXM, A.XT_LRRID, '2' BDLX, A.GLFXJID gxfxjdm,
+                     A.GLPCSID gxpcsdm,  A.GLBMID gxzrqdm, B.ZBX, B.ZBY
+                FROM DW_DWJBXXB A, BZDZ_BZDZXXB B
+               WHERE A.DZ_DWDZDM = B.ID(+) AND A.XT_ZXBZ = '1' AND
+                     SUBSTR(A.XT_ZHXGSJ, 1, 10) = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+               ORDER BY ZHXGSJ DESC)
+       WHERE ROWNUM < 21]]>
+	</insert>
+	<!-- 单位前20条数据
+	<select id="queryTop20Dw" parameterClass="String" resultClass="gzjksydw">
+		<![CDATA[ SELECT * FROM ( SELECT * FROM (
+				SELECT A.ID,A.DZ_DWDZXZ AS dzqc,A.DWMC,A.GLBMID,A.XT_ZXBZ AS ZXBZ,A.XT_LRSJ LRSJ,A.XT_ZHXGSJ ZHXGSJ,A.DZ_DWDZDM AS JZDZDM,'0' BDLX,B.ZBX,B.ZBY FROM DW_DWJBXXB A,BZDZ_BZDZXXB B WHERE A.DZ_DWDZDM=B.ID(+) AND A.XT_ZXBZ='0' AND A.XT_LRSJ=A.XT_ZHXGSJ AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+				                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.GLFXJID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.GLFXJID,A.GLPCSID))=#value#
+				UNION ALL                
+				SELECT A.ID,A.DZ_DWDZXZ AS dzqc,A.DWMC,A.GLBMID,A.XT_ZXBZ AS ZXBZ,A.XT_LRSJ LRSJ,A.XT_ZHXGSJ ZHXGSJ,A.DZ_DWDZDM AS JZDZDM,'1' BDLX,B.ZBX,B.ZBY FROM DW_DWJBXXB A,BZDZ_BZDZXXB B WHERE A.DZ_DWDZDM=B.ID(+) AND A.XT_ZXBZ='0' AND (SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.XT_LRSJ<A.XT_ZHXGSJ) AND
+				                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.GLFXJID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.GLFXJID,A.GLPCSID))=#value#
+				UNION ALL                
+				SELECT A.ID,A.DZ_DWDZXZ AS dzqc,A.DWMC,A.GLBMID,A.XT_ZXBZ AS ZXBZ,A.XT_LRSJ LRSJ,A.XT_ZHXGSJ ZHXGSJ,A.DZ_DWDZDM AS JZDZDM,'2' BDLX,B.ZBX,B.ZBY FROM DW_DWJBXXB A,BZDZ_BZDZXXB B WHERE A.DZ_DWDZDM=B.ID(+) AND A.XT_ZXBZ='1' AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+				                DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.GLFXJID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.GLFXJID,A.GLPCSID))=#value#)
+				ORDER BY ZHXGSJ DESC) WHERE ROWNUM<21 ]]>
+	</select> -->
+	
+	
+	<!-- 2014.11.3  -->
+	<insert id="insertSyfwTop20" parameterClass="String">
+		<![CDATA[  INSERT into GZTS_LSB (ID,url,dz,mc,ywlx ,xt_cjsj,xt_lrsj ,XT_LRRXM,XT_LRRID , bdlx ,gxfxjdm ,gxpcsdm  , gxzrqdm) 
+			SELECT sys_guid() ID, 'syfwgl/view?id='||ywid url,dz,fwmc mc,ywlx ,xt_cjsj,to_char(sysdate,'YYYYMMDDHH24MISS')  xt_lrsj ,XT_LRRXM,XT_LRRID , bdlx ,gxfxjdm ,gxpcsdm  , gxzrqdm FROM (
+				SELECT a.id ywid ,FWMC,'0' BDLX,A.XT_ZHXGSJ ZHXGSJ,B.ZBX,B.ZBY,A.DZ_FWDZXZ AS DZ,A.FWLXDM as FWLX ,'05' ywlx ,a.xt_cjsj, A.XT_LRSJ ,A.XT_LRRXM,A.XT_LRRID , A.SSFXJID gxfxjdm, A.SSPCSID gxpcsdm , A.SSZRQID gxzrqdm FROM FW_FWJBXXB A,BZDZ_BZDZXXB B  
+				  WHERE A.DZ_FWDZID=B.ID(+) AND A.XT_ZXBZ='0' AND A.XT_LRSJ=A.XT_ZHXGSJ AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+				        DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.SSFXJID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.SSFXJID,A.SSPCSID))=#value#
+				UNION ALL                
+				SELECT a.id ywid , FWMC,'1' BDLX,A.XT_ZHXGSJ ZHXGSJ,B.ZBX,B.ZBY, A.DZ_FWDZXZ AS dz,A.FWLXDM AS FWLX ,'05' ywlx ,a.xt_cjsj, A.XT_LRSJ ,A.XT_LRRXM,A.XT_LRRID , A.SSFXJID gxfxjdm, A.SSPCSID gxpcsdm , A.SSZRQID gxzrqdm FROM FW_FWJBXXB A,BZDZ_BZDZXXB B   
+				  WHERE A.DZ_FWDZID=B.ID(+) AND A.XT_ZXBZ='0' AND SFCZFDM='1' AND A.XT_LRSJ=A.XT_ZHXGSJ AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+				        DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.SSFXJID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.SSFXJID,A.SSPCSID))=#value#
+				ORDER BY ZHXGSJ) WHERE ROWNUM<21 ]]>
+	</insert>
+	<!-- 房屋前20条数据 
+	<select id="queryTop20Fw" parameterClass="String" resultClass="gzjksyfw">
+		<![CDATA[ SELECT * FROM (
+				SELECT FWMC,'0' BDLX,A.XT_ZHXGSJ ZHXGSJ,B.ZBX,B.ZBY,A.ID,A.DZ_FWDZXZ AS DZQC,A.FWLXDM as FWLX FROM FW_FWJBXXB A,BZDZ_BZDZXXB B  
+				  WHERE A.DZ_FWDZID=B.ID(+) AND A.XT_ZXBZ='0' AND A.XT_LRSJ=A.XT_ZHXGSJ AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+				        DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.SSFXJID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.SSFXJID,A.SSPCSID))=#value#
+				UNION ALL                
+				SELECT FWMC,'1' BDLX,A.XT_ZHXGSJ ZHXGSJ,B.ZBX,B.ZBY,A.ID,A.DZ_FWDZXZ AS DZQC,A.FWLXDM AS FWLX FROM FW_FWJBXXB A,BZDZ_BZDZXXB B   
+				  WHERE A.DZ_FWDZID=B.ID(+) AND A.XT_ZXBZ='0' AND SFCZFDM='1' AND A.XT_LRSJ=A.XT_ZHXGSJ AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+				        DECODE(SUBSTR(#value#,5),'00000000',SUBSTR(A.SSFXJID,1,4)||'00000000',DECODE(SUBSTR(#value#,7),'000000',A.SSFXJID,A.SSPCSID))=#value#
+				ORDER BY ZHXGSJ) WHERE ROWNUM<21 ]]>
+	</select>-->
+	
+	
+	<!-- 取组织机构数据
+	<select id="queryOrgAll" parameterClass="String" resultMap="countMap">
+		<![CDATA[ SELECT A.ORGCODE,A.ORGCODE COUNTBEAN FROM ORG_ORGANIZATION A 
+ 			 WHERE A.XT_ZXBZ='0' AND   (SUBSTR(A.ORGCODE ,5)='00000000' OR SUBSTR(A.ORGCODE ,7)='000000' OR  (a.ORGCODE IN ('210204500000','210204540000','210299430000','210211570000','210204410000'))) ]]>
+	</select> -->
+	<select id="queryOrgAll" parameterClass="String" resultClass="String">
+		<![CDATA[ select orgcode from org_organization where (orgname like '%分局' ) or (orgname like '%派出所') or (orgname like '%责任区') or (orgcode = '210200000000')  ]]>
+	</select>
+	
+	<select id="queryBzdzCountList" parameterClass="String" resultClass="String">
+		<![CDATA[  select orgcode from org_organization where (orgname like '%分局' ) or (orgname like '%派出所') or (orgname like '%责任区') or (orgcode = '210200000000') ]]>
+	</select>
+	
+	<!-- 重点人员取组织机构数据 -->
+	<select id="queryZdryCountList" parameterClass="String" resultClass="String">
+		<![CDATA[  select orgcode from org_organization where (orgname like '%分局' ) or (orgname like '%派出所') or (orgname like '%责任区') or (orgcode = '210200000000') ]]>
+	</select>
+	
+	<!-- 实有单位取组织机构数据 -->
+	<select id="querySydwCountList" parameterClass="String" resultClass="String">
+		<![CDATA[ select orgcode from org_organization where (orgname like '%分局' ) or (orgname like '%派出所') or (orgname like '%责任区') or (orgcode = '210200000000')  ]]>
+	</select>
+	
+	<!-- 实有房屋取组织机构数据  (SUBSTR(A.ORGCODE ,9)='0000' AND A.ORGNAME LIKE '%派出所') -->
+	<select id="querySyfwCountList" parameterClass="String" resultClass="String">
+		<![CDATA[ select orgcode from org_organization where (orgname like '%分局' ) or (orgname like '%派出所') or (orgname like '%责任区') or (orgcode = '210200000000')  ]]>
+	</select>
+	<!-- 2014.11.3 -->
+	<select id="queryGzjkSydwById" parameterClass="String" resultClass="gzjkTemp">
+		<![CDATA[ select  t.dz_dwdzxz dz,  '04' ywlx , t.xt_cjsj , dwmc,  t.XT_LRRXM , t.xt_lrrid ,c.zbx,c.zby,  t.GLFXJID gxfxjdm, t.GLPCSID gxpcsdm , t.GLBMID gxzrqdm ,'sydwgl/view?id='||t.id url from DW_DWJBXXB t, bzdz_bzdzxxb c where t.id=#value# and t.dz_dwdzdm = c.id(+) ]]>
+	</select>
+	
+	
+	<!-- 2014.11.3 -->
+	<select id="queryGzjkBzdzById" parameterClass="String" resultClass="gzjkTemp">
+		<![CDATA[ select '02' ywlx,t.dzqc mc,t.xt_czsj,t.xt_czrxm xt_lrrxm,t.xt_czrid xt_lrrid,t.zrqdm gxzrqdm,t.pcsdm gxpcsdm,t.fxjdm gxfxjdm from bzdz_bzdzxxb t where t.id ='#id#']]>
+	</select>
+	<!-- 根据ID查实有单位 
+	<select id="queryGzjkSydwById" parameterClass="String" resultClass="gzjksydw">
+		<![CDATA[ select t.id,   t.dwbh  dwdm,  t.dwmc,  t.glbmid ssbmid, t.dz_dwdzdm dzdm, t.dz_dwdzxz dzqc,  t.xt_zhxgsj zhxgsj,
+       t.xt_cjsj   xtczsj, t.sydwlx, t.xt_zxbz   zxbz , c.zbx , c.zby ,(select o.orgname from org_organization o where o.orgcode=t.glbmid ) glbmmc from DW_DWJBXXB t, bzdz_bzdzxxb c where t.id=#value# and t.dz_dwdzdm = c.id(+) ]]>
+	</select>-->
+	
+	<!-- 2014.11.3 -->
+	<select id="queryGzjkSyfwById" parameterClass="String" resultClass="gzjkTemp">
+			<![CDATA[ select   t.fwmc mc ,t.dz_fwdzxz dz,  '05' ywlx , t.xt_cjsj , t.sfczfdm as dwmc,t.XT_LRRXM , t.xt_lrrid ,  t.SSFXJID gxfxjdm, t.SSPCSID gxpcsdm , t.SSZRQID gxzrqdm ,'syfwgl/view?id='||t.id url,
+ 					substr( decode(t.xt_lrrbmid,null,'210200000000',t.xt_lrrbmid),0,8) || '0000' as ssbmid , c.zbx ,c.zby from FW_FWJBXXB t, bzdz_bzdzxxb c
+  					where t.id = #value# and  t.dz_fwdzid = c.id(+)   ]]>
+	</select>
+	<!-- 根据ID查实有房屋
+	<select id="queryGzjkSyfwById" parameterClass="String" resultClass="gzjksyfw">
+		<![CDATA[ select t.id , t.fwmc ,t.fwlxdm fwxz , t.dz_fwdzid dzdm ,t.sfczfdm , t.dz_fwdzxz dzqc , t.xt_zxbz zxbz ,t.xt_zhxgsj zhxgsj , t.xt_cjsj xtczsj ,
+ 					substr( decode(t.xt_lrrbmid,null,'210200000000',t.xt_lrrbmid),0,8) || '0000' as ssbmid , c.zbx ,c.zby from FW_FWJBXXB t, bzdz_bzdzxxb c
+  					where t.id = #value# and  t.dz_fwdzid = c.id(+)   ]]>
+	</select> -->
+	<!-- 根据重点人员类别与 单位代码查询20条 -->
+	<select id="queryZdryRylb" parameterClass="Map" resultClass="gzjkzdry">
+		<![CDATA[ SELECT * FROM (
+			SELECT * FROM (
+			SELECT  A.RYID ID, A.XM , A.DZ_JZDZDM jzdzdm, '列管重点人员'||A.XM||'('||A.GMSFHM||')' GZDT,A.XT_LRRBM,'列管' bdlx,A.XT_ZHXGSJ ZHXGSJ,C.ZBX,C.ZBY
+			  FROM RK_ZDRYJBXXB A,RK_ZDRYLBZB B,BZDZ_BZDZXXB C 
+			  WHERE A.ID=B.ZDRYID AND A.DZ_JZDZDM=C.ID AND A.XT_ZXBZ='0' AND B.ZDRYLBDM = #rylbdm# AND
+			        SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+			        DECODE(SUBSTR(#dwdm#,5),'00000000',SUBSTR(A.XT_LRRBMID,1,4)||'00000000',DECODE(SUBSTR(#dwdm#,7),'000000',SUBSTR(A.XT_LRRBMID,1,6)||'000000',SUBSTR(A.XT_LRRBMID,1,8)||'0000'))=#dwdm#
+			UNION ALL
+			SELECT c.RYID ID, c.XM , c.DZ_JZDZDM jzdzdm,'动态管控重点人员'||c.XM||'('||c.GMSFHM||')' GZDT,A.XT_LRRBM,'管控' bdlx ,A.XT_ZHXGSJ ZHXGSJ,D.ZBX,D.ZBY 
+			  FROM RK_DTGLJSB A,RK_ZDRYLBZB B,RK_ZDRYJBXXB C,BZDZ_BZDZXXB D
+			　WHERE A.ZDRYID=B.ZDRYID AND A.ZDRYID=C.ID AND C.DZ_JZDZDM=D.ID AND A.XT_ZXBZ='0' AND B.XT_ZXBZ='0' AND B.ZDRYLBDM = #rylbdm# AND 
+			        SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+			        DECODE(SUBSTR(#dwdm#,5),'00000000',SUBSTR(A.XT_LRRBMID,1,4)||'00000000',DECODE(SUBSTR(#dwdm#,7),'000000',SUBSTR(A.XT_LRRBMID,1,6)||'000000',SUBSTR(A.XT_LRRBMID,1,8)||'0000'))=#dwdm#
+			UNION ALL
+			SELECT  A.RYID ID,A.XM , A.DZ_JZDZDM jzdzdm,'撤管重点人员'||A.XM||'('||A.GMSFHM||')' GZDT,A.XT_LRRBM,'撤管' bdlx,A.XT_ZHXGSJ ZHXGSJ,C.ZBX,C.ZBY
+			  FROM RK_ZDRYJBXXB A,RK_ZDRYLBZB B,BZDZ_BZDZXXB C 
+			  WHERE A.ID=B.ZDRYID AND A.DZ_JZDZDM=C.ID AND A.XT_ZXBZ='1' AND B.ZDRYLBDM = #rylbdm# AND
+			        SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND
+			        DECODE(SUBSTR(#dwdm#,5),'00000000',SUBSTR(A.XT_LRRBMID,1,4)||'00000000',DECODE(SUBSTR(#dwdm#,7),'000000',SUBSTR(A.XT_LRRBMID,1,6)||'000000',SUBSTR(A.XT_LRRBMID,1,8)||'0000'))=#dwdm#)
+			ORDER BY ZHXGSJ DESC) WHERE ROWNUM<21 ]]>
+	</select>
+
+	<select id="queryGzjkZdryLg" parameterClass="String" resultClass="gzjkzdry">
+			SELECT A.RYID ID, A.XM , A.DZ_JZDZDM jzdzdm, '列管重点人员'||A.XM||'('||A.GMSFHM||')' GZDT,A.XT_LRRBMID ssbmid,'列管' bdlx,A.XT_ZHXGSJ ZHXGSJ,C.ZBX,C.ZBY
+				  FROM RK_ZDRYJBXXB A,BZDZ_BZDZXXB C 
+				  WHERE A.ID=#value# AND A.DZ_JZDZDM=C.ID
+	</select>
+	<select id="queryGzjkZdryGK" parameterClass="String" resultClass="gzjkzdry">
+			SELECT c.RYID ID, c.XM , c.DZ_JZDZDM jzdzdm,'动态管控重点人员'||C.XM||'('||C.GMSFHM||')' GZDT,A.XT_LRRBMID ssbmid,'管控' bdlx,A.XT_ZHXGSJ ZHXGSJ,D.ZBX,D.ZBY
+			  FROM RK_DTGLJSB A,RK_ZDRYJBXXB C,BZDZ_BZDZXXB D
+			　WHERE A.ID=#value#  AND A.ZDRYID=C.ID AND C.DZ_JZDZDM=D.ID 
+	</select>
+	<select id="queryGzjkZdrycg" parameterClass="String" resultClass="gzjkzdry">
+			SELECT A.RYID ID,A.XM , A.DZ_JZDZDM jzdzdm,'撤管重点人员'||A.XM||'('||A.GMSFHM||')' GZDT,A.XT_LRRBMID ssbmid,'撤管' bdlx,A.XT_ZHXGSJ ZHXGSJ,C.ZBX,C.ZBY
+				  FROM RK_ZDRYJBXXB A,BZDZ_BZDZXXB C 
+				  WHERE A.ID=#value# AND A.DZ_JZDZDM=C.ID
+	</select>
+	
+	
+	<!-- 取得部门信息，无部门等级与部门业务类型（公共部门选择时用） -->
+	<resultMap id="orgNode" class="java.util.HashMap">
+		<result property="key" column="orgCode" javaType="String" />
+		<result property="value" column="parentid" select="Gzjk.selectOrgCode" javaType="String"  />
+	</resultMap>
+	
+	<select id="selectOrgCode" parameterClass="Long" resultClass="String">
+		<![CDATA[ select ORGCODE from ORG_ORGANIZATION 	where XT_ZXBZ = '0'  and id = #value# ]]>
+	</select>
+	
+	<select id="queryListForPublicSelect" resultMap="orgNode">
+		<![CDATA[ select ORGCODE,PARENTID from ORG_ORGANIZATION 
+			where XT_ZXBZ = '0'   connect by prior ID = PARENTID start with PARENTID = 0 order siblings by ORGTYPE,ORDERNO ]]>
+	</select>
+	
+
+	<delete id="deleteGztslsb">
+		truncate table gzts_lsb
+	</delete>
+	
+
+	<select id="queryListByLevel" parameterClass="Map" resultClass="gzjkTemp">
+		<![CDATA[ select * from ( select rownum r ,m.* from (
+				select * from GZTS_LSB where ]]>
+				<isEqual property="level" compareValue="0">
+					gxfxjdm like '%'|| #dwdm# ||'%'
+				</isEqual>
+				<isEqual property="level" compareValue="1">
+					gxpcsdm like '%'|| #dwdm# ||'%'
+				</isEqual>
+				<isEqual property="level" compareValue="2">
+					gxzrqdm like '%'|| #dwdm# ||'%'
+				</isEqual>
+				<isNotEmpty prepend="and" property="ywlx">
+			       ywlx = #ywlx#
+		        </isNotEmpty>
+				<![CDATA[ order by xt_lrsj desc) m  
+		where rownum <= 20 ) where r > 0 ]]>
+	</select>
+	<select id="progzts">
+		<![CDATA[
+		    call pro_gzts()
+		]]>
+    </select>
+    
+    
+    
+    <!-- 实有人口展示4个值   -->
+	
+	<select id="selectCountBeanSyrkZrq" parameterClass="String" resultClass="countBean"><!-- 实有人口责任区 -->
+		<![CDATA[   SELECT  
+		       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+		  WHERE A.RYID=B.ID AND A.XT_ZXBZ='0' AND A.Gxzrqdm=#value#) Count,
+		       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+		  WHERE A.RYID=B.ID AND A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GXZRQDM=#value#) addCount,
+		       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+		  WHERE A.RYID=B.ID AND A.XT_ZXBZ='0' AND A.XT_LRSJ<A.XT_ZHXGSJ AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND  
+		        A.GXZRQDM=#value#) editCount,
+		       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+		  WHERE A.RYID=B.ID AND A.XT_ZXBZ='1' AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GXZRQDM=#value#
+		 ) CancellCont
+ 		 FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND  T.ORGCODE=#value#]]>
+	</select>
+	
+	
+	<select id="selectCountBeanSyrkPcs" parameterClass="String" resultClass="countBean"><!-- 实有人口派出所 -->
+		<![CDATA[  SELECT  
+       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+  WHERE A.RYID=B.ID AND A.XT_ZXBZ='0' AND A.GXPCSDM=#value#) Count,
+       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+  WHERE A.RYID=B.ID AND A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GXPCSDM=#value#) addCount,
+       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+  WHERE A.RYID=B.ID AND A.XT_ZXBZ='0' AND A.XT_LRSJ<A.XT_ZHXGSJ AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND  
+        A.GXPCSDM=#value# ) editCount,
+       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+  WHERE A.RYID=B.ID AND A.XT_ZXBZ='1' AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GXPCSDM=#value#
+ ) CancellCont
+ 		 FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND  T.ORGCODE=#value# ]]>
+	</select>
+	
+		<select id="selectCountBeanSyrkFxj" parameterClass="String" resultClass="countBean"><!-- 实有人口分县局 -->
+		<![CDATA[  SELECT  
+       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+		  WHERE A.RYID=B.ID AND A.XT_ZXBZ='0' AND A.GXFXJDM=#value#) Count,
+		       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+		  WHERE A.RYID=B.ID AND A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GXFXJDM=#value#) addCount,
+		       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+		  WHERE A.RYID=B.ID AND A.XT_ZXBZ='0' AND A.XT_LRSJ<A.XT_ZHXGSJ AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND  
+		        A.GXFXJDM=#value#) editCount,
+		       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+		  WHERE A.RYID=B.ID AND A.XT_ZXBZ='1' AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GXFXJDM='210204410000') CancellCont
+		 		 FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND  T.ORGCODE=#value# ]]>
+	</select>
+	
+		<select id="selectCountBeanSyrkSj" parameterClass="String" resultClass="countBean"><!-- 实有人口市局 -->
+		<![CDATA[
+			SELECT 
+			       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+			  WHERE A.RYID=B.ID AND A.XT_ZXBZ='0') Count,
+			       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+			  WHERE A.RYID=B.ID AND A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD')) addCount,
+			       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+			  WHERE A.RYID=B.ID AND A.XT_ZXBZ='0' AND A.XT_LRSJ<A.XT_ZHXGSJ AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD')) editCount,
+			       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+			  WHERE A.RYID=B.ID AND A.XT_ZXBZ='1' AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD')) CancellCont
+			 	 FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND T.ORGCODE=#value#
+ ]]>
+	</select>
+	
+	
+	
+	
+	<!-- 实有单位展示4个值   -->
+	
+	<select id="selectCountBeanDwZrq" parameterClass="String" resultClass="countBean">
+		<![CDATA[  SELECT  
+       (SELECT COUNT(1) FROM DW_DWJBXXB A WHERE A.XT_ZXBZ='0' AND A.GLBMID=#value#) Count,
+       (SELECT COUNT(1) FROM DW_DWJBXXB A WHERE A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GLBMID=#value#) addCount,
+       (SELECT COUNT(1) FROM DW_DWJBXXB A 
+            WHERE A.XT_ZXBZ='0' AND  A.XT_LRSJ<A.XT_ZHXGSJ AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GLBMID=#value#) editCount,
+       (SELECT COUNT(1) FROM DW_DWJBXXB A WHERE A.XT_ZXBZ='1' AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GLBMID=#value#) CancellCont
+ 		 FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND  T.ORGCODE=#value#]]>
+	</select>
+	
+	
+	<select id="selectCountBeanDwPcs" parameterClass="String" resultClass="countBean">
+		<![CDATA[  SELECT  
+       (SELECT COUNT(1) FROM DW_DWJBXXB A WHERE A.XT_ZXBZ='0' AND A.GLPCSID=#value#) Count,
+       (SELECT COUNT(1) FROM DW_DWJBXXB A WHERE A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GLPCSID=#value# ) addCount,
+       (SELECT COUNT(1) FROM DW_DWJBXXB A 
+            WHERE A.XT_ZXBZ='0' AND  A.XT_LRSJ<A.XT_ZHXGSJ AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GLPCSID=#value#) editCount,
+       (SELECT COUNT(1) FROM DW_DWJBXXB A WHERE A.XT_ZXBZ='1' AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GLPCSID=#value#) CancellCont
+ 		 FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND  T.ORGCODE=#value#]]>
+	</select>
+	
+	
+	<select id="selectCountBeanDwFxj" parameterClass="String" resultClass="countBean">
+		<![CDATA[  SELECT  
+       (SELECT COUNT(1) FROM DW_DWJBXXB A WHERE A.XT_ZXBZ='0' AND A.GLFXJID=#value#) Count,
+       (SELECT COUNT(1) FROM DW_DWJBXXB A WHERE A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GLFXJID=#value#) addCount,
+       (SELECT COUNT(1) FROM DW_DWJBXXB A 
+		  WHERE A.XT_ZXBZ='0' AND  A.XT_LRSJ<A.XT_ZHXGSJ AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GLFXJID=#value#) editCount,
+		       (SELECT COUNT(1) FROM DW_DWJBXXB A WHERE A.XT_ZXBZ='1' AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GLFXJID=#value#) CancellCont
+		 		 FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND  T.ORGCODE=#value#]]>
+	</select>
+	
+	
+	
+	<select id="selectCountBeanDwSj" parameterClass="String" resultClass="countBean">
+		<![CDATA[  SELECT 
+       (SELECT COUNT(1) FROM DW_DWJBXXB A WHERE A.XT_ZXBZ='0') Count,
+       (SELECT COUNT(1) FROM DW_DWJBXXB A WHERE A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') ) addCount,
+       (SELECT COUNT(1) FROM DW_DWJBXXB A 
+		  WHERE A.XT_ZXBZ='0' AND  A.XT_LRSJ<A.XT_ZHXGSJ AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD')) editCount,
+		       (SELECT COUNT(1) FROM DW_DWJBXXB A WHERE A.XT_ZXBZ='1' AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD')) CancellCont
+		 	 FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND T.ORGCODE=#value#
+    ]]>
+	</select>
+	
+	<!-- 实有房屋展示4个值   -->
+	
+    <select id="selectCountBeanFwZrq" parameterClass="String" resultClass="countBean">
+		<![CDATA[  SELECT 
+       (SELECT COUNT(1) FROM FW_FWJBXXB A WHERE A.XT_ZXBZ='0' AND A.SSZRQID=#value#) Count,
+       (SELECT COUNT(1) FROM FW_FWJBXXB A WHERE A.SFCZFDM='1' AND A.XT_ZXBZ='0' AND A.SSZRQID=#value#) addCount,
+       (SELECT COUNT(1) FROM FW_FWJBXXB A 
+		  WHERE A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.SSZRQID=#value#) editCount,
+		       (SELECT COUNT(1) FROM FW_FWJBXXB A 
+		  WHERE A.SFCZFDM='1' AND A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.SSZRQID=#value#) CancellCont
+		  	FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND T.ORGCODE=#value#]]>
+	</select>
+	
+	
+	 <select id="selectCountBeanFwPcs" parameterClass="String" resultClass="countBean">
+		<![CDATA[  SELECT 
+       (SELECT COUNT(1) FROM FW_FWJBXXB A WHERE A.XT_ZXBZ='0' AND A.SSPCSID=#value#) Count,
+       (SELECT COUNT(1) FROM FW_FWJBXXB A WHERE A.SFCZFDM='1' AND A.XT_ZXBZ='0' AND A.SSPCSID=#value#) addCount,
+       (SELECT COUNT(1) FROM FW_FWJBXXB A 
+		  WHERE A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.SSPCSID=#value#) editCount,
+		       (SELECT COUNT(1) FROM FW_FWJBXXB A 
+		  WHERE A.SFCZFDM='1' AND A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.SSPCSID=#value#) CancellCont
+		  	FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND T.ORGCODE=#value#]]>
+	</select>
+	
+	
+	 <select id="selectCountBeanFwFxj" parameterClass="String" resultClass="countBean">
+		<![CDATA[  SELECT 
+       (SELECT COUNT(1) FROM FW_FWJBXXB A WHERE A.XT_ZXBZ='0' AND A.SSFXJID=#value#) Count,
+       (SELECT COUNT(1) FROM FW_FWJBXXB A WHERE A.SFCZFDM='1' AND A.XT_ZXBZ='0' AND A.SSFXJID=#value#) addCount,
+       (SELECT COUNT(1) FROM FW_FWJBXXB A 
+		  WHERE A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.SSFXJID=#value#) editCount,
+		       (SELECT COUNT(1) FROM FW_FWJBXXB A 
+		  WHERE A.SFCZFDM='1' AND A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.SSFXJID=#value#) CancellCont
+		  	FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND T.ORGCODE=#value#]]>
+	</select>
+	
+	
+	
+	
+	<select id="selectCountBeanFwSj" parameterClass="String" resultClass="countBean">
+		<![CDATA[ SELECT 
+       (SELECT COUNT(1) FROM FW_FWJBXXB A WHERE A.XT_ZXBZ='0') Count,
+       (SELECT  COUNT(1) FROM FW_FWJBXXB A WHERE A.SFCZFDM='1' AND A.XT_ZXBZ='0' ) addCount,
+       (SELECT COUNT(1) FROM FW_FWJBXXB A 
+			  WHERE A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') ) editCount,
+			       (SELECT COUNT(1) FROM FW_FWJBXXB A 
+			  WHERE A.SFCZFDM='1' AND A.XT_ZXBZ='0' AND SUBSTR(A.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD')) CancellCont
+			 	 FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND T.ORGCODE=#value#
+      ]]>
+	</select>
+	
+	
+	
+	
+	<!-- 标准地址展示4个值   -->
+    
+    <select id="selectCountBeanBzdzZrq" parameterClass="String" resultClass="countBean">
+		<![CDATA[SELECT (SELECT COUNT(1)
+		          FROM BZDZ_BZDZXXB A
+		         WHERE A.XT_ZXBZ = '0'
+		           AND A.ZTBS = '02'
+		           AND A.DZJB = '10'
+		           AND A.ZRQDM = #value#) Count,
+		       (SELECT COUNT(1)
+		          FROM BZDZ_BZDZXXB A
+		         WHERE A.XT_ZXBZ = '0'
+		           AND A.ZTBS = '02'
+		           AND A.DZJB = '10'
+		           AND A.ZRQDM = #value#
+		           AND SUBSTR(A.XT_CZSJ, 1, 10) = TO_CHAR(SYSDATE, 'YYYY-MM-DD')) addCount,
+		       (SELECT COUNT(1)
+		          FROM BZDZ_BZDZXXB A
+		         WHERE A.XT_ZXBZ = '0'
+		           AND A.ZTBS = '02'
+		           AND A.DZJB = '10'
+		           AND A.ZRQDM = #value#
+		           AND A.Xt_Czsj < A.XT_ZHXGSJ
+		           AND SUBSTR(A.XT_ZHXGSJ, 1, 10) = TO_CHAR(SYSDATE, 'YYYY-MM-DD')) editCount,
+		       (SELECT COUNT(1)
+		          FROM BZDZ_BZDZXXB A
+		         WHERE A.XT_ZXBZ = '1'
+		           AND A.DZJB = '10'
+		           AND A.ZRQDM = #value#
+		           AND SUBSTR(A.XT_ZHXGSJ, 1, 10) = TO_CHAR(SYSDATE, 'YYYY-MM-DD')) CancellCont
+		  FROM ORG_ORGANIZATION T
+		 WHERE T.XT_ZXBZ = '0'
+		   AND T.ORGCODE = #value#
+		]]>
+	</select>
+	
+	
+	<select id="selectCountBeanBzdzPcs" parameterClass="String" resultClass="countBean">
+		<![CDATA[SELECT 
+       (SELECT COUNT(1) FROM BZDZ_BZDZXXB A 
+		  WHERE A.XT_ZXBZ='0' AND A.ZTBS='02' AND A.DZJB='10' AND A.PCSDM=#value# ) Count,
+		       (SELECT COUNT(1) FROM BZDZ_BZDZXXB A 
+		  WHERE A.XT_ZXBZ='0' AND A.ZTBS='02' AND A.DZJB='10' AND A.PCSDM=#value# AND
+		        SUBSTR(A.XT_CZSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') ) addCount,
+		       (SELECT COUNT(1) FROM BZDZ_BZDZXXB A 
+		  WHERE A.XT_ZXBZ='0' AND A.ZTBS='02' AND A.DZJB='10' AND A.PCSDM=#value# 
+		        AND A.XT_czsj<A.XT_ZHXGSJ AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD')  ) editCount,
+		       (SELECT COUNT(1) FROM BZDZ_BZDZXXB A 
+		  WHERE A.XT_ZXBZ='1' AND A.DZJB='10' AND A.PCSDM=#value# AND
+		        SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD')) CancellCont
+		  FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND T.ORGCODE=#value#
+ ]]>
+	</select>
+	
+	<select id="selectCountBeanBzdzFxj" parameterClass="String" resultClass="countBean">
+		<![CDATA[SELECT 
+       (SELECT COUNT(1) FROM BZDZ_BZDZXXB A 
+		  WHERE A.XT_ZXBZ='0' AND A.ZTBS='02' AND A.DZJB='10' AND A.FXJDM=#value# ) Count,
+		       (SELECT COUNT(1) FROM BZDZ_BZDZXXB A 
+		  WHERE A.XT_ZXBZ='0' AND A.ZTBS='02' AND A.DZJB='10' AND A.FXJDM=#value# AND
+		        SUBSTR(A.XT_CZSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') ) addCount,
+		       (SELECT COUNT(1) FROM BZDZ_BZDZXXB A 
+		  WHERE A.XT_ZXBZ='0' AND A.ZTBS='02' AND A.DZJB='10' AND A.FXJDM=#value#
+		        AND A.XT_CZSJ<A.XT_ZHXGSJ AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') ) editCount,
+		       (SELECT COUNT(1) FROM BZDZ_BZDZXXB A 
+		  WHERE A.XT_ZXBZ='1' AND A.DZJB='10' AND A.FXJDM=#value# AND
+		        SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD')) CancellCont
+		  FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND T.ORGCODE=#value# ]]>
+	</select>
+	
+	
+	<select id="selectCountBeanBzdzSj" parameterClass="String" resultClass="countBean">
+		<![CDATA[SELECT 
+       (SELECT COUNT(1) FROM BZDZ_BZDZXXB A 
+			  WHERE A.XT_ZXBZ='0' AND A.ZTBS='02' AND A.DZJB='10') Count,
+			       (SELECT COUNT(1) FROM BZDZ_BZDZXXB A 
+			  WHERE A.XT_ZXBZ='0' AND A.ZTBS='02' AND A.DZJB='10' AND
+			        SUBSTR(A.XT_CZSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD')) addCount,
+			       (SELECT COUNT(1) FROM BZDZ_BZDZXXB A 
+			  WHERE A.XT_ZXBZ='0' AND A.ZTBS='02' AND A.DZJB='10'
+			        AND A.XT_czsj<A.XT_ZHXGSJ AND SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD')) editCount,
+			       (SELECT COUNT(1) FROM BZDZ_BZDZXXB A 
+			  WHERE A.XT_ZXBZ='1' AND A.DZJB='10' AND
+			        SUBSTR(A.XT_ZHXGSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD')) CancellCont
+			 	 FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND T.ORGCODE=#value#
+
+  ]]>
+	</select>
+    
+    
+    
+    
+    <!-- 重点人员展示4个值   -->
+    
+    <select id="selectCountBeanZdryZrq" parameterClass="String" resultClass="countBean">
+		<![CDATA[
+				SELECT 
+				       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B 
+				  WHERE  A.RYID=B.RYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND A.XT_ZXBZ='0' AND B.XT_ZXBZ='0' AND A.GXZRQDM=#value#) Count,
+				       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B 
+				  WHERE  A.RYID=B.RYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND A.XT_ZXBZ='0' AND A.XT_ZXBZ='0' AND 
+				         SUBSTR(B.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GXZRQDM=#value#) addCount,
+				       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B,RK_DTGLJSB C
+				  WHERE  A.RYID=B.RYID AND B.ID=C.ZDRYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND A.XT_ZXBZ='0' AND A.XT_ZXBZ='0' AND 
+				         SUBSTR(C.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GXZRQDM=#value#) editCount,
+				       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B
+				  WHERE  A.RYID=B.RYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND A.XT_ZXBZ='0' AND A.XT_ZXBZ='0' AND 
+				         SUBSTR(B.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GXZRQDM=#value#) CancellCont
+				 	 FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND T.ORGCODE=#value#
+ ]]>
+	</select>
+	
+	
+	 <select id="selectCountBeanZdryPcs" parameterClass="String" resultClass="countBean">
+		<![CDATA[
+			SELECT 
+			       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B 
+			  WHERE  A.RYID=B.RYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND A.XT_ZXBZ='0' AND B.XT_ZXBZ='0' AND A.GXPCSDM=#value#) Count,
+			       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B 
+			  WHERE  A.RYID=B.RYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND A.XT_ZXBZ='0' AND A.XT_ZXBZ='0' AND 
+			         SUBSTR(B.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GXPCSDM=#value#) addCount,
+			       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B,RK_DTGLJSB C
+			  WHERE  A.RYID=B.RYID AND B.ID=C.ZDRYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND A.XT_ZXBZ='0' AND A.XT_ZXBZ='0' AND 
+			         SUBSTR(C.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GXPCSDM=#value#) editCount,
+			       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B
+			  WHERE  A.RYID=B.RYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND A.XT_ZXBZ='0' AND A.XT_ZXBZ='0' AND 
+			         SUBSTR(B.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GXPCSDM=#value#) CancellCont
+			 	 FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND T.ORGCODE=#value#
+    ]]>
+	</select>
+	
+	
+	 <select id="selectCountBeanZdryFxj" parameterClass="String" resultClass="countBean">
+		<![CDATA[SELECT 
+       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B 
+		  WHERE  A.RYID=B.RYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND A.XT_ZXBZ='0' AND B.XT_ZXBZ='0' AND A.GXFXJDM=#value#) Count,
+		       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B 
+		  WHERE  A.RYID=B.RYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND A.XT_ZXBZ='0' AND A.XT_ZXBZ='0' AND 
+		         SUBSTR(B.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GXFXJDM=#value#) addCount,
+		       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B,RK_DTGLJSB C
+		  WHERE  A.RYID=B.RYID AND B.ID=C.ZDRYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND A.XT_ZXBZ='0' AND A.XT_ZXBZ='0' AND 
+		         SUBSTR(C.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GXFXJDM=#value#) editCount,
+		       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B
+		  WHERE  A.RYID=B.RYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND A.XT_ZXBZ='0' AND A.XT_ZXBZ='0' AND 
+		         SUBSTR(B.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD') AND A.GXFXJDM=#value#) CancellCont
+		 	 FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND T.ORGCODE=#value#
+      ]]>
+	</select>
+	
+	 <select id="selectCountBeanZdrySj" parameterClass="String" resultClass="countBean">
+		<![CDATA[
+			SELECT 
+			       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B 
+			  WHERE  A.RYID=B.RYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND A.XT_ZXBZ='0' AND B.XT_ZXBZ='0') Count,
+			       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B 
+			  WHERE  A.RYID=B.RYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND A.XT_ZXBZ='0' AND A.XT_ZXBZ='0' AND 
+			         SUBSTR(B.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD')) addCount,
+			       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B,RK_DTGLJSB C
+			  WHERE  A.RYID=B.RYID AND B.ID=C.ZDRYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND A.XT_ZXBZ='0' AND A.XT_ZXBZ='0' AND 
+			         SUBSTR(C.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD')) editCount,
+			       (SELECT COUNT(1) FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B
+			  WHERE  A.RYID=B.RYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND A.XT_ZXBZ='0' AND A.XT_ZXBZ='0' AND 
+			         SUBSTR(B.XT_LRSJ,1,10)=TO_CHAR(SYSDATE,'YYYY-MM-DD')) CancellCont
+			 	 FROM ORG_ORGANIZATION T  WHERE T.XT_ZXBZ='0' AND T.ORGCODE=#value#
+ ]]>
+	</select>
+    
+    
+    
+    
+    
+    
+    <!-- 2014-11-15 -->
+    
+    
+    <select id="selectCountBeanSyrk" parameterClass="String" resultClass="countBean"><!--实有人口全部统计SQL-->
+		<![CDATA[
+			SELECT A.GXZRQDM orgcode,SUM(DECODE(A.XT_ZXBZ,'0',1,0)) Count,SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) addCount,
+	       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(B.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),DECODE(B.XT_LRSJ,B.XT_ZHXGSJ,0,1),0),0)) editCount,
+	       SUM(DECODE(A.XT_ZXBZ,'1',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) CancellCont
+		  FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+		  WHERE A.RYID=B.ID AND (A.XT_ZXBZ='0' OR A.XT_ZXBZ='1') AND A.GXZRQDM IS NOT NULL
+		  GROUP BY A.GXZRQDM
+		  UNION ALL
+		SELECT A.GXPCSDM orgcode,SUM(DECODE(A.XT_ZXBZ,'0',1,0)) Count,SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) addCount,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(B.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),DECODE(B.XT_LRSJ,B.XT_ZHXGSJ,0,1),0),0)) editCount,
+		       SUM(DECODE(A.XT_ZXBZ,'1',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) CancellCont
+		  FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+		  WHERE A.RYID=B.ID AND (A.XT_ZXBZ='0' OR A.XT_ZXBZ='1') AND A.GXPCSDM IS NOT NULL
+		  GROUP BY A.GXPCSDM  
+		  UNION ALL
+		SELECT A.GXFXJDM orgcode,SUM(DECODE(A.XT_ZXBZ,'0',1,0)) Count,SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) addCount,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(B.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),DECODE(B.XT_LRSJ,B.XT_ZHXGSJ,0,1),0),0)) editCount,
+		       SUM(DECODE(A.XT_ZXBZ,'1',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) CancellCont
+		  FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+		  WHERE A.RYID=B.ID AND (A.XT_ZXBZ='0' OR A.XT_ZXBZ='1') AND A.GXFXJDM IS NOT NULL
+		  GROUP BY A.GXFXJDM  
+		  UNION ALL
+		SELECT '210200000000' orgcode,SUM(DECODE(A.XT_ZXBZ,'0',1,0)) Count,SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) addCount,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(B.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),DECODE(B.XT_LRSJ,B.XT_ZHXGSJ,0,1),0),0)) editCount,
+		       SUM(DECODE(A.XT_ZXBZ,'1',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) CancellCont
+		  FROM RK_RYJZDZZB A,RK_RYJBXXB B 
+		  WHERE A.RYID=B.ID AND (A.XT_ZXBZ='0' OR A.XT_ZXBZ='1')
+             ]]>
+	</select>
+	
+	
+	
+	 <select id="selectCountBeanSydw" parameterClass="String" resultClass="countBean"><!--实有单位全部统计SQL-->
+		<![CDATA[
+			SELECT A.GLBMID orgcode,SUM(DECODE(A.XT_ZXBZ,'0',1,0)) Count,SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) addCount,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),DECODE(A.XT_LRSJ,A.XT_ZHXGSJ,0,1),0),0)) editCount,
+		       SUM(DECODE(A.XT_ZXBZ,'1',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) CancellCont
+		  FROM DW_DWJBXXB A 
+		  WHERE (A.XT_ZXBZ='0' OR A.XT_ZXBZ='1') AND A.GLBMID IS NOT NULL
+		  GROUP BY A.GLBMID
+		  UNION ALL
+		SELECT A.GLPCSID orgcode,SUM(DECODE(A.XT_ZXBZ,'0',1,0)) Count,SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) addCount,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),DECODE(A.XT_LRSJ,A.XT_ZHXGSJ,0,1),0),0)) editCount,
+		       SUM(DECODE(A.XT_ZXBZ,'1',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) CancellCont
+		  FROM DW_DWJBXXB A 
+		  WHERE (A.XT_ZXBZ='0' OR A.XT_ZXBZ='1') AND A.GLPCSID IS NOT NULL
+		  GROUP BY A.GLPCSID  
+		  UNION ALL
+		SELECT A.GLFXJID orgcode,SUM(DECODE(A.XT_ZXBZ,'0',1,0)) Count,SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) addCount,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),DECODE(A.XT_LRSJ,A.XT_ZHXGSJ,0,1),0),0)) editCount,
+		       SUM(DECODE(A.XT_ZXBZ,'1',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) CancellCont
+		  FROM DW_DWJBXXB A 
+		  WHERE (A.XT_ZXBZ='0' OR A.XT_ZXBZ='1') AND A.GLFXJID IS NOT NULL
+		  GROUP BY A.GLFXJID  
+		  UNION ALL
+		SELECT '210200000000' orgcode,SUM(DECODE(A.XT_ZXBZ,'0',1,0)) Count,SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) addCount,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),DECODE(A.XT_LRSJ,A.XT_ZHXGSJ,0,1),0),0)) editCount,
+		       SUM(DECODE(A.XT_ZXBZ,'1',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) CancellCont
+		  FROM DW_DWJBXXB A 
+		  WHERE (A.XT_ZXBZ='0' OR A.XT_ZXBZ='1')
+             ]]>
+	</select>
+	
+	
+	
+	
+	<select id="selectCountBeanBzdz1" parameterClass="String" resultClass="countBean"><!--标准地址全部统计SQL-->
+		<![CDATA[
+			SELECT A.ZRQDM ORGCODE,SUM(DECODE(A.XT_ZXBZ,'0',DECODE(A.ZTBS,'02',1,0),0)) Count,
+       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(A.ZTBS,'02',DECODE(SUBSTR(A.XT_CZSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0),0)) addCount,
+       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(A.ZTBS,'02',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),DECODE(A.XT_CZSJ,A.XT_ZHXGSJ,0,1),0),0),0)) editCount,
+       SUM(DECODE(A.XT_ZXBZ,'1',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) CancellCont
+		  FROM BZDZ_BZDZXXB A 
+		  WHERE (A.XT_ZXBZ='0' OR A.XT_ZXBZ='1') AND A.ZRQDM IS NOT NULL
+		  GROUP BY A.ZRQDM
+		  UNION ALL
+		SELECT A.PCSDM ORGCODE,SUM(DECODE(A.XT_ZXBZ,'0',DECODE(A.ZTBS,'02',1,0),0)) Count,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(A.ZTBS,'02',DECODE(SUBSTR(A.XT_CZSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0),0)) addCount,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(A.ZTBS,'02',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),DECODE(A.XT_CZSJ,A.XT_ZHXGSJ,0,1),0),0),0)) editCount,
+		       SUM(DECODE(A.XT_ZXBZ,'1',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) CancellCont
+		  FROM BZDZ_BZDZXXB A 
+		  WHERE (A.XT_ZXBZ='0' OR A.XT_ZXBZ='1') AND A.PCSDM IS NOT NULL
+		  GROUP BY A.PCSDM
+		  UNION ALL
+		SELECT A.FXJDM ORGCODE,SUM(DECODE(A.XT_ZXBZ,'0',DECODE(A.ZTBS,'02',1,0),0)) Count,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(A.ZTBS,'02',DECODE(SUBSTR(A.XT_CZSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0),0)) addCount,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(A.ZTBS,'02',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),DECODE(A.XT_CZSJ,A.XT_ZHXGSJ,0,1),0),0),0)) editCount,
+		       SUM(DECODE(A.XT_ZXBZ,'1',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) CancellCont
+		  FROM BZDZ_BZDZXXB A 
+		  WHERE (A.XT_ZXBZ='0' OR A.XT_ZXBZ='1') AND A.FXJDM IS NOT NULL
+		  GROUP BY A.FXJDM
+		  UNION ALL
+		SELECT '210200000000' ORGCODE,SUM(DECODE(A.XT_ZXBZ,'0',DECODE(A.ZTBS,'02',1,0),0)) Count,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(A.ZTBS,'02',DECODE(SUBSTR(A.XT_CZSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0),0)) addCount,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(A.ZTBS,'02',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),DECODE(A.XT_CZSJ,A.XT_ZHXGSJ,0,1),0),0),0)) editCount,
+		       SUM(DECODE(A.XT_ZXBZ,'1',DECODE(SUBSTR(A.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) CancellCont
+		  FROM BZDZ_BZDZXXB A 
+		  WHERE (A.XT_ZXBZ='0' OR A.XT_ZXBZ='1')
+             ]]>
+	</select>
+	
+	
+	
+	<select id="selectCountBeanZdry1" parameterClass="String" resultClass="countBean"><!--重点人员全部统计SQL-->
+		<![CDATA[
+			SELECT A.GXZRQDM ORGCODE,SUM(DECODE(B.XT_ZXBZ,'0',1,0)) Count,SUM(DECODE(B.XT_ZXBZ,'0',DECODE(SUBSTR(B.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) addCount,
+       SUM(DECODE(C.XT_ZXBZ,'0',DECODE(SUBSTR(C.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) editCount,
+		       SUM(DECODE(B.XT_ZXBZ,'1',DECODE(SUBSTR(B.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) CancellCont
+		  FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B,RK_DTGLJSB C 
+		  WHERE A.RYID=B.RYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND B.ID=C.ZDRYID AND A.XT_ZXBZ='0' AND (B.XT_ZXBZ='0' OR B.XT_ZXBZ='1') AND A.GXZRQDM IS NOT NULL
+		  GROUP BY A.GXZRQDM
+		  UNION ALL
+		SELECT A.GXPCSDM ORGCODE,SUM(DECODE(B.XT_ZXBZ,'0',1,0)) Count,SUM(DECODE(B.XT_ZXBZ,'0',DECODE(SUBSTR(B.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) addCount,
+		       SUM(DECODE(C.XT_ZXBZ,'0',DECODE(SUBSTR(C.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) editCount,
+		       SUM(DECODE(B.XT_ZXBZ,'1',DECODE(SUBSTR(B.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) CancellCont
+		  FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B,RK_DTGLJSB C 
+		  WHERE A.RYID=B.RYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND B.ID=C.ZDRYID AND A.XT_ZXBZ='0' AND (B.XT_ZXBZ='0' OR B.XT_ZXBZ='1') AND A.GXPCSDM IS NOT NULL
+		  GROUP BY A.GXPCSDM  
+		  UNION ALL
+		SELECT A.GXFXJDM ORGCODE,SUM(DECODE(B.XT_ZXBZ,'0',1,0)) Count,SUM(DECODE(B.XT_ZXBZ,'0',DECODE(SUBSTR(B.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) addCount,
+		       SUM(DECODE(C.XT_ZXBZ,'0',DECODE(SUBSTR(C.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) editCount,
+		       SUM(DECODE(B.XT_ZXBZ,'1',DECODE(SUBSTR(B.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) CancellCont
+		  FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B,RK_DTGLJSB C 
+		  WHERE A.RYID=B.RYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND B.ID=C.ZDRYID AND A.XT_ZXBZ='0' AND (B.XT_ZXBZ='0' OR B.XT_ZXBZ='1') AND A.GXFXJDM IS NOT NULL
+		  GROUP BY A.GXFXJDM  
+		  UNION ALL
+		SELECT '210200000000' ORGCODE,SUM(DECODE(B.XT_ZXBZ,'0',1,0)) Count,SUM(DECODE(B.XT_ZXBZ,'0',DECODE(SUBSTR(B.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) addCount,
+		       SUM(DECODE(C.XT_ZXBZ,'0',DECODE(SUBSTR(C.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) editCount,
+		       SUM(DECODE(B.XT_ZXBZ,'1',DECODE(SUBSTR(B.XT_ZHXGSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) CancellCont
+		  FROM RK_RYJZDZZB A,RK_ZDRYJBXXB B,RK_DTGLJSB C 
+		  WHERE A.RYID=B.RYID AND A.DZ_JZDZDM=B.DZ_JZDZDM AND B.ID=C.ZDRYID AND A.XT_ZXBZ='0' AND (B.XT_ZXBZ='0' OR B.XT_ZXBZ='1') AND A.GXFXJDM IS NOT NULL
+             ]]>
+	</select>
+	
+	
+	
+	
+		<select id="selectCountBeanSyfw" parameterClass="String" resultClass="countBean"><!--实有房屋全部统计SQL-->
+		<![CDATA[
+			SELECT A.SSZRQID ORGCODE,SUM(DECODE(A.XT_ZXBZ,'0',1,0)) Count,SUM(DECODE(A.XT_ZXBZ,'0',DECODE(A.SFCZFDM,'1',1,0),0)) addCount,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) editCount,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),DECODE(A.SFCZFDM,'1',1,0),0),0)) CancellCont
+		  FROM FW_FWJBXXB A WHERE A.XT_ZXBZ='0' AND A.SSZRQID IS NOT NULL
+		  GROUP BY A.SSZRQID
+		  UNION ALL
+		SELECT A.SSPCSID ORGCODE,SUM(DECODE(A.XT_ZXBZ,'0',1,0)) Count,SUM(DECODE(A.XT_ZXBZ,'0',DECODE(A.SFCZFDM,'1',1,0),0)) addCount,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) editCount,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),DECODE(A.SFCZFDM,'1',1,0),0),0)) CancellCont
+		  FROM FW_FWJBXXB A WHERE A.XT_ZXBZ='0' AND A.SSPCSID IS NOT NULL
+		  GROUP BY A.SSPCSID
+		  UNION ALL
+		SELECT A.SSFXJID ORGCODE,SUM(DECODE(A.XT_ZXBZ,'0',1,0)) Count,SUM(DECODE(A.XT_ZXBZ,'0',DECODE(A.SFCZFDM,'1',1,0),0)) addCount,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) editCount,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),DECODE(A.SFCZFDM,'1',1,0),0),0)) CancellCont
+		  FROM FW_FWJBXXB A WHERE A.XT_ZXBZ='0' AND A.SSFXJID IS NOT NULL
+		  GROUP BY A.SSFXJID  
+		  UNION ALL
+		SELECT '210200000000' ORGCODE,SUM(DECODE(A.XT_ZXBZ,'0',1,0)) Count,SUM(DECODE(A.XT_ZXBZ,'0',DECODE(A.SFCZFDM,'1',1,0),0)) addCount,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),1,0),0)) editCount,
+		       SUM(DECODE(A.XT_ZXBZ,'0',DECODE(SUBSTR(A.XT_LRSJ,1,10),TO_CHAR(SYSDATE,'YYYY-MM-DD'),DECODE(A.SFCZFDM,'1',1,0),0),0)) CancellCont
+		  FROM FW_FWJBXXB A WHERE A.XT_ZXBZ='0'
+             ]]>
+	</select>
+    
+    
+    
+    
+    <!-- 今日人口统计 -->
+	<select id="querySyrkCount" parameterClass="gzdt" resultClass="gzdt">
+		<![CDATA[ 
+		select nvl(sum(case when xt_zxbz='0' and xt_zhxgsj=xt_lrsj then 1 else 0 end),0) xz,
+	       nvl(sum(case when xt_zxbz='0' and xt_zhxgsj<>xt_lrsj then 1 else 0 end),0) xg,
+	       nvl(sum(case when xt_zxbz='1' then 1 else 0 end),0) zx
+		  from syrk_syrkxxzb where xt_zhxgsj like '$currentDay$%'
+		  and (gxzrqdm=#dwdm# or substr(gxzrqdm,1,8)||'0000'= #dwdm# or substr(gxzrqdm,1,6)||'000000'=#dwdm#
+		  or  substr(gxzrqdm,1,4)||'00000000'=#dwdm#)
+		]]>
+	</select>
+	
+	<!-- 今日房屋统计 -->
+	<select id="querySyfwCount" parameterClass="gzdt" resultClass="gzdt">
+		<![CDATA[
+		select nvl(sum(case when xt_zxbz='0' and xt_zhxgsj=xt_lrsj then 1 else 0 end),0) xz,
+       nvl(sum(case when xt_zxbz='0' and xt_zhxgsj<>xt_lrsj then 1 else 0 end),0) xg,
+       nvl(sum(case when xt_zxbz='1' then 1 else 0 end),0) zx
+	  from syfw_fwjbxxb 
+	 where xt_zhxgsj like '$currentDay$%'
+	   and (ss4jbmdm=#dwdm# or substr(ss4jbmdm,1,8)||'0000'= #dwdm# or substr(ss4jbmdm,1,6)||'000000'=#dwdm#
+	    or  substr(ss4jbmdm,1,4)||'00000000'=#dwdm#)
+		
+		
+		 ]]>
+	</select>
+	
+	<!-- 今日单位统计 -->
+	<select id="querySydwCount" parameterClass="gzdt" resultClass="gzdt">
+		<![CDATA[
+		    select nvl(sum(case when xt_zxbz='0' and xt_zhxgsj=xt_lrsj then 1 else 0 end),0) xz,
+       nvl(sum(case when xt_zxbz='0' and xt_zhxgsj<>xt_lrsj then 1 else 0 end),0) xg,
+       nvl(sum(case when xt_zxbz='1' then 1 else 0 end),0) zx
+		  from dw_dwjbxxb 
+		 where xt_zhxgsj like '$currentDay$%'
+		   and (glbmid=#dwdm# or substr(glbmid,1,8)||'0000'= #dwdm# or substr(glbmid,1,6)||'000000'=#dwdm#
+		    or  substr(glbmid,1,4)||'00000000'=#dwdm#)
+		 ]]>
+	</select>
+	
+	<!-- 今日地址统计 -->
+	<select id="queryBzdzCount" parameterClass="gzdt" resultClass="gzdt">
+		<![CDATA[
+		
+		select nvl(sum(case when xt_zxbz='0' and xt_zhxgsj=xt_lrsj then 1 else 0 end),0) xz,
+       nvl(sum(case when xt_zxbz='0' and xt_zhxgsj<>xt_lrsj then 1 else 0 end),0) xg,
+       nvl(sum(case when xt_zxbz='1' then 1 else 0 end),0) zx
+	  from bzdz_add_mldzdxb 
+	 where xt_zhxgsj like '$currentDay$%'
+	   and (zrqdm=#dwdm# or substr(zrqdm,1,8)||'0000'= #dwdm# or substr(zrqdm,1,6)||'000000'=#dwdm#
+	    or  substr(zrqdm,1,4)||'00000000'=#dwdm#)
+		
+		]]>
+	</select>
+	
+	<!-- 今日重口统计 -->
+	<select id="queryZdryCount" parameterClass="gzdt" resultClass="gzdt">
+		<![CDATA[
+		select nvl(sum(case when glzt='2' then 1 else 0 end),0) xz,
+       nvl(sum(case when glzt='4' then 1 else 0 end),0) zx
+		  from ZDRY_ZDRYZB 
+		 where xt_zhxgsj like '$currentDay$%'
+		   and (sszrqdm=#dwdm# or substr(sszrqdm,1,8)||'0000'= #dwdm# or substr(sszrqdm,1,6)||'000000'=#dwdm#
+		    or  substr(sszrqdm,1,4)||'00000000'=#dwdm#)
+		 ]]>
+	</select>
+	
+	
+	<!-- 统计总数-->
+	<select id="queryAllCount" parameterClass="String" resultClass="dttjb">
+		<![CDATA[
+		     select * from dttj_tjb t where t.orgcode=#orgcode# and rownum = 1
+		 ]]>
+	</select>
+	
+    
+    
+    
+    
+    
+    
+    
+ 
+
+</sqlMap>

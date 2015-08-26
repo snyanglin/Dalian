@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--  
+	@Author:       [wu.w@founder.com.cn]
+	@CreateDate:   [2015-5-15 上午8:51:54]
+	* @review      : tian_chengwei@founder.com.cn
+    * @reviewDate  : 20150604
+-->
+<sqlMap namespace="AqffXcZatbxxb">
+	<typeAlias alias="zatb" type="com.founder.aqff.bean.AqffXcZatbxxb" />
+	
+	<!-- 注销数据 -->
+	<update id="delete" parameterClass="zatb" >
+		<![CDATA[UPDATE AQFF_XC_ZATBXXB SET ]]><include refid="deleteXtzd"/>
+		<![CDATA[ WHERE id = #id#]]>
+	</update>
+	
+	<!-- 查询数据 -->
+	<select id="queryList" parameterClass="Map" resultClass="zatb">
+	       SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+		       SELECT *  FROM AQFF_XC_ZATBXXB T 
+		       WHERE T.XT_ZXBZ = '0'
+		       <isNotEmpty prepend="AND" property="entity.tbrq">
+		             T.TBRQ = #entity.tbrq#
+		       </isNotEmpty>
+		       <isNotEmpty prepend="AND" property="entity.tbqh">
+		             T.TBQH LIKE '%'||#entity.tbqh#||'%'
+		       </isNotEmpty>
+		       <isNotEmpty prepend="AND" property="entity.tbbt">
+		             T.TBBT LIKE '%'||#entity.tbbt#||'%'
+		       </isNotEmpty>
+		       <isNotEmpty prepend="AND" property="entity.fbdw">
+		             T.FBDW LIKE '%'||#entity.fbdw#||'%'
+		       </isNotEmpty>
+		       ORDER BY T.$sort$ $order$) M 
+		  <![CDATA[WHERE ROWNUM <= #end# ) WHERE R > #begin#]]> 
+	</select>
+	
+	<!-- 查询数据总数 -->
+	<select id="queryListCount" parameterClass="Map" resultClass="Integer">
+		   SELECT COUNT(1) FROM AQFF_XC_ZATBXXB T 
+	       WHERE T.XT_ZXBZ = '0'
+	       <isNotEmpty prepend="AND" property="entity.tbrq">
+	             T.TBRQ = #entity.tbrq#
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="entity.tbqh">
+	             T.TBQH LIKE '%'||#entity.tbqh#||'%'
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="entity.tbbt">
+	             T.TBBT LIKE '%'||#entity.tbbt#||'%'
+	       </isNotEmpty>
+	       <isNotEmpty prepend="AND" property="entity.fbdw">
+	             T.FBDW LIKE '%'||#entity.fbdw#||'%'
+	       </isNotEmpty>
+	</select>
+	
+	<!-- 新增数据 -->
+	<update id="save" parameterClass="zatb" >
+		INSERT INTO AQFF_XC_ZATBXXB (
+			ID,TBRQ,TBQH,TBBT,FBDW,FBFS,TBNR,<include refid="insertXtzd"/> 
+  		) VALUES (
+  			#id#,#tbrq#,#tbqh#,#tbbt#,#fbdw#,#fbfs#,#tbnr#,<include refid="insertXtzdVal"/>)
+	</update>
+	
+	<!-- 修改数据 -->
+	<update id="update" parameterClass="zatb" >
+		UPDATE AQFF_XC_ZATBXXB 
+		<dynamic prepend="set">
+			<isNotNull prepend = "," property = "tbrq"> <![CDATA[tbrq = #tbrq#]]> </isNotNull>
+			<isNotNull prepend = "," property = "tbqh"> <![CDATA[tbqh = #tbqh#]]> </isNotNull>
+			<isNotNull prepend = "," property = "tbbt"> <![CDATA[tbbt = #tbbt#]]> </isNotNull>
+			<isNotNull prepend = "," property = "fbdw"> <![CDATA[fbdw = #fbdw#]]> </isNotNull>
+			<isNotNull prepend = "," property = "fbfs"> <![CDATA[fbfs = #fbfs#]]> </isNotNull>
+			<isNotNull prepend = "," property = "tbnr"> <![CDATA[tbnr = #tbnr#]]> </isNotNull>
+			,<include refid="updateXtzd"/>		
+		</dynamic>			
+		WHERE id = #id#
+	</update>
+</sqlMap>

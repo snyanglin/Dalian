@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<report version="5.0">
+	<head>
+		<property name="type">0</property>
+		<name><![CDATA[SYRKTJBB_XQ]]></name>
+		<dataSets>
+			<dataSet name="syrk_dr" type="DB_SQL" >
+				<property name="dataSource">SYRK_DR</property>
+				<property name="desc"><![CDATA[]]></property>
+				<property name="query"><![CDATA[="select 
+	sum(case when b.xt_zxbz='2' and b.syrkgllbdm='01' then 1 else 0 end) as czdhs,
+       sum(case when b.xt_zxbz='0' and b.syrkgllbdm='01' then 1 else 0 end) as czyhs,
+       sum(case when b.xt_zxbz='2' and b.syrkgllbdm='02' then 1 else 0 end) as jzdhs,
+       sum(case when b.xt_zxbz='0' and b.syrkgllbdm='02' then 1 else 0 end) as jzyhs,
+       sum(case when b.xt_zxbz='2' and b.syrkgllbdm='03' then 1 else 0 end) as lddhs,
+       sum(case when b.xt_zxbz='0' and b.syrkgllbdm='03' then 1 else 0 end) as ldyhs,
+       sum(case when b.xt_zxbz='2' and b.syrkgllbdm='05' then 1 else 0 end) as wldhs,
+       sum(case when b.xt_zxbz='0' and b.syrkgllbdm='05' then 1 else 0 end) as wlyhs,
+       sum(case when b.xt_zxbz='2' and b.syrkgllbdm='04' then 1 else 0 end) as jwdhs,
+       sum(case when b.xt_zxbz='0' and b.syrkgllbdm='04' then 1 else 0 end) as jwyhs,
+	(select orgname from jwzh.org_organization o where o.orgcode="+case(@ORG_FJ='0' and @ORG_PCS='0'," b.gxfxjdm",@ORG_FJ!='0' and @ORG_PCS='0'," b.gxpcsdm",@ORG_FJ!='0' and @ORG_PCS!='0'," b.xt_zhxgrbmid")+") as orgname,
+	"+case(@ORG_FJ='0' and @ORG_PCS='0'," b.gxfxjdm",@ORG_FJ!='0' and @ORG_PCS='0'," b.gxpcsdm",@ORG_FJ!='0' and @ORG_PCS!='0'," b.xt_zhxgrbmid")+"  as orgcode
+       from rk_ryjzdzzb b where  substr(xt_zhxgsj,1,10) < '"+tostr(@ZQ_JS,"yyyy-MM-dd")+"'  and substr(xt_zhxgsj,1,10) > '"+tostr(@ZQ_KS,"yyyy-MM-dd")+"' and xt_zhxgrxm is not null   group by "+case(@ORG_FJ='0' and @ORG_PCS='0'," b.gxfxjdm",@ORG_FJ!='0' and @ORG_PCS='0'," b.gxpcsdm",@ORG_FJ!='0' and @ORG_PCS!='0'," b.xt_zhxgrbmid")]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+			<dataSet name="dwmc" type="DB_SQL" >
+				<property name="dataSource">SYRK_DR</property>
+				<property name="desc"><![CDATA[]]></property>
+				<property name="query"><![CDATA[="select orgname from org_organization o where o.orgcode='"+case(@ORG_FJ='0' and @ORG_PCS='0',"210200000000",@ORG_FJ!='0' and @ORG_PCS='0',@ORG_FJ,@ORG_FJ!='0' and @ORG_PCS!='0',@ORG_PCS)+"'"]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+		</dataSets>
+		<parameters>
+			<parameter name="ORG_FJ" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">分局代码</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ORG_PCS" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">派出所代码</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ZQ_KS" type="2">
+				<property name="dateFormat">yyyy-MM-dd</property>
+				<property name="default"></property>
+				<property name="desc">开始时间</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ZQ_JS" type="2">
+				<property name="dateFormat">yyyy-MM-dd</property>
+				<property name="default"></property>
+				<property name="desc">结束时间</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="dw" type="6">
+				<property name="dateFormat"></property>
+				<property name="default"></property>
+				<property name="desc"></property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="zzjglx" type="17">
+				<property name="dateFormat"></property>
+				<property name="default"></property>
+				<property name="desc"></property>
+				<property name="valueCalc">false</property>
+			</parameter>
+		</parameters>
+		<variables/>
+	</head>
+	<body>
+		<sheet id="sheet1">
+			<page>
+				<property name="paginateType">3</property>
+			</page>
+			<grid row="5" col="13">
+				<properties>
+				</properties>
+				<rows>
+					<row id="1">
+						<property name="type">1</property>
+						<property name="height">68</property>
+					</row>
+					<row id="2">
+						<property name="type">2</property>
+					</row>
+					<row id="3">
+						<property name="type">2</property>
+					</row>
+					<row id="4">
+						<property name="height">40</property>
+					</row>
+					<row id="5">
+						<property name="type">4</property>
+					</row>
+				</rows>
+				<columns>
+					<column id="1">
+						<property name="width">53</property>
+					</column>
+					<column id="2">
+						<property name="width">53</property>
+					</column>
+					<column id="3">
+						<property name="width">53</property>
+					</column>
+					<column id="4">
+						<property name="width">53</property>
+					</column>
+					<column id="5">
+						<property name="width">53</property>
+					</column>
+					<column id="6">
+						<property name="width">53</property>
+					</column>
+					<column id="7">
+						<property name="width">53</property>
+					</column>
+					<column id="8">
+						<property name="width">53</property>
+					</column>
+					<column id="9">
+						<property name="width">53</property>
+					</column>
+					<column id="10">
+						<property name="width">53</property>
+					</column>
+					<column id="11">
+						<property name="width">53</property>
+					</column>
+					<column id="12">
+						<property name="width">53</property>
+					</column>
+					<column id="13">
+						<property name="visible"><![CDATA[1]]></property>
+					</column>
+				</columns>
+				<cells>
+					<cell id="1,1" type="0" colspan="12" >
+						<property name="value"><![CDATA[=dwmc.select(ORGNAME)+"实有人口统计报表（详情）"]]></property>
+						<property name="font-size">16</property>
+						<property name="bold">0</property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1</border>
+					</cell>
+					<cell id="1,13" type="0" >
+					</cell>
+					<cell id="2,1" type="0" rowspan="2" colspan="2" >
+						<border type="1">1:0,0,0:1;1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1;1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1;1:0,0,0:1</border>
+					</cell>
+					<cell id="2,3" type="0" colspan="2" >
+						<property name="value"><![CDATA[常住人口]]></property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,5" type="0" colspan="2" >
+						<property name="value"><![CDATA[寄住人口]]></property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,7" type="0" colspan="2" >
+						<property name="value"><![CDATA[流动人口]]></property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,9" type="0" colspan="2" >
+						<property name="value"><![CDATA[未落常口]]></property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,11" type="0" colspan="2" >
+						<property name="value"><![CDATA[境外人员]]></property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,13" type="0" >
+					</cell>
+					<cell id="3,3" type="0" >
+						<property name="value"><![CDATA[待核实]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,4" type="0" >
+						<property name="value"><![CDATA[已核实]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,5" type="0" >
+						<property name="value"><![CDATA[待核实]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,6" type="0" >
+						<property name="value"><![CDATA[已核实]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,7" type="0" >
+						<property name="value"><![CDATA[待核实]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,8" type="0" >
+						<property name="value"><![CDATA[已核实]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,9" type="0" >
+						<property name="value"><![CDATA[待核实]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,10" type="0" >
+						<property name="value"><![CDATA[已核实]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,11" type="0" >
+						<property name="value"><![CDATA[待核实]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,12" type="0" >
+						<property name="value"><![CDATA[已核实]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,13" type="0" >
+						<property name="value"><![CDATA[id]]></property>
+					</cell>
+					<cell id="4,1" type="0" colspan="2" >
+						<property name="value"><![CDATA[=syrk_dr.select(ORGNAME)]]></property>
+						<property name="ext-direction">3</property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,3" type="0" >
+						<property name="value"><![CDATA[=syrk_dr.select(CZDHS)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,4" type="0" >
+						<property name="value"><![CDATA[=syrk_dr.select(CZYHS)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,5" type="0" >
+						<property name="value"><![CDATA[=syrk_dr.select(JZDHS)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,6" type="0" >
+						<property name="value"><![CDATA[=syrk_dr.select(JZYHS)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,7" type="0" >
+						<property name="value"><![CDATA[=syrk_dr.select(LDDHS)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,8" type="0" >
+						<property name="value"><![CDATA[=syrk_dr.select(LDYHS)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,9" type="0" >
+						<property name="value"><![CDATA[=syrk_dr.select(WLDHS)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,10" type="0" >
+						<property name="value"><![CDATA[=syrk_dr.select(WLYHS)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,11" type="0" >
+						<property name="value"><![CDATA[=syrk_dr.select(JWDHS)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,12" type="0" >
+						<property name="value"><![CDATA[=syrk_dr.select(JWYHS)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,13" type="0" >
+						<property name="value"><![CDATA[=syrk_dr.select(ORGCODE)]]></property>
+					</cell>
+					<cell id="5,1" type="0" colspan="2" >
+						<border type="1">1:0,0,0:1;1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,3" type="0" >
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,4" type="0" >
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,5" type="0" >
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,6" type="0" >
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,7" type="0" >
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,8" type="0" >
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,9" type="0" >
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,10" type="0" >
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,11" type="0" >
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,12" type="0" >
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,13" type="0" >
+					</cell>
+				</cells>
+			</grid>
+		</sheet>
+	</body>
+</report>

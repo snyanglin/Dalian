@@ -1,0 +1,2041 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Dwownsydw">
+  <!--  
+	@Author:       [star]
+	@CreateDate:   [2015-5-15 上午8:51:54]
+	* @review      : heng_xing@founder.com.cn
+    * @reviewDate  : 20150604
+-->
+	<typeAlias alias="dwOwnGwylcsBean" type="com.founder.sydw.bean.DwOwnGwylcsBean" />
+	<typeAlias alias="dwOwnAmfwcsBean" type="com.founder.sydw.bean.DwOwnAmfwcsBean" />
+	<typeAlias alias="dwOwnYxyycsBean" type="com.founder.sydw.bean.DwOwnYxyycsBean" />
+	<typeAlias alias="dwOwnSealBean" type="com.founder.sydw.bean.DwOwnSealBean" />
+	<typeAlias alias="dwOwnMbBean" type="com.founder.sydw.bean.DwOwnMbBean" />
+	<typeAlias alias="dwOwnMbXmyjBean" type="com.founder.sydw.bean.DwOwnMbXmyjBean" />
+	<typeAlias alias="dwOwnMqBean" type="com.founder.sydw.bean.DwOwnMqBean" />
+	<typeAlias alias="dwOwnMqZgryBean" type="com.founder.sydw.bean.DwOwnMqZgryBean" />
+	<typeAlias alias="dwOwnYhBean" type="com.founder.sydw.bean.DwOwnYhBean" />
+	<typeAlias alias="zzyhjzzsbb" type="com.founder.sydw.bean.Zzyhjzzsbb" />
+	<typeAlias alias="dwxyaqxxbBay" type="com.founder.sydw.bean.DwjbxxbBay" />
+	<typeAlias alias="xyaqxxbHxd" type="com.founder.sydw.bean.XyaqxxbHxd" />
+	<typeAlias alias="xyaqxxbXc" type="com.founder.sydw.bean.XyaqxxbXc" />
+	<typeAlias alias="dwOwnZjbxBean" type="com.founder.sydw.bean.DwOwnZjbxBean" />
+	<typeAlias alias="dwOwnGqwbBean" type="com.founder.sydw.bean.DwOwnGqwbBean" />
+	<typeAlias alias="dwOwnXFBean" type="com.founder.sydw.bean.DwOwnXFBean" />
+	<!-- 特色行业添加 -->
+	<!-- 歌舞娱乐场所 开始 -->
+	<!-- 实有单位编辑显示页面 -->
+	<select id="queryGwylcs" parameterClass="Map" resultClass="dwOwnGwylcsBean">
+		<![CDATA[select * from DW_DWGWXXB t where dwid= #dwid#  AND XT_ZXBZ='0' ORDER BY xt_cjsj DESC]]>
+	</select>
+	<!-- 查询单条 -->
+	<select id="queryGwylcsByRyid" parameterClass="dwOwnGwylcsBean"
+		resultClass="com.founder.sydw.bean.DwOwnGwylcsBean">
+		<![CDATA[select * from DW_DWGWXXB t where id= #id# ]]>
+	</select>
+   <!-- 插入 -->
+	<insert id="insertGwylcs" parameterClass="dwOwnGwylcsBean">
+		INSERT INTO DW_DWGWXXB
+		(id
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[dwid]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bxsl">
+				<![CDATA[bxsl]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdxfzs">
+				<![CDATA[hdxfzs]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="wcs">
+				<![CDATA[wcs]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="cksl">
+			   <![CDATA[cksl]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sxtsl">
+				<![CDATA[sxtsl]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="wcmj">
+				<![CDATA[wcmj]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzd" />
+		)
+		values
+		(
+		<isNotEmpty property="id">
+				<![CDATA[#id#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[#dwid#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bxsl">
+				<![CDATA[#bxsl#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdxfzs">
+				<![CDATA[#hdxfzs#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="wcs">
+				<![CDATA[#wcs#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="cksl">
+				<![CDATA[#cksl#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sxtsl">
+				<![CDATA[#sxtsl#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="wcmj">
+				<![CDATA[#wcmj#]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzdVal" />
+		)
+	</insert>
+    <!-- 更新 -->
+	<update id="updateGwylcs" parameterClass="dwOwnGwylcsBean">
+	 <![CDATA[ update DW_DWGWXXB]]>
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="dwid"><![CDATA[dwid=#dwid#]]></isNotNull>
+			<isNotNull prepend="," property="bxsl"><![CDATA[bxsl=#bxsl#]]></isNotNull>
+			<isNotNull prepend="," property="hdxfzs"><![CDATA[hdxfzs=#hdxfzs#]]></isNotNull>
+			<isNotNull prepend="," property="wcs"><![CDATA[wcs=#wcs#]]></isNotNull>
+			<isNotNull prepend="," property="cksl"><![CDATA[cksl=#cksl#]]></isNotNull>
+			<isNotNull prepend="," property="sxtsl"><![CDATA[sxtsl=#sxtsl#]]></isNotNull>
+			<isNotNull prepend="," property="wcmj"><![CDATA[wcmj=#wcmj#]]></isNotNull>
+			,
+			<include refid="updateXtzd" />
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>
+	</update>
+	<!-- 歌舞娱乐场所结束 -->
+	<!-- 按摩服务场所开始 -->
+	<!-- 实有单位编辑显示页面 -->
+	<select id="queryAmfwcs" parameterClass="Map" resultClass="dwOwnAmfwcsBean">
+		<![CDATA[select * from DW_DWAMXXB t where dwid= #dwid#  AND XT_ZXBZ='0' ORDER BY xt_cjsj DESC ]]>
+	</select>
+	<!-- 查询单条 -->
+	<select id="queryAmfwcsByRyid" parameterClass="dwOwnAmfwcsBean"
+		resultClass="com.founder.sydw.bean.DwOwnAmfwcsBean">
+		<![CDATA[select * from DW_DWAMXXB t where id= #id# ]]>
+	</select>
+
+	<insert id="insertAmfwcs" parameterClass="dwOwnAmfwcsBean">
+		INSERT INTO DW_DWAMXXB
+		(id
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[dwid]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="amcsjyxkz">
+				<![CDATA[amcsjyxkz]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="amcsfwxkz">
+				<![CDATA[amcsfwxkz]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="amrsl">
+				<![CDATA[amrsl]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="amcsl">
+			   <![CDATA[amcsl]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="amssl">
+				<![CDATA[amssl]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="cksl">
+				<![CDATA[cksl]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xxdtmj">
+				<![CDATA[xxdtmj]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzd" />
+		)
+		values
+		(
+		<isNotEmpty property="id">
+				<![CDATA[#id#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[#dwid#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="amcsjyxkz">
+				<![CDATA[#amcsjyxkz#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="amcsfwxkz">
+				<![CDATA[#amcsfwxkz#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="amrsl">
+				<![CDATA[#amrsl#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="amcsl">
+				<![CDATA[#amcsl#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="amssl">
+				<![CDATA[#amssl#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="cksl">
+				<![CDATA[#cksl#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xxdtmj">
+				<![CDATA[#xxdtmj#]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzdVal" />
+		)
+	</insert>
+
+	<update id="updateAmfwcs" parameterClass="dwOwnAmfwcsBean">
+	 <![CDATA[ update DW_DWAMXXB]]>
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="dwid"><![CDATA[dwid=#dwid#]]></isNotNull>
+			<isNotNull prepend="," property="amcsjyxkz"><![CDATA[amcsjyxkz=#amcsjyxkz#]]></isNotNull>
+			<isNotNull prepend="," property="amcsfwxkz"><![CDATA[amcsfwxkz=#amcsfwxkz#]]></isNotNull>
+			<isNotNull prepend="," property="amrsl"><![CDATA[amrsl=#amrsl#]]></isNotNull>
+			<isNotNull prepend="," property="amcsl"><![CDATA[amcsl=#amcsl#]]></isNotNull>
+			<isNotNull prepend="," property="amssl"><![CDATA[amssl=#amssl#]]></isNotNull>
+			<isNotNull prepend="," property="cksl"><![CDATA[cksl=#cksl#]]></isNotNull>
+			<isNotNull prepend="," property="xxdtmj"><![CDATA[xxdtmj=#xxdtmj#]]></isNotNull>
+			,
+			<include refid="updateXtzd" />
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>
+	</update>
+
+	<!-- 按摩服务场所结束 -->
+	<!-- 游艺场所信息开始 -->
+	<select id="queryYxyycs" parameterClass="Map" resultClass="dwOwnYxyycsBean">
+		<![CDATA[select * from DW_DWYYXXB t where dwid= #dwid#  AND XT_ZXBZ='0' ORDER BY xt_cjsj DESC ]]>
+	</select>
+	<!-- 查询单条 -->
+	<select id="queryYxyycsByRyid" parameterClass="dwOwnYxyycsBean"
+		resultClass="com.founder.sydw.bean.DwOwnYxyycsBean">
+		<![CDATA[select * from DW_DWYYXXB t where id= #id# ]]>
+	</select>
+
+	<insert id="insertYxyycs" parameterClass="dwOwnYxyycsBean">
+		INSERT INTO DW_DWYYXXB
+		(id
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[dwid]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="yxyyjlx">
+				<![CDATA[yxyyjlx]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="yxyyjs">
+				<![CDATA[yxyyjs]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="cksl">
+				<![CDATA[cksl]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzd" />
+		)
+		values
+		(
+		<isNotEmpty property="id">
+				<![CDATA[#id#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[#dwid#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="yxyyjlx">
+				<![CDATA[#yxyyjlx#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="yxyyjs">
+				<![CDATA[#yxyyjs#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="cksl">
+				<![CDATA[#cksl#]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzdVal" />
+		)
+	</insert>
+
+	<update id="updateYxyycs" parameterClass="dwOwnYxyycsBean">
+	 <![CDATA[ update DW_DWYYXXB]]>
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="dwid"><![CDATA[dwid=#dwid#]]></isNotNull>
+			<isNotNull prepend="," property="yxyyjlx"><![CDATA[yxyyjlx=#yxyyjlx#]]></isNotNull>
+			<isNotNull prepend="," property="yxyyjs"><![CDATA[yxyyjs=#yxyyjs#]]></isNotNull>
+			<isNotNull prepend="," property="cksl"><![CDATA[cksl=#cksl#]]></isNotNull>
+			,
+			<include refid="updateXtzd" />
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>
+	</update>
+
+	<!-- 游艺场所信息结束 -->
+	<!-- 印章基本信息开始 -->
+	<select id="querySeal" parameterClass="Map" resultClass="dwOwnSealBean">
+		<![CDATA[select * from DW_DWYZXXB t where dwid= #dwid#  AND XT_ZXBZ='0' ORDER BY xt_cjsj DESC ]]>
+	</select>
+	<select id="querySealByRyid" parameterClass="dwOwnSealBean"
+		resultClass="com.founder.sydw.bean.DwOwnSealBean">
+		<![CDATA[select * from DW_DWYZXXB t where id= #id# ]]>
+	</select>
+
+	<insert id="insertSeal" parameterClass="dwOwnSealBean">
+		INSERT INTO DW_DWYZXXB
+		(id
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[dwid]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zazgdw">
+				<![CDATA[zazgdw]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="tybabh">
+				<![CDATA[tybabh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="tebajg">
+				<![CDATA[tebajg]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hyxkz">
+			   <![CDATA[hyxkz]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qyjyzk">
+				<![CDATA[qyjyzk]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ygcyrs">
+				<![CDATA[ygcyrs]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bz">
+				<![CDATA[bz]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzd" />
+		)
+		values
+		(
+		<isNotEmpty property="id">
+				<![CDATA[#id#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[#dwid#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zazgdw">
+				<![CDATA[#zazgdw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="tybabh">
+				<![CDATA[#tybabh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="tebajg">
+				<![CDATA[#tebajg#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hyxkz">
+				<![CDATA[#hyxkz#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qyjyzk">
+				<![CDATA[#qyjyzk#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ygcyrs">
+				<![CDATA[#ygcyrs#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bz">
+				<![CDATA[#bz#]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzdVal" />
+		)
+	</insert>
+
+	<update id="updateSeal" parameterClass="dwOwnSealBean">
+	 <![CDATA[ update DW_DWYZXXB]]>
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="dwid"><![CDATA[dwid=#dwid#]]></isNotNull>
+			<isNotNull prepend="," property="zazgdw"><![CDATA[zazgdw=#zazgdw#]]></isNotNull>
+			<isNotNull prepend="," property="tybabh"><![CDATA[tybabh=#tybabh#]]></isNotNull>
+			<isNotNull prepend="," property="tebajg"><![CDATA[tebajg=#tebajg#]]></isNotNull>
+			<isNotNull prepend="," property="hyxkz"><![CDATA[hyxkz=#hyxkz#]]></isNotNull>
+			<isNotNull prepend="," property="qyjyzk"><![CDATA[qyjyzk=#qyjyzk#]]></isNotNull>
+			<isNotNull prepend="," property="ygcyrs"><![CDATA[ygcyrs=#ygcyrs#]]></isNotNull>
+			<isNotNull prepend="," property="bz"><![CDATA[bz=#bz#]]></isNotNull>
+			,
+			<include refid="updateXtzd" />
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>
+	</update>
+
+	<!-- 印章基本信息结束 -->
+	<!-- 民爆开始 -->
+	<select id="queryMb" parameterClass="Map" resultClass="dwOwnMbBean">
+		<![CDATA[select * from DW_DWMBXXB t where dwid= #dwid#  AND XT_ZXBZ='0' ORDER BY xt_cjsj DESC]]>
+	</select>
+	<!-- -->
+	<select id="queryMbByRyid" parameterClass="dwOwnMbBean"
+		resultClass="com.founder.sydw.bean.DwOwnMbBean">
+		<![CDATA[select * from DW_DWMBXXB t where id= #id# ]]>
+	</select>
+
+	<insert id="insertMb" parameterClass="dwOwnMbBean">
+		INSERT INTO DW_DWMBXXB
+		(id
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[dwid]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bpzydwxkzlxdm">
+				<![CDATA[bpzydwxkzlxdm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qydh">
+				<![CDATA[qydh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zydd">
+				<![CDATA[zydd]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jsfzrxm">
+			   <![CDATA[jsfzrxm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zabwfzrxm">
+				<![CDATA[zabwfzrxm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jsfzrgmsfzhm">
+				<![CDATA[jsfzrgmsfzhm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zabwfzrgmsfzhm">
+				<![CDATA[zabwfzrgmsfzhm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jsfzrlxdh">
+				<![CDATA[jsfzrlxdh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zabwfzrlxdh">
+				<![CDATA[zabwfzrlxdh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zczj">
+				<![CDATA[zczj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jzc">
+				<![CDATA[jzc]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zysbjz">
+				<![CDATA[zysbjz]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="yhzh">
+				<![CDATA[yhzh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sqzzdj">
+				<![CDATA[sqzzdj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sqcyfw">
+				<![CDATA[sqcyfw]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sqrq">
+				<![CDATA[sqrq]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zjqfrq">
+				<![CDATA[zjqfrq]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ckxkzbh">
+				<![CDATA[ckxkzbh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ckxkzyxq">
+				<![CDATA[ckxkzyxq]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="mtscxkzbh">
+				<![CDATA[mtscxkzbh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="mtscxkzyxq">
+				<![CDATA[mtscxkzyxq]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="aqscxkzbh">
+				<![CDATA[aqscxkzbh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="aqscxkzyxq">
+				<![CDATA[aqscxkzyxq]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzd" />
+		)
+		values
+		(
+		<isNotEmpty property="id">
+				<![CDATA[#id#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[#dwid#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bpzydwxkzlxdm">
+				<![CDATA[#bpzydwxkzlxdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qydh">
+				<![CDATA[#qydh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zydd">
+				<![CDATA[#zydd#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jsfzrxm">
+				<![CDATA[#jsfzrxm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zabwfzrxm">
+				<![CDATA[#zabwfzrxm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jsfzrgmsfzhm">
+				<![CDATA[#jsfzrgmsfzhm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zabwfzrgmsfzhm">
+				<![CDATA[#zabwfzrgmsfzhm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jsfzrlxdh">
+				<![CDATA[#jsfzrlxdh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zabwfzrlxdh">
+				<![CDATA[#zabwfzrlxdh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zczj">
+				<![CDATA[#zczj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jzc">
+				<![CDATA[#jzc#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zysbjz">
+				<![CDATA[#zysbjz#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="yhzh">
+				<![CDATA[#yhzh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sqzzdj">
+				<![CDATA[#sqzzdj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sqcyfw">
+				<![CDATA[#sqcyfw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sqrq">
+				<![CDATA[#sqrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zjqfrq">
+				<![CDATA[#zjqfrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ckxkzbh">
+				<![CDATA[#ckxkzbh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ckxkzyxq">
+				<![CDATA[#ckxkzyxq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="mtscxkzbh">
+			<![CDATA[#mtscxkzbh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="mtscxkzyxq">
+				<![CDATA[#mtscxkzyxq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="aqscxkzbh">
+				<![CDATA[#aqscxkzbh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="aqscxkzyxq">
+				<![CDATA[#aqscxkzyxq#]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzdVal" />
+		)
+	</insert>
+
+	<update id="updateMb" parameterClass="dwOwnMbBean">
+	 <![CDATA[ update DW_DWMBXXB]]>
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="dwid"><![CDATA[dwid=#dwid#]]></isNotNull>
+			<isNotNull prepend="," property="bpzydwxkzlxdm"><![CDATA[bpzydwxkzlxdm=#bpzydwxkzlxdm#]]></isNotNull>
+			<isNotNull prepend="," property="qydh"><![CDATA[qydh=#qydh#]]></isNotNull>
+			<isNotNull prepend="," property="zydd"><![CDATA[zydd=#zydd#]]></isNotNull>
+			<isNotNull prepend="," property="jsfzrxm"><![CDATA[jsfzrxm=#jsfzrxm#]]></isNotNull>
+			<isNotNull prepend="," property="zabwfzrxm"><![CDATA[zabwfzrxm=#zabwfzrxm#]]></isNotNull>
+			<isNotNull prepend="," property="jsfzrgmsfzhm"><![CDATA[jsfzrgmsfzhm=#jsfzrgmsfzhm#]]></isNotNull>
+			<isNotNull prepend="," property="zabwfzrgmsfzhm"><![CDATA[zabwfzrgmsfzhm=#zabwfzrgmsfzhm#]]></isNotNull>
+			<isNotNull prepend="," property="jsfzrlxdh"><![CDATA[jsfzrlxdh=#jsfzrlxdh#]]></isNotNull>
+			<isNotNull prepend="," property="zabwfzrlxdh"><![CDATA[zabwfzrlxdh=#zabwfzrlxdh#]]></isNotNull>
+			<isNotNull prepend="," property="zczj"><![CDATA[zczj=#zczj#]]></isNotNull>
+			<isNotNull prepend="," property="jzc"><![CDATA[jzc=#jzc#]]></isNotNull>
+			<isNotNull prepend="," property="zysbjz"><![CDATA[zysbjz=#zysbjz#]]></isNotNull>
+			<isNotNull prepend="," property="yhzh"><![CDATA[yhzh=#yhzh#]]></isNotNull>
+			<isNotNull prepend="," property="sqzzdj"><![CDATA[sqzzdj=#sqzzdj#]]></isNotNull>
+			<isNotNull prepend="," property="sqcyfw"><![CDATA[sqcyfw=#sqcyfw#]]></isNotNull>
+			<isNotNull prepend="," property="sqrq"><![CDATA[sqrq=#sqrq#]]></isNotNull>
+			<isNotNull prepend="," property="zjqfrq"><![CDATA[zjqfrq=#zjqfrq#]]></isNotNull>
+			<isNotNull prepend="," property="ckxkzbh"><![CDATA[ckxkzbh=#ckxkzbh#]]></isNotNull>
+			<isNotNull prepend="," property="ckxkzyxq"><![CDATA[ckxkzyxq=#ckxkzyxq#]]></isNotNull>
+			<isNotNull prepend="," property="mtscxkzbh"><![CDATA[mtscxkzbh=#mtscxkzbh#]]></isNotNull>
+			<isNotNull prepend="," property="mtscxkzyxq"><![CDATA[mtscxkzyxq=#mtscxkzyxq#]]></isNotNull>
+			<isNotNull prepend="," property="aqscxkzbh"><![CDATA[aqscxkzbh=#aqscxkzbh#]]></isNotNull>
+			<isNotNull prepend="," property="aqscxkzyxq"><![CDATA[aqscxkzyxq=#aqscxkzyxq#]]></isNotNull>
+			,
+			<include refid="updateXtzd" />
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>
+	</update>
+
+	<!-- 民爆结束 -->
+	<!-- 民爆项目开始 -->
+	<!-- query查询前5条 -->
+	<select id="mbsgxm_query_new" parameterClass="String"
+		resultClass="dwOwnMbXmyjBean">
+		 <![CDATA[
+		 select * from (select * from DW_DWXMYJB t where dwid=#dwid# and XT_ZXBZ = '0' order by XT_CJSJ) where rownum <= 5
+      ]]>
+	</select>
+	<!-- query查询All -->
+	<select id="mbsgxm_query_all" parameterClass="Map" resultClass="dwOwnMbXmyjBean">
+      <![CDATA[
+			SELECT * FROM ( SELECT ROWNUM r ,m.* FROM (	SELECT A.* FROM DW_DWXMYJB A
+					WHERE A.XT_ZXBZ = '0'
+		 ]]>
+		<isNotEmpty prepend="and" property="dwid">
+			a.dwid = #dwid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="condition">
+			a.xmmc like
+			'%$condition$%'
+		</isNotEmpty>
+		<isNotEmpty property="sort">								
+			<![CDATA[ order by $sort$ $order$ ]]>
+		</isNotEmpty>
+		<![CDATA[) m  
+		where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+
+	<!-- query查询All -->
+	<select id="mbsgxm_query_all_count" parameterClass="Map"
+		resultClass="Integer">
+      <![CDATA[
+		  SELECT count(1)
+			FROM DW_DWXMYJB A
+		   WHERE A.XT_ZXBZ = '0'
+		 ]]>
+		<isNotEmpty prepend="and" property="dwid">
+			a.dwid = #dwid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="condition">
+			a.xmmc like
+			'%$condition$%'
+		</isNotEmpty>
+	</select>
+	<!-- 单条查询 -->
+	<select id="queryMbXmyjByRyid" parameterClass="dwOwnMbXmyjBean"
+		resultClass="com.founder.sydw.bean.DwOwnMbXmyjBean">
+		<![CDATA[select * from DW_DWXMYJB t where id= #id# ]]>
+	</select>
+
+	<insert id="insertMbXmyj" parameterClass="dwOwnMbXmyjBean">
+		INSERT INTO DW_DWXMYJB
+		(id
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[dwid]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xmjb">
+				<![CDATA[xmjb]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xmmc">
+				<![CDATA[xmmc]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bpsgrq">
+				<![CDATA[bpsgrq]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dysjr">
+			   <![CDATA[dysjr]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzd" />
+		)
+		values
+		(
+		<isNotEmpty property="id">
+				<![CDATA[#id#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[#dwid#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xmjb">
+				<![CDATA[#xmjb#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xmmc">
+				<![CDATA[#xmmc#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bpsgrq">
+				<![CDATA[#bpsgrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dysjr">
+				<![CDATA[#dysjr#]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzdVal" />
+		)
+	</insert>
+
+	<update id="updateMbXmyj" parameterClass="dwOwnMbXmyjBean">
+	 <![CDATA[ update DW_DWXMYJB]]>
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="dwid"><![CDATA[dwid=#dwid#]]></isNotNull>
+			<isNotNull prepend="," property="xmjb"><![CDATA[xmjb=#xmjb#]]></isNotNull>
+			<isNotNull prepend="," property="xmmc"><![CDATA[xmmc=#xmmc#]]></isNotNull>
+			<isNotNull prepend="," property="bpsgrq"><![CDATA[bpsgrq=#bpsgrq#]]></isNotNull>
+			<isNotNull prepend="," property="dysjr"><![CDATA[dysjr=#dysjr#]]></isNotNull>
+			,
+			<include refid="updateXtzd" />
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>
+	</update>
+	<!-- 注销 -->
+	<update id="deleteMbxmyj" parameterClass="dwOwnMbXmyjBean">
+		<![CDATA[ update DW_DWXMYJB ]]>
+		<dynamic prepend="set">
+			<include refid="deleteXtzd" />
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>
+	</update>
+
+	<!-- 民爆项目结束 -->
+	<!-- 民枪开始 -->
+	<select id="queryMq" parameterClass="Map" resultClass="dwOwnMqBean">
+		<![CDATA[select * from DW_DWMQXXB t where dwid= #dwid#  AND XT_ZXBZ='0' ORDER BY xt_cjsj DESC]]>
+	</select>
+	<!-- -->
+	<select id="queryMqByRyid" parameterClass="dwOwnMqBean"
+		resultClass="com.founder.sydw.bean.DwOwnMqBean">
+		<![CDATA[select * from DW_DWMQXXB t where id= #id# ]]>
+	</select>
+
+	<insert id="insertMq" parameterClass="dwOwnMqBean">
+		INSERT INTO DW_DWMQXXB
+		(id
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[dwid]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ckqk">
+				<![CDATA[ckqk]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="aqss">
+				<![CDATA[aqss]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="spjg">
+				<![CDATA[spjg]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="spr">
+			   <![CDATA[spr]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sprq">
+				<![CDATA[sprq]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="cqlx">
+				<![CDATA[cqlx]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzd" />
+		)
+		values
+		(
+		<isNotEmpty property="id">
+				<![CDATA[#id#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[#dwid#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ckqk">
+				<![CDATA[#ckqk#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="aqss">
+				<![CDATA[#aqss#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="spjg">
+				<![CDATA[#spjg#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="spr">
+				<![CDATA[#spr#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sprq">
+				<![CDATA[#sprq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="cqlx">
+				<![CDATA[#cqlx#]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzdVal" />
+		)
+	</insert>
+
+	<update id="updateMq" parameterClass="dwOwnMqBean">
+	 <![CDATA[ update DW_DWMQXXB]]>
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="dwid"><![CDATA[dwid=#dwid#]]></isNotNull>
+			<isNotNull prepend="," property="ckqk"><![CDATA[ckqk=#ckqk#]]></isNotNull>
+			<isNotNull prepend="," property="aqss"><![CDATA[aqss=#aqss#]]></isNotNull>
+			<isNotNull prepend="," property="spjg"><![CDATA[spjg=#spjg#]]></isNotNull>
+			<isNotNull prepend="," property="spr"><![CDATA[spr=#spr#]]></isNotNull>
+			<isNotNull prepend="," property="sprq"><![CDATA[sprq=#sprq#]]></isNotNull>
+			<isNotNull prepend="," property="cqlx"><![CDATA[cqlx=#cqlx#]]></isNotNull>
+			,
+			<include refid="updateXtzd" />
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>
+	</update>
+
+
+	<!-- 民枪结束 -->
+	<!-- 民枪专管人员开始 -->
+	<!-- query查询前5条 -->
+	<select id="mqzgry_query_new" parameterClass="String"
+		resultClass="dwOwnMqZgryBean">
+		 <![CDATA[
+		 select * from (select * from DW_DWMQZGRYXXB t where dwid=#dwid# and XT_ZXBZ = '0' order by XT_CJSJ) where rownum <= 5
+      ]]>
+	</select>
+	<!-- query查询All -->
+	<select id="mqzgry_query_all" parameterClass="Map" resultClass="dwOwnMqZgryBean">
+      <![CDATA[
+			SELECT * FROM ( SELECT ROWNUM r ,m.* FROM (	SELECT A.* FROM DW_DWMQZGRYXXB A
+					WHERE A.XT_ZXBZ = '0'
+		 ]]>
+		<isNotEmpty prepend="and" property="dwid">
+			a.dwid = #dwid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="condition">
+			a.xm || a.zjhm like
+			'%$condition$%'
+		</isNotEmpty>
+		<isNotEmpty property="sort">								
+			<![CDATA[ order by $sort$ $order$ ]]>
+		</isNotEmpty>
+		<![CDATA[) m  
+		where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+
+	<!-- query查询All -->
+	<select id="mqzgry_query_all_count" parameterClass="Map"
+		resultClass="Integer">
+      <![CDATA[
+		  SELECT count(1)
+			FROM DW_DWMQZGRYXXB A
+		   WHERE A.XT_ZXBZ = '0'
+		 ]]>
+		<isNotEmpty prepend="and" property="dwid">
+			a.dwid = #dwid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="condition">
+			a.xm || a.zjhm like
+			'%$condition$%'
+		</isNotEmpty>
+	</select>
+
+	<!-- 单条查询 -->
+	<select id="queryMqzgryByRyid" parameterClass="dwOwnMqZgryBean"
+		resultClass="com.founder.sydw.bean.DwOwnMqZgryBean">
+		<![CDATA[select * from DW_DWMQZGRYXXB t where id= #id# ]]>
+	</select>
+
+	<insert id="insertMqzgry" parameterClass="dwOwnMqZgryBean">
+		INSERT INTO DW_DWMQZGRYXXB
+		(id
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[dwid]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xm">
+				<![CDATA[xm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xb">
+				<![CDATA[xb]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zjlx">
+				<![CDATA[zjlx]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zz">
+			   <![CDATA[zz]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="lxdh">
+			   <![CDATA[lxdh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zjhm">
+			   <![CDATA[zjhm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bz">
+			   <![CDATA[bz]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="spjg">
+			   <![CDATA[spjg]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="spr">
+			   <![CDATA[spr]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sprq">
+			   <![CDATA[sprq]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzd" />
+		)
+		values
+		(
+		<isNotEmpty property="id">
+				<![CDATA[#id#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[#dwid#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xm">
+				<![CDATA[#xm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xb">
+				<![CDATA[#xb#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zjlx">
+				<![CDATA[#zjlx#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zz">
+				<![CDATA[#zz#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="lxdh">
+				<![CDATA[#lxdh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zjhm">
+				<![CDATA[#zjhm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bz">
+				<![CDATA[#bz#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="spjg">
+				<![CDATA[#spjg#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="spr">
+				<![CDATA[#spr#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sprq">
+				<![CDATA[#sprq#]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzdVal" />
+		)
+	</insert>
+
+	<update id="updateMqzgry" parameterClass="dwOwnMqZgryBean">
+	 <![CDATA[ update DW_DWMQZGRYXXB]]>
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="dwid"><![CDATA[dwid=#dwid#]]></isNotNull>
+			<isNotNull prepend="," property="xm"><![CDATA[xm=#xm#]]></isNotNull>
+			<isNotNull prepend="," property="xb"><![CDATA[xb=#xb#]]></isNotNull>
+			<isNotNull prepend="," property="zjlx"><![CDATA[zjlx=#zjlx#]]></isNotNull>
+			<isNotNull prepend="," property="zz"><![CDATA[zz=#zz#]]></isNotNull>
+			<isNotNull prepend="," property="lxdh"><![CDATA[lxdh=#lxdh#]]></isNotNull>
+			<isNotNull prepend="," property="zjhm"><![CDATA[zjhm=#zjhm#]]></isNotNull>
+			<isNotNull prepend="," property="bz"><![CDATA[bz=#bz#]]></isNotNull>
+			<isNotNull prepend="," property="spjg"><![CDATA[spjg=#spjg#]]></isNotNull>
+			<isNotNull prepend="," property="spr"><![CDATA[spr=#spr#]]></isNotNull>
+			<isNotNull prepend="," property="sprq"><![CDATA[sprq=#sprq#]]></isNotNull>
+			,
+			<include refid="updateXtzd" />
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>
+	</update>
+	<!-- 注销 -->
+	<update id="deleteMqzgry" parameterClass="dwOwnMqZgryBean">
+		<![CDATA[ update DW_DWMQZGRYXXB ]]>
+		<dynamic prepend="set">
+			<include refid="deleteXtzd" />
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>
+	</update>
+	<!-- 民枪专管人员结束 -->
+	<!-- 烟花开始 -->
+	<select id="queryYh" parameterClass="Map" resultClass="dwOwnYhBean">
+		<![CDATA[select * from DW_DWYHXXB t where dwid= #dwid#  AND XT_ZXBZ='0' ORDER BY xt_cjsj DESC]]>
+	</select>
+	<select id="queryYhByRyid" parameterClass="dwOwnYhBean"
+		resultClass="com.founder.sydw.bean.DwOwnYhBean">
+		<![CDATA[select * from DW_DWYHXXB t where id= #id# ]]>
+	</select>
+
+	<insert id="insertYh" parameterClass="dwOwnYhBean">
+		INSERT INTO DW_DWYHXXB
+		(id
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[dwid]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bajg">
+				<![CDATA[bajg]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfps">
+				<![CDATA[sfps]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zyry">
+				<![CDATA[zyry]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="cpzljyxx">
+			   <![CDATA[cpzljyxx]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bz">
+				<![CDATA[bz]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xkzlx">
+				<![CDATA[xkzlx]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fzjg">
+				<![CDATA[fzjg]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fzrq">
+				<![CDATA[fzrq]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="yxjzrq">
+				<![CDATA[yxjzrq]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="kfmc">
+				<![CDATA[kfmc]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="kflb">
+				<![CDATA[kflb]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="wxdj">
+				<![CDATA[wxdj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zjzmj">
+				<![CDATA[zjzmj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hsjjzmj">
+				<![CDATA[hsjjzmj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="scqjzmj">
+				<![CDATA[scqjzmj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jymj">
+				<![CDATA[jymj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sykfmj">
+				<![CDATA[sykfmj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdkcl">
+				<![CDATA[hdkcl]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ck">
+				<![CDATA[ck]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="yfgmdjdm">
+				<![CDATA[yfgmdjdm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xkzbh">
+				<![CDATA[xkzbh]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzd" />
+		)
+		values
+		(
+		<isNotEmpty property="id">
+				<![CDATA[#id#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[#dwid#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bajg">
+				<![CDATA[#bajg#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfps">
+				<![CDATA[#sfps#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zyry">
+				<![CDATA[#zyry#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="cpzljyxx">
+				<![CDATA[#cpzljyxx#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bz">
+				<![CDATA[#bz#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xkzlx">
+				<![CDATA[#xkzlx#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fzjg">
+				<![CDATA[#fzjg#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fzrq">
+				<![CDATA[#fzrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="yxjzrq">
+				<![CDATA[#yxjzrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="kfmc">
+				<![CDATA[#kfmc#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="kflb">
+				<![CDATA[#kflb#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="wxdj">
+				<![CDATA[#wxdj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zjzmj">
+				<![CDATA[#zjzmj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hsjjzmj">
+				<![CDATA[#hsjjzmj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="scqjzmj">
+				<![CDATA[#scqjzmj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jymj">
+				<![CDATA[#jymj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sykfmj">
+				<![CDATA[#sykfmj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hdkcl">
+				<![CDATA[#hdkcl#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ck">
+				<![CDATA[#ck#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="yfgmdjdm">
+				<![CDATA[#yfgmdjdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xkzbh">
+				<![CDATA[#xkzbh#]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzdVal" />
+		)
+	</insert>
+
+	<update id="updateYh" parameterClass="dwOwnYhBean">
+	 <![CDATA[ update DW_DWYHXXB]]>
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="dwid"><![CDATA[dwid=#dwid#]]></isNotNull>
+			<isNotNull prepend="," property="bajg"><![CDATA[bajg=#bajg#]]></isNotNull>
+			<isNotNull prepend="," property="sfps"><![CDATA[sfps=#sfps#]]></isNotNull>
+			<isNotNull prepend="," property="zyry"><![CDATA[zyry=#zyry#]]></isNotNull>
+			<isNotNull prepend="," property="cpzljyxx"><![CDATA[cpzljyxx=#cpzljyxx#]]></isNotNull>
+			<isNotNull prepend="," property="bz"><![CDATA[bz=#bz#]]></isNotNull>
+			<isNotNull prepend="," property="xkzlx"><![CDATA[xkzlx=#xkzlx#]]></isNotNull>
+			<isNotNull prepend="," property="fzjg"><![CDATA[fzjg=#fzjg#]]></isNotNull>
+			<isNotNull prepend="," property="fzrq"><![CDATA[fzrq=#fzrq#]]></isNotNull>
+			<isNotNull prepend="," property="yxjzrq"><![CDATA[yxjzrq=#yxjzrq#]]></isNotNull>
+			<isNotNull prepend="," property="kfmc"><![CDATA[kfmc=#kfmc#]]></isNotNull>
+			<isNotNull prepend="," property="kflb"><![CDATA[kflb=#kflb#]]></isNotNull>
+			<isNotNull prepend="," property="wxdj"><![CDATA[wxdj=#wxdj#]]></isNotNull>
+			<isNotNull prepend="," property="zjzmj"><![CDATA[zjzmj=#zjzmj#]]></isNotNull>
+			<isNotNull prepend="," property="hsjjzmj"><![CDATA[hsjjzmj=#hsjjzmj#]]></isNotNull>
+			<isNotNull prepend="," property="scqjzmj"><![CDATA[scqjzmj=#scqjzmj#]]></isNotNull>
+			<isNotNull prepend="," property="jymj"><![CDATA[jymj=#jymj#]]></isNotNull>
+			<isNotNull prepend="," property="sykfmj"><![CDATA[sykfmj=#sykfmj#]]></isNotNull>
+			<isNotNull prepend="," property="hdkcl"><![CDATA[hdkcl=#hdkcl#]]></isNotNull>
+			<isNotNull prepend="," property="ck"><![CDATA[ck=#ck#]]></isNotNull>
+			<isNotNull prepend="," property="yfgmdjdm"><![CDATA[yfgmdjdm=#yfgmdjdm#]]></isNotNull>
+			<isNotNull prepend="," property="xkzbh"><![CDATA[xkzbh=#xkzbh#]]></isNotNull>
+			,
+			<include refid="updateXtzd" />
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>
+	</update>
+	<!-- 烟花结束 -->
+	<!-- 自助银行开始 -->
+	<select id="zzyh_query_all" parameterClass="Map" resultClass="zzyhjzzsbb">
+      <![CDATA[
+			SELECT * FROM ( SELECT ROWNUM r ,m.* FROM (	SELECT A.* FROM DW_ZZYHJZZSBB A
+					WHERE A.XT_ZXBZ = '0'
+		 ]]>
+		<isNotEmpty prepend="and" property="dwid">
+			a.dwid = #dwid#
+		</isNotEmpty>
+		<isNotEmpty property="sort">								
+			<![CDATA[ order by $sort$ $order$ ]]>
+		</isNotEmpty>
+		<![CDATA[) m  
+		where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+
+	<!-- query查询All -->
+	<select id="zzyh_query_all_count" parameterClass="Map"
+		resultClass="Integer">
+      <![CDATA[
+		  SELECT count(1)
+			FROM DW_ZZYHJZZSBB A
+		   WHERE A.XT_ZXBZ = '0'
+		 ]]>
+		<isNotEmpty prepend="and" property="dwid">
+			a.dwid = #dwid#
+		</isNotEmpty>
+	</select>
+	<!-- 自助银行结束 -->
+	<!-- 校车开始 -->
+	<select id="xc_query_all" parameterClass="Map" resultClass="xyaqxxbXc">
+      <![CDATA[
+			SELECT * FROM ( SELECT ROWNUM r ,m.* FROM (	SELECT A.* FROM DW_XYAQXXB_XC A
+					WHERE A.XT_ZXBZ = '0'
+		 ]]>
+		<isNotEmpty prepend="and" property="xyid">
+			a.xyid = #xyid#
+		</isNotEmpty>
+		<isNotEmpty property="sort">								
+			<![CDATA[ order by $sort$ $order$ ]]>
+		</isNotEmpty>
+		<![CDATA[) m  
+		where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+
+	<!-- query查询All -->
+	<select id="xc_query_all_count" parameterClass="Map"
+		resultClass="Integer">
+      <![CDATA[
+		  SELECT count(1)
+			FROM DW_XYAQXXB_XC A
+		   WHERE A.XT_ZXBZ = '0'
+		 ]]>
+		<isNotEmpty prepend="and" property="xyid">
+			a.xyid = #xyid#
+		</isNotEmpty>
+	</select>
+	<!-- 校车结束 -->
+
+	<!-- 护校队 -->
+	<select id="hxd_query_all" parameterClass="Map" resultClass="xyaqxxbHxd">
+      <![CDATA[
+			SELECT * FROM ( SELECT ROWNUM r ,m.* FROM (	SELECT A.* FROM DW_XYAQXXB_HXD A
+					WHERE A.XT_ZXBZ = '0'
+		 ]]>
+		<isNotEmpty prepend="and" property="xyid">
+			a.xyid = #xyid#
+		</isNotEmpty>
+		<isNotEmpty property="sort">								
+			<![CDATA[ order by $sort$ $order$ ]]>
+		</isNotEmpty>
+		<![CDATA[) m  
+		where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+
+	<!-- query查询All -->
+	<select id="hxd_query_all_count" parameterClass="Map"
+		resultClass="Integer">
+      <![CDATA[
+		  SELECT count(1)
+			FROM DW_XYAQXXB_HXD A
+		   WHERE A.XT_ZXBZ = '0'
+		 ]]>
+		<isNotEmpty prepend="and" property="xyid">
+			a.xyid = #xyid#
+		</isNotEmpty>
+	</select>
+	<!-- 护校队结束 -->
+	<!-- 单位_证券/保险业信息开始 -->
+	<select id="queryZjbx" parameterClass="Map" resultClass="dwOwnZjbxBean">
+		<![CDATA[select * from DW_DWZJBXXXB t where dwid= #dwid#  AND XT_ZXBZ='0' ORDER BY xt_cjsj DESC]]>
+	</select>
+
+	<select id="queryZjbxyByRyid" parameterClass="dwOwnZjbxBean"
+		resultClass="com.founder.sydw.bean.DwOwnZjbxBean">
+		<![CDATA[select * from DW_DWZJBXXXB t where id= #id# ]]>
+	</select>
+
+	<insert id="insertZjbxy" parameterClass="dwOwnZjbxBean">
+		INSERT INTO DW_DWZJBXXXB
+		(id
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[dwid]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zybws">
+				<![CDATA[zybws]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zczgs">
+				<![CDATA[zczgs]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfpadw">
+				<![CDATA[sfpadw]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bz">
+			   <![CDATA[bz]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ssjgjg">
+				<![CDATA[ssjgjg]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zgbwfzrxm">
+				<![CDATA[zgbwfzrxm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zgbwfzrsfzh">
+				<![CDATA[zgbwfzrsfzh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zgbwfzrzw">
+				<![CDATA[zgbwfzrzw]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zgbwfzrlxfs">
+				<![CDATA[zgbwfzrlxfs]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwjgfzrxm">
+				<![CDATA[bwjgfzrxm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwjgfzrsfzh">
+				<![CDATA[bwjgfzrsfzh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwzzmc">
+				<![CDATA[bwzzmc]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfdlbwjg">
+				<![CDATA[sfdlbwjg]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfzabwzddw">
+				<![CDATA[sfzabwzddw]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zabwzddwjb">
+				<![CDATA[zabwzddwjb]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="rfqk">
+				<![CDATA[rfqk]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="wfqk">
+				<![CDATA[wfqk]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jfqk">
+				<![CDATA[jfqk]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="szdpcs">
+				<![CDATA[szdpcs]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfzx">
+				<![CDATA[sfzx]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zxrq">
+				<![CDATA[zxrq]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zxyy">
+				<![CDATA[zxyy]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfjljwgzs">
+				<![CDATA[sfjljwgzs]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="gdzc">
+				<![CDATA[gdzc]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fzzdjdganbbm">
+				<![CDATA[fzzdjdganbbm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fzzdjdganbbmzrmj">
+				<![CDATA[fzzdjdganbbmzrmj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fzzdjdganbbmlxfs">
+				<![CDATA[fzzdjdganbbmlxfs]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwbh">
+				<![CDATA[bwbh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwmc">
+				<![CDATA[bwmc]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwwz">
+				<![CDATA[bwwz]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwfzr">
+				<![CDATA[bwfzr]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwfzrsfzh">
+				<![CDATA[bwfzrsfzh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwfzrzw">
+				<![CDATA[bwfzrzw]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwfzrlxfs">
+				<![CDATA[bwfzrlxfs]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwzbdh">
+				<![CDATA[bwzbdh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="wfssqk">
+				<![CDATA[wfssqk]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jfssqk">
+				<![CDATA[jfssqk]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwqdsj">
+				<![CDATA[bwqdsj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwqdlyyj">
+				<![CDATA[bwqdlyyj]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzd" />
+		)
+		values
+		(
+		<isNotEmpty property="id">
+				<![CDATA[#id#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[#dwid#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zybws">
+				<![CDATA[#zybws#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zczgs">
+				<![CDATA[#zczgs#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfpadw">
+				<![CDATA[#sfpadw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bz">
+				<![CDATA[#bz#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ssjgjg">
+				<![CDATA[#ssjgjg#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zgbwfzrxm">
+				<![CDATA[#zgbwfzrxm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zgbwfzrsfzh">
+				<![CDATA[#zgbwfzrsfzh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zgbwfzrzw">
+				<![CDATA[#zgbwfzrzw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zgbwfzrlxfs">
+				<![CDATA[#zgbwfzrlxfs#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwjgfzrxm">
+				<![CDATA[#bwjgfzrxm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwjgfzrsfzh">
+				<![CDATA[#bwjgfzrsfzh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwzzmc">
+				<![CDATA[#bwzzmc#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfdlbwjg">
+				<![CDATA[#sfdlbwjg#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfzabwzddw">
+				<![CDATA[#sfzabwzddw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zabwzddwjb">
+				<![CDATA[#zabwzddwjb#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="rfqk">
+				<![CDATA[#rfqk#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="wfqk">
+				<![CDATA[#wfqk#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jfqk">
+				<![CDATA[#jfqk#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="szdpcs">
+				<![CDATA[#szdpcs#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfzx">
+				<![CDATA[#sfzx#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zxrq">
+				<![CDATA[#zxrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zxyy">
+				<![CDATA[#zxyy#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfjljwgzs">
+				<![CDATA[#sfjljwgzs#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="gdzc">
+				<![CDATA[#gdzc#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fzzdjdganbbm">
+				<![CDATA[#fzzdjdganbbm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fzzdjdganbbmzrmj">
+				<![CDATA[#fzzdjdganbbmzrmj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fzzdjdganbbmlxfs">
+				<![CDATA[#fzzdjdganbbmlxfs#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwbh">
+				<![CDATA[#bwbh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwmc">
+				<![CDATA[#bwmc#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwwz">
+				<![CDATA[#bwwz#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwfzr">
+				<![CDATA[#bwfzr#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwfzrsfzh">
+				<![CDATA[#bwfzrsfzh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwfzrzw">
+				<![CDATA[#bwfzrzw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwfzrlxfs">
+				<![CDATA[#bwfzrlxfs#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwzbdh">
+				<![CDATA[#bwzbdh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="wfssqk">
+				<![CDATA[#wfssqk#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jfssqk">
+				<![CDATA[#jfssqk#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwqdsj">
+				<![CDATA[#bwqdsj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwqdlyyj">
+				<![CDATA[#bwqdlyyj#]]>
+		</isNotEmpty>
+
+		,
+		<include refid="insertXtzdVal" />
+		)
+	</insert>
+
+	<update id="updateZjbxy" parameterClass="dwOwnZjbxBean">
+	 <![CDATA[ update DW_DWZJBXXXB]]>
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="dwid"><![CDATA[dwid=#dwid#]]></isNotNull>
+			<isNotNull prepend="," property="zybws"><![CDATA[zybws=#zybws#]]></isNotNull>
+			<isNotNull prepend="," property="zczgs"><![CDATA[zczgs=#zczgs#]]></isNotNull>
+			<isNotNull prepend="," property="sfpadw"><![CDATA[sfpadw=#sfpadw#]]></isNotNull>
+			<isNotNull prepend="," property="bz"><![CDATA[bz=#bz#]]></isNotNull>
+			<isNotNull prepend="," property="ssjgjg"><![CDATA[ssjgjg=#ssjgjg#]]></isNotNull>
+			<isNotNull prepend="," property="zgbwfzrxm"><![CDATA[zgbwfzrxm=#zgbwfzrxm#]]></isNotNull>
+			<isNotNull prepend="," property="zgbwfzrsfzh"><![CDATA[zgbwfzrsfzh=#zgbwfzrsfzh#]]></isNotNull>
+			<isNotNull prepend="," property="zgbwfzrzw"><![CDATA[zgbwfzrzw=#zgbwfzrzw#]]></isNotNull>
+			<isNotNull prepend="," property="zgbwfzrlxfs"><![CDATA[zgbwfzrlxfs=#zgbwfzrlxfs#]]></isNotNull>
+			<isNotNull prepend="," property="bwjgfzrxm"><![CDATA[bwjgfzrxm=#bwjgfzrxm#]]></isNotNull>
+			<isNotNull prepend="," property="bwjgfzrsfzh"><![CDATA[bwjgfzrsfzh=#bwjgfzrsfzh#]]></isNotNull>
+			<isNotNull prepend="," property="bwzzmc"><![CDATA[bwzzmc=#bwzzmc#]]></isNotNull>
+			<isNotNull prepend="," property="sfdlbwjg"><![CDATA[sfdlbwjg=#sfdlbwjg#]]></isNotNull>
+			<isNotNull prepend="," property="sfzabwzddw"><![CDATA[sfzabwzddw=#sfzabwzddw#]]></isNotNull>
+			<isNotNull prepend="," property="zabwzddwjb"><![CDATA[zabwzddwjb=#zabwzddwjb#]]></isNotNull>
+			<isNotNull prepend="," property="rfqk"><![CDATA[rfqk=#rfqk#]]></isNotNull>
+			<isNotNull prepend="," property="wfqk"><![CDATA[wfqk=#wfqk#]]></isNotNull>
+			<isNotNull prepend="," property="jfqk"><![CDATA[jfqk=#jfqk#]]></isNotNull>
+			<isNotNull prepend="," property="szdpcs"><![CDATA[szdpcs=#szdpcs#]]></isNotNull>
+			<isNotNull prepend="," property="sfzx"><![CDATA[sfzx=#sfzx#]]></isNotNull>
+			<isNotNull prepend="," property="zxrq"><![CDATA[zxrq=#zxrq#]]></isNotNull>
+			<isNotNull prepend="," property="zxyy"><![CDATA[zxyy=#zxyy#]]></isNotNull>
+			<isNotNull prepend="," property="sfjljwgzs"><![CDATA[sfjljwgzs=#sfjljwgzs#]]></isNotNull>
+			<isNotNull prepend="," property="gdzc"><![CDATA[gdzc=#gdzc#]]></isNotNull>
+			<isNotNull prepend="," property="fzzdjdganbbm"><![CDATA[fzzdjdganbbm=#fzzdjdganbbm#]]></isNotNull>
+			<isNotNull prepend="," property="fzzdjdganbbmzrmj"><![CDATA[fzzdjdganbbmzrmj=#fzzdjdganbbmzrmj#]]></isNotNull>
+			<isNotNull prepend="," property="fzzdjdganbbmlxfs"><![CDATA[fzzdjdganbbmlxfs=#fzzdjdganbbmlxfs#]]></isNotNull>
+			<isNotNull prepend="," property="bwbh"><![CDATA[bwbh=#bwbh#]]></isNotNull>
+			<isNotNull prepend="," property="bwmc"><![CDATA[bwmc=#bwmc#]]></isNotNull>
+			<isNotNull prepend="," property="bwwz"><![CDATA[bwwz=#bwwz#]]></isNotNull>
+			<isNotNull prepend="," property="bwfzr"><![CDATA[bwfzr=#bwfzr#]]></isNotNull>
+			<isNotNull prepend="," property="bwfzrsfzh"><![CDATA[bwfzrsfzh=#bwfzrsfzh#]]></isNotNull>
+			<isNotNull prepend="," property="bwfzrzw"><![CDATA[bwfzrzw=#bwfzrzw#]]></isNotNull>
+			<isNotNull prepend="," property="bwfzrlxfs"><![CDATA[bwfzrlxfs=#bwfzrlxfs#]]></isNotNull>
+			<isNotNull prepend="," property="bwzbdh"><![CDATA[bwzbdh=#bwzbdh#]]></isNotNull>
+			<isNotNull prepend="," property="wfssqk"><![CDATA[wfssqk=#wfssqk#]]></isNotNull>
+			<isNotNull prepend="," property="jfssqk"><![CDATA[jfssqk=#jfssqk#]]></isNotNull>
+			<isNotNull prepend="," property="bwqdsj"><![CDATA[bwqdsj=#bwqdsj#]]></isNotNull>
+			<isNotNull prepend="," property="bwqdlyyj"><![CDATA[bwqdlyyj=#bwqdlyyj#]]></isNotNull>
+			,
+			<include refid="updateXtzd" />
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>
+	</update>
+	<!-- 单位_证券/保险业信息结束 -->
+	<!-- 工企/文保单位信息开始 -->
+	<select id="queryGqwb" parameterClass="Map" resultClass="dwOwnGqwbBean">
+		<![CDATA[select * from DW_DWGQWBXXB t where dwid= #dwid#  AND XT_ZXBZ='0' ORDER BY xt_cjsj DESC]]>
+	</select>
+	<select id="queryGqwbByRyid" parameterClass="dwOwnGqwbBean"
+		resultClass="com.founder.sydw.bean.DwOwnGqwbBean">
+		<![CDATA[select * from DW_DWGQWBXXB t where id= #id# ]]>
+	</select>
+
+	<insert id="insertGqwb" parameterClass="dwOwnGqwbBean">
+		INSERT INTO DW_DWGQWBXXB
+		(id
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[dwid]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfjgdw">
+				<![CDATA[sfjgdw]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jgdh">
+				<![CDATA[jgdh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="syzxz">
+				<![CDATA[syzxz]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zddj">
+			   <![CDATA[zddj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zybws">
+				<![CDATA[zybws]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zczgs">
+				<![CDATA[zczgs]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ykqk">
+				<![CDATA[ykqk]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfpadw">
+				<![CDATA[sfpadw]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfjljwgzz">
+				<![CDATA[sfjljwgzz]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="gdzc">
+				<![CDATA[gdzc]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwzgfzrxm">
+				<![CDATA[dwzgfzrxm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwzgfzrsfzh">
+				<![CDATA[dwzgfzrsfzh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwzgfzrzw">
+				<![CDATA[dwzgfzrzw]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwzgfzrlxfs">
+				<![CDATA[dwzgfzrlxfs]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fzzdjdganbbm">
+				<![CDATA[fzzdjdganbbm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fzzdjdganbbmzrmj">
+				<![CDATA[fzzdjdganbbmzrmj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fzzdjdganbbmlxfs">
+				<![CDATA[fzzdjdganbbmlxfs]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qdzddwyj">
+				<![CDATA[qdzddwyj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bdwyj">
+				<![CDATA[bdwyj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zggajgyj">
+				<![CDATA[zggajgyj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sjgajgshyj">
+				<![CDATA[sjgajgshyj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfazhwbj">
+				<![CDATA[sfazhwbj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bz">
+				<![CDATA[bz]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwbh">
+				<![CDATA[bwbh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwmc">
+				<![CDATA[bwmc]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwwz">
+				<![CDATA[bwwz]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwfzr">
+				<![CDATA[bwfzr]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwfzrsfzh">
+				<![CDATA[bwfzrsfzh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwfzrzw">
+				<![CDATA[bwfzrzw]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwfzrlxfs">
+				<![CDATA[bwfzrlxfs]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwzbdh">
+				<![CDATA[bwzbdh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="wfssqk">
+				<![CDATA[wfssqk]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jfssqk">
+				<![CDATA[jfssqk]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwqdsj">
+				<![CDATA[bwqdsj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwqdlyyj">
+				<![CDATA[bwqdlyyj]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzd" />
+		)
+		values
+		(
+		<isNotEmpty property="id">
+				<![CDATA[#id#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[#dwid#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfjgdw">
+				<![CDATA[#sfjgdw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jgdh">
+				<![CDATA[#jgdh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="syzxz">
+				<![CDATA[#syzxz#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zddj">
+				<![CDATA[#zddj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zybws">
+				<![CDATA[#zybws#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zczgs">
+				<![CDATA[#zczgs#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="ykqk">
+				<![CDATA[#ykqk#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfpadw">
+				<![CDATA[#sfpadw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfjljwgzz">
+				<![CDATA[#sfjljwgzz#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="gdzc">
+				<![CDATA[#gdzc#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwzgfzrxm">
+				<![CDATA[#dwzgfzrxm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwzgfzrsfzh">
+				<![CDATA[#dwzgfzrsfzh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwzgfzrzw">
+				<![CDATA[#dwzgfzrzw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwzgfzrlxfs">
+				<![CDATA[#dwzgfzrlxfs#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fzzdjdganbbm">
+				<![CDATA[#fzzdjdganbbm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fzzdjdganbbmzrmj">
+				<![CDATA[#fzzdjdganbbmzrmj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fzzdjdganbbmlxfs">
+				<![CDATA[#fzzdjdganbbmlxfs#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qdzddwyj">
+				<![CDATA[#qdzddwyj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bdwyj">
+				<![CDATA[#bdwyj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zggajgyj">
+				<![CDATA[#zggajgyj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sjgajgshyj">
+				<![CDATA[#sjgajgshyj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfazhwbj">
+				<![CDATA[#sfazhwbj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bz">
+				<![CDATA[#bz#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwbh">
+				<![CDATA[#bwbh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwmc">
+				<![CDATA[#bwmc#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwwz">
+				<![CDATA[#bwwz#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwfzr">
+				<![CDATA[#bwfzr#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwfzrsfzh">
+				<![CDATA[#bwfzrsfzh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwfzrzw">
+				<![CDATA[#bwfzrzw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwfzrlxfs">
+				<![CDATA[#bwfzrlxfs#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwzbdh">
+				<![CDATA[#bwzbdh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="wfssqk">
+				<![CDATA[#wfssqk#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jfssqk">
+				<![CDATA[#jfssqk#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwqdsj">
+				<![CDATA[#bwqdsj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bwqdlyyj">
+				<![CDATA[#bwqdlyyj#]]>
+		</isNotEmpty>
+
+		,
+		<include refid="insertXtzdVal" />
+		)
+	</insert>
+
+	<update id="updateGqwb" parameterClass="dwOwnGqwbBean">
+	 <![CDATA[ update DW_DWGQWBXXB]]>
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="dwid"><![CDATA[dwid=#dwid#]]></isNotNull>
+			<isNotNull prepend="," property="sfjgdw"><![CDATA[sfjgdw=#sfjgdw#]]></isNotNull>
+			<isNotNull prepend="," property="jgdh"><![CDATA[jgdh=#jgdh#]]></isNotNull>
+			<isNotNull prepend="," property="syzxz"><![CDATA[syzxz=#syzxz#]]></isNotNull>
+			<isNotNull prepend="," property="zddj"><![CDATA[zddj=#zddj#]]></isNotNull>
+			<isNotNull prepend="," property="zybws"><![CDATA[zybws=#zybws#]]></isNotNull>
+			<isNotNull prepend="," property="zczgs"><![CDATA[zczgs=#zczgs#]]></isNotNull>
+			<isNotNull prepend="," property="ykqk"><![CDATA[ykqk=#ykqk#]]></isNotNull>
+			<isNotNull prepend="," property="sfpadw"><![CDATA[sfpadw=#sfpadw#]]></isNotNull>
+			<isNotNull prepend="," property="sfjljwgzz"><![CDATA[sfjljwgzz=#sfjljwgzz#]]></isNotNull>
+			<isNotNull prepend="," property="gdzc"><![CDATA[gdzc=#gdzc#]]></isNotNull>
+			<isNotNull prepend="," property="dwzgfzrxm"><![CDATA[dwzgfzrxm=#dwzgfzrxm#]]></isNotNull>
+			<isNotNull prepend="," property="dwzgfzrsfzh"><![CDATA[dwzgfzrsfzh=#dwzgfzrsfzh#]]></isNotNull>
+			<isNotNull prepend="," property="dwzgfzrzw"><![CDATA[dwzgfzrzw=#dwzgfzrzw#]]></isNotNull>
+			<isNotNull prepend="," property="dwzgfzrlxfs"><![CDATA[dwzgfzrlxfs=#dwzgfzrlxfs#]]></isNotNull>
+			<isNotNull prepend="," property="fzzdjdganbbm"><![CDATA[fzzdjdganbbm=#fzzdjdganbbm#]]></isNotNull>
+			<isNotNull prepend="," property="fzzdjdganbbmzrmj"><![CDATA[fzzdjdganbbmzrmj=#fzzdjdganbbmzrmj#]]></isNotNull>
+			<isNotNull prepend="," property="fzzdjdganbbmlxfs"><![CDATA[fzzdjdganbbmlxfs=#fzzdjdganbbmlxfs#]]></isNotNull>
+			<isNotNull prepend="," property="qdzddwyj"><![CDATA[qdzddwyj=#qdzddwyj#]]></isNotNull>
+			<isNotNull prepend="," property="bdwyj"><![CDATA[bdwyj=#bdwyj#]]></isNotNull>
+			<isNotNull prepend="," property="zggajgyj"><![CDATA[zggajgyj=#zggajgyj#]]></isNotNull>
+			<isNotNull prepend="," property="sjgajgshyj"><![CDATA[sjgajgshyj=#sjgajgshyj#]]></isNotNull>
+			<isNotNull prepend="," property="sfazhwbj"><![CDATA[sfazhwbj=#sfazhwbj#]]></isNotNull>
+			<isNotNull prepend="," property="bz"><![CDATA[bz=#bz#]]></isNotNull>
+			<isNotNull prepend="," property="bwbh"><![CDATA[bwbh=#bwbh#]]></isNotNull>
+			<isNotNull prepend="," property="bwmc"><![CDATA[bwmc=#bwmc#]]></isNotNull>
+			<isNotNull prepend="," property="bwwz"><![CDATA[bwwz=#bwwz#]]></isNotNull>
+			<isNotNull prepend="," property="bwfzr"><![CDATA[bwfzr=#bwfzr#]]></isNotNull>
+			<isNotNull prepend="," property="bwfzrsfzh"><![CDATA[bwfzrsfzh=#bwfzrsfzh#]]></isNotNull>
+			<isNotNull prepend="," property="bwfzrzw"><![CDATA[bwfzrzw=#bwfzrzw#]]></isNotNull>
+			<isNotNull prepend="," property="bwfzrlxfs"><![CDATA[bwfzrlxfs=#bwfzrlxfs#]]></isNotNull>
+			<isNotNull prepend="," property="bwzbdh"><![CDATA[bwzbdh=#bwzbdh#]]></isNotNull>
+			<isNotNull prepend="," property="wfssqk"><![CDATA[wfssqk=#wfssqk#]]></isNotNull>
+			<isNotNull prepend="," property="jfssqk"><![CDATA[jfssqk=#jfssqk#]]></isNotNull>
+			<isNotNull prepend="," property="bwqdsj"><![CDATA[bwqdsj=#bwqdsj#]]></isNotNull>
+			<isNotNull prepend="," property="bwqdlyyj"><![CDATA[bwqdlyyj=#bwqdlyyj#]]></isNotNull>
+			,
+			<include refid="updateXtzd" />
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>
+	</update>
+	<!-- 工企/文保单位信息结束 -->
+	<!-- 消防单位信息开始 -->
+	<select id="queryXf" parameterClass="Map" resultClass="dwOwnXFBean">
+		<![CDATA[select * from DW_DWXFXXB t where dwid= #dwid#  AND XT_ZXBZ='0' ORDER BY xt_cjsj DESC]]>
+	</select>
+	<select id="queryXfByRyid" parameterClass="dwOwnXFBean"
+		resultClass="com.founder.sydw.bean.DwOwnXFBean">
+		<![CDATA[select * from DW_DWXFXXB t where id= #id# ]]>
+	</select>
+
+	<insert id="insertXf" parameterClass="dwOwnXFBean">
+		INSERT INTO DW_DWXFXXB
+		(id
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[dwid]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jgdwlb">
+				<![CDATA[jgdwlb]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xfgx">
+				<![CDATA[xfgx]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwsymc">
+				<![CDATA[dwsymc]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jzgldw">
+			   <![CDATA[jzgldw]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sjdw">
+				<![CDATA[sjdw]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xzqy">
+				<![CDATA[xzqy]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fgjb">
+				<![CDATA[fgjb]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hzwxx">
+				<![CDATA[hzwxx]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xfaqglrxm">
+				<![CDATA[xfaqglrxm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xfaqglrsfzh">
+				<![CDATA[xfaqglrsfzh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xfaqglrlxfs">
+				<![CDATA[xfaqglrlxfs]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xfaqzrrxm">
+				<![CDATA[xfaqzrrxm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xfaqzrrsfzh">
+				<![CDATA[xfaqzrrsfzh]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xfaqzrrlxfs">
+				<![CDATA[xfaqzrrlxfs]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="gdzc">
+				<![CDATA[gdzc]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zczgs">
+				<![CDATA[zczgs]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zdmj">
+				<![CDATA[zdmj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jzmj">
+				<![CDATA[jzmj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dlqk">
+				<![CDATA[dlqk]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zdxfqk">
+				<![CDATA[zdxfqk]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dlzbx">
+				<![CDATA[dlzbx]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dlzby">
+				<![CDATA[dlzby]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bz">
+				<![CDATA[bz]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zddwzzjgdm">
+				<![CDATA[zddwzzjgdm]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zddwrdsj">
+				<![CDATA[zddwrdsj]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zddwzzjgname">
+				<![CDATA[zddwzzjgname]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bsf">
+				<![CDATA[bsf]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzd" />
+		)
+		values
+		(
+		<isNotEmpty property="id">
+				<![CDATA[#id#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwid">
+				<![CDATA[#dwid#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jgdwlb">
+				<![CDATA[#jgdwlb#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xfgx">
+				<![CDATA[#xfgx#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dwsymc">
+				<![CDATA[#dwsymc#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jzgldw">
+				<![CDATA[#jzgldw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="sjdw">
+				<![CDATA[#sjdw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xzqy">
+				<![CDATA[#xzqy#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fgjb">
+				<![CDATA[#fgjb#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="hzwxx">
+				<![CDATA[#hzwxx#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xfaqglrxm">
+				<![CDATA[#xfaqglrxm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xfaqglrsfzh">
+				<![CDATA[#xfaqglrsfzh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xfaqglrlxfs">
+				<![CDATA[#xfaqglrlxfs#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xfaqzrrxm">
+				<![CDATA[#xfaqzrrxm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xfaqzrrsfzh">
+				<![CDATA[#xfaqzrrsfzh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xfaqzrrlxfs">
+				<![CDATA[#xfaqzrrlxfs#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="gdzc">
+				<![CDATA[#gdzc#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zczgs">
+				<![CDATA[#zczgs#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zdmj">
+				<![CDATA[#zdmj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jzmj">
+				<![CDATA[#jzmj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dlqk">
+				<![CDATA[#dlqk#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zdxfqk">
+				<![CDATA[#zdxfqk#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dlzbx">
+				<![CDATA[#dlzbx#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="dlzby">
+				<![CDATA[#dlzby#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bz">
+				<![CDATA[#bz#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zddwzzjgdm">
+				<![CDATA[#zddwzzjgdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zddwrdsj">
+				<![CDATA[#zddwrdsj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="zddwzzjgname">
+				<![CDATA[#zddwzzjgname#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bsf">
+				<![CDATA[#bsf#]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzdVal" />
+		)
+	</insert>
+
+	<update id="updateXf" parameterClass="dwOwnXFBean">
+	 <![CDATA[ update DW_DWXFXXB]]>
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="dwid"><![CDATA[dwid=#dwid#]]></isNotNull>
+			<isNotNull prepend="," property="jgdwlb"><![CDATA[jgdwlb=#jgdwlb#]]></isNotNull>
+			<isNotNull prepend="," property="xfgx"><![CDATA[xfgx=#xfgx#]]></isNotNull>
+			<isNotNull prepend="," property="dwsymc"><![CDATA[dwsymc=#dwsymc#]]></isNotNull>
+			<isNotNull prepend="," property="jzgldw"><![CDATA[jzgldw=#jzgldw#]]></isNotNull>
+			<isNotNull prepend="," property="sjdw"><![CDATA[sjdw=#sjdw#]]></isNotNull>
+			<isNotNull prepend="," property="xzqy"><![CDATA[xzqy=#xzqy#]]></isNotNull>
+			<isNotNull prepend="," property="fgjb"><![CDATA[fgjb=#fgjb#]]></isNotNull>
+			<isNotNull prepend="," property="hzwxx"><![CDATA[hzwxx=#hzwxx#]]></isNotNull>
+			<isNotNull prepend="," property="xfaqglrxm"><![CDATA[xfaqglrxm=#xfaqglrxm#]]></isNotNull>
+			<isNotNull prepend="," property="xfaqglrsfzh"><![CDATA[xfaqglrsfzh=#xfaqglrsfzh#]]></isNotNull>
+			<isNotNull prepend="," property="xfaqglrlxfs"><![CDATA[xfaqglrlxfs=#xfaqglrlxfs#]]></isNotNull>
+			<isNotNull prepend="," property="xfaqzrrxm"><![CDATA[xfaqzrrxm=#xfaqzrrxm#]]></isNotNull>
+			<isNotNull prepend="," property="xfaqzrrsfzh"><![CDATA[xfaqzrrsfzh=#xfaqzrrsfzh#]]></isNotNull>
+			<isNotNull prepend="," property="xfaqzrrlxfs"><![CDATA[xfaqzrrlxfs=#xfaqzrrlxfs#]]></isNotNull>
+			<isNotNull prepend="," property="gdzc"><![CDATA[gdzc=#gdzc#]]></isNotNull>
+			<isNotNull prepend="," property="zdmj"><![CDATA[zdmj=#zdmj#]]></isNotNull>
+			<isNotNull prepend="," property="jzmj"><![CDATA[jzmj=#jzmj#]]></isNotNull>
+			<isNotNull prepend="," property="dlqk"><![CDATA[dlqk=#dlqk#]]></isNotNull>
+			<isNotNull prepend="," property="zdxfqk"><![CDATA[zdxfqk=#zdxfqk#]]></isNotNull>
+			<isNotNull prepend="," property="dlzbx"><![CDATA[dlzbx=#dlzbx#]]></isNotNull>
+			<isNotNull prepend="," property="dlzby"><![CDATA[dlzby=#dlzby#]]></isNotNull>
+			<isNotNull prepend="," property="bz"><![CDATA[bz=#bz#]]></isNotNull>
+			<isNotNull prepend="," property="zddwzzjgdm"><![CDATA[zddwzzjgdm=#zddwzzjgdm#]]></isNotNull>
+			<isNotNull prepend="," property="zddwzzjgname"><![CDATA[zddwzzjgname=#zddwzzjgname#]]></isNotNull>
+			<isNotNull prepend="," property="zddwrdsj"><![CDATA[zddwrdsj=#zddwrdsj#]]></isNotNull>
+			<isNotNull prepend="," property="bsf"><![CDATA[bsf=#bsf#]]></isNotNull>
+			,
+			<include refid="updateXtzd" />
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>
+	</update>
+	<!-- 消防单位信息结束 -->
+
+</sqlMap>
+

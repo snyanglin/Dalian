@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Option">
+
+	<typeAlias alias="option" type="com.founder.xlff.bean.Option" />
+	<typeAlias alias="sf" type="com.founder.xlff.vo.Sf_Organization" />
+	
+	<!-- 保存设置-->
+    <select id="queryOption" parameterClass="Map" resultClass="option">
+         select * from XLFF_OPTION
+		  where 1=1
+	      <isNotEmpty prepend="and" property="option.orgcode">
+			   orgcode = #option.orgcode#
+		  </isNotEmpty>
+    </select>
+    
+    <!-- 插入设置表 -->
+    <insert id="saveOption" parameterClass="option">
+       insert into XLFF_OPTION
+       (
+			orgcode
+        <isNotEmpty prepend="," property="kssj">
+			kssj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="jssj">
+			jssj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="f1">
+			f1
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="f2">
+			f2
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="f3">
+			f3
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="f4">
+			f4
+		</isNotEmpty>
+       )VALUES(
+			#orgcode#
+        <isNotEmpty prepend="," property="kssj">
+			#kssj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="jssj">
+			#jssj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="f1">
+			#f1#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="f2">
+			#f2#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="f3">
+			#f3#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="f4">
+			#f4#
+		</isNotEmpty>
+       )
+    </insert>
+    
+    <!-- 更新设置表 -->
+	<update id="updateOption" parameterClass="option">
+       update XLFF_OPTION
+       <dynamic prepend="set">
+			<isNotNull prepend="," property="kssj">
+				<![CDATA[ kssj = #kssj# ]]>
+			</isNotNull>			
+			<isNotNull prepend="," property="jssj">
+				<![CDATA[ jssj = #jssj# ]]>
+			</isNotNull>			
+			<isNotNull prepend="," property="f1">
+				<![CDATA[ f1 = #f1# ]]>
+			</isNotNull>			
+			<isNotNull prepend="," property="f2">
+				<![CDATA[ f2 = #f2# ]]>
+			</isNotNull>			
+			<isNotNull prepend="," property="f3">
+				<![CDATA[ f3 = #f3# ]]>
+			</isNotNull>			
+			<isNotNull prepend="," property="f4">
+				<![CDATA[ f4 = #f4# ]]>
+			</isNotNull>			
+		</dynamic>
+       where orgcode = #orgcode#
+    </update>
+    
+    <!-- 组织机构 -->
+    <select id="queryTree" parameterClass="Map" resultClass="sf">
+	  <isEmpty prepend="" property="line">
+	  <![CDATA[
+		select * from (select t.*,rownum as ROWNO from (select ID,PARENTID,ORGCODE,ORGNAME,ORGTYPE,ORGNAMEPY,ORGLEVEL,ORGBIZTYPE, BJZBZ       
+			from ORG_ORGANIZATION a where XT_ZXBZ = '0' and ORGTYPE = '01'            
+			connect by prior ID = PARENTID start with id= (select dd.id from org_organization dd where dd.orgcode=#orgcode# )
+			order siblings by ORGTYPE,ORDERNO) t) ORG 
+	  ]]>
+			<isEqual property="flag" compareValue="FJ">
+				where ORG.ID in (select ID from ORG_ORGANIZATION connect by ID = prior
+				PARENTID start with ORGLEVEL in ('21')) order by ROWNO
+			</isEqual>
+			<isEqual property="flag" compareValue="PCS">
+				where ORG.ID in (select ID from ORG_ORGANIZATION connect by ID = prior
+				PARENTID start with ORGLEVEL in ('32') and ORGBIZTYPE in
+				('01','04')) order by ROWNO
+			</isEqual>
+			<isEqual property="flag" compareValue="ZRQ">
+				where ORG.ID in (select ID from ORG_ORGANIZATION connect by ID = prior
+				PARENTID start with ORGLEVEL = '50' and ORGBIZTYPE = '04') order by
+				ROWNO
+			</isEqual>
+	  </isEmpty>
+	</select>
+	
+	<!-- 获取派出所组织机构 -->
+	<select id="queryXjZzjgxj" parameterClass="java.util.List" resultClass="sf">
+		SELECT T.ORGCODE ZZJGDM, T.ORGNAME ZZJGMC, T.BJZBZ BJZBZ
+		FROM ORG_ORGANIZATION T
+		WHERE T.ORGCODE in
+		<iterate conjunction="," open="(" close=")">
+			#list[].id#
+		</iterate>
+	</select>
+	
+	<!-- 查询警情数量 -->
+	<select id="queryCountJq" parameterClass="Map" resultClass="Integer">
+		<![CDATA[
+			SELECT count(1)  FROM jcj.jcj_jjxxb A  WHERE 1=1
+		]]>
+		<isNotEmpty prepend="and" property="jqxxb.jqlbdm">
+		     <![CDATA[ A.jqlbdm = #jqxxb.jqlbdm# ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jqxxb.fqsj">
+		     <![CDATA[ substr(A.bj_sj, 0, 10) >= #jqxxb.fqsj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jqxxb.jssj">
+		     <![CDATA[ substr(A.bj_sj, 0, 10) <= #jqxxb.jssj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jqxxb.jqdzms">
+		     <![CDATA[ A.jqdzms like  '%' || #jqxxb.jqdzms# || '%']]>
+		</isNotEmpty>
+		<isEqual property="flag" compareValue="PCS" prepend="AND">
+			<![CDATA[ 
+				substr(a.GXDWDM, 0, 8) = substr('$jqxxb.gxdwdm$', 0, 8)
+			]]>
+		</isEqual>
+		<isEqual property="flag" compareValue="ZRQ" prepend="AND">
+			a.GXDWDM = '$jqxxb.gxdwdm$'
+		</isEqual>
+		<isNotEmpty property="sort">
+			<![CDATA[ order by $sort$ $order$]]>
+		</isNotEmpty>
+	</select>
+	
+</sqlMap>

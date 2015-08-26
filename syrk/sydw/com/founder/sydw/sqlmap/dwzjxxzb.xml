@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Dwzjxxzb">
+
+	<typeAlias alias="dwzjxxzb" type="com.founder.sydw.bean.Dwzjb" />
+
+	<!-- 查询单条 -->
+	<select id="query" parameterClass="dwzjxxzb" resultClass="Dwzjxxzb">
+		<![CDATA[select * from DW_DWZJB t where id= #id# AND XT_ZXBZ='0' ]]>
+	</select>
+	<insert id="insertDwzj" parameterClass="dwzjxxzb">
+		 INSERT INTO DW_DWZJB
+		 	(id			
+	    	<isNotEmpty prepend="," property="dwid">
+				<![CDATA[ dwid]]>	
+			</isNotEmpty>
+	    	<isNotEmpty prepend="," property="dwzjzldm">
+				<![CDATA[ dwzjzldm]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="dwzjbh">
+				<![CDATA[ dwzjbh]]>	
+			</isNotEmpty>				
+	    	<isNotEmpty prepend="," property="qfrq">
+				<![CDATA[ qfrq]]>	
+			</isNotEmpty>				
+	    	<isNotEmpty prepend="," property="jzrq">
+				<![CDATA[ jzrq]]>	
+			</isNotEmpty>
+	    	<isNotEmpty prepend="," property="zjspjg">
+				<![CDATA[ zjspjg]]>	
+			</isNotEmpty>				
+	    	<isNotEmpty prepend="," property="zjnjjg">
+				<![CDATA[ zjnjjg]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bz">
+				<![CDATA[ bz]]>	
+			</isNotEmpty>
+			,
+			<include refid="insertXtzd"/>
+			)
+	    	 values 
+	    	 (
+	    	<isNotEmpty  property="id">
+				<![CDATA[ #id#]]>	
+			</isNotEmpty>
+	    	<isNotEmpty prepend="," property="dwid">
+				<![CDATA[ #dwid#]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="dwzjzldm">
+				<![CDATA[ #dwzjzldm#]]>	
+			</isNotEmpty>			
+	    	<isNotEmpty prepend="," property="dwzjbh">
+				<![CDATA[ #dwzjbh#]]>	
+			</isNotEmpty>				
+	    	<isNotEmpty prepend="," property="qfrq">
+				<![CDATA[ #qfrq#]]>	
+			</isNotEmpty>				
+	    	<isNotEmpty prepend="," property="jzrq">
+				<![CDATA[ #jzrq#]]>	
+			</isNotEmpty>
+	    	<isNotEmpty prepend="," property="zjspjg">
+				<![CDATA[ #zjspjg#]]>	
+			</isNotEmpty>				
+	    	<isNotEmpty prepend="," property="zjnjjg">
+				<![CDATA[ #zjnjjg#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bz">
+				<![CDATA[ #bz#]]>	
+			</isNotEmpty>	
+			,
+			<include refid="insertXtzdVal"/>									
+	    	  )	    	
+	</insert>
+	<update  id="updateDwzj" parameterClass="dwzjxxzb">
+	 <![CDATA[ update DW_DWZJB ]]>	
+		<dynamic prepend="set">
+	    	<isNotNull prepend="," property="dwid"><![CDATA[ dwid=#dwid#]]></isNotNull>							
+	    	<isNotNull prepend="," property="dwzjzldm"><![CDATA[ dwzjzldm=#dwzjzldm#]]></isNotNull>	
+	    	<isNotNull prepend="," property="dwzjbh"><![CDATA[ dwzjbh=#dwzjbh#]]></isNotNull>
+	    	<isNotNull prepend="," property="qfrq"><![CDATA[ qfrq=#qfrq#]]></isNotNull>
+	    	<isNotNull prepend="," property="jzrq"><![CDATA[ jzrq=#jzrq#]]></isNotNull>
+	    	<isNotNull prepend="," property="zjspjg"><![CDATA[ zjspjg=#zjspjg#]]></isNotNull>
+	    	<isNotNull prepend="," property="zjnjjg"><![CDATA[ zjnjjg=#zjnjjg#]]></isNotNull>
+	    	<isNotNull prepend="," property="bz"><![CDATA[ bz=#bz#]]></isNotNull>
+			,<include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>	
+	</update>
+	
+	<select id="queryDwdwzjzldm" parameterClass="Map" resultClass="dwzjxxzb">
+		<![CDATA[select * from DW_DWZJB where  dwzjzldm=#dwzjzldm# and dwzjbh=#dwzjbh# and xt_zxbz = '0' ]]>
+	</select>
+	
+	<select id="dwzjxxzb_query" parameterClass="Map" resultClass="dwzjxxzb">
+		<![CDATA[ select * from ( select rownum r ,m.* from (
+				SELECT * FROM DW_DWZJB WHERE dwid=#dwid# AND XT_ZXBZ='0' ORDER BY xt_cjsj DESC ]]>
+				<![CDATA[ ) m  where rownum <= #maxNum# ) where r > 0 ]]>
+	</select>
+</sqlMap>

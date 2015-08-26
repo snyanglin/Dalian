@@ -1,0 +1,23 @@
+@charset "utf-8";
+/* CSS Document */
+
+.maptools_div{ position:absolute; left:60px; top:5px; z-index:990; width:64px; height:230px; overflow:hidden; text-align:center; background:url(../images/btn_maptools.png) no-repeat;}
+.maptools_div a{ display:block; margin:0 auto; position:absolute;border:none;outline:none;blr:expression(this.onFocus=this.blur());}
+.maptools_div a:focus{outline:none;-moz-outline:none;}
+.tool_direction{ position:absolute; top:6px; left:6px; width:51px; height:51px; background:none;}
+.tool_bgn{ width:51px; height:51px;background:url(../images/btn_maptoolsh.png) 0 0 no-repeat}
+.tool_bgw{ width:51px; height:51px; background:url(../images/btn_maptoolsh.png) 0 -51px no-repeat}
+.tool_bge{ width:51px; height:51px; background:url(../images/btn_maptoolsh.png) 0 -102px no-repeat}
+.tool_bgs{ width:51px; height:51px; background:url(../images/btn_maptoolsh.png) 0 -153px no-repeat}
+.tool_north{ height:17px; width:54px;top:0; left:0; z-index:991; }
+.tool_west{ height:17px; width:27px; top:17px; left:0; z-index:992;}
+.tool_east{ height:17px; width:27px; top:17px; left:26px; z-index:993;}
+.tool_south{ height:17px; width:54px; top:34px; left:0; z-index:994;}
+.sliderdiv{position:absolute; top:82px; left:0;height:120px; width:54px;}
+.tool_zoom{ height:16px; width:18px; top:70px; left:24px; z-index:996;}
+.tool_zoom:hover{ background:url(../images/btn_maptoolsh.png) 0 -209px no-repeat}
+.tool_contro{ position:absolute;height:20px; width:26px; top:0; left:19px; z-index:998; background:url(../images/btn_mapzoom.png) no-repeat;}
+.tool_contro:hover{ background:url(../images/btn_maptoolsh.png) 0 -252px no-repeat}
+.tool_narrow{ height:18px; width:18px; top:209px; left:23px; z-index:1997;}
+.tool_narrow:hover{ background:url(../images/btn_maptoolsh.png) 0 -230px no-repeat}
+.tool_track{ height:120px; width:20px; top:5px; left:22px; z-index:995;}

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Zazzryxxb">
+<typeAlias alias="zazzryxxb" type="com.founder.zafffwqz.bean.Zazzryxxb"/>
+	<!-- 查询单条 -->
+	<select id="queryZazzryxxb" parameterClass="zazzryxxb" resultClass="Zazzryxxb">
+		<![CDATA[select * from ZAFF_ZAZZRYXXB where id= #id# ]]>
+	</select>
+	<select id="getZazzryxxb" parameterClass="zazzryxxb" resultClass="Zazzryxxb">
+		<![CDATA[select * from ZAFF_ZAZZRYXXB where cyzjdm= #cyzjdm# and zjhm=#zjhm#]]>
+	</select>
+	<!-- 插入 -->
+	<insert id="insertZazzryxxb" parameterClass="zazzryxxb">
+		INSERT INTO ZAFF_ZAZZRYXXB 
+		(id,sqid
+			<isNotEmpty prepend="," property="ryid">
+				<![CDATA[ ryid]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cyzjdm">
+				<![CDATA[ cyzjdm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zjhm">
+				<![CDATA[ zjhm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="xm">
+				<![CDATA[ xm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="xbdm">
+				<![CDATA[ xbdm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="whcddm">
+				<![CDATA[ whcddm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zzmmdm">
+				<![CDATA[ zzmmdm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="lxfs">
+				<![CDATA[ lxfs]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ryly">
+				<![CDATA[ ryly]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zznzw">
+				<![CDATA[ zznzw]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjsj">
+				<![CDATA[ cjsj]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bz">
+				<![CDATA[ bz]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sqjwsid">
+				<![CDATA[ sqjwsid]]>	
+			</isNotEmpty>
+			,
+			<include refid="insertXtzd"/>
+		) VALUES(
+			<isNotEmpty  property="id">
+				<![CDATA[ #id#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sqid">
+				<![CDATA[ #sqid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ryid">
+				<![CDATA[ #ryid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cyzjdm">
+				<![CDATA[ #cyzjdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zjhm">
+				<![CDATA[ #zjhm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="xm">
+				<![CDATA[ #xm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="xbdm">
+				<![CDATA[ #xbdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="whcddm">
+				<![CDATA[ #whcddm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zzmmdm">
+				<![CDATA[ #zzmmdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="lxfs">
+				<![CDATA[ #lxfs#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ryly">
+				<![CDATA[ #ryly#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zznzw">
+				<![CDATA[ #zznzw#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjsj">
+				<![CDATA[ #cjsj#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bz">
+				<![CDATA[ #bz#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sqjwsid">
+				<![CDATA[ #sqjwsid#]]>	
+			</isNotEmpty>
+			,
+			<include refid="insertXtzdVal"/>
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update  id="updateZazzryxxb" parameterClass="zazzryxxb">
+		<![CDATA[ UPDATE ZAFF_ZAZZRYXXB]]>	
+		<dynamic prepend="set">
+			<isNotNull property="ryid"><![CDATA[ ryid=#ryid#,]]></isNotNull>	
+			<isNotNull property="cyzjdm"><![CDATA[ cyzjdm=#cyzjdm#,]]></isNotNull>	
+			<isNotNull property="zjhm"><![CDATA[ zjhm=#zjhm#,]]></isNotNull>
+			<isNotNull property="xm"><![CDATA[xm=#xm#,]]></isNotNull>
+			<isNotNull property="xbdm"><![CDATA[xbdm=#xbdm#,]]></isNotNull>
+			<isNotNull property="whcddm"><![CDATA[whcddm=#whcddm#,]]></isNotNull>
+			<isNotNull property="zzmmdm"><![CDATA[zzmmdm=#zzmmdm#,]]></isNotNull>
+			<isNotNull property="lxfs"><![CDATA[lxfs=#lxfs#,]]></isNotNull>
+			<isNotNull property="ryly"><![CDATA[ryly=#ryly#,]]></isNotNull>
+	    	<isNotNull property="zznzw"><![CDATA[zznzw=#zznzw#,]]></isNotNull>
+	    	<isNotNull property="cjsj"><![CDATA[cjsj=#cjsj#,]]></isNotNull>
+			<isNotNull property="bz"><![CDATA[bz=#bz#,]]></isNotNull>								
+			<include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>	
+	</update>
+	<!-- 查询 -->
+	<select id="queryZazzryxxbCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) from ZAFF_ZAZZRYXXB  where XT_ZXBZ = '0' ]]>
+		
+	</select>
+	<select id="zazzryxxb_query" parameterClass="Map" resultClass="zazzryxxb">
+		<![CDATA[ select * from ( select rownum r ,m.* from (
+				SELECT * FROM ZAFF_ZAZZRYXXB WHERE sqjwsid=#jwsid# AND XT_ZXBZ='0' ORDER BY xt_cjsj DESC ]]>
+				<![CDATA[ ) m  where rownum <= #maxNum# ) where r > 0 ]]>
+	</select>
+</sqlMap>

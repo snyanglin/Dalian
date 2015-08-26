@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="DwContextSearch">
+	
+	<!-- 单位全文检索 -->
+	<select id="searchDepartment" parameterClass="com.founder.service.contextsearch.department.bean.DwContextCondition" resultClass="com.founder.service.contextsearch.department.bean.DwContextCombo">
+		<![CDATA[ select ID,DWMC as TEXT,GLBMID,GLPCSID,GLFXJID,DWBH,DWDZ from DW_DWXZXXB where 1=1 ]]>
+			<isNotEmpty prepend="and" property="queryExpression">
+				$queryExpression$
+			</isNotEmpty>
+			<![CDATA[ and rownum <= 10 ]]>
+	</select>
+</sqlMap>

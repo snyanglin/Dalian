@@ -1,0 +1,18 @@
+@charset "utf-8";
+/* CSS Document */
+
+.itemselector{font-size:12px;height:auto;margin:5px 0 0;clear:both;}
+.itemselector .itemselectorbtn{float: none;width: 300px;padding:0 0 0 272px;overflow: hidden;height:30px;}
+.itemselector .itemselector_data{float: left;height:225px;}
+.itemselector .itemselectorbtna{display:block;width:20px;height:20px; margin:80px 2px 0;background: url("../images/itemselectorbtn.png") no-repeat;}
+.itemselector .itemselectorbtna:hover{background-position: 0 -40px;}
+.itemselector .itemselectorbtnb{display:block;width:20px;height:20px; margin:25px 2px;background: url("../images/itemselectorbtn.png") 0 -20px no-repeat;}
+.itemselector .itemselectorbtnb:hover{background-position: 0 -60px;}
+.itemselector .itemselectorbtnc{display:block;width:20px;height:20px; margin:110px 2px 0;background: url("../images/itemglbtn.png") no-repeat;}
+.itemselector .itemselectorbtnc:hover{background-position: 0 -20px;}
+
+.zbgl_bdbtn,.zbgl_jbbtn{display:block;width:60px;height:24px;float:left;margin:0 0 0 20px;background: url("../images/btn_zbgl.png") no-repeat;}
+.zbgl_bdbtn:hover{background-position: 0 -29px;}
+.zbgl_jbbtn{background-position: -65px 0;}
+.zbgl_jbbtn:hover{background-position: -65px -29px;}
+.link_broken{display:block;width:16px;height:16px;background:url("../images/link_broken.png") no-repeat center center;}

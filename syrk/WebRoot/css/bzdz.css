@@ -1,0 +1,752 @@
+body {
+	margin: 0px;
+	padding: 0px;
+}
+
+.ds_left {
+	width: 260px;
+	float: left;
+	overflow: hidden;
+}
+
+.ds_wrapper {
+	width: 233px;
+	height: 150px;
+	background-color: #fff;
+	border: 1px solid #dedfe3;
+	float: left;
+	margin: 20px 0 0 10px;
+}
+
+.ds_wrapper1 {
+	width: 233px;
+	height: 150px;
+	background-color: #fff;
+	border: 1px solid #dedfe3;
+	float: left;
+	margin: 10px 0 0 10px;
+}
+
+.ds_title {
+	width: 213px;
+	background: url(../images/bzdz/building/ds.png) no-repeat left center;
+	border-bottom: 1px solid #ccc9da;
+	float: left;
+	line-height: 30px;
+	margin: 10px 0 0 10px;
+	display: inline;
+}
+
+.ds_titleGray {
+	width: 213px;
+	background: url(../images/bzdz/building/ds_gray.png) no-repeat left
+		center;
+	border-bottom: 1px solid #ccc9da;
+	float: left;
+	line-height: 30px;
+	margin: 10px 0 0 10px;
+	display: inline;
+}
+
+.ds_text {
+	width: 100px;
+	float: left;
+	font-size: 14px;
+	color: #76757a;
+	margin-left: 26px;
+	line-height: 30px;
+}
+
+.dx_title {
+	width: 213px;
+	background: url(../images/bzdz/building/dx.png) no-repeat left center;
+	border-bottom: 1px solid #ccc9da;
+	float: left;
+	line-height: 30px;
+	margin: 10px 0 0 10px;
+	display: inline;
+}
+
+.dx_titleGray {
+	width: 213px;
+	background: url(../images/bzdz/building/dx_gray.png) no-repeat left
+		center;
+	border-bottom: 1px solid #ccc9da;
+	float: left;
+	line-height: 30px;
+	margin: 10px 0 0 10px;
+	display: inline;
+}
+
+.ds_con {
+	width: 213px;
+	height: auto;
+	overflow: hidden;
+	float: left;
+	margin-left: 10px;
+	display: inline;
+}
+
+.ds_con ul {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.ds_con ul li {
+	list-style: none;
+	width: 213px;
+	float: left;
+	height: 32px;
+	font-size: 14px;
+	color: #797a7c;
+}
+
+.text_W {
+	width: 75px;
+	font-size: 14px;
+	color: #797a7c;
+	float: left;
+	line-height: 36px;
+	text-align: left;
+}
+
+.ds_btn {
+	width: 20px;
+	height: 20px;
+	float: left;
+	border: 1px solid #b4b3b8;
+	background-color: #f6f6f8;
+	color: #000;
+	line-height: 20px;
+	text-align: center;
+	margin-top: 8px;
+}
+
+.ds_btnCur {
+	width: 20px;
+	height: 20px;
+	float: left;
+	border: 1px solid #b4b3b8;
+	background-color: #f6f6f8;
+	color: #000;
+	line-height: 20px;
+	text-align: center;
+	margin-top: 8px;
+	cursor: pointer;
+}
+
+.ds_mid {
+	width: 40px;
+	float: left;
+	height: 20px;
+	border-top: 1px solid #b4b3b8;
+	border-bottom: 1px solid #b4b3b8;
+	margin-top: 8px;
+}
+
+.ds_input {
+	width: 39px;
+	float: left;
+	border: none;
+	background-color: #fff;
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+	height: 20px;
+	line-height: 18px;
+	color: #000;
+	text-indent: 3px;
+}
+/*===2015-1-20==*/
+.scIco_title {
+	width: 233px;
+	height: 32px;
+	line-height: 32px;
+	background: url(../images/bzdz/building/scIco.png) no-repeat left center;
+	float: left;
+	margin: 10px 0 0 10px;
+	display: inline;
+	font-size: 20px;
+	font-family: Microsoft YaHei;
+	color: #727272;
+	text-indent: 26px;
+}
+
+.ds_checkbox {
+	width: 20px;
+	float: right;
+	height: 20px;
+	margin-top: 6px;
+}
+
+.btn_wrap {
+	width: 233px;
+	height: 34px;
+	float: left;
+	margin: 15px 0 0 10px;
+	display: inline;
+	text-align: center;
+}
+
+.btn1 {
+	width: 104px;
+	height: 32px;
+	background-color: #037ee5;
+	text-align: center;
+	font-family: Microsoft YaHei;
+	color: #fff;
+	font-size: 16px;
+	line-height: 30px;
+	border: none;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.btnGray {
+	width: 104px;
+	height: 32px;
+	background-color: #a9a9a9;
+	text-align: center;
+	font-family: Microsoft YaHei;
+	color: #6b6b6b;
+	font-size: 16px;
+	line-height: 30px;
+	border: none;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.btn2 {
+	width: 104px;
+	height: 32px;
+	background-color: #f27c04;
+	text-align: center;
+	font-family: Microsoft YaHei;
+	color: #fff;
+	font-size: 16px;
+	line-height: 30px;
+	border: none;
+	cursor: pointer;
+	font-weight: bold;
+}
+/*以下为层户结构*/
+.juzhong {
+	margin: 0 auto;
+}
+
+.b_top_table {
+	height: 62px;
+	background: url(../images/bzdz/building/h_x.gif) repeat-x;
+	margin: 0 auto;
+}
+
+.b_top_x {
+	height: 62px;
+	background: url(../images/bzdz/building/h_x.gif) repeat-x;
+}
+
+.b_top_c {
+	height: 62px;
+	background: url(../images/bzdz/building/h_c.gif) no-repeat center center;
+	width: 43px;
+}
+
+.b_top_l {
+	width: 56px;
+	height: 62px;
+	float: left;
+	background: url(../images/bzdz/building/h_l.gif) no-repeat;
+}
+
+.b_top_m {
+	background: url(../images/bzdz/building/h_c.gif) no-repeat center center;
+	float: left;
+	height: 62px;
+}
+
+.b_top_r {
+	background: url(../images/bzdz/building/h_r.gif) no-repeat right 0;
+	float: right;
+	width: 56px;
+	height: 62px;
+}
+
+.floot_num {
+	height: 20px;
+	background-color: #fbd279;
+	text-align: center;
+	font-family: Microsoft YaHei;
+	font-size: 16px;
+	color: #000;
+	width: 100%;
+}
+
+.floot_num a {
+	height: 20px;
+	background-color: #fbd279;
+	text-align: center;
+	font-family: Microsoft YaHei;
+	font-size: 16px;
+	color: #000;
+	width: 100%;
+	display: block;
+	cursor: pointer;
+}
+
+.floot_num a:hover {
+	height: 20px;
+	background-color: #037ee5;
+	text-align: center;
+	font-family: Microsoft YaHei;
+	font-size: 16px;
+	color: #FFF;
+	width: 100%;
+	display: block;
+}
+
+.floot_numOnly {
+	height: 20px;
+	background-color: #fbd279;
+	text-align: center;
+	font-family: Microsoft YaHei;
+	font-size: 16px;
+	color: #000;
+	width: 100%;
+}
+
+.floot_numOnly a {
+	height: 20px;
+	background-color: #fbd279;
+	text-align: center;
+	font-family: Microsoft YaHei;
+	font-size: 16px;
+	color: #000;
+	width: 100%;
+	display: block;
+	cursor: default;
+}
+
+.ceng_W {
+	height: 80px;
+	margin: 0 auto;
+}
+
+.ceng_W ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	width: 100%;
+}
+
+.ceng_W ul li {
+	list-style: none;
+	float: left;
+	width: 58px;
+	height: 72px;
+	border: 1px solid #E0E0E2;
+	margin: 2px 3px 0 3px;
+}
+
+.ceng_W ul li.qiang {
+	background: url(../images/bzdz/building/qiang.jpg) repeat-y;
+	height: 80px;
+	float: left;
+	width: 19px;
+	border: none;
+	margin: 0px;
+}
+
+.ceng_W ul li.qiang1 {
+	background: url(../images/bzdz/building/qiang.jpg) repeat-y;
+	height: 80px;
+	float: right;
+	width: 19px;
+	border: none;
+	margin: 0px;
+}
+
+.ceng_W ul li.qiang3 {
+	background: url(../images/bzdz/building/qiang.jpg) repeat-y;
+	height: 89px;
+	float: left;
+	width: 19px;
+	border: none;
+	margin: 0px;
+}
+
+.ceng_W ul li.qiang4 {
+	background: url(../images/bzdz/building/qiang.jpg) repeat-y;
+	height: 89px;
+	float: right;
+	width: 19px;
+	border: none;
+	margin: 0px;
+}
+
+.ceng_W ul li.cengNum {
+	width: 66px;
+	font-size: 14px;
+	color: #000;
+	line-height: 72px;
+	background-color: #fdf7eb;
+	text-align: center;
+}
+
+.ceng_W ul li.cengNum a {
+	width: 66px;
+	font-size: 14px;
+	color: #000;
+	line-height: 72px;
+	background-color: #fdf7eb;
+	text-align: center;
+	display: block;
+	cursor: pointer;
+}
+
+.ceng_W ul li.cengNum a:hover {
+	width: 66px;
+	font-size: 14px;
+	color: #FFF;
+	line-height: 72px;
+	background-color: #037ee5;
+	text-align: center;
+	display: block;
+}
+
+.ceng_W ul li.cengNumOnly {
+	width: 66px;
+	font-size: 14px;
+	color: #000;
+	line-height: 72px;
+	background-color: #fdf7eb;
+	text-align: center;
+}
+
+.ceng_W ul li.cengNumOnly a {
+	width: 66px;
+	font-size: 14px;
+	color: #000;
+	line-height: 72px;
+	background-color: #fdf7eb;
+	text-align: center;
+	display: block;
+	cursor: default;
+}
+
+.ceng_W ul li.cengNumOnlyShow {
+	width: 66px;
+	font-size: 14px;
+	color: #000;
+	line-height: 82px;
+	background-color: #fdf7eb;
+	text-align: center;
+}
+
+.ceng_W ul li.cengNumOnlyShow a {
+	width: 66px;
+	font-size: 14px;
+	color: #000;
+	line-height: 82px;
+	background-color: #fdf7eb;
+	text-align: center;
+	display: block;
+	cursor: default;
+}
+
+.cengButton {
+	width: 50px;
+	height: 18px;
+	float: left;
+	margin: 3px 0 0 3px;
+}
+
+.cengButton a {
+	width: 50px;
+	height: 18px;
+	background-color: #f4f4f4;
+	border: 1px solid #eaeaea;
+	float: left;
+	text-align: center;
+	font-size: 12px;
+	color: #000;
+	line-height: 18px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.cengButton a:hover {
+	width: 50px;
+	height: 18px;
+	background-color: #037ee5;
+	border: 1px solid #037ee5;
+	float: left;
+	text-align: center;
+	font-size: 12px;
+	color: #FFF;
+	line-height: 18px;
+	text-decoration: none;
+}
+
+.cengButtonOnly {
+	width: 50px;
+	height: 18px;
+	float: left;
+	margin: 3px 0 0 3px;
+}
+
+.cengButtonOnly a {
+	width: 50px;
+	height: 18px;
+	background-color: #f4f4f4;
+	border: 1px solid #eaeaea;
+	float: left;
+	text-align: center;
+	font-size: 12px;
+	color: #000;
+	line-height: 18px;
+	text-decoration: none;
+	cursor: default;
+}
+
+.floot {
+	background: url(../images/bzdz/building/floot.jpg) repeat-x center
+		center;
+	height: 12px;
+	margin: 0 auto;
+}
+
+.gd_line {
+	border: 1px solid #ccc;
+}
+
+.t_list {
+	height: auto;
+	overflow: hidden;
+	float: left;
+	width: 100%;
+}
+
+.t_list dl {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	height: auto;
+	overflow: hidden;
+	width: 100%;
+}
+
+.t_list dl dt {
+	list-style: none;
+	height: auto;
+	overflow: hidden;
+	display: inline-block;
+	*display: inline;
+}
+
+.t_listDx {
+	height: auto;
+	overflow: hidden;
+	float: left;
+	width: 100%;
+}
+
+.t_listDx dl {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	height: auto;
+	overflow: hidden;
+	width: 100%;
+}
+
+.t_listDx dl dt {
+	list-style: none;
+	height: auto;
+	overflow: hidden;
+	float: left;
+}
+
+.lou_table {
+	width: 180px;
+	background-color: #f5f5f5;
+	margin-left: 9px
+}
+
+.lou_table tr {
+	background-color: #f5f5f5;
+	height: 28px;
+	line-height: 28px;
+}
+
+.lou_table td {
+	background-color: #f5f5f5;
+	height: 28px;
+	line-height: 28px;
+}
+
+.lou_table td.tdhover {
+	background-color: #fff3d9;
+	height: 28px;
+	line-height: 28px;
+}
+
+.lou_input {
+	width: 40px;
+	height: 20px;
+	background-color: #fff;
+	border: 1px solid #c7c7c7;
+	line-height: 18px;
+}
+
+.lou_xiugai {
+	width: 35px;
+	height: 20px;
+	background-color: #f27c04;
+	text-align: center;
+	color: #fff;
+	border: none;
+	line-height: 18px;
+}
+
+.lou_close {
+	width: 169px;
+	background: #037ee5;
+	text-align: center;
+	font-size: 16px;
+	border: none;
+	height: 30px;
+	line-height: 30px;
+	color: #fff;
+	cursor: pointer;
+	font-family: Microsoft YaHei;
+	font-weight: bold;
+}
+
+.lou_closeBig {
+	width: 169px;
+	background: #f27c04;
+	text-align: center;
+	font-size: 15px;
+	border: none;
+	height: 20px;
+	line-height: 18px;
+	color: #fff;
+	cursor: pointer;
+	font-family: Microsoft YaHei;
+	font-weight: bold;
+}
+
+.lou_wrap {
+	display: none;
+	overflow: hidden;
+	width: 190px;
+	height: auto;
+	overflow: hidden;
+	background-color: #f5f5f5;
+	border: 1px solid #dedfe3;
+	POSITION: absolute;
+	z-index: 10;
+	padding-bottom: 5px;
+	text-align: center;
+}
+
+.textWrap {
+	width: 233px;
+	float: left;
+	margin-left: 10px;
+	height: auto;
+	overflow: hidden;
+	font-size: 12px;
+	color: #ca9931;
+	margin-top: 10px;
+	background-color: #ffffe8;
+	border: 1px solid #eedeb7;
+	padding: 5px;
+}
+
+.text1 {
+	line-height: 23px;
+	width: 223px;
+	float: left;
+}
+
+.text2 {
+	line-height: 23px;
+	width: 180px;
+	float: left;
+	margin-left: 39px;
+}
+
+.blueText {
+	color: blue;
+	font-weight: bold;
+	cursor: pointer;
+	font-size: 14px;
+	text-align: right;
+}
+
+.oneText {
+	font-size: 12px;
+	background-color: #007be3;
+	text-align: center;
+	width: 18px;
+	height: 18px;
+	float: left;
+	color: #fff;
+	font-weight: bold;
+	line-height: 18px;
+}
+
+.divwrap {
+	width: 300px;
+	margin: 5px auto;
+	height: auto;
+	overflow: hidden;
+	font-size: 12px;
+}
+
+.title_big {
+	width: 100%;
+	font-size: 12px;
+	color: #333333;
+	line-height: 18px;
+}
+
+#xjzryzpDiv {
+	border-top: 1px solid #D8EBF9;
+}
+
+#xjzryzpDiv ul {
+	list-style: none;
+	padding: 2;
+	margin: 2;
+}
+
+#xjzryzpDiv ul li {
+	float: left;
+	border: 1px solid #D8EBF9;
+}
+
+.tabid th {
+	width: 7%;
+	height: 25;
+	color: #000;
+	background-color: #D8EBF9;
+}
+
+.tabid td {
+	border: 1px solid #B1CDE3;
+	color: #000;
+	font-size: 14px;
+	background: #FFF;
+}
+
+.tabid .td {
+	border: 1px solid #B1CDE3;
+	color: #000;
+	font-size: 14px;
+	background: #D8EBF9;
+}

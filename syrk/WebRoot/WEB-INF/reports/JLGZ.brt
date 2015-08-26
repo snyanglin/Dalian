@@ -1,0 +1,1415 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<report version="5.0">
+	<head>
+		<property name="type">0</property>
+		<name><![CDATA[JLGZ]]></name>
+		<dataSets>
+			<dataSet name="data" type="DB_SQL" >
+				<property name="dataSource">DB</property>
+				<property name="desc"><![CDATA[举报线索破获案件奖励（条）]]></property>
+				<property name="query"><![CDATA[="SELECT 
+TB.ORGNAME,TB.ORGCODE AS ORGCODE,TB.PARENT AS PARENTS
+,NVL(TB1.XSXJ,0) AS XSXJ,NVL(TB1.DPAJ,0) AS DPAJ
+,NVL(TB1.JTWF,0) AS JTWF,NVL(TB1.WSTF,0) AS WSTF
+,NVL(TB1.FKWW,0) AS FKWW,NVL(TB1.HC,0) AS HC
+,NVL(TB1.HJQ,0) AS HJQ,NVL(TB1.JTWZ,0) AS JTWZ
+,NVL(TB1.QT,0) AS QT,NVL(TB1.ZXLR,0) AS ZXLR
+,NVL(TB1.DZ110,0) AS DZ110 ,NVL(TB1.JLJE,0) as JLJE
+,NVL(TB1.QTLR,0) AS QTLR
+FROM YJJB_DWJB  TB
+LEFT JOIN 
+(  SELECT 
+TB1.SLZDM AS DWDM ,COUNT(TB1.JBXXXZ) AS XSXJ
+,SUM(CASE TB1.JBXXXZ WHEN '10' THEN 1 ELSE 0 END) AS DPAJ
+,SUM(CASE TB1.JBXXXZ WHEN '20' THEN 1 ELSE 0 END) AS JTWF
+,SUM(CASE TB1.JBXXXZ WHEN '30' THEN 1 ELSE 0 END) AS WSTF
+,SUM(CASE TB1.JBXXXZ WHEN '40' THEN 1 ELSE 0 END) AS FKWW
+,SUM(CASE TB1.JBXXXZ WHEN '50' THEN 1 ELSE 0 END) AS HC
+,SUM(CASE TB1.JBXXXZ WHEN '60' THEN 1 ELSE 0 END) AS HJQ
+,SUM(CASE TB1.JBXXXZ WHEN '70' THEN 1 ELSE 0 END) AS JTWZ
+,SUM(CASE TB1.JBXXXZ WHEN '99' THEN 1 ELSE 0 END) AS QT
+,SUM(CASE TB1.XSLY WHEN '0' THEN 1 ELSE 0 END) AS ZXLR
+,SUM(CASE TB1.XSLY WHEN '1' THEN 1 ELSE 0 END) AS DZ110
+,SUM(CASE TB1.XSLY WHEN '1' THEN 0 WHEN '0' THEN 0 ELSE 1 END) AS QTLR
+,SUM(TB.JLJE) as JLJE
+FROM YJJB_JLXXB TB 
+left join YJJB_JBJLXXB TB2 on TB.ID=TB2.ID
+LEFT JOIN YJJB_XSJBXXB TB1 ON TB2.XSBH=TB1.ID
+
+WHERE TB1.XT_ZXBZ='0' AND TB.XT_ZXBZ='0' AND TB2.XT_ZXBZ='0' AND TB.SPZT='1'
+
+AND TB1.JBSJ <= '"+tostr(@JSSJ)+"' AND TB1.JBSJ >='"+tostr(@KSSJ)+"'
+
+GROUP BY TB1.SLZDM
+ )TB1 ON TB.ORGCODE = TB1.DWDM WHERE TB.DWJB ='01' 
+
+AND TB.PARENT = '"+@ORG_FJ+"' 
+
+ UNION
+SELECT 
+TB.ORGNAME,TB.ORGCODE AS ORGCODE,TB.PARENT AS PARENTS
+,NVL(TB1.XSXJ,0) AS XSXJ,NVL(TB1.DPAJ,0) AS DPAJ
+,NVL(TB1.JTWF,0) AS JTWF,NVL(TB1.WSTF,0) AS WSTF
+,NVL(TB1.FKWW,0) AS FKWW,NVL(TB1.HC,0) AS HC
+,NVL(TB1.HJQ,0) AS HJQ,NVL(TB1.JTWZ,0) AS JTWZ
+,NVL(TB1.QT,0) AS QT,NVL(TB1.ZXLR,0) AS ZXLR
+,NVL(TB1.DZ110,0) AS DZ110 ,NVL(TB1.JLJE,0) as JLJE
+,NVL(TB1.QTLR,0) AS QTLR
+FROM YJJB_DWJB  TB
+LEFT JOIN 
+(  SELECT 
+TB1.SLFZDM AS DWDM ,COUNT(TB1.JBXXXZ) AS XSXJ
+,SUM(CASE TB1.JBXXXZ WHEN '10' THEN 1 ELSE 0 END) AS DPAJ
+,SUM(CASE TB1.JBXXXZ WHEN '20' THEN 1 ELSE 0 END) AS JTWF
+,SUM(CASE TB1.JBXXXZ WHEN '30' THEN 1 ELSE 0 END) AS WSTF
+,SUM(CASE TB1.JBXXXZ WHEN '40' THEN 1 ELSE 0 END) AS FKWW
+,SUM(CASE TB1.JBXXXZ WHEN '50' THEN 1 ELSE 0 END) AS HC
+,SUM(CASE TB1.JBXXXZ WHEN '60' THEN 1 ELSE 0 END) AS HJQ
+,SUM(CASE TB1.JBXXXZ WHEN '70' THEN 1 ELSE 0 END) AS JTWZ
+,SUM(CASE TB1.JBXXXZ WHEN '99' THEN 1 ELSE 0 END) AS QT
+,SUM(CASE TB1.XSLY WHEN '0' THEN 1 ELSE 0 END) AS ZXLR
+,SUM(CASE TB1.XSLY WHEN '1' THEN 1 ELSE 0 END) AS DZ110
+,SUM(CASE TB1.XSLY WHEN '1' THEN 0 WHEN '0' THEN 0 ELSE 1 END) AS QTLR
+,SUM(TB.JLJE) as JLJE
+FROM YJJB_JLXXB TB 
+left join YJJB_JBJLXXB TB2 on TB.ID=TB2.ID
+LEFT JOIN YJJB_XSJBXXB TB1 ON TB2.XSBH=TB1.ID
+
+WHERE TB1.XT_ZXBZ='0' AND TB.XT_ZXBZ='0' AND TB2.XT_ZXBZ='0' AND TB.SPZT='1'
+AND TB1.JBSJ <= '"+tostr(@JSSJ)+"' AND TB1.JBSJ >='"+tostr(@KSSJ)+"'
+GROUP BY TB1.SLFZDM
+ )TB1 ON TB.ORGCODE = TB1.DWDM WHERE TB.DWJB ='00'
+
+AND TB.PARENT = '"+@ORG_FJ+"' "]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+			<dataSet name="data02" type="DB_SQL" >
+				<property name="dataSource">DB</property>
+				<property name="desc"><![CDATA[举报线索和信息（条）]]></property>
+				<property name="query"><![CDATA[="SELECT 
+TB.ORGNAME,TB.ORGCODE AS ORGCODE,TB.PARENT AS PARENTS
+,NVL(TB1.XSXJ,0) AS XSXJ,NVL(TB1.DPAJ,0) AS DPAJ,NVL(TB1.JTWF,0) AS JTWF,NVL(TB1.WSTF,0) AS WSTF
+,NVL(TB1.FKWW,0) AS FKWW,NVL(TB1.HC,0) AS HC,NVL(TB1.HJQ,0) AS HJQ,NVL(TB1.JTWZ,0) AS JTWZ
+,NVL(TB1.QT,0) AS QT,NVL(TB1.ZXLR,0) AS ZXLR,NVL(TB1.DZ110,0) AS DZ110,NVL(TB1.YES30,0) AS YES30,NVL(TB1.NO30,0) AS NO30
+,NVL(TB1.QTLR,0) AS QTLR
+FROM YJJB_DWJB  TB LEFT JOIN 
+(  SELECT TB1.SLZDM AS DWDM ,COUNT(TB1.JBXXXZ) AS XSXJ
+,SUM(CASE TB1.JBXXXZ WHEN '10' THEN 1 ELSE 0 END) AS DPAJ
+,SUM(CASE TB1.JBXXXZ WHEN '20' THEN 1 ELSE 0 END) AS JTWF
+,SUM(CASE TB1.JBXXXZ WHEN '30' THEN 1 ELSE 0 END) AS WSTF
+,SUM(CASE TB1.JBXXXZ WHEN '40' THEN 1 ELSE 0 END) AS FKWW
+,SUM(CASE TB1.JBXXXZ WHEN '50' THEN 1 ELSE 0 END) AS HC
+,SUM(CASE TB1.JBXXXZ WHEN '60' THEN 1 ELSE 0 END) AS HJQ
+,SUM(CASE TB1.JBXXXZ WHEN '70' THEN 1 ELSE 0 END) AS JTWZ
+,SUM(CASE TB1.JBXXXZ WHEN '99' THEN 1 ELSE 0 END) AS QT
+,SUM(CASE TB1.XSLY WHEN '0' THEN 1 ELSE 0 END) AS ZXLR
+,SUM(CASE TB1.XSLY WHEN '1' THEN 1 ELSE 0 END) AS DZ110
+,SUM(CASE TB1.XSLY WHEN '1' THEN 0 WHEN '0' THEN 0 ELSE 1 END) AS QTLR
+,SUM(CASE TB1.XSZT WHEN '40' THEN 1 WHEN '50' THEN 1 ELSE 0 END) AS YES30
+,SUM(CASE TB1.XSZT WHEN '00' THEN 1 WHEN '10' THEN 1  WHEN '20' THEN 1 ELSE 0 END) AS NO30
+FROM YJJB_XSJBXXB TB1 WHERE TB1.XT_ZXBZ='0' 
+
+AND TB1.JBSJ <= '"+tostr(@JSSJ)+"' AND TB1.JBSJ >='"+tostr(@KSSJ)+"'
+
+GROUP BY TB1.SLZDM
+ )TB1 ON TB.ORGCODE = TB1.DWDM WHERE TB.DWJB='01'
+ 
+AND TB.PARENT = '"+@ORG_FJ+"' 
+
+UNION
+ 
+SELECT 
+TB.ORGNAME,TB.ORGCODE AS ORGCODE,TB.PARENT AS PARENTS
+,NVL(TB1.XSXJ,0) AS XSXJ,NVL(TB1.DPAJ,0) AS DPAJ,NVL(TB1.JTWF,0) AS JTWF,NVL(TB1.WSTF,0) AS WSTF
+,NVL(TB1.FKWW,0) AS FKWW,NVL(TB1.HC,0) AS HC,NVL(TB1.HJQ,0) AS HJQ,NVL(TB1.JTWZ,0) AS JTWZ
+,NVL(TB1.QT,0) AS QT,NVL(TB1.ZXLR,0) AS ZXLR,NVL(TB1.DZ110,0) AS DZ110,NVL(TB1.YES30,0) AS YES30,NVL(TB1.NO30,0) AS NO30
+,NVL(TB1.QTLR,0) AS QTLR
+FROM YJJB_DWJB  TB LEFT JOIN 
+(  SELECT TB1.SLFZDM AS DWDM ,COUNT(TB1.JBXXXZ) AS XSXJ
+,SUM(CASE TB1.JBXXXZ WHEN '10' THEN 1 ELSE 0 END) AS DPAJ
+,SUM(CASE TB1.JBXXXZ WHEN '20' THEN 1 ELSE 0 END) AS JTWF
+,SUM(CASE TB1.JBXXXZ WHEN '30' THEN 1 ELSE 0 END) AS WSTF
+,SUM(CASE TB1.JBXXXZ WHEN '40' THEN 1 ELSE 0 END) AS FKWW
+,SUM(CASE TB1.JBXXXZ WHEN '50' THEN 1 ELSE 0 END) AS HC
+,SUM(CASE TB1.JBXXXZ WHEN '60' THEN 1 ELSE 0 END) AS HJQ
+,SUM(CASE TB1.JBXXXZ WHEN '70' THEN 1 ELSE 0 END) AS JTWZ
+,SUM(CASE TB1.JBXXXZ WHEN '99' THEN 1 ELSE 0 END) AS QT
+,SUM(CASE TB1.XSLY WHEN '0' THEN 1 ELSE 0 END) AS ZXLR
+,SUM(CASE TB1.XSLY WHEN '1' THEN 1 ELSE 0 END) AS DZ110
+,SUM(CASE TB1.XSLY WHEN '1' THEN 0 WHEN '0' THEN 0 ELSE 1 END) AS QTLR
+,SUM(CASE TB1.XSZT WHEN '40' THEN 1 WHEN '50' THEN 1 ELSE 0 END) AS YES30
+,SUM(CASE TB1.XSZT WHEN '00' THEN 1 WHEN '10' THEN 1  WHEN '20' THEN 1 ELSE 0 END) AS NO30
+FROM YJJB_XSJBXXB TB1 WHERE TB1.XT_ZXBZ='0' 
+
+AND TB1.JBSJ <= '"+tostr(@JSSJ)+"' AND TB1.JBSJ >='"+tostr(@KSSJ)+"'
+
+GROUP BY TB1.SLFZDM
+ )TB1 ON TB.ORGCODE = TB1.DWDM WHERE TB.DWJB='00'
+
+AND TB.PARENT = '"+@ORG_FJ+"'"]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+			<dataSet name="data03" type="DB_SQL" >
+				<property name="dataSource">DB</property>
+				<property name="desc"><![CDATA[非法营运车辆统计]]></property>
+				<property name="query"><![CDATA[="SELECT 
+TB.ORGNAME,TB.ORGCODE AS ORGCODE,TB.PARENT AS PARENTS
+,NVL(TB1.XJ,0) AS XJ,NVL(TB1.TH,0) AS TH
+,NVL(TB1.TP,0) AS TP,NVL(TB1.SJC,0) AS SJC
+FROM YJJB_DWJB  TB LEFT JOIN 
+(  SELECT TB1.SLZDM AS DWDM ,COUNT(TB1.TJLB) AS XJ
+,SUM(CASE WHEN TB1.TJLB='01' THEN 1 ELSE 0 END) AS TH 
+,SUM(CASE WHEN TB1.TJLB='02' THEN 1 ELSE 0 END) AS TP
+,SUM(CASE WHEN TB1.TJLB='03' THEN 1 ELSE 0 END) AS SJC
+FROM YJJB_FFYYCLTJB TB1 WHERE TB1.XT_ZXBZ='0' 
+
+AND TB1.XT_CJSJ <= '"+tostr(@JSSJ)+"' AND TB1.XT_CJSJ >='"+tostr(@KSSJ)+"'
+
+GROUP BY TB1.SLZDM
+ )TB1 ON TB.ORGCODE = TB1.DWDM WHERE TB.DWJB='01'
+ 
+AND TB.PARENT = '"+@ORG_FJ+"' 
+
+ UNION
+ 
+ SELECT 
+TB.ORGNAME,TB.ORGCODE AS ORGCODE,TB.PARENT AS PARENTS
+
+,NVL(TB1.XJ,0) AS XJ,NVL(TB1.TH,0) AS TH
+,NVL(TB1.TP,0) AS TP,NVL(TB1.SJC,0) AS SJC
+
+FROM YJJB_DWJB  TB LEFT JOIN 
+(  SELECT TB1.SLFZDM AS DWDM ,COUNT(TB1.TJLB) AS XJ
+,SUM(CASE WHEN TB1.TJLB='01' THEN 1 ELSE 0 END) AS TH
+,SUM(CASE WHEN TB1.TJLB='02' THEN 1 ELSE 0 END) AS TP
+,SUM(CASE WHEN TB1.TJLB='03' THEN 1 ELSE 0 END) AS SJC
+FROM YJJB_FFYYCLTJB TB1 WHERE TB1.XT_ZXBZ='0' 
+
+AND TB1.XT_CJSJ <= '"+tostr(@JSSJ)+"' AND TB1.XT_CJSJ >='"+tostr(@KSSJ)+"'
+
+GROUP BY TB1.SLFZDM
+ )TB1 ON TB.ORGCODE = TB1.DWDM WHERE TB.DWJB='00'
+AND TB.PARENT = '"+@ORG_FJ+"'"]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+			<dataSet name="datanewaj" type="DB_SQL" >
+				<property name="dataSource">DB</property>
+				<property name="desc"><![CDATA[新警综系统案件类别统计]]></property>
+				<property name="query"><![CDATA[="SELECT TB.ORGNAME,TB.ORGCODE AS ORGCODE,TB.PARENT AS PARENTS
+,NVL(XSAJ,0) AS XSAJ,NVL(ZAAJ,0) AS ZAAJ,NVL(TSAJ,0) AS TSAJ,NVL(XJ,0) as XJ
+
+FROM YJJB_DWJB TB LEFT JOIN(SELECT 
+SUM(CASE AJLX WHEN '0' THEN 1 ELSE 0 END) AS XSAJ
+,SUM(CASE AJLX WHEN '1' THEN 1 ELSE 0 END) AS ZAAJ
+,SUM(CASE AJLX WHEN '2' THEN 1 ELSE 0 END) AS TSAJ
+,SUM(1) as XJ,XT_LRRBMID
+
+ FROM YJJB_AJXXB WHERE XT_ZXBZ='0'
+
+AND XT_CJSJ <= '"+tostr(@JSSJ)+"' AND XT_CJSJ >='"+tostr(@KSSJ)+"'
+
+GROUP BY XT_LRRBMID) TB1 ON TB.ORGCODE=TB1.XT_LRRBMID WHERE TB.DWJB='01'
+AND TB.PARENT = '"+@ORG_FJ+"'
+UNION
+SELECT TB.ORGNAME,TB.ORGCODE AS ORGCODE,TB.PARENT AS PARENTS
+,NVL(XSAJ,0) AS XSAJ,NVL(ZAAJ,0) AS ZAAJ,NVL(TSAJ,0) AS TSAJ,NVL(XJ,0) as XJ
+
+FROM YJJB_DWJB TB LEFT JOIN(SELECT 
+SUM(CASE AJLX WHEN '0' THEN 1 ELSE 0 END) AS XSAJ
+,SUM(CASE AJLX WHEN '1' THEN 1 ELSE 0 END) AS ZAAJ
+,SUM(CASE AJLX WHEN '2' THEN 1 ELSE 0 END) AS TSAJ
+,SUM(1) as XJ,XT_LRRBMID
+
+ FROM YJJB_AJXXB WHERE XT_ZXBZ='0'
+
+AND XT_CJSJ <= '"+tostr(@JSSJ)+"' AND XT_CJSJ >='"+tostr(@KSSJ)+"'
+
+GROUP BY XT_LRRBMID) TB1 ON TB.ORGCODE=TB1.XT_LRRBMID WHERE TB.DWJB='00'
+ AND TB.PARENT = '"+@ORG_FJ+"'"
+]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+			<dataSet name="dataoldaj" type="DB_SQL" >
+				<property name="dataSource">DB</property>
+				<property name="desc"><![CDATA[老警综系统案件类别统计]]></property>
+				<property name="query"><![CDATA[="SELECT TB.ORGNAME,TB.ORGCODE AS ORGCODE,TB.PARENT AS PARENTS
+,NVL(XSAJ,0) AS XSAJ,NVL(ZAAJ,0) AS ZAAJ,NVL(TSAJ,0) AS TSAJ,NVL(XJ,0) as XJ
+FROM YJJB_DWJB TB LEFT JOIN(SELECT 
+SUM(CASE ajbs WHEN '1' THEN 1 ELSE 0 END) AS XSAJ
+,SUM(CASE ajbs WHEN '2' THEN 1 ELSE 0 END) AS ZAAJ
+,SUM(CASE ajbs WHEN '1' THEN 0 WHEN '2' THEN 0 ELSE 1 END) AS TSAJ
+,SUM(1) as XJ,SLDWJGDM 
+ FROM  jwzh.GA_JCXX_AJ_AJJBXX@ldy
+WHERE  to_char(slsj,'yyyy-MM-dd') <= '"+tostr(@JSSJ)+"'  AND to_char(slsj,'yyyy-MM-dd') >='"+tostr(@KSSJ)+"'
+GROUP BY SLDWJGDM )TB1 ON TB.ORGCODE=TB1.SLDWJGDM WHERE tb.dwjb='00'
+AND  TB.PARENT = '"+@ORG_FJ+"'
+UNION
+SELECT TB.ORGNAME,TB.ORGCODE AS ORGCODE,TB.PARENT AS PARENTS
+,NVL(XSAJ,0) AS XSAJ,NVL(ZAAJ,0) AS ZAAJ,NVL(TSAJ,0) AS TSAJ,NVL(XJ,0) as XJ
+FROM YJJB_DWJB TB LEFT JOIN(SELECT 
+SUM(CASE ajbs WHEN '1' THEN 1 ELSE 0 END) AS XSAJ
+,SUM(CASE ajbs WHEN '2' THEN 1 ELSE 0 END) AS ZAAJ
+,SUM(CASE ajbs WHEN '1' THEN 0 WHEN '2' THEN 0 ELSE 1 END) AS TSAJ
+,SUM(1) as XJ,parent 
+ FROM  V_YJJB_TJ_OLDAJ
+WHERE  to_char(slsj,'yyyy-MM-dd') <= '"+tostr(@JSSJ)+"'  AND to_char(slsj,'yyyy-MM-dd') >='"+tostr(@KSSJ)+"'
+GROUP BY parent )TB1 ON TB.ORGCODE=TB1.parent WHERE tb.dwjb='01'
+AND  TB.PARENT = '"+@ORG_FJ+"'"
+]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+		</dataSets>
+		<parameters>
+			<parameter name="ORG_FJ" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">210200000000</property>
+				<property name="desc">统计单位</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="KSSJ" type="2">
+				<property name="dateFormat">yyyy-MM-dd</property>
+				<property name="default"></property>
+				<property name="desc">开始时间</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="JSSJ" type="2">
+				<property name="dateFormat">yyyy-MM-dd</property>
+				<property name="default"></property>
+				<property name="desc">结束时间</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="zzjglx" type="17">
+				<property name="dateFormat"></property>
+				<property name="default">11</property>
+				<property name="desc">组织机构类型</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="dw" type="6">
+				<property name="dateFormat"></property>
+				<property name="default"></property>
+				<property name="desc">单位</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+		</parameters>
+		<variables/>
+	</head>
+	<body>
+		<sheet id="sheet1">
+			<page>
+				<property name="paginateType">3</property>
+				<property name="pageSize">3</property>
+				<property name="pageDirection">0</property>
+				<property name="printLocation">0</property>
+				<property name="printScale">1</property>
+			</page>
+			<grid row="8" col="35">
+				<properties>
+				</properties>
+				<rows>
+					<row id="1">
+						<property name="type">1</property>
+						<property name="height">50</property>
+					</row>
+					<row id="2">
+						<property name="type">2</property>
+						<property name="height">20</property>
+					</row>
+					<row id="3">
+						<property name="type">2</property>
+						<property name="height">35</property>
+					</row>
+					<row id="4">
+						<property name="type">2</property>
+						<property name="height">40</property>
+					</row>
+					<row id="5">
+						<property name="type">2</property>
+						<property name="height">90</property>
+					</row>
+					<row id="6">
+						<property name="type">2</property>
+					</row>
+					<row id="7">
+						<property name="height">20</property>
+					</row>
+					<row id="8">
+						<property name="type">4</property>
+						<property name="visible"><![CDATA[1]]></property>
+						<property name="height">200</property>
+					</row>
+				</rows>
+				<columns>
+					<column id="1">
+						<property name="width">180</property>
+					</column>
+					<column id="2">
+						<property name="width">31</property>
+					</column>
+					<column id="3">
+						<property name="width">31</property>
+					</column>
+					<column id="4">
+						<property name="width">31</property>
+					</column>
+					<column id="5">
+						<property name="width">31</property>
+					</column>
+					<column id="6">
+						<property name="width">31</property>
+					</column>
+					<column id="7">
+						<property name="width">31</property>
+					</column>
+					<column id="8">
+						<property name="width">31</property>
+					</column>
+					<column id="9">
+						<property name="width">31</property>
+					</column>
+					<column id="10">
+						<property name="width">31</property>
+					</column>
+					<column id="11">
+						<property name="width">31</property>
+					</column>
+					<column id="12">
+						<property name="width">31</property>
+					</column>
+					<column id="13">
+						<property name="width">120</property>
+					</column>
+					<column id="14">
+						<property name="width">31</property>
+					</column>
+					<column id="15">
+						<property name="width">31</property>
+					</column>
+					<column id="16">
+						<property name="width">31</property>
+					</column>
+					<column id="17">
+						<property name="width">31</property>
+					</column>
+					<column id="18">
+						<property name="width">31</property>
+					</column>
+					<column id="19">
+						<property name="width">31</property>
+					</column>
+					<column id="20">
+						<property name="width">31</property>
+					</column>
+					<column id="21">
+						<property name="width">31</property>
+					</column>
+					<column id="22">
+						<property name="width">31</property>
+					</column>
+					<column id="23">
+						<property name="width">31</property>
+					</column>
+					<column id="24">
+						<property name="width">31</property>
+					</column>
+					<column id="25">
+						<property name="width">31</property>
+					</column>
+					<column id="26">
+						<property name="width">31</property>
+					</column>
+					<column id="27">
+						<property name="width">31</property>
+					</column>
+					<column id="28">
+						<property name="width">31</property>
+					</column>
+					<column id="29">
+						<property name="width">31</property>
+					</column>
+					<column id="30">
+						<property name="width">31</property>
+					</column>
+					<column id="31">
+						<property name="width">31</property>
+					</column>
+					<column id="32">
+						<property name="width">31</property>
+					</column>
+					<column id="33">
+						<property name="width">31</property>
+					</column>
+					<column id="34">
+						<property name="width">31</property>
+					</column>
+					<column id="35">
+						<property name="visible"><![CDATA[1]]></property>
+					</column>
+				</columns>
+				<cells>
+					<cell id="1,1" type="0" colspan="34" >
+						<property name="value"><![CDATA[出租汽车举报奖励相关工作上报信息统计表]]></property>
+						<property name="font-type">黑体</property>
+						<property name="font-size">18</property>
+						<property name="bold">0</property>
+						<border type="0">2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1</border>
+						<border type="2">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="1,35" type="0" >
+					</cell>
+					<cell id="2,1" type="0" >
+						<property name="font-size">16</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="2">2:0,0,0:1</border>
+					</cell>
+					<cell id="2,2" type="0" >
+						<property name="font-type">黑体</property>
+						<property name="font-size">16</property>
+						<property name="bold">0</property>
+						<border type="1">2:0,0,0:1</border>
+					</cell>
+					<cell id="2,3" type="0" >
+						<property name="font-type">黑体</property>
+						<property name="font-size">16</property>
+						<property name="bold">0</property>
+						<border type="1">2:0,0,0:1</border>
+					</cell>
+					<cell id="2,4" type="0" >
+						<property name="font-type">黑体</property>
+						<property name="font-size">16</property>
+						<property name="bold">0</property>
+						<border type="1">2:0,0,0:1</border>
+					</cell>
+					<cell id="2,5" type="0" >
+						<property name="font-type">黑体</property>
+						<property name="font-size">16</property>
+						<property name="bold">0</property>
+						<border type="1">2:0,0,0:1</border>
+					</cell>
+					<cell id="2,6" type="0" >
+						<property name="font-type">黑体</property>
+						<property name="font-size">16</property>
+						<property name="bold">0</property>
+						<border type="1">2:0,0,0:1</border>
+					</cell>
+					<cell id="2,7" type="0" >
+						<property name="font-type">黑体</property>
+						<property name="font-size">16</property>
+						<property name="bold">0</property>
+						<border type="1">2:0,0,0:1</border>
+					</cell>
+					<cell id="2,8" type="0" >
+						<property name="font-type">黑体</property>
+						<property name="font-size">16</property>
+						<property name="bold">0</property>
+						<border type="1">2:0,0,0:1</border>
+					</cell>
+					<cell id="2,9" type="0" >
+						<property name="font-type">黑体</property>
+						<property name="font-size">16</property>
+						<property name="bold">0</property>
+						<border type="1">2:0,0,0:1</border>
+					</cell>
+					<cell id="2,10" type="0" >
+						<property name="font-type">黑体</property>
+						<property name="font-size">16</property>
+						<property name="bold">0</property>
+						<border type="1">2:0,0,0:1</border>
+					</cell>
+					<cell id="2,11" type="0" >
+						<property name="font-type">黑体</property>
+						<property name="font-size">16</property>
+						<property name="bold">0</property>
+						<border type="1">2:0,0,0:1</border>
+					</cell>
+					<cell id="2,12" type="0" >
+						<property name="font-type">黑体</property>
+						<property name="font-size">16</property>
+						<property name="bold">0</property>
+						<border type="1">2:0,0,0:1</border>
+					</cell>
+					<cell id="2,13" type="0" >
+						<property name="font-type">黑体</property>
+						<property name="font-size">16</property>
+						<property name="bold">0</property>
+						<border type="1">2:0,0,0:1</border>
+					</cell>
+					<cell id="2,14" type="0" >
+						<property name="font-type">黑体</property>
+						<property name="font-size">16</property>
+						<property name="bold">0</property>
+						<border type="1">2:0,0,0:1</border>
+					</cell>
+					<cell id="2,15" type="0" colspan="19" >
+						<property name="value"><![CDATA[="开始日期："+tostr(@KSSJ)+"  结束日期："+tostr(@JSSJ)+"  制表日期："+tostr(now(),'yyyy-MM-dd')]]></property>
+						<border type="1">2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1</border>
+					</cell>
+					<cell id="2,34" type="0" >
+						<property name="font-type">黑体</property>
+						<property name="font-size">9</property>
+						<property name="bold">0</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="2,35" type="0" >
+					</cell>
+					<cell id="3,1" type="0" rowspan="3" >
+						<property name="value"><![CDATA[单位]]></property>
+						<property name="font-size">18</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="2">3:0,0,0:1;3:0,0,0:1;3:0,0,0:1</border>
+						<border type="3">2:0,0,0:1;2:0,0,0:1;2:0,0,0:1</border>
+					</cell>
+					<cell id="3,2" type="0" colspan="29" >
+						<property name="value"><![CDATA[举报奖励]]></property>
+						<property name="font-type">黑体</property>
+						<property name="font-size">16</property>
+						<property name="bold">0</property>
+						<border type="1">2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="3,31" type="0" colspan="4" >
+						<property name="value"><![CDATA[非法营运车辆统计]]></property>
+						<property name="font-type">黑体</property>
+						<property name="font-size">9</property>
+						<property name="bold">0</property>
+						<border type="1">2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="3,35" type="0" >
+					</cell>
+					<cell id="4,2" type="0" colspan="12" >
+						<property name="value"><![CDATA[举报线索破获案件奖励（条）]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="4,14" type="0" colspan="10" >
+						<property name="value"><![CDATA[举报线索和信息（条）]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="4,24" type="0" colspan="4" >
+						<property name="value"><![CDATA[破获线索来源]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="4,28" type="0" colspan="3" >
+						<property name="value"><![CDATA[30日案件结果反馈]]></property>
+						<property name="font-size">11</property>
+						<border type="1">2:0,0,0:1;2:0,0,0:1;2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="4,31" type="0" rowspan="2" >
+						<property name="value"><![CDATA[小计]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1;1:0,0,0:1</border>
+					</cell>
+					<cell id="4,32" type="0" rowspan="2" >
+						<property name="value"><![CDATA[团伙]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1;1:0,0,0:1</border>
+					</cell>
+					<cell id="4,33" type="0" rowspan="2" >
+						<property name="value"><![CDATA[套牌]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1;1:0,0,0:1</border>
+					</cell>
+					<cell id="4,34" type="0" rowspan="2" >
+						<property name="value"><![CDATA[私家车]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1;2:0,0,0:1</border>
+					</cell>
+					<cell id="4,35" type="0" >
+						<property name="value"><![CDATA[id]]></property>
+					</cell>
+					<cell id="5,2" type="0" >
+						<property name="value"><![CDATA[小计]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,3" type="0" >
+						<property name="value"><![CDATA[刑事案件]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,4" type="0" >
+						<property name="value"><![CDATA[治安案件]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,5" type="0" >
+						<property name="value"><![CDATA[其他]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="5,6" type="0" >
+						<property name="value"><![CDATA[毒品案件]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,7" type="0" >
+						<property name="value"><![CDATA[交通违法]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,8" type="0" >
+						<property name="value"><![CDATA[网上逃犯]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,9" type="0" >
+						<property name="value"><![CDATA[反恐维稳]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,10" type="0" >
+						<property name="value"><![CDATA[黑车]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,11" type="0" >
+						<property name="value"><![CDATA[黑加气]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,12" type="0" >
+						<property name="value"><![CDATA[其他]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="5,13" type="0" >
+						<property name="value"><![CDATA[奖励金额]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="5,14" type="0" >
+						<property name="value"><![CDATA[小计]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,15" type="0" >
+						<property name="value"><![CDATA[刑事案件]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,16" type="0" >
+						<property name="value"><![CDATA[治安案件]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="5,17" type="0" >
+						<property name="value"><![CDATA[毒品案件]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,18" type="0" >
+						<property name="value"><![CDATA[交通违法]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,19" type="0" >
+						<property name="value"><![CDATA[网上逃犯]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,20" type="0" >
+						<property name="value"><![CDATA[反恐维稳]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,21" type="0" >
+						<property name="value"><![CDATA[黑车]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,22" type="0" >
+						<property name="value"><![CDATA[黑加气]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,23" type="0" >
+						<property name="value"><![CDATA[其他]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="5,24" type="0" >
+						<property name="value"><![CDATA[小计]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,25" type="0" >
+						<property name="value"><![CDATA[110转递]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,26" type="0" >
+						<property name="value"><![CDATA[本站接报]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,27" type="0" >
+						<property name="value"><![CDATA[其他]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="5,28" type="0" >
+						<property name="value"><![CDATA[小计]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,29" type="0" >
+						<property name="value"><![CDATA[已反馈]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="5,30" type="0" >
+						<property name="value"><![CDATA[未反馈]]></property>
+						<property name="font-size">12</property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="5,35" type="0" >
+					</cell>
+					<cell id="6,1" type="0" >
+						<property name="value"><![CDATA[合计]]></property>
+						<property name="font-size">14</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="2">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="6,2" type="0" >
+						<property name="value"><![CDATA[=sum(B7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,3" type="0" >
+						<property name="value"><![CDATA[=sum(C7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,4" type="0" >
+						<property name="value"><![CDATA[=sum(D7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,5" type="0" >
+						<property name="value"><![CDATA[=sum(E7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="6,6" type="0" >
+						<property name="value"><![CDATA[=sum(F7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,7" type="0" >
+						<property name="value"><![CDATA[=sum(G7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,8" type="0" >
+						<property name="value"><![CDATA[=sum(H7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,9" type="0" >
+						<property name="value"><![CDATA[=sum(I7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,10" type="0" >
+						<property name="value"><![CDATA[=sum(J7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,11" type="0" >
+						<property name="value"><![CDATA[=sum(K7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,12" type="0" >
+						<property name="value"><![CDATA[=sum(L7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="6,13" type="0" >
+						<property name="value"><![CDATA[=sum(M7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">2|￥#,##0;￥-#,##0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="6,14" type="0" >
+						<property name="value"><![CDATA[=sum(N7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,15" type="0" >
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,16" type="0" >
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="6,17" type="0" >
+						<property name="value"><![CDATA[=sum(Q7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,18" type="0" >
+						<property name="value"><![CDATA[=sum(R7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,19" type="0" >
+						<property name="value"><![CDATA[=sum(S7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,20" type="0" >
+						<property name="value"><![CDATA[=sum(T7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,21" type="0" >
+						<property name="value"><![CDATA[=sum(U7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,22" type="0" >
+						<property name="value"><![CDATA[=sum(V7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,23" type="0" >
+						<property name="value"><![CDATA[=sum(W7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="6,24" type="0" >
+						<property name="value"><![CDATA[=sum(X7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,25" type="0" >
+						<property name="value"><![CDATA[=sum(Y7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,26" type="0" >
+						<property name="value"><![CDATA[=sum(Z7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,27" type="0" >
+						<property name="value"><![CDATA[=sum(AA7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="6,28" type="0" >
+						<property name="value"><![CDATA[=sum(AB7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,29" type="0" >
+						<property name="value"><![CDATA[=sum(AC7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,30" type="0" >
+						<property name="value"><![CDATA[=sum(AD7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="6,31" type="0" >
+						<property name="value"><![CDATA[=sum(AE7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,32" type="0" >
+						<property name="value"><![CDATA[=sum(AF7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,33" type="0" >
+						<property name="value"><![CDATA[=sum(AG7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="6,34" type="0" >
+						<property name="value"><![CDATA[=sum(AH7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[='204,255,255']]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="6,35" type="0" >
+					</cell>
+					<cell id="7,1" type="0" >
+						<property name="value"><![CDATA[=data.select(orgname)]]></property>
+						<property name="ext-direction">3</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">3:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="7,2" type="0" >
+						<property name="value"><![CDATA[=datanewaj.getone(xj,ORGCODE=AI7{})+dataoldaj.getone(xj,ORGCODE=AI7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,3" type="0" >
+						<property name="value"><![CDATA[=datanewaj.getone(xsaj,ORGCODE=AI7{})+dataoldaj.getone(xsaj,ORGCODE=AI7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,4" type="0" >
+						<property name="value"><![CDATA[=datanewaj.getone(zaaj,ORGCODE=AI7{})+dataoldaj.getone(zaaj,ORGCODE=AI7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,5" type="0" >
+						<property name="value"><![CDATA[=datanewaj.getone(tsaj,ORGCODE=AI7{})+dataoldaj.getone(tsaj,ORGCODE=AI7{})]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="7,6" type="0" >
+						<property name="value"><![CDATA[=data.select(DPAJ)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,7" type="0" >
+						<property name="value"><![CDATA[=data.select(JTWF)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,8" type="0" >
+						<property name="value"><![CDATA[=data.select(WSTF)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,9" type="0" >
+						<property name="value"><![CDATA[=data.select(FKWW)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,10" type="0" >
+						<property name="value"><![CDATA[=data.select(HC)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,11" type="0" >
+						<property name="value"><![CDATA[=data.select(HJQ)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,12" type="0" >
+						<property name="value"><![CDATA[=data.select(QT)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="7,13" type="0" >
+						<property name="value"><![CDATA[=data.select(JLJE)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">2|￥#,##0;￥-#,##0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="7,14" type="0" >
+						<property name="value"><![CDATA[=data02.select(xsxj)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,15" type="0" >
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,16" type="0" >
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="7,17" type="0" >
+						<property name="value"><![CDATA[=data02.select(DPAJ)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,18" type="0" >
+						<property name="value"><![CDATA[=data02.select(JTWF)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<property name="visible"><![CDATA[=if(data02.select(JTWF)>0,否,是)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,19" type="0" >
+						<property name="value"><![CDATA[=data02.select(WSTF)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,20" type="0" >
+						<property name="value"><![CDATA[=data02.select(FKWW)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,21" type="0" >
+						<property name="value"><![CDATA[=data02.select(HC)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,22" type="0" >
+						<property name="value"><![CDATA[=data02.select(HJQ)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,23" type="0" >
+						<property name="value"><![CDATA[=data02.select(QT)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="7,24" type="0" >
+						<property name="value"><![CDATA[=data.select(xsxj)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,25" type="0" >
+						<property name="value"><![CDATA[=data.select(DZ110)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,26" type="0" >
+						<property name="value"><![CDATA[=data.select(ZXLR)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,27" type="0" >
+						<property name="value"><![CDATA[=data.select(QTLR)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="7,28" type="0" >
+						<property name="value"><![CDATA[=data02.select(xsxj)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,29" type="0" >
+						<property name="value"><![CDATA[=data02.select(YES30)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,30" type="0" >
+						<property name="value"><![CDATA[=data02.select(NO30)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="7,31" type="0" >
+						<property name="value"><![CDATA[=data03.select(XJ)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,32" type="0" >
+						<property name="value"><![CDATA[=data03.select(TH)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,33" type="0" >
+						<property name="value"><![CDATA[=data03.select(TP)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="7,34" type="0" >
+						<property name="value"><![CDATA[=data03.select(SJC)]]></property>
+						<property name="view"><![CDATA[=if(@value==0,'',@value)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="7,35" type="0" >
+						<property name="value"><![CDATA[=data.select(ORGCODE)]]></property>
+					</cell>
+					<cell id="8,1" type="0" >
+						<property name="value"><![CDATA[图形统计]]></property>
+						<property name="font-size">14</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">3:0,0,0:1</border>
+						<border type="2">3:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="8,2" type="0" >
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="8,3" type="0" >
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="8,4" type="0" >
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="8,5" type="0" >
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="8,6" type="1" colspan="7" >
+						<property name="value"><![CDATA[<chart><mark value=''/><param name="webtarget_3" value="_blank" /><param name="webtarget_2" value="_blank" /><param name="webtarget_5" value="_blank" /><param name="webtarget_4" value="_blank" /><param name="valuelabelson" value="true" /><param name="seriescount" value="7" /><param name="webtarget_6" value="_blank" /><param name="legendon" value="true" /><param name="3ddepth" value="18" /><param name="titlefont" value="宋体,plain,14" /><param name="valuelineson" value="true" /><param name="webtarget_1" value="_blank" /><param name="webtarget_0" value="_blank" /><param name="pielabelson" value="true" /><param name="samplelabels" value="已奖励线索统计" /><param name="rangedecimalcount" value="auto" /><param name="pointinglabelfont" value="宋体,plain,11" /><param name="yvalues_0" value=" " /><param name="valuelabelfont" value="宋体,plain,11" /><param name="yvalues_1" value=" " /><param name="yvalues_2" value=" " /><param name="yvalues_3" value=" " /><param name="percentlabelstyle" value="inside" /><param name="sampleaxislabelfont" value="宋体,plain,11" /><param name="rangelabelfont" value="宋体,plain,11" /><param name="startangle" value="90" /><param name="yvalues_5" value=" " /><param name="3dmodeon" value="true" /><param name="yvalues_4" value=" " /><param name="yvalues_6" value=" " /><param name="serieslabelson" value="false" /><param name="pielabelfont" value="宋体,plain,11" /><param name="zvalues_0" value=" " /><param name="endangle" value="270" /><param name="zvalues_2" value=" " /><param name="zvalues_1" value=" " /><param name="samplelabelfont" value="宋体,plain,11" /><param name="serieslabels_6" value="其他" /><param name="serieslabels" value="毒品案件,交通违法,网上逃犯,反恐维稳,黑车,黑加气,其他" /><param name="serieslabels_5" value="黑加气" /><param name="zvalues_3" value=" " /><param name="serieslabels_4" value="黑车" /><param name="serieslabels_3" value="反恐维稳" /><param name="zvalues_4" value=" " /><param name="serieslabels_2" value="网上逃犯" /><param name="zvalues_5" value=" " /><param name="serieslabels_1" value="交通违法" /><param name="zvalues_6" value=" " /><param name="legendfont" value="宋体,plain,11" /><param name="serieslabels_0" value="毒品案件" /><param name="rangelabelson" value="true" /><param name="valuelabelstyle" value="inside" /><param name="rangeaxislabelfont" value="宋体,plain,11" /><param name="insidelabelfont" value="宋体,plain,14" /><param name="autolabelspacingon" value="true" /><param name="outsidelabelfont" value="宋体,plain,16" /><param name="samplevalues_0" value="=F6" /><param name="baroutlineoff" value="true" /><param name="samplevalues_2" value="=H6" /><param name="samplevalues_1" value="=G6" /><param name="background" value="255,255,255" /><param name="samplevalues_4" value="=J6" /><param name="chart" value="pie" /><param name="samplevalues_3" value="=I6" /><param name="samplevalues_6" value="=L6" /><param name="samplevalues_5" value="=J6" /></chart>]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1;2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="8,13" type="0" >
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="8,14" type="0" >
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">2:0,0,0:1</border>
+					</cell>
+					<cell id="8,15" type="0" >
+						<border type="1">2:0,0,0:1</border>
+					</cell>
+					<cell id="8,16" type="0" >
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="8,17" type="1" colspan="7" >
+						<property name="value"><![CDATA[<chart><mark value=''/><param name="webtarget_3" value="_blank" /><param name="webtarget_2" value="_blank" /><param name="webtarget_5" value="_blank" /><param name="webtarget_4" value="_blank" /><param name="valuelabelson" value="true" /><param name="seriescount" value="7" /><param name="webtarget_6" value="_blank" /><param name="legendon" value="true" /><param name="3ddepth" value="18" /><param name="titlefont" value="宋体,plain,14" /><param name="valuelineson" value="true" /><param name="webtarget_1" value="_blank" /><param name="webtarget_0" value="_blank" /><param name="pielabelson" value="true" /><param name="samplelabels" value="举报线索信息统计" /><param name="rangedecimalcount" value="auto" /><param name="pointinglabelfont" value="宋体,plain,11" /><param name="yvalues_0" value=" " /><param name="valuelabelfont" value="宋体,plain,11" /><param name="yvalues_1" value=" " /><param name="yvalues_2" value=" " /><param name="yvalues_3" value=" " /><param name="percentlabelstyle" value="inside" /><param name="sampleaxislabelfont" value="宋体,plain,11" /><param name="rangelabelfont" value="宋体,plain,11" /><param name="startangle" value="90" /><param name="yvalues_5" value=" " /><param name="3dmodeon" value="true" /><param name="yvalues_4" value=" " /><param name="yvalues_6" value=" " /><param name="serieslabelson" value="false" /><param name="pielabelfont" value="宋体,plain,11" /><param name="zvalues_0" value=" " /><param name="endangle" value="270" /><param name="zvalues_2" value=" " /><param name="zvalues_1" value=" " /><param name="samplelabelfont" value="宋体,plain,11" /><param name="serieslabels_6" value="其他" /><param name="serieslabels_5" value="黑加气" /><param name="serieslabels" value="毒品案件,交通违法,网上逃犯,反恐维稳,黑车,黑加气,其他" /><param name="zvalues_3" value=" " /><param name="serieslabels_4" value="黑车" /><param name="serieslabels_3" value="反恐维稳" /><param name="zvalues_4" value=" " /><param name="serieslabels_2" value="网上逃犯" /><param name="zvalues_5" value=" " /><param name="serieslabels_1" value="交通违法" /><param name="zvalues_6" value=" " /><param name="legendfont" value="宋体,plain,11" /><param name="serieslabels_0" value="毒品案件" /><param name="rangelabelson" value="true" /><param name="valuelabelstyle" value="inside" /><param name="rangeaxislabelfont" value="宋体,plain,11" /><param name="insidelabelfont" value="宋体,plain,14" /><param name="autolabelspacingon" value="true" /><param name="outsidelabelfont" value="宋体,plain,11" /><param name="samplevalues_0" value="=Q6" /><param name="baroutlineoff" value="true" /><param name="samplevalues_2" value="=S6" /><param name="samplevalues_1" value="=R6" /><param name="background" value="255,255,255" /><param name="samplevalues_4" value="=U6" /><param name="chart" value="pie" /><param name="samplevalues_3" value="=T6" /><param name="samplevalues_6" value="=W6" /><param name="samplevalues_5" value="=V6" /></chart>]]></property>
+						<border type="1">3:0,0,0:1;3:0,0,0:1;3:0,0,0:1;3:0,0,0:1;3:0,0,0:1;3:0,0,0:1;3:0,0,0:1</border>
+						<border type="3">3:0,0,0:1</border>
+					</cell>
+					<cell id="8,24" type="1" colspan="4" >
+						<property name="value"><![CDATA[<chart><mark value=''/><param name="valuelabelson" value="true" /><param name="seriescount" value="2" /><param name="legendon" value="true" /><param name="3ddepth" value="18" /><param name="titlefont" value="宋体,plain,14" /><param name="valuelineson" value="true" /><param name="webtarget_1" value="_blank" /><param name="webtarget_0" value="_blank" /><param name="pielabelson" value="true" /><param name="samplelabels" value="=线索来源统计" /><param name="rangedecimalcount" value="auto" /><param name="pointinglabelfont" value="宋体,plain,11" /><param name="yvalues_0" value=" " /><param name="valuelabelfont" value="宋体,plain,11" /><param name="yvalues_1" value=" " /><param name="percentlabelstyle" value="inside" /><param name="sampleaxislabelfont" value="宋体,plain,11" /><param name="rangelabelfont" value="宋体,plain,11" /><param name="startangle" value="90" /><param name="3dmodeon" value="true" /><param name="serieslabelson" value="false" /><param name="pielabelfont" value="宋体,plain,11" /><param name="zvalues_0" value=" " /><param name="endangle" value="270" /><param name="zvalues_1" value=" " /><param name="samplelabelfont" value="宋体,plain,11" /><param name="serieslabels" value="110递转,本站接报" /><param name="serieslabels_1" value="本站接报" /><param name="legendfont" value="宋体,plain,11" /><param name="serieslabels_0" value="110递转" /><param name="rangelabelson" value="true" /><param name="valuelabelstyle" value="inside" /><param name="rangeaxislabelfont" value="宋体,plain,11" /><param name="insidelabelfont" value="宋体,plain,14" /><param name="autolabelspacingon" value="true" /><param name="outsidelabelfont" value="宋体,plain,11" /><param name="samplevalues_0" value="=Y6" /><param name="baroutlineoff" value="true" /><param name="samplevalues_1" value="=Z6" /><param name="background" value="255,255,255" /><param name="chart" value="pie" /></chart>]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">3:0,0,0:1;3:0,0,0:1;3:0,0,0:1;3:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="8,28" type="1" colspan="3" >
+						<property name="value"><![CDATA[<chart><mark value=''/><param name="valuelabelson" value="true" /><param name="seriescount" value="2" /><param name="legendon" value="true" /><param name="3ddepth" value="18" /><param name="titlefont" value="宋体,plain,14" /><param name="bartype" value="side" /><param name="valuelineson" value="true" /><param name="webtarget_1" value="_blank" /><param name="webtarget_0" value="_blank" /><param name="pielabelson" value="true" /><param name="samplelabels" value="30日未破案件反馈统计" /><param name="rangedecimalcount" value="auto" /><param name="pointinglabelfont" value="宋体,plain,11" /><param name="yvalues_0" value=" " /><param name="valuelabelfont" value="宋体,plain,11" /><param name="yvalues_1" value=" " /><param name="percentlabelstyle" value="inside" /><param name="sampleaxislabelfont" value="宋体,plain,11" /><param name="rangelabelfont" value="宋体,plain,11" /><param name="startangle" value="90" /><param name="3dmodeon" value="true" /><param name="serieslabelson" value="false" /><param name="pielabelfont" value="宋体,plain,11" /><param name="zvalues_0" value=" " /><param name="endangle" value="270" /><param name="zvalues_1" value=" " /><param name="samplelabelfont" value="宋体,plain,11" /><param name="serieslabels" value="已反馈,未反馈" /><param name="serieslabels_1" value="未反馈" /><param name="legendfont" value="宋体,plain,11" /><param name="serieslabels_0" value="已反馈" /><param name="rangelabelson" value="true" /><param name="valuelabelstyle" value="inside" /><param name="rangeaxislabelfont" value="宋体,plain,11" /><param name="insidelabelfont" value="宋体,plain,14" /><param name="autolabelspacingon" value="true" /><param name="outsidelabelfont" value="宋体,plain,11" /><param name="samplevalues_0" value="=AC6" /><param name="baroutlineoff" value="true" /><param name="samplevalues_1" value="=AD6" /><param name="background" value="255,255,255" /><param name="chart" value="pie" /></chart>]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','204,255,255')]]></property>
+						<border type="1">3:0,0,0:1;3:0,0,0:1;3:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="8,31" type="0" >
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="8,32" type="0" >
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="8,33" type="0" >
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="8,34" type="0" >
+						<border type="1">2:0,0,0:1</border>
+						<border type="3">2:0,0,0:1</border>
+					</cell>
+					<cell id="8,35" type="0" >
+					</cell>
+				</cells>
+			</grid>
+		</sheet>
+	</body>
+</report>

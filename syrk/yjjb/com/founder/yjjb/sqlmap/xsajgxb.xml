@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="xsajgxb">
+	
+	<typeAlias alias="xsajgxb" type="com.founder.yjjb.bean.Xsajgxb" />
+	
+	<!-- 添加 -->
+	<insert id="save" parameterClass="xsajgxb">
+		<![CDATA[
+		INSERT INTO YJJB_XSAJGXB
+  			(
+  			ID,XSBH,AJBH,SFFFJL,BZ,AJSOURCE,
+  			]]> <include refid="insertXtzd"/> <![CDATA[ )
+		VALUES
+  			(
+  			#id#,#xsbh#,#ajbh#,#sfffjl#,#bz#,#ajsource#,
+  			 ]]> <include refid="insertXtzdVal"/> <![CDATA[ )
+  		]]>
+	</insert>
+	
+	<!-- 查询 -->
+	<select id="queryById" parameterClass="xsajgxb" resultClass="xsajgxb">
+		<![CDATA[ SELECT * FROM YJJB_XSAJGXB WHERE id = #id# ]]>
+	</select>
+	 
+	<!-- 修改 -->
+	<update id="update" parameterClass="xsajgxb">
+		 <![CDATA[ UPDATE YJJB_XSAJGXB ]]>	
+		<dynamic prepend="set">
+			<isNotNull prepend = "," property = "xsbh"> <![CDATA[xsbh= #xsbh#]]> </isNotNull>
+			<isNotNull prepend = "," property = "ajbh"> <![CDATA[ajbh= #ajbh#]]> </isNotNull>
+			<isNotNull prepend = "," property = "sfffjl"> <![CDATA[sfffjl= #sfffjl#]]> </isNotNull>
+			<isNotNull prepend = "," property = "bz"> <![CDATA[bz= #bz#]]> </isNotNull>
+			<isNotNull prepend = "," property = "ajsource"> <![CDATA[ajsource= #ajsource#]]> </isNotNull>
+			, <include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ WHERE id = #id#]]>
+	</update>
+
+	<!-- 注销-->
+	<update id="delete" parameterClass="xsajgxb">
+		<![CDATA[UPDATE YJJB_XSAJGXB SET]]> <include refid="deleteXtzd"/>
+		<![CDATA[WHERE id = #id#]]>
+	</update>
+	
+	<!-- 更新sfffjl-->
+	<update id="updateSfffjl" parameterClass="xsajgxb">
+		<![CDATA[UPDATE YJJB_XSAJGXB SET SFFFJL = '1' WHERE id = #id#]]>
+	</update>
+	
+	<!-- 查询列表 -->
+	<select id="queryCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ SELECT COUNT(*) FROM V_YJJB_XSAJGXB  WHERE 1=1 ]]>	
+		<isNotEmpty prepend="and" property="xsajgxb.xsbh">
+			<![CDATA[XSBH=#xsajgxb.xsbh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajgxb.ajbh">
+			<![CDATA[AJBH=#xsajgxb.ajbh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajgxb.ajmc">
+			<![CDATA[AJMC like '%$xsajgxb.ajmc$%']]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajgxb.badw">
+			<![CDATA[XT_LRRBMID=#xsajgxb.badw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajgxb.sfffjl">
+			<![CDATA[SFFFJL=#xsajgxb.sfffjl#]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="queryList" parameterClass="Map" resultClass="xsajgxb">
+		<![CDATA[ SELECT * FROM ( 
+						SELECT ROWNUM r, t.* FROM ( 
+							SELECT * FROM V_YJJB_XSAJGXB WHERE 1=1
+		]]>
+		<isNotEmpty prepend="and" property="xsajgxb.xsbh">
+			<![CDATA[XSBH=#xsajgxb.xsbh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajgxb.ajbh">
+			<![CDATA[AJBH=#xsajgxb.ajbh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajgxb.ajmc">
+			<![CDATA[AJMC like '%$xsajgxb.ajmc$%']]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajgxb.badw">
+			<![CDATA[XT_LRRBMID=#xsajgxb.badw#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajgxb.sfffjl">
+			<![CDATA[SFFFJL=#xsajgxb.sfffjl#]]>
+		</isNotEmpty>
+		
+		<![CDATA[ ORDER BY $sort$ $order$ ) t
+			WHERE rownum <= #end# ) WHERE r > #begin# ]]>
+	</select>
+	
+	<!-- 查询 -->
+	<select id="queryByXsId" parameterClass="Map" resultClass="xsajgxb">
+		<![CDATA[ 
+		select t1.id,t1.ajbh,t2.ajmc,t2.XT_LRRBM,'破案' as ajzt,t2.slsj as slsj,t2.SAJYXX as jyaq,t1.AJSOURCE
+		from yjjb_xsajgxb t1,yjjb_ajxxb t2
+		where t1.ajbh = t2.ajbh AND t1.xt_zxbz='0' AND t1.xsbh =#xsbh#
+		union 
+		select t1.id,t1.ajbh,t2.ajmc,t3.ORGNAME as XT_LRRBM,t4.DIC_VALUE as ajzt,to_char(t2.slsj,'yyyy-MM-dd hh:mm:ss') as slsj,t2.jyaq as jyaq,t1.AJSOURCE
+		from yjjb_xsajgxb t1,jwzh.ga_jcxx_aj_ajjbxx@ldy t2,ORG_ORGANIZATION t3,JWZH.DIC_TREE@jwzh_aj t4
+		where t1.ajbh = t2.ajbh AND t1.xt_zxbz='0' 
+		AND t2.SLDWJGDM = t3.ORGCODE
+		AND t2.AJZT=t4.DIC_CODE AND t4.PARENT_ID='8354596'
+		AND t1.xsbh =#xsbh#
+		  ]]>
+	</select>
+	
+	<!-- 通过线索ID查询 -->
+	<select id="queryCountByXsId" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ SELECT COUNT(*) FROM YJJB_XSAJGXB  WHERE XT_ZXBZ = '0'  AND XSBH = #xsbh# ]]>	
+		
+	</select>
+	
+	<!-- 根据线索编号查询案件数量 -->
+	<select id ="ifExistAj" parameterClass="Map" resultClass="int"> 
+					 <![CDATA[select count(*) from 
+						yjjb_xsajgxb t 
+							where 
+							t.xt_zxbz='0']]>
+				<isNotEmpty prepend="and" property="xsbh">
+						t.xsbh =#xsbh#
+				</isNotEmpty>			
+	</select>
+	
+	<!-- 查询 -->
+	<select id="queryByXsidAjid" parameterClass="xsajgxb" resultClass="xsajgxb">
+		<![CDATA[ SELECT * FROM YJJB_XSAJGXB WHERE XSBH = #xsbh# AND AJBH = #ajbh# AND XT_ZXBZ = '0' ]]>
+	</select>
+	
+		<!-- 查询 -->
+	<select id="queryAJListByXsbh" parameterClass="String" resultClass="xsajgxb">
+		<![CDATA[ SELECT * FROM YJJB_XSAJGXB WHERE XSBH = #xsbh# AND XT_ZXBZ = '0' ]]>
+	</select>
+	
+    </sqlMap>

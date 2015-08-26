@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Xxfb">
+
+	<typeAlias alias="xxfbClass" type="com.founder.qbld.bean.XxfbClass" />
+	<typeAlias alias="xxfbArticle" type="com.founder.qbld.bean.XxfbArticle" />
+	
+	<!-- 信息发布类别列表查询 -->
+	<select id="queryClassList" parameterClass="Map" resultClass="xxfbClass">
+	       select * from QBLD_XXFB_CLASS where xfqs = '1'
+    </select>
+    
+    <select id="queryArticleList" parameterClass="Map" resultClass="xxfbArticle">
+	  select * from ( select rownum r ,m.* from (
+	       select objectid, title,  createtime, subject
+	         from QBLD_XXFB_ARITICLE 
+			where 1=1 
+			 <isNotEmpty prepend="and" property="xxfb.title">
+				   title like '%$xxfb.title$%'
+			 </isNotEmpty>
+			  <isNotEmpty prepend="and" property="xxfb.subject">
+				   subject = #xxfb.subject#
+			 </isNotEmpty>
+			 <isNotEmpty prepend="and" property="xxfb.createtimeB">
+				   <![CDATA[ createtime >= #xxfb.createtimeB# ]]> 
+			 </isNotEmpty>
+			 <isNotEmpty prepend="and" property="xxfb.createtimeE">
+				   <![CDATA[ createtime <= #xxfb.createtimeE# ]]> 
+			 </isNotEmpty>
+	  <![CDATA[ 
+	  	order by $sort$ $order$
+	     ) m
+	  ]]>
+	  <![CDATA[where rownum <= #end# ) where r > #begin#]]> 
+    </select>
+    
+    <!-- 信息发布内容列表总数 -->
+    <select id="queryArticleCount" parameterClass="Map" resultClass="Integer">
+         select count(1)
+			from QBLD_XXFB_ARITICLE
+		  where 1=1
+		     <isNotEmpty prepend="and" property="xxfb.title">
+				   title like '%$xxfb.title$%'
+			 </isNotEmpty>
+			 <isNotEmpty prepend="and" property="xxfb.subject">
+				   subject = #xxfb.subject#
+			 </isNotEmpty>
+			 <isNotEmpty prepend="and" property="xxfb.createtimeB">
+				   <![CDATA[ createtime >= #xxfb.createtimeB# ]]> 
+			 </isNotEmpty>
+			 <isNotEmpty prepend="and" property="xxfb.createtimeE">
+				   <![CDATA[ createtime <= #xxfb.createtimeE# ]]> 
+			 </isNotEmpty>
+    </select>
+    
+    <!-- 信息发布内容详情-->
+    <select id="queryArticle" parameterClass="Map" resultClass="xxfbArticle">
+         select *
+			from QBLD_XXFB_ARITICLE
+		  where 1=1
+	      <isNotEmpty prepend="and" property="xxfb.objectid">
+			   objectid = #xxfb.objectid#
+		  </isNotEmpty>
+    </select>
+    
+</sqlMap>

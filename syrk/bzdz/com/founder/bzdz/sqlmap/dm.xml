@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.founder.bzdz.sqlmap.Dm">
+    <typeAlias alias="dmxxb" type="com.founder.bzdz.vo.DmxxbVO"/>
+    <typeAlias alias="combox" type="com.founder.framework.utils.ComboBox"/>
+    <!-- 地名管理列表 -->
+    <select id="queryDmList" parameterClass="Map" resultClass="dmxxb">
+      SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+        SELECT T.DMDM, T.DMMC, T.DMLX, T.DLST, T.BZ, Z.XZQH, X.GXDW
+		  FROM BZDZ_ADD_DMXXB T,
+		       (SELECT A.DMDM,TO_CHAR(LISTAGG(A.PCSMC,',') WITHIN GROUP(ORDER BY PCSMC)) GXDW
+		          FROM (SELECT Z.DMDM, Z.PCSDM, P.ORGNAME PCSMC
+		                  FROM BZDZ_ADD_DMZZJGB Z, ORG_ORGANIZATION P
+		                 WHERE Z.XT_ZXBZ = '0'
+		                   AND P.XT_ZXBZ = '0'
+		                   AND P.ORGCODE = Z.PCSDM
+		                   <isNotEmpty prepend="and" property="dmxxb.fxjdm">
+							   Z.FXJDM = #dmxxb.fxjdm#
+						   </isNotEmpty>
+						   <isNotEmpty prepend="and" property="dmxxb.pcsdm">
+							   Z.PCSDM = #dmxxb.pcsdm#
+						   </isNotEmpty>) A
+		         GROUP BY A.DMDM) X,
+		       (SELECT B.DMDM,TO_CHAR(LISTAGG(B.XZQH,',') WITHIN GROUP(ORDER BY B.XZQH)) XZQH
+		          FROM (SELECT X.DMDM, T.CT XZQH
+		                  FROM BZDZ_ADD_DMXZQHB X, SYS_DICT2 T
+		                 WHERE X.XT_ZXBZ = '0'
+		                   AND T.XT_ZXBZ = '0'
+		                   AND T.ZDBH = 'D_BZ_XZQH'
+		                   AND X.XZQHDM = T.DM
+		                   <isNotEmpty prepend="and" property="dmxxb.xzqhdm">
+							   X.XZQHDM = #dmxxb.xzqhdm#
+						   </isNotEmpty>) B
+		         GROUP BY B.DMDM) Z
+		 WHERE T.XT_ZXBZ = '0'
+		   AND T.DMDM = X.DMDM
+		   AND T.DMDM = Z.DMDM
+		   <isNotEmpty prepend="and" property="dmxxb.dmmc">
+			   (T.DMMC||T.DMPY||T.DMWB LIKE '%$dmxxb.dmmc$%')
+		   </isNotEmpty>
+		   )M
+	   <![CDATA[WHERE ROWNUM <= #end# ) WHERE R > #begin#]]>
+    </select>
+    <!-- 查询地名列表总数 -->
+    <select id="queryDmCount" parameterClass="Map" resultClass="Integer">
+        SELECT COUNT(T.DMID)
+		  FROM BZDZ_ADD_DMXXB T,
+		       (SELECT A.DMDM,TO_CHAR(LISTAGG(A.PCSMC,',') WITHIN GROUP(ORDER BY PCSMC)) GXDW
+		          FROM (SELECT Z.DMDM, Z.PCSDM, P.ORGNAME PCSMC
+		                  FROM BZDZ_ADD_DMZZJGB Z, ORG_ORGANIZATION P
+		                 WHERE Z.XT_ZXBZ = '0'
+		                   AND P.XT_ZXBZ = '0'
+		                   AND P.ORGCODE = Z.PCSDM
+		                   <isNotEmpty prepend="and" property="dmxxb.fxjdm">
+							   Z.FXJDM = #dmxxb.fxjdm#
+						   </isNotEmpty>
+						   <isNotEmpty prepend="and" property="dmxxb.pcsdm">
+							   Z.PCSDM = #dmxxb.pcsdm#
+						   </isNotEmpty>) A
+		         GROUP BY A.DMDM) X,
+		       (SELECT B.DMDM,TO_CHAR(LISTAGG(B.XZQH,',') WITHIN GROUP(ORDER BY B.XZQH)) XZQH
+		          FROM (SELECT X.DMDM, T.CT XZQH
+		                  FROM BZDZ_ADD_DMXZQHB X, SYS_DICT2 T
+		                 WHERE X.XT_ZXBZ = '0'
+		                   AND T.XT_ZXBZ = '0'
+		                   AND T.ZDBH = 'D_BZ_XZQH'
+		                   AND X.XZQHDM = T.DM
+		                   <isNotEmpty prepend="and" property="dmxxb.xzqhdm">
+							   X.XZQHDM = #dmxxb.xzqhdm#
+						   </isNotEmpty>) B
+		         GROUP BY B.DMDM) Z
+		 WHERE T.XT_ZXBZ = '0'
+		   AND T.DMDM = X.DMDM
+		   AND T.DMDM = Z.DMDM
+		   <isNotEmpty prepend="and" property="dmxxb.dmmc">
+			   (T.DMMC||T.DMPY||T.DMWB LIKE '%$dmxxb.dmmc$%')
+		   </isNotEmpty>
+    </select>
+    <!-- 查询地名列表总数【无条件总数】 -->
+    <select id="queryDmXxbCount" parameterClass="Map" resultClass="Integer">
+        SELECT COUNT(T.DMID)
+		  FROM BZDZ_ADD_DMXXB T
+		WHERE T.XT_ZXBZ = '0'
+		   <isNotEmpty prepend="and" property="dmxxb.dmmc">
+			   (T.DMMC||T.DMPY||T.DMWB LIKE '%$dmxxb.dmmc$%')
+		   </isNotEmpty>
+    </select>
+    <!-- 获取地名信息 -->
+    <select id="queryDm" parameterClass="dmxxb" resultClass="dmxxb">
+        SELECT * FROM BZDZ_ADD_DMXXB T WHERE T.XT_ZXBZ='0' AND T.DMDM = #dmdm# 
+    </select>
+    <!-- 获取单位的行政区划 -->
+    <select id="queryXzqh" parameterClass="dmxxb" resultClass="dmxxb">
+        SELECT * FROM BZDZ_ADD_DMXZQHB T WHERE T.XT_ZXBZ='0' AND  T.DMDM = #dmdm# 
+    </select>
+    <!-- 获取单位的管辖单位 -->
+    <select id="queryGxdw" parameterClass="dmxxb" resultClass="dmxxb">
+        SELECT * FROM BZDZ_ADD_DMZZJGB T WHERE T.XT_ZXBZ='0' AND  T.DMDM = #dmdm# 
+    </select>
+    <!-- 判断地名是否重复 -->
+    <select id="queryDmPd" parameterClass="dmxxb" resultClass="dmxxb">
+        SELECT S.CT AS XZQHMC
+		  FROM BZDZ_ADD_DMXXB T, BZDZ_ADD_DMXZQHB X,SYS_DICT2 S
+		WHERE X.XT_ZXBZ = '0'
+		   AND T.XT_ZXBZ = '0'
+		   AND T.DMMC = #dmmc#
+		   AND T.DMLX = #dmlx#
+		   AND X.XZQHDM = #xzqhdm#
+		   AND S.ZDBH = 'D_BZ_XZQH'
+   		   AND X.XZQHDM = S.DM
+		   AND T.DMDM = X.DMDM
+		   <isNotEmpty prepend="AND" property="dmid">
+			  T.DMID != #dmid#	
+		   </isNotEmpty>	
+    </select>
+    <!-- 获取新增的地名代码 -->
+    <select id="queryDmdm" parameterClass="String" resultClass="String">
+        SELECT SUBSTR(MAX(DMDM), 1, 2) ||
+		       LPAD(TO_NUMBER(SUBSTR(MAX(DMDM), 3)) + 1, 4, '0') DMDM
+		  FROM BZDZ_ADD_DMXXB
+		WHERE XT_ZXBZ='0' 
+		  AND DMDM LIKE SUBSTR(#xzqhdm#, 5, 2) || '%'
+    </select>
+    <!-- 更新地名信息 -->
+    <update id="updateDm" parameterClass="dmxxb">
+        UPDATE BZDZ_ADD_DMXXB 
+        <dynamic prepend="set">
+            <isNotEmpty prepend="," property="dmmc">
+		      DMMC = #dmmc#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="," property="dmpy">
+			  DMPY = #dmpy#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="," property="dmwb">
+			  DMWB = #dmwb#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="," property="dlst">
+		      DLST = #dlst#
+		    </isNotEmpty>
+		    ,
+		    BZ = #bz#
+		    ,
+            <include refid="updateXtzd"/>
+        </dynamic>
+        WHERE XT_ZXBZ = '0' 
+      	   AND DMID = #dmid#
+    </update>
+    <!-- 保存地名信息 -->
+    <insert id="saveDm" parameterClass="dmxxb">
+        INSERT INTO BZDZ_ADD_DMXXB
+        (dmid
+         <isNotEmpty prepend="," property="dmdm">
+			dmdm
+		 </isNotEmpty>
+    	 <isNotEmpty prepend="," property="dmmc">
+			dmmc	
+		 </isNotEmpty>			
+    	 <isNotEmpty prepend="," property="dmlx">
+			dmlx	
+		 </isNotEmpty>				
+    	 <isNotEmpty prepend="," property="dlst">
+			dlst
+		 </isNotEmpty>				
+		 <isNotEmpty prepend="," property="dmpy">
+			dmpy
+		 </isNotEmpty>
+		 <isNotEmpty prepend="," property="dmwb">
+			dmwb
+		 </isNotEmpty>
+		 <isNotEmpty prepend="," property="bz">
+			bz
+		 </isNotEmpty>
+		 ,
+		 <include refid="insertXtzd"/>
+        )values(
+         #dmid#
+         <isNotEmpty prepend="," property="dmdm">
+			#dmdm#
+		 </isNotEmpty>
+    	 <isNotEmpty prepend="," property="dmmc">
+			#dmmc#	
+		 </isNotEmpty>			
+    	 <isNotEmpty prepend="," property="dmlx">
+			#dmlx#	
+		 </isNotEmpty>				
+    	 <isNotEmpty prepend="," property="dlst">
+			#dlst#
+		 </isNotEmpty>				
+		 <isNotEmpty prepend="," property="dmpy">
+			#dmpy#
+		 </isNotEmpty>
+		 <isNotEmpty prepend="," property="dmwb">
+			#dmwb#
+		 </isNotEmpty>
+		 <isNotEmpty prepend="," property="bz">
+			#bz#
+		 </isNotEmpty>
+		 ,
+		 <include refid="insertXtzdVal"/>
+        )
+    </insert>
+    <!-- 保存到所属行政区划表 -->
+    <insert id="saveXzqh" parameterClass="dmxxb">
+        INSERT INTO BZDZ_ADD_DMXZQHB
+        (DMXZQHID
+         <isNotEmpty prepend="," property="dmdm">
+			DMDM
+		 </isNotEmpty>
+    	 <isNotEmpty prepend="," property="xzqhdm">
+			XZQHDM	
+		 </isNotEmpty>
+		 ,
+		 <include refid="insertXtzd"/>
+        )values(
+         #dmxzqhid#
+         <isNotEmpty prepend="," property="dmdm">
+			#dmdm#
+		 </isNotEmpty>
+    	 <isNotEmpty prepend="," property="xzqhdm">
+			#xzqhdm#	
+		 </isNotEmpty>			
+		 ,
+		 <include refid="insertXtzdVal"/>
+        )
+    </insert>
+    <!-- 保存到所属管辖单位表 -->
+    <insert id="saveZzjg" parameterClass="dmxxb">
+        INSERT INTO BZDZ_ADD_DMZZJGB
+        (DMZZJGID
+         <isNotEmpty prepend="," property="dmdm">
+			DMDM
+		 </isNotEmpty>
+    	 <isNotEmpty prepend="," property="zrqdm">
+			ZRQDM	
+		 </isNotEmpty>
+		 <isNotEmpty prepend="," property="pcsdm">
+			PCSDM	
+		 </isNotEmpty>
+		 <isNotEmpty prepend="," property="fxjdm">
+			FXJDM	
+		 </isNotEmpty>
+		 ,
+		 <include refid="insertXtzd"/>
+        )values(
+         #dmzzjgid#
+         <isNotEmpty prepend="," property="dmdm">
+			#dmdm#
+		 </isNotEmpty>
+    	 <isNotEmpty prepend="," property="zrqdm">
+			#zrqdm#	
+		 </isNotEmpty>
+		 <isNotEmpty prepend="," property="pcsdm">
+			#pcsdm#	
+		 </isNotEmpty>
+		 <isNotEmpty prepend="," property="fxjdm">
+			#fxjdm#	
+		 </isNotEmpty>			
+		 ,
+		 <include refid="insertXtzdVal"/>
+        )
+    </insert>
+    <!-- 注销地名信息表 -->
+    <update id ="crossouDmxxb" parameterClass="dmxxb">
+        UPDATE BZDZ_ADD_DMXXB 
+        <dynamic prepend="set">
+            <include refid="deleteXtzd"/>
+        </dynamic>
+        WHERE XT_ZXBZ = '0' 
+      	   AND DMDM = #dmdm#
+    </update>
+    <!-- 注销地名行政区划表 -->
+    <update id ="crossouDmzzjgb" parameterClass="dmxxb">
+        UPDATE BZDZ_ADD_DMXZQHB 
+        <dynamic prepend="set">
+            <include refid="deleteXtzd"/>
+        </dynamic>
+         WHERE XT_ZXBZ = '0' 
+      	   AND DMDM = #dmdm#
+    </update>
+    <!-- 注销地名组织机构表 -->
+    <update id ="crossouDmxzqhb" parameterClass="dmxxb">
+        UPDATE BZDZ_ADD_DMZZJGB 
+        <dynamic prepend="set">
+            <include refid="deleteXtzd"/>
+        </dynamic>
+         WHERE XT_ZXBZ = '0' 
+      	   AND DMDM = #dmdm#
+    </update>
+    <!-- 查询地图图层 -->
+    <select id="queryMapLine" parameterClass="dmxxb" resultClass="dmxxb">
+        SELECT SDE.ST_ASTEXT(P.SHAPE) AS COORDS,
+		       P.OBJECTID,
+		       P.NAME,
+		       P.PCSMC
+		  FROM BZDZ_DM_PL P
+		 WHERE P.OBJECTID = #objectid#
+    </select>
+    <!-- 判断地名是否重复 -->
+    <select id="queryMldzPd" parameterClass="dmxxb" resultClass="Integer">
+        SELECT COUNT(T.MLDZID) FROM BZDZ_ADD_MLDZDXB T WHERE T.XT_ZXBZ = '0' AND T.DMDM = #dmdm#
+    </select>
+    <!-- 获取地名下拉框字典 -->
+    <select id="queryDictDm" parameterClass="String" resultClass="combox">
+        SELECT T.DMDM AS ID, T.DMMC AS TEXT,T.DMPY AS PY
+		  FROM BZDZ_ADD_DMXXB T, BZDZ_ADD_DMZZJGB Z
+		 WHERE T.XT_ZXBZ = '0'
+		   AND Z.XT_ZXBZ = '0'
+		   AND T.DMDM = Z.DMDM
+		   AND Z.PCSDM = #pcsdm#
+    </select>
+    <!-- 获取社区下拉框字典 -->
+    <select id="queryDictSq" parameterClass="String" resultClass="combox">
+        SELECT T.ORGCODE AS ID, T.ORGNAME AS TEXT, T.ORGNAMEPY AS PY
+		  FROM ORG_ORGANIZATION T
+		 WHERE T.XT_ZXBZ = '0'
+		   AND T.ORGLEVEL = '50'
+		   AND T.ORGBIZTYPE = '10'
+		   AND T.ORGCODE LIKE SUBSTR(#pcsdm#, 1, 8) || '%'
+    </select>
+</sqlMap>

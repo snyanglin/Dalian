@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>地图气泡框组件demo</title>
+    <script type="text/javascript" src="../../../framework/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="http://172.29.213.102:9080/PGIS_S_TileMap/js/EzMapAPI.js"></script>
+	<script type="text/javascript" src="../../tools/SysTool.js"></script>
+	<script type="text/javascript" src="js/mapBalloon.js"></script>
+	<script type="text/javascript">
+		var _MapApp;
+		function onLoadMap() {
+			if (typeof EzMap == "undefined") {
+				window.setTimeout("onLoadMap()", 100);
+				return;
+			}
+			if (_compatIE()) {
+				_MapApp = new EzMap(document.getElementById("map"));
+				/* var pOverview = new OverView();
+				pOverview.width = 200;
+				pOverview.height = 200;
+				pOverview.minLevel = 8;
+				pOverview.maxLevel = 10; */
+				if (_MapApp.initialize) {
+					_MapApp.initialize();
+				}
+				//_MapApp.addOverView(pOverview);
+				_MapApp.zoomTo(11);
+				_MapApp.showMapControl();
+				//_MapApp.showSmallMapControl();
+				_MapApp.showMapServer();
+				_MapApp.addMapEventListener(EzEvent.MAP_MOUSEMOVE, function(e) {
+					window.status = "X:" + e.mapPoint.x + "  Y:" + e.mapPoint.y;
+				});
+				
+				createMarker();
+			} else if (_MapApp == null) {
+				var pEle=document.getElementById("map");
+				pEle.innerHTML = "<p>目前EzMap地图引擎不支持你使用的浏览器，我们当前支持如下浏览器类型:</p><ul><li><a href='http://www.microsoft.com/windows/ie/downloads/default.asp'>IE</a> 5.5+ (Windows)</li>";
+			}
+		}
+		
+		/**
+		 * 创建marker
+		 */
+		function createMarker() {
+			var icon = new Icon();
+			icon.image = "../../../project/base/images/user.png";
+			icon.width = 43;
+			icon.height = 45;
+			
+			var point = new Point(104.41194440, 31.11583333);
+			var title = new Title("旌阳区marker1", 12, 7);
+			var marker = new Marker(point, icon, title);
+			/**
+			 * 注册marker事件
+			 * @param {Object} param JSON对象（包括：mapToolId 地图工具条id，marker marker对象，htmlPath html路径，isCenter 点击marker时超屏幕是否居中。）
+			 * @param {Function} callback 回调函数
+			 */
+			MapBalloon.bindingMarkerEvent({mapToolId: "mapTool", marker: marker, htmlPath: "tips.html", isCenter: false}, function(){});
+			_MapApp.addOverlay(marker);
+			
+			var point1 = new Point(104.35194440, 31.09722222);
+			var title1 = new Title("旌阳区marker2", 12, 7);
+			var marker1 = new Marker(point1, icon, title1);
+			/**
+			 * 注册marker事件
+			 * @param {Object} param JSON对象（包括：mapToolId 地图工具条id，marker marker对象，htmlPath html路径，isCenter 点击marker时超屏幕是否居中。）
+			 * @param {Function} callback 回调函数
+			 */
+			MapBalloon.bindingMarkerEvent({mapToolId: "mapTool",marker: marker1, htmlPath: "tips.html", isCenter: false}, function(){});
+			_MapApp.addOverlay(marker1);
+			
+			var point2 = new Point(104.26694440, 30.96694444);
+			var title2 = new Title("广汉市marker1", 12, 7);
+			var marker2 = new Marker(point2, icon, title2);
+			/**
+			 * 注册marker事件
+			 * @param {Object} param JSON对象（包括：mapToolId 地图工具条id，marker marker对象，htmlPath html路径，isCenter 点击marker时超屏幕是否居中。）
+			 * @param {Function} callback 回调函数
+			 */
+			MapBalloon.bindingMarkerEvent({mapToolId: "mapTool",marker: marker2, htmlPath: "tips.html", isCenter: false}, function(){});
+			_MapApp.addOverlay(marker2);
+			
+			var point3 = new Point(104.67555560, 31.02277778);
+			var title3 = new Title("中江县marker1", 12, 7);
+			var marker3 = new Marker(point3, icon, title3);
+			/**
+			 * 注册marker事件
+			 * @param {Object} param JSON对象（包括：mapToolId 地图工具条id，marker marker对象，htmlPath html路径，isCenter 点击marker时超屏幕是否居中。）
+			 * @param {Function} callback 回调函数
+			 */
+			MapBalloon.bindingMarkerEvent({mapToolId: "mapTool",marker: marker3, htmlPath: "tips.html", isCenter: true}, function(){});
+			_MapApp.addOverlay(marker3);
+		}
+		
+		$(document).ready(function() {
+			onLoadMap();
+			/**
+			 * 初始化
+			 * @param {Object} param JSON对象（包括：mapApp 地图对象，mapContainerId 地图容器id）
+			 */
+			MapBalloon.init({mapApp: _MapApp, mapContainerId: "mapContainer"});
+		});
+	</script>
+  </head>
+  
+  <body>
+  	<!-- 地图层begin -->
+	<div id="mapContainer">
+		<div id="mapTool" class="nav">
+			<a href="javascript:MapApp.zoomIn()"><span class="text-icon zoom-in">放大</span></a> 
+			<a href="javascript:MapApp.zoomOut()"><span class="text-icon zoom-out">缩小</span></a> 
+			<a href="javascript:MapApp.pan();"><span class="text-icon hand">漫游</span></a> 
+			<a href="javascript:MapApp.fullExtent()"><span class="text-icon full">全图</span></a> 
+			<a href="javascript:MapApp.measureLength();"><span class="text-icon ruler">测距</span></a> 
+			<a href="javascript:MapApp.measureArea();"><span class="text-icon ruler2">测面积</span></a> 
+			<a href="javascript:MapApp.reverseOverView();"><span class="text-icon eye">鹰眼</span></a> 
+			<a href="javascript:MapApp.print();"><span class="text-icon printer">打印</span></a> 
+			<a href="javascript:MapApp.clear();"><span class="text-icon broom">清除</span></a>	
+		</div>
+		<div id="map" style="width: 100%;height: 100%;border: 0px solid #FF0000;"></div>
+	</div>
+	<!-- 地图层end -->
+  </body>
+</html>

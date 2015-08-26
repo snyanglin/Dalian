@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<report version="5.0">
+	<head>
+		<property name="type">0</property>
+		<name><![CDATA[JCXXCJKHTJ]]></name>
+		<dataSets>
+			<dataSet name="dwmc" type="DB_SQL" >
+				<property name="dataSource">DB</property>
+				<property name="desc"><![CDATA[]]></property>
+				<property name="query"><![CDATA[="select orgname as jgmc from org_organization o where o.orgcode='"+case(@ORG_FJ='0' and @ORG_PCS='0',"210200000000",@ORG_FJ!='0' and @ORG_PCS='0',@ORG_FJ,@ORG_FJ!='0' and @ORG_PCS!='0',@ORG_PCS)+"'"]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+			<dataSet name="jcxxcjkhtj" type="DB_SQL" >
+				<property name="dataSource">DB</property>
+				<property name="desc"><![CDATA[]]></property>
+				<property name="query"><![CDATA[=case(
+@ORG_FJ!='0' and @ORG_PCS!='0',"
+select o.orgcode,o.orgname,nvl(b.cl,0) cl,nvl(b.cjs,0) as cjs,(nvl(b.cl,0)-nvl(b.cjs,0)) as kfs,
+nvL(kfz,0) as kfz,
+nvl(b.khdf,0) as khdf from org_organization o 
+left join (select * from  RK_JCXXCJKHXXB where 
+gsjgdm='"+@ORG_PCS+"' and "
++ "to_char(tjsj,'yyyy-MM-dd') >='"
++tostr(@ZQ_KS,"yyyy-MM-dd")
++"' and "
++ "to_char(tjsj,'yyyy-MM-dd') <='"
++tostr(@ZQ_JS,"yyyy-MM-dd")
++"' 
+)b on o.orgcode=b.jgdm
+where o.orgtype='01' and o.orglevel='50' and o.orgbiztype='04'
+and substr(parenttreepath,28,12)='"+@ORG_PCS+"' 
+group by o.orgcode, o.orgname,b.kfz, b.cl,b.khdf,b.cjs,b.kfs
+ order by b.khdf desc "
+,
+@ORG_FJ!='0' and @ORG_PCS='0',
+
+"select  o.orgcode,
+       o.orgname,
+      b.cl,
+      b.cjs,b.kfs,b.kfz,
+     b.khdf
+  from org_organization o
+  left join (select 
+		sum(c.cl) cl,
+                    sum(c.cjs) as cjs,
+                    sum(cl)-sum(c.cjs) as kfs,
+                    10-((sum(c.cjs)/sum(cl))*0.1) as kfz,
+                    (sum(c.cjs)/sum(cl))*0.1 khdf,
+                    c.gsjgdm
+               from RK_JCXXCJKHXXB c
+              where substr(gsjgdm, 0, 6) || '000000' = '"+@ORG_FJ+"'  
+and "   
++ "to_char(tjsj,'yyyy-MM-dd') >='"
++tostr(@ZQ_KS,"yyyy-MM-dd")
++"' and "
++ "to_char(tjsj,'yyyy-MM-dd') <='"
++tostr(@ZQ_JS,"yyyy-MM-dd")
++"'
+ group by c.gsjgdm
+) b on o.orgcode=b.gsjgdm
+where o.orgtype='01' and o.orglevel='32' and o.orgbiztype='01' 
+and 	substr(parenttreepath,15,12)='"+@ORG_FJ+"'
+group by o.orgcode, o.orgname, b.kfz, b.cl, b.khdf,b.cjs,b.kfs
+ order by b.khdf desc",
+
+@ORG_FJ='0'  and @ORG_PCS='0',
+"select  o.orgcode,
+       o.orgname,
+       b.cl,
+       b.cjs,
+      b.kfs,
+       b.kfz,
+       b.khdf
+  from org_organization o
+  left join (select sum(c.cl) cl,
+                    sum(c.cjs) as cjs,
+                    sum(cl)-sum(c.cjs) as kfs,
+                    10-((sum(c.cjs)/sum(cl))*0.1) as kfz,
+                    (sum(c.cjs)/sum(cl))*0.1 khdf,
+                    substr(c.gsjgdm,0,6)||'000000' jgdm
+               from RK_JCXXCJKHXXB c
+		where 1=1  and "
++ "to_char(tjsj,'yyyy-MM-dd') >='"
++tostr(@ZQ_KS,"yyyy-MM-dd")
++"' and "
++ "to_char(tjsj,'yyyy-MM-dd') <='"
++tostr(@ZQ_JS,"yyyy-MM-dd")
++"'
+ group by substr(c.gsjgdm,0,6)||'000000')
+b   on o.orgcode = b.jgdm
+ where o.orgtype = '01'
+   and o.orglevel = '21'
+   and o.orgbiztype = '01'
+   and substr(parenttreepath, 2, 12) ='210200000000'
+ group by o.orgcode, o.orgname, b.kfz, b.cl, b.khdf, b.cjs, b.kfs
+order by b.khdf desc
+ " )
+]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+		</dataSets>
+		<parameters>
+			<parameter name="ORG_FJ" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">分局代码</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ORG_PCS" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">派出所代码</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ZQ_KS" type="4">
+				<property name="dateFormat">yyyy-MM-dd</property>
+				<property name="default"></property>
+				<property name="desc">开始时间</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ZQ_JS" type="4">
+				<property name="dateFormat">yyyy-MM-dd</property>
+				<property name="default"></property>
+				<property name="desc">结束时间</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="zzjglx" type="17">
+				<property name="dateFormat"></property>
+				<property name="default">11</property>
+				<property name="desc">组织结构类型</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+		</parameters>
+		<variables/>
+	</head>
+	<body>
+		<sheet id="sheet1">
+			<page>
+			</page>
+			<grid row="12" col="8">
+				<properties>
+				</properties>
+				<rows>
+					<row id="1">
+						<property name="type">2</property>
+						<property name="height">110</property>
+					</row>
+					<row id="2">
+					</row>
+					<row id="3">
+					</row>
+					<row id="4">
+					</row>
+					<row id="5">
+					</row>
+					<row id="6">
+					</row>
+					<row id="7">
+					</row>
+					<row id="8">
+					</row>
+					<row id="9">
+					</row>
+					<row id="10">
+					</row>
+					<row id="11">
+					</row>
+					<row id="12">
+					</row>
+				</rows>
+				<columns>
+					<column id="1">
+					</column>
+					<column id="2">
+						<property name="width">175</property>
+					</column>
+					<column id="3">
+						<property name="width">146</property>
+					</column>
+					<column id="4">
+						<property name="width">126</property>
+					</column>
+					<column id="5">
+						<property name="width">115</property>
+					</column>
+					<column id="6">
+						<property name="width">106</property>
+					</column>
+					<column id="7">
+						<property name="width">129</property>
+					</column>
+					<column id="8">
+					</column>
+				</columns>
+				<cells>
+					<cell id="1,1" type="0" colspan="7" >
+						<property name="value"><![CDATA[=dwmc.select(JGMC)+"基础信息采集考核统计"]]></property>
+						<property name="font-size">20</property>
+						<border type="0">1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1</border>
+						<border type="1">1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="1,8" type="0" >
+					</cell>
+					<cell id="2,1" type="0" >
+						<property name="value"><![CDATA[排名]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,2" type="0" >
+						<property name="value"><![CDATA[单位机构]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,3" type="0" >
+						<property name="value"><![CDATA[常量]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,4" type="0" >
+						<property name="value"><![CDATA[采集数]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,5" type="0" >
+						<property name="value"><![CDATA[扣分数]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,6" type="0" >
+						<property name="value"><![CDATA[扣分值]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,7" type="0" >
+						<property name="value"><![CDATA[考核得分]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,8" type="0" >
+					</cell>
+					<cell id="3,1" type="0" >
+						<property name="value"><![CDATA[=(row()-2)]]></property>
+						<property name="ext-left"><![CDATA[B3]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,2" type="0" >
+						<property name="value"><![CDATA[=if(@zzjglx+1<14,"<u><span style='cursor:hand'>&nbsp;","")+jcxxcjkhtj.select(ORGNAME)+if(@zzjglx+1<14,"</span></u>","")]]></property>
+						<property name="ext-direction">3</property>
+						<property name="font-color"><![CDATA[=if(@zzjglx+1<14,'0,0,255','0,0,0')]]></property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<property name="web-event"><![CDATA[onclick:="window.location.href='"+if(@zzjglx+1<14,"ReportEmitter?rpt=JCXXCJKHTJ.brt&params=ORG_FJ=" +if(@ORG_FJ="0",H3{},@ORG_FJ)+";ORG_PCS="+if(@ORG_PCS="0",if(@ORG_FJ="0",'0',H3{}),@ORG_PCS)+";ZQ_KS="+tostr(@ZQ_KS)+";zzjglx="+(@zzjglx+1)+";ZQ_JS="+tostr(@ZQ_JS)+";dw="+H3,"")+"';window.parent.window.mask();"]]></property>
+						<property name="web-html">0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,3" type="0" >
+						<property name="value"><![CDATA[=jcxxcjkhtj.select(CL)]]></property>
+						<property name="view"><![CDATA[=if(@value=null,0,@value)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,4" type="0" >
+						<property name="value"><![CDATA[=jcxxcjkhtj.select(CJS)]]></property>
+						<property name="view"><![CDATA[=if(@value=null,0,@value)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,5" type="0" >
+						<property name="value"><![CDATA[=jcxxcjkhtj.select(KFS)]]></property>
+						<property name="view"><![CDATA[=if(@value=null,0,@value)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,6" type="0" >
+						<property name="value"><![CDATA[=jcxxcjkhtj.select(KFZ)]]></property>
+						<property name="view"><![CDATA[=if(@value=null,0,@value)]]></property>
+						<property name="view-format">1|###0.0000000;-###0.0000000</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,7" type="0" >
+						<property name="value"><![CDATA[=jcxxcjkhtj.select(KHDF)]]></property>
+						<property name="view"><![CDATA[=if(@value=null,0,@value)]]></property>
+						<property name="view-format">1|###0.0000000;-###0.0000000</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,8" type="0" >
+						<property name="value"><![CDATA[=jcxxcjkhtj.select(ORGCODE)]]></property>
+						<property name="visible"><![CDATA[1]]></property>
+					</cell>
+					<cell id="4,1" type="0" >
+					</cell>
+					<cell id="4,2" type="0" >
+					</cell>
+					<cell id="4,3" type="0" >
+					</cell>
+					<cell id="4,4" type="0" >
+					</cell>
+					<cell id="4,5" type="0" >
+					</cell>
+					<cell id="4,6" type="0" >
+					</cell>
+					<cell id="4,7" type="0" >
+					</cell>
+					<cell id="4,8" type="0" >
+					</cell>
+					<cell id="5,1" type="0" >
+					</cell>
+					<cell id="5,2" type="0" >
+					</cell>
+					<cell id="5,3" type="0" >
+					</cell>
+					<cell id="5,4" type="0" >
+					</cell>
+					<cell id="5,5" type="0" >
+					</cell>
+					<cell id="5,6" type="0" >
+					</cell>
+					<cell id="5,7" type="0" >
+					</cell>
+					<cell id="5,8" type="0" >
+					</cell>
+					<cell id="6,1" type="0" >
+					</cell>
+					<cell id="6,2" type="0" >
+					</cell>
+					<cell id="6,3" type="0" >
+					</cell>
+					<cell id="6,4" type="0" >
+					</cell>
+					<cell id="6,5" type="0" >
+					</cell>
+					<cell id="6,6" type="0" >
+					</cell>
+					<cell id="6,7" type="0" >
+					</cell>
+					<cell id="6,8" type="0" >
+					</cell>
+					<cell id="7,1" type="0" >
+					</cell>
+					<cell id="7,2" type="0" >
+					</cell>
+					<cell id="7,3" type="0" >
+					</cell>
+					<cell id="7,4" type="0" >
+					</cell>
+					<cell id="7,5" type="0" >
+					</cell>
+					<cell id="7,6" type="0" >
+					</cell>
+					<cell id="7,7" type="0" >
+					</cell>
+					<cell id="7,8" type="0" >
+					</cell>
+					<cell id="8,1" type="0" >
+					</cell>
+					<cell id="8,2" type="0" >
+					</cell>
+					<cell id="8,3" type="0" >
+					</cell>
+					<cell id="8,4" type="0" >
+					</cell>
+					<cell id="8,5" type="0" >
+					</cell>
+					<cell id="8,6" type="0" >
+					</cell>
+					<cell id="8,7" type="0" >
+					</cell>
+					<cell id="8,8" type="0" >
+					</cell>
+					<cell id="9,1" type="0" >
+					</cell>
+					<cell id="9,2" type="0" >
+					</cell>
+					<cell id="9,3" type="0" >
+					</cell>
+					<cell id="9,4" type="0" >
+					</cell>
+					<cell id="9,5" type="0" >
+					</cell>
+					<cell id="9,6" type="0" >
+					</cell>
+					<cell id="9,7" type="0" >
+					</cell>
+					<cell id="9,8" type="0" >
+					</cell>
+					<cell id="10,1" type="0" >
+					</cell>
+					<cell id="10,2" type="0" >
+					</cell>
+					<cell id="10,3" type="0" >
+					</cell>
+					<cell id="10,4" type="0" >
+					</cell>
+					<cell id="10,5" type="0" >
+					</cell>
+					<cell id="10,6" type="0" >
+					</cell>
+					<cell id="10,7" type="0" >
+					</cell>
+					<cell id="10,8" type="0" >
+					</cell>
+					<cell id="11,1" type="0" >
+					</cell>
+					<cell id="11,2" type="0" >
+					</cell>
+					<cell id="11,3" type="0" >
+					</cell>
+					<cell id="11,4" type="0" >
+					</cell>
+					<cell id="11,5" type="0" >
+					</cell>
+					<cell id="11,6" type="0" >
+					</cell>
+					<cell id="11,7" type="0" >
+					</cell>
+					<cell id="11,8" type="0" >
+					</cell>
+					<cell id="12,1" type="0" >
+					</cell>
+					<cell id="12,2" type="0" >
+					</cell>
+					<cell id="12,3" type="0" >
+					</cell>
+					<cell id="12,4" type="0" >
+					</cell>
+					<cell id="12,5" type="0" >
+					</cell>
+					<cell id="12,6" type="0" >
+					</cell>
+					<cell id="12,7" type="0" >
+					</cell>
+					<cell id="12,8" type="0" >
+					</cell>
+				</cells>
+			</grid>
+		</sheet>
+	</body>
+</report>

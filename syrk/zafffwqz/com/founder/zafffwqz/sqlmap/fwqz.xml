@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="fwqz">
+	<typeAlias alias="slzxqz" type="com.founder.zafffwqz.bean.Slzxqzb"/>
+	<typeAlias alias="kthb" type="com.founder.zafffwqz.bean.Kthb"/>
+	<typeAlias alias="zaffxcb" type="com.founder.zafffwqz.bean.Zaffxcb"/>
+	<typeAlias alias="tsqtghb" type="com.founder.zafffwqz.bean.Tsqtghb"/>
+	<!-- 受理咨询 -->
+	<select id ="querySlzxqz" parameterClass="Map" resultClass="slzxqz">
+				<![CDATA[ select * from ( 
+						select rownum r, t.* from ( 
+							select * from FWQZ_SLZXQZB where XT_ZXBZ = '0']]>
+				<isNotEmpty prepend="and" property="slzxqz.jdjjfs">
+							jdjjfs like '%$slzxqz.jdjjfs$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="slzxqz.zxqznr">
+							zxqznr like '%$slzxqz.zxqznr$%'
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="slzxqz.startDate">
+							<![CDATA[	zxqzsj >=#slzxqz.startDate#]]>
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="slzxqz.endDate">
+						<![CDATA[	zxqzsj <=#slzxqz.endDate# ]]>
+				</isNotEmpty>					
+				<![CDATA[ order by $sort$ $order$ ) t
+			where rownum <= #end# ) where r >= #begin# ]]>
+	</select>
+	<!--  -->
+	<select id ="queryCountSlzxqz" parameterClass="Map" resultClass="Integer">
+			<![CDATA[
+				SELECT COUNT(1) 	FROM FWQZ_SLZXQZB		WHERE XT_ZXBZ='0'
+			]]>
+				<isNotEmpty prepend="and" property="slzxqz.jdjjfs">
+							jdjjfs like '%$slzxqz.jdjjfs$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="slzxqz.zxqznr">
+							zxqznr like '%$slzxqz.zxqznr$%'
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="slzxqz.startDate">
+							<![CDATA[	zxqzsj >=#slzxqz.startDate#]]>
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="slzxqz.endDate">
+						<![CDATA[	zxqzsj <=#slzxqz.endDate# ]]>
+				</isNotEmpty>
+			
+	</select>
+	
+	<insert id="saveSlzxqz" parameterClass="slzxqz">
+		<![CDATA[ insert Into FWQZ_SLZXQZB ( id,zxqzsj,zxqznr,jdjjfs,jddwid,jddw,jdrid,jdr,bz,]]> 
+			<include refid="insertXtzd"/><![CDATA[) values (
+				#id#,#zxqzsj#,#zxqznr#,#jdjjfs#,#jddwid#,#jddw#,#jdrid#,#jdr#,#bz#,
+			]]>  <include refid="insertXtzdVal"/><![CDATA[ )]]>
+	</insert>
+	
+	<update id="updateSlzxqz" parameterClass="slzxqz">
+			<![CDATA[ update FWQZ_SLZXQZB ]]>	
+			<dynamic prepend="set">
+				<isNotEmpty  prepend="," property="id" > id=#id#</isNotEmpty>
+				<isNotEmpty  prepend="," property="zxqzsj" > zxqzsj=#zxqzsj#</isNotEmpty>
+				<isNotEmpty  prepend="," property="zxqznr" > zxqznr=#zxqznr#</isNotEmpty>
+				<isNotEmpty  prepend="," property="jdjjfs" > jdjjfs=#jdjjfs#</isNotEmpty>
+				<isNotEmpty  prepend="," property="jddwid" > jddwid=#jddwid#</isNotEmpty>
+				<isNotEmpty  prepend="," property="jddw" > jddw=#jddw#</isNotEmpty>
+				<isNotEmpty  prepend="," property="jdrid" > jdrid=#jdrid#</isNotEmpty>
+				<isNotEmpty  prepend="," property="jdr" > jdr=#jdr#</isNotEmpty>
+				<isNotEmpty  prepend="," property="bz" > bz=#bz#</isNotEmpty>
+			</dynamic>
+			,
+			<include refid="updateXtzd"/>
+		<![CDATA[ where id = #id#]]>	
+	</update>
+	
+	<select id="querySlzxqzById" parameterClass="slzxqz" resultClass="slzxqz">
+		<![CDATA[ select * from  FWQZ_SLZXQZB  where id=#id#]]>	
+	</select>
+	<update id ="deleteSlzxqz" parameterClass="slzxqz">
+		<![CDATA[ update FWQZ_SLZXQZB set ]]>	<include refid="deleteXtzd"/>
+		<![CDATA[ where id = #id#]]>
+	</update>
+	
+	<!-- 恳谈会表 -->
+	<select id ="queryKthb" parameterClass="Map" resultClass="kthb">
+				<![CDATA[ select * from ( 
+						select rownum r, t.* from ( 
+							select * from 
+								FWQZ_KTHB where XT_ZXBZ = '0']]>
+				<isNotEmpty prepend="and" property="kthb.yhr">
+							yhr like '%$kthb.yhr$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="kthb.hynr">
+							hynr like '%$kthb.hynr$%'
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="kthb.startDate">
+							<![CDATA[	zksj >=#kthb.startDate#]]>
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="kthb.endDate">
+						<![CDATA[	zksj <=#kthb.endDate# ]]>
+				</isNotEmpty>					
+				<![CDATA[ order by $sort$ $order$ ) t
+			where rownum <= #end# ) where r >= #begin# ]]>
+	</select>
+	<!--  -->
+	<select id ="queryCountKthb" parameterClass="Map" resultClass="Integer">
+			<![CDATA[
+				SELECT COUNT(1) 	FROM FWQZ_KTHB		WHERE XT_ZXBZ='0'
+			]]>
+				<isNotEmpty prepend="and" property="kthb.yhr">
+							yhr like '%$kthb.yhr$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="kthb.hynr">
+							hynr like '%$kthb.hynr$%'
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="kthb.startDate">
+							<![CDATA[	zksj >=#kthb.startDate#]]>
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="kthb.endDate">
+						<![CDATA[	zksj <=#kthb.endDate# ]]>
+				</isNotEmpty>	
+	</select>
+	
+	<insert id="saveKthb" parameterClass="kthb">
+		<![CDATA[ insert Into FWQZ_KTHB ( id,zksj,zzrdwid,zzrdw,zzrid,zzr,yhr,hynr,bz,]]> 
+			<include refid="insertXtzd"/><![CDATA[) values (
+				#id#,#zksj#,#zzrdwid#,#zzrdw#,#zzrid#,#zzr#,#yhr#,#hynr#,#bz#,
+			]]>  <include refid="insertXtzdVal"/><![CDATA[ )]]>
+	</insert>
+	
+	<update id="updateKthb" parameterClass="kthb">
+			<![CDATA[ update FWQZ_KTHB ]]>	
+			<dynamic prepend="set">
+				<isNotEmpty  prepend="," property="id" > id=#id#</isNotEmpty>
+				<isNotEmpty  prepend="," property="zksj" > zksj=#zksj#</isNotEmpty>
+				<isNotEmpty  prepend="," property="zzrdwid" > zzrdwid=#zzrdwid#</isNotEmpty>
+				<isNotEmpty  prepend="," property="zzrdw" > zzrdw=#zzrdw#</isNotEmpty>
+				<isNotEmpty  prepend="," property="zzrid" > zzrid=#zzrid#</isNotEmpty>
+				<isNotEmpty  prepend="," property="zzr" > zzr=#zzr#</isNotEmpty>
+				<isNotEmpty  prepend="," property="yhr" > yhr=#yhr#</isNotEmpty>
+				<isNotEmpty  prepend="," property="hynr" > hynr=#hynr#</isNotEmpty>
+				<isNotEmpty  prepend="," property="bz" > bz=#bz#</isNotEmpty>
+			</dynamic>
+			,
+			<include refid="updateXtzd"/>
+		<![CDATA[ where id = #id#]]>	
+	</update>
+	
+	<select id="queryKthbById" parameterClass="kthb" resultClass="kthb">
+		<![CDATA[ select * from  FWQZ_KTHB  where id=#id#]]>	
+	</select>
+	
+	<update id ="deleteKthb" parameterClass="kthb">
+		<![CDATA[ update FWQZ_KTHB set ]]>	<include refid="deleteXtzd"/>
+		<![CDATA[ where id = #id#]]>
+	</update>
+	
+	<!-- 治安防范宣传表 -->
+		<select id ="queryZaffxcb" parameterClass="Map" resultClass="zaffxcb">
+				<![CDATA[ select * from ( 
+						select rownum r, t.* from ( 
+							select * from 
+								FWQZ_ZAFFXCB where XT_ZXBZ = '0']]>
+				<isNotEmpty prepend="and" property="zaffxcb.xcxs">
+							xcxs like '%$zaffxcb.xcxs$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="zaffxcb.xcnr">
+							xcnr like '%$zaffxcb.xcnr$%'
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="zaffxcb.startDate">
+							<![CDATA[	xcsj >=#zaffxcb.startDate#]]>
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="zaffxcb.endDate">
+						<![CDATA[	xcsj <=#zaffxcb.endDate# ]]>
+				</isNotEmpty>					
+				<![CDATA[ order by $sort$ $order$ ) t
+			where rownum <= #end# ) where r >= #begin# ]]>
+	</select>
+	<!--  -->
+	<select id ="queryCountZaffxcb" parameterClass="Map" resultClass="Integer">
+			<![CDATA[
+				SELECT COUNT(1) 	
+					FROM FWQZ_ZAFFXCB		WHERE XT_ZXBZ='0'
+			]]>
+				<isNotEmpty prepend="and" property="zaffxcb.xcxs">
+							xcxs like '%$zaffxcb.xcxs$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="zaffxcb.xcnr">
+							xcnr like '%$zaffxcb.xcnr$%'
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="zaffxcb.startDate">
+							<![CDATA[	xcsj >=#zaffxcb.startDate#]]>
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="zaffxcb.endDate">
+						<![CDATA[	xcsj <=#zaffxcb.endDate# ]]>
+				</isNotEmpty>		
+	</select>
+	
+	<insert id="saveZaffxcb" parameterClass="zaffxcb">
+		<![CDATA[ insert Into FWQZ_ZAFFXCB ( id,xcsj,xcnr,xcxs,xcdw,xcdwid,xcrid,xcr,bz,]]> 
+			<include refid="insertXtzd"/><![CDATA[) values (
+				#id#,#xcsj#,#xcnr#,#xcxs#,#xcdw#,#xcdwid#,#xcrid#,#xcr#,#bz#,
+			]]>  <include refid="insertXtzdVal"/><![CDATA[ )]]>
+	</insert>
+	
+	<update id="updateZaffxcb" parameterClass="zaffxcb">
+			<![CDATA[ update FWQZ_ZAFFXCB ]]>	
+			<dynamic prepend="set">
+				<isNotEmpty  prepend="," property="id" > id=#id#</isNotEmpty>
+				<isNotEmpty  prepend="," property="xcsj" > xcsj=#xcsj#</isNotEmpty>
+				<isNotEmpty  prepend="," property="xcnr" > xcnr=#xcnr#</isNotEmpty>
+				<isNotEmpty  prepend="," property="xcxs" > xcxs=#xcxs#</isNotEmpty>
+				<isNotEmpty  prepend="," property="xcdw" > xcdw=#xcdw#</isNotEmpty>
+				<isNotEmpty  prepend="," property="xcdwid" > xcdwid=#xcdwid#</isNotEmpty>
+				<isNotEmpty  prepend="," property="xcrid" > xcrid=#xcrid#</isNotEmpty>
+				<isNotEmpty  prepend="," property="xcr" > xcr=#xcr#</isNotEmpty>
+				<isNotEmpty  prepend="," property="bz" > bz=#bz#</isNotEmpty>
+			</dynamic>
+			,
+			<include refid="updateXtzd"/>
+		<![CDATA[ where id = #id#]]>	
+	</update>
+	
+	<select id="queryZaffxcbById" parameterClass="zaffxcb" resultClass="zaffxcb">
+		<![CDATA[ select * from  FWQZ_ZAFFXCB  where id=#id#]]>	
+	</select>
+	<update id ="deleteZaffxcb" parameterClass="zaffxcb">
+		<![CDATA[ update FWQZ_ZAFFXCB set ]]>	<include refid="deleteXtzd"/>
+		<![CDATA[ where id = #id#]]>
+	</update>
+	
+	<!-- 特殊群体关怀表 -->
+			<select id ="queryTsqtghb" parameterClass="Map" resultClass="tsqtghb">
+				<![CDATA[ select * from ( 
+						select rownum r, t.* from ( 
+							select * from 
+								FWQZ_TSQTGHB where XT_ZXBZ = '0']]>
+				<isNotEmpty prepend="and" property="tsqtghb.tsqtlxdm">
+							tsqtlxdm = #tsqtghb.tsqtlxdm#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="tsqtghb.ghcs">
+							ghcs like '%$tsqtghb.ghcs$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="tsqtghb.qdxg">
+							qdxg like '%$tsqtghb.qdxg$%'
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="tsqtghb.startDate">
+							<![CDATA[	ghsj >=#tsqtghb.startDate#]]>
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="tsqtghb.endDate">
+						<![CDATA[	ghsj <=#tsqtghb.endDate# ]]>
+				</isNotEmpty>					
+				<![CDATA[ order by $sort$ $order$ ) t
+			where rownum <= #end# ) where r >= #begin# ]]>
+	</select>
+	<!--  -->
+	<select id ="queryCountTsqtghb" parameterClass="Map" resultClass="Integer">
+			<![CDATA[
+				SELECT COUNT(1) 	
+					FROM FWQZ_TSQTGHB		WHERE XT_ZXBZ='0'
+			]]>
+				<isNotEmpty prepend="and" property="tsqtghb.tsqtlxdm">
+							tsqtlxdm = #tsqtghb.tsqtlxdm#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="tsqtghb.ghcs">
+							ghcs like '%$tsqtghb.ghcs$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="tsqtghb.qdxg">
+							qdxg like '%$tsqtghb.qdxg$%'
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="tsqtghb.startDate">
+							<![CDATA[	ghsj >=#tsqtghb.startDate#]]>
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="tsqtghb.endDate">
+						<![CDATA[	ghsj <=#tsqtghb.endDate# ]]>
+				</isNotEmpty>		
+	</select>
+	
+	<insert id="saveTsqtghb" parameterClass="tsqtghb">
+		<![CDATA[ insert Into FWQZ_TSQTGHB ( id,tsqtlxdm,ghsj,ghcs,qdxg,ghrdwid,ghrdw,ghr,ghrid,bz,]]> 
+			<include refid="insertXtzd"/><![CDATA[) values (
+				#id#,#tsqtlxdm#,#ghsj#,#ghcs#,#qdxg#,#ghrdwid#,#ghrdw#,#ghr#,#ghrid#,#bz#,
+			]]>  <include refid="insertXtzdVal"/><![CDATA[ )]]>
+	</insert>
+	
+	<update id="updateTsqtghb" parameterClass="tsqtghb">
+			<![CDATA[ update FWQZ_TSQTGHB ]]>	
+			<dynamic prepend="set">
+				<isNotEmpty  prepend="," property="id" > id=#id#</isNotEmpty>
+				<isNotEmpty  prepend="," property="tsqtlxdm" > tsqtlxdm=#tsqtlxdm#</isNotEmpty>
+				<isNotEmpty  prepend="," property="ghsj" > ghsj=#ghsj#</isNotEmpty>
+				<isNotEmpty  prepend="," property="ghcs" > ghcs=#ghcs#</isNotEmpty>
+				<isNotEmpty  prepend="," property="qdxg" > qdxg=#qdxg#</isNotEmpty>
+				
+				<isNotEmpty  prepend="," property="ghrdwid" > ghrdwid=#ghrdwid#</isNotEmpty>
+				<isNotEmpty  prepend="," property="ghrdw" > ghrdw=#ghrdw#</isNotEmpty>
+				<isNotEmpty  prepend="," property="ghr" > ghr=#ghr#</isNotEmpty>
+				<isNotEmpty  prepend="," property="ghrid" > ghrid=#ghrid#</isNotEmpty>
+				<isNotEmpty  prepend="," property="bz" > bz=#bz#</isNotEmpty>
+			</dynamic>
+			,
+			<include refid="updateXtzd"/>
+		<![CDATA[ where id = #id#]]>	
+	</update>
+	
+	<select id="queryTsqtghbById" parameterClass="tsqtghb" resultClass="tsqtghb">
+		<![CDATA[ select * from  FWQZ_TSQTGHB  where id=#id#]]>	
+	</select>
+	<update id ="deleteTsqtghb" parameterClass="tsqtghb">
+		<![CDATA[ update FWQZ_TSQTGHB set ]]>	<include refid="deleteXtzd"/>
+			<![CDATA[ where id = #id#]]>
+	</update>
+	
+	
+	
+</sqlMap>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Khfstjb">
+	<typeAlias alias="khfstjb" type="com.founder.zakh.bean.Khfstjb" />
+	
+	<!-- 新增 -->
+	<insert id="save" parameterClass="khfstjb">
+	                      
+    <![CDATA[ insert into KH_KHFSTJB (ID,ZZJGDM,ZZJGNAME,ZZJGDJ,YEAR,WEEK,WEEKSTARTDATE,WEEKENDDATE,JCXXKF,JCXXKFHJ,JCXXKHDF,JCXXKHZF,ZDRKKF,ZDRKKFHJ,ZDRKKHDF,ZDRKKHZF,ZAFFKF,ZAFFKFHJ,ZAFFKHDF,ZAFFKHZF,BZ,]]><include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#,#zzjgdm#,#zzjgname#,#zzjgdj#,#year#,#week#,#weekStartDate#,#weekEndDate#,#jcxxkf#,#jcxxkfhj#,#jcxxkhdf#,#jcxxkhzf#,#zdrkkf#,#zdrkkfhj#,#zdrkkhdf#,#zdrkkhzf#,#zaffkf#,#zaffkfhj#,#zaffkhdf#,#zaffkhzf#,#bz#,]]>
+			<include refid="insertXtzdVal"/>)
+ 
+	</insert>
+	
+	
+	<!-- 查询 -->
+	 <select id="queryKhfstj" parameterClass="Map" resultClass="khfstjb">
+     <![CDATA[  select 
+       year,
+       WEEK,
+       jcxxkf,
+       jcxxkfhj,
+       jcxxkhdf,
+       jcxxkhzf,     
+       ZZJGDM,
+       ZZJGNAME
+   from KH_KHFSTJB 
+   where  1=1
+        ]]>
+        <isNotEmpty prepend="AND" property="zzjgdj">			
+			zzjgdj=#zzjgdj#
+		</isNotEmpty>
+       <isNotEmpty prepend="AND" property="year">			
+			year=#year#	   
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="week">			
+			week=$week$  
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="orgCode">			
+			  (ZZJGDM in(select ORGCODE AS ORGID 
+					   from ORG_ORGANIZATION 
+					  where PARENTTREEPATH like '%$orgCode$%'
+					 )
+		     or ZZJGDM=#orgCode#)		   
+		</isNotEmpty>
+    order by  jcxxkhdf desc
+    </select>
+	
+	
+	<!-- 查询上周考核统计 -->
+	 <select id="querySzkhtj" parameterClass="Map" resultClass="khfstjb">
+     <![CDATA[  select MIN(JCXXKHDF) jcxxkhdf,MAX(JCXXKFHJ) jcxxkfhj,MAX(JCXXKHZF) jcxxkhzf
+        from KH_KHFSTJB            
+        where weekStartDate between '$weekStartDate$' and '$weekEndDate$'
+        and   weekEndDate between '$weekStartDate$' and '$weekEndDate$' 
+        and rowNum<=1
+        ]]>
+		<isNotEmpty prepend="AND" property="week">			
+			week=#week#	   
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="orgCode">			
+			zzjgdm=#orgCode#	   
+		</isNotEmpty>
+    order by  jcxxkhdf asc
+    </select>
+</sqlMap>
