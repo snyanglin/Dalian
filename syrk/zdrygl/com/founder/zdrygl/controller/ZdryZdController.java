@@ -43,6 +43,7 @@ import com.founder.zdrygl.bean.Zdrylxylbdyb;
 import com.founder.zdrygl.dao.ZdryZdryzbDao;
 import com.founder.zdrygl.dao.ZdrylxylbdybDao;
 import com.founder.zdrygl.service.ZdryZdService;
+import com.founder.zdrygl.until.ZdryUntil;
 import com.founder.zdrygl.vo.ZdryWorkflowVO;
 import com.founder.zdrygl.vo.ZdryZdryzbVO;
 import com.google.gson.Gson;
@@ -85,6 +86,8 @@ public class ZdryZdController extends BaseController {
 	private JTaskService taskService;
 	@Resource(name = "zpfjFjxxbService")
 	private ZpfjFjxxbService zpfjFjxxbService;
+	@Resource(name="ZdryUntil")
+	private ZdryUntil zdryUntil;
 	
 	
 	/***
@@ -99,31 +102,42 @@ public class ZdryZdController extends BaseController {
 	 * @throws
 	 */
 	@RequestMapping(value = "/createZd", method = RequestMethod.GET)
-	public ModelAndView createZd(String syrkid) {
-		SessionBean sessionBean = getSessionBean();
+	public ModelAndView createZd(String id) {
+	//	SessionBean sessionBean = getSessionBean();
 		ModelAndView mv = new ModelAndView("zdrygl/zdryZd");
-		List<ZdryZdryzb> zdryZdList = null;
-		ZdryZdryzb zdryZdryzb = null;
-		String filterZdStr="";
-		if (!StringUtils.isBlank(syrkid)) {
-			zdryZdList = zdryZdryzbDao.queryZdryBySyrkid(syrkid);
-		}
-		if (zdryZdList != null && zdryZdList.size() > 0) {// 不是第一次，取得已经列管的类型
-			zdryZdryzb = zdryZdList.get(0);
-		}
-		for (int i = 0; i < zdryZdList.size(); i++) {
-			filterZdStr+=zdryZdList.get(0).getZdrygllxdm()+"|";
+		
+		ZdryZdryzb zdryZdryzb=(ZdryZdryzb)zdryZdryzbDao.queryById(id);
+		SyrkSyrkxxzb syrkSyrkxxzb =syrkSyrkxxzbDao.queryById(zdryZdryzb.getSyrkid());
+		
+		String glzt=zdryZdryzb.getGlzt();
+		boolean sfkzd=false;
+		String errorMsg="";
+		try{
+			//验证状态是否正确
+			zdryUntil.validateState(glzt);		
+			
+		}catch(Exception e){
+			errorMsg=e.getLocalizedMessage();
+		}			
+		if(errorMsg==""){
+			sfkzd=true;
 		}
 		
-		SyrkSyrkxxzb syrkSyrkxxzb =syrkSyrkxxzbDao.queryById(syrkid);
-		OrgOrganization orgOrganization=orgOrganizationService.queryParentOrgByOrgcode(sessionBean.getUserOrgCode());
+		mv.addObject("errorMsg",errorMsg);
+		mv.addObject("sfkzd",sfkzd);
+		
+		
+		
+	//	OrgOrganization orgOrganization=orgOrganizationService.queryParentOrgByOrgcode(sessionBean.getUserOrgCode());
 		mv.addObject("syrkSyrkxxzb", syrkSyrkxxzb);
 		mv.addObject("zdryZdryzb", zdryZdryzb);
-		mv.addObject("ywblr_id", sessionBean.getUserId());
-		mv.addObject("ywblr_xm", sessionBean.getUserName());
-		mv.addObject("ywclsj", DateUtils.getSystemDateString());
-		mv.addObject("filterZdStr", filterZdStr);
-		mv.addObject("sspcsdm", orgOrganization.getOrgcode());
+	//	mv.addObject("ywblr_id", sessionBean.getUserId());
+	//	mv.addObject("ywblr_xm", sessionBean.getUserName());
+	//	mv.addObject("ywclsj", DateUtils.getSystemDateString());
+	//	mv.addObject("sspcsdm", orgOrganization.getOrgcode());
+		
+		
+		
 		
 		return mv;
 	}
@@ -205,7 +219,7 @@ public class ZdryZdController extends BaseController {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			
 			variables.put("sqsj",formatter.format(new Date())); //申请时间
-			variables.put("syrkid", zdryZdryzbVO.getSyrkid()); //重点人员总表Id
+			variables.put("zdryid", zdryZdryzbVO.getId()); //重点人员总表Id
 			variables.put("xm", zdryZdryzbVO.getXm());//被列管人员姓名
 			variables.put("zjhm", zdryZdryzbVO.getZjhm());//证件号码
 			variables.put("yjzddz", zdryZdryzbVO.getDz_hjdzmlpxz());//原居住地址	
@@ -488,8 +502,14 @@ public class ZdryZdController extends BaseController {
 		try {
 	
 		Map<String, Object> variables =  new HashMap<String, Object>();
-		
-		variables.put("cdjg", ZdryZdryzbVO.getSpjg());
+		if(ZdryZdryzbVO.getSpjg().equals("2")){
+			
+		variables.put("cdjg", "1");	
+		variables.put("sszrqdm", ZdryZdryzbVO.getSszrqdm());	
+		}
+		else{
+		variables.put("cdjg", ZdryZdryzbVO.getSpjg());	
+		}
 		taskService.completeTask(ZdryZdryzbVO.getTaskId(), variables);  //执行任务
 		model.put(AppConst.STATUS, AppConst.SUCCESS);
 		model.put(AppConst.MESSAGES, "已审批！");

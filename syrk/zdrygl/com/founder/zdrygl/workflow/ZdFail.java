@@ -51,7 +51,7 @@ public class ZdFail implements JavaDelegate{
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
 		
-		String syrkid=(String) arg0.getVariable("syrkid");
+		String zdryid=(String) arg0.getVariable("zdryid");
 		String zdryxm=(String) arg0.getVariable("xm");
 		
 		String ywsqrId=(String) arg0.getVariable("applyUserId");
@@ -63,7 +63,7 @@ public class ZdFail implements JavaDelegate{
 		String spr=sessionBean.getUserId();
 		String spbm=sessionBean.getUserOrgCode();
 	
-			zdryUntil.zdFail(syrkid, zdryxm, ywsqrId, spr, spbm, ywsqr, sfcj, yglbm, xglbm);
+			zdryUntil.zdFail(zdryid, zdryxm, ywsqrId, spr, spbm, ywsqr, sfcj, yglbm, xglbm);
 	}
 	
 	

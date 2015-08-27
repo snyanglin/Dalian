@@ -47,6 +47,16 @@
 		    		<input type="hidden" name="ygxzrqdm" id="ygxzrqdm" value="${syrkSyrkxxzb.gxzrqdm }"/>	
 		    	</td>
 		    </tr>
+		    
+		    <c:if test="${!sfkzd }">	
+		     <tr class="dialogTr">
+		    <td width="30%" class="dialogTd" align="right">重点人员状态：</td>
+		    <td width="50%" class="dialogTd">	    			
+		    			<font color="red">${ errorMsg }</font>		
+		    			</td>  
+		    			  </tr>  			
+		    </c:if>	
+		    <c:if test="${sfkzd }">		    			
 		    <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">转递地址：</td>
 		    	<td width="50%" class="dialogTd" colspan="2">
@@ -85,14 +95,14 @@
 		    		<input type="file" name="uploadFile" id="uploadFile" style="width:665px;" class="easyui-validatebox" data-options="tipPosition:'left',invalidMessage:'请选择要上传的转递依据'" />
 				</td>
 		    </tr>
-		    
+		    </c:if>		 	 
 	    	</table>
 	    </div>
     </form>
 </div>
 
 <script type="text/javascript" >
-var filterZdStr='${filterZdStr}';
+var sfkzd=${sfkzd};
 function doInit(paramArray) { 
 	
 	initAddressSearch('xjzd1', {zrqdm:'${xgxzrqdm}'}, 'dz_jzdzmlpdm', 'dz_jzdzmlpxz', 'xjzd2', {text:'dz_jzdzxz',dzxzqh:'dz_xjzdzssxdm',id:'dz_jzdzdm',dzpcsdm:'xgxpcsdm',dzzrqdm:'xgxzrqdm'}, 'changeCodeToName', null);
@@ -103,7 +113,14 @@ function doInit(paramArray) {
 }
 
 function beforeSubmit() {
+	if(!sfkzd){//不可转类	
+	
+		alert("当前状态不可转递");
+		return false;
+	}
+	
 }
+
 
 function Submit() {
 }

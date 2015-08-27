@@ -50,13 +50,10 @@ public class ZdryZdServiceImpl extends BaseService implements ZdryZdService {
 	@Override
 	public void sendZd(ZdryZdryzbVO zdryZdryzbVo,
 			SessionBean sessionBean) throws BussinessException {
-		List<ZdryZdryzb> zdryZdList = zdryZdryzbDao.queryZdryBySyrkid(zdryZdryzbVo.getSyrkid());
-		for (int i = 0; i < zdryZdList.size(); i++) {
-			ZdryZdryzb entity= zdryZdList.get(i);
-			entity.setGlzt("5");
-			zdryZdryzbDao.update(entity);
-		}
 		
+		ZdryZdryzb zdryZdryzb=(ZdryZdryzb)zdryZdryzbDao.queryById(zdryZdryzbVo.getId());
+		zdryZdryzb.setGlzt("5");
+		zdryZdryzbDao.update(zdryZdryzb);
 
 	}
 
