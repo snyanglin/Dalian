@@ -868,10 +868,13 @@ public class ZdryZdryzbControl extends BaseController {
 				String strAry[] = type.split("/");
 				type = strAry[0];
 				zdryZdryzb.setZdrygllxdm(type);
+				zdryZdryzb.setRyid(zb.getRyid());
+				zdryZdryzb.setSyrkid(zb.getSyrkid());
 				BaseService.setSaveProperties(zdryZdryzb, sessionBean);
 				zdryVO.setZdryZdryzb(zdryZdryzb);
 				zdryUntil.initZdryEntity(strAry[1],zdryVO,sessionBean);
 				zdryUntil.getZdryService(strAry[1]).saveLg(zdryVO);
+				
 			}
 			
 			
@@ -937,7 +940,7 @@ public class ZdryZdryzbControl extends BaseController {
 			String createTime=formatter.format(new Date());//申请时间
 			variables.put("createTime", createTime);
 			variables.put("lrrzrq", lrrzrq);//录入人管辖责任区
-			variables.put("cghZdryId", zb.getId());
+			variables.put("cghZdryId", zdryZdryzb.getId());
 			variables.put("zdryId", zdryYid); //重点人员总表Id
 			variables.put("zdrylx", zdryYlb);//人员类型	
 			variables.put("zdrylxmc", zdrylxmc);//人员类型名称	
@@ -952,7 +955,7 @@ public class ZdryZdryzbControl extends BaseController {
 				variables.put("sqrOrgCode",sessionBean.getUserOrgCode());//设置申请人组织机构代码
 				variables.put("sqrOrgLevel",sessionBean.getUserOrgLevel());//设置申请人组织机构级别
 				variables.put("approvalMethod", "shbApproval");
-				variables.put("zdryId", zb.getId());
+				variables.put("zdryId", zdryZdryzb.getId());
 				variables.put("sqyj", "申请将"+zdryVO.getZdryShbzdryxxb().getXm()+"撤管为涉环保重点人员");
 				variables.put("xm", zdryVO.getZdryShbzdryxxb().getXm());//被列管人员姓名
 				variables.put("zjhm", zdryVO.getZdryShbzdryxxb().getZjhm());//证件号码
@@ -960,7 +963,7 @@ public class ZdryZdryzbControl extends BaseController {
 				processDefinitionService.startProcessInstance(sessionBean.getUserId(), "shb_lcg", zdryYid, variables);	
 			}
 			else if(zdryYlb.equals("06")){//其他关注对象
-				zdryUntil.cgSuccess(zdryYid, zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), null);
+				zdryUntil.cgSuccess(zdryYid, zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), zdryZdryzb.getId());
 //				processDefinitionService.startProcessInstance(sessionBean.getUserId(), " ", zdryZdryzb.getId(), variables);	
 			}
 			else if(zdryYlb.equals("05")){//涉公安访
@@ -984,7 +987,7 @@ public class ZdryZdryzbControl extends BaseController {
 						processDefinitionService.startProcessInstance(sessionBean.getUserId(), "zalcg", zdryYid, variables);
 						}	
 					else{
-						zdryUntil.cgSuccess(zdryYid, zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), null);
+						zdryUntil.cgSuccess(zdryYid, zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), zdryZdryzb.getId());
 						}	
 					
 				}	

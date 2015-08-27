@@ -50,7 +50,7 @@
 		   <tr class="dialogTr"> 
 		    	<td width="20%" class="dialogTd" align="right">撤管类型：</td>
 		    	<td width="80%" class="dialogTd" colspan="3">
-					<input class="easyui-combobox" type="text"  id="zdrygllxdm" name="zdryZdryzb.zdrylb"   style="width:200px;" value=""
+					<input class="easyui-combobox" type="text"  id="zdrygllxdm" name="zdryZdryzb.zdrygllxdm"   style="width:200px;" value=""
 					data-options="url: contextPath +'/zdryzb/queryZdryCgList?zdrylxdm=${zdryzb.zdrygllxdm}',  
 					valueField:'lbdm',textField:'bz',selectOnNavigation:false,method:'get',required:false,tipPosition:'right',onChange:zdrylxChange"/>
 
