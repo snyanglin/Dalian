@@ -240,10 +240,10 @@ public class ZdryEditController extends BaseController {
 			variables.put("createTime", createTime);
 			variables.put("lrrzrq", lrrzrq);//录入人管辖责任区
 	 		variables.put("zdryId", zdryVO.getZdryZdryzb().getId()); //重点人员总表Id
-			variables.put("zdrylx", zdryVO.getZdryZdryzb().getZdrygllxdm());//人员类型	
 			variables.put("zdrylxmc", zdryVO.getZdryZdryzbVO().getZdrygllxmc());//人员类型名称	
 			variables.put("yzdrylbmc", zdryVO.getZdryZdryzbVO().getZdrylbmc());//转递前类型
 			variables.put("xzdrylbmc", xzdrylbmc);//转递后类型
+			variables.put("xzdrylb", zdryVO.getZdryZdryzb().getZdrylb());//转递后类型
 			
 			variables.put("xm", zdryVO.getZdryZdryzbVO().getXm());//被列管人员姓名
 			variables.put("zjhm", zdryVO.getZdryZdryzbVO().getZjhm());//证件号码
@@ -251,7 +251,7 @@ public class ZdryEditController extends BaseController {
 		    variables.put("sqyj", zdryVO.getYwsqyy());//申请意见		
 			variables.put("sqlxdm", "03");//列管01  撤管02 专类03
 			variables.put("approvalMethod", "szzlApproval");
-			variables.put("sqyj", "申请将"+zdryVO.getXm()+"转换重点人员类别");
+			variables.put("sqyj", "申请将"+zdryVO.getZdryZdryzbVO().getXm()+"转换重点人员类别");
 			
 			processDefinitionService.startProcessInstance(sessionBean.getUserId(), "zdryzl", zdryVO.getZdryZdryzb().getId(), variables);	
 

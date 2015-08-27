@@ -498,4 +498,39 @@ public class ZdryApprovalController extends BaseController {
 	}
 	
 	
+	/**
+	 * 
+	 * @Title: szzlApproval
+	 * @Description: TODO(所长转类审批)
+	 * @param @param zdryWorkflowVO
+	 * @param @param sessionBean
+	 * @param @return    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throws
+	 */
+	@RequestMapping(value = "/szzlApproval", method = RequestMethod.POST)
+	public ModelAndView szzlApproval(ZdryWorkflowVO zdryWorkflowVO,SessionBean sessionBean) {
+		
+		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
+		sessionBean = getSessionBean(sessionBean);
+		Map<String, Object> model = new HashMap<String, Object>();
+		try {
+
+		Map<String, Object> variables =  new HashMap<String, Object>();
+
+		variables.put("spjg", zdryWorkflowVO.getSpjg());
+		variables.put("spyj", zdryWorkflowVO.getSpyj());
+		taskService.completeTask(zdryWorkflowVO.getWorkflowId(), variables);  //执行任务
+		model.put(AppConst.STATUS, AppConst.SUCCESS);
+		model.put(AppConst.MESSAGES, "已审批！");
+		} catch (Exception e) {
+		logger.error(e.getLocalizedMessage(), e);
+		model.put(AppConst.STATUS, AppConst.FAIL);
+		model.put(AppConst.MESSAGES, "审批失败！");
+		}
+		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
+
+		return mv;
+	}
+	
 }

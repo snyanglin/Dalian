@@ -17,9 +17,9 @@
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 			<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">姓名：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text"  id="xm" style="width:200px;" readonly="readonly"  value="${zdryVO.zdryZdryzbVO.xm}"/></td>
+		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text"  name="zdryZdryzbVO.xm" id="xm" style="width:200px;" readonly="readonly"  value="${zdryVO.zdryZdryzbVO.xm}"/></td>
 				<td width="20%" class="dialogTd" align="right">公民身份号码：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" style="width:200px;" readonly="readonly" value="${zdryVO.zdryZdryzbVO.zjhm}"/></td>
+		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" style="width:200px;" readonly="readonly" name="zdryZdryzbVO.zjhm"  value="${zdryVO.zdryZdryzbVO.zjhm}"/></td>
 		    </tr>
 		    <tr class="dialogTr"> 
 		    	<td width="20%" class="dialogTd" align="right">重点人员管理类型：</td>

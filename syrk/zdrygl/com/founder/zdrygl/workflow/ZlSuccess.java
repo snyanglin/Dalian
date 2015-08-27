@@ -39,7 +39,9 @@ public class ZlSuccess implements JavaDelegate{
 	@Resource(name="ZdryUntil")
 	private ZdryUntil zdryUntil;
 
-	
+
+	@Resource(name = "zdryZdryzbService")
+	private ZdryZdryzbService zdryZdryzbService;
 	
 	@Override
 	public void execute(DelegateExecution arg0) throws Exception {
@@ -48,21 +50,17 @@ public class ZlSuccess implements JavaDelegate{
 		
 		
 		
+
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
 		
-		String syrkid=(String) arg0.getVariable("syrkid");
-		String zdryxm=(String) arg0.getVariable("xm");
 		
-		String ywsqrId=(String) arg0.getVariable("applyUserId");
-		String ywsqr=(String) arg0.getVariable("sqrName");
-		String sfcj=(String) arg0.getVariable("sfcj");
-		String yglbm=(String) arg0.getVariable("ygxzrqdm");
-		String xglbm=(String) arg0.getVariable("sszrqdm");
-		
-		String spr=sessionBean.getUserId();
-		String spbm=sessionBean.getUserOrgCode();
-		
+		String zdryId = (String) arg0.getVariable("zdryId");
+		String xzdrylb = (String) arg0.getVariable("xzdrylb");
+		ZdryZdryzb zdryZdryzb =zdryZdryzbService.queryById(zdryId);
+		zdryZdryzb.setGlzt("2");
+		zdryZdryzb.setZdrylb(xzdrylb);
+		zdryZdryzbService.update(zdryZdryzb, sessionBean);
 //		zdryUntil.zdSuccess(syrkid, zdryxm, ywsqrId, spr, spbm, ywsqr, sfcj, yglbm, xglbm);
 		
 	}
