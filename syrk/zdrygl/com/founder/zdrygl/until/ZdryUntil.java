@@ -421,6 +421,7 @@ public class ZdryUntil {
 		sendMessageByLC(zdryxm, ywsqrId, spr, spbm, zdryId, cghZdryId, "CG", "1");
 	}
 	
+	
 	/**
 	 * 
 	 * @Title: zdSuccess
@@ -429,15 +430,14 @@ public class ZdryUntil {
 	 * @return void    返回类型
 	 * @throws
 	 */
-	public void zdSuccess(String syrkid,String zdryxm,String ywsqrId,String spr,String spbm,String ywsqr,String sfcj,String yglbm ,String xglbm){
-		List<ZdryZdryzb> list = zdryZdryzbService.queryZdryBySyrkid(syrkid);
-		for (int i = 0; i < list.size(); i++) {
-			ZdryZdryzb zdryZdryzb = (ZdryZdryzb) list.get(i);
-			zdryZdryzb.setGlzt("2");
-			zdryZdryzb.setGlbm(xglbm);
-			zdryZdryzbDao.update(zdryZdryzb);
-			sendMessageByZd( zdryxm, ywsqr, spr, spbm, zdryZdryzb.getId(), "ZD", "1", sfcj, ywsqrId, yglbm, xglbm);
-		}
+	public void zdSuccess(String zdryid,String zdryxm,String ywsqrId,String spr,String spbm,String ywsqr,String sfcj,String yglbm ,String xglbm){
+		
+		ZdryZdryzb zdryZdryzb=(ZdryZdryzb)zdryZdryzbDao.queryById(zdryid);
+		zdryZdryzb.setGlzt("2");
+		zdryZdryzb.setGlbm(xglbm);
+		zdryZdryzbDao.update(zdryZdryzb);
+		sendMessageByZd( zdryxm, ywsqr, spr, spbm, zdryZdryzb.getId(), "ZD", "1", sfcj, ywsqrId, yglbm, xglbm);
+		
 		
 	}
 	/**
@@ -448,15 +448,12 @@ public class ZdryUntil {
 	 * @return void    返回类型
 	 * @throws
 	 */
-	public void zdFail(String syrkid,String zdryxm,String ywsqrId,String spr,String spbm,String ywsqr,String sfcj,String yglbm ,String xglbm){
-		List<ZdryZdryzb> list = zdryZdryzbService.queryZdryBySyrkid(syrkid);
-		for (int i = 0; i < list.size(); i++) {
-			ZdryZdryzb zdryZdryzb = (ZdryZdryzb) list.get(i);
-			zdryZdryzb.setGlzt("2");
-			zdryZdryzb.setGlbm(xglbm);
-			zdryZdryzbDao.update(zdryZdryzb);
-			sendMessageByZd( zdryxm, ywsqr, spr, spbm, zdryZdryzb.getId(), "ZD", "1", sfcj, ywsqrId, yglbm, xglbm);
-		}
+	public void zdFail(String zdryid,String zdryxm,String ywsqrId,String spr,String spbm,String ywsqr,String sfcj,String yglbm ,String xglbm){
+		
+		ZdryZdryzb zdryZdryzb=(ZdryZdryzb)zdryZdryzbDao.queryById(zdryid);
+		zdryZdryzb.setGlzt("2");
+		zdryZdryzbDao.update(zdryZdryzb);
+		sendMessageByZd( zdryxm, ywsqr, spr, spbm, zdryZdryzb.getId(), "ZD", "1", sfcj, ywsqrId, yglbm, xglbm);
 		
 	}
 

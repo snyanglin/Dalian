@@ -59,10 +59,21 @@
 		     <tr class="dialogTr">
 	    		<td width="20%" class="dialogTd" align="right">裁定结果：</td>
 	    		<td width="80%" class="dialogTd" colspan="3">
-	    		<input type="radio" name="spjg" id="spjg" value="1"  checked="checked"/>	接收
-	    		<input type="radio" name="spjg" id="spjg" value="0"   />	 不接收
+	    		<input type="radio" name="spjg" id="spjg1" value="1"  checked="checked"/>	裁定为现居住地接收
+	    		<input type="radio" name="spjg" id="spjg0" value="0"   />	 裁定为原居住地接收
+	    		<input type="radio" name="spjg" id="spjg2" value="2"    />	 指定部门接收
 		    	</td>
 		    </tr>
+		    
+		    <tr class="dialogTr"  id="cdDiv">
+		    <td width="20%" class="dialogTd" align="right">接收责任区：</td>
+	   		<td>
+	   		<input type="hidden"  type="text" id="sszrqdm" name="sszrqdm" value="" style="width: 100;" />
+	   		<input type="text" id="orgname" name="orgname" style="width: 400;" value="" />
+	    	<input type="button" id="orgbutton23" value="选择" onClick="public_singleSelectOrg('', '01', '50', '', 'sszrqdm', 'orgname', '', false, false, '', window, '', '')" style="cursor:pointer; background:#EEF2F8 ;border:1px solid #082F4F;HEIGHT: 18px; WIDTH: 48px;font-family:宋体;font-size:9pt;" />
+	    	</td>
+	    	</tr>
+		    
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right" id="cgsqyjText">裁定理由：</td>
 		    	<td width="80%" class="dialogTd" colspan="3">
@@ -92,11 +103,17 @@
 <script type="text/javascript" >
 
 $(document).ready(function(){
-		getZdryXx();
+
 		
-			
+		getZdryXx();
+		$("#cdDiv").hide();
 		public_getOrgName('ygxpcsdm','ygxpcs');
 		public_getOrgName('ygxzrqdm','ygxzrq');
+		
+		$("#spjg0").bind("click", function(event) { $("#cdDiv").hide(); });
+     	$("#spjg1").bind("click", function(event) { $("#cdDiv").hide(); });
+		$("#spjg2").bind("click", function(event) { $("#cdDiv").show(); });
+		
 		$("#saveBotton").bind("click",function() {
 			
 			var formObject =$("#dataForm");
@@ -155,6 +172,14 @@ function getZdryXx() {
 }
 
 
-
+function changeSpjg(spjg){
+		if(newValue=="2"){
+			$("#spyj").val("同意"+spyj) ;
+		}else{
+			$("#spyj").val("拒绝"+spyj) ;
+		}
+	
+}
+ 		
 	
 </script>

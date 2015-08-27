@@ -205,7 +205,7 @@ public class ZdryZdController extends BaseController {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			
 			variables.put("sqsj",formatter.format(new Date())); //申请时间
-			variables.put("syrkid", zdryZdryzbVO.getSyrkid()); //重点人员总表Id
+			variables.put("zdryid", zdryZdryzbVO.getId()); //重点人员总表Id
 			variables.put("xm", zdryZdryzbVO.getXm());//被列管人员姓名
 			variables.put("zjhm", zdryZdryzbVO.getZjhm());//证件号码
 			variables.put("yjzddz", zdryZdryzbVO.getDz_hjdzmlpxz());//原居住地址	
@@ -488,8 +488,14 @@ public class ZdryZdController extends BaseController {
 		try {
 	
 		Map<String, Object> variables =  new HashMap<String, Object>();
-		
-		variables.put("cdjg", ZdryZdryzbVO.getSpjg());
+		if(ZdryZdryzbVO.getSpjg().equals("2")){
+			
+		variables.put("cdjg", "1");	
+		variables.put("sszrqdm", ZdryZdryzbVO.getSszrqdm());	
+		}
+		else{
+		variables.put("cdjg", ZdryZdryzbVO.getSpjg());	
+		}
 		taskService.completeTask(ZdryZdryzbVO.getTaskId(), variables);  //执行任务
 		model.put(AppConst.STATUS, AppConst.SUCCESS);
 		model.put(AppConst.MESSAGES, "已审批！");
