@@ -931,13 +931,13 @@ public class ZdryZdryzbControl extends BaseController {
 			String  lrrzrq= sessionBean.getUserOrgCode();
 			String zdryxm = zdryVO.getXm();
 			Zdrylxylbdyb zdrylxylbdyb=new Zdrylxylbdyb();
-			zdrylxylbdyb.setLbdm(zdryZdryzb.getZdrygllxdm());
+			zdrylxylbdyb.setLbdm(zb.getZdrygllxdm());
 			String zdrylxmc =  zdrylxylbdybService.query(zdrylxylbdyb).getBz();
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String createTime=formatter.format(new Date());//申请时间
 			variables.put("createTime", createTime);
 			variables.put("lrrzrq", lrrzrq);//录入人管辖责任区
-			variables.put("cghZdryId", zdryZdryzb.getId());
+			variables.put("cghZdryId", zb.getId());
 			variables.put("zdryId", zdryYid); //重点人员总表Id
 			variables.put("zdrylx", zdryYlb);//人员类型	
 			variables.put("zdrylxmc", zdrylxmc);//人员类型名称	
@@ -952,7 +952,7 @@ public class ZdryZdryzbControl extends BaseController {
 				variables.put("sqrOrgCode",sessionBean.getUserOrgCode());//设置申请人组织机构代码
 				variables.put("sqrOrgLevel",sessionBean.getUserOrgLevel());//设置申请人组织机构级别
 				variables.put("approvalMethod", "shbApproval");
-				variables.put("zdryId", zdryZdryzb.getId());
+				variables.put("zdryId", zb.getId());
 				variables.put("sqyj", "申请将"+zdryVO.getZdryShbzdryxxb().getXm()+"撤管为涉环保重点人员");
 				variables.put("xm", zdryVO.getZdryShbzdryxxb().getXm());//被列管人员姓名
 				variables.put("zjhm", zdryVO.getZdryShbzdryxxb().getZjhm());//证件号码
@@ -976,8 +976,8 @@ public class ZdryZdryzbControl extends BaseController {
 			}
 			else{//治安
 				
-				if(zdryZdryzb.getZdrygllxdm().equals("01")){
-					if("0104".equals(zdryZdryzbService.queryById(zdryZdryzb.getId()).getZdrylb())){
+				if(zb.getZdrygllxdm().equals("01")){
+					if("0104".equals(zb.getZdrylb())){
 						
 						variables.put("sqlx", "治安撤管");//申请类型	
 						variables.put("sqlxdm", "02");//申请类型为撤管
