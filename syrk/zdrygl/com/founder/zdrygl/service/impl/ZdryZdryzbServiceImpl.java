@@ -150,4 +150,10 @@ public class ZdryZdryzbServiceImpl extends BaseService implements
 		klglxStr=klglxStr.replaceAll(" ", "");
 		return klglxStr.substring(1,klglxStr.length()-1);
 	}
+	
+	public String queryKcglx(String zdrylxdm){
+		ZdryGzb zdryGzb=zdryGzbDao.queryByZdrylx(zdrylxdm,zdryUntil.querySYSConfig());
+		if(zdryGzb!=null) return zdryGzb.getCglx();
+		return null;
+	}
 }

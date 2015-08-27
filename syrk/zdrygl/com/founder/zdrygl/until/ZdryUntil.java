@@ -14,6 +14,7 @@ import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
 import com.founder.framework.config.SystemConfig;
 import com.founder.framework.dictionary.service.SysDictGlService;
+import com.founder.framework.exception.BussinessException;
 import com.founder.framework.message.bean.SysMessage;
 import com.founder.framework.message.dao.SysMessageDao;
 import com.founder.framework.organization.department.bean.OrgOrganization;
@@ -570,5 +571,35 @@ public class ZdryUntil {
 		message.setXxlb("1");
 	//	sysMessageDao.saveMessageByUser(message, userIDString);
 	//	sysMessageDao.saveMessageByOrgAndPos(message, orgcode, "SZ");
+	}
+	
+		
+	/**
+	 * 
+	 * @Title: validateState
+	 * @Description: TODO(验证可办理业务的状态,管理状态:1列管申请中,2已列管,3撤管申请中,4已撤管,5转递申请中,6涉公安访下发中,7转类申请中)
+	 * @param @param glzt    设定文件
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public void validateState(String glzt){
+		if("1".equals(glzt)){
+			throw new BussinessException("该重点人员正在【列管申请中】，不能办理其他业务");
+		}
+		if("3".equals(glzt)){
+			throw new BussinessException("该重点人员正在【撤管申请中】，不能办理其他业务");
+		}
+		if("4".equals(glzt)){
+			throw new BussinessException("该重点人员 【已撤管】，不能办理其他业务");
+		}
+		if("5".equals(glzt)){
+			throw new BussinessException("该重点人员正在 【转递申请中】，不能办理其他业务");
+		}
+		if("6".equals(glzt)){
+			throw new BussinessException("该重点人员正在【涉公安访下发中】，不能办理其他业务");
+		}
+		if("7".equals(glzt)){
+			throw new BussinessException("该重点人员正在【转类申请中】，不能办理其他业务");
+		}
 	}
 }

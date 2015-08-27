@@ -182,19 +182,7 @@ var zrqdm = "${zrqdm}";
 var cyzjdm = "${ryRyjbxxb.cyzjdm}"; 
 var zjhm = "${ryRyjbxxb.zjhm}"; 
 function doInit(paramArray) {
-	$.ajax({
-		type: "POST",
-		url: contextPath + "/zdryzb/queryLglxByZdrylx",
-		dataType: "json",
-		data:"&syrkid=" + syrkid,
-		success: function(data) {
-			if (data) {								
-				$('#zdrygllxdm').combobox('setDataFilter', '[^'+data+']');
-			}
-		},		
-		error: function() {
-		}
-	});	
+	
 }
 
 function beforeSubmit() {

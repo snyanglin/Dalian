@@ -17,9 +17,9 @@
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 			<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">姓名：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text"  id="xm" style="width:200px;" readonly="readonly"  value="${zdryVO.zdryZdryzbVO.xm}"/></td>
+		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text"  name="zdryZdryzbVO.xm" id="xm" style="width:200px;" readonly="readonly"  value="${zdryVO.zdryZdryzbVO.xm}"/></td>
 				<td width="20%" class="dialogTd" align="right">公民身份号码：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" style="width:200px;" readonly="readonly" value="${zdryVO.zdryZdryzbVO.zjhm}"/></td>
+		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" style="width:200px;" readonly="readonly" name="zdryZdryzbVO.zjhm"  value="${zdryVO.zdryZdryzbVO.zjhm}"/></td>
 		    </tr>
 		    <tr class="dialogTr"> 
 		    	<td width="20%" class="dialogTd" align="right">重点人员管理类型：</td>
@@ -42,13 +42,8 @@
 		    			data-options="onlyLeaf:true,valueField:'lbdm',textField:'bz',
 		    			multiple:false,required:true,panelWidth:400,method:'get',lines:true,tipPosition:'left'" />
 	    			</c:if>
-		    		<c:if test="${!sfkzl }">
-		    			<c:if test="${ glzt == '7' }">
-		    				<font color="red">该 重点人员正在转类申请中，不可转类</font>
-		    			</c:if>
-		    			<c:if test="${ glzt != '7' }">
-		    				<font color="red">该 重点人员管理类型 不可转类</font>
-		    			</c:if>
+		    		<c:if test="${!sfkzl }">		    			
+		    			<font color="red">${ errorMsg }</font>		    			
 		    		</c:if>		    		
 		    	</td>
 		    </tr>

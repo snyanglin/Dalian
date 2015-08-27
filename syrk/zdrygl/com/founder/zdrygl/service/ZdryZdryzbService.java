@@ -94,4 +94,15 @@ public interface ZdryZdryzbService {
 	 * @throws
 	 */
 	public String queryKlglx(String ylglxStr);
+	
+	/**
+	 * 
+	 * @Title: queryKcglx
+	 * @Description: TODO(重点人员可撤管类型查询)
+	 * @param @param zdrylxdm
+	 * @param @return    设定文件
+	 * @return String    返回类型
+	 * @throws
+	 */
+	public String queryKcglx(String zdrylxdm);
 }

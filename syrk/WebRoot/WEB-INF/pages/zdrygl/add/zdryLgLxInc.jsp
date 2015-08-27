@@ -242,7 +242,7 @@ function zdrylxChange(newVal,oldVal){
 
 	if(typeof(newVal)!="undefined"){
 		setInputReadonly("zdrylbStr", true);	
-		$('#zdrylbStr').combotree('tree').tree('loadData', ['']);
+		$('#zdrylbStr').combotree('tree').tree('loadData', '');
 		var strAry=newVal.split('/');
 		var lbdm_p=strAry[0];
 		var group=strAry[1];
@@ -258,7 +258,7 @@ function zdrylxChange(newVal,oldVal){
 					setInputReadonly("zdrylbStr", false);
 					$('#zdrylbStr').combotree('tree').tree('loadData', data);
 				}else{				
-					$('#zdrylbStr').combotree('tree').tree('loadData', ['']);
+					$('#zdrylbStr').combotree('tree').tree('loadData', '');
 				}
 				showGroup(group);
 			}

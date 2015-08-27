@@ -755,45 +755,9 @@ public class ZdryZdryzbControl extends BaseController {
 		return mv;
 	}	
 	
-	/***
-	 * 
-	 * @Title: queryLglxByZdrylx
-	 * @Description: TODO(根据当前类型查询可并列列管类型)
-	 * @param @return 设定文件
-	 * @return String 返回类型
-	 * @throws
-	 */
-	@ResponseBody
-	@RequestMapping(value="/queryLglxByZdrylx",method = RequestMethod.GET)
-	public String queryLglxByZdrylx(String syrkid) {
-		List<ZdryZdryzb> list = zdryZdryzbService.queryZdryBySyrkid(syrkid);
-		String zdrylx="";
-		for (int i = 0; i < list.size(); i++) {
-			zdrylx=list.get(i).getZdrygllxdm();
-		}
-		ZdryGzb zdryGzb = zdryGzbDao.queryByZdrylx(zdrylx,zdryUntil.querySYSConfig());
-		return zdryGzb.getTslglx();
-	}
+	//删除queryLglxByZdrylx，已在页面过滤
 
-	/***
-	 * 
-	 * @Title: queryCglxByZdrylx
-	 * @Description: TODO(根据当前类型查询可撤管类型)
-	 * @param @return 设定文件
-	 * @return String 返回类型
-	 * @throws
-	 */
-	@ResponseBody
-	@RequestMapping(value="/queryCglxByZdrylx",method = RequestMethod.GET)
-	public String queryCglxByZdrylx(String syrkid) {
-		List<ZdryZdryzb> list = zdryZdryzbService.queryZdryBySyrkid(syrkid);
-		String zdrylx="";
-		for (int i = 0; i < list.size(); i++) {
-			zdrylx=list.get(i).getZdrygllxdm();
-		}
-		ZdryGzb zdryGzb = zdryGzbDao.queryByZdrylx(zdrylx,zdryUntil.querySYSConfig());
-		return zdryGzb.getCglx();
-	}
+	//删除queryCglxByZdrylx，没用
 
 	/**
 	 * 
@@ -838,15 +802,25 @@ public class ZdryZdryzbControl extends BaseController {
 	 */
 	@RequestMapping(value = "/queryZdryCgList", method = RequestMethod.GET)
 	public @ResponseBody List queryZdryCgList(String zdrylxdm) {
+		if(zdrylxdm==null)
+			return new ArrayList();
+		String kcgStr=zdryZdryzbService.queryKcglx(zdrylxdm);
+		if(kcgStr==null){//没有可撤管类型
+			return new ArrayList();
+		}
 		List list = zdrylxylbdybService.getTopList();
+		String[] kcgAry=kcgStr.split(",");
 		Zdrylxylbdyb zdrylxylbdyb;
 		for(int i=0;i<list.size();i++){
 			zdrylxylbdyb=(Zdrylxylbdyb) list.get(i);
-			if(zdrylxdm!=null && !zdrylxdm.equals(zdrylxylbdyb.getLbdm()))
-				zdrylxylbdyb.setLbdm(zdrylxylbdyb.getLbdm()+"/"+zdrylxylbdyb.getFz());
-			else{
-				list.remove(i);i--;
-			}
+			for(int j=0;j<kcgAry.length;j++){
+				if(kcgAry[j].equals(zdrylxylbdyb.getLbdm())){
+					zdrylxylbdyb.setLbdm(zdrylxylbdyb.getLbdm()+"/"+zdrylxylbdyb.getFz());
+					break;
+				}else if(j==kcgAry.length-1){//不在可撤管类型中
+					list.remove(i);i--;					
+				}
+			}			
 		}
 		return list; 		
 	}
@@ -867,31 +841,42 @@ public class ZdryZdryzbControl extends BaseController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		sessionBean = getSessionBean(sessionBean);
 
-		ZdryZdryzb zdryZdryzb = zdryVO.getZdryZdryzb();
-
-		zdryZdryzb.setGlbm(sessionBean.getUserOrgCode());
-		BaseService.setSaveProperties(zdryZdryzb, sessionBean);					
-		String type = zdryZdryzb.getZdrygllxdm();//列管类型
-		String strAry[] = type.split("/");
-		type = strAry[0];
-		zdryZdryzb.setZdrygllxdm(type);
-		String zdryYlb = type;
-		String zdryYid = zdryZdryzb.getId();
-		try {			
-
-			zdryUntil.initZdryEntity(type,zdryVO,sessionBean);
-			zdryUntil.getZdryService(type).saveCg(zdryVO);
+		
+		try {		
+			ZdryZdryzb zdryZdryzb = zdryVO.getZdryZdryzb();
 			
-			if(StringUtils.isNotEmpty(zdryVO.getCglxdm())){
-				type = zdryVO.getCglxdm().substring(0, 2);
-				zdryVO.getZdryZdryzb().setZdrygllxdm(type);
-				zdryUntil.initZdryEntity(type,zdryVO,sessionBean);
-				zdryUntil.getZdryService(type).saveLg(zdryVO);
+			//查询以前的信息
+			ZdryZdryzb zb=zdryZdryzbService.queryById(zdryZdryzb.getId());
+			if(zb==null){
+				throw new BussinessException("未查询到该重点人员的信息");
+			}
+			//验证状态是否正确
+			zdryUntil.validateState(zb.getGlzt());								
+			
+			String zdryYlb = zb.getZdrygllxdm();//原重点人员类型
+			String zdryYid = zb.getId();//原重点人员ID
+			
+			//撤管原重点人员
+			BaseService.setUpdateProperties(zb, sessionBean);
+			zdryVO.setZdryZdryzb(zb);
+			zdryUntil.initZdryEntity(zdryYlb,zdryVO,sessionBean);
+			zdryUntil.getZdryService(zdryYlb).saveCg(zdryVO);//撤管以前的类型，将状态修改为已撤管
+			
+			if(StringUtils.isNotEmpty(zdryZdryzb.getZdrygllxdm())){//撤管为其他类型
+				zdryZdryzb.setGlbm(sessionBean.getUserOrgCode());
+				String type = zdryZdryzb.getZdrygllxdm();//列管类型
+				String strAry[] = type.split("/");
+				type = strAry[0];
+				zdryZdryzb.setZdrygllxdm(type);
+				BaseService.setSaveProperties(zdryZdryzb, sessionBean);
+				zdryVO.setZdryZdryzb(zdryZdryzb);
+				zdryUntil.initZdryEntity(strAry[1],zdryVO,sessionBean);
+				zdryUntil.getZdryService(strAry[1]).saveLg(zdryVO);
 			}
 			
 			
-			if("01".equals(type)){
-				List<ZpfjFjxxb> list = new ArrayList<ZpfjFjxxb>();
+			//if("01".equals(type)){
+				//List<ZpfjFjxxb> list = new ArrayList<ZpfjFjxxb>();
 
 //				for (int i = 0; i < uploadFile.length; i++) {
 //					CommonsMultipartFile multipartFile = uploadFile[i];
@@ -938,7 +923,7 @@ public class ZdryZdryzbControl extends BaseController {
 //					model.put(AppConst.STATUS, AppConst.SUCCESS);
 //					model.put(AppConst.MESSAGES, getAddSuccess());
 //				}
-			}
+			//}
 
 
 
@@ -1017,7 +1002,7 @@ public class ZdryZdryzbControl extends BaseController {
 		}catch (Exception e) {
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
-			model.put(AppConst.MESSAGES, getAddFail());
+			model.put(AppConst.MESSAGES, e.getLocalizedMessage());
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;

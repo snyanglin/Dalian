@@ -4,9 +4,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.utils.BeanUtils;
+import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.StringUtils;
 import com.founder.framework.utils.UUID;
 import com.founder.syrkgl.bean.RyRyjbxxb;
@@ -90,6 +90,12 @@ public  class ZdryZAOperationServiceimpl extends ZdryQYOperationServiceimpl {
 		ZdryZdryzb entity = new ZdryZdryzb();
 		entity.setId(vo.getZdryZdryzb().getId());
 		entity.setGlzt("3");
+		entity.setXt_zhxgsj(DateUtils.getSystemDateTimeString());		
+		entity.setXt_zhxgrxm(vo.getZdryZdryzb().getXt_zhxgrxm());
+		entity.setXt_zhxgrid(vo.getZdryZdryzb().getXt_zhxgrid());
+		entity.setXt_zhxgrbm(vo.getZdryZdryzb().getXt_zhxgrbm());
+		entity.setXt_zhxgrbmid(vo.getZdryZdryzb().getXt_zhxgrbmid());
+		entity.setXt_zhxgip(vo.getZdryZdryzb().getXt_zhxgip());		
 		zdryZdryzbDao.update(entity);
 	}
 }
