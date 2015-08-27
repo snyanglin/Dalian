@@ -33,7 +33,7 @@
 	    			<input class="easyui-validatebox inputreadonly" type="text"  id="ylglx" style="width:200px;" readonly="readonly"  value="${zdrylxmc}"/>
 		    	</td>
 		    </tr>
-		    <tr class="dialogTr" id="cgyyText" >
+		    <tr class="dialogTr" id="cgyyText" style="display:none">
 		    	<td width="20%" class="dialogTd" align="right" >撤管原因：</td>
 		    	<td width="80%" class="dialogTd" colspan="3">
 		    	<input class="easyui-validatebox " type="text" id="cgyy" name="ywsqyy" style="width: 608px;" data-options="required:false,validType:['maxLength[100]','unnormal']" />
