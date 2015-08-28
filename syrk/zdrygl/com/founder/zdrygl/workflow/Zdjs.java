@@ -1,27 +1,15 @@
 package com.founder.zdrygl.workflow;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
-import org.activiti.cdi.annotation.CompleteTask;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.util.WebUtils;
 
 import com.founder.bzdz.service.DzService;
-import com.founder.bzdz.vo.BzdzxxbVO;
-import com.founder.framework.base.entity.SessionBean;
-import com.founder.framework.components.AppConst;
-import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
-import com.founder.framework.organization.position.bean.OrgPosition;
 import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.syrkgl.service.SyrkSyrkxxzbService;
-import com.founder.zdrygl.bean.ZdryGzb;
-import com.founder.zdrygl.dao.ZdryGzbDao;
 import com.founder.zdrygl.service.ZdryZdryzbService;
 
 
