@@ -103,7 +103,7 @@
 					    	<input type="hidden" id="wlrk_jzd_mlpxz" name="jzd_mlpxz" value="${wlrk.jzd_mlpxz}"/>
 				    	</td>
 				    	<td width="30%" class="dialogTd" align="left">
-					    	<input class="easyui-combobox" id="wlrk_jzd2" style="width:200px;" value='${fn:replace(wlrk.jzd_dzxz, wlrk.jzd_mlpxz, "")}' data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    	<input class="easyui-combobox" id="wlrk_jzd2" style="width:200px;" value="${fn:replace(wlrk.jzd_dzxz, wlrk.jzd_mlpxz, '')}" data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    	<input type="hidden" id="wlrk_jzd_dzid" name="jzd_dzid" value="${wlrk.jzd_dzid}"/>
 					    	<input type="hidden" id="wlrk_jzd_xzqhdm" name="jzd_xzqhdm" value="${wlrk.jzd_xzqhdm}"/>
 					    	<input type="hidden" id="wlrk_jzd_dzxz" name="jzd_dzxz" value="${wlrk.jzd_dzxz}"/>
@@ -163,7 +163,7 @@
 		    	<input type="hidden" id="wlrk_fz_jzd_mlpxz" name="fz_jzd_mlpxz" value="${wlrk.fz_jzd_mlpxz}"/>
 	    	</td>
 	    	<td width="30%" class="dialogTd" align="left">
-		    	<input class="easyui-combobox" id="wlrk_fz_jzd2" style="width:200px;" value='${fn:replace(wlrk.fz_jzd_dzxz, wlrk.fz_jzd_mlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+		    	<input class="easyui-combobox" id="wlrk_fz_jzd2" style="width:200px;" value="${fn:replace(wlrk.fz_jzd_dzxz, wlrk.fz_jzd_mlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 		    	<input type="hidden" id="wlrk_fz_jzd_dzid" name="fz_jzd_dzid" value="${wlrk.fz_jzd_dzid}"/>
 		    	<input type="hidden" id="wlrk_fz_jzd_xzqhdm" name="fz_jzd_xzqhdm" value="${wlrk.fz_jzd_xzqhdm}"/>
 		    	<input type="hidden" id="wlrk_fz_jzd_dzxz" name="fz_jzd_dzxz" value="${wlrk.fz_jzd_dzxz}"/>
