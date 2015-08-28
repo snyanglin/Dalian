@@ -183,7 +183,10 @@ function queryButton(){
 	//var mzdm = document.getElementById("mzdm").value;
 	var xbdm = document.getElementById("xbdm").value;
 	var dz_jzdzxz = document.getElementById("dz_jzdzxz").value;
-	var zdrygllxdm = document.getElementById("zdrygllxdm").value;
+	var zdrygllxdm = $("#zdrygllxdm").combobox("getValue");
+	if($("#zdrygllxdm").combobox("getText")==""){
+		zdrygllxdm="";
+	}
 	
 	xm= $.trim(xm);
 	sfzh= $.trim(sfzh);

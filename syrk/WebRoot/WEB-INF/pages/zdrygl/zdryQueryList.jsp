@@ -69,77 +69,120 @@
 			       </thead>
 	       </table>
 	       <div id="datagridToolbar" style="padding:5px;height:auto">
-				<form id="queryForm">
-				   <input type="hidden" id ="zbz" value="">
-				    <input type="hidden" id ="type" value="">
-				    <input type="hidden" id ="mapRadius" value="">
 				<table border="0" cellpadding="0" cellspacing="10" width="100%"	align="center">
-					<tr class="dialogTr">
-						<td width="20%" class="dialogTd" align="right">分市县局：</td>
-						<td width="80%" class="dialogTd" colspan="3"><input
-							type="text" name="ssfxjdm" id="ssfxjdm" 
-							class="easyui-combobox" style="width:200px;"
-							data-options="url: contextPath +'/orgPublicSelect/queryComboBoxList?orgLevel=21',required:false,method:'get',
-						valueField:'id',textField:'text',selectOnNavigation:false,onChange:ssfxjdm_onChange,isTopLoad:false">
+					<tr>
+						<td align="right">
+							<input type="text" class="searchText" name="condition"  id="condition" value="请输入重点人员证件号码、姓名或居住地址" 
+									style="color:gray;height:32px;font-size:13px;width:300px" charSet="halfUpper"  />
 						</td>
-					</tr>
-					<tr class="dialogTr">
-						<td width="20%" class="dialogTd" align="right">所属派出所：</td>
-						<td width="80%" class="dialogTd" colspan="3"><input
-							type="text" name="sspcsdm" id="sspcsdm" class="easyui-combobox"
-							style="width:200px;"
-							data-options="required:false,method:'get',
-						valueField:'id',textField:'text',selectOnNavigation:false,onChange:sspcsdm_onChange,isTopLoad:false">
+						<td align="left">
+							<img src ="<%=contextPath%>/images/search_btn_sousuo_01.png" style="cursor: pointer;height:32px" onclick="searchMain();"/>
 						</td>
-					</tr>
-					<tr class="dialogTr">
-						<td width="20%" class="dialogTd" align="right">所属责任区：</td>
-						<td width="80%" class="dialogTd" colspan="3"><input
-							type="text" name="sszrqdm" id="sszrqdm" class="easyui-combobox"
-							style="width:200px;"
-							data-options="required:false,method:'get',
-						valueField:'id',textField:'text',selectOnNavigation:false,isTopLoad:false">
-						</td>
-					</tr>
-					<tr class="dialogTr">    
-						<td width="20%" class="dialogTd" align="right">重点人员类型：</td>
-						<td width="30%" class="dialogTd">
-									<input class="easyui-combobox" type="text" id="zdrygllxdm" name="zdrygllxdm" style="width:150px;"
-									data-options="url: contextPath +'/zdryzb/queryZdryTopLbList',valueField:'lbdm',textField:'bz',selectOnNavigation:false,method:'get'"/>
-						</td>	
-						<td width="20%" class="dialogTd" align="right">姓名：</td>
-						    	<td width="30%" class="dialogTd"><input type="text" name="xm" id ="xm" style="width:130px;" class="easyui-validatebox" data-options="required:false,validType:'maxLength[20]'"   /></td>
-					   	</tr>					      			
-					    <tr class="dialogTr">						    	
-					    		<td width="20%" class="dialogTd" align="right">性别：</td>
-						    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="xbdm" name="xbdm" style="width:130px;"
-									data-options="url: contextPath + '/common/dict/GB_D_XBDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/></td>
-								<td width="20%" class="dialogTd" align="right">证件号码：</td>
-						    	<td width="30%" class="dialogTd"><input type="text" id="zjhm" name="zjhm" style="width:130px;" class="easyui-validatebox" data-options="required:false,validType:'maxLength[30]'"  /></td>
-					    </tr>
-					      <tr class="dialogTr">
-						    	<td width="20%" class="dialogTd" align="right">管理状态：</td>
-						    	<td width="30%" class="dialogTd">
-						    	<select class="easyui-combobox" id="glzt" name="glzt" style="width:130px;">
-						    	<option value="0">未撤管</option>
-						    	<option value="1"> 已撤管</option>
-						    	</select>
-					    </tr>
-					<tr class="dialogTr">
-						<td class="dialogTd" align="center" colspan="4">
+						<td>
 							<a href="javascript:void(0)" class="easyui-linkbutton" 
-								 iconCls="icon-search" onclick="queryButton()">查询</a>
-								 &nbsp;&nbsp;
-								 <a href="javascript:void(0)" class="easyui-linkbutton" 
-								 	iconCls="icon-reset" onclick="resetButton()">重置</a>
-					</td>
-				</tr>					
+								 iconCls="icon-search" onclick="detailSearch()">精确查询</a>
+						</td>																	
+					</tr>
 				</table>
-				</form>
 			</div>
+	       
 	        
 	  </div>
-	  
+	  <div id="win" class="easyui-window" title="重点人员精确查询" style="width:400px;height:400px;top:20px"   
+        data-options="iconCls:'icon-search',
+        collapsible:false,
+        minimizable:false,
+        maximizable:false,
+        modal:true,
+        closed:true,
+        top:100,
+        width:400,
+        height:400,
+        left:50">   
+	   
+	          <div data-options="region:'left'">  
+		        <form id ="queryForm" >
+			        <table border="0" cellpadding="0" cellspacing="10" width="100%" height="100%" align="center">
+		      
+				       <tr class="dialogTr">
+						    	<td width="30%" class="dialogTd" align="right">重点人员类型：</td>
+						    	<td width="70%" class="dialogTd">
+									<input class="easyui-combobox" type="text" id="zdrygllxdm" name="zdrygllxdm" style="width:150px;"
+									data-options="url: contextPath +'/zdryzb/queryZdryTopLbList',valueField:'lbdm',textField:'bz',selectOnNavigation:false,method:'get'"/>
+								</td>
+					   	</tr>	
+				        <tr class="dialogTr">
+						    	<td width="30%" class="dialogTd" align="right">姓名：</td>
+						    	<td width="70%" class="dialogTd"><input type="text" name="xm" id ="xm" class="easyui-validatebox" data-options="required:false,validType:'maxLength[20]'"  style="width:150px;" /></td>
+					    </tr>
+					    <tr class="dialogTr">
+						    	<td width="30%" class="dialogTd" align="right">身份证号码：</td>
+						    	<td width="70%" class="dialogTd"><input type="text" id="sfzh" name="sfzh" class="easyui-validatebox" data-options="required:false,validType:'maxLength[30]'"  style="width:150px;" /></td>
+					    </tr>	
+					    <tr class="dialogTr">
+						    	<td width="30%" class="dialogTd" align="right">性别：</td>
+						    	<td width="70%" class="dialogTd"><input class="easyui-combobox" type="text" id="xbdm" name="xbdm" style="width:150px;"
+									data-options="url: contextPath + '/common/dict/GB_D_XBDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/></td>
+					    </tr>	  
+					    <tr class="dialogTr">
+						    	<td width="30%" class="dialogTd" align="right">居住地址：</td>
+						    	<td width="70%" class="dialogTd"><input type="text" name="dz_jzdzxz" id ="dz_jzdzxz" class="easyui-validatebox" data-options="required:false,validType:'maxLength[30]'"  style="width:150px;" /></td>
+					    </tr>	
+					    <tr class="dialogTr">
+						    <td width="30%" class="dialogTd" align="right">管理状态：</td>
+						    <td width="70%" class="dialogTd">
+						    	<select class="easyui-combobox" id="glztxz" style="width:70px;" data-options="onChange:changeGlztxz">
+						    		<option value="0">未撤管</option>
+						    		<option value="4">已撤管</option>
+						    	</select>
+						    	<span id="glztDiv">
+						    	<select class="easyui-combobox" id="glzt" name="glzt" style="width:124px;">
+						    		<option value="">全部</option>
+						    		<option value="1">列管申请中</option>
+						    		<option value="2">已列管</option>
+						    		<option value="3">撤管申请中</option>						    		
+						    		<option value="5">转递申请中</option>
+						    		<option value="6">下发中</option>
+						    		<option value="7">转类申请中</option>
+						    	</select>
+						    	</span>
+						    </td>
+					    </tr>
+					    <tr class="dialogTr">
+							<td class="dialogTd" align="right">分市县局：</td>
+							<td class="dialogTd"><input
+								type="text" name="ssfxjdm" id="ssfxjdm" class="easyui-combobox" style="width:200px;" 
+								data-options="url: contextPath +'/orgPublicSelect/queryComboBoxList?orgLevel=21',required:false,method:'get',
+									valueField:'id',textField:'text',selectOnNavigation:false,onChange:ssfxjdm_onChange,isTopLoad:false">
+							</td>
+						</tr>
+						<tr class="dialogTr">
+							<td class="dialogTd" align="right">所属派出所：</td>
+							<td class="dialogTd" ><input
+								type="text" name="sspcsdm" id="sspcsdm" class="easyui-combobox" style="width:200px;"
+								data-options="required:false,method:'get',
+							valueField:'id',textField:'text',selectOnNavigation:false,onChange:sspcsdm_onChange,isTopLoad:false">
+							</td>
+						</tr>
+						<tr class="dialogTr">
+							<td class="dialogTd" align="right">所属责任区：</td>
+							<td class="dialogTd" >
+								<input type="text" name="sszrqdm" id="sszrqdm" class="easyui-combobox" style="width:200px;"
+								data-options="required:false,method:'get',valueField:'id',textField:'text',selectOnNavigation:false,isTopLoad:false">
+							</td>
+						</tr>
+					    <tr class="dialogTr" style="padding-bottom:0px;margin-bottom:0px;">
+						    	<td width="100%" colspan="2" align="center">
+						    		<a class="easyui-linkbutton" iconCls="icon-ok" onclick="queryButton();">确定</a>
+						    		<a class="easyui-linkbutton" iconCls="icon-reset" onclick="resetButton()">重置</a>
+						    		<a class="easyui-linkbutton" iconCls="icon-cancel" onclick="closeWindow();">关闭</a>
+						    	</td>
+					    </tr>
+			         </table>
+			       </form>
+	        </div> 
+	    
+	   </div>
 	  
 	  <div data-options="region:'center',border:false">
 	       <div id="mapDiv"></div>
@@ -148,6 +191,28 @@
    </body>
 </html>
 <script type="text/javascript">
+//精确查询
+function detailSearch() {
+	$("#win").window("open");
+}
+
+function searchMain(){
+	var condition = document.getElementById("condition").value;
+	if(condition=="请输入重点人员证件号码、姓名或居住地址"){
+		condition="";
+	}
+	//parent.frames["main_bottom"].searchMain(condition);
+	//var reloadUrl  = contextPath + '/zdryzb/list';
+	//var opt = $('#dg').datagrid('options');
+	//opt.url = reloadUrl;
+	
+	$('#dg').datagrid('load',{condition:condition});  
+	$('#dg').datagrid("clearSelections");
+}
+
+
+
+
  function datagridProcessFormater(val,row,index){
 	return '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="doUpdateAndXq(this, '+index+')">查看</a>&nbsp;' ;
 };
@@ -161,44 +226,51 @@
 };
 //查询按钮
 function queryButton(){
-	var xm = $("#xm").val();
-	var zjhm = $("#zjhm").val();
-	var xbdm = $("#xbdm").val();	
-	var zdrygllxdm = $("#zdrygllxdm").val();
+	var xm = document.getElementById("xm").value;
+	var sfzh = document.getElementById("sfzh").value;
+	var xbdm = document.getElementById("xbdm").value;
+	var dz_jzdzxz = document.getElementById("dz_jzdzxz").value;	
 	var ssfxjdm=$("#ssfxjdm").val();
 	var sspcsdm=$("#sspcsdm").val();
 	var sszrqdm=$("#sszrqdm").val();
-	var zbz = $("#zbz").val();
-	var type = $("#type").val();
-	var mapRadius = $("#mapRadius").val();
-	var glzt =$("#glzt").val();
+	var zdrygllxdm = $("#zdrygllxdm").combobox("getValue");
+	if($("#zdrygllxdm").combobox("getText")==""){
+		zdrygllxdm="";
+	}
+	
 	xm= $.trim(xm);
+	sfzh= $.trim(sfzh);
+	dz_jzdzxz= $.trim(dz_jzdzxz);
+	
+	var glztxz=$("#glztxz").val();
+	var glzt="";
+	if(glztxz=="0"){//查询所有未撤管的状态
+		glzt=$("#glzt").val();
+	}else{
+		glzt="4";
+	}
+	
 	$('#dg').datagrid(
 			'load',
 			{    
-				'zdrygllxdm':zdrygllxdm,
+				'zdrygllxdm':zdrygllxdm,				
 				'xm': xm,   
-				'zjhm': zjhm ,				
-				'xbdm':xbdm,				
+				'zjhm': sfzh ,				
+				'xbdm':xbdm,
+				'dz_jzdzxz':dz_jzdzxz,
 				'ssfxjdm':ssfxjdm,
 				'sspcsdm':sspcsdm,
 				'sszrqdm':sszrqdm,
-				'type':type,
-				'mapRadius':mapRadius,
-				'zbz':zbz,
 				'glzt':glzt
 			});
+	closeWindow("win");
 }
 
 //重置按钮
 function resetButton(){
 	$("#queryForm").form("reset");
 }
-//新增列管
-function addLg(){
-	
-	
-}
+
 
 function ssfxjdm_onChange(newValue, oldValue) {
 	var parentOrgCode = $('#ssfxjdm').combobox('getValue');
@@ -219,6 +291,14 @@ function sspcsdm_onChange(newValue, oldValue) {
 	else {
 		var url = contextPath + '/orgPublicSelect/queryComboBoxList?orgLevel=50&parentOrgCode=' + parentOrgCode;    
 	    $('#sszrqdm').combobox('reload', url);
+	}
+}
+
+function changeGlztxz(newValue){
+	if(newValue=="0"){//查询所有未撤管的状态
+		$("#glztDiv").show();
+	}else{
+		$("#glztDiv").hide();
 	}
 }
 </script>
