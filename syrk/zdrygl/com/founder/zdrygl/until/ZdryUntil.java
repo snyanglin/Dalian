@@ -23,6 +23,8 @@ import com.founder.framework.organization.user.bean.OrgUser;
 import com.founder.framework.organization.user.service.OrgUserService;
 import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.StringUtils;
+import com.founder.syrkgl.bean.RyRyjbxxb;
+import com.founder.syrkgl.service.RyRyjbxxbService;
 import com.founder.tzgg.bean.Org_Organization;
 import com.founder.tzgg.dao.TzggDao;
 import com.founder.zdrygl.bean.ZdryFzcsfryxxb;
@@ -125,6 +127,8 @@ public class ZdryUntil {
 	private  OrgUserService orgUserService;
 	
 	
+	@Resource(name = "ryRyjbxxbService")
+	private RyRyjbxxbService ryRyjbxxbService;
 	
 	
 	
@@ -435,6 +439,16 @@ public class ZdryUntil {
 		ZdryZdryzb zdryZdryzb=(ZdryZdryzb)zdryZdryzbDao.queryById(zdryid);
 		zdryZdryzb.setGlzt("2");
 		zdryZdryzb.setGlbm(xglbm);
+		zdryZdryzb.setGxbm(xglbm);//先把管辖部门和管理部门设置相同，如果是爽列管，再设置为户籍地管理部门
+		ZdryGzb zdryGzb=zdryGzbDao.queryByZdrylx(zdryZdryzb.getZdrygllxdm(),this.querySYSConfig());
+		if(zdryGzb!=null && "1".equals(zdryGzb.getSfslg())){//双列管，查询户籍地管理部门
+			RyRyjbxxb ryjbxxb=ryRyjbxxbService.queryById(zdryZdryzb.getRyid());//人员基本信息	
+			if(ryjbxxb!=null){
+				String gxbm=zdryZdryzbDao.queryHjdZrqdm(ryjbxxb.getHjd_mlpdm());
+				if(gxbm!=null && gxbm.length()>0)
+					zdryZdryzb.setGxbm(gxbm);
+			}
+		}
 		zdryZdryzbDao.update(zdryZdryzb);
 		sendMessageByZd( zdryxm, ywsqr, spr, spbm, zdryZdryzb.getId(), "ZD", "1", sfcj, ywsqrId, yglbm, xglbm);
 		

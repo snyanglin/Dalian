@@ -192,6 +192,16 @@ public class ZdryZdryzbDao extends BaseDaoImpl {
 		return (Integer) queryForObject("ZdryZdryzb.queryCountBySyrk", syrkId);
 	}
 	
-	
+	/**
+	 * 
+	 * @Title: queryHjdZrqdm
+	 * @Description: TODO(根据门楼牌查询户籍地责任区代码)
+	 * @param @return    设定文件
+	 * @return String    返回类型
+	 * @throws
+	 */
+	public String queryHjdZrqdm(String MLDZID){
+		return (String) queryForObject("ZdryZdryzb.queryHjdZrqdm", MLDZID);
+	}
 	
 }

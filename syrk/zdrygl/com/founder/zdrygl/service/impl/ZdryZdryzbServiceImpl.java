@@ -151,9 +151,19 @@ public class ZdryZdryzbServiceImpl extends BaseService implements
 		return klglxStr.substring(1,klglxStr.length()-1);
 	}
 	
+	/*
+	 * (非 Javadoc)
+	 * <p>Title: queryKcglx</p>
+	 * <p>Description:查询可撤管类型 </p>
+	 * @param zdrylxdm
+	 * @return
+	 * @see com.founder.zdrygl.service.ZdryZdryzbService#queryKcglx(java.lang.String)
+	 */
+	@Override
 	public String queryKcglx(String zdrylxdm){
 		ZdryGzb zdryGzb=zdryGzbDao.queryByZdrylx(zdrylxdm,zdryUntil.querySYSConfig());
 		if(zdryGzb!=null) return zdryGzb.getCglx();
 		return null;
 	}
+	
 }

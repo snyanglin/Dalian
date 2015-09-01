@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.utils.BeanUtils;
 import com.founder.framework.utils.DateUtils;
@@ -13,9 +14,12 @@ import com.founder.syrkgl.bean.RyRyjbxxb;
 import com.founder.syrkgl.bean.SyrkSyrkxxzb;
 import com.founder.syrkgl.service.RyRyjbxxbService;
 import com.founder.syrkgl.service.SyrkSyrkxxzbService;
+import com.founder.zdrygl.bean.ZdryGzb;
 import com.founder.zdrygl.bean.ZdryZdryzb;
+import com.founder.zdrygl.dao.ZdryGzbDao;
 import com.founder.zdrygl.dao.ZdryZdryzbDao;
 import com.founder.zdrygl.service.impl.ZdryQYOperationServiceimpl;
+import com.founder.zdrygl.until.ZdryUntil;
 import com.founder.zdrygl.vo.ZdryVO;
 
 /**
@@ -43,6 +47,12 @@ public  class ZdryZAOperationServiceimpl extends ZdryQYOperationServiceimpl {
 	
 	@Resource(name="zdryZdryzbDao")
 	private ZdryZdryzbDao zdryZdryzbDao;
+	
+	@Resource(name="zdryGzbDao")
+	private ZdryGzbDao zdryGzbDao;
+	
+	@Resource(name="ZdryUntil")
+	private ZdryUntil zdryUntil;
 	
 	@Override
 	public void saveLg(ZdryVO zdryVO) throws BussinessException {
@@ -74,11 +84,27 @@ public  class ZdryZAOperationServiceimpl extends ZdryQYOperationServiceimpl {
 					"zdryVO.zdryZdyzb.Ryid matching RYJBXXB is not exist");
 		}
 		try{
-			BeanUtils.copyObjectSameProperties(ryjbxxb, zdryZdryzb);
-			BeanUtils.copyObjectSameProperties(syrkSyrkxxzb, zdryZdryzb);	
+			//BeanUtils.copyObjectSameProperties(ryjbxxb, zdryZdryzb);
+			//BeanUtils.copyObjectSameProperties(syrkSyrkxxzb, zdryZdryzb);	
+			//这样写，会把创建时间修改时间这些公用信息全复制的
+			zdryZdryzb.setJgssxdm(ryjbxxb.getJgssxdm());
+			
+			/*这三个没找到相同名字的字段赋值
+			zdryZdryzb.setHjd_sspcsdm(hjd_sspcsdm);
+			zdryZdryzb.setHjd_sssq(hjd_sssq);
+			zdryZdryzb.setHjd_ssxjgajgdm(hjd_ssxjgajgdm);
+			*/
 		}catch(Exception e){
 			
 		}
+		
+		ZdryGzb zdryGzb=zdryGzbDao.queryByZdrylx(zdryZdryzb.getZdrygllxdm(),zdryUntil.querySYSConfig());
+		if(zdryGzb!=null && "1".equals(zdryGzb.getSfslg())){//双列管，查询户籍地管理部门
+			String gxbm=zdryZdryzbDao.queryHjdZrqdm(ryjbxxb.getHjd_mlpdm());
+			if(gxbm!=null && gxbm.length()>0)
+				zdryZdryzb.setGxbm(gxbm);
+		}
+		
 		zdryZdryzb.setSfjm("0");// 默认不加密
 		zdryZdryzb.setGlzt("1");
 		zdryZdryzb.setId(UUID.create());		

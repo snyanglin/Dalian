@@ -22,9 +22,10 @@ public class ZdryGzb extends BaseEntity implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@FieldDesc("ID")private String id;
-	@FieldDesc("ZDRYLX")private String zdrylx;
-	@FieldDesc("TSLGLX")private String tslglx;
-	@FieldDesc("CGLX")private String cglx;
+	@FieldDesc("重点人员类型")private String zdrylx;
+	@FieldDesc("同时可列管类型")private String tslglx;
+	@FieldDesc("可撤管类型")private String cglx;
+	@FieldDesc("是否双列管:0是")private String sfslg;
 	@FieldDesc("ZGBM")private String zgbm;
 	@FieldDesc("备注")private String bz;
 	@FieldDesc("区域代码")private String qydm;
@@ -76,6 +77,12 @@ public class ZdryGzb extends BaseEntity implements Serializable{
 	}
 	public void setSfkzl(String sfkzl) {
 		this.sfkzl = sfkzl;
+	}
+	public String getSfslg() {
+		return sfslg;
+	}
+	public void setSfslg(String sfslg) {
+		this.sfslg = sfslg;
 	}
 	
 	

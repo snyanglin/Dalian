@@ -45,12 +45,10 @@ import com.founder.syrkgl.service.SyrkSyrkxxzbService;
 import com.founder.workflow.service.inteface.JProcessDefinitionService;
 import com.founder.workflow.service.inteface.JProcessManageService;
 import com.founder.workflow.service.inteface.JTaskService;
-import com.founder.zdrygl.bean.ZdryGzb;
 import com.founder.zdrygl.bean.ZdrySgafzdryxxb;
 import com.founder.zdrygl.bean.ZdryShbzdryxxb;
 import com.founder.zdrygl.bean.ZdryZdryzb;
 import com.founder.zdrygl.bean.Zdrylxylbdyb;
-import com.founder.zdrygl.dao.ZdryGzbDao;
 import com.founder.zdrygl.service.ZdryHsbService;
 import com.founder.zdrygl.service.ZdrySgafzdryxxbService;
 import com.founder.zdrygl.service.ZdryShbzdryxxbService;
@@ -97,9 +95,6 @@ public class ZdryZdryzbControl extends BaseController {
 	
 	@Resource(name = "syrkSyrkxxzbService")
 	private SyrkSyrkxxzbService syrkSyrkxxzbService;
-	
-	@Resource(name = "zdryGzbDao")
-	private ZdryGzbDao zdryGzbDao;
 	
 	@Autowired
 	private JProcessDefinitionService processDefinitionService;
@@ -166,11 +161,15 @@ public class ZdryZdryzbControl extends BaseController {
 	}
 	
 	/**
-	 * 地图查询
-	 * @param page
-	 * @param rows
-	 * @param entity
-	 * @return
+	 * 
+	 * @Title: queryDwDzOnPT
+	 * @Description: TODO(重点人员查询 条件查询)
+	 * @param @param page
+	 * @param @param rows
+	 * @param @param entity
+	 * @param @return    设定文件
+	 * @return EasyUIPage    返回类型
+	 * @throws
 	 */
 	@RequestMapping(value = "/queryZdryOnPT", method = RequestMethod.POST)
 	public @ResponseBody
@@ -272,7 +271,9 @@ public class ZdryZdryzbControl extends BaseController {
 		
 		ZdryZdryzb zdryZdryzb = zdryVO.getZdryZdryzb();
 							
-		zdryZdryzb.setGlbm(sessionBean.getUserOrgCode());
+		zdryZdryzb.setGlbm(sessionBean.getUserOrgCode());//管理部门
+		zdryZdryzb.setGxbm(sessionBean.getUserOrgCode());//管辖部门，初始设置为与 管理部门一样，爽列管的类型，各自再修改为户籍地单位
+		
 		BaseService.setSaveProperties(zdryZdryzb, sessionBean);					
 		
 		String type=zdryZdryzb.getZdrygllxdm();//列管类型

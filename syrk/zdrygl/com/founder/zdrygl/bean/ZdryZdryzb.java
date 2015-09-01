@@ -34,7 +34,8 @@ public class ZdryZdryzb  extends BaseEntity implements Serializable {
 	@FieldDesc("指定列管部门名称") private String zdlgbmmc;
 	@FieldDesc("是否加密") private String sfjm;
 	@FieldDesc("是否在控代码") private String sfzkdm;
-	@FieldDesc("管理权限") private String glbm;
+	@FieldDesc("管理部门") private String glbm;
+	@FieldDesc("管辖部门") private String gxbm;
 	@FieldDesc("查看权限") private String cxbm;
 	@FieldDesc("采集时间") private String xt_cjsj;
 	@FieldDesc("录入时间") private String xt_lrsj;
@@ -127,6 +128,12 @@ public class ZdryZdryzb  extends BaseEntity implements Serializable {
 	}
 	public void setGlbm(String glbm) {
 		this.glbm = glbm;
+	}
+	public String getGxbm() {
+		return gxbm;
+	}
+	public void setGxbm(String gxbm) {
+		this.gxbm = gxbm;
 	}
 	public String getCxbm() {
 		return cxbm;
