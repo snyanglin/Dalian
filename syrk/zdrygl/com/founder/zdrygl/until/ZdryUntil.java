@@ -393,7 +393,8 @@ public class ZdryUntil {
 	public void cgSuccess(String zdryId,String zdryxm,String ywsqrId,String spr,String spbm,String cghZdryId ) {
 		ZdryZdryzb zdryZdryzb = (ZdryZdryzb) zdryZdryzbDao.queryById(zdryId);
 		zdryZdryzb.setGlzt("4");
-		zdryZdryzbDao.delete(zdryZdryzb);
+		zdryZdryzb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
+		zdryZdryzbDao.update(zdryZdryzb);//撤管不能修删除（xt_zxbz修改为1），应改将glbz修改为4
 		String zdrylx = zdryZdryzb.getZdrygllxdm();
 		Zdrylxylbdyb zdrylxylbdyb = new Zdrylxylbdyb();
 		zdrylxylbdyb.setLbdm(zdrylx);
@@ -414,12 +415,7 @@ public class ZdryUntil {
 		} else if ("涉公安访重点人员".equals(zdrylxylbdyb.getBz())) {
 			zdrySgafzdryxxbDao.delete(zdrySgafzdryxxbDao.queryById(zdryId));
 		}
-		if(!StringUtils.isBlank(cghZdryId)){
-			ZdryZdryzb entity = new ZdryZdryzb();
-			entity.setId(cghZdryId);
-			entity.setGlzt("2");
-			zdryZdryzbDao.update(entity);
-		}
+	
 		
 	//后期删除所有附件属性表
 		sendMessageByLC(zdryxm, ywsqrId, spr, spbm, zdryId, cghZdryId, "CG", "1");

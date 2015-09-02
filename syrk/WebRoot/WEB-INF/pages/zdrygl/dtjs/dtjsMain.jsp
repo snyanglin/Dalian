@@ -68,7 +68,7 @@
 		});
     </script>
   </head>
-  <body style="margin-top:20px; margin-bottom:10px" class="bodybg">
+  <body style="margin-top:20px; margin-bottom:10px" class="bodybg" onload="startup()">
 	<div data-options="region:'center',split:true" style="border-width: 0px;margin:0 0 0;text-align:center;" class="bodybg">
 		<table height="100%" style="margin:0 auto;">
 		<tr><td height="100%" valign="top" align="center">
@@ -80,8 +80,8 @@
 	  				<tr><td>
 						<table class='infoBodyTable'>
 										<tr>
-											<td class='infoName' width="20%">姓名</td><td width="30%" class='infoValue' id='zdry_sfzh'>${syrk.xm }</td>
-											<td class='infoName' width="20%">证件号码</td><td width="30%" class='infoValue' id='zdry_sfzh'>${syrk.zjhm }</td>
+											<td class='infoName' width="20%">姓名</td><td width="30%" class='infoValue' id='zdry_sfzh'>${ryRyjbxxb.xm }</td>
+											<td class='infoName' width="20%">证件号码</td><td width="30%" class='infoValue' id='zdry_sfzh'>${ryRyjbxxb.zjhm }</td>
 										</tr>
 										<tr>
 											<td class='infoName'>记实查询</td>
@@ -105,7 +105,7 @@
 												<a href="#" class="easyui-linkbutton" iconCls="icon-attach" plain="true" onclick="ZdryDtjs.openZtTab();">在逃</a>
 									 			<a href="#" class="easyui-linkbutton" iconCls="icon-attach" plain="true" onclick="ZdryDtjs.openSwTab();">涉稳</a>
 												<a href="#" class="easyui-linkbutton" iconCls="icon-attach" plain="true" onclick="ZdryDtjs.openSfTab();">涉访</a>
-												<a href="#" class="easyui-linkbutton" iconCls="icon-attach" plain="true" onclick="ZdryDtjs.openSdXdTab();">涉毒-吸毒</a>
+												<a href="#" class="easyui-linkbutton" iconCls="icon-attach" plain="true" onclick="ZdryDtjs.openSdXdTab();" style="display:none" id="sd-xdTag">涉毒-吸毒</a>
 									 			<a href="#" class="easyui-linkbutton" iconCls="icon-attach" plain="true" onclick="ZdryDtjs.openSdFdTab();">涉毒-贩毒</a>
 												<a href="#" class="easyui-linkbutton" iconCls="icon-attach" plain="true" onclick="ZdryDtjs.openSdZdTab();">涉毒-制毒</a>
 												<a href="#" class="easyui-linkbutton" iconCls="icon-attach" plain="true" onclick="ZdryDtjs.openZdxsfzqkTab();">重大刑事犯罪前科</a>
@@ -129,7 +129,19 @@
 	</div>
   </body>
   <script type="text/javascript">  
-  var syrk_zjhm='${syrk.zjhm }';
+  var syrk_zjhm='${ryRyjbxxb.zjhm }';
  
+  function startup(){
+	  var isXd=false;//是否吸毒
+	  <c:forEach items="${zdryList}" var="item" varStatus="status">
+	  	<c:if test="${item.zdrygllxdm == '02' && item.zdrylb == '020501'}">
+	  		isXd=true;
+	  	</c:if>
+	  </c:forEach>
+	  
+	  if(isXd){
+		  $("#sd-xdTag").show();
+	  }
+  }
   </script>
 </html>

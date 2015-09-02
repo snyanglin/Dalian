@@ -1,6 +1,7 @@
 package com.founder.zdrygl.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -18,8 +19,8 @@ import com.founder.framework.components.AppConst;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.qbld.utils.QbldUtil;
-import com.founder.syrkgl.bean.SyrkSyrkxxzb;
-import com.founder.syrkgl.service.SyrkSyrkxxzbService;
+import com.founder.syrkgl.bean.RyRyjbxxb;
+import com.founder.syrkgl.service.RyRyjbxxbService;
 import com.founder.zdrygl.bean.ZdryDtjsClxxb;
 import com.founder.zdrygl.bean.ZdryDtjsGxbgxxb;
 import com.founder.zdrygl.bean.ZdryDtjsSaxxb;
@@ -36,6 +37,7 @@ import com.founder.zdrygl.bean.ZdryDtjsZtxxb;
 import com.founder.zdrygl.bean.ZdryDtjsZszhjsbrZdjlxxb;
 import com.founder.zdrygl.bean.ZdryDtjsZszhjsbrZszhjlxxb;
 import com.founder.zdrygl.service.ZdryDtjsService;
+import com.founder.zdrygl.service.ZdryZdryzbService;
 import com.google.gson.Gson;
 /**
  * ****************************************************************************
@@ -55,18 +57,24 @@ public class ZdryDtjsController extends BaseController {
 	@Resource(name = "zdryDtjsService")
 	private ZdryDtjsService zdryDtjsService;
 	
-	@Resource(name = "syrkSyrkxxzbService")
-	private SyrkSyrkxxzbService syrkSyrkxxzbService;
+	@Resource(name = "ryRyjbxxbService")
+	private RyRyjbxxbService ryRyjbxxbService;
 	
 	@Resource(name = "orgOrganizationService")
 	private OrgOrganizationService orgOrganizationService;
 	
+	@Resource(name="zdryZdryzbService")
+	private ZdryZdryzbService zdryZdryzbService;
+	
 	
 	@RequestMapping(value="/dtjsMain",method = RequestMethod.GET)
-	public ModelAndView zdryDtjsZtxxAddPre(String syrkid){
+	public ModelAndView zdryDtjsZtxxAddPre(String ryid){
 		ModelAndView mv = new ModelAndView("zdrygl/dtjs/dtjsMain");
-		SyrkSyrkxxzb syrkSyrkxxzb=syrkSyrkxxzbService.queryById(syrkid);//实有人口信息
-		mv.addObject("syrk",syrkSyrkxxzb);
+		
+		RyRyjbxxb ryRyjbxxb = ryRyjbxxbService.queryById(ryid);//人员基本信息
+		List zdryList =zdryZdryzbService.queryList(ryid);
+		mv.addObject("ryRyjbxxb",ryRyjbxxb);
+		mv.addObject("zdryList",zdryList);
 		return mv;
 	}		
 	

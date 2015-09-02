@@ -158,28 +158,32 @@ function changeCgyy(newValue, oldValue){
 function saveCgForm(bottonObject){
 	var formObject = $("#dataForm");	
 	if (formObject.form('validate')) {
-		//防止重复提交		
-		if (buttonDisabled(bottonObject) == false) {
-			return false;
-		}
-		
-		$('#cgyy').val($('#cgyyCombo').combobox('getText'));
-		$("#dataForm").form("submit",{
-			url:document.dataForm.action,
-			dataType : "json",
-			onSubmit: function() {},
-			success: function(result) {				
-				buttonEnabled(bottonObject);
-				result = parseReturn(result);
-				if (result.status == "success") { // 返回成功后执行的方法
-					alert("撤管申请成功");
-					closeSelf();
-				}
-				else {
-					topMessager.alert(MESSAGER_TITLE, result.message, "error");
-				}
+		if(confirm("您是否要保存当前的数据？")){
+			//防止重复提交		
+			if (buttonDisabled(bottonObject) == false) {
+				return false;
 			}
-		});		
+			
+			$('#cgyy').val($('#cgyyCombo').combobox('getText'));
+			$("#dataForm").form("submit",{
+				url:document.dataForm.action,
+				dataType : "json",
+				onSubmit: function() {},
+				success: function(result) {				
+					buttonEnabled(bottonObject);
+					result = parseReturn(result);
+					if (result.status == "success") { // 返回成功后执行的方法
+						alert("撤管申请成功");
+						closeSelf();
+					}
+					else {
+						topMessager.alert(MESSAGER_TITLE, result.message, "error");
+					}
+				}
+			});	
+		}else{			
+			return false;
+		}		
 				
 	}else{
 		return false;

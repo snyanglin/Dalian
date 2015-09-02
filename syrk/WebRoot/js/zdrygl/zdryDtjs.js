@@ -31,8 +31,8 @@ ZdryDtjs.buildXsHtml = function(){
 ZdryDtjs.initXsTab = function(){		
 	if($("#otherInfoListDiv").tabs('getTab','写实信息')==null){
 		var html ='<table class="infoBodyTable" id="xs_Table"> '+
-		 '	<tr><td class="infoName red" width="20%">核实时间</td><td class="infoValue" width="30%"><input id="zdrxs_hssj" type="text" class="notNull easyui-validatebox" onclick="WdatePicker({skin:\'whyGreen\',dateFmt:\'yyyy-MM-dd HH:mm:ss\',minDate:\'%y-%M-%d\'})" style="width:200px;"></td>'+
-		 '		<td class="infoName red" width="20%">核实地点区划</td><td class="infoValue" width="30%"><input id="zdrxs_hsddqh"  class="notNull easyui-validatebox" style="width:200px;"></td></tr>'+
+		 '	<tr><td class="infoName red" style="width:20%">核实时间</td><td class="infoValue" style="width:30%"><input id="zdrxs_hssj" type="text" class="notNull easyui-validatebox" onclick="WdatePicker({skin:\'whyGreen\',dateFmt:\'yyyy-MM-dd HH:mm:ss\',minDate:\'%y-%M-%d\'})" style="width:200px;"></td>'+
+		 '		<td class="infoName red" style="width:20%">核实地点区划</td><td class="infoValue"><input id="zdrxs_hsddqh"  class="notNull easyui-validatebox" style="width:200px;"></td></tr>'+
 		 '	<tr><td class="infoName red">核实地点名称</td><td class="infoValue"><input id="zdrxs_hsddmc" class="notNull easyui-validatebox"  maxlength=150 style="width:200px;"></td>'+
 		 '		<td class="infoName red">核实地点详址</td><td class="infoValue"><input id="zdrxs_hsddxz"  class="notNull easyui-validatebox" maxlength=300 style="width:200px;"></td></tr>'+
 		 '	<tr><td class="infoName red">在控状态</td><td class="infoValue"><input id="zdrxs_zkzt" class="notNull easyui-validatebox" style="width:200px;"></td>'+
@@ -50,7 +50,7 @@ ZdryDtjs.initXsTab = function(){
 		 '		<td class="infoName">现住地详址</td><td class="infoValue"><input id="zdrxs_jzdxz" style="width:200px;" class="easyui-validatebox"> </td></tr>'+
 		 '	<tr><td class="infoName">管辖单位</td><td class="infoValue"><input type="hidden" id="zdrxs_gxdwmc" value="'+userOrgName+'" /><input type="hidden" id="zdrxs_gxdwdm" value="'+userOrgCode+'" />'+userOrgName+'</td>'+
 		 '		<td class="infoName  red">是否见到本人</td><td class="infoValue"><input id="zdrxs_sfjdbr"  class="notNull easyui-validatebox" style="width:200px;"> </td></tr>'+
-		 '	<tr><td class="infoName">核实情况描述（提示）</td><td class="infoValue" colspan=3><textarea id="zdrxs_hsqkms" maxlength=750 class="easyui-validatebox" style="width:619px;"></textarea></td></tr>'+		 
+		 '	<tr><td class="infoName">情况描述（提示）</td><td class="infoValue" colspan=3><textarea id="zdrxs_hsqkms" maxlength=750 class="easyui-validatebox" style="HEIGHT: 50px; WIDTH: 600px"></textarea></td></tr>'+		 
 		 '	<tr  align="center">'+
 		 '		<td colspan=4>'+
 		 '			<a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="ZdryDtjs.saveZdryOtherInfo(\'xs_Table\',\'zdrxs_\',\'/zdryDtjs/saveDtjs\');">提交</a>'+

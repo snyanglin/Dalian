@@ -379,10 +379,10 @@ public class ZdryZdryzbControl extends BaseController {
 
 			processDefinitionService.startProcessInstance(sessionBean.getUserId(), "shb_lcg", zdryZdryzb.getId(), variables);	
 			}
-			else if(zdryZdryzb.getZdrygllxdm().equals("06")){//其他关注对象
-			
-				zdryUntil.lgSuccess(zdryZdryzb.getId(), zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), null);
-		}
+//			else if(zdryZdryzb.getZdrygllxdm().equals("06")){//其他关注对象 改为也要 所长 审批
+//			
+//				zdryUntil.lgSuccess(zdryZdryzb.getId(), zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), null);
+//		}
 			else if(zdryZdryzb.getZdrygllxdm().equals("05")){//涉公安访
 			variables.put("sqlx", "涉公安访列管");
 			variables.put("sqlxdm", "01");//列管01  撤管02
@@ -963,10 +963,10 @@ public class ZdryZdryzbControl extends BaseController {
 
 				processDefinitionService.startProcessInstance(sessionBean.getUserId(), "shb_lcg", zdryYid, variables);	
 			}
-			else if(zdryYlb.equals("06")){//其他关注对象
-				zdryUntil.cgSuccess(zdryYid, zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), zdryZdryzb.getId());
-//				processDefinitionService.startProcessInstance(sessionBean.getUserId(), " ", zdryZdryzb.getId(), variables);	
-			}
+//			else if(zdryYlb.equals("06")){//其他关注对象，改为也要 所长 审批
+//				zdryUntil.cgSuccess(zdryYid, zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), zdryZdryzb.getId());
+////				processDefinitionService.startProcessInstance(sessionBean.getUserId(), " ", zdryZdryzb.getId(), variables);	
+//			}
 			else if(zdryYlb.equals("05")){//涉公安访
 				variables.put("sqlx", "涉公安访撤管");
 				variables.put("sqlxdm", "02");//列管01  撤管02
