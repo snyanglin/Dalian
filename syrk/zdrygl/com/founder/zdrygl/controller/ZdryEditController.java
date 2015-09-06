@@ -281,4 +281,27 @@ public class ZdryEditController extends BaseController {
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
 	}
+	
+	/**
+	 * 
+	 * @Title: zdryFjUploadPre
+	 * @Description: TODO(重点人员附件上传页面)
+	 * @param @param zdryid
+	 * @param @param sessionBean
+	 * @param @return
+	 * @param @throws BussinessException    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throws
+	 */
+	@RequestMapping(value = "/zdryFjUploadPre", method = RequestMethod.GET)
+	public ModelAndView zdryFjUploadPre( String zdryid,
+			SessionBean sessionBean) throws BussinessException {
+			ModelAndView mv = new ModelAndView("zdrygl/edit/zdryFjUploadPre");
+			mv.addObject("lybm", "ZDRY_ZDRYZB");
+			mv.addObject("lyid", zdryid);
+			mv.addObject("lyms", "重点人员-附件");
+			mv.addObject("fileType", "");
+			mv.addObject("fileOnly", 0);			
+			return mv;
+	}		
 }

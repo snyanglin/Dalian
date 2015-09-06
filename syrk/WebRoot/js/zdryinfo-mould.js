@@ -135,7 +135,7 @@ function info_shb_(){
 function info_fjxx_(){
 	var sb = new StringBuffer();
 	sb.append("<ul level='1'>");
-	sb.append("<input type='hidden' name='method' value='fjxx' fj=true read='true' /><input type='hidden' name='openUrl' value='' />");
+	sb.append("<input type='hidden' name='id' /><input type='hidden'  name='method' fj='true' value='fjxx' /><input type='hidden' name='openUrl' value='/zdryEdit/zdryFjUploadPre' />");
 	sb.append("</ul>");
 	return sb.toString();
 }
