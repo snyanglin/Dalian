@@ -98,7 +98,9 @@
 	<input type="hidden" id="serverPara" value="ryid=${zdry.ryid}&syrkid=${zdry.syrkid}&id=${zdry.id}" /><!-- 业务办理附加参数  -->
 	<input type="hidden" id="queryPara" value="ryid=${zdry.ryid}&id=${zdry.id}" /><!-- 表单查询附加参数 -->
 	<input type="hidden" id="ryzdry" value="ryid=${zdry.ryid}" />
-	<input type="hidden" id="sfzh" value="${zdry.zjhm}" /><input type="hidden"  id="ryid_main" value="${zdry.ryid}" />
+	<input type="hidden" id="sfzh" value="${zdry.zjhm}" />
+	<input type="hidden"  id="ryid_main" value="${zdry.ryid}" />
+	<input type="hidden"  id="zdryId" value="${zdry.id}" />
 	
 <div class="clear"></div>
 <div class="editdiv"><a href="javascript:void(0);" class="savebtn">档案编辑完成</a><a href="javascript:void(0);" class="editbtn"  style="display:none">编辑档案信息</a></div>

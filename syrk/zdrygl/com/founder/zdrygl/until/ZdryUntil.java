@@ -47,6 +47,7 @@ import com.founder.zdrygl.dao.ZdrySqjzryxxbDao;
 import com.founder.zdrygl.dao.ZdryZdrkxxbDao;
 import com.founder.zdrygl.dao.ZdryZdryzbDao;
 import com.founder.zdrygl.dao.ZdryZszhjsbrxxbDao;
+import com.founder.zdrygl.service.ZdryJkbjllxxbService;
 import com.founder.zdrygl.service.ZdryOperationService;
 import com.founder.zdrygl.service.ZdryZdryzbService;
 import com.founder.zdrygl.service.ZdrylxylbdybService;
@@ -130,7 +131,8 @@ public class ZdryUntil {
 	@Resource(name = "ryRyjbxxbService")
 	private RyRyjbxxbService ryRyjbxxbService;
 	
-	
+	@Resource(name = "zdryJkbjllxxbService")
+	private ZdryJkbjllxxbService zdryJkbjllxxbService;
 	
 	
 	
@@ -293,6 +295,9 @@ public class ZdryUntil {
 	    	 sendMessageToJsbm(zdryId, ywsqrId); 
 	     
 	     }
+	     
+	     //将列管录入人员添加为该重点人员的第一个“帮教力量”相关人员，后续需要判断重点人员类型
+	     zdryJkbjllxxbService.saveFirst(zdryId);
 	}
 
 	/**
