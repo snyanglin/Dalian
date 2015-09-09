@@ -17,7 +17,9 @@
 		<![CDATA[
 		select * from (
 				SELECT ROWNUM R ,M.* FROM(
-				 SELECT f.*,B.ZBX,B.ZBY,B.mldzID AS BZDZID  FROM BZDZ_ADD_MLDZDXB B,SYFW_FWJBXXB F WHERE B.XT_ZXBZ='0' and F.XT_ZXBZ ='0' and B.mldzID = F.fwdz_mlpdm  ]]>
+				 SELECT f.*,B.ZBX,B.ZBY,B.mldzID AS BZDZID
+				   FROM BZDZ_ADD_MLDZDXB B,SYFW_FWJBXXB F 
+				 WHERE B.XT_ZXBZ='0' and F.XT_ZXBZ ='0' and B.mldzID = F.fwdz_mlpdm  ]]>
 
 		<isNotEmpty prepend="and" property="fwjbxxb.fwdz_dzxz">
 			     <![CDATA[F.fwdz_dzxz like '%' || #fwjbxxb.fwdz_dzxz# ||'%']]>
@@ -156,4 +158,16 @@
 	    </isEqual>
 	</select>
 
+	<select id="queryFwxx" parameterClass="String" resultClass="fwjbxxb">
+		 SELECT 
+		 		f.FZ_XM, f.FZ_LXDH, f.fz_zjhm, f.FZ_CYZJDM,
+		 		(select (DYH || '-' || SHMC) from BZDZ_ADD_CHDZDXB where XT_ZXBZ = '0' and DZJB = '4' 
+		 		and CHDZID = b.jzd_dzid) dyh_shmc, 
+		 		b.jzd_mlpxz,
+		 		b.jzd_mlpdm, b.jzd_mlpxz, b.jzd_dzid, b.jzd_xzqhdm, b.jzd_dzxz
+		  FROM SYFW_FWJBXXB F, SYRK_SYRKXXZB b
+		  WHERE  f.FZ_RYID = b.ryid and b.SYRKYWLXDM = '1' and F.XT_ZXBZ ='0'
+		  and F.FWDZ_DZID = #fwdz_dzid# 
+	</select>
+	
 </sqlMap>

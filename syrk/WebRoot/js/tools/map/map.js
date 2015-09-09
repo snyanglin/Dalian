@@ -584,7 +584,11 @@ FrameTools.Map.prototype.moveMapToBjzbz = function(bjzbz){
 			}
 		}
 		/*根据图元素将地图放到最适合的级别和位置*/
-		this._MapApp.centerAtMBR(mbr);
+		try{
+			this._MapApp.centerAtMBR(mbr);
+		}catch(e){
+			console.log("地图DIV太小无法正常显示居中");
+		}
 		/*新版本cliect自动适应级别有问题必须降一级*/
 		this._MapApp.zoomOut();
 	}

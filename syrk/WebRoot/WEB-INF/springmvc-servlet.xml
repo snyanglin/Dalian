@@ -115,6 +115,7 @@ http://www.springframework.org/schema/cache http://www.springframework.org/schem
                   <value>.*\.(js|jpg|gif|png|swf|css|htm|html|jar|jsp)$</value>
                   <value>^\/(\w+\/)*dzjk</value>
                   <value>^\/(\w+\/)*task.*</value>
+                  <value>^\/(\w+\/)*random.*</value>
                 </list>    
             </property>
             </bean>

@@ -17,6 +17,16 @@ $(function(){
 	MainZrq.initNews();//加载通知公告模块
 	MainZrq.initWaitingWork();//加载待办事项模块
 	MainZrq.initRemindDiv();//加载工作提醒模块
+	$(window).resize(function() {
+		var widthDiv = $("#db").width();
+		var widthDiv1 = $("#yw").width();
+		var x = widthDiv+widthDiv1;
+		$('#dg').datagrid({
+		width:x 
+		});
+		
+	});
+	
 });
 /**
  * @method:loadXqMap
@@ -34,7 +44,7 @@ MainZrq.loadXqMap = function(){
 	/*加载地图*/
 	MainZrq.ezMap.onloadMap();
 	/*隐藏自带矢量影像图层对象*/
-	MainZrq.ezMap._MapApp.hideMapServer();
+	//MainZrq.ezMap._MapApp.hideMapServer();
 	/*加载辖区边界*/
 	if(bjzbz!=""||bjzbz!=null){
 		MainZrq.ezMap.moveMapToBjzbz(bjzbz);
@@ -58,6 +68,7 @@ MainZrq.initJobCounts = function(){
  * @date:2015-8-15下午18:01:05
  */
 MainZrq.initJobCounts_back = function(json){
+	
 	var htmlStr = "<ul>";
 	htmlStr	+="<li class='xqTitle'>&nbsp;实有人口</li>";
 	var czrkNum = 0,jzrkNum = 0,ldrkNum = 0,jwrkNum = 0,wlhrkNum = 0;
@@ -65,14 +76,16 @@ MainZrq.initJobCounts_back = function(json){
 		for(var i=0;i<json.length;i++){
 			if(json[i].lxmc=="常住人口"){
 				czrkNum = json[i].sl;
+				
 			}else if(json[i].lxmc=="寄住人口"){
 				jzrkNum = json[i].sl;
-			}else if(json[i].lxmc=="暂住人口"){
+			}else if(json[i].lxmc=="流动人员"){
 				ldrkNum = json[i].sl;
 			}else if(json[i].lxmc=="境外人员"){
-				jwrkNum = json[i].sl;
+				jwrkNum = json[i].sl;	
 			}else if(json[i].lxmc=="未落户人员"){
 				wlhrkNum = json[i].sl;
+				
 			}
 		}
 	}
@@ -114,7 +127,7 @@ MainZrq.initJobCounts_back = function(json){
 MainZrq.initJobMap = function(lx){
 	var params = {syrkywlxdm:lx,gxzrqdm:userOrgCode};
 	var fajax =new FrameTools.Ajax(contextPath+"/syrkGl/queryListByRyidYwlx",MainZrq.initJobMap_back);
-	fajax.send(params)
+	fajax.send(params);
 };
 /**
  * @method:initJobMap_back

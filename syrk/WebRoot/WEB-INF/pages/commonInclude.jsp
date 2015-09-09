@@ -51,6 +51,5 @@
 <link rel="stylesheet" type="text/css" href="<%=contextPath%>/common/jeasyui/themes/custom.css">
 <link rel="stylesheet" type="text/css" href="<%=contextPath%>/css/syrk.css"></link>
 
-<link rel="stylesheet" type="text/css" href="<%=contextPath%>/common/ztree/zTreeStyle.css" type="text/css"/>
-<script type="text/javascript" src="<%=contextPath%>/common/ztree/jquery.ztree.all-3.5.js" type="text/javascript"></script>
+
 

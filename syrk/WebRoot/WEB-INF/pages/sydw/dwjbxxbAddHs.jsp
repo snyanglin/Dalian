@@ -73,7 +73,7 @@
 									<input type='hidden' name='dwjbxxb.dz_dwdzmlpxz' id="dz_dwdzmlpxz" value="${dwjbxxb.dz_dwdzmlpxz}"/>
 								</td>
 								<td width="16%" class="dialogTd">
-							    	<input class="easyui-combobox" id="jzd2"  style="width:150px;" value="${fn:replace(dwjbxxb.dz_dwdzxz, dwjbxxb.dz_dwdzmlpxz, '')}" 
+							    	<input class="easyui-combobox" id="jzd2"  style="width:150px;" value='${fn:replace(dwjbxxb.dz_dwdzxz, dwjbxxb.dz_dwdzmlpxz, "")}' 
 							    	 	data-options="mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 							    	<input type='hidden' name='dwjbxxb.dz_dwdzdm' id='dz_dwdzdm' value="${dwjbxxb.dz_dwdzdm}" />
 							    	<input type='hidden' name='dwjbxxb.dz_dwdzssxdm' id='dz_dwdzssxdm' value="${dwjbxxb.dz_dwdzssxdm}" />
@@ -141,8 +141,7 @@
 					    	    <td width="16%" class="dialogTd" align="right">经营范围（主营）：</td>
 					    	    <td width="55%" class="dialogTd" colspan="3">
 					    	      <textarea id="dwjbxxb_jyfwzy" name="dwjbxxb.jyfwzy" class="easyui-validatebox" rows="3" style="width:430px; height:32px;"
-								  	data-options="validType:['maxLength[200]'],invalidMessage:'经营范围（主营）不能超过200个汉字，请重新输入！',tipPosition:'right'">${dwjbxxb.jyfwzy}
-								  </textarea>
+								  	data-options="validType:['maxLength[200]'],invalidMessage:'经营范围（主营）不能超过200个汉字，请重新输入！',tipPosition:'right'">${dwjbxxb.jyfwzy}</textarea>
 								</td>
 			    	       </tr>
 			    	        <tr class="dialogTr">

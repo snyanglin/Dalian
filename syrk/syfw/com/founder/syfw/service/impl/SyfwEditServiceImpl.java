@@ -39,6 +39,11 @@ public class SyfwEditServiceImpl extends BaseService implements SyfwEditService 
 		return syfwEditdao.queryFwjbxxbById(id);
 	}
 
+	//gem
+	public Fwjbxxb queryFwxx(String fwdz_dzid){
+		return syfwEditdao.queryFwxx(fwdz_dzid);
+	}
+	
 	@Override
 	public List<SyfwxxzsVO> queryFwzsxx(Map<String, Object> map) {
 		map.put("xxdxlxdm","1");

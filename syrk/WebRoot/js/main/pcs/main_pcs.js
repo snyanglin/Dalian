@@ -18,6 +18,15 @@ $(function(){
 	MainPcs.initNews();//加载通知公告模块
 	MainPcs.initWaitingWork();//加载待办事项模块
 	MainPcs.initRemindDiv();//加载工作提醒模块
+	$(window).resize(function() {//调整datagrid的宽度
+		var leftwidth = $("#leftid").width();
+		var rightwidth = $("#rightid11").width();
+		var bodywidth = $("body").width();
+		var datawidth = bodywidth-leftwidth-rightwidth-10;
+		$('#dg').datagrid({
+			width:datawidth
+		});
+	});
 });
 /**
  * @method:loadXqMap
@@ -104,6 +113,8 @@ MainPcs.initECharts = function(){
 		};
 	//为ECHARTS对象加载数据 
 	myChart.setOption(option,true);
+	//图表宽度自动适应
+	window.onresize = myChart.resize;
 };
 /**
  * @method:initJobCounts
@@ -132,7 +143,7 @@ MainPcs.initJobCounts_back = function(json){
 					czrkNum = json[i].sl;
 				}else if(json[i].lxmc=="寄住人口"){
 					jzrkNum = json[i].sl;
-				}else if(json[i].lxmc=="暂住人口"){
+				}else if(json[i].lxmc=="流动人员"){
 					ldrkNum = json[i].sl;
 				}else if(json[i].lxmc=="境外人员"){
 					jwrkNum = json[i].sl;
@@ -235,6 +246,7 @@ MainPcs.initPcsXqgk = function(){
 		fitColumns:true,
 		border:false,
 		pagination:false,
+		width:100,
 		columns:[[
 	          	{field:'orgname',title:'责任区',width:150,align:'center',halign:'center'},
 				{field:'syrknum',title:'实有人口',width:80,align:'center',halign:'center'},

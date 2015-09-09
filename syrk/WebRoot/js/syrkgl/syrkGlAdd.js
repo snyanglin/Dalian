@@ -844,6 +844,35 @@ function ldrk_zjzcsfldm_onChange(newValue, oldValue) {
 		$("#ldrk_fz_tr2").show();
 		$("#ldrk_fz_tr3").show();
 		$("#ldrk_fz_tr4").show();
+		//gem
+		$.ajax({
+			type: "POST",
+			url: contextPath + "/syfw/getFwxx",
+			dataType: "json",
+			data:"fwdz_dzid="+$("#ldrk_jzd_dzid").val(),
+			success: function(data) {
+				if (data) {
+					$("#ldrk_fz_xm").val(data.fz_xm);
+					$("#ldrk_fz_lxdh").val(data.fz_lxdh);
+					$("#ldrk_fz_zjhm").val(data.fz_zjhm);
+					$("#ldrk_fz_cyzjdm").combobox("setValue", data.fz_cyzjdm);
+					$("#ldrk_fz_jzd1").combobox("setValue", data.jzd_mlpxz);
+					$("#ldrk_fz_jzd2").combobox("setValue", data.dyh_shmc);
+					$("#ldrk_fz_jzd_mlpdm").val(data.jzd_mlpdm);
+					$("#ldrk_fz_jzd_mlpxz").val(data.jzd_mlpxz);
+					$("#ldrk_fz_jzd_mlpxz").val(data.jzd_mlpxz);
+					$("#ldrk_fz_jzd_dzid").val(data.jzd_dzid);
+					$("#ldrk_fz_jzd_xzqhdm").val(data.jzd_xzqhdm);
+					$("#ldrk_fz_jzd_dzxz").val(data.jzd_dzxz);
+				}
+			},
+			complete: function() {
+				
+			},
+			error: function() {
+			}
+		});
+		//gem
 	}
 	else {
 		$("#ldrk_fz_tr1").hide();
@@ -1077,6 +1106,13 @@ function wlrk_qtcyzjdm_onChange(newValue, oldValue) {
 }
 
 function wlrk_zjzcsfldm_onChange(newValue, oldValue) {
+	//gem
+	setInputReadonly("jbxx_hjd_dzms", false);
+	setInputReadonly("jbxx_xm", false);
+	setInputReadonly("jbxx_xbdm", false);
+	setInputReadonly("jbxx_csrq", false);
+	$("#jbxx_cyzjdm").combobox("setValue", "");
+	//gem
 	if ("undefined" == typeof newValue || newValue == null) {
 		return;
 	}

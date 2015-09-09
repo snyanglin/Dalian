@@ -15,8 +15,6 @@ import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONObject;
-
 import org.apache.commons.beanutils.MethodUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -46,8 +44,9 @@ import com.founder.sydw.service.DwjbxxbService;
 import com.founder.sydw.service.SydwEditService;
 import com.founder.sydw.vo.SydwgnVO;
 import com.founder.sydw.vo.SydwxxzsVO;
-
 import com.google.gson.Gson;
+
+import net.sf.json.JSONObject;
 /**
  * 单位查看编辑控制器
  * @author Administrator

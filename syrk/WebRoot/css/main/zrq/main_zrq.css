@@ -41,6 +41,7 @@ a {
 
 .centerDiv .centerCss1 {
 	height: 47.6%;
+	width:100%;
 	margin: 10px;
 	border: 1px solid rgb(17, 144, 241);
 }
@@ -53,15 +54,15 @@ a {
 	background: rgb(17, 144, 241);
 }
 
-.centerTopCss {
+.centerDiv .centerTopCss {
 	width: 48.6%;
 	height: 100%;
 	float: left;
 	border: 1px solid #17a9ff;
 }
 
-.centerTopCss1 {
-	width: 48.6%;
+.centerDiv .centerTopCss1 {
+	width: 49.6%;
 	height: 100%;
 	float: left;
 	margin-left: 10px;
@@ -77,6 +78,7 @@ a {
 
 .centerDiv .dgCss {
 	height: 90%;
+	width:100%;
 	overflow: auto;
 }
 
@@ -102,29 +104,32 @@ a {
 
 .messageCss {
 	height: 85%;
-	overflow: hidden;
+	overflow:hidden;
 }
-
-.messageCss li {
+.messageCsscenter {
+	height: 95%;
+	overflow:hidden;
+}
+.messageCsscenter li {
 	padding: 5px;
 	height: 18px;
 	line-height: 18px;
 }
 
-.messageCss li a {
+.messageCsscenter li a {
 	line-height: 18px;
 }
 
-.messageCss li a:hover {
+.messageCsscenter li a:hover {
 	color: #FF0000;
 }
 
-.messageCss li a font {
+.messageCsscenter li a font {
 	color: #626262;
 	font-weight: bold;
 }
 
-.messageCss li span {
+.messageCsscenter li span {
 	float: right;
 	color: #009900;
 	font-weight: bold;
@@ -136,7 +141,7 @@ a {
 	color: #FFF;
 	width: 75px;
 	line-height: 26px;
-	text-align: left;
+	text-align: center;
 	background: rgb(17, 144, 241);
 }
 
@@ -163,18 +168,28 @@ a {
 }
 
 .menuCss {
-	float: left;
-	width: 46%;
-	height: 23%;
-	margin: 5px;
+	float:left;
+	width: 40%;
+	height: 19%;
+	margin: 14px;
 	cursor:pointer;
 	text-align: center;
 }
 
 .menuCss span{
 	color:#FFF;
-	font: normal 18px "微软雅黑";
+	font: normal 18px "宋体";
 	line-height: 100px;
+}
+
+.menuCssTd{
+	width: 40%;
+	height: 20%;
+	text-align: center;
+	color:#FFF;
+	font: normal 18px "宋体";
+	cursor:pointer;
+	
 }
 
 .menuCss font{

@@ -151,7 +151,27 @@ public class SyfwEditController extends BaseController {
 			entity.setSs4jbmdm(sessionBean.getUserOrgCode());
 		} 
 		//增加查询条件 end
-		return syfwQueryService.queryFw(page, entity);
+		EasyUIPage uipage =  syfwQueryService.queryFw(page, entity);
+		List<?> syfws = uipage.getRows();
+		for(int i=0;i<syfws.size();i++){
+			SyfwListVo syfw= (SyfwListVo) syfws.get(i);
+			String sfczw = syfw.getSfczfw();
+			if(sfczw.equals("1")){
+				Czfwxxb entity1 = new Czfwxxb();
+				String id = syfw.getId();
+				entity1.setFwid(id);
+				entity1 = syfwEditService.czfw_query(entity1);
+				if(entity1 ==null){
+					syfw.setSfczfw("未出租");
+				}else{
+					syfw.setSfczfw("已出租");
+				}
+			}else{
+				syfw.setSfczfw("否");
+			}
+			
+		}
+		return uipage;
 	}
 
 	/**
@@ -674,6 +694,20 @@ public class SyfwEditController extends BaseController {
 	@RequestMapping(value = "/querySyfwCount", method = RequestMethod.POST)
 	public @ResponseBody long querySyfwCount(SyfwListVo entity, SessionBean sessionBean) {
 		return syfwQueryService.querySyfwCount(entity);
+	}
+	
+	/**
+	 * gem
+	 * @Title: getFw
+	 * @Description: TODO(根据ID获取房屋基本信息)
+	 * @param @param id
+	 * @param @return    设定文件
+	 * @return Fwjbxxb    返回类型
+	 * @throws
+	 */
+	@RequestMapping(value = "/getFwxx", method = {RequestMethod.POST})
+	public @ResponseBody Fwjbxxb getFwxx(String fwdz_dzid){
+		return syfwEditService.queryFwxx(fwdz_dzid);
 	}
 	
 }

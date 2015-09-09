@@ -71,7 +71,7 @@
 					<input type='hidden' name='dz_dwdzmlpxz' id="dz_dwdzmlpxz" value="${entity.dz_dwdzmlpxz}"/>
 				</td>
 				<td>
-					<input class="easyui-combobox" id="jzd2"  style="width:200px;" value="${fn:replace(entity.dz_dwdzxz, entity.dz_dwdzmlpxz, '')}" 
+					<input class="easyui-combobox" id="jzd2"  style="width:200px;" value='${fn:replace(entity.dz_dwdzxz, entity.dz_dwdzmlpxz, "")}' 
 			    	 	data-options="mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false,required:true,tipPosition:'left'">
 			    	<input type='hidden' name='dz_dwdzdm' id='dz_dwdzdm' value="${entity.dz_dwdzdm}" />
 			    	<input type='hidden' name='dz_dwdzssxdm' id='dz_dwdzssxdm' value="${entity.dz_dwdzssxdm}" />

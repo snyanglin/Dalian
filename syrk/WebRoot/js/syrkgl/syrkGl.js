@@ -434,6 +434,13 @@ SyrkGl.queryButton = function(){
 	var zjhm = document.getElementById("zjhm").value;
 	var xbdm = document.getElementById("xbdm").value;
 	var mzdm = document.getElementById("mzdm").value;
+	//gem 需求说只按照年龄，不按照年龄段
+	var ageTemp = document.getElementById("age").value;
+	var year = new Date().getFullYear();
+	var age = "";
+	if (ageTemp!=null && ageTemp!='') {
+		age = year - ageTemp;
+	}
 	var jzd_dzxz = document.getElementById("jzd_dzxz").value;
 	var searchbox = $('#searchbox').searchbox('getValue');;
 	$('#dg').datagrid('load',{    
@@ -443,6 +450,7 @@ SyrkGl.queryButton = function(){
 		'xbdm':xbdm,
 		'mzdm':mzdm,
 		'jzd_dzxz':jzd_dzxz,
+		'age': age,
 		'searchbox':searchbox
 	});
 	SyrkGl.closeWindow("win");

@@ -117,6 +117,7 @@
 		    		<input class="easyui-validatebox" type="text" name="ssqk" id="ssqk"  value="${entity.ssqk}" data-options="tipPosition:'left'" maxlength="300" style="width:640px;" />
 		    	</td>
 		    </tr>	
+		    <!--  
 			<tr>	    
 				<td width="20%" class="dialogTd" align="right">安全等级：</td>
 		    	<td width="30%" class="dialogTd" >
@@ -129,6 +130,7 @@
 			    	data-options="url: contextPath + '/common/dict/D_BZ_YW.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'left'"/>
 			    </td>
 			</tr>
+			-->
 		    <tr>	    
 				<td width="20%" class="dialogTd" align="right">是否签订安全责任状：</td>
 		    	<td width="30%" class="dialogTd" >

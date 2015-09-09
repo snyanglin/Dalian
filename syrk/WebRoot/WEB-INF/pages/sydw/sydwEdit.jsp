@@ -73,19 +73,19 @@
 										    	 <tr>
 									    	        <th  align="right" width="110">经营面积(平方米)：</th>
 											    	<td>${dw.jymj_mjpfm}</td>
+											    	<!--  
 										    	  	<th  align="right"  width="110">营业时间：</th>
 											    	<td>${dw.yysj}</td>
+											    	-->
+											    	<th  align="right"  width="110">核定容纳人数：</th>
+											    	<td>${dw.hdrnrs}</td>
 										    	 </tr>
 										    	 <tr >
 									    	        <th  align="right" width="110">经营范围（主营）：</th>
 											    	<td>${dw.jyfwzy }</td>
-											    	<th  align="right"  width="110">核定容纳人数：</th>
-											    	<td>${dw.hdrnrs}</td>
-										    	  </tr>
-										    	 <tr >
-									    	        <th  align="right" width="110">经营范围（兼营）：</th>
+											    	<th  align="right" width="110">经营范围（兼营）：</th>
 											    	<td  colspan="3" >${dw.jyfwjy }</td>
-										    	 </tr>
+										    	  </tr>
 										    	 <tr >
 										    	  	<th  align="right" width="110">是否重点单位：</th>
 											    	<td><script type="text/javascript">document.write(window.top.getDictName(contextPath + '/common/dict/D_GG_SF.js', "${dw.zddwbs}"));</script></td>

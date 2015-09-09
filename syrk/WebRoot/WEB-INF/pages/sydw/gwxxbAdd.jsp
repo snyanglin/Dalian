@@ -33,7 +33,7 @@
 						<input class="easyui-validatebox" type="text" id="wcs" name="wcs" style="width:200px;" value="${entity.wcs}"
 						data-options="required:false,validType:['naturalNumberRange[1,1000]'],tipPosition:'right'"/>
 					</td>
-					<td width="20%" class="dialogTd" align="right">出口数量(个)：</td>
+					<td width="20%" class="dialogTd" align="right">安全出口数量(个)：</td>
 					<td width="30%" class="dialogTd">
 						<input class="easyui-validatebox" type="text" id="cksl" name="cksl" style="width:200px;" value="${entity.cksl}"
 						data-options="required:false,validType:['naturalNumberRange[1,100]'],tipPosition:'left'"/>
@@ -49,6 +49,13 @@
 					<td width="30%" class="dialogTd">
 						<input class="easyui-validatebox" type="text" id="wcmj" name="wcmj" style="width:200px;" value="${entity.wcmj}"
 						data-options="required:false,validType:['numeric[\'f\',2]'],invalidMessage:'舞池面积为两位小数的数字，请重新输入！',tipPosition:'left'" maxlength="10"/>
+					</td>
+				</tr>
+				<tr class="dialogTr">
+					<td width="20%" class="dialogTd" align="right">是否有安检设备：</td>
+					<td width="30%" class="dialogTd">
+						<input class="easyui-combobox" type="text" id="sfyajsb" name="sfyajsb" style="width:200px;" value="${entity.sfyajsb}"
+						data-options="url: contextPath + '/common/dict/D_GG_YW.js',valueField:'id',textField:'text',selectOnNavigation:false,required:false,method:'get'"/>
 					</td>
 				</tr>
 	    	</table>

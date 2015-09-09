@@ -113,7 +113,7 @@ var userOrgCode='<%=userOrgCode%>';
 				<input type='hidden' name='azbw_rw_mlpxz' id="azbw_rw_mlpxz" value="${entity.azbw_rw_mlpxz}"/>
 			</td>
 			<td width="30%" class="dialogTd">
-				<input class="easyui-combobox" id="fzdz2" style="width:200px;" value="${fn:replace(entity.azbw_rw_dzxz, entity.azbw_rw_mlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+				<input class="easyui-combobox" id="fzdz2" style="width:200px;" value='${fn:replace(entity.azbw_rw_dzxz, entity.azbw_rw_mlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 				<input type='hidden' name='azbw_rw_dzdm' id='azbw_rw_dzdm' value="${entity.azbw_rw_dzdm}" />
 				<input type='hidden' name='azbw_rw_dzxz' id='azbw_rw_dzxz' value="${entity.azbw_rw_dzxz}" /> 
 			</td>

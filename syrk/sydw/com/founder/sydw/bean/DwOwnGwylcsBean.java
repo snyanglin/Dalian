@@ -71,7 +71,16 @@ public class DwOwnGwylcsBean extends BaseEntity implements Serializable {
 	private String xt_zxbz;
 	@FieldDesc("注销原因")
 	private String xt_zxyy;
+	@FieldDesc("是否有安检设备")
+	private String sfyajsb;
 	
+	
+	public String getSfyajsb() {
+		return sfyajsb;
+	}
+	public void setSfyajsb(String sfyajsb) {
+		this.sfyajsb = sfyajsb;
+	}
 	public String getId() {
 		return id;
 	}

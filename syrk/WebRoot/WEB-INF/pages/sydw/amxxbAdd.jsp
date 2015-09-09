@@ -31,27 +31,21 @@
 					</td>
 				</tr>
 				<tr class="dialogTr">
-					<td width="20%" class="dialogTd" align="right">按摩室数量：</td>
+					<td width="20%" class="dialogTd" align="right">按摩间数(间)：</td>
 					<td width="30%" class="dialogTd">
 					<input class="easyui-validatebox" type="text" id="amrsl" name="amrsl"
 						   style="width:200px;" value="${entity.amrsl}"
 						   data-options="required:false,validType:['naturalNumberRange[1,1000]'],tipPosition:'right'" />
 					</td>
+					<!--  
 					<td width="20%" class="dialogTd" align="right">按摩床(椅)数量：</td>
 					<td width="30%" class="dialogTd">
 					<input class="easyui-validatebox" type="text" id="amcsl" name="amcsl"
 						   style="width:200px;" value="${entity.amcsl}"
 						   data-options="required:false,validType:['naturalNumberRange[1,1000]'],tipPosition:'left'" />
 					</td>
-				</tr>
-				<tr class="dialogTr">
-					<td width="20%" class="dialogTd" align="right">按摩师数量：</td>
-					<td width="30%" class="dialogTd">
-					<input class="easyui-validatebox" type="text" id="amssl" name="amssl"
-						   style="width:200px;" value="${entity.amssl}"
-						   data-options="required:false,validType:['naturalNumberRange[1,1000]'],tipPosition:'right'" />
-					</td>
-					<td width="20%" class="dialogTd" align="right">出口数量：</td>
+					-->
+					<td width="20%" class="dialogTd" align="right">安全出口数量(个)：</td>
 					<td width="30%" class="dialogTd">
 					<input class="easyui-validatebox" type="text" id="cksl" name="cksl"
 						   style="width:200px;" value="${entity.cksl}"
@@ -59,12 +53,25 @@
 					</td>
 				</tr>
 				<tr class="dialogTr">
+					<td width="20%" class="dialogTd" align="right">按摩师数量(人)：</td>
+					<td width="30%" class="dialogTd">
+					<input class="easyui-validatebox" type="text" id="amssl" name="amssl"
+						   style="width:200px;" value="${entity.amssl}"
+						   data-options="required:false,validType:['naturalNumberRange[1,1000]'],tipPosition:'right'" />
+					</td>
 					<td width="20%" class="dialogTd" align="right">休闲大厅面积(平方米)：</td>
 					<td width="30%" class="dialogTd">
 					<input class="easyui-validatebox" type="text" id="xxdtmj" name="xxdtmj"
 						   style="width:200px;" value="${entity.xxdtmj}"
 						   data-options="required:false,validType:['numeric[\'f\',2]'],invalidMessage:'休闲大厅面积为两位小数的数字，请重新输入！',tipPosition:'right'"
 						   maxlength="10" />
+					</td>
+				</tr>
+				<tr class="dialogTr">
+					<td width="20%" class="dialogTd" align="right">是否具有住宿许可：</td>
+					<td width="30%" class="dialogTd">
+						<input class="easyui-combobox" type="text" id="sfjyzxxk" name="sfjyzxxk" style="width:200px;" value="${entity.sfjyzxxk}"
+						data-options="url: contextPath + '/common/dict/D_GG_YW.js',valueField:'id',textField:'text',selectOnNavigation:false,required:false,method:'get'"/>
 					</td>
 				</tr>
 			</table>

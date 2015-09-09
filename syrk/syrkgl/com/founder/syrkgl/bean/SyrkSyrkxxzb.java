@@ -21,7 +21,10 @@ import com.founder.framework.base.entity.BaseEntity;
 public class SyrkSyrkxxzb extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	//gem
+	private String age;
+	
 	@FieldDesc("实有人口ID")
 	private String id;
 	@FieldDesc("人员ID")
@@ -78,6 +81,15 @@ public class SyrkSyrkxxzb extends BaseEntity implements Serializable {
 	private String gxzrqdm;
 	@FieldDesc("管辖责任区名称")
 	private String gxzrqmc;
+	
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
 	// 搜索查询关键字
 	private String searchbox;
 	// 空间查询坐标值

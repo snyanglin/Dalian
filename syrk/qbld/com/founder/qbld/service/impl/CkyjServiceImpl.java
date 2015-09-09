@@ -220,8 +220,8 @@ public class CkyjServiceImpl extends BaseService implements CkyjService {
 			String zpParameter = "operation=GetPersonPhotoByID&content=";
 			String zpContent =  "{\"data\":[{\"rybh\":\""+ entity.getSfzh() +"\"}]}";
 			JSONObject jsonZp = QbldUtil.getService(zpParameter, zpContent);
-			zpString = jsonZp.getString("photo");
 			try {
+				zpString = jsonZp.getString("photo");
 				pictureByte = new BASE64Decoder().decodeBuffer(zpString);
 			} catch (Exception ex) {
 			}
@@ -314,7 +314,7 @@ public class CkyjServiceImpl extends BaseService implements CkyjService {
 				"<QSDWJGDM>" + StringUtils.nullToStr(entity.getQsdwjgdm()) + "</QSDWJGDM>" +
 				"</ROW>" +
 				"</DATAINFO>";
-			String url = "http://10.78.42.201:9010/lnga_service/service/IRecvYJXXCZJGFromJZService";
+			String url = QbldUtil.WSURL + "/lnga_service/service/IRecvYJXXCZJGFromJZService";
 			try{
 				RPCServiceClient client=new RPCServiceClient();
 				Options option=client.getOptions();
@@ -407,7 +407,7 @@ public class CkyjServiceImpl extends BaseService implements CkyjService {
 				"</ROW>" +
 				"</DATAINFO>" +
 				"</CCFMsg>" ;
-		String url = "http://10.78.42.201:9010/lnga_service/service/IRecvYJXXCZJGFromJZService";
+		String url = QbldUtil.WSURL + "/lnga_service/service/IRecvYJXXCZJGFromJZService";
 		try{
 			RPCServiceClient client=new RPCServiceClient();
 			Options option=client.getOptions();

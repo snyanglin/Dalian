@@ -34,16 +34,39 @@
    	</div>
     <div class="centerDiv">
     	<div class="centerCss">
-           	<div class="centerTopCss">
+           	<!-- <div class="centerTopCss" id="db">
 	   		   <div class="titleCss">&nbsp;待办事项</div>
 			   <div class="messageCss" id="waitingWorkDiv"></div>
 	   		</div>
-	   		<div class="centerTopCss1">
+	   		<div class="centerTopCss1" id="yw">
 	   		   <div class="titleCss">&nbsp;业务提醒</div>
 			   <div class="messageCss" id="remindDiv"></div>
-	   		</div>    		
+	   		</div>    		 -->
+	   		<table border="0" cellpadding="0" cellspacing="0" style="width: 100%;height: 100%;">
+	   		<tr>
+	   		<td class="titleCss" style="height: 20px;width:49.5%;">
+	   		待办事项
+	   		</td>
+	   		<td style="width:1px;">
+	   		</td>
+	   		<td class="titleCss" style="height: 20px;width:49.5%;">
+	   		业务提醒
+	   		</td>
+	   		</tr>
+	   		<tr>
+	   		<td style="border: 1px solid rgb(17, 144, 241)">
+	   		<div class="messageCsscenter"  id="waitingWorkDiv" >
+	   		</div>
+	   		</td>
+	   		<td>
+	   		</td>
+	   		<td style="border: 1px solid rgb(17, 144, 241)">
+	   		<div class="messageCsscenter"  id="remindDiv"></div>
+	   		</td>
+	   		</tr>
+	   		</table>
     	</div>
-    	<div class="centerCss1">
+    	<div class="centerCss1" >
     		<div class="titleCss">&nbsp;辖区概况统计</div>
     		<div class="dgCss">
     			<table id="dg"></table>
@@ -56,14 +79,32 @@
 		   <div class="messageCss" id="newDiv"></div>
    		</div>
    		<div class="rightCss1">
-   		   <div class="menuCss" style="background: #336666;"><span onclick="MainZrq.menuOpenSyrk()">登记人员</span></div>
-   		   <div class="menuCss" style="background: #6633CC;"><span>实有人口</span></div>
-   		   <div class="menuCss" style="background: #990066;"><span>开具证明</span></div>
-   		   <div class="menuCss" style="background: #009966;"><span>矛盾纠纷</span></div>
-   		   <div class="menuCss" style="background: #3366CC;"><span>登记单位</span></div>
-   		   <div class="menuCss" style="background: #990000;"><span>标准地址</span></div>
-   		   <div class="menuCss" style="background: #CC9933;"><span>出租房屋</span></div>
-   		   <div class="menuCss" style="background: white;"><font>+</font></div>
+   		   <table border="0" cellpadding="0" cellspacing="15" style="width: 100%;height: 100%;">
+   		   		<tr>
+   		   			<td style="background: #336666;" class="menuCssTd" onclick="MainZrq.menuOpenSyrk()">登记人员
+   		   			</td>
+   		   			<td style="background: #6633CC;" class="menuCssTd">实有人口
+   		   			</td>
+   		   		</tr>
+   		   		<tr>
+   		   			<td style="background: darkcyan;" class="menuCssTd">开具证明
+   		   			</td>
+   		   			<td style="background: #009966;" class="menuCssTd">矛盾纠纷
+   		   			</td>
+   		   		</tr>
+   		   		<tr>
+   		   			<td style="background: #3366CC;" class="menuCssTd">登记单位
+   		   			</td>
+   		   			<td style="background: #990000;" class="menuCssTd">标准地址
+   		   			</td>
+   		   		</tr>
+   		   		<tr>
+   		   			<td style="background: #CC9933;" class="menuCssTd">出租房屋
+   		   			</td>
+   		   			<td style="background: cadetblue;" class="menuCssTd">犬只管理
+   		   			</td>
+   		   		</tr>
+   		   </table>
    		</div>
    	</div>
   </body>

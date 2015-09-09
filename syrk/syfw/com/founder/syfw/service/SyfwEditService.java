@@ -33,7 +33,9 @@ public interface SyfwEditService {
 	@MethodAnnotation(value = "修改实有房屋", type = logType.update)
 	public void updateFwjbxxb(Fwjbxxb entity, SessionBean sessionBean);
 
-
+	//gem
+	public Fwjbxxb queryFwxx(String fwdz_dzid);
+	
 	/**
 	 * 查询房屋里的人数
 	 * 

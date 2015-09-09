@@ -466,7 +466,7 @@ function NewsTips(title,message){  //右下角消息提示
 //回调函数
 function messageToke(message){
 	if(message.type == "1"){  //民警待办任务消息提示
-		var ShowMessage =　"";
+		var ShowMessage = "";
 		if(message.entity.xxlb == "2"){
   			ShowMessage =  "<a href='#' title='" + message.entity.xxbt + "' ";
   			ShowMessage += "onclick='ywxtgzrwb(\"" + message.entity.ywurl + "\")'";

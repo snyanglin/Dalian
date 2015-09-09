@@ -186,8 +186,9 @@
 					    	<input type='hidden' name='dz' id="hdz"/>
 						</td>
 					</tr>
+					<!-- 
 					<tr class="dialogTr">
-			  			<td width="20%" class="dialogTd" align="right">备注：</td>
+			  			<td width="20%" class="dialogTd" align="right">备注11：</td>
 						<td width="80%" class="dialogTd" colspan="3" >
 							<textarea class="easyui-validatebox" style="width: 595px; height:48px;" 
 									  id="ebz" name="bz"
@@ -196,6 +197,7 @@
 									  				,tipPosition:'left'" ></textarea>
 						</td>
 					</tr>
+					 -->
 	    		</table>
 	    		<div align="center" style="width: 760px;margin: 10px 0 0 0" id="edit_btn_div">
 		    		<a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="save();" >保存</a>

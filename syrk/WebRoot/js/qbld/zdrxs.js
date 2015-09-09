@@ -1089,7 +1089,7 @@ Zdrxs.openSdZdTab = function(){
 Zdrxs.openSdFdTab = function(){
 	if($("#otherInfoListDiv").tabs('getTab','涉毒-贩毒信息')==null){
 		var html ='<table class="infoBodyTable" id="sdfd_Table"> '+
-		 '	<tr><td class="infoName">毒品种类</td><td class="infoValue"><input id="zdrxsSdFd_fmdpzl"></td>'+
+		 '	<tr><td class="infoName">毒品种类</td><td class="infoValue" style="width:400px;"><input id="zdrxsSdFd_fmdpzl"></td>'+
 		 '		<td class="infoName">毒品种类其他</td><td class="infoValue" ><input id="zdrxsSdFd_dplyqt" maxlength=150></td></tr>'+
 		 '	<tr><td class="infoName">毒品来源</td><td class="infoValue"><input id="zdrxsSdFd_dply" maxlength=300></td>'+
 		 '		<td class="infoName">毒品来源其他</td><td class="infoValue" ><input id="zdrxsSdFd_dplyqt" maxlength=150></td></tr>'+
@@ -2024,7 +2024,7 @@ Zdrxs.initShgxrSelectVal = function(){
 				return;
 			}else{
 				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_XB.js'); 
+			$(this).combobox('reload', contextPath + '/common/dict/GB_D_XBDM.js'); 
 			}
 		}
 	});

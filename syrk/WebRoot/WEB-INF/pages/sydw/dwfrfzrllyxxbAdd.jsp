@@ -108,7 +108,7 @@
 					</td>
 					<td width="30%" class="dialogTd">
 					    <input class="easyui-combobox" id="dwfr_jzdz2" style="width:200px;"
-						value="${fn:replace(entity.dz_xjzdzxz, entity.dz_xjzdmlpxz,'')}"
+						value='${fn:replace(entity.dz_xjzdzxz, entity.dz_xjzdmlpxz,"")}'
 						data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 						<input type='hidden' name='dz_xjzdzdm' id='dwfr_dz_xjzdzdm' value="${entity.dz_xjzdzdm}" /> 
 						<input type='hidden' name='dz_xjzdzssxdm' id='dwfr_dz_xjzdzssxdm' value="${entity.dz_xjzdzssxdm}" /> 
@@ -125,7 +125,7 @@
 						<input type='hidden' name='dz_hjdmlpxz' id="dwfr_dz_hjdmlpxz" value="${entity.dz_hjdmlpxz}" /></td>
 					<td width="30%" class="dialogTd">
 					    <input class="easyui-combobox" id="dwfr_hjdz2" style="width:200px;"
-						value="${fn:replace(entity.dz_hjdzxz, entity.dz_hjdmlpxz, '')}"
+						value='${fn:replace(entity.dz_hjdzxz, entity.dz_hjdmlpxz, "")}'
 						data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 						<input type='hidden' name='dz_hjdzdm' id='dwfr_dz_hjdzdm' value="${entity.dz_hjdzdm}" /> 
 						<input type='hidden' name='dz_hjdzssxdm' id='dwfr_dz_hjdzssxdm' value="${entity.dz_hjdzssxdm}" /> 

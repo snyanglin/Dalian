@@ -211,6 +211,9 @@
 		       <isNotEmpty prepend="AND" property="entity.gxzrqdm">
 				     T.GXZRQDM = #entity.gxzrqdm#
 			   </isNotEmpty>
+			   <isNotEmpty prepend="AND" property="entity.age">
+				     Substr(T.CSRQ, 0, 4) = #entity.age#
+			   </isNotEmpty>
 		       	  ORDER BY T.$sort$ $order$) M 
 		  <![CDATA[WHERE ROWNUM <= #end# ) WHERE R > #begin#]]> 
 	</select>
@@ -253,6 +256,9 @@
 	       <isNotEmpty prepend="AND" property="entity.gxzrqdm">
 			     T.GXZRQDM = #entity.gxzrqdm#
 		   </isNotEmpty>
+		   <isNotEmpty prepend="AND" property="entity.age">
+			     Substr(T.CSRQ, 0, 4) = #entity.age#
+		   </isNotEmpty>
 	</select>
 
 	<!-- 实有人口查询列表数据 -->
@@ -261,6 +267,9 @@
 		SELECT *
 		FROM $tableName$
 		WHERE T.XT_ZXBZ = '0'
+		<isNotEmpty prepend="AND" property="entity.age">
+		     Substr(T.CSRQ, 0, 4) = #entity.age#
+	    </isNotEmpty>
 		<isNotEmpty prepend="AND" property="entity.syrkywlxdm">
 			T.SYRKYWLXDM = #entity.syrkywlxdm#
 		</isNotEmpty>
@@ -314,6 +323,9 @@
 		SELECT COUNT(T.ID)
 		FROM $tableName$
 		WHERE T.XT_ZXBZ = '0'
+		<isNotEmpty prepend="AND" property="entity.age">
+		     Substr(T.CSRQ, 0, 4) = #entity.age#
+	   </isNotEmpty>
 		<isNotEmpty prepend="AND" property="entity.syrkywlxdm">
 			T.SYRKYWLXDM = #entity.syrkywlxdm#
 		</isNotEmpty>

@@ -60,6 +60,9 @@
 		<isNotEmpty prepend="," property="wcmj">
 				<![CDATA[wcmj]]>
 		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfyajsb">
+				<![CDATA[sfyajsb]]>
+		</isNotEmpty>
 		,
 		<include refid="insertXtzd" />
 		)
@@ -89,6 +92,9 @@
 		<isNotEmpty prepend="," property="wcmj">
 				<![CDATA[#wcmj#]]>
 		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfyajsb">
+				<![CDATA[#sfyajsb#]]>
+		</isNotEmpty>
 		,
 		<include refid="insertXtzdVal" />
 		)
@@ -104,6 +110,7 @@
 			<isNotNull prepend="," property="cksl"><![CDATA[cksl=#cksl#]]></isNotNull>
 			<isNotNull prepend="," property="sxtsl"><![CDATA[sxtsl=#sxtsl#]]></isNotNull>
 			<isNotNull prepend="," property="wcmj"><![CDATA[wcmj=#wcmj#]]></isNotNull>
+			<isNotNull prepend="," property="sfyajsb"><![CDATA[sfyajsb=#sfyajsb#]]></isNotNull>
 			,
 			<include refid="updateXtzd" />
 		</dynamic>
@@ -148,6 +155,9 @@
 		<isNotEmpty prepend="," property="xxdtmj">
 				<![CDATA[xxdtmj]]>
 		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfjyzxxk">
+				<![CDATA[sfjyzxxk]]>
+		</isNotEmpty>
 		,
 		<include refid="insertXtzd" />
 		)
@@ -180,6 +190,9 @@
 		<isNotEmpty prepend="," property="xxdtmj">
 				<![CDATA[#xxdtmj#]]>
 		</isNotEmpty>
+		<isNotEmpty prepend="," property="sfjyzxxk">
+				<![CDATA[#sfjyzxxk#]]>
+		</isNotEmpty>
 		,
 		<include refid="insertXtzdVal" />
 		)
@@ -196,6 +209,7 @@
 			<isNotNull prepend="," property="amssl"><![CDATA[amssl=#amssl#]]></isNotNull>
 			<isNotNull prepend="," property="cksl"><![CDATA[cksl=#cksl#]]></isNotNull>
 			<isNotNull prepend="," property="xxdtmj"><![CDATA[xxdtmj=#xxdtmj#]]></isNotNull>
+			<isNotNull prepend="," property="sfjyzxxk"><![CDATA[sfjyzxxk=#sfjyzxxk#]]></isNotNull>
 			,
 			<include refid="updateXtzd" />
 		</dynamic>

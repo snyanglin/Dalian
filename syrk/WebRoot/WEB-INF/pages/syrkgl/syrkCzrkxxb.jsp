@@ -122,7 +122,7 @@
 					    	<input type="hidden" id="czrk_jzd_mlpxz" name="jzd_mlpxz" value="${czrk.jzd_mlpxz}"/>
 				    	</td>
 				    	<td width="30%" class="dialogTd" align="left">
-					    	<input class="easyui-combobox" id="czrk_jzd2" style="width:200px;" value="${fn:replace(czrk.jzd_dzxz, czrk.jzd_mlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    	<input class="easyui-combobox" id="czrk_jzd2" style="width:200px;" value='${fn:replace(czrk.jzd_dzxz, czrk.jzd_mlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    	<input type="hidden" id="czrk_jzd_dzid" name="jzd_dzid" value="${czrk.jzd_dzid}"/>
 					    	<input type="hidden" id="czrk_jzd_xzqhdm" name="jzd_xzqhdm" value="${czrk.jzd_xzqhdm}"/>
 					    	<input type="hidden" id="czrk_jzd_dzxz" name="jzd_dzxz" value="${czrk.jzd_dzxz}"/>
@@ -156,7 +156,7 @@
 		    	<input type="hidden" id="czrk_lbsqk_lzd_mlpxz" name="lbsqk_lzd_mlpxz" value="${czrk.lbsqk_lzd_mlpxz}"/>
 	    	</td>
 	    	<td width="30%" class="dialogTd" align="left">
-		    	<input class="easyui-combobox" id="czrk_lbsqk_lzd2" style="width:200px;" value="${fn:replace(czrk.lbsqk_lzd_dzxz, czrk.lbsqk_lzd_mlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+		    	<input class="easyui-combobox" id="czrk_lbsqk_lzd2" style="width:200px;" value='${fn:replace(czrk.lbsqk_lzd_dzxz, czrk.lbsqk_lzd_mlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 		    	<input type="hidden" id="czrk_lbsqk_lzd_dzid" name="lbsqk_lzd_dzid" value="${czrk.lbsqk_lzd_dzid}"/>
 		    	<input type="hidden" id="czrk_lbsqk_lzd_xzqhdm" name="lbsqk_lzd_xzqhdm" value="${czrk.lbsqk_lzd_xzqhdm}"/>
 		    	<input type="hidden" id="czrk_lbsqk_lzd_dzxz" name="lbsqk_lzd_dzxz" value="${czrk.lbsqk_lzd_dzxz}"/>

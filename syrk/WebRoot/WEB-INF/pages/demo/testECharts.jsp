@@ -40,10 +40,11 @@
 		};
 		//为echarts对象加载数据 
 		myChart.setOption(option);
+		window.onresize = myChart.resize;
 	});
 	</script>
 </head>
 <body>
-	<div id="main" style="height:400px;"></div>
+	<div id="main" style="height:400px;width: 100%;"></div>
 </body>
 </html>

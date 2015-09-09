@@ -75,8 +75,16 @@ public class DwOwnAmfwcsBean extends BaseEntity implements Serializable {
 	private String xt_zxbz;
 	@FieldDesc("注销原因")
 	private String xt_zxyy;
+	@FieldDesc("是否具有住宿许可")
+	private String sfjyzxxk;
 	
 	
+	public String getSfjyzxxk() {
+		return sfjyzxxk;
+	}
+	public void setSfjyzxxk(String sfjyzxxk) {
+		this.sfjyzxxk = sfjyzxxk;
+	}
 	public String getId() {
 		return id;
 	}

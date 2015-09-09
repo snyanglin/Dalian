@@ -19,7 +19,7 @@
     <form action="<%=basePath%>cyryxxb/save" id="dataForm" name="dataForm" method="post" onsubmit="alert('ssss')">
         <input type="hidden" name="dwid" id="dwid" value="${entity.dwid }"  />
     	<input type="hidden" name="id" id="id" value="${entity.id }" /><!-- 从业人员id -->
-    	<input type="hidden" name="ryid" id="ryid" value="" />
+    	<input type="hidden" name="ryid" id="ryid" value="${entity.ryid}"/>
     	<input type="hidden" name="jjlxr_ryid" id="jjlxr_ryid" value="${entity.jjlxr_ryid }" /><!-- 紧急情况联系人ID -->
     	<div class="easyui-accordion" data-options="multiple:true" style="width:820px;margin-left: 20px;margin-top: 10px;margin-right: 5px;margin-bottom: 10px;"> 
     		<div title="基本信息" id="baseInfoTypeDiv" data-options="selected:true" style="overflow:auto;padding:10px;">   
@@ -83,7 +83,7 @@
 						<input type='hidden' name='dz_hjdmlpxz' id="dz_hjdmlpxz" value="${entity.dz_hjdmlpxz}"/>
 					</td>
 					<td width="30%" class="dialogTd" >
-						<input class="easyui-combobox" id="hjd2" style="width:200px;" value="${fn:replace(entity.dz_hjdxz, entity.dz_hjdmlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+						<input class="easyui-combobox" id="hjd2" style="width:200px;" value='${fn:replace(entity.dz_hjdxz, entity.dz_hjdmlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    <input type='hidden' name='dz_hjddm' id='dz_hjddm' value="${entity.dz_hjddm}" />
 					    <input type='hidden' name='dz_hjdxzqhdm' id='dz_hjdxzqhdm' value="${entity.dz_hjdxzqhdm}" />
 					    <input type='hidden' name='dz_hjdxz' id='dz_hjdxz' value="${entity.dz_hjdxz}" /> 
@@ -97,7 +97,7 @@
 						<input type='hidden' name='dz_xzzdmlpxz' id="dz_xzzdmlpxz" value="${entity.dz_xzzdmlpxz}"/>
 					</td>
 					<td width="30%" class="dialogTd">
-					    <input class="easyui-combobox" id="jzd2" style="width:200px;" value="${fn:replace(entity.dz_xzzxz, entity.dz_xzzdmlpxz, '')}" data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    <input class="easyui-combobox" id="jzd2" style="width:200px;" value='${fn:replace(entity.dz_xzzxz, entity.dz_xzzdmlpxz, "")}' data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    <input type='hidden' name='dz_xzzdm' id='dz_xzzdm' value="${entity.dz_xzzdm}" />
 					    <input type='hidden' name='dz_xzzxzqhdm' id='dz_xzzxzqhdm' value="${entity.dz_xzzxzqhdm}" />
 					    <input type='hidden' name='dz_xzzxz' id='dz_xzzxz' value="${entity.dz_xzzxz}" /> 
@@ -124,9 +124,9 @@
 			    <tr class="dialogTr">
 			    	<td width="20%" class="dialogTd" align="right">职业类别：</td>
 			    	<td width="30%" class="dialogTd">
-			    	<input class="easyui-combobox" type="text" id="zylbdm" name="zylbdm" style="width:200px;" value="${entity.zylbdm }" maxlength="20"
-			    		data-options="url: contextPath + '/common/dict/D_BZ_ZYFLYDM.js',dataFilter:'',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'left'">
-			    	</td>
+			    	<input class="easyui-combotree" type="text" id="zylbdm" name="zylbdm" style="width:200px;" value="${entity.zylbdm}"
+					data-options="required:false,tipPosition:'right',url: contextPath + '/common/dict/GB_D_ZYFLYDM.js',onlyLeaf:true,panelWidth:280,multiple:false,method:'get',editable:true,lines:true"/>
+				    </td>
 					<td width="20%" class="dialogTd" align="right">聘用时间：</td>
 			    	<td width="30%" class="dialogTd">
 			    	<input type="text" name="pyrq" id="pyrq" class="easyui-validatebox" style="width: 200px;" value="${entity.pyrq }"
@@ -159,7 +159,7 @@
 		    		<td width="20%" class="dialogTd" align="right">是否离职：</td>
 			    	<td width="30%" class="dialogTd">
 			    	<input class="easyui-combobox" type="text" id="sflzdm" name="sflzdm" style="width:200px;" value="${entity.sflzdm }"
-						data-options="url: contextPath + '/common/dict/D_BZ_SF.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'right'"/>
+						data-options="url: contextPath + '/common/dict/D_BZ_SF.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'right',onChange:lzCheck"/>
 			    	</td>
 		    		<td width="20%" class="dialogTd" align="right">离职日期：</td>
 			    	<td width="30%" class="dialogTd">

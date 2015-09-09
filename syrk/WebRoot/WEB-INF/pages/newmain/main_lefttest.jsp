@@ -4,6 +4,8 @@
 <TITLE></TITLE>
 <%@include file="/WEB-INF/pages/commonInclude.jsp"%>
 <link rel="stylesheet" type="text/css" href="<%=contextPath%>/common/skin/mainMenunew.css">
+<link rel="stylesheet" type="text/css" href="<%=contextPath%>/common/ztree/zTreeStyle.css" type="text/css"/>
+<script type="text/javascript" src="<%=contextPath%>/common/ztree/jquery.ztree.all-3.5.js" type="text/javascript"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" >
 // 初始化手风琴菜单

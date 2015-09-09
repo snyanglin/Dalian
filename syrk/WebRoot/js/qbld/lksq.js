@@ -52,7 +52,7 @@ Lksq.initQueryHtml = function(){
 		width:'100%'
 	});
 	$("#lksq_bbkrxb").combobox({
-		url: contextPath + '/common/dict/D_QBLD_ZDRYXBDM.js',
+		url: contextPath + '/common/dict/GB_D_XBDM.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,

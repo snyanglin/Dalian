@@ -162,7 +162,7 @@
 				    </td>
 				    <td class="td2" align="right">
 					    <input class="easyui-combobox"  id="fzd4" style="width:240px;" 
-					    value="${fn:replace(entity.dz_jzdzxz, entity.dz_jzdzmlpxz, '')}" 
+					    value='${fn:replace(entity.dz_jzdzxz, entity.dz_jzdzmlpxz, "")}' 
 					    data-options="required:false,mode:'remote',method:'post'
 					    ,panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 				    	<input type='hidden' name='dz_jzdzdm' id="dz_jzdzdm" value="${entity.dz_jzdzdm}"/>

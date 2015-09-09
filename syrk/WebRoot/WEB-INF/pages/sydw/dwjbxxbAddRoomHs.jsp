@@ -52,7 +52,7 @@
 							<input type='hidden' name='dwjbxxb.dz_dwdzmlpdm' id="dz_dwdzmlpdm" value="${dwjbxxb.dz_dwdzmlpdm}"/>
 							<input type='hidden' name='dwjbxxb.dz_dwdzmlpxz' id="dz_dwdzmlpxz" value="${dwjbxxb.dz_dwdzmlpxz}"/></td>
 						<td width="30%" class="dialogTd">
-					    	<input class="easyui-combobox" id="jzd2" style="width:200px;" value="${fn:replace(dwjbxxb.dz_dwdzxz, dwjbxxb.dz_dwdzmlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    	<input class="easyui-combobox" id="jzd2" style="width:200px;" value='${fn:replace(dwjbxxb.dz_dwdzxz, dwjbxxb.dz_dwdzmlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    	<input type='hidden' name='dwjbxxb.dz_dwdzdm' id='dz_dwdzdm' value="${dwjbxxb.dz_dwdzdm}" />
 					    	<input type='hidden' name='dwjbxxb.dz_dwdzssxdm' id='dz_dwdzssxdm' value="${dwjbxxb.dz_dwdzssxdm}" />
 					    	<input type='hidden' name='dwjbxxb.dz_dwdzxz' id='dz_dwdzxz' value="${dwjbxxb.dz_dwdzxz}" /> 

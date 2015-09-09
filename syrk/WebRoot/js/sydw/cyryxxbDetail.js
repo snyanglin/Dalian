@@ -36,7 +36,7 @@ function sadwExtractor(data){
 }
 function import_cyryxxb(){
 	var url = contextPath + '/cyrydrrwxxb/createPage?dwid='+dwid;
-	openWindow(false, 'cyry_import_win', url, null, {title:'导入任务列表', width:720, height:600});
+	window.top.openWindow(false, 'cyry_import_win', url, null, {title:'导入任务列表', width:720, height:600});
 	
 }
 

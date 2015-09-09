@@ -1,9 +1,5 @@
 package com.founder.qbld.service.impl;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -11,15 +7,9 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 import javax.xml.namespace.QName;
-
 import org.apache.axis2.addressing.EndpointReference;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.rpc.client.RPCServiceClient;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.RequestEntity;
-import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.founder.framework.base.entity.SessionBean;
@@ -152,7 +142,7 @@ public class LkyjzlServiceImpl extends BaseService implements LkyjzlService {
 				"<QSDWJGDM>" + StringUtils.nullToStr(entity.getQsdwjgdm()) + "</QSDWJGDM>" +
 				"</ROW>" +
 				"</DATAINFO>";
-			String url = "http://10.78.42.201:9010/lnga_service/service/IRecvLkzlyjczxxFromJzService";
+			String url = QbldUtil.WSURL + "/lnga_service/service/IRecvLkzlyjczxxFromJzService";
 			try{
 				RPCServiceClient client=new RPCServiceClient();
 				Options option=client.getOptions();
@@ -212,7 +202,7 @@ public class LkyjzlServiceImpl extends BaseService implements LkyjzlService {
 				"<CZCSXL>" + StringUtils.nullToStr(entity.getCzcsxl()) + "</CZCSXL>" +
 				"</ROW>" +
 				"</DATAINFO>";
-			String url = "http://10.78.42.201:9010/lnga_service/service/IRecvLkzlyjczxxFromJzService";
+			String url = QbldUtil.WSURL + "/lnga_service/service/IRecvLkzlyjczxxFromJzService";
 			try{
 				RPCServiceClient client=new RPCServiceClient();
 				Options option=client.getOptions();

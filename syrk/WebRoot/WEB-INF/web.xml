@@ -142,4 +142,72 @@
     <extension>js</extension>
     <mime-type>text/javascript</mime-type>
   </mime-mapping>
+  
+  <!-- 警情动态 begin -->
+   <servlet>
+    <servlet-name>showzzjgsevlet</servlet-name>
+    <servlet-class>com.founder.jzym.jwts.servlet.showzzjgsevlet</servlet-class>
+   </servlet>
+   <servlet-mapping>
+    <servlet-name>showzzjgsevlet</servlet-name>
+    <url-pattern>/showzzjgsevlet</url-pattern>
+  </servlet-mapping>
+  <!-- 警情动态 end -->
+  
+  <!-- ssyj -->
+    <servlet>
+    <servlet-name>SsyjSevlet</servlet-name>
+    <servlet-class>com.founder.xjpt.easymap.sevlet.SsyjSevlet</servlet-class>
+  </servlet>
+ <servlet>
+    <servlet-name>eachSevlet</servlet-name>
+    <servlet-class>com.founder.xjpt.easymap.sevlet.eachFJPCSjSevlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SsyjSevlet</servlet-name>
+    <url-pattern>/SsyjSevlet</url-pattern>
+  </servlet-mapping>
+       <servlet-mapping>
+    <servlet-name>eachSevlet</servlet-name>
+    <url-pattern>/eachSevlet</url-pattern>
+  </servlet-mapping>
+  <!-- ssyj -->
+  
+  <!-- hx -->
+  <servlet>
+    <servlet-name>xlySevlet</servlet-name>
+    <servlet-class>com.founder.xjpt.easymap.sevlet.XlySevlet</servlet-class>
+  </servlet>
+       <servlet>
+    <servlet-name>xlcSevlet</servlet-name>
+    <servlet-class>com.founder.xjpt.easymap.sevlet.XlcSevlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>xlySevlet</servlet-name>
+    <url-pattern>/xlySevlet</url-pattern>
+  </servlet-mapping>
+           <servlet-mapping>
+    <servlet-name>xlcSevlet</servlet-name>
+    <url-pattern>/xlcSevlet</url-pattern>
+  </servlet-mapping>
+  <!-- hx -->
+  <!-- alermAnalysis and patrolLine start add by wuw -->
+	<servlet>
+	    <servlet-name>SingleParamHotDotServlet</servlet-name>
+	    <servlet-class>com.founder.xjpt.com.founder.noreas.hotPoint.servlet.SingleParamHotDotServlet</servlet-class>
+	</servlet>
+	<servlet>
+	    <servlet-name>PatrolLineOpeServlet</servlet-name>
+	    <servlet-class>com.founder.xjpt.com.founder.noreas.alermAnalyse.servlet.PatrolLineServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+	    <servlet-name>SingleParamHotDotServlet</servlet-name>
+	    <url-pattern>/alermAnalyse_getHotPic</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	    <servlet-name>PatrolLineOpeServlet</servlet-name>
+	    <url-pattern>/alermAnalyse_patrolLineOpe</url-pattern>
+	</servlet-mapping>
+	<!-- alermAnalysis and patrolLine end add by wuw -->
 </web-app>

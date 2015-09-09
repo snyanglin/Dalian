@@ -33,7 +33,7 @@
 					    		<input type='hidden' name='fwjbxxb.fwdz_zbx' id="syfw_fwdz_zbx" value="${entity.fwdz_zbx}"/>
 				    		</td>
 							<td width="30%" class="dialogTd">
-								<input class="easyui-combobox" id="syfw_fwdz2" style="width:200px;" value="${fn:replace(entity.fwdz_dzxz, entity.fwdz_mlpxz, '')}" data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+								<input class="easyui-combobox" id="syfw_fwdz2" style="width:200px;" value='${fn:replace(entity.fwdz_dzxz, entity.fwdz_mlpxz, "")}' data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 						    	<input type='hidden' name='fwjbxxb.fwdz_dzid' id='syfw_dz_fwdzid' value="${entity.fwdz_dzid}" />
 						    	<input type='hidden' name='fwjbxxb.fwdz_xzqhdm' id='syfw_dz_fwdzxzqhdm' value="${entity.fwdz_xzqhdm}" />
 						    	<input type='hidden' name='fwjbxxb.fwdz_dzxz' id='syfw_dz_fwdzxz' value="${entity.fwdz_dzxz}" /> 
@@ -79,11 +79,10 @@
 							<td width="20%" class="dialogTd" align="right">是否出租房：</td>
 							<td width="30%" class="dialogTd">	
 								<input class="easyui-combobox" type="text" id="sfczfw" name="fwjbxxb.sfczfw" style="width:200px;" value="${entity.sfczfw}"
-								data-options="url:contextPath+'/common/dict/BD_D_SF.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'left'"/>
+								data-options="url:contextPath +'/common/dict/D_GG_SF.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'right'"/>
 							</td>
-							<td width="20%" class="dialogTd" align="right"></td>
-							<td width="30%" class="dialogTd">	
-							</td>						
+							
+													
 						</tr>
 						<tr class="dialogTr">
 							<td width="20%" class="dialogTd" align="right">所属单位：</td>
@@ -198,8 +197,9 @@
 				    	<tr class="czfwxx dialogTr">
 						    <td width="20%" class="dialogTd" align="right">与房主关系：</td>
 						    <td width="30%" class="dialogTd"><input class="easyui-combotree" type="text" id="czur_yfzgx_rygxdm" name="czfwxxb.czur_yfzgx_rygxdm" style="width:200px;" 
-									data-options="url: contextPath + '/common/dict/BD_D_RYGXDM.js',onlyLeaf:true,dataFilter:'',multiple:false,method:'get',editable:true,lines:true" />
+									data-options="url: contextPath + '/common/dict/XZ_D_RYGXDM.js',onlyLeaf:true,dataFilter:'',multiple:false,method:'get',editable:true,lines:true" />
 						    </td>
+						    
 				    	<tr>
 				    	<tr class="dialogTr">
 		    	      		<td width="20%" class="dialogTd" align="right" style="color: #FF0000;font-weight: bold;">房屋房主信息：</td>

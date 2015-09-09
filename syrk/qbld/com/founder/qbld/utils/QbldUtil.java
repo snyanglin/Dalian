@@ -46,6 +46,8 @@ public class QbldUtil {
 	//全国库url
 	public static final String URL = "http://10.78.17.238:9999/lbs";
 	
+	public static final String WSURL = "http://10.78.42.201:9010";
+	
 	/**
 	 * @Title: isOrg
 	 * @Description: TODO(判断组织机构后返回截取的字符串)

@@ -440,7 +440,7 @@ function checkRyxx(){
 		dataType:"json",
 		data:"zjhm="+$("#zjhm").val()+"&cyzjdm="+$("#zjlxdm").val(),
 		success:function(data){
-			if (data.entity!=null){
+			if (data.entity.id!=null&&data.entity.id!=""){
 				$("#xm").val(data.entity.xm);
 				$("#xbdm").combobox("setValue",data.entity.xbdm);
 				$("#cym").val(data.entity.cym);

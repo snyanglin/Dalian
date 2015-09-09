@@ -56,7 +56,7 @@
 							    	<td width="16%" class="dialogTd" align="right">单位类别：</td>
 							    	<td width="20%" class="dialogTd" >
 							    	    <input class="easyui-combotree" type="text" id="dwlbdm" name="dwjbxxb.dwlbdm" value="${dwjbxxb.dwlbdm}" style="width:150px;"
-										data-options="required:true,url: contextPath + '/common/dict/BD_D_DWLXDM.js',onlyLeaf:true,multiple:false,required:true,panelWidth:250,panelHeight:265,
+										data-options="required:true,url: contextPath + '/common/dict/BD_D_SDWLXDM.js',onlyLeaf:true,multiple:false,required:true,panelWidth:250,panelHeight:265,
 									    method:'get',editable:true,lines:true"/>
 									</td> 
 									<td width="16%" class="dialogTd" align="right">联系电话：</td>
@@ -76,7 +76,7 @@
 										<input type='hidden' name='dwjbxxb.dz_dwdzmlpxz' id="dz_dwdzmlpxz" value="${dwjbxxb.dz_dwdzmlpxz}"/>
 									</td>
 									<td width="16%" class="dialogTd">
-								    	<input class="easyui-combobox" id="jzd2"  style="width:150px;" value="${fn:replace(dwjbxxb.dz_dwdzxz, dwjbxxb.dz_dwdzmlpxz,'')}"
+								    	<input class="easyui-combobox" id="jzd2"  style="width:150px;" value='${fn:replace(dwjbxxb.dz_dwdzxz, dwjbxxb.dz_dwdzmlpxz, "")}' 
 								    	 	data-options="mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 								    	<input type='hidden' name='dwjbxxb.dz_dwdzdm' id='dz_dwdzdm' value="${dwjbxxb.dz_dwdzdm}" />
 								    	<input type='hidden' name='dwjbxxb.dz_dwdzssxdm' id='dz_dwdzssxdm' value="${dwjbxxb.dz_dwdzssxdm}" />
@@ -134,18 +134,19 @@
 						    	    	<input class="easyui-validatebox" type="text" id="dwjbxxb_jymj" name="dwjbxxb.jymj_mjpfm" value="${dwjbxxb.jymj_mjpfm}" style="width:150px;" 
 					    	 			data-options="validType:['numeric[\'f\',2]'],invalidMessage:'经营面积为两位小数的数字，请重新输入！',tipPosition:'right'" maxlength="9"/>
 					    	 		</td>
+					    	 		<!--  
 						    	    <td width="15%" class="dialogTd" align="right" title="例如：早09：00~晚21：30">营业时间：</td>
 						    	    <td width="20%" class="dialogTd">
 						    	    	<input class='easyui-validatebox' type='text' id='dwjbxxb_yysj' name='dwjbxxb.yysj' value="${dwjbxxb.yysj}" style="width:150px;"
 						    	        data-options="required:false" maxlength="200" title="例如：早09：00~晚21：30"/>
 						    	    </td>
+						    	    -->
 						    	</tr>
 				    	        <tr class="dialogTr">
 						    	    <td width="16%" class="dialogTd" align="right">经营范围（主营）：</td>
 						    	    <td width="55%" class="dialogTd" colspan="3">
 						    	      <textarea id="dwjbxxb_jyfwzy" name="dwjbxxb.jyfwzy" class="easyui-validatebox" rows="3" style="width:430px; height:32px;"
-									  	data-options="validType:['maxLength[200]'],invalidMessage:'经营范围（主营）不能超过200个汉字，请重新输入！',tipPosition:'right'">${dwjbxxb.jyfwzy}
-									  </textarea>
+									  	data-options="validType:['maxLength[200]'],invalidMessage:'经营范围（主营）不能超过200个汉字，请重新输入！',tipPosition:'right'">${dwjbxxb.jyfwzy}</textarea>
 									</td>
 				    	       </tr>
 				    	        <tr class="dialogTr">
@@ -171,9 +172,9 @@
 					    	  		<td width="16%" class="dialogTd" align="right">组织机构：</td>
 						    	    <td width="20%" class="dialogTd">
 							    		<input type="hidden" id="dwjbxxb_zzjgdm" name="dwjbxxb.zzjgdm" value="${dwjbxxb.zzjgdm}"/>
-							    		<input class="easyui-validatebox  inputreadonly" type="text" id="dwjbxxb_zzjgmc" name="dwjbxxb.zzjgmc" style="width:150px;" value="${dwjbxxb.zzjgmc}" maxlength="20" 
+							    		<input class="easyui-validatebox  inputreadonly" type="text" id="dwjbxxb_zzjgmc" name="dwjbxxb.zzjgmc" style="width:100px;" value="${dwjbxxb.zzjgmc}" maxlength="20" 
 							    		data-options="required:false,tipPosition:'right'" readonly="readonly"/>
-							    		<input type="button" id="orgbutton1" value="选择" onClick="public_singleSelectOrg('', '01', '32', '', 'dwjbxxb_zzjgdm', 'dwjbxxb_zzjgmc', '', false, false, '', window, '', '')" style="cursor:pointer; background:#EEF2F8 ;border:1px solid #082F4F;HEIGHT: 18px; WIDTH: 48px;font-family:宋体;font-size:9pt;" />
+							    		<input type="button" id="orgbutton1" value="选择" onClick="public_singleSelectOrg('', '01', '32', '', 'dwjbxxb_zzjgdm', 'dwjbxxb_zzjgmc', '', false, false, '', window, '', '')" style="cursor:pointer; background:#EEF2F8 ;border:1px solid #082F4F;HEIGHT: 20px; WIDTH: 45px;font-family:宋体;font-size:9pt;" />
 							    	</td>
 	    						    <td width="16%" class="dialogTd" align="right">核定容纳人数：</td>
 						    	    <td width="20%" class="dialogTd">

@@ -145,7 +145,7 @@ public class CkyjzlServiceImpl extends BaseService implements CkyjzlService {
 				"<SFSBST>" + StringUtils.nullToStr(entity.getQsdw_dm()) + "</SFSBST>" +
 				"</ROW>" +
 				"</DATAINFO>";
-			String url = "http://10.78.42.201:9010/lnga_service/service/IRecvYjzlQsFkFromJZService";
+			String url = QbldUtil.WSURL + "/lnga_service/service/IRecvYjzlQsFkFromJZService";
 			try{
 				RPCServiceClient client=new RPCServiceClient();
 				Options option=client.getOptions();
@@ -235,7 +235,7 @@ public class CkyjzlServiceImpl extends BaseService implements CkyjzlService {
 				"<TXRYQK_SF>" + StringUtils.nullToStr(entity.getTxryqk_sf()) + "</TXRYQK_SF>" +
 				"</ROW>" +
 				"</DATAINFO>";
-		String url = "http://10.78.42.201:9010/lnga_service/service/IRecvYjzlQsFkFromJZService";
+		String url = QbldUtil.WSURL + "/lnga_service/service/IRecvYjzlQsFkFromJZService";
 		try{
 			RPCServiceClient client=new RPCServiceClient();
 			Options option=client.getOptions();

@@ -120,7 +120,7 @@
 								</td>
 								<td width="30%" class="dialogTd">
 							    	<input class="easyui-combobox" style="width:200px;" 
-							    		   id="jbxx_dz_mhcombobox" value="${fn:replace(hd.jbxx.dz_hdddxz, hd.jbxx.dz_hdddmlpxz, '')}" 
+							    		   id="jbxx_dz_mhcombobox" value='${fn:replace(hd.jbxx.dz_hdddxz, hd.jbxx.dz_hdddmlpxz, "")}' 
 							    		   data-options="required:false
 							    		   				,mode:'remote'
 							    		   				,method:'post'
