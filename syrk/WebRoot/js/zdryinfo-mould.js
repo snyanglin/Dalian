@@ -140,104 +140,87 @@ function info_fjxx_(){
 	return sb.toString();
 }
 //帮教力量
+function info_bjllMenu_(){
+	var sb = new StringBuffer();
+	sb.append("<ul url='info_jkbjryxxb' level='2'><li class='uline' ><span>帮教力量信息</span>");
+	sb.append(refresh+"</li>");
+	sb.append("<input type='hidden' name='method2' value='jkbjryxxb' /><input type='hidden' name='editUrl' value='/zdryJkbjllxxb/queryDetail?={id}' /></ul>");
+	sb.append("<div class='clear'></div>");	
+	return sb.toString();
+}
+
 function info_jkbjryxxb_(){
 	var sb = new StringBuffer();
-	sb.append("<div style='height:290px;width:718px;'>");
-	sb.append("<ul url='info_jkbjryxxb' level='1'><input type='hidden' name='callback' value='info_jkbjryxxb__back' /><input type='hidden' name='method' /></ul>");
-	sb.append("<table id='jkbjryxxb_datagrid' class='easyui-datagrid'  border='1' style='height:200px;'>");
-	sb.append("</table>");
-	sb.append("</div>");
-	return sb.toString();	
-}
-function info_jkbjryxxb__back(){
-	$('#jkbjryxxb_datagrid').datagrid({
-		pagination:false,
-		fitColumns:true,
-		singleSelect:true,
-		rownumbers:true,
-		idField:'id',
-		url:contextPath+"/zdryJkbjllxxb/queryList",
-		queryParams:{"zdryid":$("#zdryId").val()},
-		columns:[[
-	    {title:'监控帮教类型',field:'jkbjlxdm',width:90,align:'center',fixed:true,formatter:function(value,rec){return window.top.getDictName(contextPath + '/common/dict/DL_D_JKBJLXDM.js', value)}},
-	    {title:'与重点人员关系',field:'jkbjry_ybbjr_rygx',width:100,align:'center',fixed:true,formatter:function(value,rec){return window.top.getDictName(contextPath + '/common/dict/ZA_D_SHGXDM.js', value)}},
-	    {title:'帮教人身份号码',field:'jkbjry_gmsfhm',width:120,align:'center',fixed:true},
-	    {title:'帮教人姓名',field:'jkbjry_xm',width:90,align:'center',fixed:true},
-	    {title:'帮教人性别',field:'jkbjry_xbdm',width:70,align:'center',fixed:true,formatter:function(value,rec){return window.top.getDictName(contextPath + '/common/dict/GB_D_XBDM.js', value)}},
-	    {title:'帮教人民族',field:'jkbjry_mzdm',width:70,align:'center',fixed:true,formatter:function(value,rec){return window.top.getDictName(contextPath + '/common/dict/GB_D_MZDM.js', value)}},
-	    {title:'帮教人政治面貌',field:'jkbjry_zzmmdm',width:100,align:'center',fixed:true,formatter:function(value,rec){return window.top.getDictName(contextPath + '/common/dict/GB_D_ZZMMDM.js', value)}},
-	    {title:'帮教人联系电话',field:'jkbjry_lxdh',width:100,align:'center',fixed:true},
-	    {title:'帮教人现住详址',field:'dz_jkbjry_xjzdzxz',width:100,align:'center',fixed:true},
-	    {title:'帮教人工作单位',field:'jkbjry_gzdwmc',width:100,align:'center',fixed:true},
-	    {title:'帮教人职务',field:'jkbjry_zwmc',width:80,align:'center',fixed:true}
-		]]
-	});
+	sb.append("<ul>");
+	sb.append("<li><span class='spantitle'>监控帮教类型：</span><span name='jkbjlxdm' dict='/common/dict/DL_D_JKBJLXDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>与重点人员关系：</span><span name='jkbjry_ybbjr_rygx' dict='/common/dict/ZA_D_SHGXDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>帮教人身份号码：</span><span name='jkbjry_gmsfhm' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>帮教人姓名：</span><span name='jkbjry_xm' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>帮教人性别：</span><span name='jkbjry_xbdm' dict='/common/dict/GB_D_XBDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>帮教人民族：</span><span name='jkbjry_mzdm' dict='/common/dict/GB_D_MZDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>帮教人政治面貌：</span><span name='jkbjry_zzmmdm' dict='/common/dict/GB_D_ZZMMDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>帮教人联系电话：</span><span name='jkbjry_lxdh' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>帮教人现住详址：</span><span name='dz_jkbjry_xjzdzxz' class='edit_word input_w1'></span></li>");
+	sb.append("<li><span class='spantitle'>帮教人工作单位：</span><span name='jkbjry_gzdwmc' class='edit_word input_w1'></span></li>");
+	sb.append("<li><span class='spantitle'>帮教人职务：</span><span name='jkbjry_zwmc' class='edit_word input_w2'></span></li>");
+	sb.append("<li class='uline2'></li>");
+	sb.append("<li class='uline2'><a class='delfw_btn ulrt_btn' href='javascript:void(0);'></a><a class='editfw_btn ulrt_btn' href='javascript:void(0);'></a></li>");
+	sb.append("<input type='hidden' name='id' />");
+	sb.append("</ul>");
+	return sb.toString();
 }
 
 //请销假登记
+function info_qxjdjbMenu_(){
+	var sb = new StringBuffer();
+	sb.append("<ul url='info_qxjdjb' level='2'><li class='uline' ><span>请销假登记信息</span>");
+	sb.append(refresh+"</li>");
+	sb.append("<input type='hidden' name='method2' value='qxjdjb' /><input type='hidden' name='editUrl' value='/zdryJgdxqxjdjb/queryDetail?={id}' /></ul>");
+	sb.append("<div class='clear'></div>");	
+	return sb.toString();
+}
 function info_qxjdjb_(){
 	var sb = new StringBuffer();
-	sb.append("<div style='height:290px;width:718px;'>");
-	sb.append("<ul url='info_qxjdjb' level='1'><input type='hidden' name='callback' value='info_qxjdjb__back' /><input type='hidden' name='method' /></ul>");
-	sb.append("<table id='qxjdjb_datagrid' class='easyui-datagrid'  border='1' style='height:200px;'>");
-	sb.append("</table>");
-	sb.append("</div>");
-	return sb.toString();		
-}
-function info_qxjdjb__back(){
-	$('#qxjdjb_datagrid').datagrid({
-		pagination:false,
-		fitColumns:true,
-		singleSelect:true,
-		rownumbers:true,
-		idField:'id',
-		url:contextPath+"/zdryJgdxqxjdjb/queryList",
-		queryParams:{"zdryid":$("#zdryId").val()},
-		columns:[[
-	    {title:'请假日期',field:'qjrq',width:80,align:'center',fixed:true},
-	    {title:'请假原因',field:'qjyy',width:100,align:'center',fixed:true},
-	    {title:'去往地',field:'qwxzqhdm',width:120,align:'center',fixed:true,formatter:function(value,rec){return window.top.getDictName(contextPath + '/common/dict/GB_D_XZQHDM.js', value)}},
-	    {title:'去往地详址',field:'qwxz',width:90,align:'center',fixed:true},
-	    {title:'预计返回日期',field:'yjfh_rq',width:90,align:'center',fixed:true},
-	    {title:'实际返回日期',field:'sjfh_rq',width:90,align:'center',fixed:true},
-	    {title:'销假日期',field:'xjrq',width:80,align:'center',fixed:true},
-	    {title:'审批人',field:'spr_xm',width:80,align:'center',fixed:true},
-	    {title:'审批时间',field:'spsj',width:80,align:'center',fixed:true},
-	    {title:'审批结果',field:'spjg',width:80,align:'center',fixed:true,formatter:function(value,rec){return window.top.getDictName(contextPath + '/common/dict/D_GG_SPJG.js', value)}},
-	    {title:'审批意见',field:'spyj',width:100,align:'center',fixed:true}
-		]]
-	});
+	sb.append("<ul>");
+	sb.append("<li><span class='spantitle'>请假日期：</span><span name='qjrq' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>请假原因：</span><span name='qjyy' class='edit_word input_w1'></span></li>");
+	sb.append("<li><span class='spantitle'>去往地：</span><span name='qwxzqhdm' dict='/common/dict/GB_D_XZQHDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>去往地详址：</span><span name='qwxz' class='edit_word input_w1'></span></li>");
+	sb.append("<li><span class='spantitle'>预计返回日期：</span><span name='yjfh_rq' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>实际返回日期：</span><span name='sjfh_rq' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>销假日期：</span><span name='xjrq' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>审批人：</span><span name='spr_xm' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>审批时间：</span><span name='spsj' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>审批结果：</span><span name='spjg'  dict='/common/dict/D_GG_SPJG'  class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>审批意见：</span><span name='spyj' class='edit_word input_w1'></span></li>");
+	sb.append("<li class='uline2'></li>");
+	sb.append("<li class='uline2'><a class='delfw_btn ulrt_btn' href='javascript:void(0);'></a><a class='editfw_btn ulrt_btn' href='javascript:void(0);'></a></li>");
+	sb.append("<input type='hidden' name='id' />");
+	sb.append("</ul>");
+	return sb.toString();	
 }
 
 //评审鉴定
+function info_psjdbMenu_(){
+	var sb = new StringBuffer();
+	sb.append("<ul url='info_psjdb' level='2'><li class='uline' ><span>评审鉴定信息</span>");
+	sb.append(refresh+"</li>");
+	sb.append("<input type='hidden' name='method2' value='psjdb' /><input type='hidden' name='editUrl' value='/zdryPsjdb/queryDetail?={id}' /></ul>");
+	sb.append("<div class='clear'></div>");	
+	return sb.toString();
+}
 function info_psjdb_(){
 	var sb = new StringBuffer();
-	sb.append("<div style='height:290px;width:718px;'>");
-	sb.append("<ul url='info_psjdb' level='1'><input type='hidden' name='callback' value='info_psjdb__back' /><input type='hidden' name='method' /></ul>");
-	sb.append("<table id='psjdb_datagrid' class='easyui-datagrid'  border='1' style='height:200px;'>");
-	sb.append("</table>");
-	sb.append("</div>");
+	sb.append("<ul>");
+	sb.append("<li><span class='spantitle'>评议时间：</span><span name='py_sj' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>评议地点：</span><span name='pydd' class='edit_word input_w1'></span></li>");
+	sb.append("<li><span class='spantitle'>参加人员：</span><span name='cjry' class='edit_word input_w1'></span></li>");
+	sb.append("<li><span class='spantitle'>内容纪要：</span><span name='nrjy' class='edit_word input_w1'></span></li>");
+	sb.append("<li class='uline2'></li>");
+	sb.append("<input type='hidden' name='id' />");
+	sb.append("</ul>");
 	return sb.toString();	
 }
-function info_psjdb__back(){
-	$('#psjdb_datagrid').datagrid({
-		pagination:false,
-		fitColumns:true,
-		singleSelect:true,
-		rownumbers:true,
-		idField:'id',
-		url:contextPath+"/zdryPsjdb/queryList",
-		queryParams:{"zdryid":$("#zdryId").val()},
-		columns:[[
-	    {title:'评议时间',field:'py_sj',width:80,align:'center',fixed:true},
-	    {title:'评议地点',field:'pydd',width:100,align:'center',fixed:true},
-	    {title:'参加人员',field:'cjry',width:200,align:'center',fixed:true},
-	    {title:'内容纪要',field:'nrjy',width:338,align:'center',fixed:true}
-		]]
-	});
-}
-
-
 
 
 

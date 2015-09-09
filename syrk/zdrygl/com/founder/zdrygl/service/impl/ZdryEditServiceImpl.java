@@ -32,7 +32,10 @@ import com.founder.zdrygl.bean.Zdrylxylbdyb;
 import com.founder.zdrygl.dao.ZdryEditDao;
 import com.founder.zdrygl.dao.ZdryFzcsfryxxbDao;
 import com.founder.zdrygl.dao.ZdryGzbDao;
+import com.founder.zdrygl.dao.ZdryJgdxqxjdjbDao;
 import com.founder.zdrygl.dao.ZdryJgdxxxbDao;
+import com.founder.zdrygl.dao.ZdryJkbjllxxbDao;
+import com.founder.zdrygl.dao.ZdryPsjdbDao;
 import com.founder.zdrygl.dao.ZdrySgafzdryxxbDao;
 import com.founder.zdrygl.dao.ZdryShbzdryxxbDao;
 import com.founder.zdrygl.dao.ZdrySqjzryxxbDao;
@@ -93,6 +96,12 @@ public class ZdryEditServiceImpl extends BaseService implements ZdryEditService 
 	private ZdryUntil zdryUntil;
 	@Resource(name = "zdryGzbDao")
 	private ZdryGzbDao zdryGzbDao;
+	@Resource(name = "zdryJkbjllxxbDao")
+	private ZdryJkbjllxxbDao zdryJkbjllxxbDao;
+	@Resource(name = "zdryJgdxqxjdjbDao")
+	private ZdryJgdxqxjdjbDao zdryJgdxqxjdjbDao;
+	@Resource(name = "zdryPsjdbDao")
+	private ZdryPsjdbDao zdryPsjdbDao;
 
 	@Resource(name = "zpfjFjxxbService")
 	private ZpfjFjxxbService zpfjFjxxbService;
@@ -215,7 +224,25 @@ public class ZdryEditServiceImpl extends BaseService implements ZdryEditService 
 		map.put("qydm", zdryUntil.querySYSConfig());
 		return zdryJgdxxxbDao.queryByMap(map);
 	}
+	
+	
+	@Override
+	public List jkbjryxxb_query (Map<String,Object> map){
+		map.put("maxNum", "10");
+		return zdryJkbjllxxbDao.queryViewList(map);
+	}
 
+	@Override
+	public List qxjdjb_query(Map<String, Object> map){
+		map.put("maxNum", "10");
+		return zdryJgdxqxjdjbDao.queryViewList(map);
+	}
+	
+	@Override
+	public List psjdb_query(Map<String, Object> map){
+		map.put("maxNum", "10");
+		return zdryPsjdbDao.queryViewList(map);
+	}
 	/**
 	 * 未调试，涉环保 可能不用
 	 */	

@@ -52,87 +52,6 @@ public class ZdryJkbjllxxbController extends BaseController {
 	}
 	
 	/**
-	 * @Title: queryList
-	 * @Description: TODO(查询列表数据)
-	 * @param @param page
-	 * @param @param rows
-	 * @param @param entity
-	 * @param @param sessionBean
-	 * @param @return 设定文件
-	 * @return EasyUIPage 返回类型
-	 * @throws
-	 */
-	@RequestMapping(value = "/queryList", method = RequestMethod.POST)
-	public @ResponseBody
-	EasyUIPage queryList(EasyUIPage page,
-			@RequestParam(value = "rows", required = false) Integer rows,
-			ZdryJkbjllxxb entity, SessionBean sessionBean) {
-		page.setPagePara(rows);
-		sessionBean = getSessionBean(sessionBean);
-		return zdryJkbjllxxbService.queryList(page, entity);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/**
-	 * @Title: query
-	 * @Description: TODO(查询列表页面)
-	 * @param @return 设定文件
-	 * @return ModelAndView 返回类型
-	 * @throws
-	 */
-	@RequestMapping(value = "/query", method = RequestMethod.GET)
-	public ModelAndView query() {
-		ModelAndView mv = new ModelAndView("zdry/zdryJkbjllxxbQuery");
-		return mv;
-	}
-
-	
-
-	
-
-	/**
-	 * @Title: edit
-	 * @Description: TODO(编辑页面)
-	 * @param @param id
-	 * @param @return
-	 * @param @throws BussinessException 设定文件
-	 * @return ModelAndView 返回类型
-	 * @throws
-	 */
-	@RestfulAnnotation(serverId = "3")
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ModelAndView edit(@PathVariable(value = "id") String id,
-			SessionBean sessionBean) throws BussinessException {
-		if (sessionBean != null
-				&& !StringUtils.isBlank(sessionBean.getUserName())) { // 服务调用
-			ModelAndView mv = new ModelAndView(getViewName(sessionBean));
-			ZdryJkbjllxxb entity = zdryJkbjllxxbService.queryById(id);
-			if (entity == null) {
-				throw new BussinessException("查询无数据！");
-			}
-			mv.addObject(AppConst.MESSAGES, new Gson().toJson(entity));
-			return mv;
-		} else {
-			ModelAndView mv = new ModelAndView("zdry/zdryJkbjllxxb");
-			ZdryJkbjllxxb entity = zdryJkbjllxxbService.queryById(id);
-			if (entity == null) {
-				throw new BussinessException("查询无数据！");
-			}
-			mv.addObject("entity", entity);
-			return mv;
-		}
-	}
-
-	/**
 	 * @Title: save
 	 * @Description: TODO(新增保存)
 	 * @param @param entity
@@ -161,7 +80,15 @@ public class ZdryJkbjllxxbController extends BaseController {
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));
 		return mv;
 	}
-
+	
+	
+	@RequestMapping(value = "/queryDetail", method = RequestMethod.GET)
+	public ModelAndView queryDetail(String id) {		
+		ModelAndView mv = new ModelAndView("zdrygl/edit/zdryJkbjllxxbInfo");
+		mv.addObject("entity",zdryJkbjllxxbService.queryById(id));
+		return mv;
+	}
+	
 	/**
 	 * @Title: update
 	 * @Description: TODO(修改保存)
@@ -191,6 +118,88 @@ public class ZdryJkbjllxxbController extends BaseController {
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));
 		return mv;
 	}
+	
+	
+	
+	
+	
+	
+	/**
+	 * @Title: queryList
+	 * @Description: TODO(查询列表数据)
+	 * @param @param page
+	 * @param @param rows
+	 * @param @param entity
+	 * @param @param sessionBean
+	 * @param @return 设定文件
+	 * @return EasyUIPage 返回类型
+	 * @throws
+	 *
+	@RequestMapping(value = "/queryList", method = RequestMethod.POST)
+	public @ResponseBody
+	EasyUIPage queryList(EasyUIPage page,
+			@RequestParam(value = "rows", required = false) Integer rows,
+			ZdryJkbjllxxb entity, SessionBean sessionBean) {
+		page.setPagePara(rows);
+		sessionBean = getSessionBean(sessionBean);
+		return zdryJkbjllxxbService.queryList(page, entity);
+	}
+	
+	
+	
+	/**
+	 * @Title: query
+	 * @Description: TODO(查询列表页面)
+	 * @param @return 设定文件
+	 * @return ModelAndView 返回类型
+	 * @throws
+	 *
+	@RequestMapping(value = "/query", method = RequestMethod.GET)
+	public ModelAndView query() {
+		ModelAndView mv = new ModelAndView("zdry/zdryJkbjllxxbQuery");
+		return mv;
+	}
+
+	
+
+	
+
+	/**
+	 * @Title: edit
+	 * @Description: TODO(编辑页面)
+	 * @param @param id
+	 * @param @return
+	 * @param @throws BussinessException 设定文件
+	 * @return ModelAndView 返回类型
+	 * @throws
+	 *
+	@RestfulAnnotation(serverId = "3")
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ModelAndView edit(@PathVariable(value = "id") String id,
+			SessionBean sessionBean) throws BussinessException {
+		if (sessionBean != null
+				&& !StringUtils.isBlank(sessionBean.getUserName())) { // 服务调用
+			ModelAndView mv = new ModelAndView(getViewName(sessionBean));
+			ZdryJkbjllxxb entity = zdryJkbjllxxbService.queryById(id);
+			if (entity == null) {
+				throw new BussinessException("查询无数据！");
+			}
+			mv.addObject(AppConst.MESSAGES, new Gson().toJson(entity));
+			return mv;
+		} else {
+			ModelAndView mv = new ModelAndView("zdry/zdryJkbjllxxb");
+			ZdryJkbjllxxb entity = zdryJkbjllxxbService.queryById(id);
+			if (entity == null) {
+				throw new BussinessException("查询无数据！");
+			}
+			mv.addObject("entity", entity);
+			return mv;
+		}
+	}
+
+	
+
+	
 
 	/**
 	 * @Title: delete
@@ -200,7 +209,7 @@ public class ZdryJkbjllxxbController extends BaseController {
 	 * @param @return 设定文件
 	 * @return ModelAndView 返回类型
 	 * @throws
-	 */
+	 *
 	@RestfulAnnotation(valiField = "id", serverId = "3")
 	@RequestMapping(value = "/{id}", method = { RequestMethod.DELETE })
 	public ModelAndView delete(ZdryJkbjllxxb entity, SessionBean sessionBean) {
@@ -229,12 +238,12 @@ public class ZdryJkbjllxxbController extends BaseController {
 	 * @param @return 设定文件
 	 * @return String 返回类型
 	 * @throws
-	 */
+	 *
 	@RequestMapping(value = "/existBjry", method = RequestMethod.POST)
 	public @ResponseBody
 	String existBjry(ZdryJkbjllxxb entity, SessionBean sessionBean) {
 		boolean isExist = zdryJkbjllxxbService.existBjry(entity);
 		return "" + isExist;
 	}
-
+	*/
 }

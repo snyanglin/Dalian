@@ -31,6 +31,7 @@ public class ZdryJkbjllxxbDao extends BaseDaoImpl {
 		insert("ZdryJkbjllxxb.save", entity);
 	}
 	
+	/*
 	public EasyUIPage queryList(EasyUIPage page, ZdryJkbjllxxb entity) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("begin", page.getBegin());
@@ -51,43 +52,22 @@ public class ZdryJkbjllxxbDao extends BaseDaoImpl {
 		page.setRows(queryForList("ZdryJkbjllxxb.queryList", map));
 		return page;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	*/
+			
+	/**
+	 * 
+	 * @Title: queryViewList
+	 * @Description: TODO(查询下方菜单显示的信息，有最大条数限制)
+	 * @param @param map
+	 * @param @return    设定文件
+	 * @return List<ZdryJkbjllxxb>    返回类型
+	 * @throws
+	 */
 	public List<ZdryJkbjllxxb> queryViewList(Map<String, Object> map) {
 		List<ZdryJkbjllxxb> list = null;
 		if (map != null) {
 			String zdryid = (String) map.get("zdryid");
-			if (!StringUtils.isBlank(zdryid)) {
+			if (!StringUtils.isBlank(zdryid)) {				
 				list = queryForList("ZdryJkbjllxxb.queryViewList", map);
 			}
 		}
@@ -132,7 +112,7 @@ public class ZdryJkbjllxxbDao extends BaseDaoImpl {
 	 * 删除<br>
 	 * 
 	 * @param entity
-	 */
+	 *
 	public void delete(ZdryJkbjllxxb entity, SessionBean sessionBean) {
 		update("ZdryJkbjllxxb.delete", entity);
 	}
@@ -144,7 +124,7 @@ public class ZdryJkbjllxxbDao extends BaseDaoImpl {
 	 * @param @return 设定文件
 	 * @return ZdryJkbjllxxb 返回类型
 	 * @throws
-	 */
+	 *
 	public boolean existBjry(ZdryJkbjllxxb entity) {
 		boolean returnValue = false;
 		Integer count = (Integer) queryForObject("ZdryJkbjllxxb.existBjry",
@@ -156,5 +136,5 @@ public class ZdryJkbjllxxbDao extends BaseDaoImpl {
 		}
 		return returnValue;
 	}
-
+*/
 }

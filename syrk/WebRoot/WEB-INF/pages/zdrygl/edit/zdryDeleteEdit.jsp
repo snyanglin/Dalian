@@ -9,7 +9,7 @@
 </head>
 
 <div class="easyui-layout" data-options="fit:true">
-    <form action="<%=basePath%>zdry/calcle_xxzsnrb" id="dataForm" name="dataForm" method="post">
+    <form action="<%=basePath%>zdryEdit/calcle_xxzsnrb" id="dataForm" name="dataForm" method="post">
     	
     	<input type='hidden' name='id'  value="${id}" />
     	<input type="hidden" name="url" value="${url}" />

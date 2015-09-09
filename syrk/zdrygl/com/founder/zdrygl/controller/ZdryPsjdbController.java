@@ -34,6 +34,15 @@ public class ZdryPsjdbController extends BaseController {
 	@Resource(name = "zdryPsjdbService")
 	private ZdryPsjdbService zdryPsjdbService;
 
+	/**
+	 * 
+	 * @Title: add
+	 * @Description: TODO(评审鉴定 新增 页面)
+	 * @param @param id
+	 * @param @return    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throws
+	 */
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView add(String id) {
 		ModelAndView mv = new ModelAndView("zdrygl/edit/zdryPsjdb");
@@ -43,6 +52,16 @@ public class ZdryPsjdbController extends BaseController {
 		return mv;
 	}
 	
+	/**
+	 * 
+	 * @Title: save
+	 * @Description: TODO(评审鉴定 保存请求)
+	 * @param @param entity
+	 * @param @param sessionBean
+	 * @param @return    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throws
+	 */
 	@RestfulAnnotation(valiField = "zdryid,py_sj,pydd,cjry,nrjy", serverId = "3")
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ModelAndView save(ZdryPsjdb entity, SessionBean sessionBean) {
@@ -64,6 +83,69 @@ public class ZdryPsjdbController extends BaseController {
 		return mv;
 	}
 	
+	/**
+	 * 
+	 * @Title: queryDetail
+	 * @Description: TODO(评审鉴定 详情查询)
+	 * @param @param id
+	 * @param @return    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throws
+	 */
+	@RequestMapping(value = "/queryDetail", method = RequestMethod.GET)
+	public ModelAndView queryDetail(String id) {		
+		ModelAndView mv = new ModelAndView("zdrygl/edit/zdryPsjdbInfo");
+		mv.addObject("entity",zdryPsjdbService.queryById(id));
+		return mv;
+	}
+	
+	/**
+	 * 
+	 * @Title: update
+	 * @Description: TODO(评审鉴定 修改)
+	 * @param @param entity
+	 * @param @param sessionBean
+	 * @param @return    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throws
+	 */
+	@RestfulAnnotation(valiField = "id,zdryid,py_sj,pydd,cjry,nrjy", serverId = "3")
+	@RequestMapping(value = "/{id}", method = { RequestMethod.POST,
+			RequestMethod.PUT })
+	public ModelAndView update(ZdryPsjdb entity, SessionBean sessionBean) {
+		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
+		Map<String, Object> map = new HashMap<String, Object>();
+		sessionBean = getSessionBean(sessionBean);
+		try {
+			zdryPsjdbService.update(entity, sessionBean);
+			map.put(AppConst.STATUS, AppConst.SUCCESS);
+			map.put(AppConst.MESSAGES, getUpdateSuccess());
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+			map.put(AppConst.STATUS, AppConst.FAIL);
+			map.put(AppConst.MESSAGES, getUpdateFail());
+		}
+		mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));
+		return mv;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	
+	
+	
 	@RequestMapping(value = "/queryList", method = RequestMethod.POST)
 	public @ResponseBody
 	EasyUIPage queryList(EasyUIPage page,
@@ -73,66 +155,15 @@ public class ZdryPsjdbController extends BaseController {
 		sessionBean = getSessionBean(sessionBean);
 		return zdryPsjdbService.queryList(page, entity);
 	}
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/**
-	 * @Title: query
-	 * @Description: TODO(查询列表页面)
-	 * @param @return 设定文件
-	 * @return ModelAndView 返回类型
-	 * @throws
-	 */
 	@RequestMapping(value = "/query", method = RequestMethod.GET)
 	public ModelAndView query() {
 		ModelAndView mv = new ModelAndView("zdry/zdryPsjdbQuery");
 		return mv;
 	}
 
-	/**
-	 * @Title: queryList
-	 * @Description: TODO(查询列表数据)
-	 * @param @param page
-	 * @param @param rows
-	 * @param @param entity
-	 * @param @param sessionBean
-	 * @param @return 设定文件
-	 * @return EasyUIPage 返回类型
-	 * @throws
-	 */
 	
-
-
-
-	/**
-	 * @Title: edit
-	 * @Description: TODO(编辑页面)
-	 * @param @param id
-	 * @param @return
-	 * @param @throws BussinessException 设定文件
-	 * @return ModelAndView 返回类型
-	 * @throws
-	 */
 	@RestfulAnnotation(serverId = "3")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ModelAndView edit(@PathVariable(value = "id") String id,
@@ -159,45 +190,9 @@ public class ZdryPsjdbController extends BaseController {
 
 
 
-	/**
-	 * @Title: update
-	 * @Description: TODO(修改保存)
-	 * @param @param entity
-	 * @param @param sessionBean
-	 * @param @return 设定文件
-	 * @return ModelAndView 返回类型
-	 * @throws
-	 */
-	@RestfulAnnotation(valiField = "id,zdryid,py_sj,pydd,cjry,nrjy", serverId = "3")
-	@RequestMapping(value = "/{id}", method = { RequestMethod.POST,
-			RequestMethod.PUT })
-	public ModelAndView update(ZdryPsjdb entity, SessionBean sessionBean) {
-		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
-		Map<String, Object> map = new HashMap<String, Object>();
-		sessionBean = getSessionBean(sessionBean);
-		try {
-			zdryPsjdbService.update(entity, sessionBean);
-			map.put(AppConst.STATUS, AppConst.SUCCESS);
-			map.put(AppConst.MESSAGES, getUpdateSuccess());
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage(), e);
-			map.put(AppConst.STATUS, AppConst.FAIL);
-			map.put(AppConst.MESSAGES, getUpdateFail());
-		}
-		mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));
-		return mv;
-	}
+	
 
-	/**
-	 * @Title: delete
-	 * @Description: TODO(注销保存)
-	 * @param @param entity
-	 * @param @param sessionBean
-	 * @param @return 设定文件
-	 * @return ModelAndView 返回类型
-	 * @throws
-	 */
+	
 	@RestfulAnnotation(valiField = "id", serverId = "3")
 	@RequestMapping(value = "/{id}", method = { RequestMethod.DELETE })
 	public ModelAndView delete(ZdryPsjdb entity, SessionBean sessionBean) {
@@ -217,5 +212,5 @@ public class ZdryPsjdbController extends BaseController {
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));
 		return mv;
 	}
-
+*/
 }

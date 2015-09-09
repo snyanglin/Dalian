@@ -47,14 +47,14 @@ public class ZdryPsjdbServiceImpl implements ZdryPsjdbService {
 	@Resource(name = "zdryZdryzbService")
 	private ZdryZdryzbService zdryZdryzbService;
 
-	@Resource(name = "zdryGlpzpzbService")
-	private ZdryGlpzpzbService zdryGlpzpzbService;
+	//@Resource(name = "zdryGlpzpzbService")
+	//private ZdryGlpzpzbService zdryGlpzpzbService;
 
-	@Resource(name = "sysMessageDao")
-	private SysMessageDao sysMessageDao;
+	//@Resource(name = "sysMessageDao")
+	//private SysMessageDao sysMessageDao;
 
-	@Resource(name = "sysDictGlService")
-	private SysDictGlService sysDictGlService;
+	//@Resource(name = "sysDictGlService")
+	//private SysDictGlService sysDictGlService;
 
 	/**
 	 * 查询列表<br>
@@ -62,11 +62,11 @@ public class ZdryPsjdbServiceImpl implements ZdryPsjdbService {
 	 * @param page
 	 * @param entity
 	 * @return
-	 */
+	 *
 	public EasyUIPage queryList(EasyUIPage page, ZdryPsjdb entity) {
 		return zdryPsjdbDao.queryList(page, entity);
 	}
-
+*/
 	/**
 	 * @Title: queryById
 	 * @Description: TODO(根据ID查询单条记录)
@@ -75,27 +75,21 @@ public class ZdryPsjdbServiceImpl implements ZdryPsjdbService {
 	 * @return ZdryPsjdb 返回类型
 	 * @throws
 	 */
+	@Override
 	public ZdryPsjdb queryById(String id) {
 		return zdryPsjdbDao.queryById(id);
 	}
 
-	/**
-	 * 新增<br>
-	 * 
-	 * @param entity
-	 */
+	
+	@Override
 	public void save(ZdryPsjdb entity, SessionBean sessionBean) {
 		entity.setId(UUID.create()); // 生成主键
 		BaseService.setSaveProperties(entity, sessionBean);
 		zdryPsjdbDao.save(entity, sessionBean);
-		sendMessage(entity, sessionBean);
+		//sendMessage(entity, sessionBean);
 	}
 
-	/**
-	 * 更新<br>
-	 * 
-	 * @param entity
-	 */
+	@Override
 	public void update(ZdryPsjdb entity, SessionBean sessionBean) {
 		BaseService.setUpdateProperties(entity, sessionBean);
 		zdryPsjdbDao.update(entity, sessionBean);
@@ -105,7 +99,7 @@ public class ZdryPsjdbServiceImpl implements ZdryPsjdbService {
 	 * 删除<br>
 	 * 
 	 * @param entity
-	 */
+	 *
 	public void delete(ZdryPsjdb entity, SessionBean sessionBean) {
 		BaseService.setCrossoutProperties(entity, sessionBean);
 		zdryPsjdbDao.delete(entity, sessionBean);
@@ -115,7 +109,7 @@ public class ZdryPsjdbServiceImpl implements ZdryPsjdbService {
 	 * 删除批量<br>
 	 * 
 	 * @param entity
-	 */
+	 *
 	public void deletePatch(ZdryPsjdb[] entityArray, SessionBean sessionBean) {
 		for (int i = 0; i < entityArray.length; i++) {
 			BaseService.setCrossoutProperties(entityArray[i], sessionBean);
@@ -130,7 +124,7 @@ public class ZdryPsjdbServiceImpl implements ZdryPsjdbService {
 	 * @param @param sessionBean 设定文件
 	 * @return void 返回类型
 	 * @throws
-	 */
+	 *
 	public void sendMessage(ZdryPsjdb entity, SessionBean sessionBean) {
 		if (entity != null) {
 			ZdryZdryzb zdryZdryzb = zdryZdryzbService.queryById(entity
@@ -175,5 +169,5 @@ public class ZdryPsjdbServiceImpl implements ZdryPsjdbService {
 			}
 		}
 	}
-
+*/
 }

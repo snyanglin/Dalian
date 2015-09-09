@@ -45,9 +45,9 @@ public class ZdryJkbjllxxbServiceImpl implements ZdryJkbjllxxbService {
 	 * @param entity
 	 * @return
 	 */
-	public EasyUIPage queryList(EasyUIPage page, ZdryJkbjllxxb entity) {
-		return zdryJkbjllxxbDao.queryList(page, entity);
-	}
+//	public EasyUIPage queryList(EasyUIPage page, ZdryJkbjllxxb entity) {
+//		return zdryJkbjllxxbDao.queryList(page, entity);
+//	}
 
 	/**
 	 * @Title: queryById
@@ -57,6 +57,7 @@ public class ZdryJkbjllxxbServiceImpl implements ZdryJkbjllxxbService {
 	 * @return ZdryJkbjllxxb 返回类型
 	 * @throws
 	 */
+	@Override
 	public ZdryJkbjllxxb queryById(String id) {
 		return zdryJkbjllxxbDao.queryById(id);
 	}
@@ -66,6 +67,7 @@ public class ZdryJkbjllxxbServiceImpl implements ZdryJkbjllxxbService {
 	 * 
 	 * @param entity
 	 */
+	@Override
 	public void save(ZdryJkbjllxxb entity, SessionBean sessionBean) {
 		entity.setId(UUID.create()); // 生成主键
 		BaseService.setSaveProperties(entity, sessionBean);
@@ -77,6 +79,7 @@ public class ZdryJkbjllxxbServiceImpl implements ZdryJkbjllxxbService {
 	 * 
 	 * @param entity
 	 */
+	@Override
 	public void update(ZdryJkbjllxxb entity, SessionBean sessionBean) {
 		BaseService.setUpdateProperties(entity, sessionBean);
 		zdryJkbjllxxbDao.update(entity, sessionBean);
@@ -87,22 +90,22 @@ public class ZdryJkbjllxxbServiceImpl implements ZdryJkbjllxxbService {
 	 * 
 	 * @param entity
 	 */
-	public void delete(ZdryJkbjllxxb entity, SessionBean sessionBean) {
-		BaseService.setCrossoutProperties(entity, sessionBean);
-		zdryJkbjllxxbDao.delete(entity, sessionBean);
-	}
+//	public void delete(ZdryJkbjllxxb entity, SessionBean sessionBean) {
+//		BaseService.setCrossoutProperties(entity, sessionBean);
+//		zdryJkbjllxxbDao.delete(entity, sessionBean);
+//	}
 
 	/**
 	 * 删除批量<br>
 	 * 
 	 * @param entity
 	 */
-	public void deletePatch(ZdryJkbjllxxb[] entityArray, SessionBean sessionBean) {
-		for (int i = 0; i < entityArray.length; i++) {
-			BaseService.setCrossoutProperties(entityArray[i], sessionBean);
-			zdryJkbjllxxbDao.delete(entityArray[i], sessionBean);
-		}
-	}
+//	public void deletePatch(ZdryJkbjllxxb[] entityArray, SessionBean sessionBean) {
+//		for (int i = 0; i < entityArray.length; i++) {
+//			BaseService.setCrossoutProperties(entityArray[i], sessionBean);
+//			zdryJkbjllxxbDao.delete(entityArray[i], sessionBean);
+//		}
+//	}
 
 	/**
 	 * @Title: queryBjryIsExist
@@ -112,9 +115,9 @@ public class ZdryJkbjllxxbServiceImpl implements ZdryJkbjllxxbService {
 	 * @return ZdryJkbjllxxb 返回类型
 	 * @throws
 	 */
-	public boolean existBjry(ZdryJkbjllxxb entity) {
-		return zdryJkbjllxxbDao.existBjry(entity);
-	}
+//	public boolean existBjry(ZdryJkbjllxxb entity) {
+//		return zdryJkbjllxxbDao.existBjry(entity);
+//	}
 	
 	/**
 	 * 
@@ -124,6 +127,7 @@ public class ZdryJkbjllxxbServiceImpl implements ZdryJkbjllxxbService {
 	 * @return void    返回类型
 	 * @throws
 	 */
+	@Override
 	public void saveFirst(String zdryId){
 		ZdryZdryzb zdryZdryzb=(ZdryZdryzb) zdryZdryzbDao.queryById(zdryId);		
 		

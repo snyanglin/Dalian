@@ -10,23 +10,11 @@
 
 <body>
 
-    <form action="" id="dataForm" name="dataForm" method="post">
-	    
-	    <input type="hidden" id="_method" name="_method" value=""/>
-	    <input type='hidden' name='id' id="pk" value="${entity.id}" />
-	    <input type="hidden" id="zdryid" name="zdryid" value="${entity.zdryid}" />
+    <form action="<%=basePath%>zdryJgdxqxjdjb/update" id="dataForm" name="dataForm" method="post">
+	    	    
+	    <input type='hidden' name='id' id="id" value="${entity.id}" />	    
 
-	    <table border="0" cellpadding="0" cellspacing="10" width="846" align="left">
-			<tr class="dialogTr">
-	    		<td width="20%" class="dialogTd" align="right">重点人员姓名：</td>
-		    	<td width="30%" class="dialogTd">
-		    	<input class="easyui-validatebox inputreadonly" type="text" id="xm" style="width:200px;" readonly="readonly"/>
-		    	</td>
-		    	<td width="20%" class="dialogTd" align="right">重点人员身份号码：</td>
-		    	<td width="30%" class="dialogTd">
-		    	<input class="easyui-validatebox inputreadonly" type="text" id="sfzh" style="width:200px;" readonly="readonly"/>
-		    	</td>
-	    	</tr>
+	    <table border="0" cellpadding="0" cellspacing="10" width="846" align="left">			
 	 		<tr class="dialogTr">
 			  	<td width="20%" class="dialogTd" align="right">请假原因：</td>
 			  	<td width="80%" class="dialogTd" colspan="3"><textarea name="qjyy" id="qjyy" class="easyui-validatebox" style="width: 618px; height:48px;"
@@ -68,7 +56,7 @@
 	    	<tr class="dialogTr">
 	    		<td width="20%" class="dialogTd" align="right">请假审批结果：</td>
 			    <td width="80%" class="dialogTd" colspan="3">
-			   		<input class="easyui-combobox" type="text" id="spjg" name="spjg" style="width:200px;" value="${entity.spjg}"
+			   		<input class="easyui-combobox inputreadonly" type="text" id="spjg" name="spjg" style="width:200px;" value="${entity.spjg}" readonly="readonly"
 					data-options="url: contextPath + '/common/dict/D_GG_SPJG.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'right'"/>
 					<span id="spjgSpan"></span>
 			    </td>
@@ -76,24 +64,25 @@
 		    <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">请假审批意见：</td>
 		    	<td width="80%" class="dialogTd" colspan="3">
-		    		<input class="easyui-validatebox" type="text" id="spyj" name="spyj" style="width: 618px;" value="${entity.spyj}" data-options="required:false,validType:['maxLength[100]','unnormal'],tipPosition:'left'"/>
+		    		<input class="easyui-validatebox inputreadonly" type="text" id="spyj" name="spyj" style="width: 618px;" value="${entity.spyj}"  readonly="readonly"
+		    		data-options="required:false,validType:['maxLength[100]','unnormal'],tipPosition:'left'"/>
 		    	</td>
 		   	</tr>
 		   	<td width="20%" class="dialogTd" align="right">请假审批日期：</td>
 		    	<td width="30%" class="dialogTd">
-		    		<input class="easyui-validatebox" type="text" name="spsj" id="spsj" style="width: 200px;" value="${entity.spsj}"/>
+		    		<input class="easyui-validatebox inputreadonly" type="text" name="spsj" id="spsj" style="width: 200px;" value="${entity.spsj}" readonly="readonly" />
 		    	</td>
 		    	<td width="20%" class="dialogTd" align="right">请假审批人：</td>
 		    	<td width="30%" class="dialogTd">
-		    		<input class="easyui-validatebox" type="text" name="spr_xm" id="spr_xm" style="width: 200px;" maxlength="20" value="${entity.spr_xm}"/>
+		    		<input class="easyui-validatebox inputreadonly" type="text" name="spr_xm" id="spr_xm" style="width: 200px;" maxlength="20" value="${entity.spr_xm}" readonly="readonly"/>
 					<input type="hidden" name="spr_id" id="spr_id" value="${entity.spr_id}"/>
 				</td>
 		    </tr>
 		    <tr class="dialogTr">
 	    		<td width="20%" class="dialogTd" align="right">实际返回日期：</td>
-			    <td width="30%" class="dialogTd"><input type="text" name="sjfh_rq" id="sjfh_rq" class="easyui-validatebox"  style="width: 200px;"/></td>
+			    <td width="30%" class="dialogTd"><input type="text" name="sjfh_rq" id="sjfh_rq" class="easyui-validatebox inputreadonly"  style="width: 200px;" readonly="readonly"/></td>
 			   	<td width="20%" class="dialogTd" align="right">销假日期：</td>
-			    <td width="30%" class="dialogTd"><input type="text" name="xjrq" id="xjrq" class="easyui-validatebox" style="width: 200px;"/></td>
+			    <td width="30%" class="dialogTd"><input type="text" name="xjrq" id="xjrq" class="easyui-validatebox inputreadonly" style="width: 200px;" readonly="readonly"/></td>
 	    	</tr>
 	    </table>
 	    
@@ -104,32 +93,16 @@
 <script type="text/javascript">
 
 function doInit(paramArray) {
-	$('#sfzh').val(paramArray["sfzh"]);
-	$('#xm').val(paramArray["xm"]);
-
 	initComboBox('qwxzqhdm', contextPath + '/common/dict/GB_D_XZQHDMLIST.js'); 
-	
 	setInputReadonly('spjg',true);
-	setInputReadonly('spsj',true);
-	setInputReadonly('spr_xm',true);
-	setInputReadonly('spyj',true);
-	setInputReadonly('sjfh_rq',true);
-	setInputReadonly('xjrq',true);
 }
 
 function beforeSubmit() {
-	if ($("#pk").val() == "") {
-		$("#_method").val('');
-		$("#dataForm").attr('action', contextPath + '/zdryJgdxqxjdjb/save');
-	}
-	else {
-		$("#_method").val('PUT');
-		$("#dataForm").attr('action', contextPath + '/zdryJgdxqxjdjb/' + $("#pk").val());
-	}
+	
 }
 
 function afterSubmit(arr) {
-	parent.location.reload();
+	
 }
 
 </script>

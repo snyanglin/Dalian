@@ -34,7 +34,7 @@ public class ZdryPsjdbDao extends BaseDaoImpl {
 	 * @param page
 	 * @param entity
 	 * @return
-	 */
+	 *
 	public EasyUIPage queryList(EasyUIPage page, ZdryPsjdb entity) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("begin", page.getBegin());
@@ -54,13 +54,16 @@ public class ZdryPsjdbDao extends BaseDaoImpl {
 		page.setRows(queryForList("ZdryPsjdb.queryList", map));
 		return page;
 	}
+	*/
 
 	/**
-	 * 查询列表<br>
 	 * 
-	 * @param page
-	 * @param entity
-	 * @return
+	 * @Title: queryViewList
+	 * @Description: TODO(查询下方菜单显示的信息，有最大条数限制)
+	 * @param @param map
+	 * @param @return    设定文件
+	 * @return List<ZdryPsjdb>    返回类型
+	 * @throws
 	 */
 	public List<ZdryPsjdb> queryViewList(Map<String, Object> map) {
 		List<ZdryPsjdb> list = null;
@@ -111,9 +114,9 @@ public class ZdryPsjdbDao extends BaseDaoImpl {
 	 * 删除<br>
 	 * 
 	 * @param entity
-	 */
+	 *
 	public void delete(ZdryPsjdb entity, SessionBean sessionBean) {
 		update("ZdryPsjdb.delete", entity);
 	}
-
+*/
 }

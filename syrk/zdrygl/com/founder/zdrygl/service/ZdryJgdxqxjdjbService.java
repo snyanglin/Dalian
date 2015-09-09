@@ -29,7 +29,7 @@ public interface ZdryJgdxqxjdjbService {
 	 * @param entity
 	 * @return
 	 */
-	public EasyUIPage queryList(EasyUIPage page, ZdryJgdxqxjdjb entity);
+	//public EasyUIPage queryList(EasyUIPage page, ZdryJgdxqxjdjb entity);
 
 	/**
 	 * @Title: queryById
@@ -62,25 +62,25 @@ public interface ZdryJgdxqxjdjbService {
 	 * 
 	 * @param entity
 	 */
-	@MethodAnnotation(value = "更新审批", type = logType.update)
-	public void updateSp(ZdryJgdxqxjdjb entity, SessionBean sessionBean);
+	//@MethodAnnotation(value = "更新审批", type = logType.update)
+	//public void updateSp(ZdryJgdxqxjdjb entity, SessionBean sessionBean);
 
 	/**
 	 * 删除<br>
 	 * 
 	 * @param entity
 	 */
-	@MethodAnnotation(value = "注销", type = logType.delete)
-	public void delete(ZdryJgdxqxjdjb entity, SessionBean sessionBean);
+	//@MethodAnnotation(value = "注销", type = logType.delete)
+	//public void delete(ZdryJgdxqxjdjb entity, SessionBean sessionBean);
 
 	/**
 	 * 删除批量<br>
 	 * 
 	 * @param entity
 	 */
-	@MethodAnnotation(value = "注销批量", type = logType.delete)
-	public void deletePatch(ZdryJgdxqxjdjb[] entityArray,
-			SessionBean sessionBean);
+//	@MethodAnnotation(value = "注销批量", type = logType.delete)
+//	public void deletePatch(ZdryJgdxqxjdjb[] entityArray,
+//			SessionBean sessionBean);
 
 	/**
 	 * @Title: sendMessage
@@ -90,7 +90,7 @@ public interface ZdryJgdxqxjdjbService {
 	 * @return void 返回类型
 	 * @throws
 	 */
-	public void sendQjMessage(ZdryJgdxqxjdjb entity, SessionBean sessionBean);
+	//public void sendQjMessage(ZdryJgdxqxjdjb entity, SessionBean sessionBean);
 
 	/**
 	 * @Title: sendMessage
@@ -100,7 +100,7 @@ public interface ZdryJgdxqxjdjbService {
 	 * @return void 返回类型
 	 * @throws
 	 */
-	public void sendQjspMessage(ZdryJgdxqxjdjb entity, SessionBean sessionBean);
+	//public void sendQjspMessage(ZdryJgdxqxjdjb entity, SessionBean sessionBean);
 
 	/**
 	 * @Title: sendMessage
@@ -110,6 +110,6 @@ public interface ZdryJgdxqxjdjbService {
 	 * @return void 返回类型
 	 * @throws
 	 */
-	public void sendXjMessage(ZdryJgdxqxjdjb entity, SessionBean sessionBean);
+	//public void sendXjMessage(ZdryJgdxqxjdjb entity, SessionBean sessionBean);
 
 }

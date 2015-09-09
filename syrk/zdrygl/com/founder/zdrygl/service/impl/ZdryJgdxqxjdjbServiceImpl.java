@@ -53,9 +53,9 @@ public class ZdryJgdxqxjdjbServiceImpl implements ZdryJgdxqxjdjbService {
 	 * @param entity
 	 * @return
 	 */
-	public EasyUIPage queryList(EasyUIPage page, ZdryJgdxqxjdjb entity) {
-		return zdryJgdxqxjdjbDao.queryList(page, entity);
-	}
+//	public EasyUIPage queryList(EasyUIPage page, ZdryJgdxqxjdjb entity) {
+//		return zdryJgdxqxjdjbDao.queryList(page, entity);
+//	}
 
 	/**
 	 * @Title: queryById
@@ -65,6 +65,7 @@ public class ZdryJgdxqxjdjbServiceImpl implements ZdryJgdxqxjdjbService {
 	 * @return ZdryJgdxqxjdjb 返回类型
 	 * @throws
 	 */
+	@Override
 	public ZdryJgdxqxjdjb queryById(String id) {
 		return zdryJgdxqxjdjbDao.queryById(id);
 	}
@@ -74,11 +75,12 @@ public class ZdryJgdxqxjdjbServiceImpl implements ZdryJgdxqxjdjbService {
 	 * 
 	 * @param entity
 	 */
+	@Override
 	public void save(ZdryJgdxqxjdjb entity, SessionBean sessionBean) {
 		entity.setId(UUID.create()); // 生成主键
 		BaseService.setSaveProperties(entity, sessionBean);
 		zdryJgdxqxjdjbDao.save(entity, sessionBean);
-		sendQjMessage(entity, sessionBean);
+		//sendQjMessage(entity, sessionBean);
 	}
 
 	/**
@@ -86,17 +88,18 @@ public class ZdryJgdxqxjdjbServiceImpl implements ZdryJgdxqxjdjbService {
 	 * 
 	 * @param entity
 	 */
+	@Override
 	public void update(ZdryJgdxqxjdjb entity, SessionBean sessionBean) {
 		BaseService.setUpdateProperties(entity, sessionBean);
 		zdryJgdxqxjdjbDao.update(entity, sessionBean);
-		sendXjMessage(entity, sessionBean);
+		//sendXjMessage(entity, sessionBean);
 	}
 
 	/**
 	 * 更新审批<br>
 	 * 
 	 * @param entity
-	 */
+	 *
 	public void updateSp(ZdryJgdxqxjdjb entity, SessionBean sessionBean) {
 		entity.setSpr_xm(sessionBean.getUserName());
 		entity.setSpr_id(sessionBean.getUserId());
@@ -114,7 +117,7 @@ public class ZdryJgdxqxjdjbServiceImpl implements ZdryJgdxqxjdjbService {
 	 * 删除<br>
 	 * 
 	 * @param entity
-	 */
+	 *
 	public void delete(ZdryJgdxqxjdjb entity, SessionBean sessionBean) {
 		BaseService.setCrossoutProperties(entity, sessionBean);
 		zdryJgdxqxjdjbDao.delete(entity, sessionBean);
@@ -124,7 +127,7 @@ public class ZdryJgdxqxjdjbServiceImpl implements ZdryJgdxqxjdjbService {
 	 * 删除批量<br>
 	 * 
 	 * @param entity
-	 */
+	 *
 	public void deletePatch(ZdryJgdxqxjdjb[] entityArray,
 			SessionBean sessionBean) {
 		for (int i = 0; i < entityArray.length; i++) {
@@ -140,7 +143,7 @@ public class ZdryJgdxqxjdjbServiceImpl implements ZdryJgdxqxjdjbService {
 	 * @param @param sessionBean 设定文件
 	 * @return void 返回类型
 	 * @throws
-	 */
+	 *
 	public void sendQjMessage(ZdryJgdxqxjdjb entity, SessionBean sessionBean) {
 		if (entity != null) {
 			ZdryZdryzb zdryZdryzb = zdryZdryzbService.queryById(entity
@@ -176,7 +179,7 @@ public class ZdryJgdxqxjdjbServiceImpl implements ZdryJgdxqxjdjbService {
 	 * @param @param sessionBean 设定文件
 	 * @return void 返回类型
 	 * @throws
-	 */
+	 *
 	public void sendQjspMessage(ZdryJgdxqxjdjb entity, SessionBean sessionBean) {
 		if (entity != null) {
 			ZdryZdryzb zdryZdryzb = zdryZdryzbService.queryById(entity
@@ -225,7 +228,7 @@ public class ZdryJgdxqxjdjbServiceImpl implements ZdryJgdxqxjdjbService {
 	 * @param @param sessionBean 设定文件
 	 * @return void 返回类型
 	 * @throws
-	 */
+	 *
 	public void sendXjMessage(ZdryJgdxqxjdjb entity, SessionBean sessionBean) {
 		if (entity != null) {
 			ZdryZdryzb zdryZdryzb = zdryZdryzbService.queryById(entity
@@ -253,5 +256,5 @@ public class ZdryJgdxqxjdjbServiceImpl implements ZdryJgdxqxjdjbService {
 			}
 		}
 	}
-
+	*/
 }

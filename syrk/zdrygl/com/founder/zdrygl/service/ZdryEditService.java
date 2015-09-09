@@ -116,6 +116,12 @@ public interface ZdryEditService {
 	public ZdrySqsbzdryxxb sqsbzdry_query(Map<String, Object> map);
 
 	public ZdryFzcsfryxxb fzcfryxxb_query(Map<String, Object> map);
+	
+	public List jkbjryxxb_query(Map<String, Object> map);
+	
+	public List qxjdjb_query(Map<String, Object> map);
+	
+	public List psjdb_query(Map<String, Object> map);
 
 	/**
 	 * 
@@ -138,5 +144,7 @@ public interface ZdryEditService {
 	 * @throws
 	 */
 	public boolean queryIsZL(String zdrylx);
+
+	
 	
 }
