@@ -379,10 +379,19 @@ public class ZdryZdryzbControl extends BaseController {
 
 			processDefinitionService.startProcessInstance(sessionBean.getUserId(), "shb_lcg", zdryZdryzb.getId(), variables);	
 			}
-//			else if(zdryZdryzb.getZdrygllxdm().equals("06")){//其他关注对象 改为也要 所长 审批
-//			
-//				zdryUntil.lgSuccess(zdryZdryzb.getId(), zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), null);
-//		}
+			else if(zdryZdryzb.getZdrygllxdm().equals("06")){//其他关注对象 改为也要 所长 审批
+				variables.put("sqlx", "治安列管");//申请类型	
+				variables.put("sqlxdm", "01");//申请类型为列管
+				
+				OrgOrganization orgOrganization = orgOrganizationService.queryUpOrgByLevel(lrrzrq,"32");	
+				String fsxOrgCode = orgOrganization.getOrgcode();//  得到本名等级为三级，派出所部门code
+				String taskParameter = fsxOrgCode+"_"+orgPositionService.queryByPosid("SZ").getId().toString();   //部门code+所长岗位ID				
+				variables.put("sz", taskParameter);
+				variables.put("approvalMethod", "szApproval");
+				
+				processDefinitionService.startProcessInstance(sessionBean.getUserId(), "szsp", zdryZdryzb.getId(), variables);
+				//zdryUntil.lgSuccess(zdryZdryzb.getId(), zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), null);
+		}
 			else if(zdryZdryzb.getZdrygllxdm().equals("05")){//涉公安访
 			variables.put("sqlx", "涉公安访列管");
 			variables.put("sqlxdm", "01");//列管01  撤管02
@@ -963,10 +972,20 @@ public class ZdryZdryzbControl extends BaseController {
 
 				processDefinitionService.startProcessInstance(sessionBean.getUserId(), "shb_lcg", zdryYid, variables);	
 			}
-//			else if(zdryYlb.equals("06")){//其他关注对象，改为也要 所长 审批
-//				zdryUntil.cgSuccess(zdryYid, zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), zdryZdryzb.getId());
-////				processDefinitionService.startProcessInstance(sessionBean.getUserId(), " ", zdryZdryzb.getId(), variables);	
-//			}
+			else if(zdryYlb.equals("06")){//其他关注对象，改为也要 所长 审批
+				variables.put("sqlx", "治安撤管");//申请类型	
+				variables.put("sqlxdm", "02");//申请类型为撤管
+				
+				OrgOrganization orgOrganization = orgOrganizationService.queryUpOrgByLevel(lrrzrq,"32");	
+				String fsxOrgCode = orgOrganization.getOrgcode();//  得到本名等级为三级，派出所部门code
+				String taskParameter = fsxOrgCode+"_"+orgPositionService.queryByPosid("SZ").getId().toString();   //部门code+所长岗位ID				
+				variables.put("sz", taskParameter);
+				variables.put("approvalMethod", "szApproval");
+				
+				processDefinitionService.startProcessInstance(sessionBean.getUserId(), "szsp", zdryYid, variables);
+				//zdryUntil.cgSuccess(zdryYid, zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), zdryZdryzb.getId());
+//				processDefinitionService.startProcessInstance(sessionBean.getUserId(), " ", zdryZdryzb.getId(), variables);	
+			}
 			else if(zdryYlb.equals("05")){//涉公安访
 				variables.put("sqlx", "涉公安访撤管");
 				variables.put("sqlxdm", "02");//列管01  撤管02

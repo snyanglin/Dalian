@@ -375,13 +375,7 @@ public class ZdryUntil {
 	public void cgFail(String zdryId,String zdryxm,String ywsqrId,String spr,String spbm,String cghZdryId) {
 		ZdryZdryzb zdryZdryzb = (ZdryZdryzb) zdryZdryzbDao.queryById(zdryId);
 		zdryZdryzb.setGlzt("2");
-		zdryZdryzbDao.update(zdryZdryzb);
-		if(!StringUtils.isBlank(cghZdryId)){
-			ZdryZdryzb entity = new ZdryZdryzb();
-			entity.setId(cghZdryId);
-			entity.setGlzt("1");
-			zdryZdryzbDao.delete(entity);
-		}
+		zdryZdryzbDao.update(zdryZdryzb);		
 		sendMessageByLC(zdryxm, ywsqrId, spr, spbm, zdryId, cghZdryId, "CG", "0");
 	}
 

@@ -202,8 +202,11 @@ public class ZdryApprovalController extends BaseController {
 				String sqlxdm=(String)processDefinitionService.getVariables(task.getExecutionId()).get("sqlxdm");//申请类型
 				String zdryId=(String)processDefinitionService.getVariables(task.getExecutionId()).get("zdryId");//人员USERID
 				String zdryName=(String)processDefinitionService.getVariables(task.getExecutionId()).get("xm");//人员USERID
-				String sqrName=orgUserService.queryByUserid(sqrId).getUsername();
 				
+				if(sqrId!=null){
+					String sqrName=orgUserService.queryByUserid(sqrId).getUsername();				
+					zdryWorkflowVO.setSqrName(sqrName);
+				}
 			
 				zdryWorkflowVO.setWorkflowId(task.getId());
 				zdryWorkflowVO.setExecutionId(task.getExecutionId());
@@ -214,7 +217,6 @@ public class ZdryApprovalController extends BaseController {
 				zdryWorkflowVO.setSqlxdm(sqlxdm);
 				zdryWorkflowVO.setZdryId(zdryId);
 				zdryWorkflowVO.setZdryName(zdryName);
-				zdryWorkflowVO.setSqrName(sqrName);
 				zdryWorkflowVO.setApprovalMethod(approvalMethod);
 				zdryWorkflowList.add(zdryWorkflowVO);
 			}
@@ -303,7 +305,7 @@ public class ZdryApprovalController extends BaseController {
 			}
 		
 		else{//同意
-			if(zdryWorkflowVO.getZdrylx().equals("01")||zdryWorkflowVO.getZdrylx().equals("02")||zdryWorkflowVO.getZdrylx().equals("04")){//所长审批同意流程结束
+			if(zdryWorkflowVO.getZdrylx().equals("01")||zdryWorkflowVO.getZdrylx().equals("02")||zdryWorkflowVO.getZdrylx().equals("04")||zdryWorkflowVO.getZdrylx().equals("06")){//所长审批同意流程结束
 				
 			variables.put("szApprovedType", "1");	
 			}
