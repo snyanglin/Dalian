@@ -4,6 +4,7 @@ if(typeof MainZrq =="undefined" || !MainZrq){
 MainZrq.ezMap=null;//地图对象
 MainZrq.initMarkerArr = new Array();//放点对象
 MainZrq.setInt = "";//记录延时
+
 /**
  * @method:$ 
  * @description:初始化页面
@@ -13,6 +14,7 @@ MainZrq.setInt = "";//记录延时
 $(function(){
 	MainZrq.loadXqMap();//加载辖区地图
 	MainZrq.initJobCounts();//加载工作统计
+	//setTimeout('MainZrq.initPcsXqgk()', 3000);
 	MainZrq.initPcsXqgk();//加载派出所辖区概况
 	MainZrq.initNews();//加载通知公告模块
 	MainZrq.initWaitingWork();//加载待办事项模块
@@ -26,6 +28,7 @@ $(function(){
 		});
 		
 	});
+	
 	
 });
 /**
@@ -44,7 +47,7 @@ MainZrq.loadXqMap = function(){
 	/*加载地图*/
 	MainZrq.ezMap.onloadMap();
 	/*隐藏自带矢量影像图层对象*/
-	//MainZrq.ezMap._MapApp.hideMapServer();
+	MainZrq.ezMap._MapApp.hideMapServer();
 	/*加载辖区边界*/
 	if(bjzbz!=""||bjzbz!=null){
 		MainZrq.ezMap.moveMapToBjzbz(bjzbz);
@@ -175,22 +178,58 @@ MainZrq.initJobMap_back = function(json){
  * @date:2015-8-13上午10:41:32
  */
 MainZrq.initPcsXqgk = function(){
+	var year = MainZrq.getYear();
+	var week = MainZrq.getWeek();
+	var zakh_index_queryUrl="";
+	zakh_index_queryUrl=contextPath+'/zakh/countXX?year='+year+'&week='+week+'&orgid='+userOrgCode;
+	
 	$('#dg').datagrid({
-		url:contextPath+"/main/queryPcsXqgkTj",
-		selectOnCheck:true,
-		checkOnSelect:true,
-		singleSelect:true,
+		url:zakh_index_queryUrl,
+		method:'post',
+		striped: false,
+		singleSelect:false,
+		selectOnCheck:false,
 		fitColumns:true,
+		onClickRow: function (rowIndex, rowData) {
+            $(this).datagrid('unselectRow', rowIndex);
+        }, 
 		border:false,
-		pagination:false,
+		fit: true,
+		pagination:false, 
 		columns:[[
-	          	{field:'orgname',title:'责任区',width:150,align:'center',halign:'center'},
-				{field:'syrknum',title:'实有人口',width:80,align:'center',halign:'center'},
-				{field:'sydwnum',title:'实有单位',width:80,align:'center',halign:'center'},      
-				{field:'syfwnum',title:'实有房屋',width:80,align:'center',halign:'center'},
-				{field:'bzdznum',title:'标准地址',width:80,align:'center',halign:'center'}
-		 ]],
-		 rownumbers:true
+	    {title:'考核项',field:'zakh_xq_khx',width:50,align:'center',halign:'center'},
+	    {title:'考核细项',field:'zakh_xq_khxx',width:50,align:'center',halign:'center'},
+	    {title:'考核项小类',field:'zakh_xq_khxl',width:50,align:'center',halign:'center'},
+	    {title:'各项已采集数',field:'zakh_xq_ycjs',width:50,align:'center',halign:'center'},
+	    {title:'各项注销数',field:'zakh_xq_kfz',width:50,align:'center',halign:'center'},
+	    {title:'采集有效数',field:'zakh_xq_cjzs',width:50,align:'center',halign:'center'},
+	    {title:'常量数',field:'zakh_xq_cls',width:50,align:'center',halign:'center'}
+		]],
+		onLoadSuccess:function(){
+			var rows= $('#dg').datagrid('getRows');
+			var opts = $('#dg').datagrid('getColumnFields');
+			for(var i=0;i<opts.length;i++){
+				var col=$('#dg').datagrid('getColumnOption',opts[i]);
+				var cName=col.field;
+				var num=0;
+				var sum=1;
+				for(var j=0;j<rows.length;j++){
+					if((j+1)<rows.length && cName!="zakh_xq_ycjs" && cName!="zakh_xq_kfz" && rows[j][cName]==rows[j+1][cName]){
+						sum=sum+1;
+						$('#dg').datagrid('mergeCells',{
+							index:num,
+							field:cName,
+							rowspan:sum
+						});
+					}else{
+						num=0;
+						num=num+j+1;
+						sum=1;
+					}
+			
+				}
+			}
+	    }
 	});
 };
 /**
@@ -500,3 +539,105 @@ MainZrq.hrefUrl = function(xxID,url){
 MainZrq.menuOpenSyrk = function(){
 	menu_open('登记人员','/syrkGl/add?mainTabID=111');
 };
+
+/**
+ * @method:ChangeTab
+ * @description:tab切换
+ * @author: zhang_guoliang@founder.com
+ * @date:2015-8-18下午18:25:32
+ */
+MainZrq.ChangeTab = function(obj){
+	var tabs = document.getElementById("tab").getElementsByTagName("li");
+	
+	var year = MainZrq.getYear();
+	var week = MainZrq.getWeek();
+
+	for(var i=0;i<tabs.length;i++)
+	{
+	if(tabs[i]==obj){
+	tabs[i].className="fli";
+	
+	}
+
+	else{
+	tabs[i].className="";
+	
+	}
+	}
+}
+/**
+ * @method:getYear
+ * @description:获取当年的年份
+ * @author: zhang_guoliang@founder.com
+ * @date:2015-8-18下午18:25:32
+ */
+MainZrq.getYear = function(){
+	var data = new Date();
+	var year = data.getFullYear();
+	 return year;
+	
+}
+
+/**
+ * @method:getWeek
+ * @description:获取今天是第几个星期
+ * @author: zhang_guoliang@founder.com
+ * @date:2015-8-18下午18:25:32
+ */
+MainZrq.getWeek = function(){
+	var data = new Date(),
+	 	year = data.getFullYear(),
+	 	month = data.getMonth()+1,
+        days = data.getDate();
+	 var week = getWeekNumber(2015,9,8);
+	 return week;
+	
+}
+
+/**
+ * 判断年份是否为润年
+ *
+ * @param {Number} year
+ */
+function isLeapYear(year) {
+    return (year % 400 == 0) || (year % 4 == 0 && year % 100 != 0);
+}
+/**
+ * 获取某一年份的某一月份的天数
+ *
+ * @param {Number} year
+ * @param {Number} month
+ */
+function getMonthDays(year, month) {
+    return [31, null, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month] || (isLeapYear(year) ? 29 : 28);
+}
+/**
+ * 获取某年的某天是第几周的前一个星期的数据
+ * @param {Number} y
+ * @param {Number} m
+ * @param {Number} d
+ * @returns {Number}
+ */
+function getWeekNumber(y, m, d) {
+    var now = new Date(y, m - 1, d),
+        year = now.getFullYear(),
+        month = now.getMonth(),
+        days = now.getDate();
+    //那一天是那一年中的第多少天
+    for (var i = 0; i < month; i++) {
+        days += getMonthDays(year, i);
+    }
+
+    //那一年第一天是星期几
+    var yearFirstDay = new Date(year, 0, 1).getDay() || 7;
+
+    var week = null;
+    if (yearFirstDay == 1) {
+        week = Math.ceil(days / yearFirstDay);
+    } else {
+        days -= (7 - yearFirstDay + 1);
+        week = Math.ceil(days / 7);
+    }
+
+    return week-1;
+}
