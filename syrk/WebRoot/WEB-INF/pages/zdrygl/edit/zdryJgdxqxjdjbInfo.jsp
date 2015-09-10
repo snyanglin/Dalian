@@ -80,9 +80,15 @@
 		    </tr>
 		    <tr class="dialogTr">
 	    		<td width="20%" class="dialogTd" align="right">实际返回日期：</td>
-			    <td width="30%" class="dialogTd"><input type="text" name="sjfh_rq" id="sjfh_rq" class="easyui-validatebox inputreadonly"  style="width: 200px;" readonly="readonly"/></td>
+			    <td width="30%" class="dialogTd">
+			    	<input type="text" name="sjfh_rq" id="sjfh_rq" class="easyui-validatebox"  style="width: 200px;" value="${entity.sjfh_rq}"
+			    		onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'qjrq\') }'})" data-options="validType:['date[\'yyyy-MM-dd\']'],tipPosition:'left'"/>
+			    </td>
 			   	<td width="20%" class="dialogTd" align="right">销假日期：</td>
-			    <td width="30%" class="dialogTd"><input type="text" name="xjrq" id="xjrq" class="easyui-validatebox inputreadonly" style="width: 200px;" readonly="readonly"/></td>
+			    <td width="30%" class="dialogTd">
+			    	<input type="text" name="xjrq" id="xjrq" class="easyui-validatebox" style="width: 200px;" value="${entity.xjrq}"
+			    		onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'qjrq\') }'})" data-options="validType:['date[\'yyyy-MM-dd\']'],tipPosition:'left'"/>
+			    </td>
 	    	</tr>
 	    </table>
 	    
@@ -91,14 +97,38 @@
 </body>
 
 <script type="text/javascript">
-
+var spjg="${entity.spjg}";
 function doInit(paramArray) {
 	initComboBox('qwxzqhdm', contextPath + '/common/dict/GB_D_XZQHDMLIST.js'); 
 	setInputReadonly('spjg',true);
+	if(spjg==""){//未审批
+		setInputReadonly('sjfh_rq',true);
+		setInputReadonly('xjrq',true);
+		
+	}else{
+		setInputReadonly('qjyy',true);
+		setInputReadonly('qjrq',true);
+		setInputReadonly('qwxzqhdm',true);
+		setInputReadonly('qwxz',true);
+		setInputReadonly('yjfh_rq',true);
+		if($("#xjrq").val()!=""){//已销假
+			setInputReadonly('xjrq',true);
+			setInputReadonly('sjfh_rq',true);
+		}
+		if(spjg=="0"){//拒绝
+			setInputReadonly('xjrq',true);
+			setInputReadonly('sjfh_rq',true);
+		}
+	}
 }
 
 function beforeSubmit() {
-	
+	if($("#xjrq").val()!=""){//销假
+		if($("#sjfh_rq").val()==""){
+			alert("如果销假，请填写 实际返回日期");
+			return false;
+		}
+	}
 }
 
 function afterSubmit(arr) {

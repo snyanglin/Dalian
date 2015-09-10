@@ -187,12 +187,12 @@ function info_qxjdjb_(){
 	sb.append("<li><span class='spantitle'>去往地：</span><span name='qwxzqhdm' dict='/common/dict/GB_D_XZQHDM' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>去往地详址：</span><span name='qwxz' class='edit_word input_w1'></span></li>");
 	sb.append("<li><span class='spantitle'>预计返回日期：</span><span name='yjfh_rq' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>实际返回日期：</span><span name='sjfh_rq' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>销假日期：</span><span name='xjrq' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>实际返回日期：</span><span name='sjfh_rq' class='edit_word input_w2'></span></li>");	
 	sb.append("<li><span class='spantitle'>审批人：</span><span name='spr_xm' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>审批时间：</span><span name='spsj' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>审批结果：</span><span name='spjg'  dict='/common/dict/D_GG_SPJG'  class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>审批意见：</span><span name='spyj' class='edit_word input_w1'></span></li>");
+	sb.append("<li><span class='spantitle'>审批意见：</span><span name='spyj' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>销假日期：</span><span name='xjrq' class='edit_word input_w1'></span></li>");
 	sb.append("<li class='uline2'></li>");
 	sb.append("<li class='uline2'><a class='delfw_btn ulrt_btn' href='javascript:void(0);'></a><a class='editfw_btn ulrt_btn' href='javascript:void(0);'></a></li>");
 	sb.append("<input type='hidden' name='id' />");

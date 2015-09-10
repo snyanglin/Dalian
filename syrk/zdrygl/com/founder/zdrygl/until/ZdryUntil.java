@@ -1,5 +1,7 @@
 package com.founder.zdrygl.until;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,7 @@ import com.founder.tzgg.bean.Org_Organization;
 import com.founder.tzgg.dao.TzggDao;
 import com.founder.zdrygl.bean.ZdryFzcsfryxxb;
 import com.founder.zdrygl.bean.ZdryGzb;
+import com.founder.zdrygl.bean.ZdryJgdxqxjdjb;
 import com.founder.zdrygl.bean.ZdryJgdxxxb;
 import com.founder.zdrygl.bean.ZdrySgafzdryxxb;
 import com.founder.zdrygl.bean.ZdryShbzdryxxb;
@@ -40,6 +43,7 @@ import com.founder.zdrygl.bean.ZdryZszhjsbrxxb;
 import com.founder.zdrygl.bean.Zdrylxylbdyb;
 import com.founder.zdrygl.dao.ZdryFzcsfryxxbDao;
 import com.founder.zdrygl.dao.ZdryGzbDao;
+import com.founder.zdrygl.dao.ZdryJgdxqxjdjbDao;
 import com.founder.zdrygl.dao.ZdryJgdxxxbDao;
 import com.founder.zdrygl.dao.ZdrySgafzdryxxbDao;
 import com.founder.zdrygl.dao.ZdryShbzdryxxbDao;
@@ -134,7 +138,8 @@ public class ZdryUntil {
 	@Resource(name = "zdryJkbjllxxbService")
 	private ZdryJkbjllxxbService zdryJkbjllxxbService;
 	
-	
+	@Resource(name = "zdryJgdxqxjdjbDao")
+	private ZdryJgdxqxjdjbDao zdryJgdxqxjdjbDao;
 	
 	/***
 	 * 
@@ -608,4 +613,66 @@ public class ZdryUntil {
 			throw new BussinessException("该重点人员正在【转类申请中】，不能办理其他业务");
 		}
 	}
+	
+	/**
+	 * 
+	 * @Title: qjSuccess
+	 * @Description: TODO(请假审批通过)
+	 * @param @param qjId
+	 * @param @param SPR_XM
+	 * @param @param SPR_ID    
+	 * @param @param SPR_IP    设定文件
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public void qjSuccess(String qjId,String SPR_XM, String SPR_ID,String SPR_IP,String spyj) {
+		ZdryJgdxqxjdjb entity=new ZdryJgdxqxjdjb();
+		entity.setId(qjId);
+		entity.setSpr_id(SPR_ID);		
+		entity.setSpr_xm(SPR_XM);
+		entity.setSpsj(getNowTimeString());
+		entity.setSpjg("1");//同意
+		entity.setSpyj(spyj);
+			
+		entity.setXt_zhxgrid(SPR_ID);
+		entity.setXt_zhxgrxm(SPR_XM);
+		entity.setXt_zhxgip(SPR_IP);
+		zdryJgdxqxjdjbDao.update(entity);	
+		
+	//后期删除所有附件属性表
+		//sendMessageByLC(zdryxm, ywsqrId, spr, spbm, zdryId, cghZdryId, "CG", "1");
+	}
+	
+	/**
+	 * 
+	 * @Title: qjFail
+	 * @Description: TODO(请假审批不通过)
+	 * @param @param qjId
+	 * @param @param SPR_XM
+	 * @param @param SPR_ID
+	 * @param @param SPR_IP    设定文件
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public void qjFail(String qjId,String SPR_XM, String SPR_ID,String SPR_IP,String spyj) {
+		ZdryJgdxqxjdjb entity=new ZdryJgdxqxjdjb();
+		entity.setId(qjId);
+		entity.setSpr_id(SPR_ID);		
+		entity.setSpr_xm(SPR_XM);
+		entity.setSpsj(getNowTimeString());
+		entity.setSpjg("0");//拒绝
+		entity.setSpyj(spyj);
+		
+		entity.setXt_zhxgrid(SPR_ID);
+		entity.setXt_zhxgrxm(SPR_XM);
+		entity.setXt_zhxgip(SPR_IP);
+		zdryJgdxqxjdjbDao.update(entity);		
+		//sendMessageByLC(zdryxm, ywsqrId, spr, spbm, zdryId, cghZdryId, "CG", "0");
+	}
+	
+	public String getNowTimeString(){
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return formatter.format(new Date());//申请时间
+	}
+	
 }

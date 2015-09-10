@@ -105,26 +105,20 @@ public class ZdryJgdxqxjdjbDao extends BaseDaoImpl {
 	 * 
 	 * @param entity
 	 */
-	public void update(ZdryJgdxqxjdjb entity, SessionBean sessionBean) {
+	public void update(ZdryJgdxqxjdjb entity) {
 		update("ZdryJgdxqxjdjb.update", entity);
 	}
 
 	/**
-	 * 更新审批<br>
 	 * 
-	 * @param entity
-	 *
-	public void updateSp(ZdryJgdxqxjdjb entity, SessionBean sessionBean) {
-		update("ZdryJgdxqxjdjb.updateSp", entity);
+	 * @Title: queryWxjNum
+	 * @Description: TODO(插叙未销假的数)
+	 * @param @param zdryId
+	 * @param @return    设定文件
+	 * @return int    返回类型
+	 * @throws
+	 */
+	public int queryWxjNum(String zdryId){
+		return (int)queryForObject("ZdryJgdxqxjdjb.queryWxjNum", zdryId);
 	}
-
-	/**
-	 * 删除<br>
-	 * 
-	 * @param entity
-	 *
-	public void delete(ZdryJgdxqxjdjb entity, SessionBean sessionBean) {
-		update("ZdryJgdxqxjdjb.delete", entity);
-	}
-*/
 }

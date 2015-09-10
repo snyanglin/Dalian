@@ -58,6 +58,17 @@ public interface ZdryJgdxqxjdjbService {
 	public void update(ZdryJgdxqxjdjb entity, SessionBean sessionBean);
 
 	/**
+	 * 
+	 * @Title: sfnqj
+	 * @Description: TODO(查询是否可请假)
+	 * @param @param zdryId
+	 * @param @return    设定文件
+	 * @return boolean    返回类型
+	 * @throws
+	 */
+	public boolean sfnqj(String zdryId);
+
+	/**
 	 * 更新审批<br>
 	 * 
 	 * @param entity

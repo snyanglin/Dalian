@@ -20,11 +20,11 @@
 			<tr class="dialogTr">
 	    		<td width="20%" class="dialogTd" align="right">重点人员姓名：</td>
 		    	<td width="30%" class="dialogTd">
-		    	<input class="easyui-validatebox inputreadonly" type="text" id="xm" style="width:200px;" readonly="readonly"/>
+		    	<input class="easyui-validatebox inputreadonly" type="text" id="xm" name="xm" style="width:200px;" readonly="readonly"/>
 		    	</td>
 		    	<td width="20%" class="dialogTd" align="right">重点人员身份号码：</td>
 		    	<td width="30%" class="dialogTd">
-		    	<input class="easyui-validatebox inputreadonly" type="text" id="sfzh" style="width:200px;" readonly="readonly"/>
+		    	<input class="easyui-validatebox inputreadonly" type="text" id="sfzh" name="sfzh" style="width:200px;" readonly="readonly"/>
 		    	</td>
 	    	</tr>
 	 		<tr class="dialogTr">
