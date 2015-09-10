@@ -10,6 +10,11 @@ body {
 	overflow: auto;
 }
 
+#ullis li {float:left;width:100px;height:26px;line-height:30px;text-align:center;border:1px solid #17a9ff;border-bottom:none;cursor: pointer;}
+#ullis ul li.fli {color:black;}
+#ullis ul {overflow:hidden;zoom:1;list-style-type:none;}
+
+#tab_con div.dgCss {display:block;}
 a {
 	color: #666;
 	text-decoration: none;
@@ -54,6 +59,8 @@ a {
 	background: rgb(17, 144, 241);
 }
 
+
+
 .centerDiv .centerTopCss {
 	width: 48.6%;
 	height: 100%;
@@ -77,9 +84,7 @@ a {
 }
 
 .centerDiv .dgCss {
-	height: 90%;
-	width:100%;
-	overflow: auto;
+	height: 90%;width:100%;overflow: auto;
 }
 
 .rightDiv {
