@@ -67,7 +67,13 @@
 	   		</table>
     	</div>
     	<div class="centerCss1" >
-    		<div class="titleCss">&nbsp;辖区概况统计</div>
+    		<div class="titleCss" id="ullis">
+				<ul id="tab">
+					<li class="fli" onclick="MainZrq.ChangeTab(this)">每周基础信息采集</li>
+					<li onclick="MainZrq.ChangeTab(this)">重点人员监控</li>
+					<li onclick="MainZrq.ChangeTab(this)">治安防范管理</li>
+				</ul>
+			</div>
     		<div class="dgCss">
     			<table id="dg"></table>
     		</div>
