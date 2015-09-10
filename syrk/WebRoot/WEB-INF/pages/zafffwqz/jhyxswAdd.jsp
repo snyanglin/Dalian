@@ -148,7 +148,7 @@
 									</td>
 									<td align="left" class="dialogTd">
 										<input class="easyui-combobox" id="jzd2" style="width:240px;" 
-										value='${fn:replace(entity.dz_jzdzxz, entity.dz_jzdmlpxz, "")}'
+										value="${fn:replace(entity.dz_jzdzxz, entity.dz_jzdmlpxz, '')}"
 										data-options="required:false,
 				    	                mode:'remote',
 				    	                method:'post',

@@ -160,7 +160,7 @@ var mode = '${mode}';
 						    	<input type='hidden' name='xsdzmlpxz' id="xsdzmlpxz" value="${xsjbxxb.xsdzmlpxz}"/>
 						</td>
 						<td width="" class="dialogTd" >
-							<input class="easyui-combobox" id="jzd2" style="width:300px;" readOnly="readOnly" value='${fn:replace(xsjbxxb.xsdzxz, xsjbxxb.xsdzmlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+							<input class="easyui-combobox" id="jzd2" style="width:300px;" readOnly="readOnly" value="${fn:replace(xsjbxxb.xsdzxz, xsjbxxb.xsdzmlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 							<input type="hidden" name="xsdzdm" id="xsdzdm" value="${xsjbxxb.xsdzdm}"/>
 							<input type="hidden" name="xsdzssxdm" id="xsdzssxdm" value="${xsjbxxb.xsdzssxdm}"/>
 						    <input type='hidden' name='xsdzxz' id="xsdzxz" value="${xsjbxxb.xsdzxz}"/>

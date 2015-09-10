@@ -105,7 +105,7 @@
 		    	<input type="hidden" id="jwry_jzd_mlpxz" name="jzd_mlpxz" value="${jwry.jzd_mlpxz}"/>
 	    	</td>
 	    	<td width="30%" class="dialogTd" align="left">
-		    	<input class="easyui-combobox" id="jwry_jzd2" style="width:200px;" value='${fn:replace(jwry.jzd_dzxz, jwry.jzd_mlpxz, "")}' data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+		    	<input class="easyui-combobox" id="jwry_jzd2" style="width:200px;" value="${fn:replace(jwry.jzd_dzxz, jwry.jzd_mlpxz, '')}" data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 		    	<input type="hidden" id="jwry_jzd_dzid" name="jzd_dzid" value="${jwry.jzd_dzid}"/>
 		    	<input type="hidden" id="jwry_jzd_xzqhdm" name="jzd_xzqhdm" value="${jwry.jzd_xzqhdm}"/>
 		    	<input type="hidden" id="jwry_jzd_dzxz" name="jzd_dzxz" value="${jwry.jzd_dzxz}"/>

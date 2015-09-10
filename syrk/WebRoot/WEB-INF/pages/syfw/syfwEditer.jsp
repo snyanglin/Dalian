@@ -25,7 +25,7 @@
 								<input class="easyui-validatebox" id="syfw_fwdz1" style="width:400px;" value="${entity.fwdz_mlpxz}" >
 				    		</td>
 							<td width="30%" class="dialogTd">
-								<input class="easyui-validatebox" id="syfw_fwdz2" style="width:200px;" value='${fn:replace(entity.fwdz_dzxz, entity.fwdz_mlpxz, "")}' >
+								<input class="easyui-validatebox" id="syfw_fwdz2" style="width:200px;" value="${fn:replace(entity.fwdz_dzxz, entity.fwdz_mlpxz, '')}" >
 							</td>
 						</tr>
 						<tr class="dialogTr">

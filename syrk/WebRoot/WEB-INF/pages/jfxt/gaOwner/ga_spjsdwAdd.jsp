@@ -50,7 +50,7 @@ var mode = '${mode}';
 						    	<input type='hidden' name='dz_dwmlpxz' id="dz_dwmlpxz" value="${entity.dz_dwmlpxz}"/>
 					    	</td>
 					    	<td width="30%" class="dialogTd">
-						    	<input class="easyui-combobox" id="jzrk_fzdz2" style="width:200px;" value='${fn:replace(entity.dz_dwdzxz, entity.dz_dwmlpxz, "")}' 
+						    	<input class="easyui-combobox" id="jzrk_fzdz2" style="width:200px;" value="${fn:replace(entity.dz_dwdzxz, entity.dz_dwmlpxz, '')}" 
 						    		data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 						    	<input type='hidden' name='dz_dwdzdm' id='dz_dwdzdm' value="${entity.dz_dwdzdm}" />
 						    	<!-- 
