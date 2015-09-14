@@ -74,7 +74,7 @@ MainZrq.initJobCounts_back = function(json){
 	
 	var htmlStr = "<ul>";
 	htmlStr	+="<li class='xqTitle'>&nbsp;实有人口</li>";
-	var czrkNum = 0,jzrkNum = 0,ldrkNum = 0,jwrkNum = 0,wlhrkNum = 0;
+	var czrkNum = 0,jzrkNum = 0,ldrkNum = 0,jwrkNum = 0,wlhrkNum = 0;s
 	if(json!=null&&json.length>0){
 		for(var i=0;i<json.length;i++){
 			if(json[i].lxmc=="常住人口"){
@@ -82,7 +82,7 @@ MainZrq.initJobCounts_back = function(json){
 				
 			}else if(json[i].lxmc=="寄住人口"){
 				jzrkNum = json[i].sl;
-			}else if(json[i].lxmc=="流动人员"){
+			}else if(json[i].lxmc=="暂住人口"){
 				ldrkNum = json[i].sl;
 			}else if(json[i].lxmc=="境外人员"){
 				jwrkNum = json[i].sl;	
