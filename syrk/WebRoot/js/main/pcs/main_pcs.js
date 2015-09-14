@@ -143,7 +143,7 @@ MainPcs.initJobCounts_back = function(json){
 					czrkNum = json[i].sl;
 				}else if(json[i].lxmc=="寄住人口"){
 					jzrkNum = json[i].sl;
-				}else if(json[i].lxmc=="流动人员"){
+				}else if(json[i].lxmc=="暂住人口"){
 					ldrkNum = json[i].sl;
 				}else if(json[i].lxmc=="境外人员"){
 					jwrkNum = json[i].sl;
