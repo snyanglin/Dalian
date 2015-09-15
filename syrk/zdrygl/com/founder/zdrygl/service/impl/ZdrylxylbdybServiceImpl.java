@@ -1,22 +1,16 @@
 package com.founder.zdrygl.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
-import com.founder.framework.utils.EasyUIPage;
-import com.founder.framework.utils.UUID;
 import com.founder.zdrygl.bean.Zdrylxylbdyb;
-import com.founder.zdrygl.dao.ZdryZdrylbbDao;
 import com.founder.zdrygl.dao.ZdrylxylbdybDao;
 import com.founder.zdrygl.service.ZdrylxylbdybService;
 import com.founder.zdrygl.until.ZdryUntil;
-import com.founder.zdrygl.bean.ZdryZdrylbb;
 
 /**
  * 
@@ -30,8 +24,7 @@ public class ZdrylxylbdybServiceImpl extends BaseService implements Zdrylxylbdyb
 	@Resource(name = "zdrylxylbdybDao")
 	private ZdrylxylbdybDao zdrylxylbdybDao;
 	
-	@Resource(name = "zdryZdrylbbDao")
-	private ZdryZdrylbbDao zdryZdrylbbDao;
+	
 	
 	@Resource(name = "ZdryUntil")
 	private ZdryUntil zdryUntil;

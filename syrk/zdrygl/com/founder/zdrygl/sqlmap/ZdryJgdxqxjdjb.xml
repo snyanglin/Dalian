@@ -62,24 +62,16 @@
 			,<include refid="updateXtzd"/>				
 		</dynamic>
 		<![CDATA[ where ID = #id#]]>	
-	</update>
-	
-	<!-- 更新审批 -->
-	<update id="updateSp" parameterClass="zdryJgdxqxjdjb">
-		<![CDATA[ update ZDRY_JGDXQXJDJB ]]>	
-		<dynamic prepend="set">
-			<isNotNull prepend="," property="spr_xm"><![CDATA[ SPR_XM=#spr_xm# ]]></isNotNull>
-			<isNotNull prepend="," property="spr_id"><![CDATA[ SPR_ID=#spr_id# ]]></isNotNull>
-			<isNotNull prepend="," property="spsj"><![CDATA[ SPSJ=#spsj# ]]></isNotNull>
-			<isNotNull prepend="," property="spjg"><![CDATA[ SPJG=#spjg# ]]></isNotNull>
-			<isNotNull prepend="," property="spyj"><![CDATA[ SPYJ=#spyj# ]]></isNotNull>
-		</dynamic>
-		<![CDATA[ where ID = #id#]]>	
-	</update>
+	</update>		
 
 	<!-- 注销 -->
 	<update id="delete" parameterClass="zdryJgdxqxjdjb">
 		<![CDATA[ update ZDRY_JGDXQXJDJB set ]]><include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>	
 	</update>
+	
+	<!-- 查询未销假数 -->
+	<select id="queryWxjNum" parameterClass="String" resultClass="Integer">
+		<![CDATA[ select count(*) from ZDRY_JGDXQXJDJB t where XT_ZXBZ = '0' and XJRQ is null and SPJG='1' and ZDRYID = #zdryId# ]]>		
+	</select>
 
 </sqlMap>

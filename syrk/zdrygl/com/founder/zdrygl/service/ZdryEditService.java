@@ -58,28 +58,7 @@ public interface ZdryEditService {
 	
 	public ZdryZdrkxxb zdrkxxb_query (Map<String,Object> map);
 	
-	public ZdryZszhjsbrxxb zszhjsbrxxb_query(Map<String,Object> map);
-	/**
-	 * 
-	 * @Title: lgxx_query
-	 * @Description: TODO(列管信息)
-	 * @param @param map
-	 * @param @return    设定文件
-	 * @return List<ZdrylgxxVO>    返回类型
-	 * @throws
-	 */
-	public List<ZdrylgxxVO> lgxx_query(Map<String,Object> map);
-	/**
-	 * 
-	 * @Title: shbzdry_query
-	 * @Description: TODO(涉环保重点人员)
-	 * @param @param map
-	 * @param @return    设定文件
-	 * @return List<ZdrylgxxVO>    返回类型
-	 * @throws
-	 */
-	public ZdryShbzdryxxb shbzdry_query (Map<String,Object> map);
-	
+	public ZdryZszhjsbrxxb zszhjsbrxxb_query(Map<String,Object> map);	
 	
 	/**
 	 * 涉公安访重点人员查询
@@ -116,6 +95,12 @@ public interface ZdryEditService {
 	public ZdrySqsbzdryxxb sqsbzdry_query(Map<String, Object> map);
 
 	public ZdryFzcsfryxxb fzcfryxxb_query(Map<String, Object> map);
+	
+	public List jkbjryxxb_query(Map<String, Object> map);
+	
+	public List qxjdjb_query(Map<String, Object> map);
+	
+	public List psjdb_query(Map<String, Object> map);
 
 	/**
 	 * 
@@ -138,5 +123,7 @@ public interface ZdryEditService {
 	 * @throws
 	 */
 	public boolean queryIsZL(String zdrylx);
+
+	
 	
 }

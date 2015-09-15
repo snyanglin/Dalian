@@ -29,7 +29,7 @@ public interface ZdryPsjdbService {
 	 * @param entity
 	 * @return
 	 */
-	public EasyUIPage queryList(EasyUIPage page, ZdryPsjdb entity);
+	//public EasyUIPage queryList(EasyUIPage page, ZdryPsjdb entity);
 
 	/**
 	 * @Title: queryById
@@ -62,16 +62,16 @@ public interface ZdryPsjdbService {
 	 * 
 	 * @param entity
 	 */
-	@MethodAnnotation(value = "注销", type = logType.delete)
-	public void delete(ZdryPsjdb entity, SessionBean sessionBean);
+	//@MethodAnnotation(value = "注销", type = logType.delete)
+	//public void delete(ZdryPsjdb entity, SessionBean sessionBean);
 
 	/**
 	 * 删除批量<br>
 	 * 
 	 * @param entity
 	 */
-	@MethodAnnotation(value = "注销批量", type = logType.delete)
-	public void deletePatch(ZdryPsjdb[] entityArray, SessionBean sessionBean);
+	//@MethodAnnotation(value = "注销批量", type = logType.delete)
+	//public void deletePatch(ZdryPsjdb[] entityArray, SessionBean sessionBean);
 
 	/**
 	 * @Title: sendMessage
@@ -81,6 +81,6 @@ public interface ZdryPsjdbService {
 	 * @return void 返回类型
 	 * @throws
 	 */
-	public void sendMessage(ZdryPsjdb entity, SessionBean sessionBean);
+	//public void sendMessage(ZdryPsjdb entity, SessionBean sessionBean);
 
 }

@@ -9,23 +9,10 @@
 </head>
 
 <body>
-    <form action="" id="dataForm" name="dataForm" method="post">
-    	
-		<input type="hidden" id="_method" name="_method" value=""/>
-		<input type='hidden' name='id' id="pk" value="${entity.id}" />
-		<input type="hidden" id="zdryid" name="zdryid" value="${entity.zdryid}"/>
+    <form action="<%=basePath%>zdryJkbjllxxb/update" id="dataForm" name="dataForm" method="post">    			
+		<input type='hidden' name='id' id="id" value="${entity.id}" />		
     
-		<table border="0" cellpadding="0" cellspacing="10" width="846" align="left">
-			<tr class="dialogTr">
-	    		<td width="20%" class="dialogTd" align="right">重点人员姓名：</td>
-		    	<td width="30%" class="dialogTd">
-		    	<input class="easyui-validatebox inputreadonly" type="text" id="xm" style="width:200px;" readonly="readonly"/>
-		    	</td>
-		    	<td width="20%" class="dialogTd" align="right">重点人员身份号码：</td>
-		    	<td width="30%" class="dialogTd">
-		    	<input class="easyui-validatebox inputreadonly" type="text" id="sfzh" style="width:200px;" readonly="readonly"/>
-		    	</td>
-	    	</tr>
+		<table border="0" cellpadding="0" cellspacing="10" width="846" align="left">			
 	    	<tr class="dialogTr">
 	    		<td width="20%" class="dialogTd" align="right">监控帮教类型：</td>
 		    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="jkbjlxdm" name="jkbjlxdm" value="${entity.jkbjlxdm}" style="width:200px;" maxlength="1"
@@ -102,101 +89,18 @@
 </body>
 
 <script type="text/javascript" >
-$(document).ready(function(){
+
+function doInit(paramArray) {	
 	initDepartmentSearch('jkbjry_gzdwmc-box', {glpcsid: ''}, 'jkbjry_gzdwid', 'jkbjry_gzdwmc', {});	
 	$("#jkbjry_gmsfhm").bind("blur",function(e){ sfHaveAdd(); });
-});
-
-var _zjhm = "";
-/**
- * 通过身份证号码，判断该帮教人员是否已经添加到该重点人员下
- */
-function sfHaveAdd(){
-	if(!$("#jkbjry_gmsfhm").validatebox("isValid")){
-		$("#jkbjry_gmsfhm").focus();
-		return;
-	}
-	if($("#jkbjry_gmsfhm").val() == _zjhm){
-		return;
-	}
-	$(".lodingimg").show();
-	$.ajax({
-		type:"POST",
-		url: contextPath + "/zdryJkbjllxxb/existBjry",
-		dataType:"json",
-		data:"jkbjry_gmsfhm="+$("#jkbjry_gmsfhm").val()+"&zdryid="+$("#zdryid").val(),
-		success:function(data){
-			if (data == "true"){
-				alert("该身份证号人员已被关联到该重点人员，请重新输入！");
-				$("#jkbjry_gmsfhm").val("");
-			} else {
-				check();
-			}
-		},
-		complete:function(){
-			_zjhm = $("#jkbjry_gmsfhm").val();
-			$(".lodingimg").hide();
-		}
-	});
-}
-
-/**
- * 通过身份证号，复用人员信息
- */
-function check(){ 
-	$(".lodingimg").show();
-	$.ajax({
-		type:"POST",
-		url:"<%= basePath%>syrkgl/getSyrk",
-		dataType:"json",
-		data:"zjhm="+$("#jkbjry_gmsfhm").val()+"&cyzjdm=111",
-		success:function(data){
-			if (data && data.ryjbxxb) {
-				$("#jkbjrryid").val(data.ryjbxxb.id);
-				$("#jkbjry_xm").val(data.ryjbxxb.xm);
-				$("#jkbjry_xbdm").combobox("setValue",data.ryjbxxb.xbdm);
-				$("#jkbjry_mzdm").combobox("setValue",data.ryjbxxb.mzdm);
-				$("#dz_jkbjry_xjzdzdm").val(data.ryjbxxb.dz_jzdzdm);
-				$("#dz_jkbjry_xjzdzssxdm").val(data.ryjbxxb.dz_jzdzssxdm);
-				$("#dz_jkbjry_xjzdzxz").val(data.ryjbxxb.dz_jzdzxz);
-				$("#dz_jkbjry_xjzdmlpdm").val(data.ryjbxxb.dz_jzdmlpdm);
-				$("#dz_jkbjry_xjzdmlpxz").val(data.ryjbxxb.dz_jzdmlpxz);
-				$("#jkbjry_lxdh").val(data.ryjbxxb.lxdh);
-				$("#jkbjry_zzmmdm").combobox("setValue",data.ryjbxxb.zzmmdm);
-				$("#jkbjry_gzdwid").val(data.ryjbxxb.fwcsid);
-				$("#jkbjry_gzdwmc").val(data.ryjbxxb.fwcs);
-				$("#jkbjry_zwmc").val(data.ryjbxxb.zw);
-				
-				$("#jkbjry_xm").validatebox('validate');
-			}
-		},
-		complete:function(){
-			_zjhm = $("#jkbjry_gmsfhm").val();
-			$(".lodingimg").hide();
-		}
-	});
-}
-
-function doInit(paramArray) {
-	$('#sfzh').val(paramArray["sfzh"]);
-	$('#xm').val(paramArray["xm"]);
-
-	_p = paramArray["_p"];
 }
 
 function beforeSubmit() {
-	if ($("#pk").val() == "") {
-		$("#_method").val('');
-		$("#dataForm").attr('action', contextPath + '/zdryJkbjllxxb/save');
-	}
-	else {
-		$("#_method").val('PUT');
-		$("#dataForm").attr('action', contextPath + '/zdryJkbjllxxb/' + $("#pk").val());
-	}
+	
 }
 
 function afterSubmit(arr) {
-	parent.location.reload();
+
 }
 
 </script>

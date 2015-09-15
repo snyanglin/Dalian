@@ -8,23 +8,10 @@
 	</head>
 
 <body>
-	<form action="" id="dataForm" name="dataForm" method="post" >
-	
-		<input type="hidden" id="_method" name="_method" value=""/>
-		<input type='hidden' name='id' id="pk" value="${entity.id}" />
-		<input type="hidden" id="zdryid" name="zdryid" value="${entity.zdryid}"/>
+	<form action="<%=basePath%>zdryPsjdb/update" id="dataForm" name="dataForm" method="post" >			
+		<input type='hidden' name='id' id="id" value="${entity.id}" />		
 		
-		<table border="0" cellpadding="0" cellspacing="10" width="846" align="left">
-			<tr class="dialogTr">
-				<td width="20%" class="dialogTd" align="right">重点人员姓名：</td>
-		    	<td width="30%" class="dialogTd">
-		    	<input class="easyui-validatebox inputreadonly" type="text" id="xm" name="xm" style="width:200px;" readonly="readonly"/>
-		    	</td>
-		    	<td width="20%" class="dialogTd" align="right">重点人员身份号码：</td>
-		    	<td width="30%" class="dialogTd">
-		    	<input class="easyui-validatebox inputreadonly" type="text" id="sfzh" name="sfzh" style="width:200px;" readonly="readonly"/>
-		    	</td>
-	    	</tr>
+		<table border="0" cellpadding="0" cellspacing="10" width="846" align="left">			
 		    <tr class="dialogTr">
 	    		<td width="20%" class="dialogTd" align="right">评议时间：</td>
 			    <td width="30%" class="dialogTd"><input type="text" name="py_sj" id="py_sj" value="${entity.py_sj}" class="easyui-validatebox"  style="width: 200px;" 
@@ -61,23 +48,15 @@
 
 
 function doInit(paramArray){
-	$('#sfzh').val(paramArray["sfzh"]);
-	$('#xm').val(paramArray["xm"]);
+
 }
 
 function beforeSubmit() {
-	if ($("#pk").val() == "") {
-		$("#_method").val('');
-		$("#dataForm").attr('action', contextPath + '/zdryPsjdb/save');
-	}
-	else {
-		$("#_method").val('PUT');
-		$("#dataForm").attr('action', contextPath + '/zdryPsjdb/' + $("#pk").val());
-	}
+
 }
 
 function afterSubmit(arr) {
-	parent.location.reload();
+	
 }
 </script>
 </html>

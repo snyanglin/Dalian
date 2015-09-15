@@ -39,6 +39,7 @@ public class Lcgcg implements JavaDelegate {
 		String ywsqrId = (String) execution.getVariable("applyUserId");
 		String cghZdryId = (String) execution.getVariable("cghZdryId");
 		String sqlxdm = (String) execution.getVariable("sqlxdm");
+		String spyj= (String) execution.getVariable("spyj");
 		
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
@@ -49,6 +50,10 @@ public class Lcgcg implements JavaDelegate {
 			zdryUntil.lgSuccess(zdryId, zdryxm, ywsqrId, spr, spbm, cghZdryId);
 		else if("02".equals(sqlxdm))
 			zdryUntil.cgSuccess(zdryId, zdryxm, ywsqrId, spr, spbm, cghZdryId);
+		else if("04".equals(sqlxdm)){//请假
+			String qjId=(String) execution.getVariable("qjId");			
+			zdryUntil.qjSuccess(qjId,sessionBean.getUserName(),spr,sessionBean.getRemoteAddr(),spyj);
+		}
 	}
 
 }

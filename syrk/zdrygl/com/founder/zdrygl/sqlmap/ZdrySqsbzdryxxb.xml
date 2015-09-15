@@ -8,12 +8,7 @@
 	<!-- 查询单条（根据主键） -->
 	<select id="queryById" parameterClass="String" resultClass="zdrySqsbzdryxxb">
 		<![CDATA[ select * from ZDRY_SQSBZDRYXXB t where ID = #id#  and rownum = 1 ]]>
-	</select>
-	
-	<select id="queryZsxxById" parameterClass="String" resultClass="zdrySqsbzdryxxb">
-		<![CDATA[ select t.id , t.glffdm,t.lglydm,t.nrgzyj,t.ajlbdm,t1.zdlgbmmc xt_lrrbm , (select wm_concat(t2.zdrylbdm) from zdry_zdrylbb t2 where t2.zdryid = t.id and t2.xt_zxbz='0' ) as bz
-  				from ZDRY_SQSBZDRYXXB t, ZDRY_ZDRYZB t1 where t.ID = #id#  and t.id=t1.id and t.XT_ZXBZ = '0' and t1.xt_zxbz='0']]>
-	</select>
+	</select>		
 
 	<!-- 新增 -->
 	<insert id="save" parameterClass="zdrySqsbzdryxxb">

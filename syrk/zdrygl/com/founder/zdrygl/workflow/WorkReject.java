@@ -56,6 +56,7 @@ public class WorkReject implements JavaDelegate{
 		String zdryxm=(String) arg0.getVariable("xm");
 		String ywsqrId=(String) arg0.getVariable("applyUserId");
 		String cghZdryId=(String) arg0.getVariable("cghZdryId");
+		String spyj=(String) arg0.getVariable("spyj");
 		String spr=sessionBean.getUserId();
 		String spbm=sessionBean.getUserOrgCode();
 		
@@ -64,6 +65,10 @@ public class WorkReject implements JavaDelegate{
 		}
 		if(sqlxdm.equals("02")){//撤管
 			zdryUntil.cgFail(zdryId, zdryxm, ywsqrId, spr, spbm, cghZdryId);
+		}
+		if(sqlxdm.equals("04")){//请假
+			String qjId=(String) arg0.getVariable("qjId");			
+			zdryUntil.qjFail(qjId,sessionBean.getUserName(),spr,sessionBean.getRemoteAddr(),spyj);
 		}
 		
 	}

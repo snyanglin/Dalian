@@ -13,11 +13,12 @@
     	
     	<input type="hidden" id="workflowId" name="workflowId""  value="${workflowId}" />
     	<input type="hidden" id="zdrylx" name="zdrylx""   />
+    	<input type="hidden" id="sqlxdm" name="sqlxdm""   />
     	
     
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 			<tr class="dialogTr">
-		    	<td width="20%" class="dialogTd" align="right">待列管人员姓名：</td>
+		    	<td width="20%" class="dialogTd" align="right">重点人员姓名：</td>
 		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text"  id="zdryName" name="zdryName" style="width:200px;" readonly="readonly"  /></td>
 		    	<td width="20%" class="dialogTd" align="right">公民身份号码：</td>
 		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="zjhm" id="zjhm" style="width:200px;" readonly="readonly" /></td>
@@ -36,10 +37,24 @@
 		    	<td width="20%" class="dialogTd" align="right" id="cgrqText">申请日期：</td>
 		    	<td width="30%" class="dialogTd"><input type="text" name="sqsj" id="sqsj" class="easyui-validatebox inputreadonly" style="width: 200px;"  readonly="readonly" /></td>
 	    		<td width="10%" class="dialogTd" align="right">申请人：</td>
-		    	<td width="20%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="sqrId" id="sqrId" style="width:200px;" readonly="readonly" /></td>
-		 
-	    	
+		    	<td width="20%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="sqrId" id="sqrId" style="width:200px;" readonly="readonly" /></td>		 	    
 	    	</tr>
+	    	<c:if test="${sqlxdm eq '04'}">	    	
+	    	 <tr class="dialogTr">
+		    	<td width="20%" class="dialogTd" align="right">请假日期：</td>
+		    	<td width="30%" class="dialogTd"><input type="text" name="qjrq" id="qjrq" class="easyui-validatebox inputreadonly" style="width: 200px;"  readonly="readonly" /></td>
+	    		<td width="20%" class="dialogTd" align="right">预计返回日期：</td>
+		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="yjfh_rq" id="yjfh_rq" style="width:200px;" readonly="readonly" /></td>		 	    
+	    	</tr>
+	    	<tr class="dialogTr">
+		    	<td width="20%" class="dialogTd" align="right">请假原因：</td>
+		    	<td width="80%" class="dialogTd" colspan="3">
+		    		<textarea name="qjyy" id="qjyy" class="easyui-validatebox inputreadonly" style="width: 618px; height:48px; readonly="readonly"">
+						${qjyy}
+					</textarea>
+		    	</td>	    				 	   
+	    	</tr>	    	
+	    	</c:if>
 	    	
 	    	<c:if test="${approvalMethod eq 'szzlApproval'}">
 	    	
@@ -156,6 +171,7 @@ function getZdryXx() {
 					$("#zdrylx").val(data.workflowXx.zdrylx) ;
 					$("#zdrylxmc").val(data.workflowXx.zdrylxmc) ;
 					$("#sqlx").val(data.workflowXx.sqlx) ;
+					$("#sqlxdm").val(data.workflowXx.sqlxdm) ;
 					$("#sqyj").val(data.workflowXx.sqyj) ;
 					if(data.workflowXx.yzdrylbmc!='')
 					{
@@ -166,6 +182,12 @@ function getZdryXx() {
 					xm=data.workflowXx.xm;
 					ryid=data.zdryZdryzb.ryid;
 					syrkid=data.zdryZdryzb.syrkid;
+					if(data.workflowXx.sqlxdm=='04'){//请假
+						$("#qjrq").val(data.zdryJgdxqxjdjb.qjrq);
+						$("#yjfh_rq").val(data.zdryJgdxqxjdjb.yjfh_rq);
+						$("#qjyy").val(data.zdryJgdxqxjdjb.qjyy);
+					}
+					
 				}
 			}
 		});

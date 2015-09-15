@@ -51,7 +51,7 @@
 					data-options="url: contextPath +'/zdryzb/queryZdryTopLbList',  
 					valueField:'lbdm',textField:'bz',selectOnNavigation:false,method:'get',required:true,tipPosition:'right',onChange:zdrylxChange"/>
 
-	    			<input type="text" name="zdryZdryzb.zdrylb" id="zdrylbStr"  class="easyui-combotree" style="width:400px;"
+	    			<input type="text" name="zdryZdryzb.zdrylb" id="zdrylbStr"  class="easyui-combotree" style="width:390px;"
 	    			data-options="onlyLeaf:true,valueField:'lbdm',textField:'bz',
 	    			multiple:false,required:true,panelWidth:400,method:'get',lines:true,tipPosition:'left'" >
 		    	</td>
@@ -73,7 +73,7 @@
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right" id="lgsqyjText">申请意见：</td>
 		    	<td width="80%" class="dialogTd" colspan="3">
-		    	<input class="easyui-validatebox " type="text" id="ywfqyy" name="ywsqyy" style="width: 619px;" data-options="required:false,validType:['maxLength[100]','unnormal']" /></td>
+		    	<input class="easyui-validatebox " type="text" id="ywfqyy" name="ywsqyy" style="width: 595px;" data-options="required:false,validType:['maxLength[100]','unnormal']" /></td>
 	    	</tr>	    	
 	    	</table>	    		    		    
     </form>
@@ -83,8 +83,9 @@
 
 	<div id="syrkDiv" class="easyui-window" title="实有人口查询"  data-options="iconCls:'icon-search',
                 collapsible:false,minimizable:false,maximizable:false,
-		        modal:true,closed:true,width:600,height:400">
-		        <form id ="queryForm" >
+		        modal:true,closed:true,width:600,height:500">
+		        <div id="datagridToolbar" style="padding: 0px; height: 150px; width: 100%; vertical-align: top;">
+		        <form id ="queryForm" >		        
 			        <table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 				        
 				        <tr class="dialogTr">
@@ -92,10 +93,10 @@
 					    	<td width="30%" class="dialogTd">
 					    	    <input type="text" name="syrkXm" id="syrkXm" class="easyui-validatebox" data-options="required:false,validType:'maxLength[20]'" style="width:180px;"/>
 					    	</td>				    	
-					    	<td width="20%" class="dialogTd" align="right">证件类型：</td>
+					    	<td width="20%" class="dialogTd" align="right">人员类型：</td>
 					    	<td width="30%" class="dialogTd">
-					    	    <input class="easyui-combobox" type="text" id="syrkCyzjdm" name="syrkCyzjdm" style="width:180px;"
-							    	   data-options="url: contextPath + '/common/dict/KX_D_CYZJDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/>
+					    	    <input class="easyui-combobox" type="text" id="syrkywlxdm" name="syrkywlxdm" style="width:180px;"
+								    	   data-options="url: contextPath + '/common/dict/BD_D_SYRKYWLXDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/>
 					    	</td>
 				    	</tr>	
 				    	<tr class="dialogTr">
@@ -124,26 +125,21 @@
 					    	</td>
 				    	</tr>
 			         </table>
+			         
 		        </form>
-		        
+		        </div>
 		        <!-- 人口查询列表 -->
 	           <table id="dg" class="easyui-datagrid"
-		              	data-options="url:'<%=contextPath%>/syrkGl/querySyrk',
-		                  	delayCountUrl:'<%=contextPath%>/syrkGl/querySyrkCount',							
-							selectOnCheck:true,
-			        		checkOnSelect:true,
-			        		rownumbers:true,
-			        		border:false,
-			        		sortName:'',
-			        		sortOrder:'desc',
-			        		pageSize:getAutoPageSize(105),
-			        		pageList:[getAutoPageSize(105),
-			        		getAutoPageSize(105) * 2],
-			        		singleSelect:true,
-			        		fitColumns:false,
-			        		nowrap:true,
-							toolbar:'#datagridToolbar',
-							onClickRow:ZdryAdd.onClickRow">
+	           		data-options="url: '<%=contextPath%>/syrkGl/queryList',
+	           		toolbar:'#datagridToolbar',
+	           		rownumbers:true,
+            		border:false,
+            		selectOnCheck:false,
+            		sortName:'xt_cjsj',
+            		sortOrder:'asc',
+            		idField:'id',
+            		pageSize:10
+            		">
 				        <thead>
 				          <tr>
 				           	<th data-options="field:'syrkywlxdm',width:80,align:'center',halign:'center',sortable:true,formatter:dictFormatter,dictName:contextPath+'/common/dict/BD_D_SYRKYWLXDM.js'">人员类型</th>
@@ -154,6 +150,7 @@
 				          </tr>
 				       </thead>
 		       </table>
+		       
 		   </div>    
 	</div>
 			
@@ -241,14 +238,20 @@ function querySyrkClose(){
 	$("#syrkDiv").window("close");
 }
 function syrkQuery(){
-	var xm = document.getElementById("syrkXm").value;
-	var cyzjdm = document.getElementById("syrkCyzjdm").value;
-	var zjhm = document.getElementById("syrkZjhm").value;
-	var xbdm = document.getElementById("syrkXbdm").value;	
-	var jzd_dzxz = document.getElementById("syrk_jzd_dzxz").value;	
-	$('#dg').datagrid('load',{    		
-		'xm':xm,
-		'cyzjdm':cyzjdm,
+	var xm = document.getElementById("syrkXm").value;		
+	var zjhm = document.getElementById("syrkZjhm").value;	
+	var xbdm = $("#syrkXbdm").combobox("getValue");
+	if($("#syrkXbdm").combobox("getText")==""){
+		xbdm="";
+	}
+	var jzd_dzxz = document.getElementById("syrk_jzd_dzxz").value;		
+	var syrkywlxdm = $("#syrkywlxdm").combobox("getValue");
+	if($("#syrkywlxdm").combobox("getText")==""){
+		syrkywlxdm="";
+	}
+	$('#dg').datagrid('load',{ 
+		'syrkywlxdm':syrkywlxdm,
+		'xm':xm,		
 		'zjhm':zjhm,
 		'xbdm':xbdm,		
 		'jzd_dzxz':jzd_dzxz

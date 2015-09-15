@@ -35,8 +35,5 @@ public class ZdrySqsbzdryxxbDao extends BaseDaoImpl {
 	public ZdrySqsbzdryxxb queryById(String id){
 		return (ZdrySqsbzdryxxb) queryForObject("ZdrySqsbzdryxxb.queryById", id);
 	}
-
-	public ZdrySqsbzdryxxb queryZsxxById(String id) {
-		return (ZdrySqsbzdryxxb) queryForObject("ZdrySqsbzdryxxb.queryZsxxById", id);
-	}
+	
 }

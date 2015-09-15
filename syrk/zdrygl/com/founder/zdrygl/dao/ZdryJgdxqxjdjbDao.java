@@ -34,7 +34,7 @@ public class ZdryJgdxqxjdjbDao extends BaseDaoImpl {
 	 * @param page
 	 * @param entity
 	 * @return
-	 */
+	 *
 	public EasyUIPage queryList(EasyUIPage page, ZdryJgdxqxjdjb entity) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("begin", page.getBegin());
@@ -53,13 +53,15 @@ public class ZdryJgdxqxjdjbDao extends BaseDaoImpl {
 		page.setRows(queryForList("ZdryJgdxqxjdjb.queryList", map));
 		return page;
 	}
-
+*/
 	/**
-	 * 查询列表<br>
 	 * 
-	 * @param page
-	 * @param entity
-	 * @return
+	 * @Title: queryViewList
+	 * @Description: TODO(查询下方菜单显示的信息，有最大条数限制)
+	 * @param @param map
+	 * @param @return    设定文件
+	 * @return List<ZdryJgdxqxjdjb>    返回类型
+	 * @throws
 	 */
 	public List<ZdryJgdxqxjdjb> queryViewList(Map<String, Object> map) {
 		List<ZdryJgdxqxjdjb> list = null;
@@ -103,26 +105,20 @@ public class ZdryJgdxqxjdjbDao extends BaseDaoImpl {
 	 * 
 	 * @param entity
 	 */
-	public void update(ZdryJgdxqxjdjb entity, SessionBean sessionBean) {
+	public void update(ZdryJgdxqxjdjb entity) {
 		update("ZdryJgdxqxjdjb.update", entity);
 	}
 
 	/**
-	 * 更新审批<br>
 	 * 
-	 * @param entity
+	 * @Title: queryWxjNum
+	 * @Description: TODO(插叙未销假的数)
+	 * @param @param zdryId
+	 * @param @return    设定文件
+	 * @return int    返回类型
+	 * @throws
 	 */
-	public void updateSp(ZdryJgdxqxjdjb entity, SessionBean sessionBean) {
-		update("ZdryJgdxqxjdjb.updateSp", entity);
+	public int queryWxjNum(String zdryId){
+		return (int)queryForObject("ZdryJgdxqxjdjb.queryWxjNum", zdryId);
 	}
-
-	/**
-	 * 删除<br>
-	 * 
-	 * @param entity
-	 */
-	public void delete(ZdryJgdxqxjdjb entity, SessionBean sessionBean) {
-		update("ZdryJgdxqxjdjb.delete", entity);
-	}
-
 }

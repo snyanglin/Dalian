@@ -36,7 +36,6 @@ import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.framework.organization.user.service.OrgUserService;
 import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.EasyUIPage;
-import com.founder.framework.utils.MapUtils;
 import com.founder.service.attachment.bean.ZpfjFjxxb;
 import com.founder.service.attachment.service.ZpfjFjxxbService;
 import com.founder.syrkgl.bean.SyrkSyrkxxzb;
@@ -49,7 +48,6 @@ import com.founder.zdrygl.bean.ZdrySgafzdryxxb;
 import com.founder.zdrygl.bean.ZdryShbzdryxxb;
 import com.founder.zdrygl.bean.ZdryZdryzb;
 import com.founder.zdrygl.bean.Zdrylxylbdyb;
-import com.founder.zdrygl.service.ZdryHsbService;
 import com.founder.zdrygl.service.ZdrySgafzdryxxbService;
 import com.founder.zdrygl.service.ZdryShbzdryxxbService;
 import com.founder.zdrygl.service.ZdryZdryzbService;
@@ -80,9 +78,6 @@ public class ZdryZdryzbControl extends BaseController {
 	private ZdrylxylbdybService zdrylxylbdybService;
 	@Resource		
 	private ZdryShbzdryxxbService zdryShbzdryxxbService;
-	
-	@Resource(name = "zdryHsbService")
-	private ZdryHsbService zdryHsbService;
 	
 	@Resource(name = "zpfjFjxxbService")
 	private ZpfjFjxxbService zpfjFjxxbService;
@@ -201,58 +196,8 @@ public class ZdryZdryzbControl extends BaseController {
 		mv.addObject("applyUser",sessionBean.getUserName());
 		mv.addObject("applyDate",formatter.format(new Date()));
 		return mv;
-	}
-	
-	/***
-	 * 
-	 * @Title: getZdrylbdmExceptYlg
-	 * @Description: 根据大类取小类,去掉已列管
-	 * @author wu_chunhui@founder.com.cn
-	 * @param @return
-	 * @return String
-	 * @throws
-	 */
-	//以前查类别的接口，可能要删除
-//	@RequestMapping(value = "/getZdrylbdmExceptYlg", method = RequestMethod.POST)
-//	public @ResponseBody
-//	String getZdrylbdmExceptYlg(String zdrylxdm, String syrkid) {
-//		String zdrylbdm = "";
-//		List<Zdrylxylbdyb> zdrylbdmList = zdrylxylbdybService
-//				.queryZdrylbdm(zdrylxdm);
-//		List<String> zdrylbdmListStr = zdrylxylbdybService.getZdrylbdmExceptYlg(
-//				zdrylbdmList, syrkid);
-//		for (int i = 0; i < zdrylbdmListStr.size(); i++) {
-//			if (i == zdrylbdmListStr.size() - 1) {
-//				zdrylbdm += zdrylbdmListStr.get(i);
-//			} else {
-//				zdrylbdm += zdrylbdmListStr.get(i) + "|";
-//			}
-//		}
-//		
-//		if(zdrylbdm.equals("")) return zdrylbdm;
-//		return "^("+zdrylbdm+")$";
-//	}
-	
-	
-	
-	/***
-	 * 
-	 * @Title: createLg
-	 * @Description: 以前从实有人口管理跳转的列管，可能会删除
-	 * @author wu_chunhui@founder.com.cn
-	 * @param @param ryid
-	 * @param @return
-	 * @return ModelAndView
-	 * @throws
-	 */
-	@RequestMapping(value = "/createLcg/{ywlx}", method = { RequestMethod.POST,RequestMethod.GET})
-	public ModelAndView createLg(String syrkid,
-			@RequestParam(required = true) String ryid,
-			@PathVariable(value = "ywlx") String ywlx, String zdrygllxdm,
-			String zdryHsbId) {
-		ModelAndView mv = new ModelAndView("zdry/zdryLcg");
-		return mv;
-	}
+	}			
+			
 	
 	/***
 	 * 
@@ -379,10 +324,19 @@ public class ZdryZdryzbControl extends BaseController {
 
 			processDefinitionService.startProcessInstance(sessionBean.getUserId(), "shb_lcg", zdryZdryzb.getId(), variables);	
 			}
-//			else if(zdryZdryzb.getZdrygllxdm().equals("06")){//其他关注对象 改为也要 所长 审批
-//			
-//				zdryUntil.lgSuccess(zdryZdryzb.getId(), zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), null);
-//		}
+			else if(zdryZdryzb.getZdrygllxdm().equals("06")){//其他关注对象 改为也要 所长 审批
+				variables.put("sqlx", "治安列管");//申请类型	
+				variables.put("sqlxdm", "01");//申请类型为列管
+				
+				OrgOrganization orgOrganization = orgOrganizationService.queryUpOrgByLevel(lrrzrq,"32");	
+				String fsxOrgCode = orgOrganization.getOrgcode();//  得到本名等级为三级，派出所部门code
+				String taskParameter = fsxOrgCode+"_"+orgPositionService.queryByPosid("SZ").getId().toString();   //部门code+所长岗位ID				
+				variables.put("sz", taskParameter);
+				variables.put("approvalMethod", "szApproval");
+				
+				processDefinitionService.startProcessInstance(sessionBean.getUserId(), "szsp", zdryZdryzb.getId(), variables);
+				//zdryUntil.lgSuccess(zdryZdryzb.getId(), zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), null);
+		}
 			else if(zdryZdryzb.getZdrygllxdm().equals("05")){//涉公安访
 			variables.put("sqlx", "涉公安访列管");
 			variables.put("sqlxdm", "01");//列管01  撤管02
@@ -963,10 +917,20 @@ public class ZdryZdryzbControl extends BaseController {
 
 				processDefinitionService.startProcessInstance(sessionBean.getUserId(), "shb_lcg", zdryYid, variables);	
 			}
-//			else if(zdryYlb.equals("06")){//其他关注对象，改为也要 所长 审批
-//				zdryUntil.cgSuccess(zdryYid, zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), zdryZdryzb.getId());
-////				processDefinitionService.startProcessInstance(sessionBean.getUserId(), " ", zdryZdryzb.getId(), variables);	
-//			}
+			else if(zdryYlb.equals("06")){//其他关注对象，改为也要 所长 审批
+				variables.put("sqlx", "治安撤管");//申请类型	
+				variables.put("sqlxdm", "02");//申请类型为撤管
+				
+				OrgOrganization orgOrganization = orgOrganizationService.queryUpOrgByLevel(lrrzrq,"32");	
+				String fsxOrgCode = orgOrganization.getOrgcode();//  得到本名等级为三级，派出所部门code
+				String taskParameter = fsxOrgCode+"_"+orgPositionService.queryByPosid("SZ").getId().toString();   //部门code+所长岗位ID				
+				variables.put("sz", taskParameter);
+				variables.put("approvalMethod", "szApproval");
+				
+				processDefinitionService.startProcessInstance(sessionBean.getUserId(), "szsp", zdryYid, variables);
+				//zdryUntil.cgSuccess(zdryYid, zdryxm, sessionBean.getUserId(), sessionBean.getUserName(), sessionBean.getUserOrgCode(), zdryZdryzb.getId());
+//				processDefinitionService.startProcessInstance(sessionBean.getUserId(), " ", zdryZdryzb.getId(), variables);	
+			}
 			else if(zdryYlb.equals("05")){//涉公安访
 				variables.put("sqlx", "涉公安访撤管");
 				variables.put("sqlxdm", "02");//列管01  撤管02

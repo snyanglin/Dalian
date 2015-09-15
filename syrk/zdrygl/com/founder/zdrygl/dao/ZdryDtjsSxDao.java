@@ -38,7 +38,7 @@ import com.founder.zdrygl.bean.ZdryDtjsZszhjsbrZszhjlxxb;
  * ****************************************************************************
  * @Package:      [com.founder.qbld.dao.ZdryDao.java]  
  * @ClassName:    [ZdryDao]   
- * @Description:  [重点人员dao]   
+ * @Description:  [动态写实DAO]   
  * @Author:       [yu_sun@founder.com.cn]  
  * @CreateDate:   [2015-5-14 上午9:44:06]   
  * @UpdateUser:   [founder(如多次修改保留历史记录，增加修改记录)]   

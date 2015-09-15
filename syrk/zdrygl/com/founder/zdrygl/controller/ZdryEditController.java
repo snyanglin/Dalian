@@ -24,6 +24,7 @@ import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
+import com.founder.framework.utils.DateUtils;
 import com.founder.workflow.service.inteface.JProcessDefinitionService;
 import com.founder.zdrygl.service.ZdryEditService;
 import com.founder.zdrygl.service.ZdrySgafzdryxxbService;
@@ -128,7 +129,7 @@ public class ZdryEditController extends BaseController {
 	/**
 	 * 
 	 * @Title: delete_xxzsnrb
-	 * @Description: TODO(下方菜单 删除功能请求)
+	 * @Description: TODO(下方菜单 删除功能请求 页面)
 	 * @param @param url
 	 * @param @param id
 	 * @param @return    设定文件
@@ -143,6 +144,41 @@ public class ZdryEditController extends BaseController {
 		return mv;
 	}		
 	
+	/**
+	 * 
+	 * @Title: calcle_xxzsnrb
+	 * @Description: TODO(下方菜单 删除功能请求)
+	 * @param @param url
+	 * @param @param id
+	 * @param @param xt_zxyy
+	 * @param @return    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throws
+	 */
+	@RequestMapping(value = "/calcle_xxzsnrb", method = RequestMethod.POST)
+	public ModelAndView calcle_xxzsnrb(String url, String id, String xt_zxyy) {
+		ModelAndView mv = new ModelAndView("redirect:/forward/"
+				+ AppConst.FORWORD);
+		Map<String, Object> model = new HashMap<String, Object>();
+		SessionBean sessionBean = getSessionBean();
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (sessionBean != null) {
+			map.put("xt_zhxgrxm", sessionBean.getUserName());
+			map.put("xt_zhxgrid", sessionBean.getUserId());
+			map.put("xt_zhxgrbm", sessionBean.getUserOrgName());
+			map.put("xt_zhxgrbmid", sessionBean.getUserOrgCode());
+			map.put("xt_zhxgip", sessionBean.getRemoteAddr());
+		}
+		map.put("xt_zhxgsj", DateUtils.getSystemDateTimeString());
+		map.put("url", url);
+		map.put("id", id);
+		map.put("xt_zxyy", xt_zxyy);
+		zdryEditService.delete_xxzsnrb(map);
+		model.put(AppConst.STATUS, AppConst.SUCCESS);
+		model.put(AppConst.MESSAGES, "注销成功！");
+		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
+		return mv;
+	}
 	
 	/**
 	 * 
