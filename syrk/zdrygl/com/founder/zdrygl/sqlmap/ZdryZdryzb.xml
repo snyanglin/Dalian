@@ -42,7 +42,7 @@
 				from ZDRY_ZDRYZB z,RY_RYJBXXB r,BZDZ_ADD_MLDZDXB b 
 				where z.ryid = #ryid# 
 					and  (b.mldzid=r.Jzd_mlpdm or (r.Hjd_mlpdm = b.mldzid and  r.Jzd_mlpdm is null)) 
-					and r.ID=z.RYID and z.glzt in (1,2,3,5,7)  and  z.XT_ZXBZ = '0' and b.xt_zxbz='0'
+					and r.ID=z.RYID and z.glzt in (1,2,3,4,5,7)  and  z.XT_ZXBZ = '0' and b.xt_zxbz='0'
 
 			) m  
 			left join  ZDRY_ZDRYLXYLBDYB L on (L.LBDM=m.ZDRYGLLXDM and L.QYDM=#QYDM#)  
