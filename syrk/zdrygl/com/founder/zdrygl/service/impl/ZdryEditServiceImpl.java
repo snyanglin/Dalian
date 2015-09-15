@@ -243,22 +243,6 @@ public class ZdryEditServiceImpl extends BaseService implements ZdryEditService 
 		map.put("maxNum", "10");
 		return zdryPsjdbDao.queryViewList(map);
 	}
-	/**
-	 * 未调试，涉环保 可能不用
-	 */	
-	@Override
-	public ZdryShbzdryxxb shbzdry_query (Map<String,Object> map){
-		return zdryShbzdryxxbDao.queryById((String) map.get("zdryid"));
-	}
-	
-	
-	/**
-	 * 未调试，可能不用
-	 */	
-	@Override
-	public List<ZdrylgxxVO> lgxx_query(Map<String, Object> map) {
-		return zdryZdryzbDao.queryLgxxByZdryid(map);
-	}
 	
 	@Override
 	public ZdryVO queryZdryAllInfo(String zdryid) {

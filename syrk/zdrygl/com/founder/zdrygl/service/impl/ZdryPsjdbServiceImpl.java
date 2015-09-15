@@ -4,24 +4,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.founder.framework.annotation.MethodAnnotation;
-import com.founder.framework.annotation.MethodAnnotation.logType;
-import com.founder.framework.annotation.TypeAnnotation;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
-import com.founder.framework.dictionary.service.SysDictGlService;
-import com.founder.framework.message.bean.SysMessage;
-import com.founder.framework.message.dao.SysMessageDao;
-import com.founder.framework.utils.DateUtils;
-import com.founder.framework.utils.EasyUIPage;
-import com.founder.framework.utils.StringUtils;
 import com.founder.framework.utils.UUID;
-import com.founder.zdrygl.bean.ZdryJgdxqxjdjb;
 import com.founder.zdrygl.bean.ZdryPsjdb;
-import com.founder.zdrygl.bean.ZdryZdryzb;
 import com.founder.zdrygl.dao.ZdryPsjdbDao;
-import com.founder.zdrygl.service.ZdryGlpzpzbService;
 import com.founder.zdrygl.service.ZdryPsjdbService;
 import com.founder.zdrygl.service.ZdryZdryzbService;
 
@@ -47,14 +34,7 @@ public class ZdryPsjdbServiceImpl implements ZdryPsjdbService {
 	@Resource(name = "zdryZdryzbService")
 	private ZdryZdryzbService zdryZdryzbService;
 
-	//@Resource(name = "zdryGlpzpzbService")
-	//private ZdryGlpzpzbService zdryGlpzpzbService;
 
-	//@Resource(name = "sysMessageDao")
-	//private SysMessageDao sysMessageDao;
-
-	//@Resource(name = "sysDictGlService")
-	//private SysDictGlService sysDictGlService;
 
 	/**
 	 * 查询列表<br>

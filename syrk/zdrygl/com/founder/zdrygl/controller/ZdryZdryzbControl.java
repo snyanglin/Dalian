@@ -36,7 +36,6 @@ import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.framework.organization.user.service.OrgUserService;
 import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.EasyUIPage;
-import com.founder.framework.utils.MapUtils;
 import com.founder.service.attachment.bean.ZpfjFjxxb;
 import com.founder.service.attachment.service.ZpfjFjxxbService;
 import com.founder.syrkgl.bean.SyrkSyrkxxzb;
@@ -49,7 +48,6 @@ import com.founder.zdrygl.bean.ZdrySgafzdryxxb;
 import com.founder.zdrygl.bean.ZdryShbzdryxxb;
 import com.founder.zdrygl.bean.ZdryZdryzb;
 import com.founder.zdrygl.bean.Zdrylxylbdyb;
-import com.founder.zdrygl.service.ZdryHsbService;
 import com.founder.zdrygl.service.ZdrySgafzdryxxbService;
 import com.founder.zdrygl.service.ZdryShbzdryxxbService;
 import com.founder.zdrygl.service.ZdryZdryzbService;
@@ -80,9 +78,6 @@ public class ZdryZdryzbControl extends BaseController {
 	private ZdrylxylbdybService zdrylxylbdybService;
 	@Resource		
 	private ZdryShbzdryxxbService zdryShbzdryxxbService;
-	
-	@Resource(name = "zdryHsbService")
-	private ZdryHsbService zdryHsbService;
 	
 	@Resource(name = "zpfjFjxxbService")
 	private ZpfjFjxxbService zpfjFjxxbService;
@@ -201,58 +196,8 @@ public class ZdryZdryzbControl extends BaseController {
 		mv.addObject("applyUser",sessionBean.getUserName());
 		mv.addObject("applyDate",formatter.format(new Date()));
 		return mv;
-	}
-	
-	/***
-	 * 
-	 * @Title: getZdrylbdmExceptYlg
-	 * @Description: 根据大类取小类,去掉已列管
-	 * @author wu_chunhui@founder.com.cn
-	 * @param @return
-	 * @return String
-	 * @throws
-	 */
-	//以前查类别的接口，可能要删除
-//	@RequestMapping(value = "/getZdrylbdmExceptYlg", method = RequestMethod.POST)
-//	public @ResponseBody
-//	String getZdrylbdmExceptYlg(String zdrylxdm, String syrkid) {
-//		String zdrylbdm = "";
-//		List<Zdrylxylbdyb> zdrylbdmList = zdrylxylbdybService
-//				.queryZdrylbdm(zdrylxdm);
-//		List<String> zdrylbdmListStr = zdrylxylbdybService.getZdrylbdmExceptYlg(
-//				zdrylbdmList, syrkid);
-//		for (int i = 0; i < zdrylbdmListStr.size(); i++) {
-//			if (i == zdrylbdmListStr.size() - 1) {
-//				zdrylbdm += zdrylbdmListStr.get(i);
-//			} else {
-//				zdrylbdm += zdrylbdmListStr.get(i) + "|";
-//			}
-//		}
-//		
-//		if(zdrylbdm.equals("")) return zdrylbdm;
-//		return "^("+zdrylbdm+")$";
-//	}
-	
-	
-	
-	/***
-	 * 
-	 * @Title: createLg
-	 * @Description: 以前从实有人口管理跳转的列管，可能会删除
-	 * @author wu_chunhui@founder.com.cn
-	 * @param @param ryid
-	 * @param @return
-	 * @return ModelAndView
-	 * @throws
-	 */
-	@RequestMapping(value = "/createLcg/{ywlx}", method = { RequestMethod.POST,RequestMethod.GET})
-	public ModelAndView createLg(String syrkid,
-			@RequestParam(required = true) String ryid,
-			@PathVariable(value = "ywlx") String ywlx, String zdrygllxdm,
-			String zdryHsbId) {
-		ModelAndView mv = new ModelAndView("zdry/zdryLcg");
-		return mv;
-	}
+	}			
+			
 	
 	/***
 	 * 

@@ -13,7 +13,6 @@ import com.founder.framework.utils.EasyUIPage;
 import com.founder.syrkgl.service.RyRyjbxxbService;
 import com.founder.zdrygl.bean.ZdryShbzdryxxb;
 import com.founder.zdrygl.dao.ZdryShbzdryxxbDao;
-import com.founder.zdrygl.dao.ZdryYwspbDao;
 import com.founder.zdrygl.dao.ZdryZdryzbDao;
 import com.founder.zdrygl.service.ZdryShbzdryxxbService;
 /***
@@ -37,8 +36,6 @@ public class ZdryShbzdryxxbServiceImpl extends BaseService implements ZdryShbzdr
 	private ZdryZdryzbDao zdryZdryzbDao;
 	@Resource(name = "ryRyjbxxbService")
 	private RyRyjbxxbService ryRyjbxxbService;
-	@Resource(name = "zdryYwspbDao")
-	private ZdryYwspbDao zdryYwspbDao;
 	@Resource(name = "sysMessageDao")
 	private SysMessageDao sysMessageDao;
 	@Resource(name = "orgOrganizationService")

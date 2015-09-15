@@ -1,3 +1,4 @@
+/Config.properties
 /DataCreateBeanSQL.sql
 /applicationContext.xml
 /base.xml
@@ -12,3 +13,4 @@
 /spring-source.xml
 /sqlmap-config.xml
 /system.properties
+/szsp.bpmn

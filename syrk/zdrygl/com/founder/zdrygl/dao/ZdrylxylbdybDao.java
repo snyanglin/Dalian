@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
-import com.founder.zdrygl.bean.ZdryZdrylbb;
+import com.founder.zdrygl.bean.ZdryZdrylxylbdyb;
 import com.founder.zdrygl.bean.Zdrylxylbdyb;
 
 
@@ -45,18 +45,7 @@ public class ZdrylxylbdybDao extends BaseDaoImpl {
 		return (Zdrylxylbdyb) super.queryForObject("Zdrylxylbdyb.query", entity);
 	}
 	
-	/**
-	 * 
-	 * @Title: queryByQydm
-	 * @Description: 查询当前区域下的所有一级类型
-	 * @param @param qydm
-	 * @param @return    设定文件
-	 * @return List<ZdryZdrylbb>    返回类型
-	 * @throws
-	 */
-	public List<ZdryZdrylbb> queryByQydm(String qydm){
-		return queryForList("Zdrylxylbdyb.queryByQydm", qydm);
-	}
+	
 	
 	/**
 	 * 
@@ -64,10 +53,10 @@ public class ZdrylxylbdybDao extends BaseDaoImpl {
 	 * @Description: 查询当前区域下的可列管一级类型
 	 * @param @param qydm
 	 * @param @return    设定文件
-	 * @return List<ZdryZdrylbb>    返回类型
+	 * @return List<ZdryZdrylxylbdyb>    返回类型
 	 * @throws
 	 */
-	public List<ZdryZdrylbb> queryListByQydm(String qydm){
+	public List<ZdryZdrylxylbdyb> queryListByQydm(String qydm){
 		return queryForList("Zdrylxylbdyb.queryListByQydm", qydm);
 	}
 	
@@ -77,7 +66,7 @@ public class ZdrylxylbdybDao extends BaseDaoImpl {
 	 * @Description: 查询当前区域下的子类型列表
 	 * @param @param qydm
 	 * @param @return    设定文件
-	 * @return List<ZdryZdrylbb>    返回类型
+	 * @return List    返回类型
 	 * @throws
 	 */
 	public List queryChildByQydm(String qydm,String lbdm_p){

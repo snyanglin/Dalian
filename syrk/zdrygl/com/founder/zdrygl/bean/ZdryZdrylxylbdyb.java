@@ -9,7 +9,7 @@ import com.founder.framework.base.entity.BaseEntity;
  * ****************************************************************************
  * @Package:      [com.founder.zdrygl.bean.Zdrylbb.java]  
  * @ClassName:    [Zdrylbb]   
- * @Description:  [一句话描述该类的功能]   
+ * @Description:  [重点人员类型与类别对应表]   
  * @Author:       [wu_chunhui@founder.com.cn]  
  * @CreateDate:   [2015-3-11 下午5:53:27]   
  * @UpdateUser:   [Administrator(如多次修改保留历史记录，增加修改记录)]   
@@ -17,8 +17,8 @@ import com.founder.framework.base.entity.BaseEntity;
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
-@DBInfoAnnotation(tableName = "ZDRY_ZDRYLBB", pk = "id")
-public class ZdryZdrylbb extends BaseEntity implements Serializable {
+@DBInfoAnnotation(tableName = "ZDRY_ZDRYLXYLBDYB", pk = "id")
+public class ZdryZdrylxylbdyb extends BaseEntity implements Serializable {
 
 	/**
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
