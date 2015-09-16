@@ -52,15 +52,15 @@
    	</div>
     <div class="rightDiv" >
    		<div class="rightCss" >
-   		   <div class="titleCss">&nbsp;通知公告</div>
+   		   <div class="titleCss">&nbsp;通知公告<td class="titleBg"><a href="javascript:void(0);" onclick="queryMsg('通知公告');" title="更多">>></a></td></div>
 		   <div class="messageCss" id="newDiv"></div>
    		</div>
    		<div class="rightCss">
-   		   <div class="titleCss">&nbsp;待办事项</div>
+   		   <div class="titleCss">&nbsp;待办事项 <td class="titleBg"> <a href="javascript:void(0);" onclick="queryMsg('工作待办');" title="更多">>></a></td></div>
 		   <div class="messageCss" id="waitingWorkDiv"></div>
    		</div>
    		<div class="rightCss" id="rightid11">
-   		   <div class="titleCss">&nbsp;业务提醒</div>
+   		   <div class="titleCss">&nbsp;业务提醒<td class="titleBg"><a href="javascript:void(0);" onclick="queryMsg('消息提醒');" title="更多">>></a></td></div>
 		   <div class="messageCss" id="remindDiv"></div>
    		</div>
    	</div>

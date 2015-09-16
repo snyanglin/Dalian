@@ -45,13 +45,15 @@
 	   		<table border="0" cellpadding="0" cellspacing="0" style="width: 100%;height: 100%;">
 	   		<tr>
 	   		<td class="titleCss" style="height: 20px;width:49.5%;">
-	   		待办事项
+	   		待办事项<a href="javascript:void(0);" onclick="queryMsg('工作待办');" title="更多">>></a>
 	   		</td>
+	   		
 	   		<td style="width:1px;">
 	   		</td>
 	   		<td class="titleCss" style="height: 20px;width:49.5%;">
-	   		业务提醒
+	   		业务提醒<a href="javascript:void(0);" onclick="queryMsg('消息提醒');" title="更多">>></a>
 	   		</td>
+	   		
 	   		</tr>
 	   		<tr>
 	   		<td style="border: 1px solid rgb(17, 144, 241)">
@@ -81,7 +83,7 @@
    	</div>
     <div class="rightDiv">
    		<div class="rightCss">
-   		   <div class="titleCss">&nbsp;接处警</div>
+   		   <div class="titleCss">&nbsp;接处警<td class="titleBg"><a href="javascript:void(0);" onclick="menu_open('动态警情', '/forward/jcj|dtjjMessage');" title="更多">>></a></td></div>
 		   <div class="messageCss" id="newDiv"></div>
    		</div>
    		<div class="rightCss1">
