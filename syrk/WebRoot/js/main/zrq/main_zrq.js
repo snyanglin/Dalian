@@ -76,7 +76,6 @@ MainZrq.initJobCounts_back = function(json){
 	var uncheck = parseInt(czf)-parseInt(checkf);
 	var zzjg = json.zzjg;
 	var zdry = json.zdry;
-	console.info(zdry);
 	var htmlStr = "<ul>";
 	htmlStr	+="<li class='xqTitle'>&nbsp;实有人口</li>";
 	var czrkNum = 0,jzrkNum = 0,ldrkNum = 0,jwrkNum = 0,wlhrkNum = 0;
