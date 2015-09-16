@@ -825,6 +825,7 @@ public class ZdryZdryzbControl extends BaseController {
 				zdryZdryzb.setZdrygllxdm(type);
 				zdryZdryzb.setRyid(zb.getRyid());
 				zdryZdryzb.setSyrkid(zb.getSyrkid());
+				zdryZdryzb.setGxbm(zb.getGxbm());
 				BaseService.setSaveProperties(zdryZdryzb, sessionBean);
 				zdryVO.setZdryZdryzb(zdryZdryzb);
 				zdryUntil.initZdryEntity(strAry[1],zdryVO,sessionBean);

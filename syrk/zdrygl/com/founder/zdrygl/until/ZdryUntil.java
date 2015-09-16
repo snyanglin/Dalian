@@ -403,6 +403,8 @@ public class ZdryUntil {
 		Zdrylxylbdyb zdrylxylbdyb = new Zdrylxylbdyb();
 		zdrylxylbdyb.setLbdm(zdrylx);
 		zdrylxylbdyb = zdrylxylbdybService.query(zdrylxylbdyb);
+		
+		/* 撤管时 子表不能删除，因为 重点人员查询菜单 查询已撤管的类型详情时需要。
 		// 根据类型删除对应表数据
 		if ("监管对象".equals(zdrylxylbdyb.getBz())) {
 			zdryJgdxxxbDao.delete(zdryJgdxxxbDao.queryById(zdryId));
@@ -419,8 +421,15 @@ public class ZdryUntil {
 		} else if ("涉公安访重点人员".equals(zdrylxylbdyb.getBz())) {
 			zdrySgafzdryxxbDao.delete(zdrySgafzdryxxbDao.queryById(zdryId));
 		}
+		 */
 	
-		
+		//将新类型的数据改为列管成功
+		if(!StringUtils.isBlank(cghZdryId)){
+			ZdryZdryzb entity = new ZdryZdryzb();
+			entity.setId(cghZdryId);
+			entity.setGlzt("2");
+			zdryZdryzbDao.update(entity);
+		}
 	//后期删除所有附件属性表
 		sendMessageByLC(zdryxm, ywsqrId, spr, spbm, zdryId, cghZdryId, "CG", "1");
 	}
