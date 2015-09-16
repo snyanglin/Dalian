@@ -82,9 +82,9 @@ public class MainController extends BaseController{
 		List<CountMapVO> listVo = null;
 		Map<String, String> param = new HashMap<String, String>();
 		String orgid = getSessionBean().getUserOrgCode();
+		zdrybm = "0"+zdrybm;
 		param.put("orgCode", orgid);
 		param.put("zdrydm", zdrybm);
-		if(zdrybm.equals("1"))
 		listVo = mainService.queryListzdry(param);
 		return listVo;
 	
