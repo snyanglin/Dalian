@@ -1,5 +1,6 @@
 package com.founder.sqjw.service.impl;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -9,7 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.sqjw.dao.MainDao;
 import com.founder.sqjw.service.MainService;
+import com.founder.sqjw.vo.CountMapVO;
 import com.founder.sqjw.vo.MainVo;
+import com.founder.syfw.vo.SyfwListVo;
+import com.founder.syrkgl.bean.SyrkSyrkxxzb;
 /**
  * @类名: MainServiceImpl 
  * @描述: 主页ServiceImpl
@@ -40,5 +44,30 @@ public class MainServiceImpl implements MainService{
 	 */
 	public List<MainVo> queryPcsXqgkXq(MainVo entity) {
 		return mainDao.queryPcsXqgkXq(entity);
+	}
+	@Override
+	public List<SyfwListVo> queryListczf(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return mainDao.queryListczf(param);
+	}
+	@Override
+	public List<SyfwListVo> queryListcheckczf(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return mainDao.queryListcheckczf(param);
+	}
+	@Override
+	public List<SyfwListVo> queryListuncheckczf(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return mainDao.queryListuncheckczf(param);
+	}
+	@Override
+	public List<CountMapVO> queryListzdry(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return mainDao.queryListzdry(param);
+	}
+	@Override
+	public List<SyrkSyrkxxzb> queryListByRyidYwlx(SyrkSyrkxxzb entity) {
+		// TODO Auto-generated method stub
+		return mainDao.queryListByRyidYwlx(entity);
 	}
 }

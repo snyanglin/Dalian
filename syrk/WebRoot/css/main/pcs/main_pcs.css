@@ -131,3 +131,11 @@ a {
 .jobVal a:hover {
 	color: #FF0000;
 }
+.titleBg {
+	background: url("../images/sqjw/homePage/title-bg.png");
+	width: 100%;
+	color: #636363;
+	font-weight: bold;
+	font-family: "微软雅黑";
+		
+}

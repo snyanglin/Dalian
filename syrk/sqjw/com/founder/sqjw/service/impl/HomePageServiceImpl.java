@@ -24,8 +24,10 @@ import com.founder.sqjw.bean.Xjtjcar;
 import com.founder.sqjw.bean.Xjtjemployee;
 import com.founder.sqjw.dao.HomePageDao;
 import com.founder.sqjw.service.HomePageService;
+import com.founder.sqjw.vo.ZdryCountVo;
 import com.founder.sqjw.vo.ZzjgVo;
 import com.founder.tzgg.bean.Org_Organization;
+import com.founder.zdrygl.bean.Zdrylxylbdyb;
 /**
  * @类名: HomePageServiceImpl 
  * @描述:(类描述) 
@@ -1933,5 +1935,24 @@ public class HomePageServiceImpl implements HomePageService{
 		return returnMap;
 	}
 	//jz end
+	@Override
+	public Map<String, Object> queryzrqtj(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		//统计实有人口的
+		List<ZzjgVo> zzjg = homePageDao.queryPcsTj(paramMap);
+		//统计实有重点人口
+		List<ZdryCountVo> zdry = homePageDao.queryZdryTj(paramMap);
+		//统计房屋的
+		long czf = homePageDao.queryCzfTj(paramMap);
+		long checkf = homePageDao.queryCheckTj(paramMap);
+		//long uncheckf = homePageDao.queryunCheckTj(paramMap);
+		//统计治安管理的
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put("zzjg", zzjg);
+		resMap.put("zdry", zdry);
+		resMap.put("czf", czf);
+		resMap.put("checkf", checkf);
+		return resMap;
+	}
 	
 }
