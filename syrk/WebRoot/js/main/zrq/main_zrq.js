@@ -61,7 +61,7 @@ MainZrq.loadXqMap = function(){
  */
 MainZrq.initJobCounts = function(){
 	var params = {zzjgdm:userOrgCode};
-	var fajax =new FrameTools.Ajax(contextPath+"/homePage/queryPcsTj",MainZrq.initJobCounts_back);
+	var fajax =new FrameTools.Ajax(contextPath+"/homePage/countXX",MainZrq.initJobCounts_back);
 	fajax.send(params);
 };
 /**
@@ -71,24 +71,61 @@ MainZrq.initJobCounts = function(){
  * @date:2015-8-15下午18:01:05
  */
 MainZrq.initJobCounts_back = function(json){
-	
+	var czf = json.czf;//出租房
+	var checkf = json.checkf;
+	var uncheck = parseInt(czf)-parseInt(checkf);
+	var zzjg = json.zzjg;
+	var zdry = json.zdry;
+	console.info(zdry);
 	var htmlStr = "<ul>";
 	htmlStr	+="<li class='xqTitle'>&nbsp;实有人口</li>";
-	var czrkNum = 0,jzrkNum = 0,ldrkNum = 0,jwrkNum = 0,wlhrkNum = 0;s
-	if(json!=null&&json.length>0){
-		for(var i=0;i<json.length;i++){
-			if(json[i].lxmc=="常住人口"){
-				czrkNum = json[i].sl;
+	var czrkNum = 0,jzrkNum = 0,ldrkNum = 0,jwrkNum = 0,wlhrkNum = 0;
+	var sqjznum =0,zdrknum =0,jsbnum =0,fzcswnum=0,xgzzdrynum=0,qugznum=0,sqsbnum=0;
+	if(zzjg!=null&&zzjg.length>0){
+		for(var i=0;i<zzjg.length;i++){
+			if(zzjg[i].lxmc=="常住人口"){
+				czrkNum = zzjg[i].sl;	
+			}else if(zzjg[i].lxmc=="寄住人口"){
+				jzrkNum = zzjg[i].sl;
+			}else if(zzjg[i].lxmc=="暂住人口"){
+				ldrkNum = zzjg[i].sl;
+			}else if(zzjg[i].lxmc=="境外人员"){
+				jwrkNum = zzjg[i].sl;	
+			}else if(zzjg[i].lxmc=="未落户人员"){
+				wlhrkNum = zzjg[i].sl;
 				
-			}else if(json[i].lxmc=="寄住人口"){
-				jzrkNum = json[i].sl;
-			}else if(json[i].lxmc=="暂住人口"){
-				ldrkNum = json[i].sl;
-			}else if(json[i].lxmc=="境外人员"){
-				jwrkNum = json[i].sl;	
-			}else if(json[i].lxmc=="未落户人员"){
-				wlhrkNum = json[i].sl;
-				
+			}
+		}
+	}
+	if(zdry!=null&&zdry.length>0){
+		for(var i=0;i<zdry.length;i++){
+			if (zdry[i].zdrybm == "01") {
+				sqjznum = zdry[i].zdrycount;
+
+			}
+			if (zdry[i].zdrybm == "02") {
+				zdrknum = zdry[i].zdrycount;
+
+			}
+			if (zdry[i].zdrybm == "03") {
+				jsbnum = zdry[i].zdrycount;
+
+			}
+			if (zdry[i].zdrybm == "04") {
+				fzcswnum = zdry[i].zdrycount;
+
+			}
+			if (zdry[i].zdrybm == "05") {
+				xgzzdrynum = zdry[i].zdrycount;
+
+			}
+			if (zdry[i].zdrybm == "06") {
+				qugznum = zdry[i].zdrycount;
+
+			}
+			if (zdry[i].zdrybm == "07") {
+				sqsbnum = zdry[i].zdrycount;
+
 			}
 		}
 	}
@@ -98,26 +135,24 @@ MainZrq.initJobCounts_back = function(json){
 	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)' onclick='MainZrq.initJobMap(4)'>&nbsp;境外人员&nbsp;"+jwrkNum+"</a></li>";
 	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)' onclick='MainZrq.initJobMap(5)'>&nbsp;未落户人员&nbsp;"+wlhrkNum+"</a></li>";
 	htmlStr	+="<li class='xqTitle'>&nbsp;重点人员</li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;社区矫正&nbsp;10</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;下落不明&nbsp;2</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;非正常访&nbsp;20</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;涉公安访&nbsp;3</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;其他关注&nbsp;10</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;肇事肇祸&nbsp;5</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;涉枪涉爆&nbsp;1</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;反恐&nbsp;0</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobzdryMap(01)'>&nbsp;社区矫正&nbsp;"+sqjznum+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobzdryMap(02)'>&nbsp;重点人口&nbsp;"+zdrknum+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobzdryMap(03)'>&nbsp;肇事肇祸精神病人&nbsp;"+jsbnum+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobzdryMap(04)'>&nbsp;非正常上访重点人员&nbsp;"+fzcswnum+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobzdryMap(05)'>&nbsp;涉公安访重点人员&nbsp;"+xgzzdrynum+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobzdryMap(06)'>&nbsp;其他工作对象&nbsp;"+qugznum+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobzdryMap(07)'>&nbsp;涉枪涉爆重点人员&nbsp;"+sqsbnum+"</a></li>";
 	htmlStr	+="<li class='xqTitle'>&nbsp;实有房屋</li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;出租房&nbsp;342</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;廉租房&nbsp;230</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;已查出租房&nbsp;530</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;未查出租房&nbsp;40</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobczfMap(1)'>&nbsp;出租房&nbsp;"+czf+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobczfMap(2)'>&nbsp;已检查租房&nbsp;"+checkf+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobczfMap(3)'>&nbsp;未检查租房&nbsp;"+uncheck+"</a></li>";
 	htmlStr	+="<li class='xqTitle'>&nbsp;实有单位</li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;治安单位&nbsp;32</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;内保单位&nbsp;15</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;保安单位&nbsp;25</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;环保单位&nbsp;12</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;消防单位&nbsp;21</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;技防单位&nbsp;52</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;治安单位&nbsp;0</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;内保单位&nbsp;0</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;保安单位&nbsp;0</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;环保单位&nbsp;0</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;消防单位&nbsp;0</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;技防单位&nbsp;0</a></li>";
 	htmlStr += "</ul>";
 	$("#xqTj").html(htmlStr);
 };
@@ -130,6 +165,24 @@ MainZrq.initJobCounts_back = function(json){
 MainZrq.initJobMap = function(lx){
 	var params = {syrkywlxdm:lx,gxzrqdm:userOrgCode};
 	var fajax =new FrameTools.Ajax(contextPath+"/syrkGl/queryListByRyidYwlx",MainZrq.initJobMap_back);
+	fajax.send(params);
+};
+
+/**
+ * @method:initJobMap
+ * @description:初始化地图标点
+ * @author: zhang_guoliang@founder.com
+ * @date:2015-8-15下午19:03:21
+ */
+MainZrq.initJobczfMap = function(lx){
+	var params = {syfwlb:lx};
+	var fajax =new FrameTools.Ajax(contextPath+"/main/queryListsyfw",MainZrq.initJobczfMap_back);
+	fajax.send(params);
+};
+
+MainZrq.initJobzdryMap = function(lx){
+	var params = {zdrybm:lx};
+	var fajax =new FrameTools.Ajax(contextPath+"/main/queryListzdrk",MainZrq.initJobzdryMap_back);
 	fajax.send(params);
 };
 /**
@@ -160,6 +213,83 @@ MainZrq.initJobMap_back = function(json){
 			var zbx = json[count].jzd_zbx;
 			var zby = json[count].jzd_zby;
 			var title = json[count].xm;
+			if(zbx!=""&&zby!=""){
+				var initMarker = MainZrq.ezMap.initMarker(title,zbx,zby,'syrkBlue.png',null,null,43,37);
+				MainZrq.ezMap._MapApp.addOverlay(initMarker);
+				MainZrq.initMarkerArr.push(initMarker);
+			}
+		}else{
+			clearInterval(MainZrq.setInt);
+		}
+		count++;
+	},90);
+};
+
+
+MainZrq.initJobczfMap_back = function(json){
+	//关闭所有器已经打开的气泡框
+	
+	MainZrq.ezMap._MapApp.closeInfoWindow();
+	//判断延时是否执行完，没执行完终止此方法
+	if(MainZrq.setInt!=""){
+		clearInterval(MainZrq.setInt);
+	}
+	//判断地图上已经存在点图层清除
+	if(MainZrq.initMarkerArr!=null){
+		var markerLen = MainZrq.initMarkerArr.length;
+		for(var j=0;j<markerLen;j++){
+			MainZrq.ezMap._MapApp.removeOverlay(MainZrq.initMarkerArr[j]);
+		}
+	}
+	//延时加载点图层
+	var len = json.length;
+	var count = 0;
+	MainZrq.setInt = setInterval(function(){
+		if(count<len){
+			var zbx = json[count].fwdz_zbx;
+			var zby = json[count].fwdz_zby;
+			var title = json[count].fwdz_dzxz;
+		
+			if(zbx!=""&&zby!=""){
+				var initMarker = MainZrq.ezMap.initMarker(title,zbx,zby,'syrkBlue.png',null,null,43,37);
+				MainZrq.ezMap._MapApp.addOverlay(initMarker);
+				MainZrq.initMarkerArr.push(initMarker);
+			}
+		}else{
+			clearInterval(MainZrq.setInt);
+		}
+		count++;
+	},90);
+};
+
+/**
+ * @method:initJobMap_back
+ * @description:初始化地图标点_回调函数
+ * @author: zhang_guoliang@founder.com
+ * @date:2015-8-15下午19:05:32
+ */
+MainZrq.initJobzdryMap_back = function(json){
+	//关闭所有器已经打开的气泡框
+	MainZrq.ezMap._MapApp.closeInfoWindow();
+	//判断延时是否执行完，没执行完终止此方法
+	if(MainZrq.setInt!=""){
+		clearInterval(MainZrq.setInt);
+	}
+	//判断地图上已经存在点图层清除
+	if(MainZrq.initMarkerArr!=null){
+		var markerLen = MainZrq.initMarkerArr.length;
+		for(var j=0;j<markerLen;j++){
+			MainZrq.ezMap._MapApp.removeOverlay(MainZrq.initMarkerArr[j]);
+		}
+	}
+	//延时加载点图层
+	var len = json.length;
+	var count = 0;
+	MainZrq.setInt = setInterval(function(){
+		if(count<len){
+			var zbx = json[count].zbx;
+			var zby = json[count].zby;
+			var title = json[count].title;
 			if(zbx!=""&&zby!=""){
 				var initMarker = MainZrq.ezMap.initMarker(title,zbx,zby,'syrkBlue.png',null,null,43,37);
 				MainZrq.ezMap._MapApp.addOverlay(initMarker);
@@ -640,4 +770,14 @@ function getWeekNumber(y, m, d) {
     }
 
     return week-1;
+}
+
+function queryMsg(bs) {
+    if("通知公告" == bs){
+       menu_open(bs, "/forward/message|sysMessage");
+    }else if("消息提醒" == bs){
+       menu_open(bs, "/forward/message|sysMessage1");
+    } else{
+       menu_open(bs, "/forward/message|sysMessage2");
+    }
 }

@@ -4,6 +4,7 @@ if(typeof MainPcs =="undefined" || !MainPcs){
 MainPcs.ezMap=null;//地图对象
 MainPcs.initMarkerArr = new Array();//放点对象
 MainPcs.setInt = "";//记录延时
+var orgcode ="";
 /**
  * @method:$
  * @description:初始化页面
@@ -123,7 +124,8 @@ MainPcs.initECharts = function(){
  * @date:2015-8-15下午17:58:57
  */
 MainPcs.initJobCounts = function(){
-	var params = {zzjgdm:userOrgCode};
+	orgcode = userOrgCode;
+	var params = {zzjgdm:orgcode};
 	var fajax =new FrameTools.Ajax(contextPath+"/homePage/queryPcsTj",MainPcs.initJobCounts_back);
 	fajax.send(params);
 };
@@ -188,9 +190,9 @@ MainPcs.initJobCounts_back = function(json){
  * @date:2015-8-15下午19:03:21
  */
 MainPcs.initJobMap = function(lx){
-	var params = {syrkywlxdm:lx,gxpcsdm:userOrgCode};
-	var fajax =new FrameTools.Ajax(contextPath+"/syrkGl/queryListByRyidYwlx",MainPcs.initJobMap_back);
-	fajax.send(params)
+	var params = {syrkywlxdm:lx,gxpcsdm:orgcode,gxzrqdm:orgcode};
+	var fajax =new FrameTools.Ajax(contextPath+"/main/queryListByRyidYwlx",MainPcs.initJobMap_back);
+	fajax.send(params);
 };
 /**
  * @method:initJobMap_back
@@ -247,6 +249,9 @@ MainPcs.initPcsXqgk = function(){
 		border:false,
 		pagination:false,
 		width:100,
+		onClickRow:function (index, row){
+			MainPcs.onClickRow(index, row);
+		},
 		columns:[[
 	          	{field:'orgname',title:'责任区',width:150,align:'center',halign:'center'},
 				{field:'syrknum',title:'实有人口',width:80,align:'center',halign:'center'},
@@ -257,6 +262,18 @@ MainPcs.initPcsXqgk = function(){
 		 rownumbers:true
 	});
 };
+
+MainPcs.onClickRow = function(rowIndex,rowData){
+	MainPcs.initJobzrqCounts(rowData.orgcode);
+}
+
+MainPcs.initJobzrqCounts = function(Orgcode){
+	orgcode = Orgcode;
+	var params = {zzjgdm:orgcode};
+	var fajax =new FrameTools.Ajax(contextPath+"/homePage/queryPcsTj",MainPcs.initJobCounts_back);
+	fajax.send(params);
+}
+
 /**
  * @method:initNews
  * @description:加载通知公告
@@ -284,7 +301,7 @@ MainPcs.initNews_back = function(json){
 			}
 		}
 		htmlStr += "</ul>";
-		$("#newDiv").html(htmlStr);
+	 	$("#newDiv").html(htmlStr);
 	}
 };
 /**
@@ -555,3 +572,19 @@ MainPcs.hrefUrl = function(xxID,url){
 	MainPcs.editMsgStar(xxID);
 	window.open(url,'通知公告',"");
 };
+
+/**
+ * @method:hrefUrl
+ * @description:打开通知公告
+ * @author: zhang_guoliang@founder.com
+ * @date:2015-8-14下午16:29:12
+ */
+function queryMsg(bs){
+	if("通知公告" == bs){
+	       menu_open(bs, "/forward/message|sysMessage");
+	    }else if("消息提醒" == bs){
+	       menu_open(bs, "/forward/message|sysMessage1");
+	    }  else{
+	       menu_open(bs, "/forward/message|sysMessage2");
+	    }
+}
