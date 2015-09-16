@@ -8,7 +8,7 @@ import com.founder.framework.base.entity.BaseEntity;
 /***
  * ****************************************************************************
  * 
- * @Package: [cn.mos.zdry.bean.Jgdxqxjdjb.java]
+ * @Package: [com.founder.zdry.bean.Jgdxqxjdjb.java]
  * @ClassName: [Jgdxqxjdjb]
  * @Description: [一句话描述该类的功能]
  * @Author: [wu_chunhui@founder.com.cn]

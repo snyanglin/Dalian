@@ -131,7 +131,7 @@ function checkRyxx(){
 	$("#yrjbxxDiv").show();
 	$.ajax({
 		type:"POST",
-		url: contextPath + "/ryRyjbxxb/dataApply",
+		url: contextPath + "/cyryxxb/dataApply",
 		dataType:"json",
 		data:"zjhm="+$("#zjhm").val()+"&cyzjdm="+$("#cyzjdm").val(),
 		success:function(data){
@@ -166,6 +166,9 @@ function checkRyxx(){
 					setInputReadonly("hjd1", true);
 					setInputReadonly("hjd2", true);
 				}
+			}
+			if(data && data.dictxxb){
+				topMessager.alert("", "提醒：该人员是"+data.dictxxb.ct+",请慎重使用!");
 			}else{
 				clearRyjbxx();
 			}

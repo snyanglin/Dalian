@@ -15,6 +15,7 @@ import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
 import com.founder.framework.utils.UUID;
 import com.founder.sydw.bean.Cyryxxb;
+import com.founder.sydw.bean.Dictxxb;
 import com.founder.sydw.bean.Dwjbxxb;
 import com.founder.sydw.dao.CyryxxbDao;
 import com.founder.sydw.dao.DwjbxxbDao;
@@ -267,6 +268,18 @@ public class CyryxxbServiceImpl extends BaseService implements CyryxxbService {
 	public void delete(Cyryxxb entity, SessionBean sessionBean) {
 		BaseService.setCrossoutProperties(entity, sessionBean);
 		cyryxxbDao.delete(entity);
+	}
+	
+	/**
+	 * @Title: query
+	 * @描述: 实有单位添加从业人员比对重点人员获取字典项词条信息
+	 * @作者: liang_lihe@founder.com
+	 * @参数: 传入参数定义
+	 * @throws
+	 */
+	@Override
+	public Dictxxb getCt(String sfzh) {
+		return cyryxxbDao.getCt(sfzh);
 	}
 
 	

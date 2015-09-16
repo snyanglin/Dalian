@@ -4,6 +4,7 @@
 <sqlMap namespace="Cyryxxb">
 
 	<typeAlias alias="cyryxxb" type="com.founder.sydw.bean.Cyryxxb" />
+	<typeAlias alias="dictxxb" type="com.founder.sydw.bean.Dictxxb" />
 	<!-- 单条查询 -->
 	<select id="queryById" parameterClass="String" resultClass="cyryxxb">
 		select * from DW_CYRYXXB where ID = #id#
@@ -270,6 +271,22 @@
 	<!-- 根据人员id查询人员类型 -->
 	<select id="queryRylb" parameterClass="Map" resultClass="HashMap">
 		SELECT A.ryflid ,  A.syrkgllbdm rylb FROM RK_RYJZDZZB A,RK_RYJBXXB B WHERE A.RYID=B.ID AND A.RYID=#ryid# AND decode(a.syrkgllbdm,'01',b.dz_hjdzdm,a.dz_jzdzdm)= #jzdzdm# AND a.xt_zxbz='0' and rownum=1
+	</select>
+	
+	<!-- 查询字典词条（根据证件号码） -->
+	<select id="queryDictByShzh" parameterClass="String"
+		resultClass="dictxxb">
+		  with d as(
+	      select  b.* from ry_ryjbxxb a,zdry_zdryzb b
+	      where 1=1 
+	      and zjhm=#sfzh#
+	      and a.id=b.ryid
+	      and rownum=1
+	      )
+	      select * from sys_dict2 e,d
+	      where 1=1 
+	      and e.zdbh='BD_D_ZDRYLBDM'
+	      and e.dm=d.zdrylb
 	</select>
 	
 </sqlMap>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="dwxqquery">
+	<typeAlias alias="dwxqxxb" type="com.founder.sydw.bean.Dwxqxxb" />
+	
+	<select id="queryDwxq" parameterClass="Map" resultClass="dwxqxxb"> 
+		<![CDATA[SELECT * FROM ( 
+				 SELECT ROWNUM R ,M.* FROM (
+					SELECT A.ID, A.XQMC, A.XQFZR, A.WYMC,A.WYLXDH
+				  	FROM dw_xqjbxxb A WHERE A.XT_ZXBZ = '0' 
+				   		]]>
+		 	<isNotEmpty prepend="and" property="dwxqxxb.xqmc">
+				a.XQMC like '%$dwxqxxb.xqmc$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dwxqxxb.wymc">
+				a.WYMC like '%$dwxqxxb.wymc$%'
+			</isNotEmpty>	
+			<isNotEmpty  property="sort">								
+				<![CDATA[ order by $sort$ $order$ ]]>
+			</isNotEmpty>
+			<![CDATA[) m  
+			where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+		
+	<select id="queryDwxqCount" parameterClass="Map" resultClass="Integer"> 
+	<![CDATA[SELECT count(1) FROM dw_xqjbxxb A WHERE A.XT_ZXBZ = '0' ]]>
+			<isNotEmpty prepend="and" property="dwxqxxb.xqmc">
+				a.XQMC like '%$dwxqxxb.xqmc$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dwxqxxb.wymc">
+				a.WYMC like '%$dwxqxxb.wymc$%'
+			</isNotEmpty>				   
+	</select>
+	
+	<select id="dwxqqueryById" parameterClass="String" resultClass="dwxqxxb">
+		select * from dw_xqjbxxb t where 1=1 and ID = #id# 
+	</select>
+	
+	<insert id="dwxqxxinsert" parameterClass="dwxqxxb">
+		insert into dw_xqjbxxb (id
+		<isNotEmpty prepend="," property="xqmc">
+				<![CDATA[ xqmc]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xqfzr">
+				<![CDATA[ xqfzr]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="wymc">
+				<![CDATA[wymc]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="wylxdh">
+				<![CDATA[ wylxdh]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzd" />
+		) values (#id#
+		<isNotEmpty prepend="," property="xqmc">
+				<![CDATA[ #xqmc#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="xqfzr">
+				<![CDATA[ #xqfzr#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="wymc">
+				<![CDATA[ #wymc#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="wylxdh">
+				<![CDATA[ #wylxdh#]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzdVal" />
+		)
+	</insert>
+	
+	<update id="dwxqxxupdate" parameterClass="dwxqxxb">
+		 <![CDATA[ update dw_xqjbxxb ]]>
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="id"><![CDATA[ ID=#id# ]]></isNotNull>
+			<isNotNull prepend="," property="xqmc"><![CDATA[ xqmc=#xqmc# ]]></isNotNull>
+			<isNotNull prepend="," property="xqfzr"><![CDATA[ xqfzr=#xqfzr# ]]></isNotNull>	
+			<isNotNull prepend="," property="wymc"><![CDATA[ wymc=#wymc# ]]></isNotNull>
+			<isNotNull prepend="," property="wylxdh"><![CDATA[ wylxdh=#wylxdh# ]]></isNotNull>
+			,
+			<include refid="updateXtzd" />
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>
+	</update>
+	
+	<update id ="updateXqById" parameterClass="Map">
+		<![CDATA[ update dw_xqjbxxb ]]>
+			<dynamic prepend="set">
+				<include refid="updateXtzd" /> 
+				,xt_zxbz = #dwxqxxb.xt_zxbz#
+				,xt_zxyy = #dwxqxxb.xt_zxyy#
+			</dynamic>
+			<![CDATA[ where id = #dwxqxxb.id#]]>
+	</update>
+	
+</sqlMap>

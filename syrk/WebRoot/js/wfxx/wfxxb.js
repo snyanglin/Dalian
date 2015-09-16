@@ -61,7 +61,7 @@ function queryButton(){
 	var dz_wfdzxz = $("#dz_wfdzxz").val();
 	var azrq = $("#azrq").val();
 	var ms = $("#ms").val();
-	
+	var wflx = $("#wflx").val();
 	var reloadUrl  = contextPath + '/wfxx/queryWf';;
 	var opt = $('#dg').datagrid('options');
 	opt.url = reloadUrl;
@@ -72,7 +72,8 @@ function queryButton(){
 				'wfzl':wfzl,
 				'dz_wfdzxz':dz_wfdzxz,   
 				'azrq':azrq,
-				'ms':ms
+				'ms':ms,
+				'wflx':wflx
 			});
 	closeWindow('win');
 }
