@@ -102,8 +102,8 @@
 	
 	<select id="queryListzdry" parameterClass="Map"
 		resultClass="com.founder.sqjw.vo.CountMapVO">
-		 select t.jzd_zbx zbx,jzd_zby zby,t.xm title
- from SYRK_SYRKXXZB t where t.ryid in (select z.zdryid from zdry_zdrylbb z where z.XT_ZXBZ ='0' and z.xt_lrrbmid =#orgCode#)    
+		  select t.jzd_zbx zbx,jzd_zby zby,t.xm title
+ from SYRK_SYRKXXZB t where t.ryid in(select t.ryid  from ZDRY_ZDRYZB t where t.xt_zxbz ='0' and t.glbm= #orgCode# and t.zdrygllxdm=#zdrydm#)    
 	</select>
 	
 	<select id="queryListByRyidYwlx" parameterClass="com.founder.syrkgl.bean.SyrkSyrkxxzb"

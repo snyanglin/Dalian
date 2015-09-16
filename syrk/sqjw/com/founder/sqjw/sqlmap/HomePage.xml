@@ -277,7 +277,7 @@
 	</select>
 	
 	<select id="queryZdryTj" parameterClass="Map" resultClass="com.founder.sqjw.vo.ZdryCountVo">
-	select count(1) zdrycount,SUBSTR(z.zdrylbdm,0,2) zdrybm from zdry_zdrylbb z where z.XT_ZXBZ ='0' and z.xt_lrrbmid = #orgCode# and z.zdrylbdm is not null group by SUBSTR(z.zdrylbdm,0,2) order by SUBSTR(z.zdrylbdm,0,2)
+	select  count(1) zdrycount,t.zdrygllxdm zdrybm  from ZDRY_ZDRYZB t where t.xt_zxbz ='0' and t.glbm= #orgCode# group by t.zdrygllxdm
 	</select>
 	
 	<select id="queryZrqsyrkTj" parameterClass="Map" resultClass="com.founder.sqjw.vo.ZzjgVo">
