@@ -1,11 +1,15 @@
 package com.founder.sqjw.dao;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
 import com.founder.framework.utils.EasyUIPage;
+import com.founder.sqjw.vo.CountMapVO;
 import com.founder.sqjw.vo.MainVo;
+import com.founder.syfw.vo.SyfwListVo;
+import com.founder.syrkgl.bean.SyrkSyrkxxzb;
 /**
  * @类名: MainDao 
  * @描述: 主页Dao
@@ -37,5 +41,26 @@ public class MainDao extends BaseDaoImpl{
 	@SuppressWarnings("unchecked")
 	public List<MainVo> queryPcsXqgkXq(MainVo entity) {
 		return queryForList("Main.queryPcsXqgkXq", entity);
+	}
+	@SuppressWarnings("unchecked")
+	public List<SyfwListVo> queryListczf(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return queryForList("Main.queryListczf", param);
+	}
+	public List<SyfwListVo> queryListcheckczf(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return queryForList("Main.queryListcheckczf", param);
+	}
+	public List<SyfwListVo> queryListuncheckczf(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return queryForList("Main.queryListuncheckczf", param);
+	}
+	public List<CountMapVO> queryListzdry(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return queryForList("Main.queryListzdry", param);
+	}
+	public List<SyrkSyrkxxzb> queryListByRyidYwlx(SyrkSyrkxxzb entity) {
+		// TODO Auto-generated method stub
+		return queryForList("Main.queryListByRyidYwlx", entity);
 	}
 }

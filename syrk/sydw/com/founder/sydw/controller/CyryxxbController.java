@@ -13,15 +13,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.founder.framework.annotation.RestfulAnnotation;
 import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.utils.EasyUIPage;
-import com.founder.framework.utils.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import com.founder.sydw.bean.Cyryxxb;
+import com.founder.sydw.bean.Dictxxb;
 import com.founder.sydw.service.CyryxxbService;
 import com.founder.sydw.vo.DwjbxxbSaveVO;
+import com.founder.syrkgl.bean.RyRyjbxxb;
+import com.founder.syrkgl.service.RyRyjbxxbService;
+import com.founder.syrkgl.vo.SyrkZtxx;
 
 import com.google.gson.Gson;
 
@@ -33,6 +38,9 @@ public class CyryxxbController extends BaseController {
 
 	@Resource(name = "cyryxxbService")
 	private CyryxxbService cyryxxbService;
+	
+	@Resource(name = "ryRyjbxxbService")
+	private RyRyjbxxbService ryRyjbxxbService;
 
 	/**
 	 * 
@@ -156,6 +164,34 @@ public class CyryxxbController extends BaseController {
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
+	}
+	
+	/**
+	 * @Title: dataApply
+	 * @Description: TODO(人员基本信息复用)
+	 * @param @param syrkgllbdm
+	 * @param @param ryid
+	 * @param @return 设定文件
+	 * @return Map 返回类型
+	 * @throws
+	 */
+	@RestfulAnnotation(valiField = "cyzjdm,zjhm", serverId = "3")
+	@RequestMapping(value = "/dataApply", method = RequestMethod.POST)
+	public @ResponseBody
+	Map dataApply(String cyzjdm, String zjhm, SessionBean sessionBean) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		sessionBean = getSessionBean(sessionBean);
+		RyRyjbxxb ryRyjbxxb = ryRyjbxxbService.dataApply(cyzjdm, zjhm,
+				sessionBean);
+		if (ryRyjbxxb == null) {
+			ryRyjbxxb = new RyRyjbxxb();
+		}
+        Dictxxb dictxxb = cyryxxbService.getCt(zjhm);
+        if(StringUtils.isNotBlank(dictxxb.getCt())){
+    		map.put("dictxxb", dictxxb);
+        }
+		map.put("ryRyjbxxb", ryRyjbxxb);
+		return map;
 	}
 	
 

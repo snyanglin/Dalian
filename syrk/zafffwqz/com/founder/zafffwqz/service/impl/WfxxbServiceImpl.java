@@ -1,5 +1,7 @@
 package com.founder.zafffwqz.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -8,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
 import com.founder.framework.utils.UUID;
+import com.founder.service.contextsearch.department.bean.DwContextCombo;
+import com.founder.service.contextsearch.department.bean.DwContextCondition;
 import com.founder.zafffwqz.bean.ZaffWfxx;
 import com.founder.zafffwqz.dao.WfxxDao;
 import com.founder.zafffwqz.dao.WfxxbDao;
@@ -61,7 +65,7 @@ public class WfxxbServiceImpl extends BaseService implements WfxxbService {
 	public void saveWfxxb(ZaffWfxx entity, SessionBean sessionBean) {
 		entity.setId(UUID.create());
 		setSaveProperties(entity, sessionBean);
-		wfxxDao.insertWfPt(entity);
+//		wfxxDao.insertWfPt(entity);
 		wfxxbDao.insertWfxxb(entity);
 	}
 	
@@ -76,8 +80,12 @@ public class WfxxbServiceImpl extends BaseService implements WfxxbService {
 	@Override
 	public int updateWfxxb(ZaffWfxx entity, SessionBean sessionBean) {
 		setUpdateProperties(entity, sessionBean);
-		wfxxDao.updateWfPt(entity);
+//		wfxxDao.updateWfPt(entity);
 		return wfxxbDao.updateWfxxb(entity);
+	}
+	
+	public List<DwContextCombo> searchXqContext(DwContextCondition condition) {
+		return wfxxbDao.searchXqContext(condition);
 	}
 
 }

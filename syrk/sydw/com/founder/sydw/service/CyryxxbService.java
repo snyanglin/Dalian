@@ -7,6 +7,7 @@ import com.founder.framework.annotation.TypeAnnotation;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.sydw.bean.Cyryxxb;
+import com.founder.sydw.bean.Dictxxb;
 
 @TypeAnnotation("从业人员")
 public interface CyryxxbService {
@@ -53,6 +54,13 @@ public interface CyryxxbService {
 	 * @param sessionBean
 	 */
 	public void delete(Cyryxxb cyryxxb, SessionBean sessionBean);
+	
+	/**
+	 * 实有单位添加从业人员比对重点人员获取字典项词条信息
+	 * @param sfzh
+	 * @return
+	 */
+	public Dictxxb getCt(String sfzh);
 	
 	
 }

@@ -1,8 +1,12 @@
 package com.founder.sqjw.service;
 import java.util.List;
+import java.util.Map;
 
 import com.founder.framework.utils.EasyUIPage;
+import com.founder.sqjw.vo.CountMapVO;
 import com.founder.sqjw.vo.MainVo;
+import com.founder.syfw.vo.SyfwListVo;
+import com.founder.syrkgl.bean.SyrkSyrkxxzb;
 /**
  * @类名: MainService 
  * @描述: 主页Service
@@ -28,4 +32,9 @@ public interface MainService {
 	 * @throws
 	 */
 	public List<MainVo> queryPcsXqgkXq(MainVo entity);
+	public List<SyfwListVo> queryListczf(Map<String, String> param);
+	public List<SyfwListVo> queryListcheckczf(Map<String, String> param);
+	public List<SyfwListVo> queryListuncheckczf(Map<String, String> param);
+	public List<CountMapVO> queryListzdry(Map<String, String> param);
+	public List<SyrkSyrkxxzb> queryListByRyidYwlx(SyrkSyrkxxzb entity);
 }

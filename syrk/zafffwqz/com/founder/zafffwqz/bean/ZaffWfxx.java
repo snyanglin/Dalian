@@ -104,7 +104,28 @@ public class ZaffWfxx extends BaseEntity implements Serializable {
 	private static String gisTable = "ZAFF_WFKJXXB_PT";
 	private Long objectid;
 	private String wfid;
+	@FieldDesc("小区ID")
+	private String xqid;
+	@FieldDesc("物防类型")
+	private String wflx;
 	
+	
+	public String getXqid() {
+		return xqid;
+	}
+
+	public void setXqid(String xqid) {
+		this.xqid = xqid;
+	}
+
+	public String getWflx() {
+		return wflx;
+	}
+
+	public void setWflx(String wflx) {
+		this.wflx = wflx;
+	}
+
 	public static String getGisTable() {
 		return gisTable;
 	}

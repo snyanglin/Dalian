@@ -1,6 +1,7 @@
 package com.founder.zafffwqz.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -16,9 +17,12 @@ import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.utils.StringUtils;
+import com.founder.service.contextsearch.department.bean.DwContextCombo;
+import com.founder.service.contextsearch.department.bean.DwContextCondition;
 import com.founder.sydw.bean.Dwjbxxb;
+import com.founder.sydw.bean.Dwxqxxb;
+import com.founder.sydw.service.DwXqjbxxbService;
 import com.founder.sydw.service.DwjbxxbService;
-import com.founder.zafffwqz.bean.Sqjwszrqglxxb;
 import com.founder.zafffwqz.bean.ZaffWfxx;
 import com.founder.zafffwqz.service.SqjwsxxbService;
 import com.founder.zafffwqz.service.WfxxbService;
@@ -50,6 +54,9 @@ public class WfxxbController extends BaseController {
 	@Resource(name = "dwjbxxbService")
 	private DwjbxxbService dwjbxxbService;
 	
+	@Resource(name = "dwXqjbxxbService")
+	private DwXqjbxxbService dwXqjbxxbService;
+	
 	@Resource(name="sqjwsxxbService")
 	private SqjwsxxbService sqjwsxxbService;
 	/**
@@ -80,7 +87,10 @@ public class WfxxbController extends BaseController {
 			dwjbxxb = dwjbxxbService.query(dwjbxxb);
 			if(dwjbxxb != null){
 				mv.addObject("dwmc", dwjbxxb.getDwmc());
-				
+			}
+			Dwxqxxb dwxqxxb = dwXqjbxxbService.query(entity.getXqid());
+			if(dwxqxxb != null){
+				mv.addObject("xqmc", dwxqxxb.getXqmc());
 			}
 		}else{
 			Dwjbxxb dwjbxxb = new Dwjbxxb();
@@ -138,5 +148,11 @@ public class WfxxbController extends BaseController {
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
+	}
+	
+	@RequestMapping(value = "/searchXqContext", method = RequestMethod.POST)
+	public @ResponseBody
+	List<DwContextCombo> searchDepartment(DwContextCondition condition) {
+		return wfxxbService.searchXqContext(condition);
 	}
 }

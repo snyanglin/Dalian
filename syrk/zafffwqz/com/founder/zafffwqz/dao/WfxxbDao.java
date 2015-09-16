@@ -1,8 +1,13 @@
 package com.founder.zafffwqz.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
+import com.founder.framework.utils.StringUtils;
+import com.founder.service.contextsearch.department.bean.DwContextCombo;
+import com.founder.service.contextsearch.department.bean.DwContextCondition;
 import com.founder.zafffwqz.bean.ZaffWfxx;
 
 /******************************************************************************
@@ -53,4 +58,13 @@ public class WfxxbDao extends BaseDaoImpl {
 	public ZaffWfxx queryWfxxbById(ZaffWfxx entity) {
 		return (ZaffWfxx) super.queryForObject("Wfxxb.queryById", entity);
 	}
+	
+	
+	public List<DwContextCombo> searchXqContext(DwContextCondition condition) {
+		List<DwContextCombo> list = queryForList(
+				"Wfxxb.searchXqContext", condition);
+		return list;
+	}
+
+	
 }

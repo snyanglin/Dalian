@@ -61,6 +61,12 @@
 			<isNotEmpty prepend="," property="bz">
 				<![CDATA[ bz]]>	
 			</isNotEmpty>
+			<isNotEmpty prepend="," property="xqid">
+				<![CDATA[ xqid]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="wflx">
+				<![CDATA[ wflx]]>	
+			</isNotEmpty>
 			, <include refid="insertXtzd"/>  )
 		values
   			(
@@ -114,6 +120,12 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="," property="bz">
 				<![CDATA[ #bz#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="xqid">
+				<![CDATA[ #xqid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="wflx">
+				<![CDATA[ #wflx#]]>	
 			</isNotEmpty>
   			,
   			<include refid="insertXtzdVal"/> )
@@ -180,6 +192,12 @@
 			<isNotEmpty prepend="," property="bz">
 				<![CDATA[ bz = #bz#]]>	
 			</isNotEmpty>
+			<isNotEmpty prepend="," property="xqid">
+				<![CDATA[ xqid = #xqid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="wflx">
+				<![CDATA[ wflx = #wflx#]]>	
+			</isNotEmpty>
 			,
 			<include refid="updateXtzd"/>				
 		</dynamic>
@@ -191,6 +209,14 @@
 		<![CDATA[ select * from ( select rownum r ,m.* from (
 				SELECT * FROM ZAFF_SQWYHCYB WHERE sqjwsid=#jwsid# AND XT_ZXBZ='0' ORDER BY xt_cjsj DESC ]]>
 				<![CDATA[ ) m  where rownum <= #maxNum# ) where r > 0 ]]>
+	</select>
+	
+	<select id="searchXqContext" parameterClass="com.founder.service.contextsearch.department.bean.DwContextCondition" resultClass="com.founder.service.contextsearch.department.bean.DwContextCombo">
+		<![CDATA[ select ID,XQMC as TEXT from dw_xqjbxxb where 1=1 ]]>
+			<isNotEmpty prepend="and" property="searchKey">
+				XQMC like '%$searchKey$%'
+			</isNotEmpty>
+			<![CDATA[ and rownum <= 10 ]]>
 	</select>
 
 </sqlMap>

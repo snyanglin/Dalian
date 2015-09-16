@@ -9,6 +9,7 @@ import com.founder.framework.base.dao.BaseDaoImpl;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
 import com.founder.sydw.bean.Cyryxxb;
+import com.founder.sydw.bean.Dictxxb;
 
 @Repository("cyryxxbDao")
 public class CyryxxbDao extends BaseDaoImpl {
@@ -160,5 +161,21 @@ public class CyryxxbDao extends BaseDaoImpl {
 			map = (Map) list.get(0);
 		}
 		return map;
+	}
+	
+	
+	/**
+	 * @Title:实有单位添加从业人员比对重点人员获取字典项词条信息
+	 * @param sfzh
+	 * @return
+	 */
+	public Dictxxb getCt(String sfzh) {
+	  Dictxxb dictxxb =(Dictxxb)queryForObject("Cyryxxb.queryDictByShzh", sfzh);
+	  if(dictxxb!=null){
+		  return dictxxb;
+	  }else{
+		  dictxxb = new Dictxxb(); 
+		  return dictxxb;
+	  }
 	}
 }
