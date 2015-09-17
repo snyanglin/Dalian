@@ -10,7 +10,6 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
@@ -318,8 +317,8 @@ public class ZdryUntil {
 		 org.setOrgbiztype("11");
 		 org.setParentid(fxj.getId());
 		 //查分县局下的环保大队
-		 List<Org_Organization> hbdds =  this.tzggDao.queryOrg(org);
-		 Org_Organization hbdd = hbdds.get(0);
+//		 List<Org_Organization> hbdds =  this.tzggDao.queryOrg(org);
+//		 Org_Organization hbdd = hbdds.get(0);
 		 OrgUser orgUser = orgUserService.queryByUserid(ywsqrId);
 		 
 		 SysMessage message = new SysMessage();
@@ -495,8 +494,8 @@ public class ZdryUntil {
 //		spr=this.orgUserService.queryByUserid(ywsqrId).getUsername();
 		// 根据业务表数据,构造代办消息
 		String xxnr = "";
-		String userIDString = ywsqrId;
-		String orgcode="";
+//		String userIDString = ywsqrId;
+//		String orgcode="";
 		SysMessage message = new SysMessage();
 		// 查询相关重点人员总表
 		if ("LG".equals(ywType)) {
@@ -552,8 +551,8 @@ public class ZdryUntil {
 		}
 		// 根据业务表数据,构造代办消息
 		String xxnr = "";
-		String userIDString = ywsqrId;
-		String orgcode="";
+//		String userIDString = ywsqrId;
+//		String orgcode="";
 		SysMessage message = new SysMessage();
 		ZdryZdryzb zdryZdryzb = (ZdryZdryzb) zdryZdryzbDao.queryById(zdryId);
 		if ("ZD".equals(ywType)) {
