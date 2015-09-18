@@ -58,14 +58,10 @@ public class RyRyjbxxbController extends BaseController {
 		if (ryRyjbxxb == null) {
 			ryRyjbxxb = new RyRyjbxxb();
 		}
-		try{
-			SyrkZtxx ztxx = ryRyjbxxbService.getZtxx(zjhm);
-	        if(StringUtils.isNotBlank(ztxx.getZtrysfzh())){
-	    		map.put("ztxx", ztxx);
-	        }
-		}catch(Exception e){			
-			e.printStackTrace();
-		}
+		SyrkZtxx ztxx = ryRyjbxxbService.getZtxx(zjhm);
+        if(StringUtils.isNotBlank(ztxx.getZtrysfzh())){
+    		map.put("ztxx", ztxx);
+        }
 		map.put("ryRyjbxxb", ryRyjbxxb);
 		return map;
 	}

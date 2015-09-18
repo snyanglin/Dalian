@@ -7,11 +7,6 @@
  *  * @review      : wu.w@founder.com.cn
  * @reviewDate  : 20150604
  */
-
-
-$(document).ready(function(){
-	var mainTabID = $("#mainTabID").val();
-});
 //物防种类点击给文本框赋值
 function onSelect(record){
 	$('#entity_wfzl').val(record.id);
@@ -323,12 +318,3 @@ function SearchXq(dwComboID, filterData, dwID, dwmcID, returnFieldData, onSelect
 		comboText.attr('maxlength', 50); // 设置单位选择输入框只能输入50个汉字
 	});
 }
-
-
-
-
-
-
-
-
-

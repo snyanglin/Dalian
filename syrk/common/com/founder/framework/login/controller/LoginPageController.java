@@ -74,6 +74,9 @@ public class LoginPageController extends BaseController {
 			}
 		} else if ("logout".equals(action)) {
 			getSession().invalidate();
+		}else if ("caslogout".equals(action)) {
+			getSession().invalidate();
+			return new ModelAndView("casLogin");
 		} else if ("pki".equals(action)){
 			model.addAttribute("userid", parentBiz.getUserid());
 			OrgUser orgUser = orgUserService.queryByUserid(parentBiz.getUserid());
