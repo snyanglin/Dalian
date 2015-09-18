@@ -23,11 +23,13 @@
 	var contextPath = "<%=contextPath%>";
 	function logout_click(){
 	 	window.top.location.href = contextPath+"/LoginPage/login?action=logout";
+	 	//document.forms["dataform"].submit();
 	}
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </HEAD>
 <BODY class="bannerBody" onselectstart="return false;" oncontextmenu="return false;">
+	<form name="dataform" action="<%=contextPath%>/LoginPage/login?action=caslogout" checkType="blur" target="_self" method="post"></form>
 	<div class="banner_lf banner01">
 		<img src="<%=emptyImage%>" width="650" height="1" border="0">
 		<div class="banner_ct">

@@ -259,7 +259,7 @@ public class AqffRfxxbController extends BaseController{
 				int ints = rfxxService.queryRfcyxxByZjhm(newnetity);
 				Aqffrfryxxb rfxxdb = rfxxService.queryRfcyxxById(entity);
 				String zjhm = "";
-				if(""!=entity.getId()){
+				if(!"".equals(entity.getId())){
 					zjhm = rfxxdb.getZjhm();
 				}
 				if(ints==0&&!zjhm.equals(entity.getZjhm())){
