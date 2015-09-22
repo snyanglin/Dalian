@@ -284,8 +284,6 @@ public interface HomePageService {
 	 */
 	public List<ZzjgVo> queryXjZzjgxj(String zzjgdm);
 	
-	public List jsonTree(String id, String orgcode, String flag);
-	
 	public List<Org_Organization> downMap(String orgcode);
 	
 	 /**

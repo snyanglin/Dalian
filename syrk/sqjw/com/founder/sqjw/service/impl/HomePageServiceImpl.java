@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
-import com.founder.spsxt.vo.TreeJson;
 import com.founder.sqjw.bean.LogInfo;
 import com.founder.sqjw.bean.TjSyrk;
 import com.founder.sqjw.bean.Tjgzjl;
@@ -27,7 +26,6 @@ import com.founder.sqjw.service.HomePageService;
 import com.founder.sqjw.vo.ZdryCountVo;
 import com.founder.sqjw.vo.ZzjgVo;
 import com.founder.tzgg.bean.Org_Organization;
-import com.founder.zdrygl.bean.Zdrylxylbdyb;
 /**
  * @类名: HomePageServiceImpl 
  * @描述:(类描述) 
@@ -1541,28 +1539,7 @@ public class HomePageServiceImpl implements HomePageService{
 		return lists;
 	}
 	
-	/**
-	 * @Title: jsonTree 
-	 * @描述: tree
-	 * @参数: 传入参数定义  
-	 * @throws
-	 */
-	public List  jsonTree(String id, String orgcode, String flag) {
-		List<TreeJson> list = new ArrayList<TreeJson>();
-		List<Org_Organization> lists = new ArrayList<Org_Organization>();
-		Map attr = null;
-		lists = homePageDao.queryTree(id, orgcode, flag);
-		for (Org_Organization org: lists) {
-			TreeJson node = new TreeJson();
-			node.setId(""+org.getId());
-			node.setPid(""+org.getParentid());
-			node.setText(org.getOrgname());
-			node.setOrgcode(org.getOrgcode());
-			list.add(node);
-		}
-		List<TreeJson> lastTree = TreeJson.formatTree(list);
-		return lastTree;
-	}
+	
 	
 	/**
      * @Title: jqChart 

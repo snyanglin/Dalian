@@ -1305,34 +1305,6 @@
 		</iterate>
 	</select>
 	
-	<!-- org_organization -->
-	<!--start with PARENTID = '194113' 
-fenju-pcs:
-	select * from (select t.*,rownum as ROWNO from (    
-	 	select ID,PARENTID,ORGCODE,ORGNAME,ORGTYPE,ORGNAMEPY,ORGLEVEL,ORGBIZTYPE, BJZBZ    
-	 		from ORG_ORGANIZATION a where XT_ZXBZ = '0'     and     ORGTYPE = '01' connect by prior ID = PARENTID         
-	  		order siblings by ORGTYPE,ORDERNO) t) ORG where ORG.ID in    
-	 		(select ID from ORG_ORGANIZATION connect by ID = prior PARENTID start with ORGLEVEL in ('32') and ORGBIZTYPE in ('01','04')) order by ROWNO
-	 		
-fengju:
-	 		select * from (select t.*,rownum as ROWNO from (    select ID,PARENTID,ORGCODE,ORGNAME,ORGTYPE,ORGNAMEPY,ORGLEVEL,ORGBIZTYPE, BJZBZ   
-      from ORG_ORGANIZATION a where XT_ZXBZ = '0'     and     ORGTYPE = '01'         
-      connect by prior ID = PARENTID start with id = 194113 
-      order siblings by ORGTYPE,ORDERNO) t) ORG where ORG.ID in    
-        (select ID from ORG_ORGANIZATION connect by ID = prior PARENTID start with ORGLEVEL in ('21')) order by ROWNO
-pcs:
-	  		select * from (select t.*,rownum as ROWNO from (    select ID,PARENTID,ORGCODE,ORGNAME,ORGTYPE,ORGNAMEPY,ORGLEVEL,ORGBIZTYPE, BJZBZ    
-		from ORG_ORGANIZATION a where XT_ZXBZ = '0'     and     ORGTYPE = '01'         
-		connect by prior ID = PARENTID start with id = '194411'
-		order siblings by ORGTYPE,ORDERNO) t) ORG where ORG.ID in    
-		(select ID from ORG_ORGANIZATION connect by ID = prior PARENTID start with ORGLEVEL in ('32') and ORGBIZTYPE in ('01','04')) order by ROWNO
-zrq:		
-		select * from (select t.*,rownum as ROWNO from (    select ID,PARENTID,ORGCODE,ORGNAME,ORGTYPE,ORGNAMEPY,ORGLEVEL,ORGBIZTYPE, BJZBZ       
-			from ORG_ORGANIZATION a where XT_ZXBZ = '0'     and     ORGTYPE = '01'            
-			connect by prior ID = PARENTID start with id='194869'   
-			order siblings by ORGTYPE,ORDERNO) t) ORG where ORG.ID in       
-			(select ID from ORG_ORGANIZATION connect by ID = prior PARENTID start with ORGLEVEL in ('50') and ORGBIZTYPE in ('01','04')) order by ROWNO
-	 -->
 	<select id="queryTree"  parameterClass="Map" resultClass="com.founder.tzgg.bean.Org_Organization">
 	  <isEmpty prepend="" property="line">
 	  <![CDATA[

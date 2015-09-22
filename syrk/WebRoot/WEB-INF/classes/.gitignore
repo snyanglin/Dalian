@@ -1,16 +1,1 @@
-/Config.properties
-/DataCreateBeanSQL.sql
-/applicationContext.xml
-/base.xml
-/codetemplates.xml
 /com/
-/ehcache.xml
-/log4j.properties
-/messages.properties
-/pki.properties
-/readme
-/resources.properties
-/spring-source.xml
-/sqlmap-config.xml
-/system.properties
-/szsp.bpmn

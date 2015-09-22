@@ -565,12 +565,6 @@ public class HomePageController extends BaseController {
 		List<ZzjgVo> queryXjZzjgxj(String zzjgdm) {
 			return homePageService.queryXjZzjgxj(zzjgdm);
 		}
-
-		@RequestMapping(value = "/jsonTree", method = RequestMethod.GET)
-		public @ResponseBody
-		List  jsonTree(String id, String orgcode, @RequestParam(value="flag", required=false) String flag) {
-			return homePageService.jsonTree(id, orgcode, flag);
-		}
 		
 		@RequestMapping(value = "/downMap", method = RequestMethod.POST)
 		public @ResponseBody

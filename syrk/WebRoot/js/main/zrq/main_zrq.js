@@ -60,8 +60,8 @@ MainZrq.loadXqMap = function(){
  * @date:2015-8-15下午17:58:57
  */
 MainZrq.initJobCounts = function(){
-	var params = {zzjgdm:userOrgCode};
-	var fajax =new FrameTools.Ajax(contextPath+"/homePage/countXX",MainZrq.initJobCounts_back);
+	var params = {orgid:userOrgCode};
+	var fajax =new FrameTools.Ajax(contextPath+"/main/countPcs",MainZrq.initJobCounts_back);
 	fajax.send(params);
 };
 /**
@@ -73,13 +73,15 @@ MainZrq.initJobCounts = function(){
 MainZrq.initJobCounts_back = function(json){
 	var czf = json.czf;//出租房
 	var checkf = json.checkf;
-	var uncheck = parseInt(czf)-parseInt(checkf);
 	var zzjg = json.zzjg;
 	var zdry = json.zdry;
+	var dwtj = json.dwtj;
+	var syfwnums = json.syfwnum;
 	var htmlStr = "<ul>";
 	htmlStr	+="<li class='xqTitle'>&nbsp;实有人口</li>";
 	var czrkNum = 0,jzrkNum = 0,ldrkNum = 0,jwrkNum = 0,wlhrkNum = 0;
-	var sqjznum =0,zdrknum =0,jsbnum =0,fzcswnum=0,xgzzdrynum=0,qugznum=0,sqsbnum=0;
+	var sqjznum =0,zdrknum =0,jsbnum =0,fzcswnum=0,xgzzdrynum=0,qugznum=0,sqnum=0,sbnum=0;
+	var ylnum =0,tznum=0,schoolnum=0,jrnum=0,wbnum=0,gqdwnum=0,qttj=0;
 	if(zzjg!=null&&zzjg.length>0){
 		for(var i=0;i<zzjg.length;i++){
 			if(zzjg[i].lxmc=="常住人口"){
@@ -96,6 +98,7 @@ MainZrq.initJobCounts_back = function(json){
 			}
 		}
 	}
+	
 	if(zdry!=null&&zdry.length>0){
 		for(var i=0;i<zdry.length;i++){
 			if (zdry[i].zdrybm == "01") {
@@ -123,35 +126,68 @@ MainZrq.initJobCounts_back = function(json){
 
 			}
 			if (zdry[i].zdrybm == "07") {
-				sqsbnum = zdry[i].zdrycount;
+				sbnum = zdry[i].zdrycount;
+
+			}
+			if (zdry[i].zdrybm == "08") {
+				sqnum = zdry[i].zdrycount;
 
 			}
 		}
 	}
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)' onclick='MainZrq.initJobMap(1)'>&nbsp;常住人口&nbsp;"+czrkNum+"</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)' onclick='MainZrq.initJobMap(2)'>&nbsp;寄住人口&nbsp;"+jzrkNum+"</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)' onclick='MainZrq.initJobMap(3)'>&nbsp;暂住人口&nbsp;"+ldrkNum+"</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)' onclick='MainZrq.initJobMap(4)'>&nbsp;境外人员&nbsp;"+jwrkNum+"</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)' onclick='MainZrq.initJobMap(5)'>&nbsp;未落户人员&nbsp;"+wlhrkNum+"</a></li>";
+	if(dwtj!=null&&dwtj.length>0){
+		for(var i=0;i<dwtj.length;i++){
+			if (dwtj[i].zdrybm == "01") {
+				ylnum = dwtj[i].zdrycount;
+				
+			}else if (dwtj[i].zdrybm == "02") {
+				tznum = dwtj[i].zdrycount;
+
+			} else if (dwtj[i].zdrybm == "07") {
+				schoolnum = dwtj[i].zdrycount;
+
+			}else if (dwtj[i].zdrybm == "08") {
+				jrnum = dwtj[i].zdrycount;
+
+			}else if (dwtj[i].zdrybm == "09") {
+				wbnum = dwtj[i].zdrycount;
+
+			}else if (dwtj[i].zdrybm == "10") {
+				gqdwnum = dwtj[i].zdrycount;
+
+			}else{
+				qttj = qttj+parseInt(dwtj[i].zdrycount);
+			}
+			
+		}
+	}
+	htmlStr	+="<li class='jobVal'><em></em><a style= 'cursor:default' href='javascript:void(0)'>&nbsp;常住人口&nbsp;"+czrkNum+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a style= 'cursor:default' href='javascript:void(0)'>&nbsp;寄住人口&nbsp;"+jzrkNum+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a style= 'cursor:default' href='javascript:void(0)'>&nbsp;暂住人口&nbsp;"+ldrkNum+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a style= 'cursor:default' href='javascript:void(0)'>&nbsp;境外人员&nbsp;"+jwrkNum+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a style= 'cursor:default' href='javascript:void(0)'>&nbsp;未落户人员&nbsp;"+wlhrkNum+"</a></li>";
 	htmlStr	+="<li class='xqTitle'>&nbsp;重点人员</li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobzdryMap(01)'>&nbsp;社区矫正&nbsp;"+sqjznum+"</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobzdryMap(02)'>&nbsp;重点人口&nbsp;"+zdrknum+"</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobzdryMap(03)'>&nbsp;肇事肇祸精神病人&nbsp;"+jsbnum+"</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobzdryMap(04)'>&nbsp;非正常上访重点人员&nbsp;"+fzcswnum+"</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobzdryMap(05)'>&nbsp;涉公安访重点人员&nbsp;"+xgzzdrynum+"</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobzdryMap(06)'>&nbsp;其他工作对象&nbsp;"+qugznum+"</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobzdryMap(07)'>&nbsp;涉枪涉爆重点人员&nbsp;"+sqsbnum+"</a></li>";
+	htmlStr	+="<li class='jobVal1'><em></em><a href='javascript:void(0)'onclick=\"MainZrq.initJobzdryMap('01')\">&nbsp;社区矫正&nbsp;"+sqjznum+"</a></li>";
+	htmlStr	+="<li class='jobVal1'><em></em><a href='javascript:void(0)'onclick=\"MainZrq.initJobzdryMap('02')\">&nbsp;重点人口&nbsp;"+zdrknum+"</a></li>";
+	htmlStr	+="<li class='jobVal1'><em></em><a href='javascript:void(0)'onclick=\"MainZrq.initJobzdryMap('03')\">&nbsp;肇事肇祸精神病人&nbsp;"+jsbnum+"</a></li>";
+	htmlStr	+="<li class='jobVal1'><em></em><a href='javascript:void(0)'onclick=\"MainZrq.initJobzdryMap('04')\">&nbsp;非正常上访重点人员&nbsp;"+fzcswnum+"</a></li>";
+	htmlStr	+="<li class='jobVal1'><em></em><a href='javascript:void(0)'onclick=\"MainZrq.initJobzdryMap('05')\">&nbsp;涉公安访重点人员&nbsp;"+xgzzdrynum+"</a></li>";
+	htmlStr	+="<li class='jobVal1'><em></em><a href='javascript:void(0)'onclick=\"MainZrq.initJobzdryMap('06')\">&nbsp;其他工作对象&nbsp;"+qugznum+"</a></li>";
+	htmlStr	+="<li class='jobVal1'><em></em><a href='javascript:void(0)'onclick=\"MainZrq.initJobzdryMap('07')\">&nbsp;涉爆重点人员&nbsp;"+sbnum+"</a></li>";
+	htmlStr	+="<li class='jobVal1'><em></em><a href='javascript:void(0)'onclick=\"MainZrq.initJobzdryMap('07')\">&nbsp;涉枪重点人员&nbsp;"+sqnum+"</a></li>";
 	htmlStr	+="<li class='xqTitle'>&nbsp;实有房屋</li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobczfMap(1)'>&nbsp;出租房&nbsp;"+czf+"</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobczfMap(2)'>&nbsp;已检查租房&nbsp;"+checkf+"</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'onclick='MainZrq.initJobczfMap(3)'>&nbsp;未检查租房&nbsp;"+uncheck+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a style= 'cursor:default' href='javascript:void(0)'>&nbsp;实有房屋&nbsp;"+syfwnums+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a style= 'cursor:default' href='javascript:void(0)'>&nbsp;出租房&nbsp;"+czf+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a style= 'cursor:default' href='javascript:void(0)'>&nbsp;已检查租房&nbsp;"+checkf+"</a></li>";
+
 	htmlStr	+="<li class='xqTitle'>&nbsp;实有单位</li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;治安单位&nbsp;0</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;内保单位&nbsp;0</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;保安单位&nbsp;0</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;环保单位&nbsp;0</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;消防单位&nbsp;0</a></li>";
-	htmlStr	+="<li class='jobVal'><em></em><a href='javascript:void(0)'>&nbsp;技防单位&nbsp;0</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a style= 'cursor:default' href='javascript:void(0)'>&nbsp;娱乐服务场所&nbsp;"+ylnum+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a style= 'cursor:default' href='javascript:void(0)'>&nbsp;特种行业&nbsp;"+tznum+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a style= 'cursor:default' href='javascript:void(0)'>&nbsp;学校&nbsp;"+schoolnum+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a style= 'cursor:default' href='javascript:void(0)'>&nbsp;金融单位&nbsp;"+jrnum+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a style= 'cursor:default' href='javascript:void(0)'>&nbsp;文保单位&nbsp;"+wbnum+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a style= 'cursor:default' href='javascript:void(0)'>&nbsp;工企单位&nbsp;"+gqdwnum+"</a></li>";
+	htmlStr	+="<li class='jobVal'><em></em><a style= 'cursor:default' href='javascript:void(0)'>&nbsp;其他单位&nbsp;"+qttj+"</a></li>";
 	htmlStr += "</ul>";
 	$("#xqTj").html(htmlStr);
 };

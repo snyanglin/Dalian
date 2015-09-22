@@ -94,15 +94,13 @@
 		<isNotEmpty prepend="," property="sfjm"><![CDATA[ sfjm]]></isNotEmpty>
 		<isNotEmpty prepend="," property="sfzkdm"><![CDATA[ sfzkdm]]></isNotEmpty>
 		<isNotEmpty prepend="," property="glbm"><![CDATA[ glbm]]></isNotEmpty>
-		<isNotEmpty prepend="," property="gxbm"><![CDATA[ gxbm]]></isNotEmpty>
-		<isNotEmpty prepend="," property="cxbm"><![CDATA[ cxbm]]></isNotEmpty>
-		
+		<isNotEmpty prepend="," property="cxbm"><![CDATA[ cxbm]]></isNotEmpty>		
 		<isNotEmpty prepend="," property="jgssxdm"><![CDATA[ jgssxdm]]></isNotEmpty>
 		<isNotEmpty prepend="," property="hjd_ssxjgajgdm"><![CDATA[ hjd_ssxjgajgdm]]></isNotEmpty>
 		<isNotEmpty prepend="," property="hjd_sspcsdm"><![CDATA[ hjd_sspcsdm]]></isNotEmpty>
 		<isNotEmpty prepend="," property="hjd_sssq"><![CDATA[ hjd_sssq]]></isNotEmpty>
 		<isNotEmpty prepend="," property="jzd_szdsdm"><![CDATA[ jzd_szdsdm]]></isNotEmpty>
-
+		<isNotEmpty prepend="," property="gxbm"><![CDATA[ gxbm]]></isNotEmpty>
 		,
 		<include refid="insertXtzd"/>)
 		<![CDATA[ values (#id# ]]>		
@@ -117,14 +115,13 @@
 		<isNotEmpty prepend="," property="sfjm"><![CDATA[#sfjm#]]></isNotEmpty>
 		<isNotEmpty prepend="," property="sfzkdm"><![CDATA[#sfzkdm#]]></isNotEmpty>
 		<isNotEmpty prepend="," property="glbm"><![CDATA[#glbm#]]></isNotEmpty>
-		<isNotEmpty prepend="," property="gxbm"><![CDATA[#gxbm#]]></isNotEmpty>
-		<isNotEmpty prepend="," property="cxbm"><![CDATA[#cxbm#]]></isNotEmpty>
-		
+		<isNotEmpty prepend="," property="cxbm"><![CDATA[#cxbm#]]></isNotEmpty>		
 		<isNotEmpty prepend="," property="jgssxdm"><![CDATA[#jgssxdm#]]></isNotEmpty>
 		<isNotEmpty prepend="," property="hjd_ssxjgajgdm"><![CDATA[#hjd_ssxjgajgdm#]]></isNotEmpty>
 		<isNotEmpty prepend="," property="hjd_sspcsdm"><![CDATA[#hjd_sspcsdm#]]></isNotEmpty>
 		<isNotEmpty prepend="," property="hjd_sssq"><![CDATA[#hjd_sssq#]]></isNotEmpty>
 		<isNotEmpty prepend="," property="jzd_szdsdm"><![CDATA[#jzd_szdsdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="gxbm"><![CDATA[#gxbm#]]></isNotEmpty>
 
 		,
 		<include refid="insertXtzdVal"/>)

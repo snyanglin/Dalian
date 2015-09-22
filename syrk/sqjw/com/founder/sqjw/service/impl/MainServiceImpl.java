@@ -1,4 +1,5 @@
 package com.founder.sqjw.service.impl;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,8 @@ import com.founder.sqjw.dao.MainDao;
 import com.founder.sqjw.service.MainService;
 import com.founder.sqjw.vo.CountMapVO;
 import com.founder.sqjw.vo.MainVo;
+import com.founder.sqjw.vo.ZdryCountVo;
+import com.founder.sqjw.vo.ZzjgVo;
 import com.founder.syfw.vo.SyfwListVo;
 import com.founder.syrkgl.bean.SyrkSyrkxxzb;
 /**
@@ -69,5 +72,35 @@ public class MainServiceImpl implements MainService{
 	public List<SyrkSyrkxxzb> queryListByRyidYwlx(SyrkSyrkxxzb entity) {
 		// TODO Auto-generated method stub
 		return mainDao.queryListByRyidYwlx(entity);
+	}
+	@Override
+	public Map<String, Object> querypcstj(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		// 统计实有人口
+		List<ZzjgVo> zzjg = mainDao.queryPcsTj(paramMap);
+
+		// 统计实有重点人口
+		List<ZdryCountVo> zdry = mainDao.queryZdryTj(paramMap);
+		// 统计房屋的
+		long czf = mainDao.queryCzfTj(paramMap);
+		long checkf = mainDao.queryCheckTj(paramMap);
+		//实有房屋
+		 long syfwnum = mainDao.querySyfwTj(paramMap);
+		// 统计治安管理的
+		List<ZdryCountVo>dwtj = mainDao.queryDwtj(paramMap);
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put("zzjg", zzjg);
+		resMap.put("zdry", zdry);
+		resMap.put("czf", czf);
+		resMap.put("checkf", checkf);
+		resMap.put("dwtj",dwtj);
+		resMap.put("syfwnum", syfwnum);
+		return resMap;
+		
+	}
+	@Override
+	public List<CountMapVO> queryListMap(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return mainDao.queryListMap(param);
 	}
 }

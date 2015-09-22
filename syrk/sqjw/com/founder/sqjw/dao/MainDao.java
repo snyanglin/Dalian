@@ -8,6 +8,8 @@ import com.founder.framework.base.dao.BaseDaoImpl;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.sqjw.vo.CountMapVO;
 import com.founder.sqjw.vo.MainVo;
+import com.founder.sqjw.vo.ZdryCountVo;
+import com.founder.sqjw.vo.ZzjgVo;
 import com.founder.syfw.vo.SyfwListVo;
 import com.founder.syrkgl.bean.SyrkSyrkxxzb;
 /**
@@ -62,5 +64,33 @@ public class MainDao extends BaseDaoImpl{
 	public List<SyrkSyrkxxzb> queryListByRyidYwlx(SyrkSyrkxxzb entity) {
 		// TODO Auto-generated method stub
 		return queryForList("Main.queryListByRyidYwlx", entity);
+	}
+	public List<ZzjgVo> queryPcsTj(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return queryForList("Main.queryPcsTj", paramMap);
+	}
+	public List<ZdryCountVo> queryZdryTj(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return  queryForList("Main.queryZdryTj", paramMap);
+	}
+	public long queryCzfTj(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return (long) queryForObject("Main.queryCzfTj", paramMap);
+	}
+	public long queryCheckTj(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return (long) queryForObject("Main.queryCheckTj", paramMap);
+	}
+	public List<ZdryCountVo> queryDwtj(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return  queryForList("Main.queryDwtj", paramMap);
+	}
+	public List<CountMapVO> queryListMap(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return queryForList("Main.queryListMapsyrk", param);
+	}
+	public long querySyfwTj(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return (long) queryForObject("Main.querySyfwTj", paramMap);
 	}
 }

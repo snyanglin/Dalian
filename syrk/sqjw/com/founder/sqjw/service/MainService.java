@@ -37,4 +37,6 @@ public interface MainService {
 	public List<SyfwListVo> queryListuncheckczf(Map<String, String> param);
 	public List<CountMapVO> queryListzdry(Map<String, String> param);
 	public List<SyrkSyrkxxzb> queryListByRyidYwlx(SyrkSyrkxxzb entity);
+	public Map<String, Object> querypcstj(Map<String, Object> paramMap);
+	public List<CountMapVO> queryListMap(Map<String, String> param);
 }

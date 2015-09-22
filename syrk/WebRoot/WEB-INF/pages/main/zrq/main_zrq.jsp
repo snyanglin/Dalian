@@ -45,7 +45,7 @@
 	   		<table border="0" cellpadding="0" cellspacing="0" style="width: 100%;height: 100%;">
 	   		<tr>
 	   		<td class="titleCss" style="height: 20px;width:49.5%;">
-	   		待办事项<a href="javascript:void(0);" onclick="queryMsg('工作待办');" title="更多">>></a>
+	   		待办事项<span><a href="javascript:void(0);" onclick="queryMsg('工作待办');" title="更多">>></a></span>
 	   		</td>
 	   		
 	   		<td style="width:1px;">

@@ -10,7 +10,6 @@ import com.founder.framework.base.dao.BaseDaoImpl;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
-import com.founder.jzym.bean.Ryjzdzzb;
 import com.founder.syrkgl.bean.RyRyjbxxb;
 
 /******************************************************************************

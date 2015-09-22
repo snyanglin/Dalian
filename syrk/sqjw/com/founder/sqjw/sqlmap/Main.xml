@@ -17,9 +17,7 @@
 		T.ORGLEVEL
 		FROM ORG_ORGANIZATION T
 		WHERE T.XT_ZXBZ = '0'
-		AND T.ORGLEVEL =
-		'50'
-		AND T.ORGCODE LIKE '%21020441%') Z
+		AND T.ORGCODE LIKE '%21020441%' ORDER BY T.ORGCODE desc) Z
 		LEFT JOIN (SELECT COUNT(S.ID) AS
 		SYRKNUM, S.GXZRQDM
 		FROM SYRK_SYRKXXZB S
@@ -103,12 +101,123 @@
 	<select id="queryListzdry" parameterClass="Map"
 		resultClass="com.founder.sqjw.vo.CountMapVO">
 		  select t.jzd_zbx zbx,jzd_zby zby,t.xm title
- from SYRK_SYRKXXZB t where t.ryid in(select t.ryid  from ZDRY_ZDRYZB t where t.xt_zxbz ='0' and t.glbm= #orgCode# and t.zdrygllxdm=#zdrydm#)    
+ from SYRK_SYRKXXZB t where t.xt_zxbz ='0' and t.id in(select t.SYRKID  from ZDRY_ZDRYZB t where t.xt_zxbz ='0' and t.glbm= #orgCode# and t.zdrygllxdm=#zdrydm#)    
 	</select>
 	
 	<select id="queryListByRyidYwlx" parameterClass="com.founder.syrkgl.bean.SyrkSyrkxxzb"
 	resultClass="com.founder.syrkgl.bean.SyrkSyrkxxzb">
 	SELECT * FROM
+	SYRK_SYRKXXZB T
+	WHERE T.XT_ZXBZ = '0'
+    AND T.SYRKYWLXDM = #syrkywlxdm#
+    AND (T.GXZRQDM = #gxzrqdm# OR T.GXPCSDM = #gxpcsdm#)
+	</select>
+	<select id="queryPcsTj" parameterClass="Map" resultClass="com.founder.sqjw.vo.ZzjgVo">
+	    SELECT T.LX, T.LXMC, SUM(T.SL) SL
+		  FROM TJ_SYRK T
+		 WHERE 1=1
+		 <isEqual property="lx" compareValue="14" prepend="AND">
+		       T.SQDM = #orgCode#
+		 </isEqual>
+		 <isEqual property="lx" compareValue="15" prepend="AND">
+		       T.ZRQDM = #orgCode#
+		 </isEqual>
+		GROUP BY LX, T.LXMC
+		UNION ALL
+		SELECT T.LX, T.LXMC, SUM(T.SL) SL
+		  FROM TJ_GZDX T
+		 WHERE 1=1
+		 <isEqual property="lx" compareValue="14" prepend="AND">
+		       T.PCSDM = #orgCode#
+		 </isEqual>
+		 <isEqual property="lx" compareValue="15" prepend="AND">
+		       T.ZRQDM = #orgCode#
+		 </isEqual>
+		 GROUP BY LX, T.LXMC
+		 UNION ALL
+		 SELECT T.LX, T.LXMC, SUM(T.SL) SL
+		  FROM TJ_BZDZ T
+		 WHERE 1=1
+		 <isEqual property="lx" compareValue="14" prepend="AND">
+		       T.PCSDM = #orgCode#
+		 </isEqual>
+		 <isEqual property="lx" compareValue="15" prepend="AND">
+		       T.ZRQDM = #orgCode#
+		 </isEqual>
+		 GROUP BY LX, T.LXMC
+		 UNION ALL
+		 SELECT T.LX, T.LXMC, SUM(T.SL) SL
+		  FROM TJ_DWXX T
+		 WHERE 1=1
+		 <isEqual property="lx" compareValue="14" prepend="AND">
+		       T.PCSDM = #orgCode#
+		 </isEqual>
+		 <isEqual property="lx" compareValue="15" prepend="AND">
+		       T.ZRQDM = #orgCode#
+		 </isEqual>
+		 GROUP BY LX, T.LXMC
+		 UNION ALL
+		 SELECT T.LX, T.LXMC, SUM(T.SL) SL
+		  FROM TJ_SYFW T
+		 WHERE 1=1
+		 <isEqual property="lx" compareValue="14" prepend="AND">
+		       T.PCSDM = #orgCode#
+		 </isEqual>
+		 <isEqual property="lx" compareValue="15" prepend="AND">
+		       T.ZRQDM = #orgCode#
+		 </isEqual>
+		 GROUP BY LX, T.LXMC
+		 UNION ALL
+		 SELECT T.LX, T.LXMC, SUM(T.SL) SL
+		  FROM TJ_JQXX T
+		 WHERE 1=1
+		 <isEqual property="lx" compareValue="14" prepend="AND">
+		       T.PCSDM = #orgCode#
+		 </isEqual>
+		 <isEqual property="lx" compareValue="15" prepend="AND">
+		       T.ZRQDM = #orgCode#
+		 </isEqual>
+		 GROUP BY LX, T.LXMC
+		 UNION ALL
+		 SELECT T.LX, T.LXMC, SUM(T.SL) SL
+		  FROM TJ_AJXX T
+		 WHERE 1=1
+		 <isEqual property="lx" compareValue="14" prepend="AND">
+		       T.PCSDM = #orgCode#
+		 </isEqual>
+		 <isEqual property="lx" compareValue="15" prepend="AND">
+		       T.ZRQDM = #orgCode#
+		 </isEqual>
+		 GROUP BY LX, T.LXMC
+		 UNION ALL
+		 SELECT T.LX, T.LXMC, SUM(T.SL) SL
+		  FROM TJ_WHSTJ T
+		 WHERE T.PCSDM = #orgCode#
+		 GROUP BY LX, T.LXMC
+	</select>
+	<select id="queryCzfTj" parameterClass="Map" resultClass="java.lang.Long">
+          SELECT COUNT(1) FROM SYFW_FWJBXXB t WHERE t.XT_ZXBZ ='0' AND t.Sfczfw ='1' AND (T.SS4JBMDM = #orgCode# OR T.SS3JBMDM =#orgCode#)
+	</select>
+	<!-- 实有房屋统计 -->
+	<select id="querySyfwTj" parameterClass="Map" resultClass="java.lang.Long">
+          SELECT COUNT(1) FROM SYFW_FWJBXXB t WHERE t.XT_ZXBZ ='0'  AND (T.SS4JBMDM = #orgCode# OR T.SS3JBMDM =#orgCode#)
+	</select>
+	<!-- 統計已查房屋-->
+	<select id="queryCheckTj" parameterClass="Map" resultClass="java.lang.Long">
+         select count(1) from SYFW_CZFWJCXXB t where t.XT_ZXBZ ='0' and t.CZFWID in(SELECT t.id FROM SYFW_FWJBXXB t WHERE t.XT_ZXBZ ='0' AND t.Sfczfw ='1' AND (T.SS4JBMDM = #orgCode# OR T.SS3JBMDM =#orgCode#))
+	</select>
+	
+	<select id="queryZdryTj" parameterClass="Map" resultClass="com.founder.sqjw.vo.ZdryCountVo">
+	select  count(1) zdrycount,t.zdrygllxdm zdrybm  from ZDRY_ZDRYZB t where t.xt_zxbz ='0' and t.ryid is not null and (t.glbm= #orgCode# OR t.gxbm=#orgCode#)  group by t.zdrygllxdm
+	</select>
+	<!-- 实有单位统计 -->
+	<select id="queryDwtj" parameterClass="Map" resultClass="com.founder.sqjw.vo.ZdryCountVo">
+	select  count(1) zdrycount,substr(d.dwlbdm,0,2)  zdrybm  from   dw_dwjbxxb d where d.xt_zxbz='0' and (d.glbmid= #orgCode# OR d.glpcsid=#orgCode#) group by substr(d.dwlbdm,0,2)
+	</select>
+	<!--  规范查询实有人口描点 -->
+	<select id="queryListMapsyrk" parameterClass="Map"
+	resultClass="com.founder.sqjw.vo.CountMapVO">
+	SELECT t.JZD_ZBX zbx,t.JZD_ZBY zby, t.XM title FROM
 	SYRK_SYRKXXZB T
 	WHERE T.XT_ZXBZ = '0'
     AND T.SYRKYWLXDM = #syrkywlxdm#

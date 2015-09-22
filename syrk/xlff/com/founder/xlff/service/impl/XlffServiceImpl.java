@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.founder.framework.base.service.BaseService;
-import com.founder.jzym.bean.Jz_jqxxb;
+import com.founder.xlff.bean.Jz_jqxxb;
 import com.founder.xlff.bean.Option;
 import com.founder.xlff.dao.XlffDao;
 import com.founder.xlff.service.XlffService;
