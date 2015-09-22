@@ -1,0 +1,133 @@
+待处理预警信息统计服务	ckyj/queryYjtj		
+常控预警信息查询服务/历史预警查询/尿检物品	ckyj/queryCkyjList		
+常控预警信息详情查询服务/尿检物品	ckyj/queryCkyj		
+常控预警信息签收服务	ckyj/updateCkyjxxbAndSaveQsb
+常控预警信息反馈服务	ckyj/updateCkyjxxbAndSaveFkb		
+常控预警反馈信息查询	ckyj/queryCkyjFkList		
+常控预警反馈详情查询	ckyj/queryCkyjFkb		
+常控预警尿检物品修改服务	ckyj/updateCkyjczFkb		
+常控预警导出	ckyj/ckyjxxb_export		
+
+
+常控预警指令信息查询服务/历史预警查询/尿检物品	ckyjzl/queryCkyjzlList	
+常控预警指令信息详情查询服务	ckyjzl/queryCkyjzl		
+常控预警指令信息签收服务	ckyjzl/updateCkyjzlbAndSaveQsb		
+常控预警指令信息反馈服务	ckyjzl/updateCkyjzlbAndSaveFkb		
+常控预警指令反馈信息查询	ckyjzl/queryCkyjzlFkList		
+常控预警指令反馈详情查询	ckyjzl/queryCkyjzlFkb		
+常控预警指令尿检物品修改服务	ckyjzl/updateCkyjzlczFkb		
+常控预警指令导出	ckyjzl/ckyjzlxxb_export		
+
+
+临控预警信息查询服务/历史预警查询	lkyj/queryLkyjList		
+临控预警信息详情查询服务/尿检物品	lkyj/queryLkyj
+临控预警信息签收服务	lkyj/updateLkyjxxbAndSaveQsb		
+临控预警信息反馈服务	lkyj/updateLkyjxxbAndSaveFkb		
+临控预警反馈信息查询	lkyj/queryLkyjFkList		
+临控预警反馈详情查询	lkyj/queryLkyjFkb		
+临控预警导出	lkyj/lkyjxxb_export		
+
+
+临控常控预警指令信息查询服务/历史预警查询	lkyjzl/queryLkyjzlList		
+临控常控预警指令信息详情查询服务	lkyjzl/queryLkyjzl		
+临控常控预警指令信息签收服务	lkyjzl/updateLkyjzlbAndSaveQsb		
+临控常控预警指令信息反馈服务	lkyjzl/queryLkyjzlFkList		
+临控常控预警指令反馈详情查询	lkyjzl/queryLkyjzlFkb		
+临控预警指令导出	lkyjzl/lkyjzlb_export	
+
+临控申请表保存服务	lksq/saveLksqb	
+临控申请列表查询服务	lksq/queryLksqList
+临控申请详情查询服务 lksq/queryLksq
+
+线索信息查询服务	xs/queryXsList		
+线索详情查询	xs/queryXs		
+线索信息保存服务	xs/saveXscjb		
+
+重点人员列表查询服务 zdry/queryZdryList
+重点人员详情查询服务 zdry/queryZdry
+重点人员信息保存服务 zdry/saveZdryxxb
+
+重点人写实信息保存	ryxs/saveRyxsb		
+重点人写实记录查询	ryxs/queryRyxsList
+重点人写实信息查询服务	ryxs/queryXs		
+
+重点人员在逃列表查询服务 zdry/queryZdryZtList
+重点人员在逃详情查询服务 zdry/queryZdryZt
+重点人员在逃信息保存服务 zdry/saveZdryZtxxb
+
+重点人员涉稳列表查询服务 zdry/queryZdrySwList
+重点人员涉稳详情查询服务 zdry/queryZdrySw
+重点人员涉稳信息保存服务 zdry/saveZdrySwxxb
+
+重点人员肇事肇祸精神病表列表查询服务 zdry/queryZdryZszhjsbList
+重点人员肇事肇祸精神病表详情查询服务 zdry/queryZdryZszhjsb
+重点人员肇事肇祸精神病表信息保存服务 zdry/saveZdryZszhjsbxxb
+
+重点人员重大刑事犯罪前科表列表查询服务 zdry/queryZdryZdxsfzqkList
+重点人员重大刑事犯罪前科表详情查询服务 zdry/queryZdryZdxsfzqk
+重点人员重大刑事犯罪前科信息保存服务 zdry/saveZdryZdxsfzqkxxb
+
+重点人员涉防列表查询服务 zdry/queryZdrySfList
+重点人员涉防详情查询服务 zdry/queryZdrySf
+重点人员涉防信息保存服务 zdry/saveZdrySfxxb
+
+重点人员贩毒列表查询服务 zdry/queryZdrySdFdList
+重点人员贩毒详情查询服务 zdry/queryZdrySdFd
+重点人员贩毒信息保存服务 zdry/saveZdrySdFdxxb
+
+重点人员吸毒列表查询服务 zdry/queryZdrySdXdList
+重点人员吸毒详情查询服务 zdry/queryZdrySdXd
+重点人员吸毒信息保存服务 zdry/saveZdrySdXdxxb
+
+重点人员制毒列表查询服务 zdry/queryZdrySdZdList
+重点人员制毒详情查询服务 zdry/queryZdrySdZd
+重点人员制毒信息保存服务 zdry/saveZdrySdZdxxb
+
+重点人员车辆列表查询服务 zdry/queryClxxList
+重点人员车辆详情查询服务 zdry/queryClxx
+重点人员车辆信息保存服务 zdry/saveClxxb
+
+重点人员涉案列表查询服务 zdry/querySaxxList
+重点人员涉案详情查询服务 zdry/querySaxx
+重点人员涉案信息保存服务 zdry/saveSaxxb
+
+重点人员社会关系人列表查询服务 zdry/queryShgxrList
+重点人员社会关系人详情查询服务 zdry/queryShgxr
+重点人员社会关系人信息保存服务 zdry/saveShgxrxxb
+
+重点人员诊断列表查询服务 zdry/queryZdjlList
+重点人员诊断详情查询服务 zdry/queryZdjl
+重点人员诊断信息保存服务 zdry/saveZdjlb
+
+重点人员肇事肇祸记录列表查询服务 zdry/queryZsjlList
+重点人员肇事肇祸记录详情查询服务 zdry/queryZsjl
+重点人员肇事肇祸记录信息保存服务 zdry/saveZsjlb
+
+重点人员管辖变更 queryGxbgList
+修改管辖单位 updateGxbg
+
+照片获取
+<img src="<%=contextPath%>/ckyj/queryQbldZpSingle.jpg?sfzh=xxxx"></img>
+
+
+*****信息发布**********
+查询所有信息显示分类  xxfb/queryClassList
+查询信息发布列表，最近五条记录，只需要title、createtime和id xxfb/queryArticleList  xxfb/queryArticleListFive
+查看信息发布详情  xxfb/queryArticle
+
+/syrk_now/WebRoot/WEB-INF/pages/qbld/lksq.jsp
+短信号码在库里没有
+/syrk_now/WebRoot/js/qbld/yjxx_ckzl.js
+/syrk_now/WebRoot/js/qbld/yjxx_lkyj.js
+预警指令级别修改为临控预警级别
+临控预警反馈页面吸毒尿检、物品信息在库里没有、
+/syrk_now/WebRoot/js/qbld/zdrxs.js
+人员写实联系方式在数据库里没有
+在逃类型和在逃类别不一致
+社会关系人民族写为名族
+涉案信息案件名称在数据库没有
+取向修改为为去向
+KG修改为kg
+/syrk_now/WebRoot/WEB-INF/pages/qbld/zdryxs.jsp
+/syrk_now/WebRoot/WEB-INF/pages/qbld/zdrxs.jsp
+涉案信息修改为涉案关系信息
