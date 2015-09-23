@@ -45,7 +45,7 @@ import com.founder.workflow.service.inteface.JProcessDefinitionService;
 import com.founder.workflow.service.inteface.JProcessManageService;
 import com.founder.workflow.service.inteface.JTaskService;
 import com.founder.zdrygl.base.model.ZdryZb;
-import com.founder.zdrygl.base.service.ZdryzbService;
+import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryQueryService;
@@ -74,7 +74,7 @@ public class ZdryZdryzbControl extends BaseController {
 	public ZdryAbstractFactory zdryFactory;
 	
 	@Autowired
-	private ZdryQueryService zdryQueryService ;
+	private ZdryInfoQueryService zdryQueryService ;
 	
 	@Autowired
 	private ZdryConstant zdryConstant;
