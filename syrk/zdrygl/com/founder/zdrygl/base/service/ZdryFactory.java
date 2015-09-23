@@ -28,7 +28,7 @@ import com.founder.zdrygl.core.utils.ZdryConstant;
 @Component
 public class ZdryFactory implements ZdryAbstractFactory {
 
-	public static String ZDRYZB = ZdryConstant.zdryServiceMap.get("00");
+	private static String ZDRYZB = ZdryConstant.zdryServiceMap.get("00");
 	private static ConfigurableApplicationContext applicationContext ;  
 	private static DefaultListableBeanFactory beanFactory ;  
 
@@ -51,7 +51,7 @@ public class ZdryFactory implements ZdryAbstractFactory {
 		}
 	}
 	
-	public ZdryzbService createZdryzbService(String beanName){
+	private ZdryzbService createZdryzbService(String beanName){
 		registerBeanDefinition(beanName,ZDRYZB,null,false); 
 		return (ZdryzbService)  getBean(beanName);
 	}
@@ -70,7 +70,7 @@ public class ZdryFactory implements ZdryAbstractFactory {
 		}  
 	}
 
-	public String getBeanName(String className){
+	private String getBeanName(String className){
 		return firstLetterLower(className.substring(className.lastIndexOf(".")+1));
 	}
 
