@@ -37,16 +37,16 @@
 		    <table id="zdrkDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;display:none">
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">重点人员管理方法：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="glffdm" name="zdryZdrkxxb.glffdm" style="width:200px;" value="${zdryVO.zdryZdrkxxb.glffdm}"
+		    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="glffdm" name="zdryZdrk.glffdm" style="width:200px;" value="${zdryVO.zdryZdrk.glffdm}"
 					data-options="url: contextPath + '/common/dict/DL_D_ ZDRKGLFFDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'right'"/></td>
 	    		<td width="20%" class="dialogTd" align="right">列管来源：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="lglydm" name="zdryZdrkxxb.lglydm" style="width:200px;" value="${zdryVO.zdryZdrkxxb.lglydm}"
+		    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="lglydm" name="zdryZdrk.lglydm" style="width:200px;" value="${zdryVO.zdryZdrk.lglydm}"
 					data-options="url: contextPath + '/common/dict/DL_D_LGLYDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'left'"/>
 		    	</td>
 	    	</tr>
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">纳入工作依据：</td>
-		    	<td width="80%" class="dialogTd" colspan="3"><input class="easyui-validatebox" type="text" name="zdryZdrkxxb.nrgzyj" maxlength="100" style="width: 595px;" data-options="required:false" value="${zdryVO.zdryZdrkxxb.nrgzyj}"/></td>
+		    	<td width="80%" class="dialogTd" colspan="3"><input class="easyui-validatebox" type="text" name="zdryZdrk.nrgzyj" maxlength="100" style="width: 595px;" data-options="required:false" value="${zdryVO.zdryZdrk.nrgzyj}"/></td>
 	    	</tr>
 	    	</table>
 	    	<!-- 肇事肇祸精神病人 -->
@@ -242,17 +242,14 @@ function zdrylxChange(newVal,oldVal){
 
 	if(typeof(newVal)!="undefined"){
 		setInputReadonly("zdrylbStr", true);	
-		$('#zdrylbStr').combotree('tree').tree('loadData', '');
-		var strAry=newVal.split('/');
-		var lbdm_p=strAry[0];
-		var group=strAry[1];
+		$('#zdrylbStr').combotree('tree').tree('loadData', '');		
 		
 		$.ajax({
 			async:false,
 			type:"GET",
 			url:"<%= basePath%>zdryzb/queryZdryChildLbList",
 			dataType:"json",
-			data:"lbdm_p="+lbdm_p,
+			data:"lbdm_p="+newVal,
 			success:function(data){
 				if (data && data.length>0) {
 					setInputReadonly("zdrylbStr", false);
@@ -260,7 +257,7 @@ function zdrylxChange(newVal,oldVal){
 				}else{				
 					$('#zdrylbStr').combotree('tree').tree('loadData', '');
 				}
-				showGroup(group);
+				showGroup(newVal);
 			}
 		}); 
 			
@@ -308,7 +305,7 @@ function showGroup(group){
 			//$("#czrk_lbsqk_lzd_gjhdqdm").combobox("setValue", "156");
 		}
 		
-	} else if(group == "ZDRK") {//重点人口
+	} else if(group == "02") {//重点人口
 		$("#jgdxDiv").hide();
 		$("#zdrkDiv").show();
 		$("#zszhjsbrDiv").hide();
@@ -338,7 +335,7 @@ function showGroup(group){
 		setComboRequired("sqsbzdryglffdm",false);
 		setComboRequired("sqsbzdrylglydm",false);
 		
-	} else if(group == "ZSZHJSBR") {//肇事肇祸精神病人
+	} else if(group == "03") {//肇事肇祸精神病人
 		$("#jgdxDiv").hide();
 		$("#zdrkDiv").hide();
 		$("#zszhjsbrDiv").show();
@@ -368,7 +365,7 @@ function showGroup(group){
 		setComboRequired("sqsbzdryglffdm",false);
 		setComboRequired("sqsbzdrylglydm",false);
 		
-	} else if(group == "FZCSF") {//非正常上访人员
+	} else if(group == "04") {//非正常上访人员
 		$("#jgdxDiv").hide();
 		$("#zdrkDiv").hide();
 		$("#zszhjsbrDiv").hide();
@@ -397,7 +394,7 @@ function showGroup(group){
 		$("#sqjzryky_jzrq").validatebox({required:false});
 		setComboRequired("sqsbzdryglffdm",false);
 		setComboRequired("sqsbzdrylglydm",false);
-	}else if(group == "SQJZRY"){//社区矫正人员
+	}else if(group == "01"){//社区矫正人员
 		$("#jgdxDiv").hide();
 		$("#zdrkDiv").hide();
 		$("#zszhjsbrDiv").hide();
@@ -427,7 +424,7 @@ function showGroup(group){
 		setComboRequired("sqsbzdryglffdm",false);
 		setComboRequired("sqsbzdrylglydm",false);
 		
-	}else if(group == "SQSB"){//涉枪涉爆重点人员
+	}else if(group == "08"){//涉枪涉爆重点人员
 		$("#jgdxDiv").hide();
 		$("#zdrkDiv").hide();
 		$("#zszhjsbrDiv").hide();
@@ -457,7 +454,7 @@ function showGroup(group){
 		setComboRequired("sqsbzdryglffdm",true);
 		setComboRequired("sqsbzdrylglydm",true);
 		
-	}else if(group == "SGAF"){//涉公安访
+	}else if(group == "05"){//涉公安访
 		$("#jgdxDiv").hide();
 		$("#zdrkDiv").hide();
 		$("#zszhjsbrDiv").hide();

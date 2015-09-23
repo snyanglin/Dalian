@@ -40,7 +40,6 @@ import com.founder.syrkgl.service.RyRylxfsxxbService;
 import com.founder.syrkgl.service.RyRyzjxxbService;
 import com.founder.syrkgl.service.SyrkSyrkxxzbService;
 import com.founder.syrkgl.vo.SyrkAddVO;
-import com.founder.zdrygl.service.ZdryZdryzbService;
 
 /**
  * ****************************************************************************
@@ -95,8 +94,8 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 
 	@Resource(name = "gisService")
 	private GisService gisService;
-	@Resource(name="zdryZdryzbService")
-	private ZdryZdryzbService zdryZdryzbService;
+//	@Resource(name="zdryZdryzbService")
+//	private ZdryZdryzbService zdryZdryzbService;
 
 	@Override
 	public SyrkSyrkxxzb queryById(String id) {
@@ -623,12 +622,12 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 		String errorMessage="";
 		if ("1".equals(entity.getSyrkywlxdm())) {
 			//判断是否为重点人口
-			int zdrkCount = zdryZdryzbService.queryForCount(entity.getCzrk().getId());
-            if(zdrkCount>0){
-            	errorMessage="此实有人口是重点人口，不能注销";
-            	return errorMessage;
-
-            }
+//			int zdrkCount = zdryZdryzbService.queryForCount(entity.getCzrk().getId());
+//            if(zdrkCount>0){
+//            	errorMessage="此实有人口是重点人口，不能注销";
+//            	return errorMessage;
+//
+//            }
 			
 			// 注销【常住人口】表数据
 			setCrossoutProperties(entity.getCzrk(), sessionBean);
@@ -639,12 +638,12 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 			syrk.setXt_zxbz(entity.getCzrk().getXt_zxbz());
 		} else if ("2".equals(entity.getSyrkywlxdm())) {
 			//判断是否为重点人口
-			int zdrkCount = zdryZdryzbService.queryForCount(entity.getJzrk().getId());
-            if(zdrkCount>0){
-            	errorMessage="此实有人口是重点人口，不能注销";
-            	return errorMessage;
-
-            }
+//			int zdrkCount = zdryZdryzbService.queryForCount(entity.getJzrk().getId());
+//            if(zdrkCount>0){
+//            	errorMessage="此实有人口是重点人口，不能注销";
+//            	return errorMessage;
+//
+//            }
 			// 注销【寄住人口】表数据
 			setCrossoutProperties(entity.getJzrk(), sessionBean);
 			syrkJzrkxxbDao.delete(entity.getJzrk());
@@ -654,12 +653,12 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 			syrk.setXt_zxbz(entity.getJzrk().getXt_zxbz());
 		} else if ("3".equals(entity.getSyrkywlxdm())) {
 			//判断是否为重点人口
-			int zdrkCount = zdryZdryzbService.queryForCount(entity.getLdrk().getId());
-            if(zdrkCount>0){
-            	errorMessage="此实有人口是重点人口，不能注销";
-            	return errorMessage;
-
-            }
+//			int zdrkCount = zdryZdryzbService.queryForCount(entity.getLdrk().getId());
+//            if(zdrkCount>0){
+//            	errorMessage="此实有人口是重点人口，不能注销";
+//            	return errorMessage;
+//
+//            }
 			// 注销【暂住人口】表数据
 			setCrossoutProperties(entity.getLdrk(), sessionBean);
 			syrkLdrkxxbDao.delete(entity.getLdrk());
@@ -669,12 +668,12 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 			syrk.setXt_zxbz(entity.getLdrk().getXt_zxbz());
 		} else if ("4".equals(entity.getSyrkywlxdm())) {
 			//判断是否为重点人口
-			int zdrkCount = zdryZdryzbService.queryForCount(entity.getJwry().getId());
-            if(zdrkCount>0){
-            	errorMessage="此实有人口是重点人口，不能注销";
-            	return errorMessage;
-
-            }
+//			int zdrkCount = zdryZdryzbService.queryForCount(entity.getJwry().getId());
+//            if(zdrkCount>0){
+//            	errorMessage="此实有人口是重点人口，不能注销";
+//            	return errorMessage;
+//
+//            }
 			// 注销【境外人员】表数据
 			setCrossoutProperties(entity.getJwry(), sessionBean);
 			syrkJwryxxbDao.delete(entity.getJwry());
@@ -703,11 +702,11 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 			}
 		} else if ("5".equals(entity.getSyrkywlxdm())) {
 			//判断是否为重点人口
-			int zdrkCount = zdryZdryzbService.queryForCount(entity.getWlrk().getId());
-            if(zdrkCount>0){
-            	errorMessage="此实有人口是重点人口，不能注销";
-            	return errorMessage;
-            }
+//			int zdrkCount = zdryZdryzbService.queryForCount(entity.getWlrk().getId());
+//            if(zdrkCount>0){
+//            	errorMessage="此实有人口是重点人口，不能注销";
+//            	return errorMessage;
+//            }
 			// 注销【未落户人员】表数据
 			setCrossoutProperties(entity.getWlrk(), sessionBean);
 			syrkWlhryxxbDao.delete(entity.getWlrk());

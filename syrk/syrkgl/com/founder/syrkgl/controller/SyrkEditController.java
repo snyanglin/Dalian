@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.commons.beanutils.MethodUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,8 +36,8 @@ import com.founder.syrkgl.service.SyrkJwryxxbService;
 import com.founder.syrkgl.service.SyrkSyrkxxzbService;
 import com.founder.syrkgl.vo.SyrkgnVo;
 import com.founder.syrkgl.vo.SyrkxxzsVo;
-import com.founder.zdrygl.bean.ZdryZdryzb;
-import com.founder.zdrygl.service.ZdryZdryzbService;
+import com.founder.zdrygl.base.model.ZdryZb;
+import com.founder.zdrygl.core.inteface.ZdryQueryService;
 import com.google.gson.Gson;
 
 /***
@@ -60,8 +61,8 @@ public class SyrkEditController extends BaseController {
 	private SyrkEditService syrkEditService;
 	@Resource(name = "syrkSyrkxxzbService")
 	private SyrkSyrkxxzbService syrkSyrkxxzbService;
-	@Resource(name = "zdryZdryzbService")
-	private ZdryZdryzbService zdryZdryzbService;
+	@Autowired
+	private ZdryQueryService zdryQueryService;
 	@Resource(name = "ryRyjbxxbService")
 	private RyRyjbxxbService ryRyjbxxbService;
 	@Resource(name = "ryRylxfsxxbService")
@@ -107,11 +108,11 @@ public class SyrkEditController extends BaseController {
 		}
 		String lxdh =ryRylxfsxxbService.queryLastLxfs(ryid);
 		//查询本辖区重口信息,等待需求确认
-		List<ZdryZdryzb> zdryList = zdryZdryzbService.queryZdryBySyrkid(syrkid);
+		List zdryList = zdryQueryService.queryListBySyrkId(syrkid);
 		if(!zdryList.isEmpty()){
-			ZdryZdryzb temp; 
+			ZdryZb temp; 
 			for (int i = 0; i < zdryList.size(); i++) {
-				temp = zdryList.get(i);
+				temp = (ZdryZb) zdryList.get(i);
 				if("1".equals(temp.getGlzt())){
 					zdryList.remove(i);
 					i--;
@@ -146,7 +147,7 @@ public class SyrkEditController extends BaseController {
 		
 		String zdry = "" ;
 		for (int i = 0; i < zdryList.size(); i++) {
-			zdry += zdryList.get(i).getZdrygllxdm()+",";
+			zdry += ((ZdryZb) zdryList.get(i)).getZdrygllxdm()+",";
 		}
 		zdry = zdry.lastIndexOf(",") == zdry.length() ?zdry.substring(0, zdry.length()-1):zdry;
 		mv.addObject("zdry", zdry);

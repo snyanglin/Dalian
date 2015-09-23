@@ -74,14 +74,13 @@
 							<td width="80"><script type="text/javascript">document.write(window.top.getDictName(contextPath + '/common/dict/GB_D_MZDM.js', "${zdry.mzdm}"));</script></td>
 					</tr>
 					<tr>
-						<th  align="right" width="130">出生日期：</th> <td width="90">${zdry.csrq }</td> 
-						<th  align="right" width="100">联系电话：</th> <td width="80"> ${zdry.lxdh }</td>
+						<th  align="right" width="130">出生日期：</th> <td width="270" colspan="3">${zdry.csrq }</td> 						
 					</tr>
 					<tr>
-						<th  align="right" width="130">户籍地址：</th> <td width="270" colspan="3">${zdry.dz_hjdzxz }</td>
+						<th  align="right" width="130">户籍地址：</th> <td width="270" colspan="3">${zdry.hjd_dzxz }</td>
 					</tr>
 					<tr>
-						<th  align="right" width="130">居住地址：</th> <td width="270" colspan="3">${zdry.dz_jzdzxz }</td>
+						<th  align="right" width="130">居住地址：</th> <td width="270" colspan="3">${zdry.jzd_dzxz }</td>
 					</tr>
 					<tr>
 						<th  align="right" width="130">主要问题及现实表现：</th> <td width="270" colspan="3">${zdry.zywtjxsbx }</td>
