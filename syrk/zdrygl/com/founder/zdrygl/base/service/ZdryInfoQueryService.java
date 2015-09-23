@@ -57,8 +57,7 @@ public class ZdryInfoQueryService implements ZdryQueryService {
 	 * @param @return    设定文件
 	 * @return List    返回类型
 	 * @throw
-	 */
-	@Override
+	 */	
 	public List queryListByEntity(ZdryZb zdryZb) {
 		return zdryZdryZbDao.queryListByEntity(zdryZb,null);		
 	}
@@ -77,7 +76,7 @@ public class ZdryInfoQueryService implements ZdryQueryService {
 	 * @return
 	 * @see com.founder.zdrygl.core.inteface.ZdryQueryService#getChildList(java.lang.String)
 	 */
-	@Override
+	
 	public List getChildList(String lbdm_p) {		
 		String  qydm =SystemConfig.getString("systemXzqh");		
 		if(org.springframework.util.StringUtils.isEmpty(qydm)) qydm="210000";

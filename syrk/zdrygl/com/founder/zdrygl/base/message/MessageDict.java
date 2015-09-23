@@ -1,4 +1,4 @@
-package com.founder.zdrygl.base.dict;
+package com.founder.zdrygl.base.message;
 
 /**
  * ****************************************************************************

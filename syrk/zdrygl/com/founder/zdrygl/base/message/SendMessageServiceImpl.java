@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.founder.framework.exception.BussinessException;
-import com.founder.zdrygl.base.dict.MessageDict;
 import com.founder.zdrygl.core.inteface.SendMessageService;
 import com.founder.zdrygl.core.model.SysMessage;
 

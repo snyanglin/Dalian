@@ -38,28 +38,6 @@ public interface ZdryQueryService {
 	
 	public List<?> queryListBySyrkId(String syrkId);
 	
-	public Zdry queryById(String zdryzbId);
-
-	/**
-	 * 
-	 * @Title: getChildList
-	 * @Description: TODO(查询重点人员类型下的子类列表)
-	 * @param @param lbdm_p 上级类型
-	 * @param @return    设定文件
-	 * @return List    返回类型
-	 * @throw
-	 */
-	public List getChildList(String lbdm_p);
-
-	/**
-	 * 
-	 * @Title: queryListByEntity
-	 * @Description: TODO(通过重点人员总表对象查询List)
-	 * @param @param zdryZb
-	 * @param @return    设定文件
-	 * @return List    返回类型
-	 * @throw
-	 */
-	public List queryListByEntity(ZdryZb zdryZb);
+	public Zdry queryById(String zdryzbId);	
 	
 }
