@@ -237,7 +237,7 @@ ZdryManage.clearMarkers = function(){
  * @date:2014-12-27 14:57:21
  */
 ZdryManage.onClickRow = function(rowIndex, rowData) {
-	var point = new Point(rowData.zbx, rowData.zby);
+	var point = new Point(rowData.jzd_zbx, rowData.jzd_zby);
 	// 气泡框内容
 	//var openHtml = "";
 	//ZdryManage.map._MapApp.openInfoWindow(point, openHtml, true);

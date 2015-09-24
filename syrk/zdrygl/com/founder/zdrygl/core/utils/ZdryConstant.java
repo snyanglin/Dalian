@@ -71,61 +71,47 @@ public class ZdryConstant {
 		//生成管理类型字典js		
 		List<TreeNode> gllxNodeList = this.queryChildNodeList(null);	
 		
-		File file=new File(JSPath + tableNameUpper + ".js");    
-		if(!file.exists()){  
+		if (gllxNodeList != null && gllxNodeList.size() > 0) { // 有数据			
+			
+			Writer fileWriter = new OutputStreamWriter(new FileOutputStream(
+					JSPath + tableNameUpper + ".js"), "UTF8");
+			fileWriter.write(TreeDataBuilder.getTreeData(gllxNodeList));			
+			fileWriter.flush();
+			fileWriter.close();
+			System.out.println("文件 ：" + tableNameUpper + ".js 创建成功！");
+		} else {			
+			Writer fileWriter = new OutputStreamWriter(new FileOutputStream(
+					JSPath + tableNameUpper + ".js"), "UTF8");
+			fileWriter.write("[]");
+			fileWriter.flush();
+			fileWriter.close();
+			System.out.println("字典： " + tableNameUpper + " 无数据， 创建空文件成功！");
+			System.out.println("文件 ：" + tableNameUpper + ".js 创建成功！");
+		} 
 
-			if (gllxNodeList != null && gllxNodeList.size() > 0) { // 有数据			
-				
-				Writer fileWriter = new OutputStreamWriter(new FileOutputStream(
-						JSPath + tableNameUpper + ".js"), "UTF8");
-	//			fileWriter.write("[{\"id\":\"ROOT\",\"text\":\"" + zdbhMc
-	//					+ "\",\"iconCls\":\"icon-treeroot1\",\"children\":"
-	//					+ StringUtils.enterNewline + StringUtils.enterNewline);
-				fileWriter.write(TreeDataBuilder.getTreeData(gllxNodeList));
-				//fileWriter.write(StringUtils.enterNewline + "}]");
-				fileWriter.flush();
-				fileWriter.close();
-				System.out.println("文件 ：" + tableNameUpper + ".js 创建成功！");
-			} else {			
-				Writer fileWriter = new OutputStreamWriter(new FileOutputStream(
-						JSPath + tableNameUpper + ".js"), "UTF8");
-				fileWriter.write("[]");
-				fileWriter.flush();
-				fileWriter.close();
-				System.out.println("字典： " + tableNameUpper + " 无数据， 创建空文件成功！");
-				System.out.println("文件 ：" + tableNameUpper + ".js 创建成功！");
-			}
-		}
 		//查询所有重点人员类型，包含小类
-		tableNameUpper="BD_D_ZDRYLB";
-		file=new File(JSPath + tableNameUpper + ".js");    
-		if(!file.exists()){
-			TreeNode treeNode;
-			if (gllxNodeList != null && gllxNodeList.size() > 0) { // 有数据			
-				for (int i = 0; i < gllxNodeList.size(); i++) {
-					treeNode = (TreeNode) gllxNodeList.get(i);						
-					treeNode.setChildren(queryChildNodeList(treeNode));				
-				}			
-				Writer fileWriter = new OutputStreamWriter(new FileOutputStream(
-						JSPath + tableNameUpper + ".js"), "UTF8");
-	//			fileWriter.write("[{\"id\":\"ROOT\",\"text\":\"" + zdbhMc
-	//					+ "\",\"iconCls\":\"icon-treeroot1\",\"children\":"
-						//+ StringUtils.enterNewline + StringUtils.enterNewline);
-				fileWriter.write(TreeDataBuilder.getTreeData(gllxNodeList));
-				//fileWriter.write(StringUtils.enterNewline + "}]");
-				fileWriter.flush();
-				fileWriter.close();
-				System.out.println("文件 ：" + tableNameUpper + ".js 创建成功！");
-			} else {			
-				Writer fileWriter = new OutputStreamWriter(new FileOutputStream(
-						JSPath + tableNameUpper + ".js"), "UTF8");
-				fileWriter.write("[]");
-				fileWriter.flush();
-				fileWriter.close();
-				System.out.println("字典： " + tableNameUpper + " 无数据， 创建空文件成功！");
-				System.out.println("文件 ：" + tableNameUpper + ".js 创建成功！");
-			}
-		}
+		tableNameUpper="BD_D_ZDRYLB";	
+		TreeNode treeNode;
+		if (gllxNodeList != null && gllxNodeList.size() > 0) { // 有数据			
+			for (int i = 0; i < gllxNodeList.size(); i++) {
+				treeNode = (TreeNode) gllxNodeList.get(i);						
+				treeNode.setChildren(queryChildNodeList(treeNode));				
+			}			
+			Writer fileWriter = new OutputStreamWriter(new FileOutputStream(
+					JSPath + tableNameUpper + ".js"), "UTF8");
+			fileWriter.write(TreeDataBuilder.getTreeData(gllxNodeList));			
+			fileWriter.flush();
+			fileWriter.close();
+			System.out.println("文件 ：" + tableNameUpper + ".js 创建成功！");
+		} else {			
+			Writer fileWriter = new OutputStreamWriter(new FileOutputStream(
+					JSPath + tableNameUpper + ".js"), "UTF8");
+			fileWriter.write("[]");
+			fileWriter.flush();
+			fileWriter.close();
+			System.out.println("字典： " + tableNameUpper + " 无数据， 创建空文件成功！");
+			System.out.println("文件 ：" + tableNameUpper + ".js 创建成功！");
+		}		
 		
 		}catch(Exception e){
 			e.printStackTrace();

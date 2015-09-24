@@ -156,8 +156,8 @@ ZdryManage.loadPoint = function(data){
 	var count = 0;
 	ZdryManage.setInt = setInterval(function(){
 		if(count<len){
-			var zbx = rows[count].zbx;
-			var zby = rows[count].zby;
+			var zbx = rows[count].jzd_zbx;
+			var zby = rows[count].jzd_zby;
 			var title = rows[count].xm;
 			if(zbx!=""&&zby!=""){
 				//气泡框内容
@@ -231,7 +231,7 @@ ZdryManage.datagridDzzt = function(value,row,index){
  */	
 ZdryManage.onClickRow = function(rowIndex,rowData){
 	
-	var point = new Point(rowData.zbx,rowData.zby);
+	var point = new Point(rowData.jzd_zbx,rowData.jzd_zby);
 	//气泡框内容
 	//var openHtml =  "";
 	//ZdryManage.map._MapApp.openInfoWindow(point,openHtml,true);

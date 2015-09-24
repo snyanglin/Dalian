@@ -1,6 +1,7 @@
 package com.founder.zdrygl.core.inteface;
 
 import com.founder.framework.base.entity.SessionBean;
+import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.model.Zdry;
 
 /**
@@ -40,10 +41,15 @@ public interface ZdryService {
 	public void zdSuccess(SessionBean sessionBean);
 	
 	public void zdFail(SessionBean sessionBean);
+		
+	public void update(SessionBean sessionBean);
 	
 	public void setZdry(Zdry entity);
 	
 	public Zdry getZdry();
 	
 	public String getZdryId();
+	
+	public void queryZdryAllInfo(String zdryid, ZdryVO zdryVO);
+	
 }

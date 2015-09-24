@@ -2,8 +2,15 @@ package com.founder.zdrygl.base.vo;
 
 import java.io.Serializable;
 
+import com.founder.zdrygl.base.model.ZdryFzcsfryxxb;
+import com.founder.zdrygl.base.model.ZdryJgdxxxb;
+import com.founder.zdrygl.base.model.ZdrySgafzdryxxb;
+import com.founder.zdrygl.base.model.ZdryShbzdryxxb;
+import com.founder.zdrygl.base.model.ZdrySqjzryxxb;
+import com.founder.zdrygl.base.model.ZdrySqsbzdryxxb;
 import com.founder.zdrygl.base.model.ZdryZdrkxxb;
 import com.founder.zdrygl.base.model.ZdryZb;
+import com.founder.zdrygl.base.model.ZdryZszhjsbrxxb;
 import com.founder.zdrygl.core.model.Zdry;
 
 
@@ -25,6 +32,13 @@ public class ZdryVO implements Serializable {
 	
 	ZdryZb zdryZdryzb;//重点人员总表
 	ZdryZdrkxxb zdryZdrk;//重点人口 子表
+	ZdryJgdxxxb zdryJgdxxxb;//监管对象
+	ZdryZszhjsbrxxb zdryZszhjsbrxxb;//肇事肇祸精神病人
+	ZdryFzcsfryxxb zdryFzcsfryxxb;//非正常上访
+	ZdryShbzdryxxb zdryShbzdryxxb;
+	ZdrySqsbzdryxxb zdrySqsbzdryxxb;
+	ZdrySqjzryxxb zdrySqjzryxxb;
+	ZdrySgafzdryxxb zdrySgafzdryxxb;
 	
 	public ZdryZb getZdryZdryzb() {
 		return zdryZdryzb;
@@ -38,7 +52,48 @@ public class ZdryVO implements Serializable {
 	public void setZdryZdrk(ZdryZdrkxxb zdryZdrk) {
 		this.zdryZdrk = zdryZdrk;
 	}
-	
+	public ZdryJgdxxxb getZdryJgdxxxb() {
+		return zdryJgdxxxb;
+	}
+	public void setZdryJgdxxxb(ZdryJgdxxxb zdryJgdxxxb) {
+		this.zdryJgdxxxb = zdryJgdxxxb;
+	}
+	public ZdryZszhjsbrxxb getZdryZszhjsbrxxb() {
+		return zdryZszhjsbrxxb;
+	}
+	public void setZdryZszhjsbrxxb(ZdryZszhjsbrxxb zdryZszhjsbrxxb) {
+		this.zdryZszhjsbrxxb = zdryZszhjsbrxxb;
+	}
+	public ZdryFzcsfryxxb getZdryFzcsfryxxb() {
+		return zdryFzcsfryxxb;
+	}
+	public void setZdryFzcsfryxxb(ZdryFzcsfryxxb zdryFzcsfryxxb) {
+		this.zdryFzcsfryxxb = zdryFzcsfryxxb;
+	}
+	public ZdryShbzdryxxb getZdryShbzdryxxb() {
+		return zdryShbzdryxxb;
+	}
+	public void setZdryShbzdryxxb(ZdryShbzdryxxb zdryShbzdryxxb) {
+		this.zdryShbzdryxxb = zdryShbzdryxxb;
+	}
+	public ZdrySqsbzdryxxb getZdrySqsbzdryxxb() {
+		return zdrySqsbzdryxxb;
+	}
+	public void setZdrySqsbzdryxxb(ZdrySqsbzdryxxb zdrySqsbzdryxxb) {
+		this.zdrySqsbzdryxxb = zdrySqsbzdryxxb;
+	}
+	public ZdrySqjzryxxb getZdrySqjzryxxb() {
+		return zdrySqjzryxxb;
+	}
+	public void setZdrySqjzryxxb(ZdrySqjzryxxb zdrySqjzryxxb) {
+		this.zdrySqjzryxxb = zdrySqjzryxxb;
+	}
+	public ZdrySgafzdryxxb getZdrySgafzdryxxb() {
+		return zdrySgafzdryxxb;
+	}
+	public void setZdrySgafzdryxxb(ZdrySgafzdryxxb zdrySgafzdryxxb) {
+		this.zdrySgafzdryxxb = zdrySgafzdryxxb;
+	}
 	/**
 	 * 
 	 * @Title: getZdrylbdx
@@ -52,152 +107,6 @@ public class ZdryVO implements Serializable {
 		if("02".equals(zdryZdryzb.getZdrygllxdm()))//重点人口
 			return zdryZdrk;
 		return null;
-	}
-	/*
-	ZdryJgdxxxb zdryJgdxxxb;
-	ZdryZdrkxxb zdryZdrkxxb;
-	ZdryZszhjsbrxxb zdryZszhjsbrxxb;
-	ZdryFzcsfryxxb zdryFzcsfryxxb;
-	ZdryShbzdryxxb zdryShbzdryxxb;
-	ZdrySqsbzdryxxb zdrySqsbzdryxxb;
-	ZdrySqjzryxxb zdrySqjzryxxb;
-	String cglxdm;
-	String zdryHsbId;
-	String ywsqyy;
-	String xm;
-	String zjhm;
-	ZdrySgafzdryxxb zdrySgafzdryxxb;
-	ZdryZdryzbVO zdryZdryzbVO;
-	
-	
-	public String getXm() {
-		return xm;
-	}
-
-	public void setXm(String xm) {
-		this.xm = xm;
-	}
-
-	public String getZjhm() {
-		return zjhm;
-	}
-
-	public void setZjhm(String zjhm) {
-		this.zjhm = zjhm;
-	}
-
-	public String getYwsqyy() {
-		return ywsqyy;
-	}
-
-	public void setYwsqyy(String ywsqyy) {
-		this.ywsqyy = ywsqyy;
-	}
-
-	public ZdrySqsbzdryxxb getZdrySqsbzdryxxb() {
-		return zdrySqsbzdryxxb;
-	}
-
-	public void setZdrySqsbzdryxxb(ZdrySqsbzdryxxb zdrySqsbzdryxxb) {
-		this.zdrySqsbzdryxxb = zdrySqsbzdryxxb;
-	}
-
-	public ZdrySqjzryxxb getZdrySqjzryxxb() {
-		return zdrySqjzryxxb;
-	}
-
-	public void setZdrySqjzryxxb(ZdrySqjzryxxb zdrySqjzryxxb) {
-		this.zdrySqjzryxxb = zdrySqjzryxxb;
-	}
-
-	public ZdryShbzdryxxb getZdryShbzdryxxb() {
-		return zdryShbzdryxxb;
-	}
-
-	public void setZdryShbzdryxxb(ZdryShbzdryxxb zdryShbzdryxxb) {
-		this.zdryShbzdryxxb = zdryShbzdryxxb;
-	}
-
-	public String getZdryHsbId() {
-		return zdryHsbId;
-	}
-
-	public void setZdryHsbId(String zdryHsbId) {
-		this.zdryHsbId = zdryHsbId;
-	}
-
-	public String getCglxdm() {
-		return cglxdm;
-	}
-
-	public void setCglxdm(String cglxdm) {
-		this.cglxdm = cglxdm;
-	}
-
-	
-
-	public String getZdrylbStr() {
-		return zdrylbStr;
-	}
-
-	public void setZdrylbStr(String zdrylbStr) {
-		this.zdrylbStr = zdrylbStr;
-	}
-
-	public ZdryZdryzb getZdryZdryzb() {
-		return zdryZdryzb;
-	}
-
-	public void setZdryZdryzb(ZdryZdryzb zdryZdryzb) {
-		this.zdryZdryzb = zdryZdryzb;
-	}
-
-	public ZdryJgdxxxb getZdryJgdxxxb() {
-		return zdryJgdxxxb;
-	}
-
-	public void setZdryJgdxxxb(ZdryJgdxxxb zdryJgdxxxb) {
-		this.zdryJgdxxxb = zdryJgdxxxb;
-	}
-
-	public ZdryZdrkxxb getZdryZdrkxxb() {
-		return zdryZdrkxxb;
-	}
-
-	public void setZdryZdrkxxb(ZdryZdrkxxb zdryZdrkxxb) {
-		this.zdryZdrkxxb = zdryZdrkxxb;
-	}
-
-	public ZdryZszhjsbrxxb getZdryZszhjsbrxxb() {
-		return zdryZszhjsbrxxb;
-	}
-
-	public void setZdryZszhjsbrxxb(ZdryZszhjsbrxxb zdryZszhjsbrxxb) {
-		this.zdryZszhjsbrxxb = zdryZszhjsbrxxb;
-	}
-
-	public ZdryFzcsfryxxb getZdryFzcsfryxxb() {
-		return zdryFzcsfryxxb;
-	}
-
-	public void setZdryFzcsfryxxb(ZdryFzcsfryxxb zdryFzcsfryxxb) {
-		this.zdryFzcsfryxxb = zdryFzcsfryxxb;
-	}
-
-	public ZdrySgafzdryxxb getZdrySgafzdryxxb() {
-		return zdrySgafzdryxxb;
-	}
-
-	public void setZdrySgafzdryxxb(ZdrySgafzdryxxb zdrySgafzdryxxb) {
-		this.zdrySgafzdryxxb = zdrySgafzdryxxb;
-	}
-
-	public ZdryZdryzbVO getZdryZdryzbVO() {
-		return zdryZdryzbVO;
-	}
-
-	public void setZdryZdryzbVO(ZdryZdryzbVO zdryZdryzbVO) {
-		this.zdryZdryzbVO = zdryZdryzbVO;
-	}
-	*/
+	}		
+			
 }

@@ -12,11 +12,10 @@
 	
 	<select id="queryByMap" parameterClass="Map" resultClass="zdryZdrkxxb">
 		<![CDATA[ 
-			select t.id , t.glffdm,t.lglydm,t.nrgzyj,  t1.zdlgbmmc xt_lrrbm ,t2.bz
-			from ZDRY_ZDRKXXB t, ZDRY_ZDRYZB t1 
-			left join ZDRY_ZDRYLXYLBDYB t2 on (t2.LBDM=t1.ZDRYLB and QYDM=#qydm#)			
-			where t.ID = #id#  and t.id=t1.id and t.XT_ZXBZ = '0' and t1.xt_zxbz='0'
-  				]]>
+			select t.ID , t.GLFFDM,t.LGLYDM,t.NRGZYJ,  t1.ZDRYLB as BZ
+			from ZDRY_ZDRKXXB t, ZDRY_ZDRYZB_NEW t1 					
+			where t.ID = #id#  and t.id=t1.id and t.XT_ZXBZ = '0' and t1.xt_zxbz='0'			
+  		]]>
 	</select>
 
 	<!-- 新增 -->

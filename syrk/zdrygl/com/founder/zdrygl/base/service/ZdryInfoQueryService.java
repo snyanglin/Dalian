@@ -16,7 +16,7 @@ import com.founder.zdrygl.core.inteface.ZdryQueryService;
 import com.founder.zdrygl.core.model.Zdry;
 
 @Service("zdryQueryService")
-public class ZdryInfoQueryService implements ZdryQueryService {
+public class ZdryInfoQueryService extends ZdryQueryService {
 	
 	@Autowired
 	private ZdryZdryZbDao zdryZdryZbDao;
@@ -25,16 +25,17 @@ public class ZdryInfoQueryService implements ZdryQueryService {
 	private ZdryInitializeDao zdryInitializeDao;
 
 	@Override
-	public EasyUIPage queryList(EasyUIPage page, ZdryZb zdryZb) {
+	public EasyUIPage queryList(EasyUIPage page, Object object) {
 		Map map=new HashMap();
-		map.put("zdryZb", zdryZb);
+		map.put("zdryZb", object);
 		return zdryZdryZbDao.queryPageList(map, page);
 	}
 
 	@Override
-	public EasyUIPage queryDwDzOnPT(EasyUIPage page, Object object) {
-		// TODO Auto-generated method stub
-		return null;
+	public EasyUIPage getQueryList(EasyUIPage page, Object object) {
+		Map map=new HashMap();
+		map.put("zdryZb", object);
+		return zdryZdryZbDao.getQueryList(map, page);
 	}
 
 	@Override
@@ -67,16 +68,16 @@ public class ZdryInfoQueryService implements ZdryQueryService {
 		// TODO Auto-generated method stub
 		return zdryZdryZbDao.queryById(zdryzbId);
 	}
-
-	/*
-	 * (非 Javadoc)
-	 * <p>Title: getChildList</p>
-	 * <p>Description:查询重点人员类型下的子类列表，递归可以避免树级别不确定时写死的树层数不符合要求 </p>
-	 * @param lbdm_p 上级类型
-	 * @return
-	 * @see com.founder.zdrygl.core.inteface.ZdryQueryService#getChildList(java.lang.String)
-	 */
 	
+	/**
+	 * 
+	 * @Title: getChildList
+	 * @Description: TODO(查询重点人员类型下的子类列表，递归可以避免树级别不确定时写死的树层数不符合要求 )
+	 * @param @param lbdm_p 上级类型
+	 * @param @return    设定文件
+	 * @return List    返回类型
+	 * @throw
+	 */
 	public List getChildList(String lbdm_p) {		
 		String  qydm =SystemConfig.getString("systemXzqh");		
 		if(org.springframework.util.StringUtils.isEmpty(qydm)) qydm="210000";

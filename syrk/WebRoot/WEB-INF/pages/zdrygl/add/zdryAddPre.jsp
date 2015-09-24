@@ -55,7 +55,11 @@
 		    </tr>
 		    <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">性别：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text"  id="xbdm" name="zdryZdryzb.xbdm" style="width:200px;" readonly="readonly"  value="${zdryZdryzbVO.xm}"/></td>
+		    	<td width="30%" class="dialogTd">		    		
+		    		<input class="easyui-combobox" type="text"  id="xbdm" name="zdryZdryzb.xbdm"   style="width:200px;" value="" 
+					data-options="url: contextPath +'/common/dict/GB_D_XBDM.js',
+					valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'right'"/>		    		
+		    	</td>		    	
 				<td width="20%" class="dialogTd" align="right">证件号码：</td>
 		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" id="zjhm" name="zdryZdryzb.zjhm" style="width:200px;" readonly="readonly" value="${zdryZdryzbVO.zjhm}"/></td>
 		    </tr>
@@ -294,7 +298,8 @@ function selectSyrk(index){
 	var rows = $('#dg').datagrid('getData');
 	var rowData = rows.rows[index];
 	$("#xm").val(rowData.xm);
-	$("#xbdm").val(rowData.xbdm);
+	setInputReadonly("xbdm", true);
+	$("#xbdm").combobox("setValue", rowData.xbdm);
 	$("#cyzjdm").val(rowData.cyzjdm);
 	$("#zjhm").val(rowData.zjhm);
 	$("#syrkid").val(rowData.id);	

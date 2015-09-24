@@ -12,6 +12,7 @@ import com.founder.framework.utils.UUID;
 import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrycg;
+import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
@@ -135,6 +136,18 @@ public class ZdryzbService implements ZdryService {
 		updateZdry(sessionBean,zdryzb);
 	}
 	
+	/**
+	 * 
+	 * @Title: update
+	 * @Description: TODO(修改)
+	 * @param @param sessionBean    设定文件
+	 * @return void    返回类型
+	 * @throw
+	 */
+	@Override
+	public final void update(SessionBean sessionBean) {
+		//总表还不确定要修改	
+	}
 
 	private void updateZdry(SessionBean sessionBean,ZdryZb entity){
 		BaseService.setUpdateProperties(entity, sessionBean);
@@ -162,12 +175,14 @@ public class ZdryzbService implements ZdryService {
 
 	@Override
 	public void setZdry(Zdry entity) {
-		if(entity.getClass().getName().equals(Zdrycg.class.getName())){
-			this.zdrycg = (Zdrycg) entity;
-			zdryzb = new ZdryZb();
-			BeanUtils.copyProperties(zdrycg, zdryzb);
-		}else{
-			this.zdryzb = (ZdryZb) entity;
+		if(entity!=null){
+			if(entity.getClass().getName().equals(Zdrycg.class.getName())){
+				this.zdrycg = (Zdrycg) entity;
+				zdryzb = new ZdryZb();
+				BeanUtils.copyProperties(zdrycg, zdryzb);
+			}else{
+				this.zdryzb = (ZdryZb) entity;
+			}
 		}
 	}
 
@@ -181,5 +196,17 @@ public class ZdryzbService implements ZdryService {
 		return getZdry().getId();
 	}
 	
-	
+	/**
+	 * 
+	 * @Title: queryZdryAllInfo
+	 * @Description: TODO(查询重点人员总表和子表)
+	 * @param @param zdryid
+	 * @param @param zdryVO    设定文件
+	 * @return void    返回类型
+	 * @throw
+	 */
+	@Override
+	public void queryZdryAllInfo(String zdryid,ZdryVO zdryVO) {
+		zdryVO.setZdryZdryzb((ZdryZb)zdryZdryZbDao.queryById(zdryid));
+	}
 }

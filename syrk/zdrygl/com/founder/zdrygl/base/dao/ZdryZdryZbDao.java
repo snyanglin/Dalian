@@ -104,6 +104,9 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 		return (List<Zdry>) super.queryForList("ZdryZdryzb.queryListByMap", map);
 	}
 
+	/**
+	 * 管理列表查询
+	 */
 	@Override
 	public EasyUIPage queryPageList(Map<String, Object> map, EasyUIPage page) {
 		map.put("begin", page.getBegin());
@@ -115,21 +118,18 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 			order = "asc";
 		}
 		map.put("sort", sort);
-		map.put("order", order);
-		
-		//TODO 实现配置方法
-//		String  address =zdryUntil.querySYSConfig();
-//		map.put("QYDM", address);
-		
-		map.put("QYDM", SystemConfig.getString("systemXzqh"));
+		map.put("order", order);	
 		
 		page.setTotal((Integer) queryForObject("ZdryZdryzb.queryPageCount", map));
 		page.setRows(queryForList("ZdryZdryzb.queryPage", map));
 		return page;
 	}
 
+	/**
+	 * 查询列表查询
+	 */
 	@Override
-	public EasyUIPage queryDwDzOnPT(Map<String, Object> map, EasyUIPage page) {
+	public EasyUIPage getQueryList(Map<String, Object> map, EasyUIPage page) {
 		map.put("begin", page.getBegin());
 		map.put("end", page.getEnd());
 		String sort = page.getSort();
@@ -140,16 +140,10 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 		}
 		//entity.setSrid(getSrid());
 		map.put("sort", sort);
-		map.put("order", order);
+		map.put("order", order);		
 		
-		//TODO 实现配置方法
-//		String  address =zdryUntil.querySYSConfig();
-//		map.put("QYDM", address);
-		
-		map.put("QYDM", "2100");
-		
-		page.setTotal((Integer) queryForObject("ZdryZdryzb.queryCountZdryOnPT", map));
-		page.setRows(queryForList("ZdryZdryzb.queryZdryOnPT", map));
+		page.setTotal((Integer) queryForObject("ZdryZdryzb.getQeryListCount", map));
+		page.setRows(queryForList("ZdryZdryzb.getQeryList", map));
 		return page;
 	}
 

@@ -55,13 +55,13 @@ import com.google.gson.Gson;
 
 /**
  * ****************************************************************************
- * @Package:      [com.founder.zdrygl.controller.ZdryZdryzbControl.java]  
+ * @Package:      [com.founder.zdrygl.base.controller.ZdryZdryzbControl.java]  
  * @ClassName:    [ZdryZdryzbControl]   
- * @Description:  [重点人员总表]   
- * @Author:       [weiwen]  
- * @CreateDate:   [2015-3-19 上午10:51:54]   
- * @UpdateUser:   [weiwen]   
- * @UpdateDate:   [2015-3-19 上午10:51:54，(如多次修改保留历史记录，增加修改记录)]   
+ * @Description:  [重点人员总表控制器]   
+ * @Author:       [wei.wen@founder.com.cn]  
+ * @CreateDate:   [2015年9月18日 下午3:20:01]   
+ * @UpdateUser:   [wei.wen@founder.com.cn(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年9月18日 下午3:20:01，(如多次修改保留历史记录，增加修改记录)]   
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
@@ -73,7 +73,7 @@ public class ZdryZdryzbControl extends BaseController {
 	@Autowired
 	public ZdryAbstractFactory zdryFactory;
 	
-	@Autowired
+	@Resource(name="zdryQueryService")
 	private ZdryInfoQueryService zdryQueryService ;
 	
 	@Autowired
@@ -137,8 +137,8 @@ public class ZdryZdryzbControl extends BaseController {
 	
 	/**
 	 * 
-	 * @Title: list
-	 * @Description: TODO(查询重点人员管理列表)
+	 * @Title: getManageList
+	 * @Description: TODO(重点人员管理列表 查询)
 	 * @param @param page
 	 * @param @param rows
 	 * @param @param entity
@@ -148,8 +148,8 @@ public class ZdryZdryzbControl extends BaseController {
 	 * @throws
 	 */
 	@RestfulAnnotation(serverId="3")
-	@RequestMapping(value="/list",method = RequestMethod.POST)
-	public @ResponseBody EasyUIPage list(EasyUIPage page,@RequestParam(value="rows",required = false)Integer rows,
+	@RequestMapping(value="/getManageList",method = RequestMethod.POST)
+	public @ResponseBody EasyUIPage getManageList(EasyUIPage page,@RequestParam(value="rows",required = false)Integer rows,
 			ZdryZb entity,SessionBean sessionBean){
 		page.setPagePara(rows);
 		entity.setGlbm(getSessionBean(sessionBean).getUserOrgCode());
@@ -158,27 +158,23 @@ public class ZdryZdryzbControl extends BaseController {
 	
 	/**
 	 * 
-	 * @Title: queryDwDzOnPT
-	 * @Description: TODO(重点人员查询 条件查询)
+	 * @Title: queryZdryOnPT
+	 * @Description: TODO(重点人员查询 列表)
 	 * @param @param page
 	 * @param @param rows
 	 * @param @param entity
 	 * @param @return    设定文件
 	 * @return EasyUIPage    返回类型
-	 * @throws
-	 *
-	@RequestMapping(value = "/queryZdryOnPT", method = RequestMethod.POST)
+	 * @throw
+	 */
+	@RequestMapping(value = "/getQeryList", method = RequestMethod.POST)
 	public @ResponseBody
-	EasyUIPage queryDwDzOnPT(EasyUIPage page,
-			@RequestParam(value = "rows") Integer rows, ZdryZdryzbVO entity) {
+	EasyUIPage getQeryList(EasyUIPage page,
+			@RequestParam(value = "rows") Integer rows, 
+			ZdryZb entity) {
 		page.setPagePara(rows);
-		try{
-			String type=entity.getZdrygllxdm();//列管类型,查询时可能为空		
-			String strAry[]=type.split("/");
-			type=strAry[0];
-			entity.setZdrygllxdm(type);	
-		}catch(Exception e){}
-		return zdryZdryzbService.queryDwDzOnPT(page,entity);
+
+		return zdryQueryService.getQueryList(page,entity);
 	}
 	
 	/**

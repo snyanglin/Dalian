@@ -38,7 +38,7 @@
        <div data-options="region:'west',border:false" style="width:538px;">
            <!-- 地址管理列表 -->
            <table id="dg" class="easyui-datagrid"
-	              	data-options="url:'<%=contextPath%>/zdryzb/list',
+	              	data-options="url:'<%=contextPath%>/zdryzb/getManageList',
 						onLoadSuccess:function(data){ZdryManage.loadPoint(data,'dg');},
 						selectOnCheck:true,
 		        		checkOnSelect:true,

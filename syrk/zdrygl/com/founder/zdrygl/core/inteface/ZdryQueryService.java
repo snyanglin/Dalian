@@ -18,7 +18,7 @@ import com.founder.zdrygl.core.model.Zdry;
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
-public interface ZdryQueryService {
+public abstract class ZdryQueryService {
 	
 	/**
 	 * 
@@ -30,14 +30,24 @@ public interface ZdryQueryService {
 	 * @return EasyUIPage    返回类型
 	 * @throw
 	 */
-	public EasyUIPage queryList(EasyUIPage page , ZdryZb object);
+	public abstract EasyUIPage queryList(EasyUIPage page , Object object);
 	
-	public EasyUIPage queryDwDzOnPT(EasyUIPage page , Object object);
+	/**
+	 * 
+	 * @Title: getQueryList
+	 * @Description: TODO(获取查询权限的List)
+	 * @param @param page
+	 * @param @param object
+	 * @param @return    设定文件
+	 * @return EasyUIPage    返回类型
+	 * @throw
+	 */
+	public abstract EasyUIPage getQueryList(EasyUIPage page , Object object);
 	
-	public List<?> queryListByRyid(String ryid);
+	public abstract List<?> queryListByRyid(String ryid);
 	
-	public List<?> queryListBySyrkId(String syrkId);
+	public abstract List<?> queryListBySyrkId(String syrkId);
 	
-	public Zdry queryById(String zdryzbId);	
+	public abstract Zdry queryById(String zdryzbId);	
 	
 }

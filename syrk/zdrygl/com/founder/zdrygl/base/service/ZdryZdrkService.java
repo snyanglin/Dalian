@@ -6,7 +6,9 @@ import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
 import com.founder.framework.utils.UUID;
 import com.founder.zdrygl.base.dao.ZdryZdrkxxbDao;
+import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.ZdryZdrkxxb;
+import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.decorator.ZdryServiceDecorator;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.Zdry;
@@ -39,10 +41,13 @@ public class ZdryZdrkService  extends ZdryServiceDecorator{
 		this.zdry = (ZdryZdrkxxb) entity;
 	}
 
+	/**
+	 * 列管重点人口
+	 */
 	@Override
 	protected void lg_(SessionBean sessionBean) {
-		BaseService.setSaveProperties(zdry, sessionBean);
-		zdry.setId(UUID.create());
+		BaseService.setSaveProperties(zdry, sessionBean);	
+		zdry.setId(this.getZdryId());
 		zdryZdrkxxbDao.insert(zdry);
 	}
 
@@ -50,10 +55,39 @@ public class ZdryZdrkService  extends ZdryServiceDecorator{
 	protected void cg_(SessionBean sessionBean) {
 		if(zdry != null){
 			BaseService.setSaveProperties(zdry, sessionBean);
-			zdry.setId(UUID.create());
+			zdry.setId(this.getZdryId());
 			zdryZdrkxxbDao.insert(zdry);
 		}
 		
+	}
+	
+	/**
+	 * 
+	 * @Title: update_
+	 * @Description: TODO(子表（重点人口）修改)
+	 * @param @param sessionBean    设定文件
+	 * @return void    返回类型
+	 * @throw
+	 */
+	@Override
+	protected void update_(SessionBean sessionBean) {
+		BaseService.setUpdateProperties(zdry, sessionBean);
+		zdry.setId(this.getZdryId());
+		zdryZdrkxxbDao.update(zdry);
+	}
+	
+	/**
+	 * 
+	 * @Title: queryZdryAllInfo_
+	 * @Description: TODO(查询重点人员子表)
+	 * @param @param zdryid
+	 * @param @param zdryVO    设定文件
+	 * @return void    返回类型
+	 * @throw
+	 */
+	@Override
+	public void queryZdryAllInfo_(String zdryid,ZdryVO zdryVO) {
+		zdryVO.setZdryZdrk(zdryZdrkxxbDao.queryById(zdryid));
 	}
 
 }

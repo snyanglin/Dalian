@@ -89,7 +89,7 @@ public interface ZdryZdryzbDaoService {
 	 * @param page
 	 * @return
 	 */
-	public EasyUIPage queryDwDzOnPT(Map<String,Object> map, EasyUIPage page);
+	public EasyUIPage getQueryList(Map<String,Object> map, EasyUIPage page);
 	
 	/**
 	 * 

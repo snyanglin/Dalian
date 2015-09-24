@@ -38,7 +38,7 @@
        <div data-options="region:'west',border:false" style="width:538px;">
            <!-- 地址管理列表 -->
            <table id="dg" class="easyui-datagrid"
-	              	data-options="url:'<%=contextPath%>/zdryzb/queryZdryOnPT',
+	              	data-options="url:'<%=contextPath%>/zdryzb/getQeryList',
 						onLoadSuccess:function(data){ZdryManage.loadPoint(data,'dg');},
 						selectOnCheck:true,
 		        		checkOnSelect:true,
@@ -46,24 +46,24 @@
 		        		border:false,
 		        		sortName:'',
 		        		sortOrder:'desc',
-		        		pageSize:getAutoPageSize(335),
-		        		pageList:[getAutoPageSize(335),
-		        		getAutoPageSize(335) * 2],
+		        		pageSize:getAutoPageSize(105),
+		        		pageList:[getAutoPageSize(105),
+		        		getAutoPageSize(105) * 2],
 		        		singleSelect:true,
 		        		fitColumns:true,
 						toolbar:'#datagridToolbar',
 						onClickRow:ZdryManage.onClickRow">
 			        <thead>
 			          <tr>
-				            <th data-options="field:'zdrygllxmc',width:70,align:'left',halign:'center',sortable:true">类型</th>
+				            <th data-options="field:'zdrygllxdm',width:70,align:'left',halign:'center',sortable:true,formatter:dictFormatter,dictName:contextPath+'/common/dict/BD_D_ZDRYGLLX.js'">类型</th>
 				            <th data-options="field:'zjhm',width:120,align:'left',sortable:true,halign:'center'">身份证号码</th>
 				            <th data-options="field:'xm',width:70,align:'left',sortable:true,halign:'center'">姓名</th>
-				            <th  data-options="field:'dz_jzdzxz',width:200,align:'right',halign:'center',sortable:true">居住地址</th>
+				            <th  data-options="field:'jzd_dzxz',width:200,align:'right',halign:'center',sortable:true">居住地址</th>
 				             <th  data-options="field:'ryid',hidden:true"></th>
 				             <th  data-options="field:'dz_jzdzmlpdm',hidden:true"></th>
 				             <th  data-options="field:'syrkid',hidden:true"></th>
-				            <th data-options="field:'zbx',hidden:true"></th>
-				            <th data-options="field:'zby',hidden:true"></th>
+				            <th data-options="field:'jzd_zbx',hidden:true"></th>
+				            <th data-options="field:'jzd_zby',hidden:true"></th>
 				            <th data-options="field:'process',align:'center',width:100,halign:'center',formatter:datagridProcessFormater">操作</th>
 				        </tr>
 			       </thead>
@@ -72,7 +72,7 @@
 				<table border="0" cellpadding="0" cellspacing="10" width="100%"	align="center">
 					<tr>
 						<td align="right">
-							<input type="text" class="searchText" name="condition"  id="condition" value="请输入重点人员证件号码、姓名或居住地址" 
+							<input type="text" class="searchText" name="bz"  id="condition" value="请输入重点人员证件号码、姓名或居住地址" 
 									style="color:gray;height:32px;font-size:13px;width:300px" charSet="halfUpper"  />
 						</td>
 						<td align="left">
@@ -108,7 +108,7 @@
 						    	<td width="30%" class="dialogTd" align="right">重点人员类型：</td>
 						    	<td width="70%" class="dialogTd">
 									<input class="easyui-combobox" type="text" id="zdrygllxdm" name="zdrygllxdm" style="width:150px;"
-									data-options="url: contextPath +'/zdryzb/queryZdryTopLbList',valueField:'lbdm',textField:'bz',selectOnNavigation:false,method:'get'"/>
+									data-options="url: contextPath +'/common/dict/BD_D_ZDRYGLLX.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/>
 								</td>
 					   	</tr>	
 				        <tr class="dialogTr">

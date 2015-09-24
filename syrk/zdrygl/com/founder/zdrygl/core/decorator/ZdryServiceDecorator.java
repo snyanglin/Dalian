@@ -4,6 +4,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.workflow.service.inteface.JProcessDefinitionService;
+import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.Zdry;
 
@@ -99,6 +100,35 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		zdryService.zdFail(sessionBean);
 	}
 	
+	/**
+	 * 
+	 * @Title: update
+	 * @Description: TODO(修改)
+	 * @param @param sessionBean    设定文件
+	 * @return void    返回类型
+	 * @throw
+	 */
+	@Override
+	public final void update(SessionBean sessionBean) {
+		zdryService.update(sessionBean);//总表修改
+		update_(sessionBean);//子表修改		
+	}
+	
+	/**
+	 * 
+	 * @Title: queryZdryAllInfo
+	 * @Description: TODO(查询重点人员总表和子表)
+	 * @param @param zdryid
+	 * @param @param zdryVO    设定文件
+	 * @return void    返回类型
+	 * @throw
+	 */
+	@Override
+	public void queryZdryAllInfo(String zdryid,ZdryVO zdryVO) {
+		zdryService.queryZdryAllInfo(zdryid,zdryVO);
+		queryZdryAllInfo_(zdryid,zdryVO);
+	}
+	
 	@Override
 	public Zdry getZdry() {
 		return zdryService.getZdry();
@@ -112,6 +142,10 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	protected abstract void lg_(SessionBean sessionBean);
 
 	protected abstract void cg_(SessionBean sessionBean);
+	
+	protected abstract void update_(SessionBean sessionBean);
+	
+	protected abstract void queryZdryAllInfo_(String zdryid,ZdryVO zdryVO);
 
 	private boolean checkWorkFlow(){
 		return processDefinitionService != null;

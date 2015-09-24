@@ -210,67 +210,43 @@
 	</select>
 	<!-- resultClass="java.util.HashMap" remapResults="true" -->
 	
-	<!-- 重点人员地图查询 -->
-	<select id="queryZdryOnPT" parameterClass="Map" resultClass="java.util.HashMap" remapResults="true">
-		<![CDATA[ select * from ( select rownum r ,m.* from (			
-			
-			select z.*,r.CYZJDM,r.ZJHM,r.XM,r.XBDM,r.MZDM,r.CSRQ,r.Jzd_dzxz as dz_jzdzxz,b.zbx , b.zby ,g.*,L.BZ as zdrygllxmc 
-			from ZDRY_ZDRYZB_NEW z
-        	left join  ZDRY_ZDRYLXYLBDYB L on (L.LBDM=z.ZDRYGLLXDM and L.QYDM='210000')
-			left join  (
-				    select g1.ORGCODE as sszrqdm ,g2.ORGCODE as sspcsdm,g3.ORGCODE as ssfxjdm from ORG_ORGANIZATION g1, ORG_ORGANIZATION g2, ORG_ORGANIZATION g3
-				    where g2.id=g1.PARENTID
-				    and g3.id=g2.PARENTID
-				) g on (g.SSZRQDM = z.glbm)
-			left join  (
-				    select g1.ORGCODE as gxsszrqdm ,g2.ORGCODE as gxsspcsdm,g3.ORGCODE as gxssfxjdm from ORG_ORGANIZATION g1, ORG_ORGANIZATION g2, ORG_ORGANIZATION g3
-				    where g2.id=g1.PARENTID
-				    and g3.id=g2.PARENTID
-				) gx on (gx.GXSSZRQDM = z.gxbm),
-				RY_RYJBXXB r,BZDZ_ADD_MLDZDXB b 
-			where 1=1
-			and  (b.mldzid=r.Jzd_mlpdm or ((r.Hjd_mlpdm = b.mldzid and  r.Jzd_mlpdm is null))) and r.ID=z.RYID 
-			and  z.XT_ZXBZ = '0' and b.xt_zxbz='0'	
+	<!-- 获取查询权限的List -->
+	<select id="getQeryList" parameterClass="Map" resultClass="zdryZdryzb">
+		<![CDATA[ select * from ( select rownum r ,m.* from (						
+			select z.* from ZDRY_ZDRYZB_NEW z        	
+			where z.XT_ZXBZ = '0'
 		
 		]]>
-			<isNotEmpty prepend="and" property="glzt">
-				z.glzt = #glzt#
+			
+			<isNotEmpty prepend="and" property="zdryZb.glzt">
+				z.glzt = #zdryZb.glzt#
 			</isNotEmpty>
-			<isEmpty prepend="and" property="glzt">
+			<isEmpty prepend="and" property="zdryZb.glzt">
 				z.glzt != '4'
-			</isEmpty>						
-			<isNotEmpty prepend="and" property="zdrygllxdm">
-				z.zdrygllxdm = #zdrygllxdm#
+			</isEmpty>	
+			<isNotEmpty prepend="and" property="zdryZb.zdrygllxdm">
+				z.zdrygllxdm = #zdryZb.zdrygllxdm#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="xm">
-				r.xm like '%$xm$%'
+			<isNotEmpty prepend="and" property="zdryZb.xm">
+				z.xm like '%$zdryZb.xm$%'
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="zjhm">
-				r.zjhm = #zjhm#
+			<isNotEmpty prepend="and" property="zdryZb.zjhm">
+				z.zjhm = #zdryZb.zjhm#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="xbdm">
-				r.xbdm = #xbdm#
+			<isNotEmpty prepend="and" property="zdryZb.xbdm">
+				z.xbdm = #zdryZb.xbdm#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="dz_jzdzxz">
-				r.Jzd_dzxz like '%$dz_jzdzxz$%'
+			<isNotEmpty prepend="and" property="zdryZb.jzd_dzxz">
+				z.jzd_dzxz like '%$zdryZb.jzd_dzxz$%'
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="glbm">
-				z.glbm = #glbm#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property="condition">
-			     <![CDATA[( r.ZJHM || r.XM|| r.Jzd_dzxz   like '%' || #condition# || '%' )]]>
+			<isNotEmpty prepend="and" property="zdryZb.glbm">
+				(z.glbm = #zdryZb.glbm# or z.gxzrqdm = #zdryZb.glbm#)
 			</isNotEmpty>
 			
-			<isNotEmpty prepend="and" property="sszrqdm">
-				(g.SSZRQDM = #sszrqdm# or gx.GXSSZRQDM = #sszrqdm#)
+			<isNotEmpty prepend="and" property="zdryZb.bz">
+			     <![CDATA[ z.ZJHM || z.XM|| z.Jzd_dzxz   like '%' || #zdryZb.bz# || '%']]>
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="sspcsdm">
-				(g.SSPCSDM = #sspcsdm# or gx.GXSSPCSDM = #sspcsdm#)
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property="ssfxjdm">
-				(g.SSFXJDM = #ssfxjdm# or gx.GXSSFXJDM = #ssfxjdm#)
-			</isNotEmpty>
-			
+
 			<![CDATA[ 
 				order by z.$sort$ $order$
 				
@@ -279,68 +255,39 @@
 			) where r > #begin# 
 			]]>			
 	</select>
-	<select id="queryCountZdryOnPT" parameterClass="Map" resultClass="Integer">
-		<![CDATA[ select count(*) from (
-			select z.*,r.CYZJDM,r.ZJHM,r.XM,r.XBDM,r.MZDM,r.CSRQ,r.Jzd_dzxz as dz_jzdzxz,b.zbx , b.zby ,g.*,gx.*,L.BZ as zdrygllxmc 
-			from ZDRY_ZDRYZB_NEW z
-        	left join  ZDRY_ZDRYLXYLBDYB L on (L.LBDM=z.ZDRYGLLXDM and L.QYDM='210000')
-			left join  (
-				    select g1.ORGCODE as sszrqdm ,g2.ORGCODE as sspcsdm,g3.ORGCODE as ssfxjdm from ORG_ORGANIZATION g1, ORG_ORGANIZATION g2, ORG_ORGANIZATION g3
-				    where g2.id=g1.PARENTID
-				    and g3.id=g2.PARENTID
-				) g on (g.SSZRQDM = z.glbm)
-			left join  (
-				    select g1.ORGCODE as gxsszrqdm ,g2.ORGCODE as gxsspcsdm,g3.ORGCODE as gxssfxjdm from ORG_ORGANIZATION g1, ORG_ORGANIZATION g2, ORG_ORGANIZATION g3
-				    where g2.id=g1.PARENTID
-				    and g3.id=g2.PARENTID
-				) gx on (gx.GXSSZRQDM = z.gxbm),
-				RY_RYJBXXB r,BZDZ_ADD_MLDZDXB b 
-			where 1=1
-			and  (b.mldzid=r.Jzd_mlpdm or ((r.Hjd_mlpdm = b.mldzid and  r.Jzd_mlpdm is null))) and r.ID=z.RYID 
-			and  z.XT_ZXBZ = '0' and b.xt_zxbz='0'	
-		
+	<select id="getQeryListCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ 
+			select count(*) from ZDRY_ZDRYZB_NEW z  where z.XT_ZXBZ = '0'  			
 		]]>
-			<isNotEmpty prepend="and" property="glzt">
-				z.glzt = #glzt#
+			<isNotEmpty prepend="and" property="zdryZb.glzt">
+				z.glzt = #zdryZb.glzt#
 			</isNotEmpty>
-			<isEmpty prepend="and" property="glzt">
+			<isEmpty prepend="and" property="zdryZb.glzt">
 				z.glzt != '4'
-			</isEmpty>						
-			<isNotEmpty prepend="and" property="zdrygllxdm">
-				z.zdrygllxdm = #zdrygllxdm#
+			</isEmpty>	
+			<isNotEmpty prepend="and" property="zdryZb.zdrygllxdm">
+				z.zdrygllxdm = #zdryZb.zdrygllxdm#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="xm">
-				r.xm like '%$xm$%'
+			<isNotEmpty prepend="and" property="zdryZb.xm">
+				z.xm like '%$zdryZb.xm$%'
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="zjhm">
-				r.zjhm = #zjhm#
+			<isNotEmpty prepend="and" property="zdryZb.zjhm">
+				z.zjhm = #zdryZb.zjhm#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="xbdm">
-				r.xbdm = #xbdm#
+			<isNotEmpty prepend="and" property="zdryZb.xbdm">
+				z.xbdm = #zdryZb.xbdm#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="dz_jzdzxz">
-				r.Jzd_dzxz like '%$dz_jzdzxz$%'
+			<isNotEmpty prepend="and" property="zdryZb.jzd_dzxz">
+				z.Jzd_dzxz like '%$zdryZb.jzd_dzxz$%'
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="glbm">
-				z.glbm = #glbm#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property="condition">
-			     <![CDATA[( r.ZJHM || r.XM|| r.Jzd_dzxz   like '%' || #condition# || '%' )]]>
+			<isNotEmpty prepend="and" property="zdryZb.glbm">
+				(z.glbm = #zdryZb.glbm# or z.gxzrqdm = #zdryZb.glbm#)
 			</isNotEmpty>
 			
-			<isNotEmpty prepend="and" property="sszrqdm">
-				(g.SSZRQDM = #sszrqdm# or gx.GXSSZRQDM = #sszrqdm#)
+			<isNotEmpty prepend="and" property="zdryZb.bz">
+			     <![CDATA[ z.ZJHM || z.XM|| z.Jzd_dzxz   like '%' || #zdryZb.bz# || '%']]>
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="sspcsdm">
-				(g.SSPCSDM = #sspcsdm# or gx.GXSSPCSDM = #sspcsdm#)
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property="ssfxjdm">
-				(g.SSFXJDM = #ssfxjdm# or gx.GXSSFXJDM = #ssfxjdm#)
-			</isNotEmpty>
-			
-			<![CDATA[ 
-				)
-			]]>	
+						
 	</select>
 	
 	<!-- 获取空间图层srid -->
