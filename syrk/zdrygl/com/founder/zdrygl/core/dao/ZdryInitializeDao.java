@@ -47,7 +47,7 @@ public class ZdryInitializeDao extends BaseDaoImpl{
 	 * @throws
 	 */
 	@SuppressWarnings("unchecked")
-	public Map<? extends String, ? extends String> queryZdryDict(String qydm) {
+	public Map<String,String> queryZdryDict(String qydm) {
 		return queryForMap("ZdryInitialize.queryZdryDict", qydm, "key","value");
 	}
 	
