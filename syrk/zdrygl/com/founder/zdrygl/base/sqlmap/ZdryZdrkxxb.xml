@@ -10,7 +10,7 @@
 		<![CDATA[ select * from ZDRY_ZDRKXXB t where ID = #id#  and rownum = 1 ]]>
 	</select>
 	
-	<select id="queryByMap" parameterClass="Map" resultClass="zdryZdrkxxb">
+	<select id="queryViewByMap" parameterClass="Map" resultClass="zdryZdrkxxb">
 		<![CDATA[ 
 			select t.ID , t.GLFFDM,t.LGLYDM,t.NRGZYJ,  t1.ZDRYLB as BZ
 			from ZDRY_ZDRKXXB t, ZDRY_ZDRYZB_NEW t1 					
