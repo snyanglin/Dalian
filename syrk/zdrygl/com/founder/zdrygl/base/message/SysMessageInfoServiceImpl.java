@@ -14,8 +14,9 @@ import com.founder.framework.organization.user.service.OrgUserService;
 import com.founder.zdrygl.core.inteface.SysMessageInfoService;
 import com.founder.zdrygl.core.model.SysMessage;
 
-@Service("SysMessageInfoService")
+@Service("sysMessageInfoService")
 public class SysMessageInfoServiceImpl implements SysMessageInfoService {
+	
 	@Resource(name = "orgOrganizationService")
 	private OrgOrganizationService orgOrganizationService;
 
