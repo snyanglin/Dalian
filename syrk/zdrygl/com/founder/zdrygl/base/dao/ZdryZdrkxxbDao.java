@@ -21,7 +21,7 @@ import com.founder.zdrygl.core.model.Zdry;
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
-@Repository
+@Repository("zdryZdrkxxbDao")
 public class ZdryZdrkxxbDao extends BaseDaoImpl implements ZdryGllxEntityDaoService{
 
 	@Override
@@ -49,7 +49,7 @@ public class ZdryZdrkxxbDao extends BaseDaoImpl implements ZdryGllxEntityDaoServ
 
 	@Override
 	public Zdry queryViewByMap(Map<String, Object> queryMap) {
-		return (Zdry)super.queryForObject("ZdryZdrkxxb.queryViewById", queryMap);
+		return (Zdry)super.queryForObject("ZdryZdrkxxb.queryViewByMap", queryMap);
 	}
 
 }

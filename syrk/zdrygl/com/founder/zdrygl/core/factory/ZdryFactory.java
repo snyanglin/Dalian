@@ -47,6 +47,7 @@ public class ZdryFactory implements ZdryAbstractFactory {
 			String beanName = getBeanName(className) ;  
 			registerBeanDefinition(beanName,className,zdryzbService,false,zdrylbdx); 
 			ZdryService zdryService= (ZdryService) getBean(beanName);
+			zdryService.setZdry(zdrylbdx);
 			return zdryService;  
 		}else{
 			throw new BussinessException("重点人员类型匹配错误!");

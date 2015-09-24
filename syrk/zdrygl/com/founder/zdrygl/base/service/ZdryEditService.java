@@ -43,7 +43,7 @@ public class ZdryEditService extends BaseService {
 	@Resource(name="zdryEditDao")
 	private ZdryEditDao zdryEditDao;	
 
-	@Resource(name="ZdryZdrkDao")
+	@Resource(name="zdryZdrkxxbDao")
 	private ZdryZdrkxxbDao zdryZdrkxxbDao;
 
 	@Resource(name = "zpfjFjxxbDao")
@@ -159,7 +159,7 @@ public class ZdryEditService extends BaseService {
 	 * @throw
 	 */
 	public ZdryZdrkxxb zdrkxxb_query(Map<String, Object> map) {	
-		ZdryZdrkxxb entity=zdryZdrkxxbDao.queryByMap(map);
+		ZdryZdrkxxb entity=(ZdryZdrkxxb) zdryZdrkxxbDao.queryViewByMap(map);
 		entity.setBz(zdryConstant.zdryDict().get(entity.getBz()));
 		return entity;
 	}

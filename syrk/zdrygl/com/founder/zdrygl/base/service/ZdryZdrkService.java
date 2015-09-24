@@ -1,12 +1,11 @@
 package com.founder.zdrygl.base.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
-import com.founder.framework.utils.UUID;
+
 import com.founder.zdrygl.base.dao.ZdryZdrkxxbDao;
-import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.ZdryZdrkxxb;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.decorator.ZdryServiceDecorator;
@@ -29,7 +28,7 @@ public class ZdryZdrkService  extends ZdryServiceDecorator{
 
 	private ZdryZdrkxxb zdry;
 	
-	@Autowired
+	@Resource(name="zdryZdrkxxbDao")
 	private ZdryZdrkxxbDao zdryZdrkxxbDao;
 
 	public ZdryZdrkService(ZdryService zdryService) {
@@ -87,7 +86,7 @@ public class ZdryZdrkService  extends ZdryServiceDecorator{
 	 */
 	@Override
 	public void queryZdryAllInfo_(String zdryid,ZdryVO zdryVO) {
-		zdryVO.setZdryZdrk(zdryZdrkxxbDao.queryById(zdryid));
+		zdryVO.setZdryZdrk((ZdryZdrkxxb) zdryZdrkxxbDao.queryById(zdryid));
 	}
 
 }
