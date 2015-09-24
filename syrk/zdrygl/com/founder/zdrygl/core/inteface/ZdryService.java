@@ -1,5 +1,7 @@
 package com.founder.zdrygl.core.inteface;
 
+import java.util.Map;
+
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.model.Zdry;
@@ -45,11 +47,45 @@ public interface ZdryService {
 	public void update(SessionBean sessionBean);
 	
 	public void setZdry(Zdry entity);
+	/**
+	 * 
+	 * @Title: setStartProcessInstance
+	 * @Description: (设置流程启动参数)
+	 * @param @param processKey 流程key
+	 * @param @param businessKey 业务主键
+	 * @param @param applyUserId 流程发起人
+	 * @param @param variables    设定文件 流程启动业务参数
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public void setStartProcessInstance(String processKey, String businessKey, String applyUserId, Map<String,Object> variables);
+	
+	/**
+	 * 
+	 * @Title: setMessageSource
+	 * @Description: (设置消息初始化参数)
+	 * @param @param xxlx 消息类型
+	 * @param @param source 消息源对象
+	 * @param @param jslx 接收类型
+	 * @param @param jsdx  接收对象
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public void setMessageSource(String xxlx, Object source, String jslx, Object jsdx);
 	
 	public Zdry getZdry();
 	
 	public String getZdryId();
 	
+	/**
+	 * 
+	 * @Title: queryZdryAllInfo
+	 * @Description: TODO(查询重点人员总表和各个子表的的信息)
+	 * @param @param zdryid
+	 * @param @param zdryVO    设定文件
+	 * @return void    返回类型
+	 * @throw
+	 */
 	public void queryZdryAllInfo(String zdryid, ZdryVO zdryVO);
 	
 }
