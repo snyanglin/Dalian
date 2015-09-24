@@ -137,7 +137,7 @@ public class ZdryConstant {
 		String lbdm_p="999999";
 		if(parrentNode!=null) lbdm_p = parrentNode.getId();
 		
-		List dictList = zdryInitializeDao.queryZdryDictList(lbdm_p,org.springframework.util.StringUtils.isEmpty(qydm)?"210000":qydm);
+		List dictList = zdryInitializeDao.queryZdryDict(lbdm_p,org.springframework.util.StringUtils.isEmpty(qydm)?"210000":qydm);
 		List<TreeNode> nodeList = new ArrayList<TreeNode>();
 		if (dictList != null && dictList.size() > 0) { // 有数据
 			Map dictMap;			

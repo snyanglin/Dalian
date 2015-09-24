@@ -18,13 +18,12 @@
 		<![CDATA[ select lbdm   , classname  from ZDRY_ZDRYLXYLBDYB  where  XT_ZXBZ = '0' and lbdm_p = '999999' and QYDM = #qydm# order by LBDM ASC]]> 
 	</select>
 	
-	<!-- 根据区域代码取重点人员所有的类型-->
-	<select id="queryZdryDict" parameterClass="String" resultMap="ZdryDict">
-		<![CDATA[ select lbdm   , bz  from ZDRY_ZDRYLXYLBDYB  where  XT_ZXBZ = '0' and QYDM = #qydm# order by LBDM ASC]]> 
-	</select>
-	
-	<!-- 根据区域代码取重点人员字典 -->
-	<select id="queryZdryDictList" parameterClass="Map" resultMap="ZdryDict">
-		<![CDATA[ select lbdm   , bz  from ZDRY_ZDRYLXYLBDYB  where  XT_ZXBZ = '0' and lbdm_p = #lbdm_p# and QYDM = #qydm# order by LBDM ASC]]> 
-	</select>
+	<!-- 根据区域代码取重点人员字典-->
+	<select id="queryZdryDict" parameterClass="Map" resultMap="ZdryDict">
+		<![CDATA[ select lbdm   , bz  from ZDRY_ZDRYLXYLBDYB  where  XT_ZXBZ = '0']]> 
+			<isNotEmpty prepend="and" property="lbdm_p">
+				lbdm_p = #lbdm_p#
+			</isNotEmpty>
+		<![CDATA[ and QYDM = #qydm# order by LBDM ASC]]> 
+	</select>	
 </sqlMap>

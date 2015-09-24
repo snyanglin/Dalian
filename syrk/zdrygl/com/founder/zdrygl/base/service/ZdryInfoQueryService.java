@@ -81,7 +81,7 @@ public class ZdryInfoQueryService extends ZdryQueryService {
 	public List getChildList(String lbdm_p) {		
 		String  qydm =SystemConfig.getString("systemXzqh");		
 		if(org.springframework.util.StringUtils.isEmpty(qydm)) qydm="210000";
-		List list = zdryInitializeDao.queryZdryDictList(lbdm_p,qydm);
+		List list = zdryInitializeDao.queryZdryDict(lbdm_p,qydm);
 		Map map;
 		List childList;
 		String id,text;

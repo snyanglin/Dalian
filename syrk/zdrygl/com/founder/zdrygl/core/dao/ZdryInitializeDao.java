@@ -48,12 +48,14 @@ public class ZdryInitializeDao extends BaseDaoImpl{
 	 */
 	@SuppressWarnings("unchecked")
 	public Map<String,String> queryZdryDict(String qydm) {
-		return queryForMap("ZdryInitialize.queryZdryDict", qydm, "key","value");
+		Map map=new HashMap();
+		map.put("qydm", qydm);
+		return queryForMap("ZdryInitialize.queryZdryDict", map, "key","value");
 	}
 	
 	/**
 	 * 
-	 * @Title: queryZdryDictList
+	 * @Title: queryZdryDict
 	 * @Description: TODO(根据区域代码取重点人员字典)
 	 * @param @param qydm
 	 * @param @return    设定文件
@@ -61,10 +63,10 @@ public class ZdryInitializeDao extends BaseDaoImpl{
 	 * @throw
 	 */
 	@SuppressWarnings("unchecked")
-	public List queryZdryDictList(String lbdm_p,String qydm) {
+	public List queryZdryDict(String lbdm_p,String qydm) {
 		Map map=new HashMap();
 		map.put("lbdm_p", lbdm_p);
 		map.put("qydm", qydm);
-		return queryForList("ZdryInitialize.queryZdryDictList", map);
+		return queryForList("ZdryInitialize.queryZdryDict", map);
 	}
 }
