@@ -1,6 +1,7 @@
 package com.founder.zdrygl.base.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -195,7 +196,23 @@ public class ZdryzbService implements ZdryService {
 	public String getZdryId() {
 		return getZdry().getId();
 	}
-	
+
+	@Override
+	@Deprecated  
+	public void setStartProcessInstance(String processKey, String businessKey,
+			String applyUserId, Map<String, Object> variables) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	@Deprecated  
+	public void setMessageSource(String xxlx, Object source, String jslx,
+			Object jsdx) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	/**
 	 * 
 	 * @Title: queryZdryAllInfo

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +17,6 @@ import com.founder.service.attachment.bean.ZpfjFjxxb;
 import com.founder.service.attachment.dao.ZpfjFjxxbDao;
 import com.founder.zdrygl.base.dao.ZdryEditDao;
 import com.founder.zdrygl.base.dao.ZdryZdrkxxbDao;
-import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 import com.founder.zdrygl.base.model.ZdryZdrkxxb;
 import com.founder.zdrygl.base.vo.ZdrygnVO;
 import com.founder.zdrygl.base.vo.ZdryxxzsVO;
@@ -49,7 +49,8 @@ public class ZdryEditService extends BaseService {
 	@Resource(name = "zpfjFjxxbDao")
 	ZpfjFjxxbDao zpfjFjxxbDao;
 
-
+	@Autowired
+	private ZdryConstant zdryConstant;
 	/**
 	 * 
 	 * @Title: queryYwglgn
@@ -159,7 +160,7 @@ public class ZdryEditService extends BaseService {
 	 */
 	public ZdryZdrkxxb zdrkxxb_query(Map<String, Object> map) {	
 		ZdryZdrkxxb entity=zdryZdrkxxbDao.queryByMap(map);
-		entity.setBz(ZdryConstant.zdryDict.get(entity.getBz()));
+		entity.setBz(zdryConstant.zdryDict().get(entity.getBz()));
 		return entity;
 	}
 	
