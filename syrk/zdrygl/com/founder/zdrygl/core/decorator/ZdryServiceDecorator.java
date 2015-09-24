@@ -1,11 +1,19 @@
 package com.founder.zdrygl.core.decorator;
 
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.founder.framework.base.entity.SessionBean;
+import com.founder.framework.exception.BussinessException;
+//import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.workflow.service.inteface.JProcessDefinitionService;
 import com.founder.zdrygl.base.vo.ZdryVO;
+import com.founder.zdrygl.core.inteface.JwzhMessageService;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.model.MessageSource;
 import com.founder.zdrygl.core.model.Zdry;
 
 /**
@@ -25,10 +33,20 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 
 	protected ZdryService zdryService;
 
-	// private 流程开始对象
-
-	//	@Autowired
+	/**
+	 * 流程启动对象
+	 */
+	//private StartProcessInstance processInstance;
+	
+	/**
+	 * 消息源对象
+	 */
+	private MessageSource messageSource;
+	
+    @Autowired
 	private JProcessDefinitionService processDefinitionService;
+    @Autowired
+    private JwzhMessageService jwzhMessageService;
 
 
 	public ZdryServiceDecorator(ZdryService zdryService){
@@ -39,14 +57,21 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	public final void lg(SessionBean sessionBean) {
 		zdryService.lg(sessionBean);
 		lg_(sessionBean);
-		if(checkWorkFlow()) 
-			processDefinitionService.startProcessInstance("", "", "",null);
-
+//		if(checkWorkFlow()) {
+//			if(processInstance != null && StringUtils.isEmpty(processInstance.getProcessKey())){
+//				throw new BussinessException("缺少流程启动参数！");
+//			}else{
+//				processDefinitionService.startProcessInstance(processInstance.getProcessKey(), processInstance.getBusinessKey(), processInstance.getApplyUserId(),processInstance.getVariables());
+//			}
+//		}
 	}
 
 	@Override
 	public final void lgSuccess(SessionBean sessionBean) {
 		zdryService.lgSuccess(sessionBean);
+		if(messageSource != null){
+			jwzhMessageService.sendMessage(messageSource.getXxlx(), messageSource.getSource(), messageSource.getJslx(), messageSource.getJsdx());
+		}
 	}
 
 	@Override
@@ -138,7 +163,24 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	public String getZdryId() {
 		return getZdry().getId();
 	}
-
+	
+	
+	@Override
+	public final void setStartProcessInstance(String processKey, String businessKey, String applyUserId, Map<String,Object> variables){
+//		processInstance.setProcessKey(processKey);
+//		processInstance.setBusinessKey(businessKey);
+//		processInstance.setApplyUserId(applyUserId);
+//		processInstance.setVariables(variables);
+	}
+	
+	@Override
+	public final void setMessageSource(String xxlx, Object source, String jslx, Object jsdx){
+		messageSource.setXxlx(xxlx);
+		messageSource.setSource(source);
+		messageSource.setJslx(jslx);
+		messageSource.setJsdx(jsdx);
+	}
+	
 	protected abstract void lg_(SessionBean sessionBean);
 
 	protected abstract void cg_(SessionBean sessionBean);
