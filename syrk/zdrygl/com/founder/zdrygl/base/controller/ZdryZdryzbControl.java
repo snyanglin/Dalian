@@ -131,7 +131,7 @@ public class ZdryZdryzbControl extends BaseController {
 	 */
 	@RequestMapping(value="/manager",method = RequestMethod.GET)
 	public String manage(){
-		zdryConstant.init();
+		zdryConstant.createTreeJS();
 		return "zdrygl/zdryManage";
 	}
 	
@@ -298,7 +298,7 @@ public class ZdryZdryzbControl extends BaseController {
 			map.put("zdrylx", temp.getZdrygllxdm());
 			
 			//已列管 重点人员 类型
-			zdrygllxmc=ZdryConstant.zdryDict.get(temp.getZdrygllxdm());
+			zdrygllxmc=zdryConstant.zdryDict().get(temp.getZdrygllxdm());
 			if(zdrygllxmc!=null && zdrygllxmc.length()>0){
 				if(zdrylxBuffer.length()>0) zdrylxBuffer.append(" ");			
 				zdrylxBuffer.append(zdrygllxmc);			
