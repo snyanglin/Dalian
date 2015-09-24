@@ -1,6 +1,5 @@
 package com.founder.zdrygl.core.utils;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -9,11 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import com.founder.framework.config.SystemConfig;
 import com.founder.framework.utils.TreeDataBuilder;
@@ -34,19 +30,12 @@ import com.founder.zdrygl.core.dao.ZdryInitializeDao;
  */
 @Component
 public class ZdryConstant {
-		
-	public void init() {  
-		String qydm = SystemConfig.getString("systemXzqh");
-		zdryServiceMap.putAll(zdryInitializeDao.queryZdrylxMap(StringUtils.isEmpty(qydm)?"210000":qydm));
-		zdryDict.putAll(zdryInitializeDao.queryZdryDict(StringUtils.isEmpty(qydm)?"210000":qydm));
-		createTreeJS();
-	}  
 	
 	@Autowired
-	private ZdryInitializeDao zdryInitializeDao;
+	private  ZdryInitializeDao zdryInitializeDao;
 	
-	public static Map<String,String> zdryServiceMap = new HashMap<String,String>();
-	public static Map<String,String> zdryDict = new HashMap<String,String>();
+	private static Map<String,String> zdryServiceMap = new HashMap<String,String>();
+	private static Map<String,String> zdryDict = new HashMap<String,String>();
 	
 	public static final String LGSQ = "1";
 	public static final String YLG = "2";
@@ -64,7 +53,32 @@ public class ZdryConstant {
 		zdryServiceMap.put("00", "com.founder.zdrygl.base.service.ZdryzbService");
 	}
 	
-	private void createTreeJS(){
+	public Map<String,String> zdryServiceMap(){
+		if(zdryServiceMap.size() == 1)
+			zdryServiceMap.putAll(zdryInitializeDao.queryZdrylxMap(SystemConfig.getString("systemXzqh")==""?"210000":SystemConfig.getString("systemXzqh")));
+		return zdryServiceMap;
+	}
+	
+	public String getValueOfZdryServiceMap(String zdrylxdm){
+		if(zdryServiceMap.size() == 1)
+			zdryServiceMap.putAll(zdryInitializeDao.queryZdrylxMap(SystemConfig.getString("systemXzqh")==""?"210000":SystemConfig.getString("systemXzqh")));
+		return zdryServiceMap.get(zdrylxdm);
+	}
+	
+	public Map<String,String> zdryDict(){
+		
+		if(zdryDict.isEmpty())
+			zdryDict.putAll(zdryInitializeDao.queryZdryDict(SystemConfig.getString("systemXzqh")==""?"210000":SystemConfig.getString("systemXzqh")));
+		return zdryDict;
+	}
+	
+	public String getValueOfZdryDict(String zdrylxdm){
+		if(zdryDict.isEmpty())
+			zdryDict.putAll(zdryInitializeDao.queryZdryDict(SystemConfig.getString("systemXzqh")==""?"210000":SystemConfig.getString("systemXzqh")));
+		return zdryDict.get(zdrylxdm);
+	}
+	
+	public void createTreeJS(){
 		String JSPath = SystemConfig.getString("webRootPath") + "/common/dict/";	
 		String tableNameUpper = "BD_D_ZDRYGLLX";
 		try{		
