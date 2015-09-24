@@ -56,7 +56,7 @@ public interface ZdryService {
 	 * @param @param applyUserId 流程发起人
 	 * @param @param variables    设定文件 流程启动业务参数
 	 * @return void    返回类型
-	 * @throws
+	 * @throw
 	 */
 	public void setStartProcessInstance(String processKey, String businessKey, String applyUserId, Map<String,Object> variables);
 	
@@ -69,7 +69,7 @@ public interface ZdryService {
 	 * @param @param jslx 接收类型
 	 * @param @param jsdx  接收对象
 	 * @return void    返回类型
-	 * @throws
+	 * @throw
 	 */
 	public void setMessageSource(String xxlx, Object source, String jslx, Object jsdx);
 	
