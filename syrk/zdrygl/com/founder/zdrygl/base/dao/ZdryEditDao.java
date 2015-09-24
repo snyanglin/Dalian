@@ -12,19 +12,19 @@ import com.founder.zdrygl.base.vo.ZdryxxzsVO;
 
 /**
  * ****************************************************************************
- * @Package:      [com.founder.zdrygl.dao.ZdryEditDao.java]  
+ * @Package:      [com.founder.zdrygl.base.dao.ZdryEditDao.java]  
  * @ClassName:    [ZdryEditDao]   
- * @Description:  [一句话描述该类的功能]   
- * @Author:       [weiwen]  
- * @CreateDate:   [2015-3-14 下午2:08:06]   
- * @UpdateUser:   [weiwen]   
- * @UpdateDate:   [2015-3-14 下午2:08:06，(如多次修改保留历史记录，增加修改记录)]   
+ * @Description:  [重点人员编辑配置页面DAO]   
+ * @Author:       [wei.wen@founder.com.cn]  
+ * @CreateDate:   [2015年9月21日 下午7:47:58]   
+ * @UpdateUser:   [wei.wen@founder.com.cn(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年9月21日 下午7:47:58，(如多次修改保留历史记录，增加修改记录)]   
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
 @Repository("zdryEditDao")
 public class ZdryEditDao extends BaseDaoImpl {
-
+	
 	/**
 	 * 
 	 * @Title: queryYwglgn
@@ -34,6 +34,7 @@ public class ZdryEditDao extends BaseDaoImpl {
 	 * @return List<ZdrygnVO>    返回类型
 	 * @throw
 	 */
+	@SuppressWarnings("unchecked")
 	public List<ZdrygnVO> queryYwglgn(String gnlxdm) {
 		return queryForList("ZdryEdit.queryYwglgn", gnlxdm);
 	}
@@ -47,6 +48,7 @@ public class ZdryEditDao extends BaseDaoImpl {
 	 * @return List<ZdryxxzsVO>    返回类型
 	 * @throw
 	 */
+	@SuppressWarnings("unchecked")
 	public List<ZdryxxzsVO> queryRyzsxx(Map<String, Object> map) {
 		return queryForList("ZdryEdit.queryXxzsByZdrylx", map);
 	}
