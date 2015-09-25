@@ -305,10 +305,10 @@ function selectOne(val,row,index){
 
 function selectSyrk(index){
 	var rows = $('#dg').datagrid('getData');
-	var data = rows.rows[index];
+	var rowData = rows.rows[index];
 	$("#xm").val(rowData.xm);	
 	$("#xbdm").combobox("setValue", rowData.xbdm);
-	$("#cyzjdm").val(rowData.cyzjdm);
+	$("#cyzjdm").combobox("setValue", rowData.cyzjdm);	
 	$("#zjhm").val(rowData.zjhm);
 	$("#syrkid").val(rowData.id);	
 	$("#ryid").val(rowData.ryid);
