@@ -11,6 +11,7 @@ import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.user.bean.OrgUser;
 import com.founder.framework.organization.user.service.OrgUserService;
+import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.inteface.SysMessageInfoService;
 import com.founder.zdrygl.core.model.SysMessage;
 
@@ -114,23 +115,20 @@ public class SysMessageInfoServiceImpl implements SysMessageInfoService {
 	 * @return String    返回类型
 	 * @throw
 	 */
-	private String getXxInfo(String xxlx,Map<String,String> paraMap){
+	private String getXxInfo(String xxlx,Map paraMap){
 		String xxinfo = "";
+		ZdryZb zdryZb =(ZdryZb) paraMap.get("zdryZb");
 		if (MessageDict.XXLX_LGSQ.equals(xxlx)) {
-			String zdryXm=(String) paraMap.get("zdryXm");
-			String zdrylx=(String) paraMap.get("zdrylx");
 			String fsrUserCode=(String) paraMap.get("fsrUserCode");
 			String fsrOrgCode=(String) paraMap.get("fsrOrgCode");
-			xxinfo = this.getLgsqXxnr(zdryXm,zdrylx,fsrUserCode,fsrOrgCode);
+			xxinfo = this.getLgsqXxnr(zdryZb.getXm(),zdryZb.getZdrygllxdm(),fsrUserCode,fsrOrgCode);
 		} else if (MessageDict.XXLX_LGSPJG.equals(xxlx)) {
 			xxinfo = "重点人员列管审批结果";
 
 		} else if (MessageDict.XXLX_CGSQ.equals(xxlx)) {
-			String zdryXm=(String) paraMap.get("zdryXm");
-			String zdrylx=(String) paraMap.get("zdrylx");
 			String fsrUserCode=(String) paraMap.get("fsrUserCode");
 			String fsrOrgCode=(String) paraMap.get("fsrOrgCode");
-			xxinfo = this.getCgsqXxnr(zdryXm,zdrylx,fsrUserCode,fsrOrgCode);
+			xxinfo = this.getCgsqXxnr(zdryZb.getXm(),zdryZb.getZdrygllxdm(),fsrUserCode,fsrOrgCode);
 
 		} else if (MessageDict.XXLX_CGSPJG.equals(xxlx)) {
 			xxinfo = "重点人员撤管审批结果";

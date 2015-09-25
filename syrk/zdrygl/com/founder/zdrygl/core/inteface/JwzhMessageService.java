@@ -19,7 +19,7 @@ public interface JwzhMessageService {
 	 * @Title: sendMessage
 	 * @Description: (根据 消息类型与消息源对象组装消息体，根据jslx发送消息到接收对象)
 	 * @param @param xxlx 消息类型
-	 * @param @param source 消息源对象 存放zdryzdryzb等对象
+	 * @param @param source 消息源对象 存放ZdryZb和发送人信息等对象
 	 * @param @param jslx    接收类型
 	 * @param @param jsdx    接收对象
 	 * @return void    返回类型
