@@ -47,29 +47,30 @@
 
     	
 	    <table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
-			<tr class="dialogTr">
-		    	<td width="20%" class="dialogTd" align="right">姓名：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text"  id="xm" name="zdryZdryzb.xm" style="width:200px;" value="${zdryZdryzbVO.xm}"/></td>
+			<tr class="dialogTr">		    	
 				<td width="20%" class="dialogTd" align="right">证件类型：</td>
 		    	<td width="30%" class="dialogTd">
 		    		<input class="easyui-combobox" type="text" id="cyzjdm" name="zdryZdryzb.cyzjdm" value="${ryjbxxb.cyzjdm}" style="width:200px;"
 							data-options="required:true,url: contextPath + '/common/dict/D_BZ_CYZJ.js',valueField:'id',textField:'text',
 							selectOnNavigation:false,method:'get',tipPosition:'left',onChange:cyzjdmChange"/>
 		    	</td>
+		    	<td width="20%" class="dialogTd" align="right">姓名：</td>
+		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text"  id="xm" name="zdryZdryzb.xm" style="width:200px;" value="${zdryZdryzbVO.xm}"/></td>
 		    </tr>
 		    <tr class="dialogTr">
+		    		    	
+				<td width="20%" class="dialogTd" align="right">证件号码：</td>
+		    	<td width="30%" class="dialogTd">
+		    		<input class="easyui-validatebox" type="text" id="zjhm" name="zdryZdryzb.zjhm" style="width:200px;float:left;" value="${zdryZdryzbVO.zjhm}" onblur="checkZjhm()"
+		    			data-options="required:true,charSet:'halfUpper',validType:['sfzh'],tipPosition:'left'" />
+		    		<div class="lodingimg" id="ryxxLoadDiv" ></div></td>
+		    	</td>
 		    	<td width="20%" class="dialogTd" align="right">性别：</td>
 		    	<td width="30%" class="dialogTd">		    		
 		    		<input class="easyui-combobox" type="text"  id="xbdm" name="zdryZdryzb.xbdm"   style="width:200px;" value="" 
 					data-options="url: contextPath +'/common/dict/GB_D_XBDM.js',
 					valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'right'"/>		    		
-		    	</td>		    	
-				<td width="20%" class="dialogTd" align="right">证件号码：</td>
-		    	<td width="30%" class="dialogTd">
-		    		<input class="easyui-validatebox" type="text" id="zjhm" name="zdryZdryzb.zjhm" style="width:200px;" value="${zdryZdryzbVO.zjhm}" onblur="checkZjhm()"
-		    			data-options="required:true,charSet:'halfUpper',validType:['sfzh'],tipPosition:'left'" />
-		    		<div class="lodingimg" id="ryxxLoadDiv" ></div></td>
-		    	</td>
+		    	</td>	
 		    </tr>
 		    <tr class="dialogTr">
 		    	<td colspan="4" align="center">
