@@ -49,9 +49,13 @@
 	    <table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 			<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">姓名：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text"  id="xm" name="zdryZdryzb.xm" style="width:200px;" readonly="readonly"  value="${zdryZdryzbVO.xm}"/></td>
+		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text"  id="xm" name="zdryZdryzb.xm" style="width:200px;" value="${zdryZdryzbVO.xm}"/></td>
 				<td width="20%" class="dialogTd" align="right">证件类型：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" id="cyzjdm" name="zdryZdryzb.cyzjdm" style="width:200px;" readonly="readonly" value="${zdryZdryzbVO.zjhm}"/></td>
+		    	<td width="30%" class="dialogTd">
+		    		<input class="easyui-combobox" type="text" id="cyzjdm" name="zdryZdryzb.cyzjdm" value="${ryjbxxb.cyzjdm}" style="width:200px;"
+							data-options="required:true,url: contextPath + '/common/dict/D_BZ_CYZJ.js',valueField:'id',textField:'text',
+							selectOnNavigation:false,method:'get',tipPosition:'left',onChange:cyzjdmChange"/>
+		    	</td>
 		    </tr>
 		    <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">性别：</td>
@@ -61,7 +65,11 @@
 					valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'right'"/>		    		
 		    	</td>		    	
 				<td width="20%" class="dialogTd" align="right">证件号码：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" id="zjhm" name="zdryZdryzb.zjhm" style="width:200px;" readonly="readonly" value="${zdryZdryzbVO.zjhm}"/></td>
+		    	<td width="30%" class="dialogTd">
+		    		<input class="easyui-validatebox" type="text" id="zjhm" name="zdryZdryzb.zjhm" style="width:200px;" value="${zdryZdryzbVO.zjhm}" onblur="checkZjhm()"
+		    			data-options="required:true,charSet:'halfUpper',validType:['sfzh'],tipPosition:'left'" />
+		    		<div class="lodingimg" id="ryxxLoadDiv" ></div></td>
+		    	</td>
 		    </tr>
 		    <tr class="dialogTr">
 		    	<td colspan="4" align="center">
@@ -296,9 +304,8 @@ function selectOne(val,row,index){
 
 function selectSyrk(index){
 	var rows = $('#dg').datagrid('getData');
-	var rowData = rows.rows[index];
-	$("#xm").val(rowData.xm);
-	setInputReadonly("xbdm", true);
+	var data = rows.rows[index];
+	$("#xm").val(rowData.xm);	
 	$("#xbdm").combobox("setValue", rowData.xbdm);
 	$("#cyzjdm").val(rowData.cyzjdm);
 	$("#zjhm").val(rowData.zjhm);
@@ -371,6 +378,89 @@ function queryKlglx(ylglxStr){
 		},		
 		error: function() {
 			$("#zdrygllxdm").combobox("setDataFilter", "");	
+		}
+	});	
+}
+
+/**根据证件种类 设置证件号码验证*/
+function cyzjdmChange(newVal, oldVal) {	
+	if (!newVal) {
+		newVal = "";
+	}	
+	
+	if (newVal == "111" || newVal == "112" || newVal == "335" ) {
+		$("#zjhm").validatebox({validType:['sfzh']});
+	}
+	else {
+		$("#zjhm").validatebox({validType:['maxLength[30]']});
+	}
+	$("#zjhm").val("");
+}
+
+/**
+ * 根据证件种类与号码 ，进行人员比对，复用
+ */
+function checkZjhm() {
+	if (!$("#cyzjdm").combo("isValid")){
+		return;
+	}
+	if (!$("#zjhm").validatebox("isValid")){
+		return;
+	}
+	var _zjhm = $("#zjhm").attr("zjhm");
+	if (!_zjhm) {
+		_zjhm = "";
+	} 
+	if($("#zjhm").val() == _zjhm){
+		return;
+	}
+	
+	czrkNO = "0";
+	jzrkNO = "0";
+	ldrkNO = "0";
+	wlczrkNO = "0";
+	jwryNO = "0";
+	autoGllb = true;
+	$("#ryxxLoadDiv").show();
+	$.ajax({
+		type:"POST",
+		url:"<%=basePath%>dataApply/ryxxApply",
+		dataType:"json",
+		data:"zjhm="+$("#zjhm").val()+"&cyzjdm="+$("#cyzjdm").val(),
+		success:function(data) {
+			if (data) {
+				$("#xm").val(data.xm);	
+				$("#xbdm").combobox("setValue", data.xbdm);
+				$("#cyzjdm").val(data.cyzjdm);
+				$("#zjhm").val(data.zjhm);
+				$("#syrkid").val(data.id);	
+				$("#ryid").val(data.ryid);
+				
+				$("#csrq").val(data.csrq);
+				$("#mzdm").val(data.mzdm);
+				$("#jgssxdm").val(data.jgssxdm);
+				$("#hjd_xzqhdm").val(data.hjd_xzqhdm);
+				$("#hjd_mlpdm").val(data.hjd_mlpdm);
+				$("#hjd_mlpxz").val(data.hjd_mlpxz);
+				$("#hjd_dzid").val(data.hjd_dzid);
+				$("#hjd_dzxz").val(data.hjd_dzxz);
+				$("#jzd_xzqhdm").val(data.jzd_xzqhdm);
+				$("#jzd_mlpdm").val(data.jzd_mlpdm);
+				$("#jzd_mlpxz").val(data.jzd_mlpxz);
+				$("#jzd_dzid").val(data.jzd_dzid);
+				$("#jzd_dzxz").val(data.jzd_dzxz);
+				$("#jzd_zbx").val(data.jzd_zbx);
+				$("#jzd_zby").val(data.jzd_zby);
+				$("#gxfjdm").val(data.gxfjdm);
+				$("#gxpcsdm").val(data.gxpcsdm);
+				$("#gxzrqdm").val(data.gxzrqdm);			
+			}
+		},
+		complete:function() {
+			$("#zjhm").attr("zjhm", $("#zjhm").val());
+			$("#ryxxLoadDiv").hide();
+		},
+		error:function() {
 		}
 	});	
 }
