@@ -171,9 +171,11 @@ public class ZdryZdryzbControl extends BaseController {
 	public @ResponseBody
 	EasyUIPage getQeryList(EasyUIPage page,
 			@RequestParam(value = "rows") Integer rows, 
-			ZdryZb entity) {
+			ZdryZb entity,
+			SessionBean sessionBean) {
 		page.setPagePara(rows);
-
+		if(entity.getGlbm()==null)	
+			entity.setGlbm(getSessionBean(sessionBean).getUserOrgCode());
 		return zdryQueryService.getQueryList(page,entity);
 	}
 	

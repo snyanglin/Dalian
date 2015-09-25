@@ -73,7 +73,7 @@
 					<tr>
 						<td align="right">
 							<input type="text" class="searchText" name="bz"  id="condition" value="请输入重点人员证件号码、姓名或居住地址" 
-									style="color:gray;height:32px;font-size:13px;width:300px" charSet="halfUpper"  />
+									style="color:gray;height:32px;font-size:13px;width:300px" charSet="halfUpper" onclick="setDzqc(this)" />
 						</td>
 						<td align="left">
 							<img src ="<%=contextPath%>/images/search_btn_sousuo_01.png" style="cursor: pointer;height:32px" onclick="searchMain();"/>
@@ -126,7 +126,7 @@
 					    </tr>	  
 					    <tr class="dialogTr">
 						    	<td width="30%" class="dialogTd" align="right">居住地址：</td>
-						    	<td width="70%" class="dialogTd"><input type="text" name="dz_jzdzxz" id ="dz_jzdzxz" class="easyui-validatebox" data-options="required:false,validType:'maxLength[30]'"  style="width:150px;" /></td>
+						    	<td width="70%" class="dialogTd"><input type="text" name="jzd_dzxz" id ="jzd_dzxz" class="easyui-validatebox" data-options="required:false,validType:'maxLength[30]'"  style="width:150px;" /></td>
 					    </tr>	
 					    <tr class="dialogTr">
 						    <td width="30%" class="dialogTd" align="right">管理状态：</td>
@@ -206,11 +206,13 @@ function searchMain(){
 	//var opt = $('#dg').datagrid('options');
 	//opt.url = reloadUrl;
 	
-	$('#dg').datagrid('load',{condition:condition});  
+	$('#dg').datagrid('load',{"bz":condition});  
 	$('#dg').datagrid("clearSelections");
 }
 
-
+function setDzqc(obj){
+	   obj.value="";
+	}
 
 
  function datagridProcessFormater(val,row,index){
@@ -229,10 +231,14 @@ function queryButton(){
 	var xm = document.getElementById("xm").value;
 	var sfzh = document.getElementById("sfzh").value;
 	var xbdm = document.getElementById("xbdm").value;
-	var dz_jzdzxz = document.getElementById("dz_jzdzxz").value;	
+	var jzd_dzxz = document.getElementById("jzd_dzxz").value;	
 	var ssfxjdm=$("#ssfxjdm").val();
 	var sspcsdm=$("#sspcsdm").val();
 	var sszrqdm=$("#sszrqdm").val();
+	
+	if(sszrqdm=="") sszrqdm=sspcsdm;
+	if(sszrqdm=="") sszrqdm=ssfxjdm;
+	
 	var zdrygllxdm = $("#zdrygllxdm").combobox("getValue");
 	if($("#zdrygllxdm").combobox("getText")==""){
 		zdrygllxdm="";
@@ -240,7 +246,7 @@ function queryButton(){
 	
 	xm= $.trim(xm);
 	sfzh= $.trim(sfzh);
-	dz_jzdzxz= $.trim(dz_jzdzxz);
+	jzd_dzxz= $.trim(jzd_dzxz);
 	
 	var glztxz=$("#glztxz").val();
 	var glzt="";
@@ -257,10 +263,8 @@ function queryButton(){
 				'xm': xm,   
 				'zjhm': sfzh ,				
 				'xbdm':xbdm,
-				'dz_jzdzxz':dz_jzdzxz,
-				'ssfxjdm':ssfxjdm,
-				'sspcsdm':sspcsdm,
-				'sszrqdm':sszrqdm,
+				'jzd_dzxz':jzd_dzxz,				
+				'glbm':sszrqdm,
 				'glzt':glzt
 			});
 	closeWindow("win");
@@ -268,7 +272,7 @@ function queryButton(){
 
 //重置按钮
 function resetButton(){
-	$("#queryForm").form("reset");
+	$("#queryForm").form("reset");	
 }
 
 

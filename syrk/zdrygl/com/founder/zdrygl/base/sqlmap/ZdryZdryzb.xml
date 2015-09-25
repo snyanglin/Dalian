@@ -109,56 +109,53 @@
 	<!-- 管理列表 -->
 	<select id="queryPageCount" parameterClass="Map" resultClass="Integer">
 		<![CDATA[ select count(*) from ZDRY_ZDRYZB_NEW z where 1=1 ]]>
-			<isNotEmpty prepend="and" property="zdrygllxdm">
+			<isNotEmpty prepend="and" property="zdryZb.zdrygllxdm">
 				z.zdrygllxdm = #zdryZb.zdrygllxdm#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="xm">
+			<isNotEmpty prepend="and" property="zdryZb.xm">
 				z.xm like '%$zdryZb.xm$%'
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="zjhm">
+			<isNotEmpty prepend="and" property="zdryZb.zjhm">
 				z.zjhm = #zdryZb.zjhm#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="xbdm">
+			<isNotEmpty prepend="and" property="zdryZb.xbdm">
 				z.xbdm = #zdryZb.xbdm#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="dz_jzdzxz">
-				z.Jzd_dzxz like '%$zdryZb.dz_jzdzxz$%'
+			<isNotEmpty prepend="and" property="zdryZb.jzd_dzxz">
+				z.jzd_dzxz like '%$zdryZb.jzd_dzxz$%'
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="glbm">
+			<isNotEmpty prepend="and" property="zdryZb.glbm">
 				(z.glbm = #zdryZb.glbm# or z.gxzrqdm = #zdryZb.glbm#)
-			</isNotEmpty>
-			
-			<isNotEmpty prepend="and" property="condition">
-			     <![CDATA[ z.ZJHM || z.XM|| z.Jzd_dzxz   like '%' || #zdryZb.condition# || '%']]>
-			</isNotEmpty>
-
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property="zdryZb.bz">
+			     <![CDATA[ z.ZJHM || z.XM|| z.Jzd_dzxz   like '%' || #zdryZb.bz# || '%']]>
+			</isNotEmpty>			
 		<![CDATA[ and z.glzt in (2,3,5,7)  and  z.XT_ZXBZ = '0']]>
 	</select>
 	<select id="queryPage" parameterClass="Map"  resultClass="zdryZdryzb">
 		<![CDATA[ select * from ( select rownum r ,m.* from (
 			select z.* from ZDRY_ZDRYZB_NEW z where 1=1   ]]>
 									
-			<isNotEmpty prepend="and" property="zdrygllxdm">
+			<isNotEmpty prepend="and" property="zdryZb.zdrygllxdm">
 				z.zdrygllxdm = #zdryZb.zdrygllxdm#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="xm">
+			<isNotEmpty prepend="and" property="zdryZb.xm">
 				z.xm like '%$zdryZb.xm$%'
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="zjhm">
+			<isNotEmpty prepend="and" property="zdryZb.zjhm">
 				z.zjhm = #zdryZb.zjhm#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="xbdm">
+			<isNotEmpty prepend="and" property="zdryZb.xbdm">
 				z.xbdm = #zdryZb.xbdm#
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="dz_jzdzxz">
-				z.Jzd_dzxz like '%$zdryZb.dz_jzdzxz$%'
+			<isNotEmpty prepend="and" property="zdryZb.jzd_dzxz">
+				z.jzd_dzxz like '%$zdryZb.jzd_dzxz$%'
 			</isNotEmpty>
-			<isNotEmpty prepend="and" property="glbm">
+			<isNotEmpty prepend="and" property="zdryZb.glbm">
 				(z.glbm = #zdryZb.glbm# or z.gxzrqdm = #zdryZb.glbm#)
-			</isNotEmpty>
-			
-			<isNotEmpty prepend="and" property="condition">
-			     <![CDATA[ z.ZJHM || z.XM|| z.Jzd_dzxz   like '%' || #zdryZb.condition# || '%']]>
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property="zdryZb.bz">
+			     <![CDATA[ z.ZJHM || z.XM|| z.Jzd_dzxz   like '%' || #zdryZb.bz# || '%']]>
 			</isNotEmpty>
 
 			<![CDATA[and z.glzt in (2,3,5,7)  and  z.XT_ZXBZ = '0' order by z.$sort$ $order$) m  where rownum <= #end# ) where r > #begin# ]]>
@@ -213,7 +210,12 @@
 	<!-- 获取查询权限的List -->
 	<select id="getQeryList" parameterClass="Map" resultClass="zdryZdryzb">
 		<![CDATA[ select * from ( select rownum r ,m.* from (						
-			select z.* from ZDRY_ZDRYZB_NEW z        	
+			select z.* from ZDRY_ZDRYZB_NEW z   
+			left join  (
+				    select g1.ORGCODE as sszrqdm ,g2.ORGCODE as sspcsdm,g3.ORGCODE as ssfxjdm from ORG_ORGANIZATION g1, ORG_ORGANIZATION g2, ORG_ORGANIZATION g3
+				    where g2.id=g1.PARENTID
+				    and g3.id=g2.PARENTID
+				) g on (g.SSZRQDM = z.glbm)     	
 			where z.XT_ZXBZ = '0'
 		
 		]]>
@@ -240,7 +242,14 @@
 				z.jzd_dzxz like '%$zdryZb.jzd_dzxz$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="zdryZb.glbm">
-				(z.glbm = #zdryZb.glbm# or z.gxzrqdm = #zdryZb.glbm#)
+				(g.sszrqdm = #zdryZb.glbm# 
+					or g.sspcsdm = #zdryZb.glbm#
+					or g.ssfxjdm = #zdryZb.glbm#
+					
+					or z.gxzrqdm = #zdryZb.glbm#
+					or z.gxpcsdm = #zdryZb.glbm#
+					or z.gxfjdm = #zdryZb.glbm#
+				)
 			</isNotEmpty>
 			
 			<isNotEmpty prepend="and" property="zdryZb.bz">
@@ -257,7 +266,13 @@
 	</select>
 	<select id="getQeryListCount" parameterClass="Map" resultClass="Integer">
 		<![CDATA[ 
-			select count(*) from ZDRY_ZDRYZB_NEW z  where z.XT_ZXBZ = '0'  			
+			select count(*) from ZDRY_ZDRYZB_NEW z  
+			left join  (
+				    select g1.ORGCODE as sszrqdm ,g2.ORGCODE as sspcsdm,g3.ORGCODE as ssfxjdm from ORG_ORGANIZATION g1, ORG_ORGANIZATION g2, ORG_ORGANIZATION g3
+				    where g2.id=g1.PARENTID
+				    and g3.id=g2.PARENTID
+				) g on (g.SSZRQDM = z.glbm)
+			where z.XT_ZXBZ = '0'  			
 		]]>
 			<isNotEmpty prepend="and" property="zdryZb.glzt">
 				z.glzt = #zdryZb.glzt#
@@ -281,7 +296,14 @@
 				z.Jzd_dzxz like '%$zdryZb.jzd_dzxz$%'
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="zdryZb.glbm">
-				(z.glbm = #zdryZb.glbm# or z.gxzrqdm = #zdryZb.glbm#)
+				(g.sszrqdm = #zdryZb.glbm# 
+					or g.sspcsdm = #zdryZb.glbm#
+					or g.ssfxjdm = #zdryZb.glbm#
+					
+					or z.gxzrqdm = #zdryZb.glbm#
+					or z.gxpcsdm = #zdryZb.glbm#
+					or z.gxfjdm = #zdryZb.glbm#
+				)
 			</isNotEmpty>
 			
 			<isNotEmpty prepend="and" property="zdryZb.bz">

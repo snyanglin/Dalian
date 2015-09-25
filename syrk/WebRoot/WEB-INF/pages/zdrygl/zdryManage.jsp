@@ -129,7 +129,7 @@
 					    </tr>	  
 					    <tr class="dialogTr">
 						    	<td width="30%" class="dialogTd" align="right">居住地址：</td>
-						    	<td width="70%" class="dialogTd"><input type="text" name="dz_jzdzxz" id ="dz_jzdzxz" class="easyui-validatebox" data-options="required:false,validType:'maxLength[30]'"  style="width:150px;" /></td>
+						    	<td width="70%" class="dialogTd"><input type="text" name="jzd_dzxz" id ="jzd_dzxz" class="easyui-validatebox" data-options="required:false,validType:'maxLength[30]'"  style="width:150px;" /></td>
 					    </tr>	
 					    <tr class="dialogTr" style="padding-bottom:0px;margin-bottom:0px;">
 						    	<td width="100%" colspan="2" align="right">
@@ -166,13 +166,9 @@ function searchMain(){
 	var condition = document.getElementById("condition").value;
 	if(condition=="请输入重点人员证件号码、姓名或居住地址"){
 		condition="";
-	}
-	//parent.frames["main_bottom"].searchMain(condition);
-	var reloadUrl  = contextPath + '/zdryzb/list';
-	var opt = $('#dg').datagrid('options');
-	opt.url = reloadUrl;
+	}	
 	
-	$('#dg').datagrid('load',{condition:condition});  
+	$('#dg').datagrid('load',{"bz":condition});  
 	$('#dg').datagrid("clearSelections");
 }
 //查询按钮
@@ -182,7 +178,7 @@ function queryButton(){
 	//var syrkgllbdm = document.getElementById("syrkgllbdm").value;
 	//var mzdm = document.getElementById("mzdm").value;
 	var xbdm = document.getElementById("xbdm").value;
-	var dz_jzdzxz = document.getElementById("dz_jzdzxz").value;
+	var jzd_dzxz = document.getElementById("jzd_dzxz").value;
 	var zdrygllxdm = $("#zdrygllxdm").combobox("getValue");
 	if($("#zdrygllxdm").combobox("getText")==""){
 		zdrygllxdm="";
@@ -190,7 +186,7 @@ function queryButton(){
 	
 	xm= $.trim(xm);
 	sfzh= $.trim(sfzh);
-	dz_jzdzxz= $.trim(dz_jzdzxz);
+	jzd_dzxz= $.trim(jzd_dzxz);
 	
 	$('#dg').datagrid(
 			'load',
@@ -201,7 +197,7 @@ function queryButton(){
 				'zjhm': sfzh ,
 				//'mzdm':mzdm,
 				'xbdm':xbdm,
-				'dz_jzdzxz':dz_jzdzxz
+				'jzd_dzxz':jzd_dzxz
 			});
 	closeWindow("win");
 }
