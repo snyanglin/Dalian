@@ -17,15 +17,15 @@
  		<div data-options="region:'center', split:true" style="width:800px; border-width: 0px;">
 
         <form action="<%=basePath%>zdryzb/saveCg"  id="dataForm" name="dataForm" method="post" >
-	    	<input type="hidden" id="id" name="zdryZdryzb.id" value="${zdryzb.id}" />
-	    	<input type="hidden" id="zdrygllxdm_old"  value="${zdryzb.zdrygllxdm}" />	    	
+	    	<input type="hidden" id="id" name="zdryZdryzb.id" value="${zdry.id}" />
+	    	<input type="hidden" id="zdrygllxdm_old"  value="${zdry.zdrygllxdm}" />	    	
     	
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 			<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">姓名：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text"  id="xm" name="xm" style="width:200px;" readonly="readonly"  value="${syrk.xm}"/></td>
+		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text"  id="xm" name="xm" style="width:200px;" readonly="readonly"  value="${zdry.xm}"/></td>
 				<td width="20%" class="dialogTd" align="right">公民身份号码：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="zjhm" style="width:200px;" readonly="readonly" value="${syrk.zjhm}"/></td>
+		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="zjhm" style="width:200px;" readonly="readonly" value="${zdry.zjhm}"/></td>
 		    </tr>
 		    <tr class="dialogTr">
 	    		<td width="20%" class="dialogTd" align="right">已列管类型：</td>
@@ -43,20 +43,20 @@
 		    	<td width="20%" class="dialogTd" align="right" >撤管原因：</td>
 		    	<td width="80%" class="dialogTd" colspan="3">
 		    		<input class="easyui-combobox" type="text" id="cgyyCombo" style="width:200px;" 
-								data-options="url:contextPath +'/common/dict/BD_D_ZDRYLB.js',
+								data-options="url:contextPath +'/common/dict/BD_D_ZDRYCGYY.js',
 								valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'right',onChange:changeCgyy"/>
 				</td>
 			</tr>
 		   <tr class="dialogTr"> 
 		    	<td width="20%" class="dialogTd" align="right">撤管类型：</td>
 		    	<td width="80%" class="dialogTd" colspan="3">
-					<input class="easyui-combobox" type="text"  id="zdrygllxdm" name="zdryZdryzb.zdrygllxdm"   style="width:200px;" value=""
-					data-options="url: contextPath +'/zdryzb/queryZdryCgList?zdrylxdm=${zdryzb.zdrygllxdm}',  
-					valueField:'lbdm',textField:'bz',selectOnNavigation:false,method:'get',required:false,tipPosition:'right',onChange:zdrylxChange"/>
+		    		<input class="easyui-combobox" type="text"  id="zdrygllxdm" name="zdryZdryzb.zdrygllxdm"   style="width:200px;" value=""
+					data-options="url: contextPath +'/common/dict/BD_D_ZDRYGLLX.js',dataFilter:'${kcgStr }',  
+					valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'right',onChange:zdrylxChange"/>
 
-	    			<input type="text" name="zdryZdryzb.zdrylb" id="zdrylbStr"  class="easyui-combotree" style="width:400px;"
-	    			data-options="onlyLeaf:true,valueField:'lbdm',textField:'bz',
-	    			multiple:false,required:false,panelWidth:400,method:'get',lines:true,tipPosition:'left'" >
+	    			<input type="text" name="zdryZdryzb.zdrylb" id="zdrylbStr"  class="easyui-combotree" style="width:390px;"
+	    			data-options="onlyLeaf:true,valueField:'id',textField:'text',
+	    			multiple:false,required:false,panelWidth:400,method:'get',lines:true,tipPosition:'left'" >	    			
 		    	</td>
 		    </tr>
 		    

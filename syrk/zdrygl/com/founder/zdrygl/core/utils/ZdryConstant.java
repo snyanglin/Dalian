@@ -36,6 +36,7 @@ public class ZdryConstant {
 	
 	private static Map<String,String> zdryServiceMap = new HashMap<String,String>();
 	private static Map<String,String> zdryDict = new HashMap<String,String>();
+	private static Map<String,String> glztStrMap = new HashMap<String,String>();
 	
 	public static final String LGSQ = "1";
 	public static final String YLG = "2";
@@ -44,13 +45,19 @@ public class ZdryConstant {
 	public static final String ZDSQ = "5";
 	public static final String XF = "6";
 	public static final String ZLSQ = "7";
-	
-	//"管理状态:1列管申请中,2已列管,3撤管申请中,4已撤管,5转递申请中,6涉公安访下发中,7转类申请中"
+		
 	/**
 	 * 动态读取数据库配置数据
 	 */
 	static {
 		zdryServiceMap.put("00", "com.founder.zdrygl.base.service.ZdryzbService");
+		glztStrMap.put("1", "列管申请中");
+		glztStrMap.put("2", "已列管");
+		glztStrMap.put("3", "撤管申请中");
+		glztStrMap.put("4", "已撤管");
+		glztStrMap.put("5", "转递申请中");
+		glztStrMap.put("6", "下发中");
+		glztStrMap.put("7", "转类申请中");
 	}
 	
 	public Map<String,String> zdryServiceMap(){
@@ -76,6 +83,20 @@ public class ZdryConstant {
 		if(zdryDict.isEmpty())
 			zdryDict.putAll(zdryInitializeDao.queryZdryDict(SystemConfig.getString("systemXzqh")==""?"210000":SystemConfig.getString("systemXzqh")));
 		return zdryDict.get(zdrylxdm);
+	}
+	
+	/**
+	 * 
+	 * @Title: getGlztStr
+	 * @Description: TODO(获取管理状态中文)
+	 * @param @param glzt 管理状态
+	 * @param @return    设定文件
+	 * @return String    返回类型
+	 * @throw
+	 */
+	public String getGlztStr(String glzt){
+		
+		return glztStrMap.get(glzt);
 	}
 	
 	public void createTreeJS(){
@@ -154,5 +175,5 @@ public class ZdryConstant {
 		}			
 		
 		return nodeList;
-	}
+	}	
 }

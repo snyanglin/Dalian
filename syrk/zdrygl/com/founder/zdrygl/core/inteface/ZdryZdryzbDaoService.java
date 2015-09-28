@@ -77,58 +77,26 @@ public interface ZdryZdryzbDaoService {
 	
 	/**
 	 * 
-	 * @param entity
-	 * @param page
-	 * @return
+	 * @Title: queryPageList
+	 * @Description: TODO(管理列表查询)
+	 * @param @param map
+	 * @param @param page
+	 * @param @return    设定文件
+	 * @return EasyUIPage    返回类型
+	 * @throw
 	 */
 	public EasyUIPage queryPageList(Map<String,Object> map, EasyUIPage page);
 	
 	/**
 	 * 
-	 * @param entity
-	 * @param page
-	 * @return
+	 * @Title: getQueryList
+	 * @Description: TODO(查询列表查询)
+	 * @param @param map
+	 * @param @param page
+	 * @param @return    设定文件
+	 * @return EasyUIPage    返回类型
+	 * @throw
 	 */
-	public EasyUIPage getQueryList(Map<String,Object> map, EasyUIPage page);
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public int getSrid();
-	
-	/**
-	 * 
-	 * @param zdryzbId
-	 * @return
-	 */
-	public Map<String,Object> queryZdryVoById(String zdryzbId,String andCondition);
-	
-	/**
-	 * 
-	 * @param ryId
-	 * @return
-	 */
-	public List<Map<String,Object>> queryZdryVoByRyId(String ryId,String andCondition);
-	
-	/**
-	 * 
-	 * @param syrkId
-	 * @return
-	 */
-	public List<Map<String,Object>> queryZdryVoBySyrkId(String syrkId,String andCondition);
-	
-	/**
-	 * 
-	 * @param zdryzbId
-	 * @return
-	 */
-	public List<Map<String,Object>> queryLgxxByZdryzbId(String zdryzbId,String andCondition);
-	
-	/**
-	 * 
-	 * @param entity
-	 * @return
-	 */
-	public Integer queryCountByEntity(Zdry entity);
+	public EasyUIPage getQueryList(Map<String,Object> map, EasyUIPage page);				
+		
 }
