@@ -19,7 +19,7 @@ import com.founder.zdrygl.core.model.Zdry;
  * @CreateDate:   [2015年9月28日 下午2:51:16]   
  * @UpdateUser:   [cong_rihong@founder.com.cn(如多次修改保留历史记录，增加修改记录)]   
  * @UpdateDate:   [2015年9月28日 下午2:51:16，(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
+ * @UpdateRemark: [说明本次修改内容, (如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
 @Repository("zdryZszhjsbrxxbDao")

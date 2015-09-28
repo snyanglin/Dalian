@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
 import com.founder.zdrygl.base.model.ZdryJgdxxxb;
-import com.founder.zdrygl.base.model.ZdryZdrkxxb;
 import com.founder.zdrygl.core.inteface.ZdryGllxEntityDaoService;
 import com.founder.zdrygl.core.model.Zdry;
 
@@ -14,7 +13,7 @@ import com.founder.zdrygl.core.model.Zdry;
  * ****************************************************************************
  * @Package:      [com.founder.zdrygl.base.dao.ZdryZdrkxxbDao.java]  
  * @ClassName:    [ZdryZdrkxxbDao]   
- * @Description:  [重点人口信息表DAO]   
+ * @Description:  [监管对象DAO]   
  * @Author:       [wei.wen@founder.com.cn]  
  * @CreateDate:   [2015年9月17日 下午2:51:16]   
  * @UpdateUser:   [wei.wen@founder.com.cn(如多次修改保留历史记录，增加修改记录)]   

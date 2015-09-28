@@ -38,7 +38,7 @@
 			 <isNotNull prepend="," property="ky_jzrq"><![CDATA[ KY_JZRQ=#ky_jzrq# ]]></isNotNull>
 			 <isNotNull prepend="," property="bz"><![CDATA[ BZ=#bz# ]]></isNotNull>,
 			<include refid="updateXtzd"/>				
-		</dynamic>
+		</dynamic> 
 		<![CDATA[ where ID = #id#]]>	
 	</update>
 	

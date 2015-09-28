@@ -25,7 +25,7 @@ import com.founder.zdrygl.core.model.Zdry;
  */
 public class ZdryZszhjsbrService  extends ZdryServiceDecorator{
 
-	private ZdryZszhjsbrxxb zdry;
+	private ZdryZszhjsbrxxb  zdry;
 	
 	@Resource(name="zdryZszhjsbrxxbDao")
 	private ZdryZszhjsbrxxbDao ZdryZszhjsbrxxxbDao;

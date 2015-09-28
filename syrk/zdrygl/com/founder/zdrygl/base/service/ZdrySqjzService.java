@@ -30,7 +30,7 @@ public class ZdrySqjzService  extends ZdryServiceDecorator{
 	private ZdrySqjzryxxb zdry;
 	
 	@Resource(name="zdrySqjzryxxbDao")
-	private ZdrySqjzryxxbDao zdrySqjzryxxbDao;
+	private ZdrySqjzryxxbDao  zdrySqjzryxxbDao;
 
 	public ZdrySqjzService(ZdryService zdryService) {
 		super(zdryService);

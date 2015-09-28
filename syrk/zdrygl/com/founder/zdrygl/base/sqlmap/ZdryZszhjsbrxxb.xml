@@ -8,7 +8,7 @@
 	<!-- 查询单条（根据主键） -->
 	<select id="queryById" parameterClass="String" resultClass="zdryZszhjsbrxxb">
 		<![CDATA[ select * from ZDRY_ZSZHJSBRXXB t where ID = #id#  and rownum = 1 ]]>
-	</select>
+	</select> 
 	
 	<select id="queryViewByMap" parameterClass="Map" resultClass="zdryZszhjsbrxxb">
 		<![CDATA[ 

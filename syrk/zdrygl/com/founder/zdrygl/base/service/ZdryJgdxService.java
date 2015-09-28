@@ -20,7 +20,7 @@ import com.founder.zdrygl.core.model.Zdry;
  * @CreateDate:   [2015年9月21日 下午7:16:11]   
  * @UpdateUser:   [cong_rihong@founder.com.cn(如多次修改保留历史记录，增加修改记录)]   
  * @UpdateDate:   [2015年9月28日 下午14:16:11，(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
+ * @UpdateRemark: [说明本次修改内容, (如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
 public class ZdryJgdxService  extends ZdryServiceDecorator{

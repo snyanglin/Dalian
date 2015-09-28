@@ -24,7 +24,7 @@
 		<![CDATA[ values (#id#,#jglbdm#,#jgdwjgdm#,#jgdwmc#,#fzxzdm#,#wfxyrcljgdm#,#pjjgmc#,#bz#,]]>
 			<include refid="insertXtzdVal"/>)
 	</insert>
-	
+	 
 	<!-- 更新 -->
 	<update id="update" parameterClass="zdryJgdxxxb">
 		<![CDATA[ update ZDRY_JGDXXXB ]]>	

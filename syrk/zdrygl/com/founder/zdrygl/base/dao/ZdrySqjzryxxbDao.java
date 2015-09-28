@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
 import com.founder.zdrygl.base.model.ZdrySqjzryxxb;
-import com.founder.zdrygl.base.model.ZdryZszhjsbrxxb;
 import com.founder.zdrygl.core.inteface.ZdryGllxEntityDaoService;
 import com.founder.zdrygl.core.model.Zdry;
 
@@ -14,7 +13,7 @@ import com.founder.zdrygl.core.model.Zdry;
  * ****************************************************************************
  * @Package:      [com.founder.zdrygl.base.dao.ZdryZdrkxxbDao.java]  
  * @ClassName:    [ZdryZdrkxxbDao]   
- * @Description:  [社区矫正dao]   
+ * @Description:  [社区矫正 dao]   
  * @Author:       [cong_rihong@founder.com.cn]  
  * @CreateDate:   [2015年9月28日 下午2:51:16]   
  * @UpdateUser:   [cong_rihong@founder.com.cn(如多次修改保留历史记录，增加修改记录)]   
