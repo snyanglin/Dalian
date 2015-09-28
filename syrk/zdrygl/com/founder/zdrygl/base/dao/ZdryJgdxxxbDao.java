@@ -11,7 +11,7 @@ import com.founder.zdrygl.core.model.Zdry;
 
 /**
  * ****************************************************************************
- * @Package:      [com.founder.zdrygl.base.dao.ZdryZdrkxxbDao.java]  
+ * @Package:      [com.founder.zdrygl.base.dao.ZdryJgdxxxbDao.java]  
  * @ClassName:    [ZdryZdrkxxbDao]   
  * @Description:  [监管对象DAO]   
  * @Author:       [wei.wen@founder.com.cn]  

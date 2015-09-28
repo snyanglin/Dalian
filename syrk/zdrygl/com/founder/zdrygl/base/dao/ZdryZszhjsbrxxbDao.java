@@ -12,7 +12,7 @@ import com.founder.zdrygl.core.model.Zdry;
 
 /**
  * ****************************************************************************
- * @Package:      [com.founder.zdrygl.base.dao.ZdryZdrkxxbDao.java]  
+ * @Package:      [com.founder.zdrygl.base.dao.ZdryZszhjsbrxxbDao.java]  
  * @ClassName:    [ZdryZdrkxxbDao]   
  * @Description:  [肇事肇祸精神病dao]   
  * @Author:       [cong_rihong@founder.com.cn]  
