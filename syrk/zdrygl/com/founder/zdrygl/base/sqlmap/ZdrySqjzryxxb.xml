@@ -29,7 +29,6 @@
 	<update id="update" parameterClass="zdrySqjzryxxb">
 		<![CDATA[ update ZDRY_SQJZRYXXB ]]>	
 		<dynamic prepend="set">
-			 <isNotNull prepend="," property="id"><![CDATA[ ID=#id# ]]></isNotNull>
 			 <isNotNull prepend="," property="jgdw_gajgmc"><![CDATA[ JGDW_GAJGMC=#jgdw_gajgmc# ]]></isNotNull>
 			 <isNotNull prepend="," property="jgdw_gajgjgdm"><![CDATA[ JGDW_GAJGJGDM=#jgdw_gajgjgdm# ]]></isNotNull>
 			 <isNotNull prepend="," property="fzxzdm"><![CDATA[ FZXZDM=#fzxzdm# ]]></isNotNull>
