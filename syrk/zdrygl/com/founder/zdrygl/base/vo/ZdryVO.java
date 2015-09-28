@@ -35,10 +35,10 @@ public class ZdryVO implements Serializable {
 	ZdryJgdxxxb zdryJgdxxxb;//监管对象
 	ZdryZszhjsbrxxb zdryZszhjsbrxxb;//肇事肇祸精神病人
 	ZdryFzcsfryxxb zdryFzcsfryxxb;//非正常上访
-	ZdryShbzdryxxb zdryShbzdryxxb;
-	ZdrySqsbzdryxxb zdrySqsbzdryxxb;
-	ZdrySqjzryxxb zdrySqjzryxxb;
-	ZdrySgafzdryxxb zdrySgafzdryxxb;
+	ZdryShbzdryxxb zdryShbzdryxxb;//涉环保
+	ZdrySqsbzdryxxb zdrySqsbzdryxxb;//涉枪涉暴
+	ZdrySqjzryxxb zdrySqjzryxxb;//社区矫正
+	ZdrySgafzdryxxb zdrySgafzdryxxb;//涉公安访
 	
 	public ZdryZb getZdryZdryzb() {
 		return zdryZdryzb;

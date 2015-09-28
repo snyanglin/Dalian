@@ -1,6 +1,5 @@
 package com.founder.zdrygl.base.controller;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,9 +9,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,36 +18,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.founder.framework.annotation.RestfulAnnotation;
 import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
-import com.founder.framework.base.service.BaseService;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.exception.RestException;
-import com.founder.framework.organization.department.bean.OrgOrganization;
-import com.founder.framework.organization.department.service.OrgOrganizationService;
-import com.founder.framework.organization.position.service.OrgPositionService;
-import com.founder.framework.organization.user.service.OrgUserService;
 import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.EasyUIPage;
-import com.founder.service.attachment.bean.ZpfjFjxxb;
-import com.founder.service.attachment.service.ZpfjFjxxbService;
-import com.founder.syrkgl.bean.SyrkSyrkxxzb;
-import com.founder.syrkgl.service.RyRyjbxxbService;
-import com.founder.syrkgl.service.SyrkSyrkxxzbService;
-import com.founder.workflow.service.inteface.JProcessDefinitionService;
-import com.founder.workflow.service.inteface.JProcessManageService;
-import com.founder.workflow.service.inteface.JTaskService;
 import com.founder.zdrygl.base.model.ZdryZb;
+import com.founder.zdrygl.base.model.Zdrycg;
+import com.founder.zdrygl.base.service.ZdryGzService;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
-import com.founder.zdrygl.core.inteface.ZdryQueryService;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 import com.google.gson.Gson;
 
@@ -78,6 +64,9 @@ public class ZdryZdryzbControl extends BaseController {
 	
 	@Autowired
 	private ZdryConstant zdryConstant;
+	
+	@Resource(name="zdryGzService")
+	private ZdryGzService zdryGzService ;
 
 	/*
 	@Resource(name="zdrylxylbdybService")
@@ -327,6 +316,126 @@ public class ZdryZdryzbControl extends BaseController {
 		mv.addObject("mainTabID", mainTabID);
 		mv.addObject("mode", mode);
 		
+		return mv;
+	}
+	
+	/**
+	 * 
+	 * @Title: queryYlglx
+	 * @Description: TODO(根据人员ID查询已列管的类型)
+	 * @param @param ryid
+	 * @param @param syrkid
+	 * @param @return
+	 * @param @throws BussinessException    设定文件
+	 * @return String    返回类型
+	 * @throws
+	 */
+	@RequestMapping(value = "/queryYlglx" ,method = RequestMethod.POST)
+	public @ResponseBody String queryYlglx(String ryid,String syrkid){	
+		if(ryid==null || syrkid==null)
+			return "";
+			
+		List zdryList =zdryQueryService.queryListByRyid(ryid);
+		
+		if(zdryList.isEmpty())
+			return "";
+		
+		ZdryZb temp = null;		
+		StringBuffer resStrBuffer=new StringBuffer("");
+		StringBuffer klgStrBuffer=new StringBuffer("");
+		for (int i = 0; i < zdryList.size(); i++) {			
+			temp = (ZdryZb) zdryList.get(i);
+						
+			if(syrkid.equals(temp.getSyrkid())){
+				if(resStrBuffer.length()>0){
+					resStrBuffer.append("，");//中文符号，显示页面用
+					klgStrBuffer.append(",");//英文符号，后续查询用
+				}
+				resStrBuffer.append(zdryConstant.zdryDict().get(temp.getZdrygllxdm()));	
+				klgStrBuffer.append(temp.getZdrygllxdm());
+			}
+		}
+					
+		return resStrBuffer.append("/").append(klgStrBuffer).toString();
+	}
+	
+	/**
+	 * 
+	 * @Title: zdryDelPre
+	 * @Description: TODO(打开重点人员撤管页面)
+	 * @param @param id 重点人员ID
+	 * @param @return    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throw
+	 */
+	@RequestMapping(value="/zdryDelPre",method = RequestMethod.GET)
+	public ModelAndView zdryDelPre(String id){
+		ModelAndView mv = new ModelAndView("zdrygl/add/zdryDelPre");
+		SessionBean sessionBean = getSessionBean();
+		Zdry zdry = zdryQueryService.queryById(id);
+		if(zdry == null)
+			throw new BussinessException("zdry.notExist");
+		String zdrygllxdm = ((ZdryZb)zdry).getZdrygllxdm();
+		String zdrygllxmc=zdryConstant.zdryDict().get(zdrygllxdm);		
+		//可撤管类型
+		String kcgStr=zdryGzService.queryKcglx(zdrygllxdm);
+		
+		mv.addObject("userName",sessionBean.getUserName());
+		mv.addObject("blrq",DateUtils.getSystemDateString());
+		mv.addObject("zdry",zdry);				
+		mv.addObject("zdrylxmc",zdrygllxmc);
+		mv.addObject("kcgStr",kcgStr);
+		return mv;
+	}
+		
+	/**
+	 * 
+	 * @Title: saveCg
+	 * @Description: TODO(撤管保存)
+	 * @param @param zdryVO
+	 * @param @param sessionBean
+	 * @param @return    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throw
+	 */
+	@RequestMapping(value = "/saveCg", method = RequestMethod.POST)
+	public ModelAndView saveCg(ZdryVO zdryVO, SessionBean sessionBean) {
+		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
+		Map<String, Object> model = new HashMap<String, Object>();
+		sessionBean = getSessionBean(sessionBean);
+		
+		try {		
+			ZdryZb zb_new = zdryVO.getZdryZdryzb();
+			
+			//查询撤管前的重点人员信息
+			ZdryZb zb_old=(ZdryZb)zdryQueryService.queryById(zb_new.getId());
+			if(zb_old==null){
+				throw new BussinessException("未查询到该重点人员的信息");
+			}
+			//验证状态是否正确
+			if(!zdryConstant.YLG.equals(zb_old.getGlzt())){
+				throw new BussinessException("该重点人员正在【"+zdryConstant.getGlztStr(zb_old.getGlzt())+"】，不能办理其他业务");
+			}	
+			
+			Zdrycg zdrycg = new Zdrycg();
+			BeanUtils.copyProperties(zb_old,zdrycg);
+			
+			zdrycg.setZdryid_old(zb_old.getId());
+			zdrycg.setZdrygllxdm_old(zb_old.getZdrygllxdm());
+			zdrycg.setZdrygllxdm(zb_new.getZdrygllxdm());
+			//撤管重点人员
+			ZdryService zdryService = zdryFactory.createZdryService(zb_new.getZdrygllxdm(), zdrycg, zdryVO.getZdrylbdx());
+			zdryService.cg(sessionBean);						
+		
+			model.put(AppConst.STATUS, AppConst.SUCCESS);
+			model.put(AppConst.MESSAGES, getAddSuccess());
+
+		}catch (Exception e) {
+			logger.error(e.getLocalizedMessage(), e);
+			model.put(AppConst.STATUS, AppConst.FAIL);
+			model.put(AppConst.MESSAGES, e.getLocalizedMessage());
+		}
+		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
 	}
 }

@@ -49,6 +49,8 @@ public class ZdryFactory implements ZdryAbstractFactory {
 			ZdryService zdryService= (ZdryService) getBean(beanName);
 			zdryService.setZdry(zdrylbdx);
 			return zdryService;  
+		}else if(StringUtils.isEmpty(zdrylx) && zdrylbdx==null){//撤管的时候，以及列管“其他关注对象”等没有子表的重点人员类型时，就获取不到子表对应的服务类
+			return zdryzbService;
 		}else{
 			throw new BussinessException("重点人员类型匹配错误!");
 		}

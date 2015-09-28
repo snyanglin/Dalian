@@ -144,56 +144,6 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 		page.setTotal((Integer) queryForObject("ZdryZdryzb.getQeryListCount", map));
 		page.setRows(queryForList("ZdryZdryzb.getQeryList", map));
 		return page;
-	}
-
-	@Override
-	public int getSrid() {
-		return (int)super.queryForObject("ZdryZdryzb.queryShapetableSrid", null);
-	}
-
-	@Override
-	public Map<String, Object> queryZdryVoById(String zdryzbId, String andCondition) {
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("andCondition", andCondition);
-		Map<String,Object> zdryZdryzb = new HashMap<String,Object>();
-		zdryZdryzb.put("id", zdryzbId);
-		map.put("zdryZdryzb", zdryZdryzb);
-		return (Map<String, Object>) super.queryForObject("ZdryZdryzb.queryZdryVOByMap", map);
-	}
-
-	@Override
-	public List<Map<String, Object>> queryZdryVoByRyId(String ryId, String andCondition) {
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("andCondition", andCondition);
-		Map<String,Object> zdryZdryzb = new HashMap<String,Object>();
-		zdryZdryzb.put("ryid", ryId);
-		map.put("zdryZdryzb", zdryZdryzb);
-		return (List<Map<String, Object>>) super.queryForObject("ZdryZdryzb.queryListZdryVOByMap", map);
-	}
-
-	@Override
-	public List<Map<String, Object>> queryZdryVoBySyrkId(String syrkId, String andCondition) {
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("andCondition", andCondition);
-		Map<String,Object> zdryZdryzb = new HashMap<String,Object>();
-		zdryZdryzb.put("syrkid", syrkId);
-		map.put("zdryZdryzb", zdryZdryzb);
-		return (List<Map<String, Object>>) super.queryForList("ZdryZdryzb.queryListZdryVOByMap", map);
-	}
-
-	@Override
-	public List<Map<String, Object>> queryLgxxByZdryzbId(String zdryzbId, String andCondition) {
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("id", zdryzbId);
-		map.put("andCondition", andCondition);
-		return (List<Map<String, Object>>)super.queryForObject("ZdryZdryzb.queryLgxxByZdryid", map);
-	}
-
-	@Override
-	public Integer queryCountByEntity(Zdry entity) {
-		Map<String,Object> map = this.convertToMap(entity);
-		return (Integer)super.queryForObject("ZdryZdryzb.queryCountByMap", map);
-	}
-
+	}		
 
 }

@@ -70,12 +70,9 @@ public class ZdryzbService implements ZdryService {
 		ZdryZb entity = new ZdryZb();
 		entity.setId(zdrycg.getZdryid_old());
 		entity.setGlzt(ZdryConstant.CGSQ);
-		updateZdry(sessionBean,entity);
+		updateZdry(sessionBean,entity);				
 		if(!isDelete()){
-			BaseService.setSaveProperties(zdryzb, sessionBean);
-			zdryzb.setId(UUID.create());
-			zdryzb.setGlzt(ZdryConstant.LGSQ);
-			zdryZdryZbDao.insert(zdryzb);
+			this.lg(sessionBean);			
 		}
 	}
 
@@ -179,7 +176,7 @@ public class ZdryzbService implements ZdryService {
 		if(entity!=null){
 			if(entity.getClass().getName().equals(Zdrycg.class.getName())){
 				this.zdrycg = (Zdrycg) entity;
-				zdryzb = new ZdryZb();
+				this.zdryzb = new ZdryZb();
 				BeanUtils.copyProperties(zdrycg, zdryzb);
 			}else{
 				this.zdryzb = (ZdryZb) entity;
