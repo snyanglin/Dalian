@@ -104,8 +104,22 @@ public class ZdryVO implements Serializable {
 	 */
 	public Zdry getZdrylbdx(){
 		if(zdryZdryzb==null || zdryZdryzb.getZdrygllxdm()==null) return null;
+		if("01".equals(zdryZdryzb.getZdrygllxdm()))//社区矫正人员
+			return this.zdrySqjzryxxb;
 		if("02".equals(zdryZdryzb.getZdrygllxdm()))//重点人口
 			return zdryZdrk;
+		if("03".equals(zdryZdryzb.getZdrygllxdm()))//肇事肇祸精神病人
+			return this.zdryZszhjsbrxxb;
+		if("04".equals(zdryZdryzb.getZdrygllxdm()))//非正常上访重点人员
+			return this.zdryFzcsfryxxb;
+		if("05".equals(zdryZdryzb.getZdrygllxdm()))//涉公安访重点人员
+			return this.zdrySgafzdryxxb;
+		//if("06".equals(zdryZdryzb.getZdrygllxdm()))//其他关注对象
+		//	return this.
+		if("07".equals(zdryZdryzb.getZdrygllxdm()))//涉环保重点人员
+			return this.zdryShbzdryxxb;
+		if("08".equals(zdryZdryzb.getZdrygllxdm()))//涉枪涉爆重点人员
+			return this.zdrySqsbzdryxxb;
 		return null;
 	}		
 			

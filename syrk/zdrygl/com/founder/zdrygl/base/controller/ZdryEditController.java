@@ -25,12 +25,14 @@ import com.founder.framework.exception.BussinessException;
 import com.founder.framework.utils.DateUtils;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.service.ZdryEditService;
+import com.founder.zdrygl.base.service.ZdryGzService;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.base.vo.ZdrygnVO;
 import com.founder.zdrygl.base.vo.ZdryxxzsVO;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.utils.ZdryConstant;
 import com.google.gson.Gson;
 /**
  * ****************************************************************************
@@ -56,13 +58,12 @@ public class ZdryEditController extends BaseController {
 	
 	@Resource(name="zdryQueryService")
 	private ZdryInfoQueryService zdryQueryService ;
-//	@Resource
-//	private ZdrySgafzdryxxbService zdrySgafzdryxxbService;
-//	@Autowired
-//	private JProcessDefinitionService processDefinitionService;
-//
-//	@Resource(name="ZdryUntil")
-//	private ZdryUntil zdryUntil;
+	
+	@Autowired
+	private ZdryConstant zdryConstant;
+
+	@Resource(name="zdryGzService")
+	private ZdryGzService zdryGzService ;
 	
 	/**
 	 * 
@@ -352,4 +353,75 @@ public class ZdryEditController extends BaseController {
 			mv.addObject("fileOnly", 0);			
 			return mv;
 	}		
+	
+	/**
+	 * 
+	 * @Title: zdryZLPre
+	 * @Description: TODO(重点人员转类 载入页面)
+	 * @param @param zdryid
+	 * @param @param sessionBean
+	 * @param @return
+	 * @param @throws BussinessException    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throws
+	 */
+	@RequestMapping(value = "/zdryZLPre", method = RequestMethod.GET)
+	public ModelAndView zdryZLPre( String id,
+			SessionBean sessionBean) throws BussinessException {
+			ModelAndView mv = new ModelAndView("zdrygl/edit/zdryZL");
+			ZdryZb zdryZb=(ZdryZb)zdryQueryService.queryById(id);		
+			if(zdryZb==null){
+				throw new BussinessException("未查询到该重点人员的信息");
+			}
+			//验证状态是否正确
+			if(!zdryConstant.YLG.equals(zdryZb.getGlzt())){
+				throw new BussinessException("该重点人员正在【"+zdryConstant.getGlztStr(zdryZb.getGlzt())+"】，不能办理其他业务");
+			}						
+			
+			boolean sfkzl=zdryGzService.queryIsZL(zdryZb.getZdrygllxdm());//是否可转类
+			if(!sfkzl)
+				throw new BussinessException("该 重点人员管理类型 不可转类");
+			
+									
+			mv.addObject("zdryZb", zdryZb);
+			mv.addObject("zdrylxmc", zdryConstant.zdryDict().get(zdryZb.getZdrygllxdm()));
+			return mv;
+	}
+	
+	/**
+	 * 
+	 * @Title: zdryZL
+	 * @Description: TODO(重点人员转类)
+	 * @param @param zdryVO
+	 * @param @param sessionBean
+	 * @param @param uploadFile
+	 * @param @return    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throws
+	 */
+	@RequestMapping(value = "/zdryZL", method = RequestMethod.POST)
+	public ModelAndView zdryZL(ZdryZb zdryZb, SessionBean sessionBean,String xzdrylbmc) {
+		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
+		Map<String, Object> model = new HashMap<String, Object>();
+		sessionBean = getSessionBean(sessionBean);
+		try {			
+			//只传入了ID和zdrylb两个字段
+			ZdryService zdryService = zdryFactory.createZdryService(null, zdryZb, null);
+			zdryService.zl(sessionBean);	
+			
+			model.put(AppConst.STATUS, AppConst.SUCCESS);
+			model.put(AppConst.MESSAGES, getUpdateSuccess());
+		}catch(BussinessException e){
+			e.printStackTrace();			
+			model.put(AppConst.STATUS, AppConst.FAIL);
+			model.put(AppConst.MESSAGES, e.getLocalizedMessage());
+		}
+		catch (Exception e) {
+			e.printStackTrace();			
+			model.put(AppConst.STATUS, AppConst.FAIL);
+			model.put(AppConst.MESSAGES, getUpdateFail());
+		}
+		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
+		return mv;
+	}
 }

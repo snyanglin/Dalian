@@ -16,7 +16,9 @@ import com.founder.framework.base.service.BaseService;
 import com.founder.service.attachment.bean.ZpfjFjxxb;
 import com.founder.service.attachment.dao.ZpfjFjxxbDao;
 import com.founder.zdrygl.base.dao.ZdryEditDao;
+import com.founder.zdrygl.base.dao.ZdrySqjzryxxbDao;
 import com.founder.zdrygl.base.dao.ZdryZdrkxxbDao;
+import com.founder.zdrygl.base.model.ZdrySqjzryxxb;
 import com.founder.zdrygl.base.model.ZdryZdrkxxb;
 import com.founder.zdrygl.base.vo.ZdrygnVO;
 import com.founder.zdrygl.base.vo.ZdryxxzsVO;
@@ -51,6 +53,24 @@ public class ZdryEditService extends BaseService {
 
 	@Autowired
 	private ZdryConstant zdryConstant;
+	
+	@Resource(name="zdrySqjzryxxbDao")
+	private ZdrySqjzryxxbDao zdrySqjzryxxbDao;
+	
+	/*
+	@Resource
+	private ZdrySgafzdryxxbDao zdrySgafzdryxxbDao;	
+	@Resource(name="zdryShbzdryxxbDao")
+	private ZdryShbzdryxxbDao zdryShbzdryxxbDao;
+	@Resource(name="zdrySqsbzdryxxbDao")
+	private ZdrySqsbzdryxxbDao zdrySqsbzdryxxbDao;
+	@Resource(name = "zdryJkbjllxxbDao")
+	private ZdryJkbjllxxbDao zdryJkbjllxxbDao;
+	@Resource(name = "zdryJgdxqxjdjbDao")
+	private ZdryJgdxqxjdjbDao zdryJgdxqxjdjbDao;
+	@Resource(name = "zdryPsjdbDao")
+	private ZdryPsjdbDao zdryPsjdbDao;
+	
 	/**
 	 * 
 	 * @Title: queryYwglgn
@@ -164,6 +184,12 @@ public class ZdryEditService extends BaseService {
 		return entity;
 	}
 	
+	public ZdrySqjzryxxb sqjz_query(Map<String, Object> map) {
+		ZdrySqjzryxxb entity = (ZdrySqjzryxxb) zdrySqjzryxxbDao.queryViewByMap(map);	
+		entity.setBz(zdryConstant.zdryDict().get(entity.getBz()));
+		return 	entity;
+	}
+	
 	/*
 	public ZdrySgafzdryxxb sgafzdryxxb_query(Map<String, Object> map) {
 		ZdrySgafzdryxxb entity = zdrySgafzdryxxbDao.queryById((String) map.get("zdryid"));
@@ -171,10 +197,7 @@ public class ZdryEditService extends BaseService {
 	}
 	
 	
-	public ZdrySqjzryxxb sqjz_query(Map<String, Object> map) {
-		map.put("qydm", zdryUntil.querySYSConfig());
-		return zdrySqjzryxxbDao.queryByMap(map);		
-	}
+	
 
 	
 	public ZdryZszhjsbrxxb zszhjsbrxxb_query(Map<String, Object> map) {
@@ -215,42 +238,5 @@ public class ZdryEditService extends BaseService {
 		map.put("maxNum", "10");
 		return zdryPsjdbDao.queryViewList(map);
 	}
-	
-	*/	
-	
-	
-	/**
-	 * 
-	 * @Title: zdryZl
-	 * @Description: TODO(重点人员转类)
-	 * @param @param zdryVO
-	 * @param @param sessionBean    设定文件
-	 * @return void    返回类型
-	 * @throws
-	 *
-	
-	public void zdryZl(ZdryVO zdryVO,SessionBean sessionBean) {
-		ZdryZdryzb zdryZdryzb = zdryVO.getZdryZdryzb();		
-		BaseService.setUpdateProperties(zdryZdryzb, sessionBean);
-		zdryZdryzbDao.update(zdryZdryzb);
-	}
-	
-	/**
-	 * 
-	 * @Title: queryIsZL
-	 * @Description: TODO(查询是否可转类)
-	 * @param @param zdrylx(重点人员类型)
-	 * @param @return    设定文件
-	 * @return boolean    返回类型
-	 * @throws
-	 *
-	
-	public boolean queryIsZL(String zdrylx){
-		ZdryGzb zdryGzb=zdryGzbDao.queryByZdrylx(zdrylx,zdryUntil.querySYSConfig());
-		if(zdryGzb!=null && "0".equals(zdryGzb.getSfkzl())){//可转类
-			return true;
-		}
-		return false;
-	} 
-	*/
+	*/					
 }

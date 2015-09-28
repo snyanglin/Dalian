@@ -361,6 +361,24 @@ public class ZdryZdryzbControl extends BaseController {
 	
 	/**
 	 * 
+	 * @Title: queryklglx
+	 * @Description: TODO(查询可同时列管的类型)
+	 * @param @param ylglxStr
+	 * @param @return    设定文件
+	 * @return String    返回类型
+	 * @throw
+	 */
+	@RequestMapping(value = "/queryklglx" ,method = RequestMethod.POST)
+	public @ResponseBody String queryklglx(String ylglxStr) {	
+		String klgStr=zdryGzService.queryKlglx(ylglxStr);
+		if("".equals(klgStr)){//没有可列管的类型，不能返回“”，此时应该没有匹配的选项
+			klgStr="999999";
+		}
+		return 	klgStr;	
+	}
+	
+	/**
+	 * 
 	 * @Title: zdryDelPre
 	 * @Description: TODO(打开重点人员撤管页面)
 	 * @param @param id 重点人员ID
@@ -379,6 +397,7 @@ public class ZdryZdryzbControl extends BaseController {
 		String zdrygllxmc=zdryConstant.zdryDict().get(zdrygllxdm);		
 		//可撤管类型
 		String kcgStr=zdryGzService.queryKcglx(zdrygllxdm);
+		if(kcgStr==null || kcgStr.length()==0) kcgStr="999999";
 		
 		mv.addObject("userName",sessionBean.getUserName());
 		mv.addObject("blrq",DateUtils.getSystemDateString());
@@ -423,6 +442,7 @@ public class ZdryZdryzbControl extends BaseController {
 			zdrycg.setZdryid_old(zb_old.getId());
 			zdrycg.setZdrygllxdm_old(zb_old.getZdrygllxdm());
 			zdrycg.setZdrygllxdm(zb_new.getZdrygllxdm());
+			zdrycg.setZdrylb(zb_new.getZdrylb());
 			//撤管重点人员
 			ZdryService zdryService = zdryFactory.createZdryService(zb_new.getZdrygllxdm(), zdrycg, zdryVO.getZdrylbdx());
 			zdryService.cg(sessionBean);						
@@ -438,5 +458,7 @@ public class ZdryZdryzbControl extends BaseController {
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
 	}
+	
+	
 }
 

@@ -241,29 +241,6 @@ function startup(){
 };
 
 
-/**
- * 根据撤管类型,得到撤管后的类型,大类选择
- */
-function getcghlx(newValue,oldValue){
-	var name = $("#xm").val();
-	if(newValue){
-		var cglx=newValue;
-		var zdrylx="5|6";
-		if(cglx=="1"){
-			zdrylx="2|5"
-		}else if(cglx=="5"){
-			zdrylx="6"
-		}
-		$('#zdrygllxdm').combobox('setDataFilter', zdrylx);
-		if(zdrylx=='6'){
-		//$('#zdrygllxdm').combobox('setValue', zdrylx);
-		setComboRequired("zdrylbStr", false);
-		}
-	}
-}
-
-
-
 function closeWindow(){
 	closeSelf();
 }
@@ -333,7 +310,10 @@ function selectSyrk(index){
 	$("#gxzrqdm").val(rowData.gxzrqdm);	
 	
 	querySyrkClose();
-	queryYlglx(rowData.ryid,rowData.id);	
+	queryYlglx(rowData.ryid,rowData.id);
+	showGroup();
+	$("#zdrygllxdm").combobox("setValue", "");	
+	$('#zdrylbStr').combotree('tree').tree('loadData', '');
 }
 
 //查询已列管类型
@@ -370,14 +350,12 @@ function queryKlglx(ylglxStr){
 		data:"ylglxStr=" + ylglxStr,
 		success: function(data) {
 			if (data) {								
-				$("#zdrygllxdm").combobox("setDataFilter", data);	
-				$("#zdrygllxdm").combobox("setValue", "");
-				$('#zdrylbStr').combotree('tree').tree('loadData', [''])
-			}else{
+				$("#zdrygllxdm").combobox("setDataFilter", data);					
+			}else{				
 				$("#zdrygllxdm").combobox("setDataFilter", "");					
 			}
 		},		
-		error: function() {
+		error: function() {			
 			$("#zdrygllxdm").combobox("setDataFilter", "");	
 		}
 	});	
