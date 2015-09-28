@@ -12,7 +12,7 @@
 	
 	<select id="queryViewByMap" parameterClass="Map" resultClass="zdryFzcsfryxxb">
 		<![CDATA[ 
-			select t.ID , t.GLFFDM,t.LGLYDM,t.NRGZYJ,  t1.ZDRYLB as BZ
+			select  t.*,  t1.ZDRYLB as BZ
 			from ZDRY_FZCSFRYXXB t, ZDRY_ZDRYZB_NEW t1 					
 			where t.ID = #id#  and t.id=t1.id and t.XT_ZXBZ = '0' and t1.xt_zxbz='0'			
   		]]>
@@ -29,7 +29,6 @@
 	<update id="update" parameterClass="zdryFzcsfryxxb">
 		<![CDATA[ update ZDRY_FZCSFRYXXB ]]>	
 		<dynamic prepend="set">
-			 <isNotNull prepend="," property="id"><![CDATA[ ID=#id# ]]></isNotNull>
 			 <isNotNull prepend="," property="xxsb"><![CDATA[ XXSB=#xxsb# ]]></isNotNull>
 			 <isNotNull prepend="," property="sfyy"><![CDATA[ SFYY=#sfyy# ]]></isNotNull>
 			 <isNotNull prepend="," property="jkbm"><![CDATA[ JKBM=#jkbm# ]]></isNotNull>

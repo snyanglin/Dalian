@@ -4,8 +4,8 @@ import javax.annotation.Resource;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
-import com.founder.zdrygl.base.dao.ZdrySqjzryxxbDao;
-import com.founder.zdrygl.base.model.ZdrySqjzryxxb;
+import com.founder.zdrygl.base.dao.ZdryShbzdryxxbDao;
+import com.founder.zdrygl.base.model.ZdryShbzdryxxb;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.decorator.ZdryServiceDecorator;
 import com.founder.zdrygl.core.inteface.ZdryService;
@@ -13,9 +13,9 @@ import com.founder.zdrygl.core.model.Zdry;
 
 /**
  * ****************************************************************************
- * @Package:      [com.founder.zdrygl.base.service.ZdrySqjzService.java]  
- * @ClassName:    [ZdrySqjzService]   
- * @Description:  [社区矫正人业务服务]   
+ * @Package:      [com.founder.zdrygl.base.service.ZdryShbService.java]  
+ * @ClassName:    [ZdryShbService]   
+ * @Description:  [涉环保重点人员业务服务]   
  * @Author:       [cong_rihong@founder.com.cn] 
  * @CreateDate:   [2015年9月21日 下午7:16:11]   
  * @UpdateUser:   [cong_rihong@founder.com.cn(如多次修改保留历史记录，增加修改记录)]   
@@ -23,20 +23,20 @@ import com.founder.zdrygl.core.model.Zdry;
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
-public class ZdrySqjzService  extends ZdryServiceDecorator{
+public class ZdryShbService  extends ZdryServiceDecorator{
 
-	private ZdrySqjzryxxb zdry;
+	private ZdryShbzdryxxb zdry;
 	
-	@Resource(name="zdrySqjzryxxbDao")
-	private ZdrySqjzryxxbDao  zdrySqjzryxxbDao;
+	@Resource(name="zdryShbzdryxxbDao")
+	private ZdryShbzdryxxbDao  zdryShbzdryxxbDao;
 
-	public ZdrySqjzService(ZdryService zdryService) {
+	public ZdryShbService(ZdryService zdryService) {
 		super(zdryService);
 	}
 
 	@Override
 	public void setZdry(Zdry entity) {
-		this.zdry = (ZdrySqjzryxxb) entity;
+		this.zdry = (ZdryShbzdryxxb) entity;
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class ZdrySqjzService  extends ZdryServiceDecorator{
 	protected void lg_(SessionBean sessionBean) {
 		BaseService.setSaveProperties(zdry, sessionBean);	
 		zdry.setId(this.getZdryId());
-		zdrySqjzryxxbDao.insert(zdry);
+		zdryShbzdryxxbDao.insert(zdry);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class ZdrySqjzService  extends ZdryServiceDecorator{
 		if(zdry != null){
 			BaseService.setSaveProperties(zdry, sessionBean);
 			zdry.setId(this.getZdryId());
-			zdrySqjzryxxbDao.insert(zdry);
+			zdryShbzdryxxbDao.insert(zdry);
 		}
 		
 	}
@@ -71,7 +71,7 @@ public class ZdrySqjzService  extends ZdryServiceDecorator{
 	protected void update_(SessionBean sessionBean) {
 		BaseService.setUpdateProperties(zdry, sessionBean);
 		zdry.setId(this.getZdryId());
-		zdrySqjzryxxbDao.update(zdry);
+		zdryShbzdryxxbDao.update(zdry);
 	}
 	
 	/**
@@ -85,7 +85,7 @@ public class ZdrySqjzService  extends ZdryServiceDecorator{
 	 */
 	@Override
 	public void queryZdryAllInfo_(String zdryid,ZdryVO zdryVO) {
-		zdryVO.setZdrySqjzryxxb((ZdrySqjzryxxb) zdrySqjzryxxbDao.queryById(zdryid));
+		zdryVO.setZdryShbzdryxxb((ZdryShbzdryxxb) zdryShbzdryxxbDao.queryById(zdryid));
 	}
 
 }

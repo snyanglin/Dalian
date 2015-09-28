@@ -100,7 +100,17 @@ public class ZdrySgafzdryxxb extends BaseEntity implements Serializable,Zdry{
 	private String zdrygllxmc;
 	//添加小类名字
 	private String zdrygllbmc;
+		
+	private String bz;
 	
+	
+	
+	public String getBz() {
+		return bz;
+	}
+	public void setBz(String bz) {
+		this.bz = bz;
+	}
 	public String getZdrygllxmc() {
 		return zdrygllxmc;
 	}
