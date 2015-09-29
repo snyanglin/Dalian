@@ -277,28 +277,27 @@ public class ZdryZdryzbControl extends BaseController {
 			throw new BussinessException("Zdry not Exist");
 		
 		ZdryZb temp = null;
-		List<Map<String,String>> zdrylxList = new ArrayList<Map<String,String>>();
-		Map<String,String> map = null;
+		List<Map<String,String>> zdrylxList = new ArrayList<Map<String,String>>();		
 		String zdrygllxmc;
 		StringBuffer zdrylxBuffer = new StringBuffer();//已列管类型名字
-		int sort = 0 ;
-		for (int i = 0; i < zdryList.size(); i++) {
-			map  = new HashMap<String,String>();
+		
+		for (int i = 0; i < zdryList.size(); i++) {			
 			temp = (ZdryZb) zdryList.get(i);
-			map.put("zdryid", temp.getId());
-			map.put("zdrylx", temp.getZdrygllxdm());
 			
-			//已列管 重点人员 类型
-			zdrygllxmc=zdryConstant.zdryDict().get(temp.getZdrygllxdm());
-			if(zdrygllxmc!=null && zdrygllxmc.length()>0){
-				if(zdrylxBuffer.length()>0) zdrylxBuffer.append(" ");			
-				zdrylxBuffer.append(zdrygllxmc);			
-			}
-					
 			//只取当前重点人员id的重点人员类型
 			if(temp.getId().equals(id)){
 				mv.addObject("zdry", temp);	
+				Map<String,String> map  = new HashMap<String,String>();
+				map.put("zdryid", temp.getId());
+				map.put("zdrylx", temp.getZdrygllxdm());
 				zdrylxList.add(map);
+			}
+			
+			//已列管 重点人员 类型
+			zdrygllxmc=zdryConstant.zdryDict().get(temp.getZdrygllxdm());
+			if(zdrygllxmc!=null && zdrygllxmc.length()>0 && !"4".equals(temp.getGlzt())){
+				if(zdrylxBuffer.length()>0) zdrylxBuffer.append(" ");			
+				zdrylxBuffer.append(zdrygllxmc);			
 			}
 			
 		}		

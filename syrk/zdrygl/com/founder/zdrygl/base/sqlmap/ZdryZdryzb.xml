@@ -185,7 +185,7 @@
 	</select>
 	
 	<select id="queryListByMap" parameterClass="Map" resultClass="zdryZdryzb">
-		<![CDATA[ select * from ZDRY_ZDRYZB_NEW where xt_zxbz = '0' and glzt != '4']]>
+		<![CDATA[ select * from ZDRY_ZDRYZB_NEW where xt_zxbz = '0']]>
 	    <isNotEmpty prepend="and" property="andCondition"><![CDATA[ $andCondition$ ]]></isNotEmpty>
 		<isNotEmpty prepend="and" property="zdryZdryzb.ryid"><![CDATA[ RYID=#zdryZdryzb.ryid# ]]></isNotEmpty>
 		<isNotEmpty prepend="and" property="zdryZdryzb.zdrylb"><![CDATA[ ZDRYLB=#zdryZdryzb.zdrylb# ]]></isNotEmpty>

@@ -92,6 +92,9 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 		return (Zdry)queryForObject("ZdryZdryzb.queryByMap", map);
 	}
 	
+	/**
+	 * 查询包括已撤管的重点人员
+	 */
 	@Override
 	public List<Zdry> queryListByEntity(Zdry zdryZdryzb, String andCondition) {
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -113,8 +116,8 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 		String sort = page.getSort();
 		String order = page.getOrder();
 		if (StringUtils.isBlank(sort)) { // 默认排序
-			sort = "id";
-			order = "asc";
+			sort = "XT_CJSJ";
+			order = "DESC";
 		}
 		map.put("sort", sort);
 		map.put("order", order);	
@@ -134,8 +137,8 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 		String sort = page.getSort();
 		String order = page.getOrder();
 		if (StringUtils.isBlank(sort)) { // 默认排序
-			sort = "id";
-			order = "asc";
+			sort = "XT_CJSJ";
+			order = "DESC";
 		}
 		//entity.setSrid(getSrid());
 		map.put("sort", sort);

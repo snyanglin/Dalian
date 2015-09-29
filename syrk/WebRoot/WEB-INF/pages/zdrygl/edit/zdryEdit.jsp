@@ -46,7 +46,7 @@
 		<td>
 				<table cellpadding="0" cellspacing="0" class="nameTable" >
 					<tr>
-						<th  align="right" width="130">管理类型：</th>
+						<th  align="right" width="130">已列管类型：</th>
 						<td width="270" colspan="3">
 							<span id="zdrylxTag">
 								${zdrylx }
