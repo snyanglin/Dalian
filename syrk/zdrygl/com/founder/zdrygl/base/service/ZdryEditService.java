@@ -17,6 +17,8 @@ import com.founder.service.attachment.bean.ZpfjFjxxb;
 import com.founder.service.attachment.dao.ZpfjFjxxbDao;
 import com.founder.zdrygl.base.dao.ZdryEditDao;
 import com.founder.zdrygl.base.dao.ZdryFzcsfryxxbDao;
+import com.founder.zdrygl.base.dao.ZdryJgdxqxjdjbDao;
+import com.founder.zdrygl.base.dao.ZdryJkbjllxxbDao;
 import com.founder.zdrygl.base.dao.ZdryPsjdbDao;
 import com.founder.zdrygl.base.dao.ZdrySgafzdryxxbDao;
 import com.founder.zdrygl.base.dao.ZdryShbzdryxxbDao;
@@ -76,13 +78,10 @@ public class ZdryEditService extends BaseService {
 	private ZdryZszhjsbrxxbDao zdryZszhjsbrxxbDao;
 	@Resource(name="zdryFzcsfryxxbDao")
 	private ZdryFzcsfryxxbDao zdryFzcsfryxxbDao;
-	
-	/*
 	@Resource(name = "zdryJkbjllxxbDao")
 	private ZdryJkbjllxxbDao zdryJkbjllxxbDao;
 	@Resource(name = "zdryJgdxqxjdjbDao")
 	private ZdryJgdxqxjdjbDao zdryJgdxqxjdjbDao;
-	*/
 	@Resource(name = "zdryPsjdbDao")
 	private ZdryPsjdbDao zdryPsjdbDao;
 	
@@ -278,19 +277,43 @@ public class ZdryEditService extends BaseService {
 	}
 	*/
 	
-	/*
+	/**
+	 * 
+	 * @Title: jkbjryxxb_query
+	 * @Description: TODO(帮教力量查询)
+	 * @param @param map
+	 * @param @return    设定文件
+	 * @return List    返回类型
+	 * @throw
+	 */
 	public List jkbjryxxb_query (Map<String,Object> map){
 		map.put("maxNum", "10");
 		return zdryJkbjllxxbDao.queryViewList(map);
 	}
 
-	
+	/**
+	 * 
+	 * @Title: qxjdjb_query
+	 * @Description: TODO(请销假登记查询)
+	 * @param @param map
+	 * @param @return    设定文件
+	 * @return List    返回类型
+	 * @throw
+	 */
 	public List qxjdjb_query(Map<String, Object> map){
 		map.put("maxNum", "10");
 		return zdryJgdxqxjdjbDao.queryViewList(map);
 	}
 	
-	*/	
+	/**
+	 * 
+	 * @Title: psjdb_query
+	 * @Description: TODO(评审鉴定查询)
+	 * @param @param map
+	 * @param @return    设定文件
+	 * @return List    返回类型
+	 * @throw
+	 */
 	public List psjdb_query(Map<String, Object> map){
 		map.put("maxNum", "10");
 		return zdryPsjdbDao.queryViewList(map);
