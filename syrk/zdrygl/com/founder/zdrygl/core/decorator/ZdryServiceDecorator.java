@@ -97,32 +97,32 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 
 	@Override
 	public final void zl(SessionBean sessionBean) {
-		zdryService.zl(sessionBean);
+		//转类（小类）不涉及子表的修改
 	}
 
 	@Override
 	public final void zlSuccess(SessionBean sessionBean) {
-		zdryService.zlSuccess(sessionBean);
+		//转类（小类）不涉及子表的修改
 	}
 
 	@Override
 	public final void zlFail(SessionBean sessionBean) {
-		zdryService.zlFail(sessionBean);
+		//转类（小类）不涉及子表的修改
 	}
 
 	@Override
 	public final void zd(SessionBean sessionBean) {
-		zdryService.zd(sessionBean);
+		//转递不涉及子表的修改
 	}
 
 	@Override
 	public final void zdSuccess(SessionBean sessionBean) {
-		zdryService.zdSuccess(sessionBean);
+		//转递不涉及子表的修改
 	}
 
 	@Override
 	public final void zdFail(SessionBean sessionBean) {
-		zdryService.zdFail(sessionBean);
+		//转递不涉及子表的修改
 	}
 	
 	/**

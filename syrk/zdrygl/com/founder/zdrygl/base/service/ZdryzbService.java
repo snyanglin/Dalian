@@ -118,8 +118,19 @@ public class ZdryzbService implements ZdryService {
 
 	@Override
 	public void zd(SessionBean sessionBean) {
-		zdryzb.setGlzt(ZdryConstant.ZDSQ);
-		updateZdry(sessionBean,zdryzb);
+		ZdryZb entity = new ZdryZb();
+		entity.setId(zdryzb.getId());
+		entity.setGlzt(ZdryConstant.ZDSQ);
+		entity.setGlbm(zdryzb.getGlbm());	
+		entity.setJzd_dzid(zdryzb.getJzd_dzid());
+		entity.setJzd_dzxz(zdryzb.getJzd_dzxz());
+		entity.setJzd_mlpdm(zdryzb.getJzd_mlpdm());
+		entity.setJzd_mlpxz(zdryzb.getJzd_mlpxz());
+		entity.setJzd_xzqhdm(zdryzb.getJzd_xzqhdm());
+		entity.setJzd_zbx(zdryzb.getJzd_zbx());
+		entity.setJzd_zby(zdryzb.getJzd_zby());
+		
+		updateZdry(sessionBean,entity);
 	}
 
 	@Override

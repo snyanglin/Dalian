@@ -20,30 +20,70 @@ import com.founder.zdrygl.core.model.Zdry;
  */
 public interface ZdryService {
 
+	/**
+	 * 
+	 * @Title: lg
+	 * @Description: TODO(重点人员列管)
+	 * @param @param sessionBean    设定文件
+	 * @return void    返回类型
+	 * @throw
+	 */
 	public void lg(SessionBean sessionBean);
 
 	public void lgSuccess(SessionBean sessionBean);
 	
 	public void lgFail(SessionBean sessionBean);
 
+	/**
+	 * 
+	 * @Title: cg
+	 * @Description: TODO(重点人员撤管)
+	 * @param @param sessionBean    设定文件
+	 * @return void    返回类型
+	 * @throw
+	 */
 	public void cg(SessionBean sessionBean);
 	
 	public void cgSuccess(SessionBean sessionBean);
 	
 	public void cgFail(SessionBean sessionBean);
 	
+	/**
+	 * 
+	 * @Title: zl
+	 * @Description: TODO(重点人员转类)
+	 * @param @param sessionBean    设定文件
+	 * @return void    返回类型
+	 * @throw
+	 */
 	public void zl(SessionBean sessionBean);
 	
 	public void zlSuccess(SessionBean sessionBean);
 	
 	public void zlFail(SessionBean sessionBean);
 	
+	/**
+	 * 
+	 * @Title: zd
+	 * @Description: TODO(重点人员转递)
+	 * @param @param sessionBean    设定文件
+	 * @return void    返回类型
+	 * @throw
+	 */
 	public void zd(SessionBean sessionBean);
 	
 	public void zdSuccess(SessionBean sessionBean);
 	
 	public void zdFail(SessionBean sessionBean);
 		
+	/**
+	 * 
+	 * @Title: update
+	 * @Description: TODO(重点人员修改)
+	 * @param @param sessionBean    设定文件
+	 * @return void    返回类型
+	 * @throw
+	 */
 	public void update(SessionBean sessionBean);
 	
 	public void setZdry(Zdry entity);
@@ -75,6 +115,14 @@ public interface ZdryService {
 	
 	public Zdry getZdry();
 	
+	/**
+	 * 
+	 * @Title: getZdryId
+	 * @Description: TODO(获取重点人员总表的ID)
+	 * @param @return    设定文件
+	 * @return String    返回类型
+	 * @throw
+	 */
 	public String getZdryId();
 	
 	/**
