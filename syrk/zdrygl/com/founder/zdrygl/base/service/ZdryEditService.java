@@ -17,6 +17,7 @@ import com.founder.service.attachment.bean.ZpfjFjxxb;
 import com.founder.service.attachment.dao.ZpfjFjxxbDao;
 import com.founder.zdrygl.base.dao.ZdryEditDao;
 import com.founder.zdrygl.base.dao.ZdryFzcsfryxxbDao;
+import com.founder.zdrygl.base.dao.ZdryPsjdbDao;
 import com.founder.zdrygl.base.dao.ZdrySgafzdryxxbDao;
 import com.founder.zdrygl.base.dao.ZdryShbzdryxxbDao;
 import com.founder.zdrygl.base.dao.ZdrySqjzryxxbDao;
@@ -81,9 +82,10 @@ public class ZdryEditService extends BaseService {
 	private ZdryJkbjllxxbDao zdryJkbjllxxbDao;
 	@Resource(name = "zdryJgdxqxjdjbDao")
 	private ZdryJgdxqxjdjbDao zdryJgdxqxjdjbDao;
+	*/
 	@Resource(name = "zdryPsjdbDao")
 	private ZdryPsjdbDao zdryPsjdbDao;
-	*/
+	
 	/**
 	 * 
 	 * @Title: queryYwglgn
@@ -288,10 +290,10 @@ public class ZdryEditService extends BaseService {
 		return zdryJgdxqxjdjbDao.queryViewList(map);
 	}
 	
-	
+	*/	
 	public List psjdb_query(Map<String, Object> map){
 		map.put("maxNum", "10");
 		return zdryPsjdbDao.queryViewList(map);
 	}
-			*/		
+				
 }
