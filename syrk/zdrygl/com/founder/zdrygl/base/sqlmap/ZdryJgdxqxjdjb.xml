@@ -71,7 +71,7 @@
 	
 	<!-- 查询未销假数 -->
 	<select id="queryWxjNum" parameterClass="String" resultClass="Integer">
-		<![CDATA[ select count(*) from ZDRY_JGDXQXJDJB t where XT_ZXBZ = '0' and XJRQ is null and SPJG='1' and ZDRYID = #zdryId# ]]>		
+		<![CDATA[ select count(*) from ZDRY_JGDXQXJDJB t where XT_ZXBZ = '0' and XJRQ is null and  (SPJG='1' or SPJG is null)  and ZDRYID = #zdryId# ]]>		
 	</select>
 
 </sqlMap>
