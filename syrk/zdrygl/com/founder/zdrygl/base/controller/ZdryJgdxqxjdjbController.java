@@ -16,9 +16,6 @@ import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 
-import com.founder.framework.organization.department.service.OrgOrganizationService;
-import com.founder.framework.organization.position.service.OrgPositionService;
-import com.founder.workflow.service.inteface.JProcessDefinitionService;
 import com.founder.zdrygl.base.model.ZdryJgdxqxjdjb;
 import com.founder.zdrygl.base.service.ZdryJgdxqxjdjbService;
 import com.google.gson.Gson;
@@ -31,15 +28,7 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 
 	@Resource(name = "zdryJgdxqxjdjbService")
 	private ZdryJgdxqxjdjbService zdryJgdxqxjdjbService;
-
-	@Resource(name = "orgOrganizationService")
-	private OrgOrganizationService orgOrganizationService;
 	
-	@Resource(name = "orgPositionService")
-	private OrgPositionService orgPositionService;
-	
-	@Autowired
-	private JProcessDefinitionService processDefinitionService;
 	
 	/**
 	 * 
