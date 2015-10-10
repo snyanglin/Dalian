@@ -1,16 +1,19 @@
 package com.founder.framework.newmain.controller;
 
-import jxl.common.Logger;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.organization.right.service.OrgRightPublic;
-import com.founder.zafffwqz.bean.Jhyxswjbxxb;
+
+import jxl.common.Logger;
 @Controller
 @RequestMapping("/newmain")
 public class newmain extends BaseController {
@@ -19,7 +22,6 @@ public class newmain extends BaseController {
 	public ModelAndView addOrEditjhyxswjbxxb(){
 		SessionBean sessionBean = getSessionBean();
 		String userid = sessionBean.getUserId();
-		String systemcodes = sessionBean.getUserOrgCode();
 		
 		OrgRightPublic orgRightPublic = new OrgRightPublic();
 		Object json = orgRightPublic.getUserMenuJson(userid,"dhxt",false);
@@ -29,4 +31,11 @@ public class newmain extends BaseController {
 		
 	}
 	
+	@RequestMapping(value = "/checkSubSystemUsable", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,String> checkSubSystemUsable(){
+	    Map<String,String> map=new HashMap<String,String>();
+	    map.put("status", "300");
+		return map;
+	}
 }
