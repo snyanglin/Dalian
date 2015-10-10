@@ -35,7 +35,7 @@ public class newmain extends BaseController {
 	@ResponseBody
 	public Map<String,String> checkSubSystemUsable(){
 	    Map<String,String> map=new HashMap<String,String>();
-	    map.put("status", "300");
+	    map.put("status", "200");
 		return map;
 	}
 }
