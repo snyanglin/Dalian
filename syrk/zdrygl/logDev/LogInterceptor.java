@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.beanutils.MethodUtils;
@@ -66,9 +67,8 @@ public class LogInterceptor {
 
 	private Map<Integer, Object> jpContainer = new HashMap<Integer, Object>();
 
-	@Autowired
-	@Qualifier("operationLogService")
-	private OperationLogService operationLogService;	
+	@Resource(name = "operationLogServiceDev")
+	private OperationLogServiceDev operationLogService;	
 	
 	/**
 	 * 
