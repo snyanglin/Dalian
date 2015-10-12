@@ -1,7 +1,9 @@
 package com.founder.zdrygl.base.service;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.Resource;
 
 import logDev.ParaAnnotation;
 
@@ -20,6 +22,7 @@ import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrycg;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.inteface.ZdryglMessageService;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 /**
@@ -50,6 +53,9 @@ public class ZdryzbService implements ZdryService {
 	
 	@Autowired
 	private ZdryZdryZbDao zdryZdryZbDao;
+	
+	@Resource(name="zdryglMessageService")
+	private ZdryglMessageService zdryglMessageService;
 
 	@MethodAnnotation(value = "列管", type = logType.insert)
 	@Override
@@ -108,9 +114,22 @@ public class ZdryzbService implements ZdryService {
 
 	@MethodAnnotation(value = "转类", type = logType.update)
 	@Override	
-	public void zl(SessionBean sessionBean) {
-		zdryzb.setGlzt(ZdryConstant.ZLSQ);
-		updateZdry(sessionBean,zdryzb);
+	public void zl(SessionBean sessionBean) {		
+		//查询原有信息，发送消息的时候需要
+		ZdryZb old = (ZdryZb) zdryZdryZbDao.queryById(zdryzb.getId());
+		old.setGlzt(ZdryConstant.ZLSQ);
+		old.setZdrylb(zdryzb.getZdrylb());		
+		updateZdry(sessionBean,old);
+		
+		//通过规则引擎获取消息
+		Map<String, String> paraMap = new HashMap<String, String>();
+		 paraMap.put("zdryXm",old.getXm());
+		 paraMap.put("zdrylx","涉公安访");
+		 paraMap.put("fsrUserCode",sessionBean.getUserId());
+		 paraMap.put("fsrOrgCode",sessionBean.getUserOrgCode());
+		Map<String, Object> map = zdryglMessageService.getTitleAndContents("LGSQ", paraMap);
+		System.out.println("===============title : "+map.get("title"));
+		System.out.println("============contents : "+map.get("contents"));
 	}
 
 	@Override

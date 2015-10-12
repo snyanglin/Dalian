@@ -1,0 +1,132 @@
+//重点人员列管成功规则文件
+package com.founder.zdryGl.lg;
+
+//此处引入java对象
+import java.lang.String;
+import com.founder.zdrygl.base.model.ZdryGlMessageBean;
+
+//全局编码的声明
+global com.founder.zdrygl.base.dao.ZdryZdryZbDao zdryZdryZbDao;
+
+//global com.founder.framework.organization.user.service.OrgUserService orgUserService;
+//global com.founder.framework.organization.department.service.OrgOrganizationService orgOrganizationService;
+
+//列管申请
+rule "LGSQ"
+	activation-group "title_contents"
+    when 
+       	mess:ZdryGlMessageBean(xxlx == 'LGSQ',$paraMap:paraMap);
+    then
+    	//消息标题
+        mess.addResultMapValue("title","重口人员列管申请");
+        
+        //构建消息体
+        String zdryXm=(String) $paraMap.get("zdryXm");
+		String zdrylx=(String) $paraMap.get("zdrylx");
+		String fsrOrgCode = (String) $paraMap.get("fsrOrgCode");
+		String fsrUserCode = (String) $paraMap.get("fsrUserCode");
+		String contents = zdryZdryZbDao.getOrganizationNameByOrgCode(fsrOrgCode) 
+						+ " " + zdryZdryZbDao.getOrgUserNameByUserId(fsrUserCode)
+						+ "民警"	+ zdrylx + zdryXm + "的列管申请，请审批";
+		mess.addResultMapValue("contents",contents);
+end
+
+
+rule "LGSPJG"
+	activation-group "title_contents"
+    when 
+       	//mess:ZdryGlMessageBean(xxlx == "LGSPJG",$paraMap:paraMap);
+       	mess:ZdryGlMessageBean(xxlx == "LGSPJG");
+    then
+        mess.addResultMapValue("title","重点人员列管审批结果");
+        mess.addResultMapValue("contents","重点人员列管审批结果");
+end
+
+
+rule "CGSQ"
+	activation-group "title_contents"
+    when 
+       	mess:ZdryGlMessageBean(xxlx == "CGSQ");
+    then
+		mess.addResultMapValue("title","重点人员撤管申请");
+        
+        //String zdryXm=(String) $paraMap.get("zdryXm");
+		//String zdrylx=(String) $paraMap.get("zdrylx");
+		//String fsrUserCode=(String) $paraMap.get("fsrUserCode");
+		//String fsrOrgCode=(String) $paraMap.get("fsrOrgCode");
+		//xxinfo = zdryZdryZbDao.getCgsqXxnr(zdryXm,zdrylx,fsrUserCode,fsrOrgCode);
+        
+        mess.addResultMapValue("contents","重点人员列管审批结果");
+end
+
+
+rule "CGSPJG"
+	activation-group "title_contents"
+    when 
+       	mess:ZdryGlMessageBean(xxlx == "CGSPJG");
+    then
+        mess.addResultMapValue("title","重点人员撤管审批结果");
+        mess.addResultMapValue("contents","重点人员撤管审批结果");
+end
+
+
+rule "ZDSQ"
+	activation-group "title_contents"
+    when 
+       	mess:ZdryGlMessageBean(xxlx == "ZDSQ");
+    then
+        mess.addResultMapValue("title","点人员转递申请");
+        mess.addResultMapValue("contents","点人员转递申请");
+end
+
+
+rule "JSZD"
+	activation-group "title_contents"
+    when 
+       	mess:ZdryGlMessageBean(xxlx == "JSZD");
+    then
+        mess.addResultMapValue("title","重点人员转递接收");
+        mess.addResultMapValue("contents","重点人员转递接收");
+end
+
+
+rule "BJSZD"
+	activation-group "title_contents"
+    when 
+       	mess:ZdryGlMessageBean(xxlx == "BJSZD");
+    then
+        mess.addResultMapValue("title","重点人员拒拒绝接收转递");
+        mess.addResultMapValue("contents","重点人员拒绝接收转递");
+end
+
+
+rule "SJCDJG"
+	activation-group "title_contents"
+    when 
+       	mess:ZdryGlMessageBean(xxlx == "SJCDJG");
+    then
+        mess.addResultMapValue("title","重点人员转递裁定");
+   		mess.addResultMapValue("contents","重点人员转递裁定");
+end
+
+
+rule "ZLSQ"
+	activation-group "title_contents"
+    when 
+       	mess:ZdryGlMessageBean(xxlx == "ZLSQ");
+    then
+        mess.addResultMapValue("title","重点人员转类申请");
+        mess.addResultMapValue("contents","重点人员转类申请");
+end
+
+
+rule "ZLSPJG"
+	activation-group "title_contents"
+    when 
+       	mess:ZdryGlMessageBean(xxlx == "ZLSPJG");
+    then
+        mess.addResultMapValue("title","重点人员转类审批结果");
+        mess.addResultMapValue("contents","重点人员转类审批结果");
+end
+
+
