@@ -141,9 +141,12 @@ public class OperationLogServiceDevImpl implements OperationLogServiceDev {
 		//1、按操作成功失败统计：OPERATE_RESULT  0=失败  1=成功
 		countByResult(list,startDate,endDate);
 		//2、按操作类型统计：OPERATE_TYPE   1=查询 2=新增  3=修改 4=注销
+		countByType(list,startDate,endDate);
 		//3、按模块名称统计：MODNAME
-		//4、按单位统计：ORGAMIZATION
-
+		countByMod(list,startDate,endDate);
+		//4、按单位统计：ORGANIZATION
+		countByOrg(list,startDate,endDate);
+		
 		return list;
 	}
 	
@@ -160,32 +163,172 @@ public class OperationLogServiceDevImpl implements OperationLogServiceDev {
 	private void countByResult(List list,String startDate,String endDate){
 		//OPERATE_RESULT的值列表，一般是0和1
 		List resultList=operationLogDao.queryListByColName("OPERATE_RESULT");
-		Map map=new HashMap();
-		map.put("key", "ops.results");
-		map.put("value", resultList);
-		map.put("value_type", "json");
-		list.add(map);
-		if(resultList!=null){
-			String result;
+		
+		if(resultList!=null && resultList.size()>0){
+			String result,resName;
 			for(int i=0;i<resultList.size();i++){
-				result=resultList.get(i).toString();
+				result=(String) resultList.get(i);
+				if(result==null){
+					resultList.remove(i);
+					i--;
+					continue;
+				}
+				
 				
 				//查询所有OPERATE_RESULT=result的数量
+				if(result.equals("0"))
+					resName="failure";
+				else if(result.equals("1"))
+					resName="success";
+				else
+					resName="other";
 				Map resMap=new HashMap();
-				resMap.put("key", "ops.results."+result+".total_count");
+				resMap.put("key", "ops.results."+resName+".total_count");
 				resMap.put("value", operationLogDao.countByColAndVale("OPERATE_RESULT",result,null,null));
 				resMap.put("value_type", "integer");
-				resMap.put("result", String.valueOf(result));
+				resMap.put("result", result);
 				list.add(resMap);
 				
 				//查询最近一分钟OPERATE_RESULT=result的数量
 				Map resMap2=new HashMap();
-				resMap2.put("key", "ops.results."+result+".count");
+				resMap2.put("key", "ops.results."+resName+".count");
 				resMap2.put("value", operationLogDao.countByColAndVale("OPERATE_RESULT",result,startDate,endDate));
 				resMap2.put("value_type", "integer");
-				resMap2.put("result", String.valueOf(result));
+				resMap2.put("result", result);
 				list.add(resMap2);
 			}
+			
+			Map map=new HashMap();
+			map.put("key", "ops.results");
+			map.put("value", resultList);
+			map.put("value_type", "json");
+			list.add(map);
+		}
+	}
+	
+	private void countByType(List list,String startDate,String endDate){
+		//按操作类型统计：OPERATE_TYPE   1=查询 2=新增  3=修改 4=注销
+		List typeList=operationLogDao.queryListByColName("OPERATE_TYPE");
+		
+		if(typeList!=null  && typeList.size()>0){
+			String type,typeName;
+			for(int i=0;i<typeList.size();i++){
+				type=(String) typeList.get(i);
+				if(type==null){
+					typeList.remove(i);
+					i--;
+					continue;
+				}
+				
+				if(type.equals("1"))
+					typeName="query";
+				else if(type.equals("2"))
+					typeName="new";
+				else if(type.equals("3"))
+					typeName="update";
+				else if(type.equals("4"))
+					typeName="delete";
+				else
+					typeName="other";
+				
+				//查询所有OPERATE_TYPE=type的数量
+				Map resMap=new HashMap();
+				resMap.put("key", "ops.results."+typeName+".total_count");
+				resMap.put("value", operationLogDao.countByColAndVale("OPERATE_TYPE",type,null,null));
+				resMap.put("value_type", "integer");
+				resMap.put("result", type);
+				list.add(resMap);
+				
+				//查询最近一分钟OPERATE_TYPE=type的数量
+				Map resMap2=new HashMap();
+				resMap2.put("key", "ops.results."+typeName+".count");
+				resMap2.put("value", operationLogDao.countByColAndVale("OPERATE_TYPE",type,startDate,endDate));
+				resMap2.put("value_type", "integer");
+				resMap2.put("result", type);
+				list.add(resMap2);
+			}
+			
+			Map map=new HashMap();
+			map.put("key", "ops.types");
+			map.put("value", typeList);
+			map.put("value_type", "json");
+			list.add(map);
+		}
+	}
+	
+	private void countByMod(List list,String startDate,String endDate){
+		//3、按模块名称统计：MODNAME
+		List modList=operationLogDao.queryListByColName("MODNAME");		
+		if(modList!=null && modList.size()>0){
+			String mod;
+			for(int i=0;i<modList.size();i++){
+				mod=(String) modList.get(i);				
+				if(mod==null){
+					modList.remove(i);
+					i--;
+					continue;
+				}
+				
+				//查询所有MODNAME=mod的数量
+				Map resMap=new HashMap();
+				resMap.put("key", "ops.mods."+mod+".total_count");
+				resMap.put("value", operationLogDao.countByColAndVale("MODNAME",mod,null,null));
+				resMap.put("value_type", "integer");
+				resMap.put("mod", mod);
+				list.add(resMap);
+				
+				//查询最近一分钟MODNAME=mod的数量
+				Map resMap2=new HashMap();
+				resMap2.put("key", "ops.mods."+mod+".count");
+				resMap2.put("value", operationLogDao.countByColAndVale("MODNAME",mod,startDate,endDate));
+				resMap2.put("value_type", "integer");
+				resMap2.put("mod", mod);
+				list.add(resMap2);
+			}
+			
+			Map map=new HashMap();
+			map.put("key", "ops.mods");
+			map.put("value", modList);
+			map.put("value_type", "json");
+			list.add(map);
+		}
+	}
+	
+	private void countByOrg(List list,String startDate,String endDate){
+		//按单位统计：ORGANIZATION
+		List orgList=operationLogDao.queryListByColName("ORGANIZATION");
+		
+		if(orgList!=null && orgList.size()>0){
+			String org;
+			for(int i=0;i<orgList.size();i++){
+				org=(String) orgList.get(i);				
+				if(org==null){
+					orgList.remove(i);
+					i--;
+					continue;
+				}
+				//查询所有ORGANIZATION=org的数量
+				Map resMap=new HashMap();
+				resMap.put("key", "ops.orgs."+org+".total_count");
+				resMap.put("value", operationLogDao.countByColAndVale("ORGANIZATION",org,null,null));
+				resMap.put("value_type", "integer");
+				resMap.put("org", org);
+				list.add(resMap);
+				
+				//查询最近一分钟ORGANIZATION=org的数量
+				Map resMap2=new HashMap();
+				resMap2.put("key", "ops.orgs."+org+".count");
+				resMap2.put("value", operationLogDao.countByColAndVale("ORGANIZATION",org,startDate,endDate));
+				resMap2.put("value_type", "integer");
+				resMap2.put("org", org);
+				list.add(resMap2);
+			}
+			
+			Map map=new HashMap();
+			map.put("key", "ops.orgs");
+			map.put("value", orgList);
+			map.put("value_type", "json");
+			list.add(map);
 		}
 	}
 }
