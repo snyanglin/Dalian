@@ -1,12 +1,19 @@
 package com.founder.zdrygl.base.service;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.Resource;
+
+import logDev.ParaAnnotation;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
+import com.founder.framework.annotation.MethodAnnotation;
+import com.founder.framework.annotation.TypeAnnotation;
+import com.founder.framework.annotation.MethodAnnotation.logType;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
 import com.founder.framework.utils.UUID;
@@ -15,6 +22,7 @@ import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrycg;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.inteface.ZdryglMessageService;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 /**
@@ -29,12 +37,13 @@ import com.founder.zdrygl.core.utils.ZdryConstant;
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
-
+@TypeAnnotation("重点人员管理")
 public class ZdryzbService implements ZdryService {
 	
 	/**
-	 * 重点人员总表
+	 * 重点人员总表对象，需要存日志表，必须是public或者指定获取方法getZdry
 	 */
+	@ParaAnnotation("getZdry")
 	private ZdryZb zdryzb;
 	
 	/**
@@ -44,7 +53,11 @@ public class ZdryzbService implements ZdryService {
 	
 	@Autowired
 	private ZdryZdryZbDao zdryZdryZbDao;
+	
+	@Resource(name="zdryglMessageService")
+	private ZdryglMessageService zdryglMessageService;
 
+	@MethodAnnotation(value = "列管", type = logType.insert)
 	@Override
 	public void lg(SessionBean sessionBean) {
 		zdryzb.setId(UUID.create());
@@ -65,6 +78,7 @@ public class ZdryzbService implements ZdryService {
 		deleteZdry(sessionBean,zdryzb);
 	}
 
+	@MethodAnnotation(value = "撤管", type = logType.update)
 	@Override
 	public void cg(SessionBean sessionBean) {
 		ZdryZb entity = new ZdryZb();
@@ -98,10 +112,24 @@ public class ZdryzbService implements ZdryService {
 		}
 	}
 
-	@Override
-	public void zl(SessionBean sessionBean) {
-		zdryzb.setGlzt(ZdryConstant.ZLSQ);
-		updateZdry(sessionBean,zdryzb);
+	@MethodAnnotation(value = "转类", type = logType.update)
+	@Override	
+	public void zl(SessionBean sessionBean) {		
+		//查询原有信息，发送消息的时候需要
+		ZdryZb old = (ZdryZb) zdryZdryZbDao.queryById(zdryzb.getId());
+		old.setGlzt(ZdryConstant.ZLSQ);
+		old.setZdrylb(zdryzb.getZdrylb());		
+		updateZdry(sessionBean,old);
+		
+		//通过规则引擎获取消息
+		Map<String, String> paraMap = new HashMap<String, String>();
+		 paraMap.put("zdryXm",old.getXm());
+		 paraMap.put("zdrylx","涉公安访");
+		 paraMap.put("fsrUserCode",sessionBean.getUserId());
+		 paraMap.put("fsrOrgCode",sessionBean.getUserOrgCode());
+		Map<String, Object> map = zdryglMessageService.getTitleAndContents("LGSQ", paraMap);
+		System.out.println("===============title : "+map.get("title"));
+		System.out.println("============contents : "+map.get("contents"));
 	}
 
 	@Override
@@ -116,6 +144,7 @@ public class ZdryzbService implements ZdryService {
 		updateZdry(sessionBean,zdryzb);
 	}
 
+	@MethodAnnotation(value = "转递", type = logType.update)
 	@Override
 	public void zd(SessionBean sessionBean) {
 		ZdryZb entity = new ZdryZb();
@@ -153,6 +182,7 @@ public class ZdryzbService implements ZdryService {
 	 * @return void    返回类型
 	 * @throw
 	 */
+	@MethodAnnotation(value = "修改", type = logType.update)
 	@Override
 	public final void update(SessionBean sessionBean) {
 		//总表还不确定要修改	

@@ -4,9 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
+import com.founder.framework.organization.department.bean.OrgOrganization;
+import com.founder.framework.organization.department.service.OrgOrganizationService;
+import com.founder.framework.organization.user.bean.OrgUser;
+import com.founder.framework.organization.user.service.OrgUserService;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
 import com.founder.zdrygl.base.model.ZdryZb;
@@ -15,6 +21,12 @@ import com.founder.zdrygl.core.model.Zdry;
 
 @Repository("ZdryZdryZbDao")
 public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
+	
+	@Resource(name = "orgUserService")
+	private OrgUserService orgUserService;
+	
+	@Resource(name = "orgOrganizationService")
+	private OrgOrganizationService orgOrganizationService;
 
 	private Map<String,Object> convertToMap(Zdry entity){
 		ZdryZb zdryZb = (ZdryZb)entity;
@@ -148,5 +160,47 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 		page.setRows(queryForList("ZdryZdryzb.getQeryList", map));
 		return page;
 	}		
+	
+	/**
+	 * 
+	 * @Title: getOrganizationNameByOrgCode
+	 * @Description: TODO(获取部门名称，规则引擎中使用)
+	 * @param @param orgCode
+	 * @param @return    设定文件
+	 * @return String    返回类型
+	 * @throw
+	 */
+	public String getOrganizationNameByOrgCode(String orgCode) {
+		OrgOrganization fsrOrg = this.getOrganizationByOrgCode(orgCode);
+		if(fsrOrg != null){
+			return fsrOrg.getOrgname();
+		}
+		return null;
+	}
+	
+	public OrgOrganization getOrganizationByOrgCode(String orgCode) {
+		return orgOrganizationService.queryByOrgcode(orgCode);
+	}
 
+	/**
+	 * 
+	 * @Title: getOrgUserNameByUserId
+	 * @Description: TODO(获取用户名，规则引擎中使用)
+	 * @param @param userId
+	 * @param @return    设定文件
+	 * @return String    返回类型
+	 * @throw
+	 */
+	public String getOrgUserNameByUserId(String userId) {
+		
+		OrgUser fsr = this.getOrgUserByUserId(userId);
+		if(fsr != null){
+			return fsr.getUsername();
+		}
+		return null;
+	}
+	
+	public OrgUser getOrgUserByUserId(String userId) {
+		return orgUserService.queryByUserid(userId);
+	}
 }
