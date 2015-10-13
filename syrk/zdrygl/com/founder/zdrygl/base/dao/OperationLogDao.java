@@ -74,4 +74,30 @@ public class OperationLogDao extends BaseDaoImpl {
 		map.put("endDate", endDate);
 		return (int) queryForObject("OpeLogDev.countByType", map);
 	}
+	
+	/**
+	 * 
+	 * @Title: queryListByColName
+	 * @Description: TODO(查询某一列的所有不重复的值)
+	 * @param @param colName
+	 * @param @return    设定文件
+	 * @return List    返回类型
+	 * @throw
+	 */
+	public List queryListByColName(String colName){
+		return queryForList("OpeLogDev.queryListByColName",colName);
+	}
+	
+	public int countByColAndVale(String colName,String value,String startDate,String endDate){
+		Map map=new HashMap();
+		map.put("colName", colName);
+		map.put("value", value);
+		if(startDate!=null){
+			map.put("startDate", startDate);
+		}
+		if(endDate!=null){
+			map.put("endDate", endDate);
+		}
+		return (int) queryForObject("OpeLogDev.countByColAndVale", map);
+	}
 }

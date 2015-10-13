@@ -48,4 +48,14 @@
 		<isNotEmpty prepend="and" property="startDate"><![CDATA[ OPERATE_TIME >= #startDate# ]]></isNotEmpty>
 		<isNotEmpty prepend="and" property="endDate"><![CDATA[ OPERATE_TIME < #endDate# ]]></isNotEmpty>
 	</select>
+	
+	<select id="queryListByColName" parameterClass="String" resultClass="java.lang.String" remapResults="true">
+		select distinct $colName$ from log_info
+	</select>
+	
+	<select id="countByColAndVale" parameterClass="Map" resultClass="java.lang.Integer" remapResults="true">
+		<![CDATA[ select count(*) from LOG_INFO where $colName$ = #value# ]]>
+		<isNotEmpty prepend="and" property="startDate"><![CDATA[ OPERATE_TIME >= #startDate# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="endDate"><![CDATA[ OPERATE_TIME < #endDate# ]]></isNotEmpty>
+	</select>
 </sqlMap>

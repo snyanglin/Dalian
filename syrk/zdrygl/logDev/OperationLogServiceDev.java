@@ -55,4 +55,6 @@ public abstract interface OperationLogServiceDev {
 	 * @throw
 	 */
 	public abstract int countOperationLogByType(String operate_type,String startDate,String endDate);
+	
+	public abstract List countTrs();
 }

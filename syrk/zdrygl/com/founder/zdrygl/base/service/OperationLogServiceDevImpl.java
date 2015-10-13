@@ -8,8 +8,12 @@ import com.founder.framework.entity.ServiceRestLog;
 import com.founder.framework.utils.DateTimeHelper;
 import com.founder.framework.utils.UUID;
 import com.founder.zdrygl.base.dao.OperationLogDao;
+import com.sun.org.apache.xalan.internal.xsltc.trax.Util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -126,5 +130,62 @@ public class OperationLogServiceDevImpl implements OperationLogServiceDev {
 	 */
 	public int countOperationLogByType(String operate_type,String startDate,String endDate){
 		return operationLogDao.countByType(operate_type, startDate, endDate);
+	}
+	
+	public List countTrs(){		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		Date date=new Date();
+		String endDate=sdf.format(date);
+		String startDate=sdf.format(DateTimeHelper.addSeconds(date,-60));
+		List list=new LinkedList();
+		//1、按操作成功失败统计：OPERATE_RESULT  0=失败  1=成功
+		countByResult(list,startDate,endDate);
+		//2、按操作类型统计：OPERATE_TYPE   1=查询 2=新增  3=修改 4=注销
+		//3、按模块名称统计：MODNAME
+		//4、按单位统计：ORGAMIZATION
+
+		return list;
+	}
+	
+	/**
+	 * 
+	 * @Title: countByResult
+	 * @Description: TODO(按操作成功失败统计)
+	 * @param @param list
+	 * @param @param startDate 
+	 * @param @param endDate    设定文件
+	 * @return void    返回类型
+	 * @throw
+	 */
+	private void countByResult(List list,String startDate,String endDate){
+		//OPERATE_RESULT的值列表，一般是0和1
+		List resultList=operationLogDao.queryListByColName("OPERATE_RESULT");
+		Map map=new HashMap();
+		map.put("key", "ops.results");
+		map.put("value", resultList);
+		map.put("value_type", "json");
+		list.add(map);
+		if(resultList!=null){
+			String result;
+			for(int i=0;i<resultList.size();i++){
+				result=resultList.get(i).toString();
+				
+				//查询所有OPERATE_RESULT=result的数量
+				Map resMap=new HashMap();
+				resMap.put("key", "ops.results."+result+".total_count");
+				resMap.put("value", operationLogDao.countByColAndVale("OPERATE_RESULT",result,null,null));
+				resMap.put("value_type", "integer");
+				resMap.put("result", String.valueOf(result));
+				list.add(resMap);
+				
+				//查询最近一分钟OPERATE_RESULT=result的数量
+				Map resMap2=new HashMap();
+				resMap2.put("key", "ops.results."+result+".count");
+				resMap2.put("value", operationLogDao.countByColAndVale("OPERATE_RESULT",result,startDate,endDate));
+				resMap2.put("value_type", "integer");
+				resMap2.put("result", String.valueOf(result));
+				list.add(resMap2);
+			}
+		}
 	}
 }
