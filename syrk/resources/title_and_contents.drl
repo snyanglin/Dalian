@@ -1,5 +1,5 @@
 //重点人员列管成功规则文件
-package com.founder.zdryGl.lg;
+package com.founder.zdrygl.messgae;
 
 //此处引入java对象
 import java.lang.String;
