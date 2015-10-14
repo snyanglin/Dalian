@@ -68,9 +68,23 @@ function editMsgStar(xxid){
        }
     });
 }
-function openTabPage(menuName, openURL) {
-	menu_open(menuName, openURL);
-	window.parent.$('#' + windowID).window('close');
+function openTabPage(url) {
+	var editUrl = contextPath + '/forward/ldym|czrkrhfl';
+	var editUrl = editUrl + (editUrl.indexOf('?') != -1 ? '&' : '?');
+   	window.top.openWindow(false, 'xtrwclWindow', editUrl, {document: document}, {title: '协同任务处理',    
+	    width: 880,   
+	    height: 420,  
+		collapsible: false, 
+		minimizable: false, 
+		maximizable: false,
+		closable: true,
+	    closed: false,    
+	    cache: false,
+	    inline: false,
+		resizable: false, 
+	    modal: true
+	    }
+   	);
 }
 
 function openWindow(xxbt, ywurl) {
@@ -115,10 +129,10 @@ function  openMenuWindow (menuTitle,ywurl){
                             <c:if test="${o.xxlb ==2 }" >
                             	<c:choose>
                             		<c:when test="${o.dkfs == 1}">
-                            			<td width="73%" class="messageContentTd1"><a href="#" title="${o.xxbt }" onclick="openTabPage('${o.xxbt}', '${o.ywurl}')" style="line-height: 25px"><font color="#009900">[${o.xxbt}]</font>&nbsp;${o.xxnr }</a></td>
+                            			<td width="65%" class="messageContentTd1"><a href="#" title="${o.xxbt }" onclick="openTabPage('${o.ywurl }')" style="line-height: 25px"><font color="#009900">[${o.xxbt}]</font>&nbsp;${o.xxnr }</a></td>
                             		</c:when>
                             		<c:otherwise>
-                            			<td width="73%" class="messageContentTd1"><a href="#" title="${o.xxbt }" onclick="ywxtgzrwb('${o.ywurl }')" style="line-height: 25px"><font color="#009900">[${o.xxbt}]</font>&nbsp;${o.xxnr }</a></td>
+                            			<td width="65%" class="messageContentTd1"><a href="#" title="${o.xxbt }" onclick="ywxtgzrwb('${o.ywurl }')" style="line-height: 25px"><font color="#009900">[${o.xxbt}]</font>&nbsp;${o.xxnr }</a></td>
                             		</c:otherwise>
                             	</c:choose>
                             </c:if>
@@ -126,48 +140,21 @@ function  openMenuWindow (menuTitle,ywurl){
                             <c:if test="${o.xxlb ==5 }" >
                             	<c:choose>
                             		<c:when test="${o.dkfs == 1}">
-                            			<td width="73%" class="messageContentTd1"><a href="#" title="${o.xxbt }" onclick="openTabPage('${o.xxbt}', '${o.ywurl}')" style="line-height: 25px"><font color="#009900">[${o.xxbt}]</font>&nbsp;${o.xxnr }</a></td>
+                            			<td width="65%" class="messageContentTd1"><a href="#" title="${o.xxbt }" onclick="openTabPage('${o.xxbt}', '${o.ywurl}')" style="line-height: 25px"><font color="#009900">[${o.xxbt}]</font>&nbsp;${o.xxnr }</a></td>
                             		</c:when>
                             		<c:otherwise>
-		                            	<td width="73%" class="messageContentTd1"><a href="#" title="${o.xxbt }" onclick="openWindow('${o.xxbt }', '${o.ywurl }')" style="line-height: 25px"><font color="#009900">[${o.xxbt }]</font>&nbsp;${o.xxnr }</a></td>
+		                            	<td width="65%" class="messageContentTd1"><a href="#" title="${o.xxbt }" onclick="openWindow('${o.xxbt }', '${o.ywurl }')" style="line-height: 25px"><font color="#009900">[${o.xxbt }]</font>&nbsp;${o.xxnr }</a></td>
                             		</c:otherwise>
                             	</c:choose>
                             </c:if>
                               <!-- 6:打开menu页面 -->
                             <c:if test="${o.xxlb ==6 }" >
-		                            	<td width="73%" class="messageContentTd1"><a href="#" title="${o.xxbt }" onclick="openMenuWindow('${o.xxbt }', '${o.ywurl }')" style="line-height: 25px"><font color="#009900">[${o.xxbt }]</font>&nbsp;${o.xxnr }</a></td>
+		                            	<td width="65%" class="messageContentTd1"><a href="#" title="${o.xxbt }" onclick="openMenuWindow('${o.xxbt }', '${o.ywurl }')" style="line-height: 25px"><font color="#009900">[${o.xxbt }]</font>&nbsp;${o.xxnr }</a></td>
                             </c:if>
-                            <td width="22%" class="messageContentTd1" >&nbsp;${o.fssj }</td>
+                            <td width="35%" class="messageContentTd1" >&nbsp;${o.fssj }</td>
 		                </c:if>
 		                
-		                <!-- 1:已读 -->
-		                 <c:if test="${o.sfck ==1 }" >
-		                    <td width="5%"><div class="divMessageRead2" title="已读"></div></td>
-                            <!-- 2:业务协同 -->
-                            <c:if test="${o.xxlb ==2 }" >
-                            	<c:choose>
-                            		<c:when test="${o.dkfs == 1}">
-                            			<td width="73%" class="messageContentTd2"><a href="#" title="${o.xxbt }" onclick="openTabPage('${o.xxbt}', '${o.ywurl}')" style="cursor: pointer;line-height: 25px"><font color="#009900">[${o.xxbt}]</font>&nbsp;${o.xxnr }</a></td>
-                            		</c:when>
-                            		<c:otherwise>
-		                            	<td width="73%" class="messageContentTd2" onclick="ywxtgzrwb('${o.ywurl }')" style="cursor: pointer;line-height: 25px"><font color="#009900">[${o.xxbt }]</font>&nbsp;${o.xxnr }</td>
-                            		</c:otherwise>
-                            	</c:choose>
-                            	
-                            </c:if>
-                            <!-- 5:工作任务 -->
-                            <c:if test="${o.xxlb ==5 }" >
-                            	<c:choose>
-                            		<c:when test="${o.dkfs == 1}">
-                            			<td width="73%" class="messageContentTd2"><a href="#" title="${o.xxbt }" onclick="openTabPage('${o.xxbt}', '${o.ywurl}')" style="cursor: pointer;line-height: 25px"><font color="#009900">[${o.xxbt}]</font>&nbsp;${o.xxnr }</a></td>
-                            		</c:when>
-                            		<c:otherwise>
-		                            	<td width="73%" class="messageContentTd2" onclick="openWindow('${o.xxbt }', '${o.ywurl }')" style="cursor: pointer;line-height: 25px"><font color="#009900">[${o.xxbt }]</font>&nbsp;${o.xxnr }</td>
-		                            </c:otherwise>
-                            	</c:choose>
-                            </c:if>
-                            <td width="22%" class="messageContentTd1" >&nbsp;${o.fssj }</td>
-		                </c:if>
+		               
                         
                  </tr>
               </c:forEach>

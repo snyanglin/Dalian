@@ -89,6 +89,16 @@ public class LdymysController extends BaseController {
 		sys1.setYwurl("baidu");
 		taskList.add(sys1);
 		
+		SysMessage sys2=new SysMessage();
+		sys2.setSfck("0");
+		sys2.setXxlb("2");
+		sys2.setDkfs("1");
+		sys2.setXxbt("常住人口人户分离协同");
+		sys2.setXxnr("白山路派出所、解放责任区李长荣把贾龙录入为该辖区实有人口，是否把本辖区人户一致改为人户分离");
+		sys2.setFssj("2015-10-14 16:17:01");
+		sys2.setYwurl("baidu");
+		taskList.add(sys2);
+		
 		mv.addObject("taskList", taskList);
 		return mv;
 	}
