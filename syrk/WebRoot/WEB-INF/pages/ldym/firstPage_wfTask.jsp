@@ -35,7 +35,7 @@ function title_onclick(xxID, ywurl,xxbt) {
 }
 //业务协同规则任务表
 function ywxtgzrwb(url){ 
-	var editUrl = contextPath + url;
+	var editUrl = contextPath + '/forward/ldym|rkxt';
 	var editUrl = editUrl + (editUrl.indexOf('?') != -1 ? '&' : '?');
    	window.top.openWindow(false, 'xtrwclWindow', editUrl, {document: document}, {title: '协同任务处理',    
 	    width: 880,   
@@ -48,81 +48,8 @@ function ywxtgzrwb(url){
 	    cache: false,
 	    inline: false,
 		resizable: false, 
-	    modal: true,
-	    buttons:[
-	    	{
-	    		id: 'button_agree',
-				text: '同意',
-				handler: function() {
-					var iframeObject = window.top.frames['xtrwclWindow_iframe'];
-					if (iframeObject.contentWindow) {
-						iframeObject = iframeObject.contentWindow;
-					}
-					iframeObject.$('#operType').val('_agree');
-					var formObject = iframeObject.$('#xtrwForm');
-									
-					formObject.form('submit',{
-						success: function(data){    
-	        				$.messager.show({
-								title:'提示',
-								msg:'【同意】操作成功！',
-								timeout:5000,
-								showType:'slide'
-							});
-							window.top.$('#xtrwclWindow').dialog('close');
-    					}    
-					});
-				}
-			},
-			{
-				id: 'button_refuse',
-				text: '拒绝',
-				handler: function() {
-					var iframeObject = window.top.frames['xtrwclWindow_iframe'];
-					if (iframeObject.contentWindow) {
-						iframeObject = iframeObject.contentWindow;
-					}
-					iframeObject.$('#operType').val('_refuse');
-					var formObject = iframeObject.$('#xtrwForm');
-									
-					formObject.form('submit',{
-						success: function(data){    
-	        				$.messager.show({
-								title:'提示',
-								msg:'【拒绝】操作成功！',
-								timeout:5000,
-								showType:'slide'
-							});
-							window.top.$('#xtrwclWindow').dialog('close');
-    					}    
-					});
-				}
-			},
-			{
-				id: 'button_conexist',
-				text: '共存',
-				handler: function() {
-					var iframeObject = window.top.frames['xtrwclWindow_iframe'];
-					if (iframeObject.contentWindow) {
-						iframeObject = iframeObject.contentWindow;
-					}
-					iframeObject.$('#operType').val('_coexist');
-					var formObject = iframeObject.$('#xtrwForm');
-									
-					formObject.form('submit',{
-						success: function(data){    
-	        				$.messager.show({
-								title:'提示',
-								msg:'【共存】操作成功！',
-								timeout:5000,
-								showType:'slide'
-							});
-							window.top.$('#xtrwclWindow').dialog('close');
-    					}    
-					});
-				}
-			}
-		]}
+	    modal: true
+	    }
    	);
 }
 
@@ -148,7 +75,7 @@ function openTabPage(menuName, openURL) {
 
 function openWindow(xxbt, ywurl) {
   if(null != ywurl && "" != ywurl){
-     window.top.openWindow(false, "windowWithoutSave", '<%=contextPath %>' + ywurl, {document: document}, {title: xxbt,    
+     window.top.openWindow(false, "windowWithoutSave", '<%=contextPath %>' + '/forward/ldym|zdryLCApproval', {document: document}, {title: xxbt,    
 	    width: 880,   
 	    height: 520,  
 		collapsible: false, 
