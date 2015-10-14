@@ -8,7 +8,7 @@ import java.util.Map;
 
 import net.sf.json.JSONObject;
 import com.founder.framework.config.SystemConfig;
-import com.founder.framework.httpService.CCSHttpClient;
+import com.founder.framework.httpService.BaseHttpClient;
 import com.founder.framework.httpService.HttpClientResultBean;
 import com.founder.framework.utils.StringUtils;
 import com.founder.service.provinceservice.bean.ServiceLdyBean;
@@ -30,7 +30,7 @@ import com.founder.service.provinceservice.bean.ServiceZtryBean;
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]
  * @Version: [v1.0]
  */
-public class ServiceHttpClient extends CCSHttpClient {
+public class ServiceHttpClient extends BaseHttpClient {
 
 	private static Map<String, String> map = new HashMap<String, String>();
 	static {

@@ -4,14 +4,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import logDev.OperationLogServiceDev;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.founder.framework.base.controller.BaseController;
+import com.founder.framework.operationLog.service.OperationLogService;
 
 /**
  * ****************************************************************************
@@ -29,8 +28,8 @@ import com.founder.framework.base.controller.BaseController;
 @RequestMapping("log")
 public class LogController extends BaseController {			
 	
-	@Resource(name = "operationLogServiceDev")
-	private OperationLogServiceDev operationLogService;				
+	@Resource(name = "operationLogService")
+	private OperationLogService operationLogService;				
 	
 	/**
 	 * 
