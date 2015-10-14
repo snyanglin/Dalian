@@ -41,13 +41,7 @@
 			<isNotEmpty prepend="and" property="table_name"> TABLE_NAME = #table_name#</isNotEmpty>
 			<isNotEmpty prepend="and" property="table_pk"> TABLE_PK = #table_pk#</isNotEmpty>			
 			<isNotEmpty prepend="and" property="query_filed"> QUERY_FILED = #query_filed#</isNotEmpty>					
-	</select>
-	
-	<select id="countByType" parameterClass="Map" resultClass="java.lang.Integer" remapResults="true">
-		<![CDATA[ select count(*) from LOG_INFO where OPERATE_TYPE = #operate_type# ]]>
-		<isNotEmpty prepend="and" property="startDate"><![CDATA[ OPERATE_TIME >= #startDate# ]]></isNotEmpty>
-		<isNotEmpty prepend="and" property="endDate"><![CDATA[ OPERATE_TIME < #endDate# ]]></isNotEmpty>
-	</select>
+	</select>	
 	
 	<select id="queryListByColName" parameterClass="String" resultClass="java.lang.String" remapResults="true">
 		select distinct $colName$ from log_info

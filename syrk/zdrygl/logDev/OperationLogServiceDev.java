@@ -41,20 +41,15 @@ public abstract interface OperationLogServiceDev {
 	 * @return List<OperationLog>    返回类型
 	 * @throw
 	 */
-	public abstract List<OperationLog> queryOperationLogListByEntity(OperationLog entity);
+	public abstract List<OperationLog> queryOperationLogListByEntity(OperationLog entity);		
 	
 	/**
 	 * 
-	 * @Title: countOperationLogByType
-	 * @Description: TODO(通过日志类型和时间段统计数量)
-	 * @param @param operate_type
-	 * @param @param startDate(例如：>=20140805135647)
-	 * @param @param endDate(例如：<20150805135647)
+	 * @Title: countTrs
+	 * @Description: TODO(通过日志统计交易)
 	 * @param @return    设定文件
-	 * @return int    返回类型
+	 * @return List    返回类型
 	 * @throw
 	 */
-	public abstract int countOperationLogByType(String operate_type,String startDate,String endDate);
-	
 	public abstract List countTrs();
 }

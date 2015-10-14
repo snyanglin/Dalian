@@ -6,18 +6,12 @@ import javax.annotation.Resource;
 
 import logDev.OperationLogServiceDev;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.founder.framework.annotation.RestfulAnnotation;
 import com.founder.framework.base.controller.BaseController;
-import com.founder.framework.entity.OperationLog;
-import com.founder.syrkgl.bean.RyRyjbxxb;
-import com.founder.syrkgl.bean.SyrkSyrkxxzb;
-import com.founder.zdrygl.base.service.DataApplyService;
 
 /**
  * ****************************************************************************
@@ -38,6 +32,14 @@ public class LogController extends BaseController {
 	@Resource(name = "operationLogServiceDev")
 	private OperationLogServiceDev operationLogService;				
 	
+	/**
+	 * 
+	 * @Title: countTrs
+	 * @Description: TODO(通过日志统计交易)
+	 * @param @return    设定文件
+	 * @return List    返回类型
+	 * @throw
+	 */
 	@RequestMapping(value = "/countTrs", method = {RequestMethod.GET,RequestMethod.POST})
 	public @ResponseBody List countTrs(){		
 		

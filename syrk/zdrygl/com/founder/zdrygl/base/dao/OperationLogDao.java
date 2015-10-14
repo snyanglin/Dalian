@@ -56,24 +56,6 @@ public class OperationLogDao extends BaseDaoImpl {
 		return queryForList("OpeLogDev.queryListByEntity", entity);
 	}
 	
-	/**
-	 * 
-	 * @Title: countByType
-	 * @Description: TODO(通过日志类型和时间段统计数量)
-	 * @param @param operate_type
-	 * @param @param startDate(例如：>= 20140805135647)
-	 * @param @param endDate(例如：< 20150805135647)
-	 * @param @return    设定文件
-	 * @return int    返回类型
-	 * @throw
-	 */
-	public int countByType(String operate_type,String startDate,String endDate){
-		Map map=new HashMap();
-		map.put("operate_type", operate_type);
-		map.put("startDate", startDate);
-		map.put("endDate", endDate);
-		return (int) queryForObject("OpeLogDev.countByType", map);
-	}
 	
 	/**
 	 * 
@@ -88,7 +70,7 @@ public class OperationLogDao extends BaseDaoImpl {
 		return queryForList("OpeLogDev.queryListByColName",colName);
 	}
 	
-	public int countByColAndVale(String colName,String value,String startDate,String endDate){
+	public Integer countByColAndVale(String colName,String value,String startDate,String endDate){
 		Map map=new HashMap();
 		map.put("colName", colName);
 		map.put("value", value);
@@ -98,6 +80,6 @@ public class OperationLogDao extends BaseDaoImpl {
 		if(endDate!=null){
 			map.put("endDate", endDate);
 		}
-		return (int) queryForObject("OpeLogDev.countByColAndVale", map);
+		return (Integer) queryForObject("OpeLogDev.countByColAndVale", map);
 	}
 }

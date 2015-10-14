@@ -115,23 +115,16 @@ public class OperationLogServiceDevImpl implements OperationLogServiceDev {
 	 */
 	public List<OperationLog> queryOperationLogListByEntity(OperationLog entity){
 		return operationLogDao.queryListByEntity(entity);
-	}
+	}		
 	
 	/**
 	 * 
-	 * @Title: CountOperationLogByType
-	 * @Description: TODO(通过日志类型和时间段统计数量)
-	 * @param @param operate_type
-	 * @param @param startDate(例如：>= 20140805135647)
-	 * @param @param endDate(例如：< 20150805135647)
+	 * @Title: countTrs
+	 * @Description: TODO(通过日志统计交易)
 	 * @param @return    设定文件
-	 * @return int    返回类型
+	 * @return List    返回类型
 	 * @throw
 	 */
-	public int countOperationLogByType(String operate_type,String startDate,String endDate){
-		return operationLogDao.countByType(operate_type, startDate, endDate);
-	}
-	
 	public List countTrs(){		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		Date date=new Date();
@@ -210,6 +203,16 @@ public class OperationLogServiceDevImpl implements OperationLogServiceDev {
 		list.add(map);
 	}
 	
+	/**
+	 * 
+	 * @Title: countByType
+	 * @Description: TODO(按操作类型统计)
+	 * @param @param list
+	 * @param @param startDate
+	 * @param @param endDate    设定文件
+	 * @return void    返回类型
+	 * @throw
+	 */
 	private void countByType(List list,String startDate,String endDate){
 		//按操作类型统计：OPERATE_TYPE   1=查询 2=新增  3=修改 4=注销
 		List typeList=operationLogDao.queryListByColName("OPERATE_TYPE");
@@ -264,6 +267,16 @@ public class OperationLogServiceDevImpl implements OperationLogServiceDev {
 		list.add(map);
 	}
 	
+	/**
+	 * 
+	 * @Title: countByMod
+	 * @Description: TODO(按模块名称统计)
+	 * @param @param list
+	 * @param @param startDate
+	 * @param @param endDate    设定文件
+	 * @return void    返回类型
+	 * @throw
+	 */
 	private void countByMod(List list,String startDate,String endDate){
 		//3、按模块名称统计：MODNAME
 		List modList=operationLogDao.queryListByColName("MODNAME");		
@@ -313,6 +326,16 @@ public class OperationLogServiceDevImpl implements OperationLogServiceDev {
 		list.add(map);
 	}
 	
+	/**
+	 * 
+	 * @Title: countByOrg
+	 * @Description: TODO(按单位统计)
+	 * @param @param list
+	 * @param @param startDate
+	 * @param @param endDate    设定文件
+	 * @return void    返回类型
+	 * @throw
+	 */
 	private void countByOrg(List list,String startDate,String endDate){
 		//按单位统计：ORGANIZATION
 		List orgList=operationLogDao.queryListByColName("ORGANIZATION");
