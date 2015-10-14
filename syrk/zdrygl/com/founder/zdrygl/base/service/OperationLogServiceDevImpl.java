@@ -5,10 +5,10 @@ import com.founder.framework.entity.ManagerLog;
 import com.founder.framework.entity.OperationLog;
 import com.founder.framework.entity.ServiceLog;
 import com.founder.framework.entity.ServiceRestLog;
+import com.founder.framework.utils.Base64Utils;
 import com.founder.framework.utils.DateTimeHelper;
 import com.founder.framework.utils.UUID;
 import com.founder.zdrygl.base.dao.OperationLogDao;
-import com.sun.org.apache.xalan.internal.xsltc.trax.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -196,14 +196,18 @@ public class OperationLogServiceDevImpl implements OperationLogServiceDev {
 				resMap2.put("value_type", "integer");
 				resMap2.put("result", result);
 				list.add(resMap2);
-			}
-			
-			Map map=new HashMap();
-			map.put("key", "ops.results");
-			map.put("value", resultList);
-			map.put("value_type", "json");
-			list.add(map);
+			}						
 		}
+		
+		Map map=new HashMap();
+		map.put("key", "ops.results");		
+		map.put("value_type", "json");		
+		if(resultList!=null && resultList.size()>0)
+			map.put("value", resultList);
+		else 
+			map.put("value", "{}");
+		
+		list.add(map);
 	}
 	
 	private void countByType(List list,String startDate,String endDate){
@@ -246,14 +250,18 @@ public class OperationLogServiceDevImpl implements OperationLogServiceDev {
 				resMap2.put("value_type", "integer");
 				resMap2.put("result", type);
 				list.add(resMap2);
-			}
-			
-			Map map=new HashMap();
-			map.put("key", "ops.types");
-			map.put("value", typeList);
-			map.put("value_type", "json");
-			list.add(map);
+			}						
 		}
+		
+		Map map=new HashMap();
+		map.put("key", "ops.types");		
+		map.put("value_type", "json");
+		if(typeList!=null && typeList.size()>0)
+			map.put("value", typeList);
+		else 
+			map.put("value", "{}");
+		
+		list.add(map);
 	}
 	
 	private void countByMod(List list,String startDate,String endDate){
@@ -261,37 +269,48 @@ public class OperationLogServiceDevImpl implements OperationLogServiceDev {
 		List modList=operationLogDao.queryListByColName("MODNAME");		
 		if(modList!=null && modList.size()>0){
 			String mod;
-			for(int i=0;i<modList.size();i++){
+			String base64Mod;
+			for(int i=0;i<modList.size();i++){								
 				mod=(String) modList.get(i);				
 				if(mod==null){
 					modList.remove(i);
 					i--;
 					continue;
 				}
+				base64Mod=strToBase64(mod);
+				//列表中的中文也要编码
+				modList.set(i, base64Mod);
+				if(i>=10){ //最多查询10条					
+					continue;
+				}
 				
 				//查询所有MODNAME=mod的数量
 				Map resMap=new HashMap();
-				resMap.put("key", "ops.mods."+mod+".total_count");
+				resMap.put("key", "ops.mods."+base64Mod+".total_count");
 				resMap.put("value", operationLogDao.countByColAndVale("MODNAME",mod,null,null));
 				resMap.put("value_type", "integer");
-				resMap.put("mod", mod);
+				resMap.put("mod", base64Mod);
 				list.add(resMap);
 				
 				//查询最近一分钟MODNAME=mod的数量
 				Map resMap2=new HashMap();
-				resMap2.put("key", "ops.mods."+mod+".count");
+				resMap2.put("key", "ops.mods."+base64Mod+".count");
 				resMap2.put("value", operationLogDao.countByColAndVale("MODNAME",mod,startDate,endDate));
 				resMap2.put("value_type", "integer");
-				resMap2.put("mod", mod);
-				list.add(resMap2);
-			}
-			
-			Map map=new HashMap();
-			map.put("key", "ops.mods");
-			map.put("value", modList);
-			map.put("value_type", "json");
-			list.add(map);
+				resMap2.put("mod", base64Mod);
+				list.add(resMap2);								
+			}						
 		}
+		
+		Map map=new HashMap();
+		map.put("key", "ops.mods");		
+		map.put("value_type", "json");		
+		if(modList!=null && modList.size()>0)
+			map.put("value", modList);
+		else 
+			map.put("value", "{}");
+		
+		list.add(map);
 	}
 	
 	private void countByOrg(List list,String startDate,String endDate){
@@ -300,35 +319,52 @@ public class OperationLogServiceDevImpl implements OperationLogServiceDev {
 		
 		if(orgList!=null && orgList.size()>0){
 			String org;
-			for(int i=0;i<orgList.size();i++){
+			String base64Org;
+			for(int i=0;i<orgList.size();i++){								
 				org=(String) orgList.get(i);				
 				if(org==null){
 					orgList.remove(i);
 					i--;
 					continue;
 				}
+				
+				base64Org=strToBase64(org);
+				//列表中的中文也要编码
+				orgList.set(i, base64Org);
+				if(i>=10){//最多查询10条					
+					continue;
+				}
 				//查询所有ORGANIZATION=org的数量
 				Map resMap=new HashMap();
-				resMap.put("key", "ops.orgs."+org+".total_count");
+				resMap.put("key", "ops.orgs."+base64Org+".total_count");
 				resMap.put("value", operationLogDao.countByColAndVale("ORGANIZATION",org,null,null));
 				resMap.put("value_type", "integer");
-				resMap.put("org", org);
+				resMap.put("org", base64Org);
 				list.add(resMap);
 				
 				//查询最近一分钟ORGANIZATION=org的数量
 				Map resMap2=new HashMap();
-				resMap2.put("key", "ops.orgs."+org+".count");
+				resMap2.put("key", "ops.orgs."+base64Org+".count");
 				resMap2.put("value", operationLogDao.countByColAndVale("ORGANIZATION",org,startDate,endDate));
 				resMap2.put("value_type", "integer");
-				resMap2.put("org", org);
+				resMap2.put("org", base64Org);
 				list.add(resMap2);
 			}
-			
-			Map map=new HashMap();
-			map.put("key", "ops.orgs");
-			map.put("value", orgList);
-			map.put("value_type", "json");
-			list.add(map);
+									
 		}
+		
+		Map map=new HashMap();
+		map.put("key", "ops.orgs");	
+		map.put("value_type", "json");
+		if(orgList!=null && orgList.size()>0)
+			map.put("value", orgList);
+		else 
+			map.put("value", "{}");
+			
+		list.add(map);
+	}
+	
+	private String strToBase64(String str){
+		return Base64Utils.base64Encoder(str.getBytes());
 	}
 }
