@@ -118,17 +118,7 @@ public class ZdryzbService implements ZdryService {
 		ZdryZb old = (ZdryZb) zdryZdryZbDao.queryById(zdryzb.getId());
 		old.setGlzt(ZdryConstant.ZLSQ);
 		old.setZdrylb(zdryzb.getZdrylb());		
-		updateZdry(sessionBean,old);
-		
-		//通过规则引擎获取消息
-		Map<String, String> paraMap = new HashMap<String, String>();
-		 paraMap.put("zdryXm",old.getXm());
-		 paraMap.put("zdrylx","涉公安访");
-		 paraMap.put("fsrUserCode",sessionBean.getUserId());
-		 paraMap.put("fsrOrgCode",sessionBean.getUserOrgCode());
-		Map<String, Object> map = zdryglMessageService.getTitleAndContents("LGSQ", paraMap);
-		System.out.println("===============title : "+map.get("title"));
-		System.out.println("============contents : "+map.get("contents"));
+		updateZdry(sessionBean,old);				
 	}
 
 	@Override
