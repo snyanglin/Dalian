@@ -995,7 +995,8 @@ function public_multiSelectOrgUser(rootOrgCode, orgType, orgLevel, orgBizType, u
 // parentWindow       调用页面的window对象
 // onOkMethod         对话中点击确认后执行原页面中的方法（如：“orgPosSelect_onOk”）
 // dialogTitle        对话框的标题
-function public_singleSelectOrgPos(rootOrgCode, orgType, orgLevel, orgBizType, posids, initFocusOrgCode, posIDInputID, posNameInputID, orgCodeInputID, orgNameInputID, orgIDInputID, isCache, windowID, parentWindow, onOkMethod, dialogTitle) {
+// posInputID         虚拟岗位ID 输入框ID（不需要返回该参数时为''或null）
+function public_singleSelectOrgPos(rootOrgCode, orgType, orgLevel, orgBizType, posids, initFocusOrgCode, posIDInputID, posNameInputID, orgCodeInputID, orgNameInputID, orgIDInputID, isCache, windowID, parentWindow, onOkMethod, dialogTitle,posInputID) {
 	if (isCache) {
 		if (windowID == null || windowID == "") {
 			$.messager.alert('页面错误','组织机构岗位选择public_singleSelectOrgPos()方法：<br><br>参数 windowID 不能为空！','error');
@@ -1045,6 +1046,7 @@ function public_singleSelectOrgPos(rootOrgCode, orgType, orgLevel, orgBizType, p
 	paramArray['orgNameInputID'] = orgNameInputID;
 	paramArray['orgIDInputID'] = orgIDInputID;
 	paramArray['onOkMethod'] = onOkMethod;
+	paramArray['posInputID'] = posInputID;
 	var dataOptions = {
 		title: '&nbsp;' + dialogTitle,
 		width: 800,   
