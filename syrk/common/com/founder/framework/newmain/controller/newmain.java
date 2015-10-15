@@ -1,8 +1,5 @@
 package com.founder.framework.newmain.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.organization.right.service.OrgRightPublic;
-
 @Controller
 @RequestMapping("/newmain")
 public class newmain extends BaseController {
@@ -30,11 +26,9 @@ public class newmain extends BaseController {
 		
 	}
 	
-	@RequestMapping(value = "/checkSubSystemUsable", method = RequestMethod.POST)
+	@RequestMapping(value = "/checkSubSystemUsable", method = {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Map<String,String> checkSubSystemUsable(){
-	    Map<String,String> map=new HashMap<String,String>();
-	    map.put("status", "200");
-		return map;
+	public String checkSubSystemUsable(){
+	    return "systemStarted";
 	}
 }

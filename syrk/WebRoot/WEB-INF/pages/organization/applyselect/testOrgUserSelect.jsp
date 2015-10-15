@@ -248,6 +248,36 @@
 	    		</table>
 	    	</td>
 	    </tr>
+	    <tr class="dialogTr">
+	    	<td width="20%" class="dialogTd" align="right" style="color:#FF0000">部门/岗位/人员三级联动例子：</td>
+	    	<td width="80%" class="dialogTd" align="right"></td>
+	    </tr>
+		<tr class="dialogTr">
+	    	<td width="20%" class="dialogTd" align="right">部门选择：</td>
+	    	<td width="80%" class="dialogTd" colspan="3">
+				<input type="text" id="orgcodeE" name="orgcodeE" value="" style="width: 100;" />
+	    		<input type="text" id="orgnameE" name="orgnameE" style="width: 400;" value="" />
+	   			<input type="text" id="orgidE" name="orgidE" value="" style="width: 100;" />
+	    		<input type="button" id="orgbutton1" value="选择" onClick="public_singleSelectOrg('', '01', '', '', 'orgcodeE', 'orgnameE', 'orgidE', false, false, '', window, '', '')" style="cursor:pointer; background:#EEF2F8 ;border:1px solid #082F4F;HEIGHT: 18px; WIDTH: 48px;font-family:宋体;font-size:9pt;" />
+	    	</td>
+	    </tr>
+		<tr class="dialogTr">
+	    	<td width="20%" class="dialogTd" align="right">岗位选择：</td>
+	    	<td width="80%" class="dialogTd" colspan="3">
+				<input type="text" id="posidE" name="posidE" value="" style="width: 100;" />
+			    <input type="text" id="posnameE" name="posnameE" style="width: 400;" value="" />			   	
+			    <input type="button" id=orgbutton3" value="选择" onClick="selectPos()" style="cursor:pointer; background:#EEF2F8 ;border:1px solid #082F4F;HEIGHT: 18px; WIDTH: 48px;font-family:宋体;font-size:9pt;" />
+	    	</td>
+	    </tr>
+		<tr class="dialogTr">
+	    	<td width="20%" class="dialogTd" align="right">人员选择：</td>
+	    	<td width="80%" class="dialogTd" colspan="3">
+				<input type="text" id="useridE" name="useridE" value="" style="width: 100;" />
+			    <input type="text" id="usernameE" name="usernameE" style="width: 400;" value="" />
+			   	<input type="text" id="usertableidE" name="usertableidE" value="" style="width: 100;" />			   
+			    <input type="button" id=orgbutton3" value="选择" onClick="selectOrgUser()" style="cursor:pointer; background:#EEF2F8 ;border:1px solid #082F4F;HEIGHT: 18px; WIDTH: 48px;font-family:宋体;font-size:9pt;" />
+	    	</td>
+	    </tr>
    		</table>
     </div>
 
@@ -260,6 +290,30 @@ function onOrgUserSelected(userIDInputID) {
 $(document).ready(function() { // 初始化部门名称
 	public_getOrgName('orgcode', 'orgname');
 });
+
+function selectPos(){
+	var orgcode=$("#orgcodeE").val();
+	if(orgcode==""){
+		alert("请选择部门");
+		return false;
+	}
+	public_singleSelectOrgPos(orgcode, '', '', '', '', '', '', 'posnameE', '', '', '', false, '', window, '', '','posidE')
+}
+
+function selectOrgUser(){
+	var orgcode=$("#orgcodeE").val();
+	if(orgcode==""){
+		alert("请选择部门");
+		return false;
+	}
+	
+	var posid=$("#posidE").val();
+	if(posid==""){
+		alert("请选择岗位");
+		return false;
+	}
+	public_singleSelectOrgUser(orgcode, '', '', '', posid, '', 'useridE', 'usernameE', 'usertableidE', '', '', '', false, '', window, '', '')
+} 
 
 </script>
 

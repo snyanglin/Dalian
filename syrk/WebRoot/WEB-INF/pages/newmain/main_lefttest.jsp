@@ -55,9 +55,9 @@ $(function() {
 										   var ID1 = menureaf.id +"ztree";
 										   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
 										   if(menureaf.openMode=="new"){
-											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"window.open('"+setSessionid(setSessionid(menureaf.openURL,sid),sid)+"')\">";
+											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"window.open('"+setSessionid(setSessionid(menureaf.openURL,sid),sid)+"',this)\">";
 										   }else{
-											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"menu_openClass('"+text+"','"+setSessionid(menureaf.openURL,sid)+"','"+menureaf.id+"')\">"; 
+											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"menu_openClass('"+text+"','"+setSessionid(menureaf.openURL,sid)+"','"+menureaf.id+"',this,'"+sid+"')\">"; 
 										   }
 
 											Str = Str +menureaf.text +"";
@@ -71,9 +71,9 @@ $(function() {
 								  
 								   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
 								   if(menu.openMode=="new"){
-									   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"window.open('"+setSessionid(menu.openURL,sid)+"')\">";
+									   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"window.open('"+setSessionid(menu.openURL,sid)+"',this)\">";
 								   }else{
-									   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"menu_openClass('"+text+"','"+setSessionid(menu.openURL,sid)+"','"+menu.id+"')\">"; 
+									   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"menu_openClass('"+text+"','"+setSessionid(menu.openURL,sid)+"','"+menu.id+"',this,'"+sid+"')\">"; 
 								   }
 
 									Str = Str +menu.text +"";
@@ -105,14 +105,16 @@ $(function() {
 				var ID = menuone.id;
 				var Str = "";
 				$('#westaction').accordion('add', {  	title: aa,id :ID, selected: false  });
+				
 				var checkUrl = getCheckSubSystemUsableURL(menuone.openURL);
 				$.ajax({
 					async:false,
 					type:"POST",
-					dataType:"json",
+					dataType:"jsonp",
 					url:checkUrl,
-					success:function(data){
-							if (data.status=='200') {
+					error:function(XMLHttpRequest, textStatus, errorThrown){
+						 if(XMLHttpRequest.status == '200' && XMLHttpRequest.responseText && "systemStarted"== XMLHttpRequest.responseText){								 
+							 XMLHttpRequest.responseText=null;//为了不弹出错误信息
 								for(var k =0;k<menunode.length;k++){
 									var menu = eval(menunode[k]);
 									 //判断是否还有子菜单组
@@ -125,9 +127,9 @@ $(function() {
 												   var ID1 = menureaf.id +"ztree";
 												   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
 												   if(menureaf.openMode=="new"){
-													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"window.open('"+setSessionid(menureaf.openURL,sid)+"')\"><a style='margin-left: 28px;margin-top: 8px;' >";
+													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"window.open('"+setSessionid(menureaf.openURL,sid)+"',this)\"><a style='margin-left: 28px;margin-top: 8px;' >";
 												   }else{
-													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"menu_openClass('"+'text'+"','"+setSessionid(menureaf.openURL,sid)+"','"+menureaf.id+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
+													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"menu_openClass('"+'text'+"','"+setSessionid(menureaf.openURL,sid)+"','"+menureaf.id+"',this,'"+sid+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
 												   }
 
 													Str = Str +menureaf.text +"";
@@ -140,9 +142,9 @@ $(function() {
 										   var ID1 = menu.id +"ztree";
 										   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
 										   if(menu.openMode=="new"){
-											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"window.open('"+setSessionid(menu.openURL,sid)+"')\"><a style='margin-left: 28px;margin-top: 8px;' >";
+											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"window.open('"+setSessionid(menu.openURL,sid)+"',this)\"><a style='margin-left: 28px;margin-top: 8px;' >";
 										   }else{
-											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"menu_openClass('"+text+"','"+setSessionid(menu.openURL,sid)+"','"+menu.id+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
+											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"menu_openClass('"+text+"','"+setSessionid(menu.openURL,sid)+"','"+menu.id+"',this,'"+sid+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
 										   }
 
 											Str = Str +menu.text +"";
@@ -154,9 +156,9 @@ $(function() {
 									}
 								
 							}else{
-								$(".accordion-collapse").removeClass('accordion-collapse accordion-expand ').addClass('no-internet');
+								$("#"+ID).parent().parent().find("a.accordion-collapse").removeClass('accordion-collapse accordion-expand ').addClass('no-internet');
 
-								topMessager.alert("", "子系统"+aa+"不可用哦T_T");
+								//topMessager.alert("", "子系统"+aa+"不可用哦T_T");
 
 								for(var k =0;k<menunode.length;k++){
 									var menu = eval(menunode[k]);
@@ -171,9 +173,9 @@ $(function() {
 												   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
 									
 												   if(menureaf.openMode=="new"){
-													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"window.open('"+setSessionid(menureaf.openURL,sid)+"')\"><a style='margin-left: 28px;margin-top: 8px;' >";
+													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"window.open('"+setSessionid(menureaf.openURL,sid)+"',this)\"><a style='margin-left: 28px;margin-top: 8px;' >";
 												   }else{
-													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"menu_openClass('"+text+"','"+setSessionid(menureaf.openURL,sid)+"','"+menureaf.id+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
+													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"menu_openClass('"+text+"','"+setSessionid(menureaf.openURL,sid)+"','"+menureaf.id+"',this,'"+sid+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
 												   }
 
 													Str = Str +menureaf.text +"";
@@ -186,9 +188,9 @@ $(function() {
 										   var ID1 = menu.id +"ztree";
 										   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
 										   if(menu.openMode=="new"){
-											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"window.open('"+setSessionid(menu.openURL,sid)+"')\"><a style='margin-left: 28px;margin-top: 8px;' >";
+											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"window.open('"+setSessionid(menu.openURL,sid)+"',this)\"><a style='margin-left: 28px;margin-top: 8px;' >";
 										   }else{
-											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"menu_openClass('"+text+"','"+setSessionid(menu.openURL,sid)+"','"+menu.id+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
+											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"menu_openClass('"+text+"','"+menu.openURL+"','"+menu.id+"',this,'"+sid+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
 										   }
 
 											Str = Str +menu.text +"";
@@ -200,55 +202,7 @@ $(function() {
 									}
 								return;
 							}
-						},
-					 error:function(XMLHttpRequest, textStatus, errorThrown){
-							topMessager.alert("", "子系统"+aa+"不可用哦T_T");
-							$(".accordion-collapse").removeClass('accordion-collapse accordion-expand ').addClass('no-internet');
-
-							for(var k =0;k<menunode.length;k++){
-								var menu = eval(menunode[k]);
-								 //判断是否还有子菜单组
-								   if(menu.openURL==""){
-										var ss = eval(menu.children);
-										for(var m =0;m<ss.length;m++){
-											var menureaf = eval(ss[m]);
-											
-											 var text = menureaf.text;
-											   var ID1 = menureaf.id +"ztree";
-											   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
-											   if(menureaf.openMode=="new"){
-												   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"window.open('"+setSessionid(menureaf.openURL,sid)+"')\"><a style='margin-left: 28px;margin-top: 8px;color:#7F8594;' >";
-											   }else{
-												   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"menu_openClass('"+'text'+"','"+setSessionid(menureaf.openURL,sid)+"','"+menureaf.id+"')\"><a style='margin-left: 28px;margin-top: 8px;color:#7F8594;' >"; 
-											   }
-
-												Str = Str +menureaf.text +"";
-												Str = Str +"</a></li>";
-												Str = Str +"</ul>";
-												$("#"+ID).html(Str);  
-										}
-								   }else{
-									   var text = menu.text;
-									   var ID1 = menu.id +"ztree";
-									   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
-									   if(menu.openMode=="new"){
-										   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"window.open('"+setSessionid(menu.openURL,sid)+"')\"><a style='margin-left: 28px;margin-top: 8px;color:#7F8594;' >";
-									   }else{
-										   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"menu_openClass('"+text+"','"+setSessionid(menu.openURL,sid)+"','"+menu.id+"')\"><a style='margin-left: 28px;margin-top: 8px;color:#7F8594;' >"; 
-									   }
-
-										Str = Str +menu.text +"";
-										Str = Str +"</a></li>";
-										Str = Str +"</ul>";
-										$("#"+ID).html(Str);  
-								   }
-
-								}
-						 return;
-			         },
-			         complete:function(data){
-			         	
-			         }
+						}
 
 					});
 				
@@ -266,21 +220,20 @@ $(function() {
 
 	});
 
-function menu_openClass(text,URL,ID){
-	var checkUrl = getCheckSubSystemUsableURL(URL);
+function menu_openClass(text,URL,ID,clickObj,sid){
+	var checkUrl = getCheckSubSystemUsableURL(URL,sid);
 	$.ajax({
 		async:false,
 		type:"POST",
-		dataType:"json",
+		dataType:"jsonp",
 		url:checkUrl,
-		success:function(data){
-				if (data.status=='200') {
-					if($(".no-internet")){
-						$(".no-internet").removeClass('no-internet  ').addClass('accordion-collapse accordion-expand');
+		error:function(XMLHttpRequest, textStatus, errorThrown){
+			 if(XMLHttpRequest.status == '200' && XMLHttpRequest.responseText && "systemStarted"== XMLHttpRequest.responseText){								 
+				 XMLHttpRequest.responseText=null;//为了不弹出错误信息
+				 var obj=$(clickObj).parent().parent().parent().parent().find("a.no-internet")		  	  		
+				 	if(obj){
+						obj.removeClass('no-internet').addClass('accordion-collapse accordion-expand');
 					}
-				
-
-					
 					menu_open(text,URL);
 
 					var itemli = document.getElementsByTagName("li");
@@ -298,36 +251,32 @@ function menu_openClass(text,URL,ID){
 					var id = ID +"ztree";
 					$("#"+ID).addClass("dijitTreeExpandoLeaf ");
 					$("#"+id).addClass("dijitTreeLabelFocused1 ");
-					
-				}else{
-					$(".accordion-collapse").removeClass('accordion-collapse accordion-expand ').addClass('no-internet');
-					topMessager.alert("", "子系统"+subSystemName+"不可用哦T_T");
-					
-
-					return;
-				}
-			},
-		 error:function(XMLHttpRequest, textStatus, errorThrown){
-			 $(".accordion-collapse").removeClass('accordion-collapse accordion-expand ').addClass('no-internet');
-			 topMessager.alert("", "子系统"+subSystemName+"不可用哦T_T");
+	  	  	 }else{
+	  	  		//查找一级菜单，级别固定，后期可能需要优化 
+	  	  		var obj=$(clickObj).parent().parent().parent().parent().find("a.accordion-collapse");
+	  	  		if(obj){
+	  	  			obj.removeClass('accordion-collapse accordion-expand ').addClass('no-internet');
+	  	  		}
+				topMessager.alert("", "子系统"+subSystemName+"不可用哦T_T");
 				
-   
-			 return;
-         },
-         complete:function(data){
-         	
-         }
 
-		});
+				return;
+	  	  	 }			 			
+			 return;
+         }
+         
+		});		
 }
-function getCheckSubSystemUsableURL(URL){
+
+function getCheckSubSystemUsableURL(URL,sid){
 	var ary=URL.split('/')
-	var checkUrl="<%= basePath%>newmain/checkSubSystemUsable";
+	var checkUrl="<%= basePath%>newmain/checkSubSystemUsable?sessionid="+sid;
 	if(URL.indexOf('http')==0){//以http开始，是其他系统		
-		checkUrl=ary[0]+"/"+ary[1]+"/"+ary[2]+"/"+ary[3]+"/newmain/checkSubSystemUsable";
+		checkUrl=ary[0]+"/"+ary[1]+"/"+ary[2]+"/"+ary[3]+"/newmain/checkSubSystemUsable?sessionid="+sid;
 	}
 	return checkUrl;
 }
+
 </script>
 <style type="text/css">
 .accordion {
