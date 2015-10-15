@@ -75,10 +75,30 @@ public class LdymysController extends BaseController {
 		sys.setSfck("0");
 		sys.setXxlb("2");
 		sys.setXxbt("人员联系电话真实性协同");
-		sys.setXxnr("白山路派出所解放责任区2李长荣把张海录入为该辖区实有人口");
+		sys.setXxnr("白山路派出所、解放责任区李长荣把录入张春婷联系方式为13471182772与你辖区实有人口侯清华相重复，请确认侯清华电话是否正确，是否修改联系方式");
 		sys.setFssj("2015-01-01 10:12:12");
 		sys.setYwurl("baidu");
 		taskList.add(sys);
+		
+		SysMessage sys1=new SysMessage();
+		sys1.setSfck("0");
+		sys1.setXxlb("5");
+		sys1.setXxbt("重点人员列管审批");
+		sys1.setXxnr("解放责任区李长荣提交社区矫正人员王丽华的列管申请，请审批");
+		sys1.setFssj("2015-10-12 10:13:06");
+		sys1.setYwurl("baidu");
+		taskList.add(sys1);
+		
+		SysMessage sys2=new SysMessage();
+		sys2.setSfck("0");
+		sys2.setXxlb("2");
+		sys2.setDkfs("1");
+		sys2.setXxbt("常住人口人户分离协同");
+		sys2.setXxnr("白山路派出所、解放责任区李长荣把贾龙录入为该辖区实有人口，是否把本辖区人户一致改为人户分离");
+		sys2.setFssj("2015-10-14 16:17:01");
+		sys2.setYwurl("baidu");
+		taskList.add(sys2);
+		
 		mv.addObject("taskList", taskList);
 		return mv;
 	}
