@@ -48,7 +48,7 @@ public class ZdryInitializeDao extends BaseDaoImpl{
 	 */
 	@SuppressWarnings("unchecked")
 	public Map<String,String> queryZdryDict(String qydm) {
-		Map map=new HashMap();
+		Map<String,String> map=new HashMap<String,String>();
 		map.put("qydm", qydm);
 		return queryForMap("ZdryInitialize.queryZdryDict", map, "key","value");
 	}
@@ -62,9 +62,8 @@ public class ZdryInitializeDao extends BaseDaoImpl{
 	 * @return List    返回类型
 	 * @throw
 	 */
-	@SuppressWarnings("unchecked")
-	public List queryZdryDict(String lbdm_p,String qydm) {
-		Map map=new HashMap();
+	public List<?> queryZdryDict(String lbdm_p,String qydm) {
+		Map<String,String> map=new HashMap<String,String>();
 		map.put("lbdm_p", lbdm_p);
 		map.put("qydm", qydm);
 		return queryForList("ZdryInitialize.queryZdryDict", map);

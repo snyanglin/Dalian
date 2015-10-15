@@ -13,18 +13,17 @@ import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.organization.right.service.OrgRightPublic;
 
-import jxl.common.Logger;
 @Controller
 @RequestMapping("/newmain")
 public class newmain extends BaseController {
-	private Logger logger = Logger.getLogger(this.getClass());
+	
 	@RequestMapping(value = "/getaccord", method = RequestMethod.GET)
 	public ModelAndView addOrEditjhyxswjbxxb(){
 		SessionBean sessionBean = getSessionBean();
 		String userid = sessionBean.getUserId();
 		
 		OrgRightPublic orgRightPublic = new OrgRightPublic();
-		Object json = orgRightPublic.getUserMenuJson(userid,"dhxt",false);
+		Object json = orgRightPublic.getUserMenuJson(userid,"",false);
 		ModelAndView mv = new ModelAndView("newmain/main_lefttest");
 		mv.addObject("jsondata",json);
 		return mv;

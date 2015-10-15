@@ -10,11 +10,23 @@
 <script type="text/javascript" >
 // 初始化手风琴菜单
 var subSystemName="";
+function setSessionid(url , sessionid){
+	
+	return url+"?sessionid="+sessionid;
+}
+
 $(function() {
 	//基本功能fengq加载
 
 	var rootmenu = eval('${jsondata}')
 	
+	var sid ="";
+	var arrstr = document.cookie.split("; ");
+	for(var i = 0;i < arrstr.length;i ++){
+		var temp = arrstr[i].split("=");
+		if(temp[0] == "SESSION_KEY") 
+			sid = unescape(temp[1]);
+	}
 	
 	
 	//有系统菜单的情况
@@ -43,9 +55,9 @@ $(function() {
 										   var ID1 = menureaf.id +"ztree";
 										   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
 										   if(menureaf.openMode=="new"){
-											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"window.open('"+menureaf.openURL+"')\">";
+											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"window.open('"+setSessionid(setSessionid(menureaf.openURL,sid),sid)+"')\">";
 										   }else{
-											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"menu_openClass('"+text+"','"+menureaf.openURL+"','"+menureaf.id+"')\">"; 
+											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"menu_openClass('"+text+"','"+setSessionid(menureaf.openURL,sid)+"','"+menureaf.id+"')\">"; 
 										   }
 
 											Str = Str +menureaf.text +"";
@@ -59,9 +71,9 @@ $(function() {
 								  
 								   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
 								   if(menu.openMode=="new"){
-									   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"window.open('"+menu.openURL+"')\">";
+									   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"window.open('"+setSessionid(menu.openURL,sid)+"')\">";
 								   }else{
-									   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"menu_openClass('"+text+"','"+menu.openURL+"','"+menu.id+"')\">"; 
+									   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"menu_openClass('"+text+"','"+setSessionid(menu.openURL,sid)+"','"+menu.id+"')\">"; 
 								   }
 
 									Str = Str +menu.text +"";
@@ -93,12 +105,12 @@ $(function() {
 				var ID = menuone.id;
 				var Str = "";
 				$('#westaction').accordion('add', {  	title: aa,id :ID, selected: false  });
-				
+				var checkUrl = getCheckSubSystemUsableURL(menuone.openURL);
 				$.ajax({
 					async:false,
 					type:"POST",
 					dataType:"json",
-					url:"<%= basePath%>newmain/checkSubSystemUsable",
+					url:checkUrl,
 					success:function(data){
 							if (data.status=='200') {
 								for(var k =0;k<menunode.length;k++){
@@ -113,9 +125,9 @@ $(function() {
 												   var ID1 = menureaf.id +"ztree";
 												   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
 												   if(menureaf.openMode=="new"){
-													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"window.open('"+menureaf.openURL+"')\"><a style='margin-left: 28px;margin-top: 8px;' >";
+													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"window.open('"+setSessionid(menureaf.openURL,sid)+"')\"><a style='margin-left: 28px;margin-top: 8px;' >";
 												   }else{
-													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"menu_openClass('"+'text'+"','"+menureaf.openURL+"','"+menureaf.id+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
+													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"menu_openClass('"+'text'+"','"+setSessionid(menureaf.openURL,sid)+"','"+menureaf.id+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
 												   }
 
 													Str = Str +menureaf.text +"";
@@ -128,9 +140,9 @@ $(function() {
 										   var ID1 = menu.id +"ztree";
 										   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
 										   if(menu.openMode=="new"){
-											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"window.open('"+menu.openURL+"')\"><a style='margin-left: 28px;margin-top: 8px;' >";
+											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"window.open('"+setSessionid(menu.openURL,sid)+"')\"><a style='margin-left: 28px;margin-top: 8px;' >";
 										   }else{
-											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"menu_openClass('"+text+"','"+menu.openURL+"','"+menu.id+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
+											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"menu_openClass('"+text+"','"+setSessionid(menu.openURL,sid)+"','"+menu.id+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
 										   }
 
 											Str = Str +menu.text +"";
@@ -159,9 +171,9 @@ $(function() {
 												   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
 									
 												   if(menureaf.openMode=="new"){
-													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"window.open('"+menureaf.openURL+"')\"><a style='margin-left: 28px;margin-top: 8px;' >";
+													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"window.open('"+setSessionid(menureaf.openURL,sid)+"')\"><a style='margin-left: 28px;margin-top: 8px;' >";
 												   }else{
-													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"menu_openClass('"+text+"','"+menureaf.openURL+"','"+menureaf.id+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
+													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"menu_openClass('"+text+"','"+setSessionid(menureaf.openURL,sid)+"','"+menureaf.id+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
 												   }
 
 													Str = Str +menureaf.text +"";
@@ -174,9 +186,9 @@ $(function() {
 										   var ID1 = menu.id +"ztree";
 										   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
 										   if(menu.openMode=="new"){
-											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"window.open('"+menu.openURL+"')\"><a style='margin-left: 28px;margin-top: 8px;' >";
+											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"window.open('"+setSessionid(menu.openURL,sid)+"')\"><a style='margin-left: 28px;margin-top: 8px;' >";
 										   }else{
-											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"menu_openClass('"+text+"','"+menu.openURL+"','"+menu.id+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
+											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"menu_openClass('"+text+"','"+setSessionid(menu.openURL,sid)+"','"+menu.id+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
 										   }
 
 											Str = Str +menu.text +"";
@@ -205,9 +217,9 @@ $(function() {
 											   var ID1 = menureaf.id +"ztree";
 											   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
 											   if(menureaf.openMode=="new"){
-												   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"window.open('"+menureaf.openURL+"')\"><a style='margin-left: 28px;margin-top: 8px;color:#7F8594;' >";
+												   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"window.open('"+setSessionid(menureaf.openURL,sid)+"')\"><a style='margin-left: 28px;margin-top: 8px;color:#7F8594;' >";
 											   }else{
-												   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"menu_openClass('"+'text'+"','"+menureaf.openURL+"','"+menureaf.id+"')\"><a style='margin-left: 28px;margin-top: 8px;color:#7F8594;' >"; 
+												   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"menu_openClass('"+'text'+"','"+setSessionid(menureaf.openURL,sid)+"','"+menureaf.id+"')\"><a style='margin-left: 28px;margin-top: 8px;color:#7F8594;' >"; 
 											   }
 
 												Str = Str +menureaf.text +"";
@@ -220,9 +232,9 @@ $(function() {
 									   var ID1 = menu.id +"ztree";
 									   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
 									   if(menu.openMode=="new"){
-										   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"window.open('"+menu.openURL+"')\"><a style='margin-left: 28px;margin-top: 8px;color:#7F8594;' >";
+										   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"window.open('"+setSessionid(menu.openURL,sid)+"')\"><a style='margin-left: 28px;margin-top: 8px;color:#7F8594;' >";
 									   }else{
-										   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"menu_openClass('"+text+"','"+menu.openURL+"','"+menu.id+"')\"><a style='margin-left: 28px;margin-top: 8px;color:#7F8594;' >"; 
+										   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"menu_openClass('"+text+"','"+setSessionid(menu.openURL,sid)+"','"+menu.id+"')\"><a style='margin-left: 28px;margin-top: 8px;color:#7F8594;' >"; 
 									   }
 
 										Str = Str +menu.text +"";
@@ -255,11 +267,12 @@ $(function() {
 	});
 
 function menu_openClass(text,URL,ID){
+	var checkUrl = getCheckSubSystemUsableURL(URL);
 	$.ajax({
 		async:false,
 		type:"POST",
 		dataType:"json",
-		url:"<%= basePath%>newmain/checkSubSystemUsable",
+		url:checkUrl,
 		success:function(data){
 				if (data.status=='200') {
 					if($(".no-internet")){
@@ -306,14 +319,14 @@ function menu_openClass(text,URL,ID){
          }
 
 		});
-	
-	
-	
-	
-	
-
-
-	
+}
+function getCheckSubSystemUsableURL(URL){
+	var ary=URL.split('/')
+	var checkUrl="<%= basePath%>newmain/checkSubSystemUsable";
+	if(URL.indexOf('http')==0){//以http开始，是其他系统		
+		checkUrl=ary[0]+"/"+ary[1]+"/"+ary[2]+"/"+ary[3]+"/newmain/checkSubSystemUsable";
+	}
+	return checkUrl;
 }
 </script>
 <style type="text/css">

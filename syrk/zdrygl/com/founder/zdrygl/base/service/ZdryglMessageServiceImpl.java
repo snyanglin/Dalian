@@ -33,8 +33,8 @@ public class ZdryglMessageServiceImpl implements ZdryglMessageService{
 	public Map<String, Object> getTitleAndContents(String xxlx, Map<String, String> paraMap) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
-			//KnowledgeBase kbase = DroolsUtils.buildKnowledgeBaseByUrl("http://localhost:8090/guvnor/rest/packages/com.founder.zdryGl.message/binary", null, null);
-            KnowledgeBase kbase = DroolsUtils.buildKnowledgeBaseByResource("title_and_contents.drl");			            
+			KnowledgeBase kbase = DroolsUtils.buildKnowledgeBaseByUrl("http://localhost:8090/guvnor/rest/packages/com.founder.zdrygl.message/binary", null, null);
+            //KnowledgeBase kbase = DroolsUtils.buildKnowledgeBaseByResource("title_and_contents.drl");			            
             StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
             
             //将工具类作为全局变量，导入规则引擎中

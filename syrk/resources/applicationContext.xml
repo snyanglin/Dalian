@@ -21,7 +21,7 @@
 
 	<bean id="SpringContextHolder" class = "com.founder.zdrygl.core.utils.SpringContextHolder"/>	
 	
-	<bean id="logInterceptor" class="logDev.LogInterceptor" />
+	<bean id="logInterceptor" class="com.founder.framework.interceptor.LogInterceptor" />
 	<!-- <bean id="privilegeInterceptor" class="com.founder.framework.interceptor.PrivilegeInterceptor" /> -->
 	
 	<bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller" />

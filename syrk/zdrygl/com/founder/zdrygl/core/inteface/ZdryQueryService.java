@@ -3,7 +3,6 @@ package com.founder.zdrygl.core.inteface;
 import java.util.List;
 
 import com.founder.framework.utils.EasyUIPage;
-import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.model.Zdry;
 
 /**

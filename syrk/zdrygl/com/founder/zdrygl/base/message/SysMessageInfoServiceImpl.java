@@ -4,8 +4,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.springframework.stereotype.Service;
-
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
@@ -15,7 +13,6 @@ import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.inteface.SysMessageInfoService;
 import com.founder.zdrygl.core.model.SysMessage;
 
-@Service("sysMessageInfoService")
 public class SysMessageInfoServiceImpl implements SysMessageInfoService {
 	
 	@Resource(name = "orgOrganizationService")
