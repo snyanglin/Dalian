@@ -13,9 +13,11 @@
    	 <frameset id="tabContent" cols="*,0,0,0,0,0,0,0,0,0">
    	 <%if("32".equals(userInfo.getUserOrgLevel())){%>
    	      <frame id="main_tab0" src="<%=request.getContextPath()%>/forward/main|pcs|main_pcs" noresize scrolling="auto" style="border-left: 1px #fff solid; border-right: 1px #72C0F4 solid;">
+   	 <%}else if("21".equals(userInfo.getUserOrgLevel())||"10".equals(userInfo.getUserOrgLevel())){%>
+   	      <frame id="main_tab0" src="<%=request.getContextPath()%>/forward/ldym|ldym" noresize scrolling="auto" style="border-left: 1px #fff solid; border-right: 1px #72C0F4 solid;">
    	 <%}else{%>
-   	      <frame id="main_tab0" src="<%=request.getContextPath()%>/forward/main|zrq|main_zrq" noresize scrolling="auto" style="border-left: 1px #fff solid; border-right: 1px #72C0F4 solid;">
-   	 <%}%>
+	      <frame id="main_tab0" src="<%=request.getContextPath()%>/forward/main|zrq|main_zrq" noresize scrolling="auto" style="border-left: 1px #fff solid; border-right: 1px #72C0F4 solid;">
+	 <%}%>
      <frame id="main_tab1" src="" noresize scrolling="auto" style="border-left: 1px #fff solid; border-right: 1px #72C0F4 solid;">
      <frame id="main_tab2" src="" noresize scrolling="auto" style="border-left: 1px #fff solid; border-right: 1px #72C0F4 solid;">
      <frame id="main_tab3" src="" noresize scrolling="auto" style="border-left: 1px #fff solid; border-right: 1px #72C0F4 solid;">

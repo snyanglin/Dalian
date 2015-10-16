@@ -8,7 +8,6 @@ import com.founder.framework.base.entity.BaseEntity;
 @DBInfoAnnotation(tableName = "ORG_ORGANIZATION", pk = "id")
 public class Org_Organization extends BaseEntity implements Serializable{
 
-	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 	
 	@FieldDesc("主键")
