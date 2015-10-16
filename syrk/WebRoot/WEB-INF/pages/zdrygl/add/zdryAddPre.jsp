@@ -44,7 +44,6 @@
     	<input type="hidden" id="gxfjdm" name="zdryZdryzb.gxfjdm" value="" />
     	<input type="hidden" id="gxpcsdm" name="zdryZdryzb.gxpcsdm" value="" />
     	<input type="hidden" id="gxzrqdm" name="zdryZdryzb.gxzrqdm" value="" />
-
     	
 	    <table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 			<tr class="dialogTr">		    	
@@ -85,7 +84,7 @@
 		    	</td>
 		    </tr>		    
 
-		    <tr class="dialogTr"> 
+		   <tr class="dialogTr"> 
 		    	<td width="20%" class="dialogTd" align="right">重点人员类型：</td>
 		    	<td width="80%" class="dialogTd" colspan="3">
 					<input class="easyui-combobox" type="text"  id="zdrygllxdm" name="zdryZdryzb.zdrygllxdm"   style="width:200px;" value=""
@@ -241,6 +240,29 @@ function startup(){
 };
 
 
+/**
+ * 根据撤管类型,得到撤管后的类型,大类选择
+ */
+function getcghlx(newValue,oldValue){
+	var name = $("#xm").val();
+	if(newValue){
+		var cglx=newValue;
+		var zdrylx="5|6";
+		if(cglx=="1"){
+			zdrylx="2|5"
+		}else if(cglx=="5"){
+			zdrylx="6"
+		}
+		$('#zdrygllxdm').combobox('setDataFilter', zdrylx);
+		if(zdrylx=='6'){
+		//$('#zdrygllxdm').combobox('setValue', zdrylx);
+		setComboRequired("zdrylbStr", false);
+		}
+	}
+}
+
+
+
 function closeWindow(){
 	closeSelf();
 }
@@ -313,7 +335,7 @@ function selectSyrk(index){
 	queryYlglx(rowData.ryid,rowData.id);
 	showGroup();
 	$("#zdrygllxdm").combobox("setValue", "");	
-	$('#zdrylbStr').combotree('tree').tree('loadData', '');
+	$('#zdrylbStr').combotree('tree').tree('loadData', '');	
 }
 
 //查询已列管类型
@@ -350,12 +372,14 @@ function queryKlglx(ylglxStr){
 		data:"ylglxStr=" + ylglxStr,
 		success: function(data) {
 			if (data) {								
-				$("#zdrygllxdm").combobox("setDataFilter", data);					
-			}else{				
+				$("#zdrygllxdm").combobox("setDataFilter", data);	
+				$("#zdrygllxdm").combobox("setValue", "");
+				$('#zdrylbStr').combotree('tree').tree('loadData', [''])
+			}else{
 				$("#zdrygllxdm").combobox("setDataFilter", "");					
 			}
 		},		
-		error: function() {			
+		error: function() {
 			$("#zdrygllxdm").combobox("setDataFilter", "");	
 		}
 	});	

@@ -8,10 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
 import com.founder.framework.utils.DateUtils;
-import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.UUID;
 import com.founder.zdrygl.base.dao.ZdryJkbjllxxbDao;
+import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 import com.founder.zdrygl.base.model.ZdryJkbjllxxb;
+import com.founder.zdrygl.base.model.ZdryZb;
 
 
 
@@ -33,6 +34,8 @@ public class ZdryJkbjllxxbService extends BaseService {
 
 	@Resource(name = "zdryJkbjllxxbDao")
 	private ZdryJkbjllxxbDao zdryJkbjllxxbDao;	
+	@Resource(name="ZdryZdryZbDao")
+	private ZdryZdryZbDao zdryZdryZbDao;
 
 	/**
 	 * @Title: queryById
@@ -67,9 +70,9 @@ public class ZdryJkbjllxxbService extends BaseService {
 	 * @return void    返回类型
 	 * @throws
 	 *
-	
+	*/
 	public void saveFirst(String zdryId){
-		ZdryZdryzb zdryZdryzb=(ZdryZdryzb) zdryZdryzbDao.queryById(zdryId);		
+		ZdryZb zdryZdryzb=(ZdryZb) zdryZdryZbDao.queryById(zdryId);		
 		
 		String systemDateTime = DateUtils.getSystemDateTimeString();
 		
@@ -84,5 +87,5 @@ public class ZdryJkbjllxxbService extends BaseService {
 		entity.setXt_zxbz("0");
 		entity.setXt_lrrxm("System");
 		zdryJkbjllxxbDao.save(entity);
-	}*/
+	}
 }

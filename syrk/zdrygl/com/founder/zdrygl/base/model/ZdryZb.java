@@ -15,8 +15,11 @@ import com.founder.zdrygl.core.model.Zdry;
  * @Author:       [zhang.hai@founder.com.cn]  
  * @CreateDate:   [2015年9月22日 下午2:24:21]   
  * @UpdateUser:   [ZhangHai(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateDate:   [2015年9月22日 下午2:24:21，(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
+ * @UpdateDate:   [2015年9月22日 下午2:24:21，(如多次修改保留历史记录，增加修改记录)] 
+ * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)] 
+ * @UpdateUser:   [huangjifei(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年10月9日 下午2:17:07，(如多次修改保留历史记录，增加修改记录)]  
+ * @UpdateRemark: [添加管辖部门字段 ] 
  * @Version:      [v1.0]
  */
 @DBInfoAnnotation(tableName = "ZDRY_ZDRYZB", pk = "id")
@@ -70,6 +73,7 @@ public class ZdryZb extends BaseEntity implements Serializable, Zdry{
 	@FieldDesc("主要问题及现实表现") private String zywtjxsbx;
 	@FieldDesc("管理部门") private String glbm;
 	@FieldDesc("查询部门") private String cxbm;
+	@FieldDesc("管辖部门")private String gxbm;
 	
 	
 	public String getCyzjdm() {
@@ -353,6 +357,12 @@ public class ZdryZb extends BaseEntity implements Serializable, Zdry{
 	}
 	public void setCxbm(String cxbm) {
 		this.cxbm = cxbm;
+	}
+	public String getGxbm() {
+		return gxbm;
+	}
+	public void setGxbm(String gxbm) {
+		this.gxbm = gxbm;
 	}
 
 	

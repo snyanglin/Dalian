@@ -15,8 +15,8 @@
             		singleSelect:true,selectOnCheck:true,
             		checkOnSelect:true,border:false,
             		fitColumns:true,
-            		idField:'id',pageSize:5,
-            		pageList:[5,5 * 2]">
+            		idField:'id',pageSize:10,
+            		pageList:[10,10 * 2]">
 				    <thead>
 				        <tr>
 				        	
@@ -35,6 +35,43 @@
 				        </tr>
 				    </thead>
 				</table>
+				
+				<div id="datagridToolbar" style="padding: 0px; height: 50px; width: 100%; vertical-align: top;">
+					<form id ="queryForm" >		        
+			        <table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
+				        
+				        <tr class="dialogTr">
+					    	<td width="20%" class="dialogTd" align="right">审批类型：</td>
+					    	<td width="30%" class="dialogTd">
+					    	    <select class="easyui-combobox" style="width:200px" id="splx">
+						    		<option value="0">待审批</option>
+						    		<option value="1">已审批</option>
+						    		<option value="2">流程结束</option>
+						    	</select>
+					    	</td>	
+					    	<td width="10%" class="dialogTd" align="right">申请类型：</td>
+								<td width="20%" class="dialogTd"><input
+									class='easyui-validatebox ' 
+									type='text' id='sqlx' name='sqlx'
+									 style="width:250px;" />
+								</td>			    	
+				    	</tr>					    	
+			         </table>
+			         <div id="saveDiv"
+									style="text-align:center; height:50px; padding-top: 10px;">
+									<a id="saveBotton" class="l-btn l-btn-small"
+										href="javascript:void(0)" group=""   onclick="queryButton();"> <span
+										class="l-btn-left l-btn-icon-left"> <span
+											class="l-btn-text">查询</span> <span
+											class="l-btn-icon icon-save"> </span> </span> </a>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a id="resetBotton"
+										class="l-btn l-btn-small" href="javascript:void(0)" group="">
+										<span class="l-btn-left l-btn-icon-left"> <span
+											class="l-btn-text">重置</span> <span
+											class="l-btn-icon icon-reset"> </span> </span> </a>
+								</div>
+		        </form>
+				</div>
 			</div>
         </div>
     </div>   
@@ -42,8 +79,15 @@
 <script type="text/javascript">
 
 function processFormater(val, row, index) { // 自定义操作生成
-	var hsButton='&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="doHslg(this,'+index+',\'edit\')">审批</a>&nbsp;';
+	var splx=$("#splx").val();
 	
+	var hsButton='&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="doHslg(this,'+index+',\'edit\')">审批2</a>&nbsp;';		
+	
+	if(splx=="0"){//未审批
+		hsButton='&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="doHslg(this,'+index+',\'edit\')">审批</a>&nbsp;';	
+	}else {
+		hsButton='&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="doHslg(this,'+index+',\'edit\')">查看</a>&nbsp;';		
+	}
 	
 	return hsButton;
 }
@@ -53,9 +97,16 @@ function doHslg(linkObject, index,openType) {
 	var rows = $('#dg').datagrid('getData');
 	var rowData = rows.rows[index];
 	var editUrl ="";
+	var splx=$("#splx").val();
 	
+	editUrl = contextPath+"/zdryApproval/zdryApproval?executionId="+rowData.executionId+"&workflowId="+rowData.workflowId;
+	
+	if(splx=="0"){
 		editUrl = contextPath+"/zdryApproval/zdryApproval?executionId="+rowData.executionId+"&workflowId="+rowData.workflowId;
-	
+	}
+	else {
+		editUrl = contextPath+"/zdryApproval/zdryDetail?pocessDefinitionId="+rowData.pocessDefinitionId+"&workflowId="+rowData.workflowId;
+	}
 	//alert(rowData.workflowId);
 	var datagrid_ID = getDatagrid_ID(0, linkObject);
 	
@@ -80,10 +131,35 @@ function openTabPage(menuName, openURL,datagrid_ID) {
 function refresh()
 {
 
-
-
 this.location = this.location;
 
+}
+ 	function queryButton() {
+		$('#dg').datagrid('reload', {
+		'splx' : $("#splx").val(),
+		'sqlx' : $("#sqlx").val()
+		});
+ 	}
+	$("#resetBotton").click(function(){
+	 $("#queryForm").form("reset");
+		
+	});
+
+    function searchList(){
+	 var reloadUrl = contextPath +'/zdryApproval/queryList';
+	 var spzt=$("#spzt").val();
+	 reloadUrl = contextPath +'/zdryApproval/queryList?spzt'+spzt;	
+	
+	
+	var opt = $('#dg').datagrid('options');
+	opt.url = reloadUrl;
+	alert("查询："+opt.url);
+	$('#dg').datagrid('reload');
+    }
+ 
+	function reloadDg(){
+		$("#dg").datagrid("clearSelections");
+		$('#dg').datagrid('reload');
 }
 </script>  
 

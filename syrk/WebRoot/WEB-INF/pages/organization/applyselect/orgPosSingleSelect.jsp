@@ -17,6 +17,7 @@ var orgCodeInputID = null;
 var orgNameInputID = null;
 var orgIDInputID = null;
 var onOkMethod = null;
+var dialogTitle = null;
 var rootid = "${rootid}"
 var orgType = "${orgType}";
 var orgLevel = "${orgLevel}";
@@ -54,6 +55,8 @@ function doInit(paramArray) {
 	orgNameInputID = paramArray['orgNameInputID'];
 	orgIDInputID = paramArray['orgIDInputID'];
 	onOkMethod = paramArray['onOkMethod'];
+	//如果该字段不为空，且 为数据库表对应得字段，可灵活返回字段至界面 
+	dialogTitle = paramArray['dialogTitle'];
 	var desc = "";
 	var maxMessageLength = 70;
 	if (getGBLength(validMessage) > maxMessageLength) {
@@ -178,6 +181,11 @@ function ok_execute() {
 			parentWindow.document.getElementById(orgIDInputID).value = parentNode['id'];
 			parentWindow.$('#' + orgIDInputID).validatebox('validate');
 		}
+		//特别定制，用来返回org_position表的posid
+		if(dialogTitle != null ){
+			parentWindow.document.getElementById(dialogTitle).value = node['bizID'];
+			parentWindow.$('#' + dialogTitle).validatebox('validate');
+		}
 	}
 	else {
 		$.messager.alert('系统信息','请选择一个岗位！','error');
@@ -202,6 +210,9 @@ function clear_execute() {
 	}
 	if (orgIDInputID) {
 		parentWindow.document.getElementById(orgIDInputID).value = "";
+	}
+	if (dialogTitle) {
+		parentWindow.document.getElementById(dialogTitle).value = "";
 	}
 }
 

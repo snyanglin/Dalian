@@ -1045,6 +1045,8 @@ function public_singleSelectOrgPos(rootOrgCode, orgType, orgLevel, orgBizType, p
 	paramArray['orgNameInputID'] = orgNameInputID;
 	paramArray['orgIDInputID'] = orgIDInputID;
 	paramArray['onOkMethod'] = onOkMethod;
+	//特别定制，用来返回org_position表的posid
+	paramArray['dialogTitle'] = dialogTitle;
 	var dataOptions = {
 		title: '&nbsp;' + dialogTitle,
 		width: 800,   
