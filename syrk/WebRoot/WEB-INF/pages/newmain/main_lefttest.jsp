@@ -177,7 +177,6 @@ $(function() {
 												   }else{
 													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"menu_openClass('"+text+"','"+setSessionid(menureaf.openURL,sid)+"','"+menureaf.id+"',this,'"+sid+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
 												   }
-
 													Str = Str +menureaf.text +"";
 													Str = Str +"</a></li>";
 													Str = Str +"</ul>";
