@@ -42,106 +42,96 @@ import com.founder.zdrygl.base.service.ZdryGzService;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
+import com.founder.zdrygl.core.inteface.ZdryQueryService;
 import com.founder.zdrygl.core.inteface.ZdryService;
-import com.founder.zdrygl.core.inteface.ZdryZbService;
 import com.founder.zdrygl.core.inteface.ZdrylxylbdybService;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
-import com.founder.zdrygl.until.ZdryUntil;
 import com.google.gson.Gson;
 
 /**
  * ****************************************************************************
- * @Package:      [com.founder.zdrygl.base.controller.ZdryZdryzbControl.java]  
- * @ClassName:    [ZdryZdryzbControl]   
- * @Description:  [重点人员总表控制器]   
- * @Author:       [wei.wen@founder.com.cn]  
- * @CreateDate:   [2015年9月18日 下午3:20:01]   
- * @UpdateUser:   [wei.wen@founder.com.cn(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateDate:   [2015年9月18日 下午3:20:01，(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
- * @Version:      [v1.0]
+ * 
+ * @Package: [com.founder.zdrygl.base.controller.ZdryZdryzbControl.java]
+ * @ClassName: [ZdryZdryzbControl]
+ * @Description: [重点人员总表控制器]
+ * @Author: [wei.wen@founder.com.cn]
+ * @CreateDate: [2015年9月18日 下午3:20:01]
+ * @UpdateUser: [wei.wen@founder.com.cn(如多次修改保留历史记录，增加修改记录)]
+ * @UpdateDate: [2015年9月18日 下午3:20:01，(如多次修改保留历史记录，增加修改记录)]
+ * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]
+ * @Version: [v1.0]
  */
 @Controller
 @RequestMapping("/zdryzb")
 public class ZdryZdryzbControl extends BaseController {
 	private Logger logger = Logger.getLogger(this.getClass());
-	
+
 	@Autowired
 	public ZdryAbstractFactory zdryFactory;
-	
-	@Resource(name="zdryQueryService")
-	private ZdryInfoQueryService zdryQueryService ;
-	
+
+	@Resource(name = "zdryQueryService")
+	private ZdryInfoQueryService zdryQueryService;
+
 	@Autowired
 	private ZdryConstant zdryConstant;
-	
-	@Resource(name="zdryGzService")
-	private ZdryGzService zdryGzService ;
-	
+
+	@Resource(name = "zdryGzService")
+	private ZdryGzService zdryGzService;
+
 	@Autowired
 	private JProcessDefinitionService processDefinitionService;
-	
+
 	@Resource(name = "orgUserService")
 	private OrgUserService orgUserService;
-	
+
 	@Resource(name = "orgOrganizationService")
 	private OrgOrganizationService orgOrganizationService;
-	
+
 	@Resource(name = "orgPositionService")
 	private OrgPositionService orgPositionService;
-	
-	@Resource(name="zdryzbService")
-	private ZdryZbService zdryZdryzbService;
-	
-	@Resource(name="zdrylxylbdybService")
+
+	@Resource(name = "zdrylxylbdybService")
 	private ZdrylxylbdybService zdrylxylbdybService;
 
 	@Resource(name = "zpfjFjxxbService")
 	private ZpfjFjxxbService zpfjFjxxbService;
 
-	@Resource(name="ZdryUntil")
-	private ZdryUntil zdryUntil;
 	/*
-	@Resource		
-	private ZdryShbzdryxxbService zdryShbzdryxxbService;
-	
-	
-	@Resource(name="zdryZdryzbService")
-	private ZdryZdryzbService zdryZdryzbService;
-	
-	
-	@Resource(name = "syrkSyrkxxzbService")
-	private SyrkSyrkxxzbService syrkSyrkxxzbService;
-
-	@Autowired
-	private JProcessManageService processManageService;
-
-	@Autowired
-	private JTaskService taskService;
-
-	
-	
-	@Resource
-	private RyRyjbxxbService ryRyjbxxbService;
-	/*
-	@Resource
-	private ZdrySgafzdryxxbService zdrySgafzdryxxbService;
-	*/
+	 * @Resource private ZdryShbzdryxxbService zdryShbzdryxxbService;
+	 * 
+	 * 
+	 * @Resource(name="zdryZdryzbService") private ZdryZdryzbService
+	 * zdryZdryzbService;
+	 * 
+	 * 
+	 * @Resource(name = "syrkSyrkxxzbService") private SyrkSyrkxxzbService
+	 * syrkSyrkxxzbService;
+	 * 
+	 * @Autowired private JProcessManageService processManageService;
+	 * 
+	 * @Autowired private JTaskService taskService;
+	 * 
+	 * 
+	 * 
+	 * @Resource private RyRyjbxxbService ryRyjbxxbService; /*
+	 * 
+	 * @Resource private ZdrySgafzdryxxbService zdrySgafzdryxxbService;
+	 */
 	/**
 	 * 
 	 * @Title: manage
 	 * @Description: TODO(打开重点人员管理列表)
-	 * @param @return    设定文件
-	 * @return String    返回类型
+	 * @param @return 设定文件
+	 * @return String 返回类型
 	 * @throws
 	 */
-	@RequestMapping(value="/manager",method = RequestMethod.GET)
-	public String manage(){
+	@RequestMapping(value = "/manager", method = RequestMethod.GET)
+	public String manage() {
 		zdryConstant.createTreeJS();
 		return "zdrygl/zdryManage";
 	}
-	
+
 	/**
 	 * 
 	 * @Title: getManageList
@@ -150,19 +140,20 @@ public class ZdryZdryzbControl extends BaseController {
 	 * @param @param rows
 	 * @param @param entity
 	 * @param @param sessionBean
-	 * @param @return    设定文件
-	 * @return EasyUIPage    返回类型
+	 * @param @return 设定文件
+	 * @return EasyUIPage 返回类型
 	 * @throws
 	 */
-	@RestfulAnnotation(serverId="3")
-	@RequestMapping(value="/getManageList",method = RequestMethod.POST)
-	public @ResponseBody EasyUIPage getManageList(EasyUIPage page,@RequestParam(value="rows",required = false)Integer rows,
-			ZdryZb entity,SessionBean sessionBean){
+	@RestfulAnnotation(serverId = "3")
+	@RequestMapping(value = "/getManageList", method = RequestMethod.POST)
+	public @ResponseBody EasyUIPage getManageList(EasyUIPage page,
+			@RequestParam(value = "rows", required = false) Integer rows,
+			ZdryZb entity, SessionBean sessionBean) {
 		page.setPagePara(rows);
 		entity.setGlbm(getSessionBean(sessionBean).getUserOrgCode());
-		return zdryQueryService.queryList(page,entity);
+		return zdryQueryService.queryList(page, entity);
 	}
-	
+
 	/**
 	 * 
 	 * @Title: queryZdryOnPT
@@ -170,56 +161,53 @@ public class ZdryZdryzbControl extends BaseController {
 	 * @param @param page
 	 * @param @param rows
 	 * @param @param entity
-	 * @param @return    设定文件
-	 * @return EasyUIPage    返回类型
+	 * @param @return 设定文件
+	 * @return EasyUIPage 返回类型
 	 * @throw
 	 */
 	@RequestMapping(value = "/getQeryList", method = RequestMethod.POST)
-	public @ResponseBody
-	EasyUIPage getQeryList(EasyUIPage page,
-			@RequestParam(value = "rows") Integer rows, 
-			ZdryZb entity,
+	public @ResponseBody EasyUIPage getQeryList(EasyUIPage page,
+			@RequestParam(value = "rows") Integer rows, ZdryZb entity,
 			SessionBean sessionBean) {
 		page.setPagePara(rows);
-		if(entity.getGlbm()==null)	
+		if (entity.getGlbm() == null)
 			entity.setGlbm(getSessionBean(sessionBean).getUserOrgCode());
-		return zdryQueryService.getQueryList(page,entity);
+		return zdryQueryService.getQueryList(page, entity);
 	}
-	
+
 	/**
 	 * 
 	 * @Title: queryZdryChildLbList
-	 * @Description:  查询当前区域下的子类别列表
-	 * @param @param lbdm_p 上级类型	 
-	 * @param @return    设定文件
-	 * @return List    返回类型
+	 * @Description: 查询当前区域下的子类别列表
+	 * @param @param lbdm_p 上级类型
+	 * @param @return 设定文件
+	 * @return List 返回类型
 	 * @throws
 	 */
 	@RequestMapping(value = "/queryZdryChildLbList", method = RequestMethod.GET)
-	public @ResponseBody List queryZdryChildLbList(String lbdm_p) {		
-		List list=zdryQueryService.getChildList(lbdm_p);		
-		return list; 		
+	public @ResponseBody List queryZdryChildLbList(String lbdm_p) {
+		List list = zdryQueryService.getChildList(lbdm_p);
+		return list;
 	}
-	
+
 	/**
 	 * 
 	 * @Title: zdryAddPre
 	 * @Description: TODO(打开重点人员新增页面)
-	 * @param @return    设定文件
-	 * @return String    返回类型
+	 * @param @return 设定文件
+	 * @return String 返回类型
 	 * @throws
 	 */
-	@RequestMapping(value="/zdryAddPre",method = RequestMethod.GET)
-	public ModelAndView zdryAddPre(SessionBean sessionBean){
+	@RequestMapping(value = "/zdryAddPre", method = RequestMethod.GET)
+	public ModelAndView zdryAddPre(SessionBean sessionBean) {
 		ModelAndView mv = new ModelAndView("zdrygl/add/zdryAddPre");
 		sessionBean = getSessionBean(sessionBean);
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		mv.addObject("applyUser",sessionBean.getUserName());
-		mv.addObject("applyDate",formatter.format(new Date()));
+		mv.addObject("applyUser", sessionBean.getUserName());
+		mv.addObject("applyDate", formatter.format(new Date()));
 		return mv;
-	}			
-			
-	
+	}
+
 	/**
 	 * 
 	 * @Title: saveLg
@@ -227,8 +215,8 @@ public class ZdryZdryzbControl extends BaseController {
 	 * @param @param zdryVO
 	 * @param @param uploadFile
 	 * @param @param sessionBean
-	 * @param @return    设定文件
-	 * @return ModelAndView    返回类型
+	 * @param @return 设定文件
+	 * @return ModelAndView 返回类型
 	 * @throw
 	 */
 	@RequestMapping(value = "/saveLg", method = RequestMethod.POST)
@@ -236,50 +224,54 @@ public class ZdryZdryzbControl extends BaseController {
 		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
 		Map<String, Object> model = new HashMap<String, Object>();
 		sessionBean = getSessionBean(sessionBean);
-		try{
-			String zdrygllxdm=zdryVO.getZdryZdryzb().getZdrygllxdm();//重点人员类型		
-			ZdryService zdryService = zdryFactory.createZdryService(zdrygllxdm, zdryVO.getZdryZdryzb(), zdryVO.getZdrylbdx());
-			//start process
-			StartProcessInstance spi = initialProcessInstance(sessionBean,zdryVO);
-			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getBusinessKey(), spi.getApplyUserId(), spi.getVariables());
+		try {
+			String zdrygllxdm = zdryVO.getZdryZdryzb().getZdrygllxdm();// 重点人员类型
+			ZdryService zdryService = zdryFactory.createZdryService(zdrygllxdm,
+					zdryVO.getZdryZdryzb(), zdryVO.getZdrylbdx());
+			// start process
+			StartProcessInstance spi = initialProcessInstance(sessionBean,
+					zdryVO);
+			zdryService.setStartProcessInstance(spi.getProcessKey(),
+					spi.getBusinessKey(), spi.getApplyUserId(),
+					spi.getVariables());
 			zdryService.lg(sessionBean);
-			
+
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
 			model.put(AppConst.MESSAGES, getAddSuccess());
-		}catch(BussinessException e){
+		} catch (BussinessException e) {
 			e.printStackTrace();
 			new RestException(e.getLocalizedMessage());
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
 			model.put(AppConst.MESSAGES, e.getLocalizedMessage());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			new RestException(e.getLocalizedMessage());
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
 			model.put(AppConst.MESSAGES, getAddFail());
 		}
-		
-		
+
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
-		
+
 	}
-	
+
 	/**
 	 * 
 	 * @Title: startLgProcess
 	 * @Description: TODO(这里用一句话描述这个方法的作用)
 	 * @param @param sessionBean
-	 * @param @param zdryVO    设定文件
-	 * @return void    返回类型
+	 * @param @param zdryVO 设定文件
+	 * @return void 返回类型
 	 * @throws
 	 */
-	private StartProcessInstance initialProcessInstance(SessionBean sessionBean, ZdryVO zdryVO) {
-		//StartProcessInstance initializes
+	private StartProcessInstance initialProcessInstance(
+			SessionBean sessionBean, ZdryVO zdryVO) {
+		// StartProcessInstance initializes
 		StartProcessInstance spi = new StartProcessInstance();
 		spi.setApplyUserId(sessionBean.getUserId());
-		
+
 		Map<String, Object> variables = new HashMap<String, Object>();
 		String lrrzrq = sessionBean.getUserOrgCode();
 		String zdryxm = zdryVO.getZdryZdryzb().getXm();
@@ -288,11 +280,16 @@ public class ZdryZdryzbControl extends BaseController {
 		zdrylxylbdyb.setLbdm(zdryZdryzb.getZdrygllxdm());
 		String zdrylxmc = zdrylxylbdybService.query(zdrylxylbdyb).getBz();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+
+		variables.put("zdrylx", zdryZdryzb.getZdrygllxdm());// 人员类型
+		variables.put("zdryzb", zdryVO.getZdryZdryzb());
+		variables.put("zdrylbdx", zdryVO.getZdrylbdx());
+		
 		String createTime = formatter.format(new Date());// 申请时间
 		variables.put("createTime", createTime);
 		variables.put("lrrzrq", lrrzrq);// 录入人管辖责任区
 		variables.put("zdryId", zdryZdryzb.getId()); // 重点人员总表Id
-		variables.put("zdrylx", zdryZdryzb.getZdrygllxdm());// 人员类型
 		variables.put("zdrylxmc", zdrylxmc);// 人员类型名称
 		variables.put("xm", zdryxm);// 被列管人员姓名
 		variables.put("zjhm", zdryVO.getZdryZdryzb().getZjhm());// 证件号码
@@ -313,8 +310,8 @@ public class ZdryZdryzbControl extends BaseController {
 					+ "列管为涉环保重点人员");
 			variables.put("xm", zdryVO.getZdryShbzdryxxb().getXm());// 被列管人员姓名
 			variables.put("zjhm", zdryVO.getZdryShbzdryxxb().getZjhm());// 证件号码
-			
-			//set parameters of processinstance
+
+			// set parameters of processinstance
 			spi.setProcessKey("shb_lcg");
 			spi.setBusinessKey(zdryZdryzb.getId());
 			spi.setVariables(variables);
@@ -331,7 +328,7 @@ public class ZdryZdryzbControl extends BaseController {
 			variables.put("sz", taskParameter);
 			variables.put("approvalMethod", "szApproval");
 
-			//set parameters of processinstance
+			// set parameters of processinstance
 			spi.setProcessKey("szsp");
 			spi.setBusinessKey(zdryZdryzb.getId());
 			spi.setVariables(variables);
@@ -346,37 +343,43 @@ public class ZdryZdryzbControl extends BaseController {
 					+ orgPositionService.queryByPosid("SZ").getId().toString(); // 部门code+所长岗位ID
 			variables.put("approvalMethod", "sgafApproval");
 			variables.put("szsp", taskParameter);
- 
-			//set parameters of processinstance
+
+			// set parameters of processinstance
 			spi.setProcessKey("sgaj_lcg");
 			spi.setBusinessKey(zdryZdryzb.getId());
 			spi.setVariables(variables);
 		} else // 治安
 
 		if (zdryZdryzb.getZdrygllxdm().equals("01")) {
-			if ("0104".equals(zdryZdryzbService.queryById(zdryZdryzb.getId())
-					.getZdrylb())) {
+			ZdryZb zdryZb = (ZdryZb) zdryQueryService.queryById(zdryZdryzb
+					.getId());
+			if ("0104".equals(zdryZb.getZdrylb())) {
 
 				variables.put("sqlx", "治安列管");// 申请类型
 				variables.put("sqlxdm", "01");// 申请类型为列管
-				/*processDefinitionService.startProcessInstance(
-						sessionBean.getUserId(), "zalcg", zdryZdryzb.getId(),
-						variables);*/
-				//set parameters of processinstance
+				/*
+				 * processDefinitionService.startProcessInstance(
+				 * sessionBean.getUserId(), "zalcg", zdryZdryzb.getId(),
+				 * variables);
+				 */
+				// set parameters of processinstance
 				spi.setProcessKey("zalcg");
 				spi.setBusinessKey(zdryZdryzb.getId());
 				spi.setVariables(variables);
 			} else {
-				zdryUntil.lgSuccess(zdryZdryzb.getId(), zdryxm,
-						sessionBean.getUserId(), sessionBean.getUserName(),
-						sessionBean.getUserOrgCode(), null);
+				// TODO:
+				/*
+				 * zdryUntil.lgSuccess(zdryZdryzb.getId(), zdryxm,
+				 * sessionBean.getUserId(), sessionBean.getUserName(),
+				 * sessionBean.getUserOrgCode(), null);
+				 */
 			}
 
 		} else {
 			variables.put("sqlx", "治安列管");// 申请类型
 			variables.put("sqlxdm", "01");// 申请类型为列管
 
-			//set parameters of processinstance
+			// set parameters of processinstance
 			spi.setProcessKey("zalcg");
 			spi.setBusinessKey(zdryZdryzb.getId());
 			spi.setVariables(variables);
@@ -626,4 +629,3 @@ public class ZdryZdryzbControl extends BaseController {
 	}
 
 }
-

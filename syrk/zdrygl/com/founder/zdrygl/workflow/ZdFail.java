@@ -1,10 +1,10 @@
 package com.founder.zdrygl.workflow;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -12,7 +12,10 @@ import org.springframework.web.util.WebUtils;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
-import com.founder.zdrygl.until.ZdryUntil;
+import com.founder.zdrygl.base.model.ZdryZb;
+import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
+import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.model.Zdry;
 
 
 
@@ -32,22 +35,21 @@ import com.founder.zdrygl.until.ZdryUntil;
 @Component
 public class ZdFail implements JavaDelegate{
 
-	@Resource(name="ZdryUntil")
-	private ZdryUntil zdryUntil;
-
-	
-	
+	@Autowired
+	public ZdryAbstractFactory zdryFactory;
 	@Override
 	public void execute(DelegateExecution arg0) throws Exception {
 		// TODO Auto-generated method stub
-				
+		String zdrylx = (String) arg0.getVariable("zdrylx");
+		ZdryZb zdryzb = (ZdryZb) arg0.getVariable("zdryzb");
+		Zdry zdrylbdx = (Zdry) arg0.getVariable("zdrylbdx");
+		ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
 		
-		
-	
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
 		
-		String zdryid=(String) arg0.getVariable("zdryid");
+		
+		/*String zdryid=(String) arg0.getVariable("zdryid");
 		String zdryxm=(String) arg0.getVariable("xm");
 		
 		String ywsqrId=(String) arg0.getVariable("applyUserId");
@@ -57,9 +59,9 @@ public class ZdFail implements JavaDelegate{
 		String xglbm=(String) arg0.getVariable("sszrqdm");
 		
 		String spr=sessionBean.getUserId();
-		String spbm=sessionBean.getUserOrgCode();
+		String spbm=sessionBean.getUserOrgCode();*/
 	
-			zdryUntil.zdFail(zdryid, zdryxm, ywsqrId, spr, spbm, ywsqr, sfcj, yglbm, xglbm);
+		zdryService.zdFail(sessionBean);
 	}
 	
 	

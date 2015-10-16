@@ -1,10 +1,10 @@
 package com.founder.zdrygl.workflow;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -12,7 +12,10 @@ import org.springframework.web.util.WebUtils;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
-import com.founder.zdrygl.until.ZdryUntil;
+import com.founder.zdrygl.base.model.ZdryZb;
+import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
+import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.model.Zdry;
 
 
 
@@ -31,40 +34,39 @@ import com.founder.zdrygl.until.ZdryUntil;
 
 @Component
 public class WorkReject implements JavaDelegate{
-
-	@Resource(name="ZdryUntil")
-	private ZdryUntil zdryUntil;
-
-	
+	@Autowired
+	public ZdryAbstractFactory zdryFactory;
 	
 	@Override
 	public void execute(DelegateExecution arg0) throws Exception {
 		// TODO Auto-generated method stub
 				
+		String zdrylx = (String) arg0.getVariable("zdrylx");
+		ZdryZb zdryzb = (ZdryZb) arg0.getVariable("zdryzb");
+		Zdry zdrylbdx = (Zdry) arg0.getVariable("zdrylbdx");
+		ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
 		
-		
-	
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
 		
 		String sqlxdm=(String) arg0.getVariable("sqlxdm");//申请类型
-		String zdryId=(String) arg0.getVariable("zdryId");
+		/*String zdryId=(String) arg0.getVariable("zdryId");
 		String zdryxm=(String) arg0.getVariable("xm");
 		String ywsqrId=(String) arg0.getVariable("applyUserId");
 		String cghZdryId=(String) arg0.getVariable("cghZdryId");
 		String spyj=(String) arg0.getVariable("spyj");
 		String spr=sessionBean.getUserId();
-		String spbm=sessionBean.getUserOrgCode();
+		String spbm=sessionBean.getUserOrgCode();*/
 		
 		if(sqlxdm.equals("01")){//列管
-			zdryUntil.lgFail(zdryId, zdryxm, ywsqrId, spr, spbm, cghZdryId);
+			zdryService.lgFail(sessionBean);
 		}
 		if(sqlxdm.equals("02")){//撤管
-			zdryUntil.cgFail(zdryId, zdryxm, ywsqrId, spr, spbm, cghZdryId);
+			zdryService.cgFail(sessionBean);
 		}
 		if(sqlxdm.equals("04")){//请假
-			String qjId=(String) arg0.getVariable("qjId");			
-			zdryUntil.qjFail(qjId,sessionBean.getUserName(),spr,sessionBean.getRemoteAddr(),spyj);
+			//String qjId=(String) arg0.getVariable("qjId");			
+			//zdryUntil.qjFail(qjId,sessionBean.getUserName(),spr,sessionBean.getRemoteAddr(),spyj);
 		}
 		
 	}
