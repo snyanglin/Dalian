@@ -1,19 +1,18 @@
 package com.founder.zdrygl.base.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.founder.framework.annotation.MethodAnnotation;
-import com.founder.framework.annotation.MethodAnnotation.logType;
 import com.founder.framework.annotation.ParaAnnotation;
 import com.founder.framework.annotation.TypeAnnotation;
+import com.founder.framework.annotation.MethodAnnotation.logType;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
 import com.founder.framework.utils.UUID;
@@ -21,7 +20,7 @@ import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrycg;
 import com.founder.zdrygl.base.vo.ZdryVO;
-import com.founder.zdrygl.core.inteface.ZdryZbService;
+import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.inteface.ZdryglMessageService;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
@@ -38,9 +37,7 @@ import com.founder.zdrygl.core.utils.ZdryConstant;
  * @Version:      [v1.0]
  */
 @TypeAnnotation("重点人员管理")
-@Service("zdryzbService")
-@Transactional
-public class ZdryzbService  extends BaseService  implements ZdryZbService {
+public class ZdryzbService implements ZdryService {
 	
 	/**
 	 * 重点人员总表对象，需要存日志表，必须是public或者指定获取方法getZdry
@@ -255,10 +252,5 @@ public class ZdryzbService  extends BaseService  implements ZdryZbService {
 	@Override
 	public void queryZdryAllInfo(String zdryid,ZdryVO zdryVO) {
 		zdryVO.setZdryZdryzb((ZdryZb)zdryZdryZbDao.queryById(zdryid));
-	}
-
-	@Override
-	public ZdryZb queryById(String id) {
-		return (ZdryZb) zdryZdryZbDao.queryById(id);
 	}
 }

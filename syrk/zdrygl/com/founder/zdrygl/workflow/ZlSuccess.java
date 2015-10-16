@@ -1,10 +1,10 @@
 package com.founder.zdrygl.workflow;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -12,7 +12,10 @@ import org.springframework.web.util.WebUtils;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
-import com.founder.zdrygl.until.ZdryUntil;
+import com.founder.zdrygl.base.model.ZdryZb;
+import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
+import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.model.Zdry;
 
 
 
@@ -32,32 +35,27 @@ import com.founder.zdrygl.until.ZdryUntil;
 @Component
 public class ZlSuccess implements JavaDelegate{
 
-	@Resource(name="ZdryUntil")
-	private ZdryUntil zdryUntil;
-
-//
-//	@Resource(name = "zdryZdryzbService")
-//	private ZdryZdryzbService zdryZdryzbService;
-	
+	@Autowired
+	public ZdryAbstractFactory zdryFactory;
 	@Override
 	public void execute(DelegateExecution arg0) throws Exception {
 		// TODO Auto-generated method stub
-				
+		String zdrylx = (String) arg0.getVariable("zdrylx");
+		ZdryZb zdryzb = (ZdryZb) arg0.getVariable("zdryzb");
+		Zdry zdrylbdx = (Zdry) arg0.getVariable("zdrylbdx");
+		ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
 		
-		
-		
-
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
 		
 		
-		String zdryId = (String) arg0.getVariable("zdryId");
-		String xzdrylb = (String) arg0.getVariable("xzdrylb");
+		/*String zdryId = (String) arg0.getVariable("zdryId");
+		String xzdrylb = (String) arg0.getVariable("xzdrylb");*/
 //		ZdryZdryzb zdryZdryzb =zdryZdryzbService.queryById(zdryId);
 //		zdryZdryzb.setGlzt("2");
 //		zdryZdryzb.setZdrylb(xzdrylb);
 //		zdryZdryzbService.update(zdryZdryzb, sessionBean);
-//		zdryUntil.zdSuccess(syrkid, zdryxm, ywsqrId, spr, spbm, ywsqr, sfcj, yglbm, xglbm);
+		zdryService.zdSuccess(sessionBean);
 		
 	}
 	
