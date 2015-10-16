@@ -4,9 +4,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.founder.framework.base.entity.SessionBean;
-//import com.founder.workflow.bean.StartProcessInstance;
+import com.founder.framework.exception.BussinessException;
+import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.workflow.service.inteface.JProcessDefinitionService;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.inteface.JwzhMessageService;
@@ -34,7 +36,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	/**
 	 * 流程启动对象
 	 */
-	//private StartProcessInstance processInstance;
+	private StartProcessInstance processInstance;
 	
 	/**
 	 * 消息源对象
@@ -55,13 +57,17 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	public final void lg(SessionBean sessionBean) {
 		zdryService.lg(sessionBean);
 		lg_(sessionBean);
-//		if(checkWorkFlow()) {
-//			if(processInstance != null && StringUtils.isEmpty(processInstance.getProcessKey())){
-//				throw new BussinessException("缺少流程启动参数！");
-//			}else{
-//				processDefinitionService.startProcessInstance(processInstance.getProcessKey(), processInstance.getBusinessKey(), processInstance.getApplyUserId(),processInstance.getVariables());
-//			}
-//		}
+		//put zdryId & name to variables
+		processInstance.setProcessKey(zdryService.getZdryId());
+		processInstance.getVariables().put("zdryId", zdryService.getZdryId());
+		
+		if(checkWorkFlow()) {
+			if(processInstance != null && StringUtils.isEmpty(processInstance.getProcessKey())){
+				throw new BussinessException("缺少流程启动参数！");
+			}else{
+				processDefinitionService.startProcessInstance(processInstance.getProcessKey(), processInstance.getBusinessKey(), processInstance.getApplyUserId(),processInstance.getVariables());
+			}
+		}
 	}
 
 	@Override
@@ -165,10 +171,13 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	
 	@Override
 	public final void setStartProcessInstance(String processKey, String businessKey, String applyUserId, Map<String,Object> variables){
-//		processInstance.setProcessKey(processKey);
-//		processInstance.setBusinessKey(businessKey);
-//		processInstance.setApplyUserId(applyUserId);
-//		processInstance.setVariables(variables);
+		if(processInstance == null){
+			processInstance = new StartProcessInstance();
+		}
+		processInstance.setProcessKey(zdryService.getZdryId());
+		processInstance.setBusinessKey(processKey);
+		processInstance.setApplyUserId(applyUserId);
+		processInstance.setVariables(variables);
 	}
 	
 	@Override

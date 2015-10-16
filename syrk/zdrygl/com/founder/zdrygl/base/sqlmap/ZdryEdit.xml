@@ -12,7 +12,11 @@
 		       FROM SYS_ZDRKGNPZB A,SYS_GNB B WHERE A.GNID=B.ID(+) AND  B.GNLXDM = #gnlxdm#
 		 and A.XT_ZXBZ='0' and B.XT_ZXBZ='0' ORDER BY A.PX
 	</select>
-		
+	
+	<select id="querySyrkYwglry" parameterClass="Map" resultClass="HashMap">
+		select A.ID,A.RYID,A.RYGXDM,A.GXRRYID,A.LYID,A.LYBM,A.XT_CJSJ,B.XM from RK_RYGXB A,RK_RYJBXXB B WHERE A.RYID = B.ID(+) AND A.XT_ZXBZ='0' AND A.RYID=#ryid# ORDER BY A.XT_CJSJ DESC
+	</select>
+	
 	<!-- 人员展示信息菜单查询 -->
 	<select id="queryXxzsByZdrylx" parameterClass="Map" resultClass="zdryxxzsvo">
 		SELECT  a.px as px , a.cshzk cshzk, b.xxdxlxdm xxdxlxdm , b.xxbh xxbh ,b.xxbtmc  xxbtmc, b.gnlxdm  gnlxdm, b.xxurl xxurl , b.xxzsjlzds  xxzsjlzds , b.ys icon , b.sfdt sfdt,

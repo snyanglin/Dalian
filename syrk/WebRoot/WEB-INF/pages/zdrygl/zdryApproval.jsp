@@ -12,89 +12,44 @@
     <form action="<%=basePath%>zdryApproval/${approvalMethod}" id="dataForm" name="dataForm" method="post">
     	
     	<input type="hidden" id="workflowId" name="workflowId""  value="${workflowId}" />
-    	<input type="hidden" id="zdrylx" name="zdrylx""   />
-    	<input type="hidden" id="sqlxdm" name="sqlxdm""   />
+ 
     	
     
-			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
-			<tr class="dialogTr">
-		    	<td width="20%" class="dialogTd" align="right">重点人员姓名：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text"  id="zdryName" name="zdryName" style="width:200px;" readonly="readonly"  /></td>
-		    	<td width="20%" class="dialogTd" align="right">公民身份号码：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="zjhm" id="zjhm" style="width:200px;" readonly="readonly" /></td>
-		    	
-		    
-		    
-		      <tr class="dialogTr"> 
-		    	<td width="20%" class="dialogTd" align="right">申请类型：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="sqlx" id="sqlx" style="width:200px;" readonly="readonly" /></td>	    	
-		    	<td width="20%" class="dialogTd" align="right">重点人员类别：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="zdrylxmc" id="zdrylxmc" style="width:200px;" readonly="readonly" /></td>	    	
-		    </tr>	
-		    	
-				
-		    <tr class="dialogTr">
-		    	<td width="20%" class="dialogTd" align="right" id="cgrqText">申请日期：</td>
-		    	<td width="30%" class="dialogTd"><input type="text" name="sqsj" id="sqsj" class="easyui-validatebox inputreadonly" style="width: 200px;"  readonly="readonly" /></td>
-	    		<td width="10%" class="dialogTd" align="right">申请人：</td>
-		    	<td width="20%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="sqrId" id="sqrId" style="width:200px;" readonly="readonly" /></td>		 	    
-	    	</tr>
-	    	<c:if test="${sqlxdm eq '04'}">	    	
-	    	 <tr class="dialogTr">
-		    	<td width="20%" class="dialogTd" align="right">请假日期：</td>
-		    	<td width="30%" class="dialogTd"><input type="text" name="qjrq" id="qjrq" class="easyui-validatebox inputreadonly" style="width: 200px;"  readonly="readonly" /></td>
-	    		<td width="20%" class="dialogTd" align="right">预计返回日期：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="yjfh_rq" id="yjfh_rq" style="width:200px;" readonly="readonly" /></td>		 	    
-	    	</tr>
-	    	<tr class="dialogTr">
-		    	<td width="20%" class="dialogTd" align="right">请假原因：</td>
-		    	<td width="80%" class="dialogTd" colspan="3">
-		    		<textarea name="qjyy" id="qjyy" class="easyui-validatebox inputreadonly" style="width: 618px; height:48px; readonly="readonly"">
-						${qjyy}
-					</textarea>
-		    	</td>	    				 	   
-	    	</tr>	    	
-	    	</c:if>
-	    	
-	    	<c:if test="${approvalMethod eq 'szzlApproval'}">
-	    	
-	    	  <tr class="dialogTr">
-		    	<td width="20%" class="dialogTd" align="right" id="cgrqText">重点人员已列管类别：</td>
-		    	<td width="30%" class="dialogTd"><input type="text" name="yzdrylbmc" id="yzdrylbmc" class="easyui-validatebox inputreadonly" style="width: 200px;"  readonly="readonly" /></td>
-	    		<td width="10%" class="dialogTd" align="right">重点人员转类类别：</td>
-		    	<td width="20%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="xzdrylbmc" id="xzdrylbmc" style="width:200px;" readonly="readonly" /></td>
-		 
-	    	
-	    	</tr>
-	    	
-	    	</c:if>
-		    <tr class="dialogTr">
-		    	<td width="20%" class="dialogTd" align="right" id="cgsqyjText">申请意见：</td>
-		    	<td width="80%" class="dialogTd" colspan="3">
-		    	<input class="easyui-validatebox inputreadonly" type="text" id="sqyj" name="sqyj" style="width: 619px;" data-options="required:false,validType:['maxLength[100]','unnormal']"  readonly="readonly"/></td>
-	    	</tr>
-		    
-		    
-		     <tr class="dialogTr">
-	    		<td width="20%" class="dialogTd" align="right">审批结果：</td>
-	    		<td width="80%" class="dialogTd" colspan="3">
-	    		<input type="radio" name="spjg" id="spjg" value="1"  onclick="changeSpjg(this.value)" checked="checked"/>	 同意
-	    		<input type="radio" name="spjg" id="spjg" value="0"  onclick="changeSpjg(this.value)" />	 不同意
-		    	</td>
-		    </tr>
-	    	<tr class="dialogTr">
-		    	<td width="20%" class="dialogTd" align="right" id="cgsqyjText">审批意见：</td>
-		    	<td width="80%" class="dialogTd" colspan="3">
-		    	<input class="easyui-validatebox " type="text" id="spyj" name="spyj" style="width: 619px;" data-options="required:false,validType:['maxLength[100]','unnormal']"  /></td>
-	    	</tr>
-	    	<tr class="dialogTr">
-		    	<td width="20%" class="dialogTd" align="right" >资料查看：</td>
-		    	<td width="80%" class="dialogTd" colspan="3">
-		    	<a href="javascript:void(0);" onclick="openSyrk()">实有人口详情</a>
-	    	</tr>
-	    	</table>
+			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center"></tr>
+			${renderedTaskForm}
+			
+	     <tr class="dialogTr" id="nextsplxDiv">
+		<td width="20%" class="dialogTd" align="right">提交类型：</td>
+		<td width="80%" class="dialogTd" colspan="3">
+		<input type="radio" name="nextsplx" id="nextsplx1" value="1"  checked="checked"/>提交到岗位
+		<input type="radio" name="nextsplx" id="nextsplx0" value="0"   />提交到人员
+		</td>
+ 		</tr>	
+	    <tr class="dialogTr"  id="PoDiv">
+	   	<td width="20%" class="dialogTd" align="right">岗位信息：</td>
+	   	<td>
+	   	<input type="hidden"   id="nextSpposId" name="nextSpposId" value="" style="width: 100;" />
+	   	<input type="hidden" id="nextSppos" name="nextSppos" value="" style="width: 100;" />
+	    <input type="text" id="posname12" name="posname12" style="width: 200;" value="" />
+	   	<input type="hidden" id="nextSpOrgCode" name="nextSpOrgCode" value="" style="width: 100;" />
+	    <input type="button" id=orgbutton12" value="选择" onClick="SelectOrgPos()" style="cursor:pointer; background:#EEF2F8 ;border:1px solid #082F4F;HEIGHT: 18px; WIDTH: 48px;font-family:宋体;font-size:9pt;" />
+	    </td>
+   		 </tr>
 	    	
 	    	
+	    <tr class="dialogTr"  id="UsDiv">
+	   	<td width="20%" class="dialogTd" align="right">人员信息：</td>
+	    </td>
+	   	
+	   	<td>
+	    <input type="text" id="username12" name="username12" style="width: 200;" value="" />
+	   	<input type="hidden" id="nextSpUserId" name="nextSpUserId" value="" style="width: 100;" />
+	    <input type="button" id=orgbutton12" value="选择"  onClick="SelectOrgUser()"  style="cursor:pointer; background:#EEF2F8 ;border:1px solid #082F4F;HEIGHT: 18px; WIDTH: 48px;font-family:宋体;font-size:9pt;" />
+	    </td>
+  		</tr>
+	    </table>
+	    	
+	    	  <div style="margin: 0 auto;"></div>   
 	    	
 	    	
 	    	<div id="saveDiv" style="text-align:center; height:50px; padding-top: 10px;">
@@ -115,21 +70,75 @@
 </div>
 
 <script type="text/javascript" >
-var xm;
-var ryid;
-var syrkid;
 
-$(document).ready(function(){
-		getZdryXx();
-		changeSpjg(1,null);
+	var agreeOrgCode;
+	var disagreeOrgCode;
+	var agreeOrglevel;
+	var disagreeOrglevel;
+	var orgCode;
+	var orglevel;
+	
+	$(document).ready(function(){
+	
+	if($("#zdrylxmc").val()=="社区矫正人员"||$("#zdrylxmc").val()=="重点人口"||$("#zdrylxmc").val()=="非正常上访重点人员"
+					||$("#zdrylxmc").val()=="其他关注对象" || $("#sqlx").val()=="请假审批")
+	{
+	$("#nextsplxDiv").hide();
+	$("#PoDiv").hide();
+	$("#UsDiv").hide();
+	}
+	else{
+			$("#nextsplxDiv").hide();
+			$("#PoDiv").hide();
+			$("#UsDiv").hide();
+			
+		//	alert($("#agree").val());
+	
+		if(($("#agree").val()!="NoChoice")&&($("#disagree").val()!="NoChoice")){
+			getAgreeOrgCode();
+			getDisagreeOrgCode();
+	
+			$("#nextsplxDiv").show();
+			$("#PoDiv").show();
+			$("#nextsplx0").bind("click", function(event) { $("#UsDiv").show();	});
+			$("#nextsplx1").bind("click", function(event) { $("#UsDiv").hide(); });
+			$("#spjg0").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").show(); orgCode=disagreeOrgCode;orglevel=disagreeOrglevel;});
+			$("#spjg1").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").show(); orgCode=agreeOrgCode;orglevel=agreeOrglevel;	});
+	
+	
+		}
+		if(($("#agree").val()!="NoChoice")&&($("#disagree").val()=="NoChoice")){
+			getAgreeOrgCode();
+			orgCode=agreeOrgCode;
+			orglevel=agreeOrglevel;
+			$("#nextsplxDiv").show();
+			$("#PoDiv").show();
+			$("#nextsplx0").bind("click", function(event) {$("#UsDiv").show();  });
+			$("#nextsplx1").bind("click", function(event) { $("#UsDiv").hide(); });
+			
+			$("#spjg0").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").hide(); $("#nextsplxDiv").hide();});
+			$("#spjg1").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").show(); $("#nextsplxDiv").show(); });
+		}
+		if(($("#agree").val()=="NoChoice")&&($("#disagree").val()!="NoChoice")){
+
+			getDisagreeOrgCode();
+			orgCode=disagreeOrgCode;
+			orglevel=disagreeOrglevel;
+			$("#nextsplx0").bind("click", function(event) { $("#PoDiv").hide(); $("#UsDiv").show();  });
+			$("#nextsplx1").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").show(); });
+	
+			$("#spjg0").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").show(); $("#nextsplxDiv").show();});
+			$("#spjg1").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").hide(); $("#nextsplxDiv").hide(); });
+	
+			}
+		}
+		
+		loadclearSelect();
 		$("#saveBotton").bind("click",function() {
-			
-			
 			var formObject =$("#dataForm");
 			if(!formObject.form('validate')){
 				return false;
 			}
-		
 			formObject.form('submit',{
 				dataType : 'json',
 				onSubmit: function() {
@@ -143,73 +152,92 @@ $(document).ready(function(){
 				}
 			});	
 		});
-			
-		
-	$("#close").bind("click",function() {
-			
-			
-				 
+		$("#close").bind("click",function() {
 					window.parent.$('#windowWithoutSave').dialog('close');
 		
 			});
-});
-
-function getZdryXx() {
-	var su = true;
-	$.ajax({
-		async:false,
-		type:"POST",
-		url:"<%= basePath%>zdryApproval/getZdryXx",
-		dataType:"json",
-		data:"executionId="+'${executionId}',
-		success:function(data){
-				if (data) {
-					$("#zdryName").val(data.workflowXx.xm) ;
-					$("#zjhm").val(data.workflowXx.zjhm) ;
-					$("#sqsj").val(data.workflowXx.createTime) ;						
-					$("#sqrId").val(data.zdryZdryzb.xt_lrrxm) ;	
-					$("#zdrylx").val(data.workflowXx.zdrylx) ;
-					$("#zdrylxmc").val(data.workflowXx.zdrylxmc) ;
-					$("#sqlx").val(data.workflowXx.sqlx) ;
-					$("#sqlxdm").val(data.workflowXx.sqlxdm) ;
-					$("#sqyj").val(data.workflowXx.sqyj) ;
-					if(data.workflowXx.yzdrylbmc!='')
-					{
-					$("#yzdrylbmc").val(data.workflowXx.yzdrylbmc) ;
-					$("#xzdrylbmc").val(data.workflowXx.xzdrylbmc) ;
-					}
-			//		alert(approvalMethod);
-					xm=data.workflowXx.xm;
-					ryid=data.zdryZdryzb.ryid;
-					syrkid=data.zdryZdryzb.syrkid;
-					if(data.workflowXx.sqlxdm=='04'){//请假
-						$("#qjrq").val(data.zdryJgdxqxjdjb.qjrq);
-						$("#yjfh_rq").val(data.zdryJgdxqxjdjb.yjfh_rq);
-						$("#qjyy").val(data.zdryJgdxqxjdjb.qjyy);
-					}
-					
-				}
-			}
 		});
-	
-}
 
-function openSyrk(){
-	var editUrl = "/syrkEdit/"+ryid+"/"+syrkid+"/view?mode=view";
-	menu_open("实有人口【"+xm+"】",editUrl);
-	window.parent.$('#windowWithoutSave').dialog('close');
-}
-function openZdrk(){
-	
-	var editUrl = "/zdrygl/"+ryid+"/"+syrkid+"/view?mode=view";
-	menu_open(xm,editUrl);
-	window.parent.$('#windowWithoutSave').dialog('close');
-}
 
+
+		function getAgreeOrgCode() {
+			var su = true;
+			$.ajax({
+			async:false,
+			type:"POST",
+			url:"<%= basePath%>zdryApproval/getApprovalOrgCode",
+			dataType:"json",
+			data:"condition="+$("#agree").val(),
+			success:function(data){
+				if (data) {
+					agreeOrgCode=data.orgOrganization.orgcode;
+					agreeOrglevel=data.orgOrganization.orglevel;
+						}
+					}
+				});
+			}
+		function getDisagreeOrgCode() {
+			var su = true;
+			$.ajax({
+			async:false,
+			type:"POST",
+			url:"<%= basePath%>zdryApproval/getApprovalOrgCode",
+			dataType:"json",
+			data:"condition="+$("#disagree").val(), 
+			success:function(data){
+					if (data) {
+					disagreeOrgCode=data.orgOrganization.orgcode;
+					disagreelevel=data.orgOrganization.orglevel;
+					}
+				}
+			});
+		}
+
+		function openZdrk(){
+	
+			var editUrl = "/zdrygl/"+ryid+"/"+syrkid+"/view?mode=view";
+			menu_open(xm,editUrl);
+			window.parent.$('#windowWithoutSave').dialog('close');
+		}
+		
+		function clearSelect(){
+		
+			 $("#nextSpposId").val("");
+			 $("#posidE").val("");
+			 $("#posname12").val("");
+			 $("#nextSpOrgCode").val("");
+			 $("#nextSpUserId").val("");
+			 $("#username12").val("");    
+			
+		}
+		function loadclearSelect(){
+			$("#nextsplx0").bind("click", function(event) { clearSelect(); });
+			$("#nextsplx1").bind("click", function(event) { clearSelect(); });
+			$("#spjg0").bind("click", function(event) { clearSelect();});
+			$("#spjg1").bind("click", function(event) { clearSelect();});
+		}
+
+
+
+		function SelectOrgUser(){
+			var posid=$("#nextSppos").val();
+			alert(posid);
+			if(posid==""){
+				alert("请选择岗位");
+				return false;
+			}
+   			public_singleSelectOrgUser(orgCode, '01', orglevel, '', posid, '', 'nextSpUserId', 'username12', '', '', '', '', false, '', window, 'onOrgUserSelected', '')
+   			
+		}
+
+		function SelectOrgPos(){
+			public_singleSelectOrgPos(orgCode, '01', orglevel, '', '','', 'nextSpposId', 'posname12', 'nextSpOrgCode', '', '', false, '', window, 'onOrgPosSelected','nextSppos')
+			 
+		}
+	
 
 function changeSpjg(newValue , oldValue){
 
-	var name = $("#zdryName").val();
 	var sqyj = $("#sqyj").val();
 	var spyj=sqyj.substring(2,sqyj.length);
 		if(newValue=="1"){
@@ -218,6 +246,14 @@ function changeSpjg(newValue , oldValue){
 			$("#spyj").val("拒绝"+spyj) ;
 		}
 	
+}
+
+function onOrgPosSelected(posidInputID) {
+	alert(posidInputID);
+}
+
+function onOrgUserSelected(userIDInputID) {
+	alert(userIDInputID);
 }
 
 

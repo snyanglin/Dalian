@@ -40,6 +40,14 @@ public class ZdryVO implements Serializable {
 	ZdrySqjzryxxb zdrySqjzryxxb;//社区矫正
 	ZdrySgafzdryxxb zdrySgafzdryxxb;//涉公安访
 	
+	String cglxdm;
+	String zdryHsbId;
+	String ywsqyy;
+	String xm;
+	String zjhm;
+	ZdryZdryzbVO zdryZdryzbVO;
+	
+	
 	public ZdryZb getZdryZdryzb() {
 		return zdryZdryzb;
 	}
@@ -121,6 +129,43 @@ public class ZdryVO implements Serializable {
 		if("08".equals(zdryZdryzb.getZdrygllxdm()))//涉枪涉爆重点人员
 			return this.zdrySqsbzdryxxb;
 		return null;
-	}		
+	}
+	public String getCglxdm() {
+		return cglxdm;
+	}
+	public void setCglxdm(String cglxdm) {
+		this.cglxdm = cglxdm;
+	}
+	public String getZdryHsbId() {
+		return zdryHsbId;
+	}
+	public void setZdryHsbId(String zdryHsbId) {
+		this.zdryHsbId = zdryHsbId;
+	}
+	public String getYwsqyy() {
+		return ywsqyy;
+	}
+	public void setYwsqyy(String ywsqyy) {
+		this.ywsqyy = ywsqyy;
+	}
+	public String getXm() {
+		return xm;
+	}
+	public void setXm(String xm) {
+		this.xm = xm;
+	}
+	public String getZjhm() {
+		return zjhm;
+	}
+	public void setZjhm(String zjhm) {
+		this.zjhm = zjhm;
+	}
+	public ZdryZdryzbVO getZdryZdryzbVO() {
+		return zdryZdryzbVO;
+	}
+	public void setZdryZdryzbVO(ZdryZdryzbVO zdryZdryzbVO) {
+		this.zdryZdryzbVO = zdryZdryzbVO;
+	}	
+	
 			
 }

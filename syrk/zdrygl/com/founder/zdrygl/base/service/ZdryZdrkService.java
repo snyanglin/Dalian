@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
-
+import com.founder.framework.exception.BussinessException;
 import com.founder.zdrygl.base.dao.ZdryZdrkxxbDao;
 import com.founder.zdrygl.base.model.ZdryZdrkxxb;
 import com.founder.zdrygl.base.vo.ZdryVO;
@@ -88,5 +88,9 @@ public class ZdryZdrkService  extends ZdryServiceDecorator{
 	public void queryZdryAllInfo_(String zdryid,ZdryVO zdryVO) {
 		zdryVO.setZdryZdrk((ZdryZdrkxxb) zdryZdrkxxbDao.queryById(zdryid));
 	}
+	public void saveLg(ZdryVO vo) throws BussinessException {
+		vo.getZdryZdrk().setId(vo.getZdryZdryzb().getId());
+		zdryZdrkxxbDao.insert( vo.getZdryZdrk());
 
+	}
 }

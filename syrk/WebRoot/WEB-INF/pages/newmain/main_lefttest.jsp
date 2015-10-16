@@ -55,7 +55,7 @@ $(function() {
 										   var ID1 = menureaf.id +"ztree";
 										   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
 										   if(menureaf.openMode=="new"){
-											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"window.open('"+setSessionid(setSessionid(menureaf.openURL,sid),sid)+"',this)\">";
+											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"window.open('"+setSessionid(menureaf.openURL,sid)+"',this)\">";
 										   }else{
 											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+"><a style='margin-left: 28px;margin-top: 8px;' onclick=\"menu_openClass('"+text+"','"+setSessionid(menureaf.openURL,sid)+"','"+menureaf.id+"',this,'"+sid+"')\">"; 
 										   }
@@ -105,16 +105,15 @@ $(function() {
 				var ID = menuone.id;
 				var Str = "";
 				$('#westaction').accordion('add', {  	title: aa,id :ID, selected: false  });
-				
-				var checkUrl = getCheckSubSystemUsableURL(menuone.openURL);
+								
+				var checkUrl = getCheckSubSystemUsableURL(URL,sid);
 				$.ajax({
 					async:false,
-					type:"POST",
-					dataType:"jsonp",
-					url:checkUrl,
-					error:function(XMLHttpRequest, textStatus, errorThrown){
-						 if(XMLHttpRequest.status == '200' && XMLHttpRequest.responseText && "systemStarted"== XMLHttpRequest.responseText){								 
-							 XMLHttpRequest.responseText=null;//为了不弹出错误信息
+					type:"GET",
+					dataType:"json",
+					url:"<%= basePath%>newmain/checkSubSystemUsable?checkUrl="+checkUrl,
+					success:function(data){
+							if (data=='systemStarted') {
 								for(var k =0;k<menunode.length;k++){
 									var menu = eval(menunode[k]);
 									 //判断是否还有子菜单组
@@ -189,7 +188,7 @@ $(function() {
 										   if(menu.openMode=="new"){
 											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"window.open('"+setSessionid(menu.openURL,sid)+"',this)\"><a style='margin-left: 28px;margin-top: 8px;' >";
 										   }else{
-											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"menu_openClass('"+text+"','"+menu.openURL+"','"+menu.id+"',this,'"+sid+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
+											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"menu_openClass('"+text+"','"+setSessionid(menu.openURL,sid)+"','"+menu.id+"',this,'"+sid+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
 										   }
 
 											Str = Str +menu.text +"";
@@ -223,12 +222,11 @@ function menu_openClass(text,URL,ID,clickObj,sid){
 	var checkUrl = getCheckSubSystemUsableURL(URL,sid);
 	$.ajax({
 		async:false,
-		type:"POST",
-		dataType:"jsonp",
-		url:checkUrl,
-		error:function(XMLHttpRequest, textStatus, errorThrown){
-			 if(XMLHttpRequest.status == '200' && XMLHttpRequest.responseText && "systemStarted"== XMLHttpRequest.responseText){								 
-				 XMLHttpRequest.responseText=null;//为了不弹出错误信息
+		type:"GET",
+		dataType:"json",
+		url:"<%= basePath%>newmain/checkSubSystemUsable?checkUrl="+checkUrl,
+		success:function(data){
+				if (data=='systemStarted') {
 				 var obj=$(clickObj).parent().parent().parent().parent().find("a.no-internet")		  	  		
 				 	if(obj){
 						obj.removeClass('no-internet').addClass('accordion-collapse accordion-expand');
@@ -269,13 +267,12 @@ function menu_openClass(text,URL,ID,clickObj,sid){
 
 function getCheckSubSystemUsableURL(URL,sid){
 	var ary=URL.split('/')
-	var checkUrl="<%= basePath%>newmain/checkSubSystemUsable?sessionid="+sid;
+	var checkUrl="<%= basePath%>newmain/checkSubSystemUsableWeb?sessionid="+sid;
 	if(URL.indexOf('http')==0){//以http开始，是其他系统		
-		checkUrl=ary[0]+"/"+ary[1]+"/"+ary[2]+"/"+ary[3]+"/newmain/checkSubSystemUsable?sessionid="+sid;
+		checkUrl=ary[0]+"/"+ary[1]+"/"+ary[2]+"/"+ary[3]+"/newmain/checkSubSystemUsableWeb?sessionid="+sid;
 	}
 	return checkUrl;
 }
-
 </script>
 <style type="text/css">
 .accordion {
