@@ -27,14 +27,4 @@ public interface ZdryZbService extends ZdryService {
 	 * @throws
 	 */
 	public ZdryZb queryById(String id);
-	/**
-	 * 
-	 * @Title: saveLg
-	 * @Description: 保存重点人口信息
-	 * @param @param vo
-	 * @param @throws BussinessException    设定文件
-	 * @return void    返回类型
-	 * @throws
-	 */
-	public void saveLg(ZdryVO vo) throws BussinessException;
 }
