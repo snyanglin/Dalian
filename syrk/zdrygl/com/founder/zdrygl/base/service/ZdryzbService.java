@@ -1,24 +1,20 @@
 package com.founder.zdrygl.base.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
-import com.founder.framework.exception.BussinessException;
 import com.founder.framework.utils.UUID;
-import com.founder.zdrygl.base.dao.ZdryZdrkxxbDao;
 import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrycg;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.inteface.ZdryService;
-import com.founder.zdrygl.core.inteface.ZdryZbService;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 /**
@@ -33,9 +29,8 @@ import com.founder.zdrygl.core.utils.ZdryConstant;
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
-@Service("zdryzbService")
-@Transactional
-public class ZdryzbService extends BaseService  implements ZdryZbService {
+
+public class ZdryzbService implements ZdryService {
 	
 	/**
 	 * 重点人员总表
@@ -49,8 +44,6 @@ public class ZdryzbService extends BaseService  implements ZdryZbService {
 	
 	@Autowired
 	private ZdryZdryZbDao zdryZdryZbDao;
-	@Autowired
-	private ZdryZdrkxxbDao zdryZdrkxxbDao;
 
 	@Override
 	public void lg(SessionBean sessionBean) {
@@ -241,32 +234,4 @@ public class ZdryzbService extends BaseService  implements ZdryZbService {
 	public void queryZdryAllInfo(String zdryid,ZdryVO zdryVO) {
 		zdryVO.setZdryZdryzb((ZdryZb)zdryZdryZbDao.queryById(zdryid));
 	}
-	/**
-	 * 
-	 * @Title: queryById
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
-	 * @param @param id
-	 * @param @return    设定文件
-	 * @return ZdryZdryzb    返回类型
-	 * @throws
-	 */
-	@Override
-	public ZdryZb queryById(String id) {
-		return (ZdryZb) zdryZdryZbDao.queryById(id);
-	}
-	/**
-	 * 
-	 * @Title: saveLg
-	 * @Description: 保存重点人口信息
-	 * @param @param vo
-	 * @param @throws BussinessException    设定文件
-	 * @return void    返回类型
-	 * @throws
-	 */
-	public void saveLg(ZdryVO vo) throws BussinessException {
-		vo.getZdryZdrk().setId(vo.getZdryZdryzb().getId());
-		zdryZdrkxxbDao.insert( vo.getZdryZdrk());
-
-	}
-	
 }

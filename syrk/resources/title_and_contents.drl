@@ -17,7 +17,7 @@ rule "LGSQ"
     when 
        	mess:ZdryGlMessageBean(xxlx == 'LGSQ',$paraMap:paraMap);
     then
-    	//消息 标题
+    	//消息标题
         mess.addResultMapValue("title","重口人员列管申请");
         
         //构建消息体

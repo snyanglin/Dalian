@@ -1,19 +1,44 @@
 package com.founder.zdrygl.base.message;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+
+import org.drools.KnowledgeBase;
+import org.drools.runtime.StatefulKnowledgeSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.user.bean.OrgUser;
 import com.founder.framework.organization.user.service.OrgUserService;
+import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
+import com.founder.zdrygl.base.model.ZdryGlMessageBean;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.inteface.SysMessageInfoService;
 import com.founder.zdrygl.core.model.SysMessage;
+import com.founder.zdrygl.core.utils.DroolsUtils;
 
-public class SysMessageInfoServiceImpl implements SysMessageInfoService {
+/**
+ * ****************************************************************************
+ * @Package:      [com.founder.zdrygl.base.message.SysMessageInfoRuleServiceImpl.java]  
+ * @ClassName:    [SysMessageInfoRuleServiceImpl]   
+ * @Description:  [消息规则引擎实现]   
+ * @Author:       [wei.wen@founder.com.cn]  
+ * @CreateDate:   [2015年10月15日 下午5:16:25]   
+ * @UpdateUser:   [wei.wen@founder.com.cn(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年10月15日 下午5:16:25，(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
+ * @Version:      [v1.0]
+ */
+@Service("sysMessageInfoService")
+public class SysMessageInfoRuleServiceImpl implements SysMessageInfoService {
+	
+	@Autowired
+	private ZdryZdryZbDao zdryZdryZbDao;
 	
 	@Resource(name = "orgOrganizationService")
 	private OrgOrganizationService orgOrganizationService;
@@ -37,13 +62,41 @@ public class SysMessageInfoServiceImpl implements SysMessageInfoService {
 			}
 			
 			//信息标题
-			String xxbt=this.getXxbt(xxlx);
+			String xxbt = this.getXxbt(xxlx);
 			//信息内容
-			String xxnr =this.getXxInfo(xxlx,paraMap);
+			String xxnr = this.getXxInfo(xxlx,paraMap);
 			
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+
+			KnowledgeBase kbase = DroolsUtils.buildKnowledgeBaseByUrl("http://localhost:8090/guvnor/rest/packages/com.founder.zdrygl.message/binary", null, null);
+			//KnowledgeBase kbase = DroolsUtils.buildKnowledgeBaseByResource("title_and_contents.drl");			            
+
+			StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
+
+			//将工具类作为全局变量，导入规则引擎中
+
+			ksession.setGlobal("zdryZdryZbDao", zdryZdryZbDao);
+			//因实际使用中，用户难以运维，放弃下面两个工具类的引入
+			//	            ksession.setGlobal("orgUserService", orgUserService);
+			//	            ksession.setGlobal("orgOrganizationService", orgOrganizationService);
+
+			//构建规则引擎数据源对象
+
+			ZdryGlMessageBean bean = new ZdryGlMessageBean();
+			bean.setXxlx(xxlx);
+			bean.setParaMap(paraMap);
+
+			//将数据源插入工作区
+			ksession.insert(bean);
+			//触发规则引擎
+			ksession.fireAllRules();
+			ksession.dispose();
+
+			map = bean.getResultMap();
 			
 			SysMessage sysMessage=new SysMessage();
-			sysMessage.setXxbt(xxbt);
+			sysMessage.setXxbt(map.get("").toString());
 			sysMessage.setXxnr(xxnr);
 			sysMessage.setFsr(fsrName);//发送人的名字 
 			sysMessage.setFsrdm(fsrUserCode);//发送人的code								

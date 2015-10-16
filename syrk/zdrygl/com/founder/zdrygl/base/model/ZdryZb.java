@@ -22,7 +22,7 @@ import com.founder.zdrygl.core.model.Zdry;
  * @UpdateRemark: [添加管辖部门字段 ] 
  * @Version:      [v1.0]
  */
-@DBInfoAnnotation(tableName = "ZDRY_ZDRYZB", pk = "id")
+@DBInfoAnnotation(tableName = "ZDRY_ZDRYZB_NEW", pk = "id")
 public class ZdryZb extends BaseEntity implements Serializable, Zdry{
 	private static final long serialVersionUID = 1L;
 	
