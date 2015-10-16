@@ -9,21 +9,25 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
-import com.founder.framework.config.SystemConfig;
+import com.founder.framework.organization.department.bean.OrgOrganization;
+import com.founder.framework.organization.department.service.OrgOrganizationService;
+import com.founder.framework.organization.user.bean.OrgUser;
+import com.founder.framework.organization.user.service.OrgUserService;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
 import com.founder.zdrygl.base.model.ZdryZb;
-import com.founder.zdrygl.base.vo.ZdryZdryzbVO;
 import com.founder.zdrygl.core.inteface.ZdryZdryzbDaoService;
 import com.founder.zdrygl.core.model.Zdry;
-import com.founder.zdrygl.until.ZdryUntil;
 
 @Repository("ZdryZdryZbDao")
 public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
-
-	@Resource(name = "ZdryUntil")
-	private ZdryUntil zdryUntil;
 	
+	@Resource(name = "orgUserService")
+	private OrgUserService orgUserService;
+	
+	@Resource(name = "orgOrganizationService")
+	private OrgOrganizationService orgOrganizationService;
+
 	private Map<String,Object> convertToMap(Zdry entity){
 		ZdryZb zdryZb = (ZdryZb)entity;
 		Map<String,Object> map = new HashMap<String, Object>();
@@ -156,144 +160,49 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 		page.setRows(queryForList("ZdryZdryzb.getQeryList", map));
 		return page;
 	}		
-	/***
-	 * 
-	 * @Title: queryList
-	 * @Description: TODO(管理列表)
-	 * @param @param entity
-	 * @param @param page
-	 * @param @return    设定文件
-	 * @return EasyUIPage    返回类型
-	 * @throws
-	 */
-	public EasyUIPage queryManagerList(ZdryZdryzbVO entity, EasyUIPage page){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("begin", page.getBegin());
-		map.put("end", page.getEnd());
-		String sort = page.getSort();
-		String order = page.getOrder();
-		if (StringUtils.isBlank(sort)) { // 默认排序
-			sort = "id";
-			order = "asc";
-		}
-		map.put("sort", sort);
-		map.put("order", order);
-		map.put("zdryZdryzbVO", entity);
-		String  address =zdryUntil.querySYSConfig();
-		map.put("QYDM", address);
-		
-		page.setTotal((Integer) queryForObject("ZdryZdryzb.queryCount", map));
-		page.setRows(queryForList("ZdryZdryzb.query", map));
-		return page;
-	}
-	
-	/***
-	 * 
-	 * @Title: queryDwDzOnPT
-	 * @Description: TODO重点人员空间查询
-	 * @param @param page
-	 * @param @param entity
-	 * @param @return    设定文件
-	 * @return EasyUIPage    返回类型
-	 * @throws
-	 */
-	public EasyUIPage queryDwDzOnPT(EasyUIPage page, ZdryZdryzbVO entity){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("begin", page.getBegin());
-		map.put("end", page.getEnd());
-		String sort = page.getSort();
-		String order = page.getOrder();
-		if (StringUtils.isBlank(sort)) { // 默认排序
-			sort = "id";
-			order = "asc";
-		}
-		//entity.setSrid(getSrid());
-		map.put("sort", sort);
-		map.put("order", order);
-		map.put("zdryZdryzbVO", entity);		
-		String  address =zdryUntil.querySYSConfig();
-		map.put("QYDM", address);
-		page.setTotal((Integer) queryForObject("ZdryZdryzb.queryCountZdryOnPT", map));
-		page.setRows(queryForList("ZdryZdryzb.queryZdryOnPT", map));
-		return page;
-	}
-	
 	
 	/**
-	 * 获取空间图层Srid
 	 * 
-	 * @return
-	 */
-	public int getSrid() {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("tableName", "BZDZ_ADD_MLDZDXB_PT");
-		map.put("shapeDbName", SystemConfig.getString("gisUser"));
-		return (Integer) queryForObject("ZdryZdryzb.queryShapetableSrid", map);
-	}
-
-	public List<ZdryZb> queryZdryBySyrkid(String syrkid) {
-		return queryForList("ZdryZdryzb.queryZdryBySyrkid", syrkid);
-	}
-	
-	public List<ZdryZdryzbVO> queryZdryVoByRyid(String ryid) {
-		Map map = new HashMap();
-		String  address =zdryUntil.querySYSConfig();
-		map.put("QYDM", address);
-		map.put("ryid", ryid);
-		return queryForList("ZdryZdryzb.queryZdryVOByRyid", map);
-	}
-	
-	public ZdryZdryzbVO queryZdryVoByZdryid(String zdryid) {
-		Map map = new HashMap();
-		String  address =zdryUntil.querySYSConfig();
-		map.put("QYDM", address);
-		map.put("zdryid", zdryid);
-		return (ZdryZdryzbVO) queryForObject("ZdryZdryzb.queryZdryVOByZdryid", map);
-	}
-	
-	public List<ZdryZdryzbVO> querySgafZdryVOByRyid(String ryid) {
-		Map map = new HashMap();
-		String  address =zdryUntil.querySYSConfig();
-		map.put("QYDM", address);
-		map.put("ryid", ryid);
-		return queryForList("ZdryZdryzb.querySgafZdryVOByRyid", map);
-	}
-	
-	public ZdryZb queryBySyrkidAndgllx(String syrkid, String gllx) {
-		Map<String,String> map = new HashMap<String,String>();
-		map.put("syrkid", syrkid);
-		map.put("gllx", gllx);
-		return (ZdryZb) queryForObject("ZdryZdryzb.queryBySyrkidAndgllx", map);
-	}
-
-	/*	public List<ZdrylgxxVO> queryLgxxByZdryid(Map<String, Object> map) {
-		return queryForList("ZdryZdryzb.queryLgxxByZdryid", map.get("zdryid"));
-	}
-	*/
-	/*public List<ZpfjFjxxb> fjxx_query(Map<String, Object> map){
-		map.put("lybm","ZDRY_ZDRYZB");
-		map.put("id",map.get("zdryid"));
-		return queryForList("ZpfjFjxxb.fjxx_query", map);
-	}*/
-	
-	/***
-	 * 
-	 * @Title: queryZdryBySyrkid
-	 * @Description: TODO根据身份证查询重点人员类型
-	 * @param @param syrkid
+	 * @Title: getOrganizationNameByOrgCode
+	 * @Description: TODO(获取部门名称，规则引擎中使用)
+	 * @param @param orgCode
 	 * @param @return    设定文件
-	 * @return List<ZdryZdryzbVO>    返回类型
-	 * @throws
+	 * @return String    返回类型
+	 * @throw
 	 */
-	public List<ZdryZb> queryZdrylxdmByGmsfhm(String zjhm) {
-		return queryForList("ZdryZdryzb.queryZdrylxdmByGmsfhm", zjhm);
+	public String getOrganizationNameByOrgCode(String orgCode) {
+		OrgOrganization fsrOrg = this.getOrganizationByOrgCode(orgCode);
+		if(fsrOrg != null){
+			return fsrOrg.getOrgname();
+		}
+		return null;
 	}
 	
-	
-	public Integer  queryCount(String syrkId){
-		return (Integer) queryForObject("ZdryZdryzb.queryCountBySyrk", syrkId);
+	public OrgOrganization getOrganizationByOrgCode(String orgCode) {
+		return orgOrganizationService.queryByOrgcode(orgCode);
+	}
+
+	/**
+	 * 
+	 * @Title: getOrgUserNameByUserId
+	 * @Description: TODO(获取用户名，规则引擎中使用)
+	 * @param @param userId
+	 * @param @return    设定文件
+	 * @return String    返回类型
+	 * @throw
+	 */
+	public String getOrgUserNameByUserId(String userId) {
+		
+		OrgUser fsr = this.getOrgUserByUserId(userId);
+		if(fsr != null){
+			return fsr.getUsername();
+		}
+		return null;
 	}
 	
+	public OrgUser getOrgUserByUserId(String userId) {
+		return orgUserService.queryByUserid(userId);
+	}
 	/**
 	 * 
 	 * @Title: queryHjdZrqdm
@@ -305,5 +214,4 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 	public String queryHjdZrqdm(String MLDZID){
 		return (String) queryForObject("ZdryZdryzb.queryHjdZrqdm", MLDZID);
 	}
-	
 }
