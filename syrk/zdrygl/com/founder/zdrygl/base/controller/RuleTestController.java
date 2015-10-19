@@ -49,7 +49,7 @@ public class RuleTestController extends BaseController {
 	 * @throw
 	 */
 	@RequestMapping(value = "/test", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView test(SessionBean sessionBean){		
+	public ModelAndView test(SessionBean sessionBean){			
 		ModelAndView mv = new ModelAndView("zdrygl/ruleTest");
 		sessionBean = getSessionBean(sessionBean);
 		List list=new LinkedList();
@@ -64,7 +64,7 @@ public class RuleTestController extends BaseController {
 		list.add(lgsq);		
 		
 		Map<String, Object> LGSPJG = zdryglMessageService.getTitleAndContents("LGSPJG", paraMap);
-		LGSPJG.put("rule", "LGSQ");
+		LGSPJG.put("rule", "LGSPJG");
 		list.add(LGSPJG);
 		
 		Map<String, Object> CGSQ = zdryglMessageService.getTitleAndContents("CGSQ", paraMap);
