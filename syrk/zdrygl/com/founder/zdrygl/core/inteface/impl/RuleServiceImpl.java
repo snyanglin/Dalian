@@ -30,6 +30,8 @@ import com.founder.zdrygl.core.utils.DroolsUtils;
  */
 @Service
 public class RuleServiceImpl implements RuleService {		
+	private Logger logger = Logger.getLogger(this.getClass());
+	
 	//规则对应关系Map
 	private Map ruleConfigMap = null;
 	
@@ -45,7 +47,7 @@ public class RuleServiceImpl implements RuleService {
 	 * @throw
 	 */		
 	public void init(){
-		
+		logger.info("Rule config init");
 		String ruleService = SystemConfig.getString("RuleService");
 		if(ruleService==null){
 			throw new RuntimeException("Can not fond \"RuleService\"");
@@ -74,13 +76,15 @@ public class RuleServiceImpl implements RuleService {
 		
 		Map	map=new HashMap();		
 		if(this.executeRule("main",map,null)){//获取所有的规则URL
-			String[] keyAry=(String[]) map.keySet().toArray();
+			Object[] keyAry=map.keySet().toArray();
 			String packageStr;
 			for(int i=0;i<keyAry.length;i++){
 				packageStr=(String) map.get(keyAry[i]);
 				RuleConfig ruleConfig = new RuleConfig(ruleService+"/packages/"+packageStr+"/binary",ruleServiceUserName,ruleServicePassword);
 				ruleConfigMap.put(keyAry[i], ruleConfig);
 			}
+		}else{
+			ruleConfigMap=null;//下次使用的时候才能重新初始化
 		}
 	}
 		
@@ -90,8 +94,11 @@ public class RuleServiceImpl implements RuleService {
 		try{	
 			if(ruleConfigMap==null) init();
 			RuleConfig ruleConfig = (RuleConfig) ruleConfigMap.get(ruleServerName);
-			if(ruleConfig == null)
-				throw new RuntimeException("Can not find rule named \""+ruleServerName+"\"");
+			if(ruleConfig == null){
+				init();
+				if(ruleConfig == null)
+					throw new RuntimeException("Can not find rule named \""+ruleServerName+"\"");
+			}
 			
 			StatefulKnowledgeSession ksession = ruleConfig.getKbase().newStatefulKnowledgeSession();
 			

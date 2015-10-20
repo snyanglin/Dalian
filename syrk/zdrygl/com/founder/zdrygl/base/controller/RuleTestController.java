@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.founder.framework.annotation.RestfulAnnotation;
 import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.operationLog.service.OperationLogService;
@@ -48,17 +49,18 @@ public class RuleTestController extends BaseController {
 	 * @return ModelAndView    返回类型
 	 * @throw
 	 */
+	@RestfulAnnotation(serverId="3")
 	@RequestMapping(value = "/test", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView test(SessionBean sessionBean){			
+	public ModelAndView test(){			
 		ModelAndView mv = new ModelAndView("zdrygl/ruleTest");
-		sessionBean = getSessionBean(sessionBean);
+		//sessionBean = getSessionBean(sessionBean);
 		List list=new LinkedList();
 		//通过规则引擎获取消息
 		Map<String, String> paraMap = new HashMap<String, String>();
 		paraMap.put("zdryXm","测试姓名");
 		paraMap.put("zdrylx","重点人员类型");
-		paraMap.put("fsrUserCode",sessionBean.getUserId());
-		paraMap.put("fsrOrgCode",sessionBean.getUserOrgCode());
+		paraMap.put("fsrUserCode","210203194703112293");
+		 paraMap.put("fsrOrgCode","210204410102");
 		Map<String, Object> lgsq = zdryglMessageService.getTitleAndContents("LGSQ", paraMap);
 		lgsq.put("rule", "LGSQ");
 		list.add(lgsq);		
