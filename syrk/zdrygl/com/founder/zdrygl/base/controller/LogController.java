@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.founder.framework.annotation.RestfulAnnotation;
 import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.operationLog.service.OperationLogService;
 
@@ -39,6 +40,7 @@ public class LogController extends BaseController {
 	 * @return List    返回类型
 	 * @throw
 	 */
+	@RestfulAnnotation(serverId="3")
 	@RequestMapping(value = "/countTrs", method = {RequestMethod.GET,RequestMethod.POST})
 	public @ResponseBody List countTrs(){		
 		

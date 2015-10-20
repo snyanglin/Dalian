@@ -3,69 +3,53 @@ package com.founder.zdrygl.base.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
-import org.drools.KnowledgeBase;
-import org.drools.runtime.StatefulKnowledgeSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.founder.framework.organization.department.service.OrgOrganizationService;
-import com.founder.framework.organization.user.service.OrgUserService;
 import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 import com.founder.zdrygl.base.model.ZdryGlMessageBean;
+import com.founder.zdrygl.core.inteface.RuleService;
 import com.founder.zdrygl.core.inteface.ZdryglMessageService;
-import com.founder.zdrygl.core.utils.DroolsUtils;
 
+/**
+ * ****************************************************************************
+ * @Package:      [com.founder.zdrygl.base.service.ZdryglMessageServiceImpl.java]  
+ * @ClassName:    [ZdryglMessageServiceImpl]   
+ * @Description:  [规则引擎例子，参数处理]   
+ * @Author:       [zhang.hai@founder.com.cn]  
+ * @CreateDate:   [2015年10月20日 上午10:48:58]   
+ * @UpdateUser:   [ZhangHai(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年10月20日 上午10:48:58，(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
+ * @Version:      [v1.0]
+ */
 @Service("zdryglMessageService")
 public class ZdryglMessageServiceImpl implements ZdryglMessageService{
 
 	@Autowired
-	private ZdryZdryZbDao zdryZdryZbDao;
+	private ZdryZdryZbDao zdryZdryZbDao;		
 	
-	@Resource(name = "orgUserService")
-	private OrgUserService orgUserService;
-	
-	@Resource(name = "orgOrganizationService")
-	private OrgOrganizationService orgOrganizationService;
+	@Autowired
+	private RuleService ruleService;
 	
 	@Override
-	public Map<String, Object> getTitleAndContents(String xxlx, Map<String, String> paraMap) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		try {
-			KnowledgeBase kbase = DroolsUtils.buildKnowledgeBaseByUrl("http://localhost:8090/guvnor/rest/packages/com.founder.zdrygl.message/binary", null, null);
-            //KnowledgeBase kbase = DroolsUtils.buildKnowledgeBaseByResource("title_and_contents.drl");			            
-            StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
-            
-            //将工具类作为全局变量，导入规则引擎中
-            ksession.setGlobal("zdryZdryZbDao", zdryZdryZbDao);
-            //因实际使用中，用户难以运维，放弃下面两个工具类的引入
-//            ksession.setGlobal("orgUserService", orgUserService);
-//            ksession.setGlobal("orgOrganizationService", orgOrganizationService);
-            
-            //构建规则引擎数据源对象
-            ZdryGlMessageBean bean = new ZdryGlMessageBean();
-            bean.setXxlx(xxlx);
-            bean.setParaMap(paraMap);
-            
-            //将数据源插入工作区
-            ksession.insert(bean);
-            //触发规则引擎
-            ksession.fireAllRules();
-            ksession.dispose();
-            
-            map = bean.getResultMap();
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
+	public Map<String, Object> getTitleAndContents(String xxlx, Map<String, String> paraMap) {				
 		
+		//私有参数处理
+		ZdryGlMessageBean bean = new ZdryGlMessageBean();
+        bean.setXxlx(xxlx);
+        bean.setParaMap(paraMap);
+        
+        //公共参数处理
+        Map globalParam=new HashMap();
+        globalParam.put("zdryZdryZbDao", zdryZdryZbDao);
+        
+        //执行规则
+		ruleService.executeRule("zdryMessageRule", bean, globalParam);
+		
+		Map map = bean.getResultMap();//规则执行后，bean的成员变量值已修改
+        
 		return map;
-	}
-
-	@Override
-	public Map<String, Object> getReceiverAndReceiveType(String xxlx, Map<String, String> paraMap) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	}	
 
 }
