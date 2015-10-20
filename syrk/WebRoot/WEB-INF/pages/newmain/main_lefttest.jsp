@@ -45,6 +45,31 @@ $(function() {
 					$('#westaction').accordion('add', {  	title: aa,id :ID, selected: false  });
 					for(var k =0;k<menunode.length;k++){
 						var menu = eval(menunode[k]);
+						
+						//判断菜单链接的系统是否启动，只在第一个菜单判断，后面的菜单就不需要了
+						if(k==0){
+							var checkUrl = getCheckSubSystemUsableURL(menu.openURL,sid);
+							$.ajax({
+								async:false,
+								type:"GET",
+								dataType:"json",
+								url:"<%= basePath%>newmain/checkSubSystemUsable?checkUrl="+checkUrl,
+								success:function(data){
+										if (data=='systemStarted') {//系统已启动
+										 	var obj=$("#"+ID).parent().find("a.no-internet");		  	  		
+										 	if(obj){
+												obj.removeClass('no-internet').addClass('accordion-collapse accordion-expand');
+											}									
+										}else{//系统未启动
+											var obj=$("#"+ID).parent().find("a.accordion-collapse");
+											if(obj){
+												obj.removeClass('accordion-collapse accordion-expand ').addClass('no-internet');
+											}
+										}
+								}
+							});
+						}
+						
 							   //判断下面是否还有子菜单组
 							   if(menu.openURL==""){
 									var ss = eval(menu.children);
@@ -105,107 +130,71 @@ $(function() {
 				var ID = menuone.id;
 				var Str = "";
 				$('#westaction').accordion('add', {  	title: aa,id :ID, selected: false  });
-								
-				var checkUrl = getCheckSubSystemUsableURL(URL,sid);
-				$.ajax({
-					async:false,
-					type:"GET",
-					dataType:"json",
-					url:"<%= basePath%>newmain/checkSubSystemUsable?checkUrl="+checkUrl,
-					success:function(data){
-							if (data=='systemStarted') {
-								for(var k =0;k<menunode.length;k++){
-									var menu = eval(menunode[k]);
-									 //判断是否还有子菜单组
-									   if(menu.openURL==""){
-											var ss = eval(menu.children);
-											for(var m =0;m<ss.length;m++){
-												var menureaf = eval(ss[m]);
-												
-												 var text = menureaf.text;
-												   var ID1 = menureaf.id +"ztree";
-												   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
-												   if(menureaf.openMode=="new"){
-													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"window.open('"+setSessionid(menureaf.openURL,sid)+"',this)\"><a style='margin-left: 28px;margin-top: 8px;' >";
-												   }else{
-													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"menu_openClass('"+'text'+"','"+setSessionid(menureaf.openURL,sid)+"','"+menureaf.id+"',this,'"+sid+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
-												   }
-
-													Str = Str +menureaf.text +"";
-													Str = Str +"</a></li>";
-													Str = Str +"</ul>";
-													$("#"+ID).html(Str);  
-											}
-									   }else{
-										   var text = menu.text;
-										   var ID1 = menu.id +"ztree";
-										   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
-										   if(menu.openMode=="new"){
-											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"window.open('"+setSessionid(menu.openURL,sid)+"',this)\"><a style='margin-left: 28px;margin-top: 8px;' >";
-										   }else{
-											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"menu_openClass('"+text+"','"+setSessionid(menu.openURL,sid)+"','"+menu.id+"',this,'"+sid+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
-										   }
-
-											Str = Str +menu.text +"";
-											Str = Str +"</a></li>";
-											Str = Str +"</ul>";
-											$("#"+ID).html(Str);  
-									   }
-
-									}
-								
-							}else{
-								$("#"+ID).parent().parent().find("a.accordion-collapse").removeClass('accordion-collapse accordion-expand ').addClass('no-internet');
-
-								//topMessager.alert("", "子系统"+aa+"不可用哦T_T");
-
-								for(var k =0;k<menunode.length;k++){
-									var menu = eval(menunode[k]);
-									 //判断是否还有子菜单组
-									   if(menu.openURL==""){
-											var ss = eval(menu.children);
-											for(var m =0;m<ss.length;m++){
-												var menureaf = eval(ss[m]);
-												
-												 var text = menureaf.text;
-												   var ID1 = menureaf.id +"ztree";
-												   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
-									
-												   if(menureaf.openMode=="new"){
-													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"window.open('"+setSessionid(menureaf.openURL,sid)+"',this)\"><a style='margin-left: 28px;margin-top: 8px;' >";
-												   }else{
-													   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"menu_openClass('"+text+"','"+setSessionid(menureaf.openURL,sid)+"','"+menureaf.id+"',this,'"+sid+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
-												   }
-													Str = Str +menureaf.text +"";
-													Str = Str +"</a></li>";
-													Str = Str +"</ul>";
-													$("#"+ID).html(Str);  
-											}
-									   }else{
-										   var text = menu.text;
-										   var ID1 = menu.id +"ztree";
-										   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
-										   if(menu.openMode=="new"){
-											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"window.open('"+setSessionid(menu.openURL,sid)+"',this)\"><a style='margin-left: 28px;margin-top: 8px;' >";
-										   }else{
-											   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"menu_openClass('"+text+"','"+setSessionid(menu.openURL,sid)+"','"+menu.id+"',this,'"+sid+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
-										   }
-
-											Str = Str +menu.text +"";
-											Str = Str +"</a></li>";
-											Str = Str +"</ul>";
-											$("#"+ID).html(Str);  
-									   }
-
-									}
-								return;
-							}
-						}
-
-					});
 				
-		
-				 
+				for(var k =0;k<menunode.length;k++){
+					var menu = eval(menunode[k]);
+					
+					//判断菜单链接的系统是否启动，只在第一个菜单判断，后面的菜单就不需要了
+					if(k==0){
+						var checkUrl = getCheckSubSystemUsableURL(menu.openURL,sid);
+						$.ajax({
+							async:false,
+							type:"GET",
+							dataType:"json",
+							url:"<%= basePath%>newmain/checkSubSystemUsable?checkUrl="+checkUrl,
+							success:function(data){
+									if (data=='systemStarted') {//系统已启动
+									 	var obj=$("#"+ID).parent().find("a.no-internet");		  	  		
+									 	if(obj){
+											obj.removeClass('no-internet').addClass('accordion-collapse accordion-expand');
+										}									
+									}else{//系统未启动
+										var obj=$("#"+ID).parent().find("a.accordion-collapse");
+										if(obj){
+											obj.removeClass('accordion-collapse accordion-expand ').addClass('no-internet');
+										}
+									}
+							}
+						});
+					}
+					
+					 //判断是否还有子菜单组
+					   if(menu.openURL==""){
+							var ss = eval(menu.children);
+							for(var m =0;m<ss.length;m++){
+								var menureaf = eval(ss[m]);
+								
+								 var text = menureaf.text;
+								   var ID1 = menureaf.id +"ztree";
+								   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
+								   if(menureaf.openMode=="new"){
+									   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"window.open('"+setSessionid(menureaf.openURL,sid)+"',this)\"><a style='margin-left: 28px;margin-top: 8px;' >";
+								   }else{
+									   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menureaf.id+" onclick=\"menu_openClass('"+'text'+"','"+setSessionid(menureaf.openURL,sid)+"','"+menureaf.id+"',this,'"+sid+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
+								   }
+
+									Str = Str +menureaf.text +"";
+									Str = Str +"</a></li>";
+									Str = Str +"</ul>";
+									$("#"+ID).html(Str);  
+							}
+					   }else{
+						   var text = menu.text;
+						   var ID1 = menu.id +"ztree";
+						   Str = Str +"<ul  class=\"ztree\" id="+ID1+">";
+						   if(menu.openMode=="new"){
+							   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"window.open('"+setSessionid(menu.openURL,sid)+"',this)\"><a style='margin-left: 28px;margin-top: 8px;' >";
+						   }else{
+							   Str = Str +"<li class=\"TreeExpandoLeaf\" id="+menu.id+" onclick=\"menu_openClass('"+text+"','"+setSessionid(menu.openURL,sid)+"','"+menu.id+"',this,'"+sid+"')\"><a style='margin-left: 28px;margin-top: 8px;' >"; 
+						   }
+
+							Str = Str +menu.text +"";
+							Str = Str +"</a></li>";
+							Str = Str +"</ul>";
+							$("#"+ID).html(Str);  
+					  }
+
+				} 
 			}
 			
 		}
@@ -227,7 +216,7 @@ function menu_openClass(text,URL,ID,clickObj,sid){
 		url:"<%= basePath%>newmain/checkSubSystemUsable?checkUrl="+checkUrl,
 		success:function(data){
 				if (data=='systemStarted') {
-				 var obj=$(clickObj).parent().parent().parent().parent().find("a.no-internet")		  	  		
+				 	var obj=$(clickObj).parent().parent().parent().parent().find("a.no-internet")		  	  		
 				 	if(obj){
 						obj.removeClass('no-internet').addClass('accordion-collapse accordion-expand');
 					}
@@ -265,10 +254,10 @@ function menu_openClass(text,URL,ID,clickObj,sid){
 		});		
 }
 
-function getCheckSubSystemUsableURL(URL,sid){
-	var ary=URL.split('/')
+function getCheckSubSystemUsableURL(URL,sid){	
 	var checkUrl="<%= basePath%>newmain/checkSubSystemUsableWeb?sessionid="+sid;
-	if(URL.indexOf('http')==0){//以http开始，是其他系统		
+	if(URL!=null && URL.indexOf('http')==0){//以http开始，是其他系统	
+		var ary=URL.split('/');
 		checkUrl=ary[0]+"/"+ary[1]+"/"+ary[2]+"/"+ary[3]+"/newmain/checkSubSystemUsableWeb?sessionid="+sid;
 	}
 	return checkUrl;
