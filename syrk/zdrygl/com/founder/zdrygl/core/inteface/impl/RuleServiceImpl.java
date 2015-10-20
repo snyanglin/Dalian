@@ -4,17 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-
 import org.apache.log4j.Logger;
-import org.drools.KnowledgeBase;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.springframework.stereotype.Service;
 
 import com.founder.framework.config.SystemConfig;
 import com.founder.zdrygl.core.inteface.RuleService;
 import com.founder.zdrygl.core.model.RuleConfig;
-import com.founder.zdrygl.core.utils.DroolsUtils;
 
 /**
  * ****************************************************************************
