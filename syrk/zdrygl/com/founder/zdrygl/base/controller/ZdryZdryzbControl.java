@@ -292,6 +292,7 @@ public class ZdryZdryzbControl extends BaseController {
 		variables.put("zdryId", zdryZdryzb.getId()); // 重点人员总表Id
 		variables.put("zdrylxmc", zdrylxmc);// 人员类型名称
 		variables.put("xm", zdryxm);// 被列管人员姓名
+		variables.put("cyzjdm", zdryVO.getZdryZdryzb().getCyzjdm());
 		variables.put("zjhm", zdryVO.getZdryZdryzb().getZjhm());// 证件号码
 		// variables.put("splx", "重点人口列管");//审批类型
 		variables.put("sqyj", zdryVO.getYwsqyy());// 申请意见

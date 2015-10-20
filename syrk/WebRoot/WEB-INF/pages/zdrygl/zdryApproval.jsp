@@ -221,7 +221,7 @@
 
 		function SelectOrgUser(){
 			var posid=$("#nextSppos").val();
-			alert(posid);
+			//alert(posid);
 			if(posid==""){
 				alert("请选择岗位");
 				return false;
@@ -249,11 +249,11 @@ function changeSpjg(newValue , oldValue){
 }
 
 function onOrgPosSelected(posidInputID) {
-	alert(posidInputID);
+	//alert(posidInputID);
 }
 
 function onOrgUserSelected(userIDInputID) {
-	alert(userIDInputID);
+	//alert(userIDInputID);
 }
 
 
