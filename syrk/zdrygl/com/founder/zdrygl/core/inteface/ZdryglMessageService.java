@@ -12,12 +12,4 @@ public interface ZdryglMessageService {
 	 */
 	public Map<String,Object> getTitleAndContents(String xxlx,Map<String,String> paraMap);
 	
-	/**
-	 * 获取消息的接受对象和接受类型
-	 * @param xxlx 消息类型
-	 * @param paraMap 消息查询参数
-	 * @return Map[String,Object] :{receiveType:接受类型(String),receiver:接受对象(List[String])} 
-	 */
-	public Map<String,Object> getReceiverAndReceiveType(String xxlx,Map<String,String> paraMap);
-	
 }
