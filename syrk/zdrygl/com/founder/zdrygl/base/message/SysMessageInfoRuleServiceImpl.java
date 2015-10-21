@@ -5,8 +5,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.drools.KnowledgeBase;
-import org.drools.runtime.StatefulKnowledgeSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +16,9 @@ import com.founder.framework.organization.user.service.OrgUserService;
 import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 import com.founder.zdrygl.base.model.ZdryGlMessageBean;
 import com.founder.zdrygl.base.model.ZdryZb;
+import com.founder.zdrygl.core.inteface.RuleService;
 import com.founder.zdrygl.core.inteface.SysMessageInfoService;
 import com.founder.zdrygl.core.model.SysMessage;
-import com.founder.zdrygl.core.utils.DroolsUtils;
 
 /**
  * ****************************************************************************
@@ -46,6 +44,9 @@ public class SysMessageInfoRuleServiceImpl implements SysMessageInfoService {
 	@Resource(name = "orgUserService")
 	private OrgUserService orgUserService;
 	
+	@Autowired
+	private RuleService ruleService;
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public SysMessage initSysMessage(String xxlx, Object param) {
@@ -61,42 +62,14 @@ public class SysMessageInfoRuleServiceImpl implements SysMessageInfoService {
 				throw new BussinessException("fsrUserCode can not be null");
 			}
 			
+			Map<String, Object> map = getTitleAndContents(xxlx, paraMap);
 			//信息标题
-			String xxbt = this.getXxbt(xxlx);
+			String xxbt=(String) map.get("title");
 			//信息内容
-			String xxnr = this.getXxInfo(xxlx,paraMap);
-			
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-
-			KnowledgeBase kbase = DroolsUtils.buildKnowledgeBaseByUrl("http://localhost:8090/guvnor/rest/packages/com.founder.zdrygl.message/binary", null, null);
-			//KnowledgeBase kbase = DroolsUtils.buildKnowledgeBaseByResource("title_and_contents.drl");			            
-
-			StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
-
-			//将工具类作为全局变量，导入规则引擎中
-
-			ksession.setGlobal("zdryZdryZbDao", zdryZdryZbDao);
-			//因实际使用中，用户难以运维，放弃下面两个工具类的引入
-			//	            ksession.setGlobal("orgUserService", orgUserService);
-			//	            ksession.setGlobal("orgOrganizationService", orgOrganizationService);
-
-			//构建规则引擎数据源对象
-
-			ZdryGlMessageBean bean = new ZdryGlMessageBean();
-			bean.setXxlx(xxlx);
-			bean.setParaMap(paraMap);
-
-			//将数据源插入工作区
-			ksession.insert(bean);
-			//触发规则引擎
-			ksession.fireAllRules();
-			ksession.dispose();
-
-			map = bean.getResultMap();
+			String xxnr =(String) map.get("contents");									
 			
 			SysMessage sysMessage=new SysMessage();
-			sysMessage.setXxbt(map.get("").toString());
+			sysMessage.setXxbt(xxbt);
 			sysMessage.setXxnr(xxnr);
 			sysMessage.setFsr(fsrName);//发送人的名字 
 			sysMessage.setFsrdm(fsrUserCode);//发送人的code								
@@ -397,6 +370,23 @@ public class SysMessageInfoRuleServiceImpl implements SysMessageInfoService {
 		return xxnr;
 	}
 
-	
+	private Map<String, Object> getTitleAndContents(String xxlx, Map<String, String> paraMap) {				
+		
+		//私有参数处理
+		ZdryGlMessageBean bean = new ZdryGlMessageBean();
+        bean.setXxlx(xxlx);
+        bean.setParaMap(paraMap);
+        
+        //公共参数处理
+        Map globalParam=new HashMap();
+        globalParam.put("zdryZdryzbDao", zdryZdryZbDao);
+        
+        //执行规则
+		ruleService.executeRule("zdryMessageRule", bean, globalParam);
+		
+		Map map = bean.getResultMap();//规则执行后，bean的成员变量值已修改
+        
+		return map;
+	}	
 
 }

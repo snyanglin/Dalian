@@ -89,6 +89,8 @@ public class RuleServiceImpl implements RuleService {
 	public boolean executeRule(String ruleServerName, Object paramObj, Map globalParamMap) {
 		try{	
 			if(ruleConfigMap==null) init();
+			if(ruleConfigMap==null) 
+				throw new RuntimeException("Can not init rule server config!");
 			RuleConfig ruleConfig = (RuleConfig) ruleConfigMap.get(ruleServerName);
 			if(ruleConfig == null){
 				init();

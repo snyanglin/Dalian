@@ -1,5 +1,6 @@
 package com.founder.zdrygl.base.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
+import com.founder.framework.organization.assign.service.OrgAssignPublic;
+import com.founder.framework.organization.assign.vo.OrgUserInfo;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.user.bean.OrgUser;
@@ -213,5 +216,38 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 	 */
 	public String queryHjdZrqdm(String MLDZID){
 		return (String) queryForObject("ZdryZdryzb.queryHjdZrqdm", MLDZID);
-	}
+	}			
+		
+		public String getZdrygllxdm(String zdryzbId){
+			
+			if("05".equals(zdryzbId)){
+				return "在规则引擎中查询远程数据有希望了！！！！！！！！";
+			}else{
+				return "测试的不太成功啊!";
+			}
+			
+		}
+		
+		/**
+		 * 查询上级部门对应岗位的人员userCode
+		 * 
+		 * @param orgCode 组织OrgCode
+		 * @param pos 岗位编码
+		 * @return List[String] (userid)
+		 */
+		public List<String> getParentOrgUserCodeByOrgCodeAndPos(String orgCode,String pos){
+			 OrgOrganization org = orgOrganizationService.queryParentOrgByOrgcode(orgCode);
+			 OrgAssignPublic orgAssignPublic = new OrgAssignPublic();
+			 List<OrgUserInfo> orgUsers = orgAssignPublic.queryUserByOrgAndPos(org.getOrgcode(), pos);
+			 
+			 List<String> userCodes = new ArrayList<String>();
+			 
+			 if(orgUsers != null){
+				for(OrgUserInfo userInfo : orgUsers){
+					userCodes.add(userInfo.getUserid());
+				}
+			 }
+			 
+			 return userCodes;
+		}
 }
