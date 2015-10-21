@@ -1,4 +1,4 @@
-package com.founder.zdrygl.base.model;
+package com.founder.drools.base.zdry.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

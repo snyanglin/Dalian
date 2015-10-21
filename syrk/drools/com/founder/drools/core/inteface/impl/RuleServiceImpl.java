@@ -1,4 +1,4 @@
-package com.founder.zdrygl.core.inteface.impl;
+package com.founder.drools.core.inteface.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,9 +8,9 @@ import org.apache.log4j.Logger;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.springframework.stereotype.Service;
 
+import com.founder.drools.core.inteface.RuleService;
+import com.founder.drools.core.model.RuleConfig;
 import com.founder.framework.config.SystemConfig;
-import com.founder.zdrygl.core.inteface.RuleService;
-import com.founder.zdrygl.core.model.RuleConfig;
 
 /**
  * ****************************************************************************

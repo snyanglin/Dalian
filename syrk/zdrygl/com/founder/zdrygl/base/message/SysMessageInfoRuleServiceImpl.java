@@ -8,15 +8,16 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.founder.drools.base.zdry.model.ZdryGlMessageBean;
+import com.founder.drools.base.zdry.service.ZdryRuleService;
+import com.founder.drools.core.inteface.RuleService;
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.user.bean.OrgUser;
 import com.founder.framework.organization.user.service.OrgUserService;
 import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
-import com.founder.zdrygl.base.model.ZdryGlMessageBean;
 import com.founder.zdrygl.base.model.ZdryZb;
-import com.founder.zdrygl.core.inteface.RuleService;
 import com.founder.zdrygl.core.inteface.SysMessageInfoService;
 import com.founder.zdrygl.core.model.SysMessage;
 
@@ -45,7 +46,7 @@ public class SysMessageInfoRuleServiceImpl implements SysMessageInfoService {
 	private OrgUserService orgUserService;
 	
 	@Autowired
-	private RuleService ruleService;
+	private ZdryRuleService zdryRuleService;
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -62,7 +63,7 @@ public class SysMessageInfoRuleServiceImpl implements SysMessageInfoService {
 				throw new BussinessException("fsrUserCode can not be null");
 			}
 			
-			Map<String, Object> map = getTitleAndContents(xxlx, paraMap);
+			Map<String, Object> map = zdryRuleService.getTitleAndContents(xxlx, paraMap);
 			//信息标题
 			String xxbt=(String) map.get("title");
 			//信息内容
@@ -368,25 +369,6 @@ public class SysMessageInfoRuleServiceImpl implements SysMessageInfoService {
 				+ parentOrg.getOrgname() + fsrOrg.getOrgname() + ",该责任区民警" + fsr.getUsername() + "拒绝接收，请裁定";
 
 		return xxnr;
-	}
-
-	private Map<String, Object> getTitleAndContents(String xxlx, Map<String, String> paraMap) {				
-		
-		//私有参数处理
-		ZdryGlMessageBean bean = new ZdryGlMessageBean();
-        bean.setXxlx(xxlx);
-        bean.setParaMap(paraMap);
-        
-        //公共参数处理
-        Map globalParam=new HashMap();
-        globalParam.put("zdryZdryzbDao", zdryZdryZbDao);
-        
-        //执行规则
-		ruleService.executeRule("zdryMessageRule", bean, globalParam);
-		
-		Map map = bean.getResultMap();//规则执行后，bean的成员变量值已修改
-        
-		return map;
 	}	
 
 }

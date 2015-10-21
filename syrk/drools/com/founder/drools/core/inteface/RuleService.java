@@ -1,4 +1,4 @@
-package com.founder.zdrygl.core.inteface;
+package com.founder.drools.core.inteface;
 
 import java.util.Map;
 

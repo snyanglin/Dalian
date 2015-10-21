@@ -1,4 +1,4 @@
-package com.founder.zdrygl.core.model;
+package com.founder.drools.core.model;
 
 import org.drools.KnowledgeBase;
 

@@ -1,4 +1,4 @@
-package com.founder.zdrygl.base.controller;
+package com.founder.drools.base.controller;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.founder.drools.base.zdry.service.ZdryRuleService;
 import com.founder.framework.annotation.RestfulAnnotation;
 import com.founder.framework.base.controller.BaseController;
-import com.founder.zdrygl.core.inteface.SysMessageInfoService;
-import com.founder.zdrygl.core.model.SysMessage;
-
 /**
  * ****************************************************************************
  * @Package:      [com.founder.zdrygl.base.controller.RuleTestController.java]  
@@ -33,8 +31,8 @@ import com.founder.zdrygl.core.model.SysMessage;
 @RequestMapping("rule")
 public class RuleTestController extends BaseController {					
 	
-	@Resource(name="sysMessageInfoService")
-	private SysMessageInfoService zdryMessageService;		
+	@Resource(name="zdryRuleService")
+	private ZdryRuleService zdryRuleService;		
 	
 	/**
 	 * 
@@ -59,33 +57,23 @@ public class RuleTestController extends BaseController {
 		paraMap.put("fsrOrgCode","210204410102");
 		paraMap.put("fsrName","发送人姓名");
 		 
-		SysMessage sysMessage = zdryMessageService.initSysMessage("LGSQ", paraMap);
-		Map<String, Object> lgsq = new HashMap();
-		lgsq.put("title", sysMessage.getXxbt());
-		lgsq.put("contents", sysMessage.getXxnr());
+		
+		Map<String, Object> lgsq = zdryRuleService.getTitleAndContents("LGSQ", paraMap);		
 		lgsq.put("rule", "LGSQ");
 		list.add(lgsq);		
 		
-		sysMessage = zdryMessageService.initSysMessage("CGSQ", paraMap);
-		Map<String, Object> CGSQ = new HashMap();
-		CGSQ.put("title", sysMessage.getXxbt());
-		CGSQ.put("contents", sysMessage.getXxnr());
+		
+		Map<String, Object> CGSQ = zdryRuleService.getTitleAndContents("CGSQ", paraMap);		
 		CGSQ.put("rule", "CGSQ");
 		list.add(CGSQ);
 		
-		paraMap.put("spjg","1");
-		sysMessage = zdryMessageService.initSysMessage("LGSPJG", paraMap);
-		Map<String, Object> LGSPJG = new HashMap();
-		LGSPJG.put("title", sysMessage.getXxbt());
-		LGSPJG.put("contents", sysMessage.getXxnr());
+		paraMap.put("spjg","1");	
+		Map<String, Object> LGSPJG = zdryRuleService.getTitleAndContents("LGSPJG", paraMap);			
 		LGSPJG.put("rule", "LGSPJG_SPTG");
 		list.add(LGSPJG);
 		
-		paraMap.put("spjg","0");
-		sysMessage = zdryMessageService.initSysMessage("LGSPJG", paraMap);
-		Map<String, Object> LGSPJG2 = new HashMap();
-		LGSPJG2.put("title", sysMessage.getXxbt());
-		LGSPJG2.put("contents", sysMessage.getXxnr());
+		paraMap.put("spjg","0");		
+		Map<String, Object> LGSPJG2 = zdryRuleService.getTitleAndContents("LGSPJG", paraMap);		
 		LGSPJG2.put("rule", "LGSPJG_SPBTG");
 		list.add(LGSPJG2);
 		
