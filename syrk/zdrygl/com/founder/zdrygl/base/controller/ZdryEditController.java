@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.founder.drools.base.zdry.service.ZdryRuleService;
 import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
@@ -25,7 +26,6 @@ import com.founder.framework.exception.BussinessException;
 import com.founder.framework.utils.DateUtils;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.service.ZdryEditService;
-import com.founder.zdrygl.base.service.ZdryGzService;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.base.vo.ZdrygnVO;
@@ -61,9 +61,9 @@ public class ZdryEditController extends BaseController {
 	
 	@Autowired
 	private ZdryConstant zdryConstant;
-
-	@Resource(name="zdryGzService")
-	private ZdryGzService zdryGzService ;
+	
+	@Autowired
+	private ZdryRuleService zdryRuleService;
 	
 	/**
 	 * 
@@ -378,7 +378,7 @@ public class ZdryEditController extends BaseController {
 				throw new BussinessException("该重点人员正在【"+zdryConstant.getGlztStr(zdryZb.getGlzt())+"】，不能办理其他业务");
 			}						
 			
-			boolean sfkzl=zdryGzService.queryIsZL(zdryZb.getZdrygllxdm());//是否可转类
+			boolean sfkzl=zdryRuleService.getSfkzl(zdryZb.getZdrygllxdm());//是否可转类
 			if(!sfkzl)
 				throw new BussinessException("该 重点人员管理类型 不可转类");
 			
