@@ -11,6 +11,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.founder.framework.components.AppConst;
 import com.founder.framework.config.SystemConfig;
 import com.founder.framework.utils.TreeDataBuilder;
 import com.founder.framework.utils.TreeNode;
@@ -36,6 +37,7 @@ public class ZdryConstant {
 	
 	private static Map<String,String> zdryServiceMap = new HashMap<String,String>();
 	private static Map<String,String> zdryDict = new HashMap<String,String>();
+	/**管理状态*/
 	private static Map<String,String> glztStrMap = new HashMap<String,String>();
 	
 	public static final String LGSQ = "1";
@@ -60,35 +62,39 @@ public class ZdryConstant {
 		glztStrMap.put("7", "转类申请中");
 	}
 	
+	/**
+	 *  TODO(这里用一句话描述这个方法的作用)
+	 */
+	
 	public Map<String,String> zdryServiceMap(){
 		if(zdryServiceMap.size() == 1)
-			zdryServiceMap.putAll(zdryInitializeDao.queryZdrylxMap(SystemConfig.getString("systemXzqh")==""?"210000":SystemConfig.getString("systemXzqh")));
+			zdryServiceMap.putAll(zdryInitializeDao.queryZdrylxMap(SystemConfig.getString(AppConst.XZQH)==""?"210000":SystemConfig.getString(AppConst.XZQH)));
 		return zdryServiceMap;
 	}
 	
 	public String getValueOfZdryServiceMap(String zdrylxdm){
 		if(zdryServiceMap.size() == 1)
-			zdryServiceMap.putAll(zdryInitializeDao.queryZdrylxMap(SystemConfig.getString("systemXzqh")==""?"210000":SystemConfig.getString("systemXzqh")));
+			zdryServiceMap.putAll(zdryInitializeDao.queryZdrylxMap(SystemConfig.getString(AppConst.XZQH)==""?"210000":SystemConfig.getString(AppConst.XZQH)));
 		return zdryServiceMap.get(zdrylxdm);
 	}
 	
 	public Map<String,String> zdryDict(){
 		
 		if(zdryDict.isEmpty())
-			zdryDict.putAll(zdryInitializeDao.queryZdryDict(SystemConfig.getString("systemXzqh")==""?"210000":SystemConfig.getString("systemXzqh")));
+			zdryDict.putAll(zdryInitializeDao.queryZdryDict(SystemConfig.getString(AppConst.XZQH)==""?"210000":SystemConfig.getString(AppConst.XZQH)));
 		return zdryDict;
 	}
 	
 	public String getValueOfZdryDict(String zdrylxdm){
 		if(zdryDict.isEmpty())
-			zdryDict.putAll(zdryInitializeDao.queryZdryDict(SystemConfig.getString("systemXzqh")==""?"210000":SystemConfig.getString("systemXzqh")));
+			zdryDict.putAll(zdryInitializeDao.queryZdryDict(SystemConfig.getString(AppConst.XZQH)==""?"210000":SystemConfig.getString(AppConst.XZQH)));
 		return zdryDict.get(zdrylxdm);
 	}
 	
 	/**
 	 * 
 	 * @Title: getGlztStr
-	 * @Description: TODO(获取管理状态中文)
+	 * @Description: (获取管理状态中文)
 	 * @param @param glzt 管理状态
 	 * @param @return    设定文件
 	 * @return String    返回类型
@@ -153,15 +159,15 @@ public class ZdryConstant {
 		}
 	}
 	
-	private List queryChildNodeList(TreeNode parrentNode){
-		String qydm = SystemConfig.getString("systemXzqh");
+	private List<TreeNode> queryChildNodeList(TreeNode parrentNode){
+		String qydm = SystemConfig.getString(AppConst.XZQH);
 		String lbdm_p="999999";
 		if(parrentNode!=null) lbdm_p = parrentNode.getId();
 		
 		List dictList = zdryInitializeDao.queryZdryDict(lbdm_p,org.springframework.util.StringUtils.isEmpty(qydm)?"210000":qydm);
 		List<TreeNode> nodeList = new ArrayList<TreeNode>();
 		if (dictList != null && dictList.size() > 0) { // 有数据
-			Map dictMap;			
+			Map<String,String> dictMap;			
 			for (int i = 0; i < dictList.size(); i++) {
 				dictMap = (Map) dictList.get(i);
 				TreeNode treeNode = new TreeNode();

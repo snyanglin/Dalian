@@ -29,7 +29,7 @@ public class RuleServiceImpl implements RuleService {
 	private Logger logger = Logger.getLogger(this.getClass());
 	
 	//规则对应关系Map
-	private Map ruleConfigMap = null;
+	private Map<String, RuleConfig> ruleConfigMap = null;
 	
 	//主要的配置规则
 	private RuleConfig mainRuleConfig=new RuleConfig();	
@@ -70,14 +70,14 @@ public class RuleServiceImpl implements RuleService {
 		ruleConfigMap = new HashMap<String, RuleConfig>();
 		ruleConfigMap.put("main", mainRuleConfig);
 		
-		Map	map=new HashMap();		
+		Map<String,Object>	map = new HashMap<String,Object>();		
 		if(this.executeRule("main",map,null)){//获取所有的规则URL
-			Object[] keyAry=map.keySet().toArray();
+			Object[] keyAry = map.keySet().toArray();
 			String packageStr;
 			for(int i=0;i<keyAry.length;i++){
 				packageStr=(String) map.get(keyAry[i]);
 				RuleConfig ruleConfig = new RuleConfig(ruleService+"/packages/"+packageStr+"/binary",ruleServiceUserName,ruleServicePassword);
-				ruleConfigMap.put(keyAry[i], ruleConfig);
+				ruleConfigMap.put(String.valueOf(keyAry[i]), ruleConfig);
 			}
 		}else{
 			ruleConfigMap=null;//下次使用的时候才能重新初始化

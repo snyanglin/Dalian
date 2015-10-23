@@ -118,7 +118,7 @@
 	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 		<property name="dataSource" ref="dataSource" />
 		<property name="transactionManager" ref="transactionManager" />
-		<property name="databaseSchemaUpdate" value="true" />  <!-- 是否更新数据库结构，如果表不存在，启动时会自动创建 -->
+		<property name="databaseSchemaUpdate" value="false" />  <!-- 是否更新数据库结构，如果表不存在，启动时会自动创建 -->
 		<property name="jobExecutorActivate" value="false" />
 	</bean>
 

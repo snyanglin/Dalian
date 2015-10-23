@@ -53,13 +53,13 @@ public class ZdryRuleService {
         bean.setParaMap(paraMap);
         
         //公共参数处理
-        Map globalParam=new HashMap();
+        Map<String,Object> globalParam = new HashMap<String,Object>();
         globalParam.put("zdryZdryzbDao", zdryZdryZbDao);
         
         //执行规则
 		ruleService.executeRule("zdryMessageRule", bean, globalParam);
 		
-		Map map = bean.getResultMap();//规则执行后，bean的成员变量值已修改
+		Map<String, Object> map = bean.getResultMap();//规则执行后，bean的成员变量值已修改
         
 		return map;
 	}	
