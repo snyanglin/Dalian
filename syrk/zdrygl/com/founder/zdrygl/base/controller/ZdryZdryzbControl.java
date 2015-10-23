@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.founder.drools.base.zdry.service.ZdryRuleService;
 import com.founder.framework.annotation.RestfulAnnotation;
 import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
@@ -38,11 +39,9 @@ import com.founder.workflow.service.inteface.JProcessDefinitionService;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrycg;
 import com.founder.zdrygl.base.model.Zdrylxylbdyb;
-import com.founder.zdrygl.base.service.ZdryGzService;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
-import com.founder.zdrygl.core.inteface.ZdryQueryService;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.inteface.ZdrylxylbdybService;
 import com.founder.zdrygl.core.model.Zdry;
@@ -76,9 +75,6 @@ public class ZdryZdryzbControl extends BaseController {
 	@Autowired
 	private ZdryConstant zdryConstant;
 
-	@Resource(name = "zdryGzService")
-	private ZdryGzService zdryGzService;
-
 	@Autowired
 	private JProcessDefinitionService processDefinitionService;
 
@@ -96,6 +92,9 @@ public class ZdryZdryzbControl extends BaseController {
 
 	@Resource(name = "zpfjFjxxbService")
 	private ZpfjFjxxbService zpfjFjxxbService;
+	
+	@Autowired
+	private ZdryRuleService zdryRuleService;
 
 	/*
 	 * @Resource private ZdryShbzdryxxbService zdryShbzdryxxbService;
@@ -513,7 +512,7 @@ public class ZdryZdryzbControl extends BaseController {
 	 */
 	@RequestMapping(value = "/queryklglx", method = RequestMethod.POST)
 	public @ResponseBody String queryklglx(String ylglxStr) {
-		String klgStr = zdryGzService.queryKlglx(ylglxStr);
+		String klgStr = zdryRuleService.getKlglx(ylglxStr);
 		if ("".equals(klgStr)) {// 没有可列管的类型，不能返回“”，此时应该没有匹配的选项
 			klgStr = "999999";
 		}
@@ -539,7 +538,7 @@ public class ZdryZdryzbControl extends BaseController {
 		String zdrygllxdm = ((ZdryZb) zdry).getZdrygllxdm();
 		String zdrygllxmc = zdryConstant.zdryDict().get(zdrygllxdm);
 		// 可撤管类型
-		String kcgStr = zdryGzService.queryKcglx(zdrygllxdm);
+		String kcgStr = zdryRuleService.getKcglx(zdrygllxdm);
 		if (kcgStr == null || kcgStr.length() == 0)
 			kcgStr = "999999";
 

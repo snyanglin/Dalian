@@ -21,7 +21,6 @@ import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrycg;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.inteface.ZdryService;
-import com.founder.zdrygl.core.inteface.ZdryglMessageService;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 /**
@@ -51,10 +50,7 @@ public class ZdryzbService implements ZdryService {
 	private Zdrycg zdrycg;
 	
 	@Autowired
-	private ZdryZdryZbDao zdryZdryZbDao;
-	
-	@Resource(name="zdryglMessageService")
-	private ZdryglMessageService zdryglMessageService;
+	private ZdryZdryZbDao zdryZdryZbDao;		
 
 	@MethodAnnotation(value = "列管", type = logType.insert)
 	@Override

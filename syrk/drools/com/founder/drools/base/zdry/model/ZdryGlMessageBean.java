@@ -1,4 +1,4 @@
-package com.founder.zdrygl.base.model;
+package com.founder.drools.base.zdry.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,10 +16,24 @@ public class ZdryGlMessageBean implements Serializable {
 	//系统中定义的消息类型：LGSQ[列管申请];LGSPJG[列管审批结果]...
 	private String xxlx;
 	
+	/**
+	 * 参数集
+	 */
 	private Map<String, String> paraMap = new HashMap<String, String>();
 	
+	/**
+	 * 结果集
+	 */
 	private Map<String, Object> resultMap = new HashMap<String, Object>();
 
+	/**
+	 * 创建新的字符串list
+	 * @return
+	 */
+	public List<String> createNewStringList(){
+		return new ArrayList<String>();
+	}
+	
 	public boolean isSendAble() {
 		return sendAble;
 	}
