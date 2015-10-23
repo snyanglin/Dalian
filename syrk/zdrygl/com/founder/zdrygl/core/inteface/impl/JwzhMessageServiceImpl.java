@@ -41,6 +41,12 @@ public class JwzhMessageServiceImpl implements JwzhMessageService {
 		SysMessage sysMessage = sysMessageInfoService.initSysMessage(xxlx, source);
 		sendMessageService.sendMessage(sysMessage,jslx,jsdx);
 	}
+
+	@Override
+	public void sendMessage(String xxlx, Object source) {
+		SysMessage sysMessage = sysMessageInfoService.initSysMessage(xxlx, source);
+//		sendMessageService.sendMessage(sysMessage,jslx,jsdx);
+	}
 	
 
 }

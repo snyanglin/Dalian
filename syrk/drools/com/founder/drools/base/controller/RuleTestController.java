@@ -58,22 +58,22 @@ public class RuleTestController extends BaseController {
 		paraMap.put("fsrName","发送人姓名");
 		 
 		
-		Map<String, Object> lgsq = zdryRuleService.getTitleAndContents("LGSQ", paraMap);		
+		Map<String, Object> lgsq = zdryRuleService.getTitleAndContents(ZdryRuleService.LGSQ, paraMap);		
 		lgsq.put("rule", "LGSQ");
 		list.add(lgsq);		
 		
 		
-		Map<String, Object> CGSQ = zdryRuleService.getTitleAndContents("CGSQ", paraMap);		
+		Map<String, Object> CGSQ = zdryRuleService.getTitleAndContents(ZdryRuleService.CGSQ, paraMap);		
 		CGSQ.put("rule", "CGSQ");
 		list.add(CGSQ);
 		
 		paraMap.put("spjg","1");	
-		Map<String, Object> LGSPJG = zdryRuleService.getTitleAndContents("LGSPJG", paraMap);			
+		Map<String, Object> LGSPJG = zdryRuleService.getTitleAndContents(ZdryRuleService.LGSPJG, paraMap);			
 		LGSPJG.put("rule", "LGSPJG_SPTG");
 		list.add(LGSPJG);
 		
 		paraMap.put("spjg","0");		
-		Map<String, Object> LGSPJG2 = zdryRuleService.getTitleAndContents("LGSPJG", paraMap);		
+		Map<String, Object> LGSPJG2 = zdryRuleService.getTitleAndContents(ZdryRuleService.LGSPJG, paraMap);		
 		LGSPJG2.put("rule", "LGSPJG_SPBTG");
 		list.add(LGSPJG2);
 		

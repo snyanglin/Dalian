@@ -27,4 +27,15 @@ public interface JwzhMessageService {
 	 */
 	public void sendMessage(String xxlx, Object source, String jslx, Object jsdx);
 	
+	/**
+	 * 
+	 * @Title: sendMessage
+	 * @Description: (根据 消息类型与消息源对象组装消息体)
+	 * @param @param xxlx 消息类型
+	 * @param @param source  消息源对象
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public void sendMessage(String xxlx, Object source);
+	
 }

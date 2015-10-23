@@ -10,6 +10,7 @@ import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.exception.BussinessException;
 import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.workflow.service.inteface.JProcessDefinitionService;
+import com.founder.zdrygl.base.message.MessageDict;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.inteface.JwzhMessageService;
 import com.founder.zdrygl.core.inteface.ZdryService;
@@ -58,14 +59,14 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		zdryService.lg(sessionBean);
 		lg_(sessionBean);
 		//put zdryId & name to variables
-		processInstance.setProcessKey(zdryService.getZdryId());
+		processInstance.setBusinessKey(zdryService.getZdryId());
 		processInstance.getVariables().put("zdryId", zdryService.getZdryId());
 		
 		if(checkWorkFlow()) {
 			if(processInstance != null && StringUtils.isEmpty(processInstance.getProcessKey())){
 				throw new BussinessException("缺少流程启动参数！");
 			}else{
-				processDefinitionService.startProcessInstance(processInstance.getProcessKey(), processInstance.getBusinessKey(), processInstance.getApplyUserId(),processInstance.getVariables());
+				processDefinitionService.startProcessInstance(processInstance.getApplyUserId(),processInstance.getProcessKey(), processInstance.getBusinessKey(), processInstance.getVariables());
 			}
 		}
 	}
@@ -73,9 +74,9 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	@Override
 	public final void lgSuccess(SessionBean sessionBean) {
 		zdryService.lgSuccess(sessionBean);
-		if(messageSource != null){
-			jwzhMessageService.sendMessage(messageSource.getXxlx(), messageSource.getSource(), messageSource.getJslx(), messageSource.getJsdx());
-		}
+//		if(messageSource != null){
+			jwzhMessageService.sendMessage(MessageDict.XXLX_LGSPJG,getZdry(), MessageDict.JSLX_TO_USER, "");
+//		}
 	}
 
 	@Override
@@ -170,12 +171,11 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	
 	
 	@Override
-	public final void setStartProcessInstance(String processKey, String businessKey, String applyUserId, Map<String,Object> variables){
+	public final void setStartProcessInstance(String processKey, String applyUserId, Map<String,Object> variables){
 		if(processInstance == null){
 			processInstance = new StartProcessInstance();
 		}
-		processInstance.setProcessKey(zdryService.getZdryId());
-		processInstance.setBusinessKey(processKey);
+		processInstance.setProcessKey(processKey);
 		processInstance.setApplyUserId(applyUserId);
 		processInstance.setVariables(variables);
 	}

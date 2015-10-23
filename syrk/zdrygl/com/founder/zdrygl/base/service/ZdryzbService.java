@@ -1,18 +1,15 @@
 package com.founder.zdrygl.base.service;
 
-import java.util.HashMap;
 import java.util.Map;
-
-import javax.annotation.Resource;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import com.founder.framework.annotation.MethodAnnotation;
+import com.founder.framework.annotation.MethodAnnotation.logType;
 import com.founder.framework.annotation.ParaAnnotation;
 import com.founder.framework.annotation.TypeAnnotation;
-import com.founder.framework.annotation.MethodAnnotation.logType;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
 import com.founder.framework.utils.UUID;
@@ -222,8 +219,7 @@ public class ZdryzbService implements ZdryService {
 
 	@Override
 	@Deprecated  
-	public void setStartProcessInstance(String processKey, String businessKey,
-			String applyUserId, Map<String, Object> variables) {
+	public void setStartProcessInstance(String processKey, String applyUserId, Map<String, Object> variables) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -239,7 +235,7 @@ public class ZdryzbService implements ZdryService {
 	/**
 	 * 
 	 * @Title: queryZdryAllInfo
-	 * @Description: TODO(查询重点人员总表和子表)
+	 * @Description: (查询重点人员总表和子表)
 	 * @param @param zdryid
 	 * @param @param zdryVO    设定文件
 	 * @return void    返回类型

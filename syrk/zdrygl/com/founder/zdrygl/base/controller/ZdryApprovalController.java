@@ -97,9 +97,6 @@ public class ZdryApprovalController extends BaseController {
 	@Autowired
 	protected FormService formService;
 
-	@Autowired
-	protected HistoryService ahistoryService;
-
 	/**
 	 * 
 	 * @Title: zdryApproval

@@ -91,14 +91,13 @@ public interface ZdryService {
 	 * 
 	 * @Title: setStartProcessInstance
 	 * @Description: (设置流程启动参数)
-	 * @param @param processKey 流程key
 	 * @param @param businessKey 业务主键
 	 * @param @param applyUserId 流程发起人
 	 * @param @param variables    设定文件 流程启动业务参数
 	 * @return void    返回类型
 	 * @throw
 	 */
-	public void setStartProcessInstance(String processKey, String businessKey, String applyUserId, Map<String,Object> variables);
+	public void setStartProcessInstance(String processKey,String applyUserId, Map<String,Object> variables);
 	
 	/**
 	 * 
