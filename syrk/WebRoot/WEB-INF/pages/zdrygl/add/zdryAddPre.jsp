@@ -336,6 +336,7 @@ function selectSyrk(index){
 	showGroup();
 	$("#zdrygllxdm").combobox("setValue", "");	
 	$('#zdrylbStr').combotree('tree').tree('loadData', '');	
+	$("#ryxxLoadDiv").hide();
 }
 
 //查询已列管类型
