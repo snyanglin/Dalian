@@ -18,35 +18,7 @@
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center"></tr>
 			${renderedTaskForm}
 			
-	     <tr class="dialogTr" id="nextsplxDiv">
-		<td width="20%" class="dialogTd" align="right">提交类型：</td>
-		<td width="80%" class="dialogTd" colspan="3">
-		<input type="radio" name="nextsplx" id="nextsplx1" value="1"  checked="checked"/>提交到岗位
-		<input type="radio" name="nextsplx" id="nextsplx0" value="0"   />提交到人员
-		</td>
- 		</tr>	
-	    <tr class="dialogTr"  id="PoDiv">
-	   	<td width="20%" class="dialogTd" align="right">岗位信息：</td>
-	   	<td>
-	   	<input type="hidden"   id="nextSpposId" name="nextSpposId" value="" style="width: 100;" />
-	   	<input type="hidden" id="nextSppos" name="nextSppos" value="" style="width: 100;" />
-	    <input type="text" id="posname12" name="posname12" style="width: 200;" value="" />
-	   	<input type="hidden" id="nextSpOrgCode" name="nextSpOrgCode" value="" style="width: 100;" />
-	    <input type="button" id=orgbutton12" value="选择" onClick="SelectOrgPos()" style="cursor:pointer; background:#EEF2F8 ;border:1px solid #082F4F;HEIGHT: 18px; WIDTH: 48px;font-family:宋体;font-size:9pt;" />
-	    </td>
-   		 </tr>
-	    	
-	    	
-	    <tr class="dialogTr"  id="UsDiv">
-	   	<td width="20%" class="dialogTd" align="right">人员信息：</td>
-	    </td>
-	   	
-	   	<td>
-	    <input type="text" id="username12" name="username12" style="width: 200;" value="" />
-	   	<input type="hidden" id="nextSpUserId" name="nextSpUserId" value="" style="width: 100;" />
-	    <input type="button" id=orgbutton12" value="选择"  onClick="SelectOrgUser()"  style="cursor:pointer; background:#EEF2F8 ;border:1px solid #082F4F;HEIGHT: 18px; WIDTH: 48px;font-family:宋体;font-size:9pt;" />
-	    </td>
-  		</tr>
+	   
 	    </table>
 	    	
 	    	  <div style="margin: 0 auto;"></div>   
