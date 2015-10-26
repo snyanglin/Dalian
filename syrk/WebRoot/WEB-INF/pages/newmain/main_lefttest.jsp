@@ -54,7 +54,7 @@ $(function() {
 									async:true,
 									type:"GET",
 									dataType:"json",
-									url:"<%= basePath%>newmain/checkSubSystemUsable?checkUrl="+checkUrl+"&tagId="+ID,
+									url:"<%= basePath%>newmain/checkSubSystemUsable?sessionid="+sid+"&checkUrl="+checkUrl+"&tagId="+ID,
 									success:function(data){
 											if (data.status != 'systemStarted') {//系统未启动													
 												var obj=$("#"+data.tagId).parent().find("a.accordion-collapse");
@@ -139,7 +139,7 @@ $(function() {
 								async:true,
 								type:"GET",
 								dataType:"json",
-								url:"<%= basePath%>newmain/checkSubSystemUsable?checkUrl="+checkUrl+"&tagId="+ID,
+								url:"<%= basePath%>newmain/checkSubSystemUsable?sessionid="+sid+"&checkUrl="+checkUrl+"&tagId="+ID,
 								success:function(data){
 										if (data.status !='systemStarted') {//系统未启动
 											var obj=$("#"+data.tagId).parent().find("a.accordion-collapse");
@@ -208,7 +208,7 @@ function menu_openClass(text,URL,ID,clickObj,sid){
 			async:true,
 			type:"GET",
 			dataType:"json",
-			url:"<%= basePath%>newmain/checkSubSystemUsable?checkUrl="+checkUrl,
+			url:"<%= basePath%>newmain/checkSubSystemUsable?sessionid="+sid+"&checkUrl="+checkUrl,
 			success:function(data){
 					if (data.status =='systemStarted') {
 					 	var obj=$(clickObj).parent().parent().parent().parent().find("a.no-internet")		  	  		
