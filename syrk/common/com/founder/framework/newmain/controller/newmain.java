@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,7 @@ import com.founder.framework.organization.right.service.OrgRightPublic;
 @Controller
 @RequestMapping("/newmain")
 public class newmain extends BaseController {
+	private Logger logger = Logger.getLogger(this.getClass());
 	
 	@RequestMapping(value = "/getaccord", method = RequestMethod.GET)
 	public ModelAndView addOrEditjhyxswjbxxb(){
@@ -77,7 +79,8 @@ public class newmain extends BaseController {
 					
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			logger.info("Cannot connect to URL:"+checkUrl);
 		}
 			
 	    return map;
