@@ -69,15 +69,15 @@ public class LogController extends BaseController {
 		List<String> modList=new ArrayList<String>(4);
 		modList.add("重点人员管理");
 		modList.add("重点人员查询服务");
-		modList.add("重点人员补充信息－评审鉴定");
-		modList.add("重点人员补充信息－违法犯罪记录");
+		modList.add("实有人口信息");
+		modList.add("实有人口编辑");
 		operationLogService.countByMod(list,startDate,endDate,modList,4);
 		//4、按单位统计：ORGANIZATION
 		List<String> orgList=new ArrayList<String>(4);
-		orgList.add("解放责任区1");
-		orgList.add("白山路派出所");
-		orgList.add("沙河口分局");
-		orgList.add("解放责任区2");
+		orgList.add("祥和责任区");
+		orgList.add("红旗派出所");
+		orgList.add("甘井子分局");
+		orgList.add("莲花山责任区");
 		operationLogService.countByOrg(list,startDate,endDate,orgList,4);
 		
 		return list;			
