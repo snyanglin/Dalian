@@ -36,6 +36,6 @@ public interface RuleService {
 	 * @return boolean    返回类型
 	 * @throw
 	 */	
-	public boolean executeRule(String ruleName, Object paramObj,Map globalParamMap);
+	public boolean executeRule(String ruleName, Object paramObj,Map<String, Object> globalParamMap);
 	
 }

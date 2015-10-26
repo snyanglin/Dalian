@@ -26,14 +26,15 @@ public class szApprovalTaskListener implements JavaDelegate {
 	@Override
 	public void execute(DelegateExecution paramDelegateExecution)
 			throws Exception {
-		
+
     	String posid= (String) paramDelegateExecution.getVariable("posid");
+    	String szApprovedType= (String) paramDelegateExecution.getVariable("szApprovedType");
     	String sporgcode= (String) paramDelegateExecution.getVariable("sporgcode");
     	String orgposid= (String) paramDelegateExecution.getVariable("orgposid");
     	String nextSpUserId= (String) paramDelegateExecution.getVariable("nextSpUserId");
     	if((posid == null || posid.trim().equals(""))
     			&& (orgposid == null || orgposid.trim().equals(""))){
-    		
+    		paramDelegateExecution.setVariable("szApprovedType", "1"); 
     	}else if(nextSpUserId == null || nextSpUserId.trim().equals("")){
     		//assign task to position
     		String taskParameter=sporgcode+"_"+orgPositionService.queryByPosid(posid).getId().toString();   //部门code+所长岗位ID

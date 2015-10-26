@@ -55,8 +55,8 @@ public class ZdryRuleService {
         bean.setXxlx(xxlx);
         bean.setParaMap(paraMap);
         
-        //公共参数
-        Map<String, Object> globalParam=new HashMap<String, Object>();
+        //公共参数处理
+        Map<String,Object> globalParam = new HashMap<String,Object>();
         globalParam.put("zdryZdryzbDao", zdryZdryZbDao);
         
         //执行规则

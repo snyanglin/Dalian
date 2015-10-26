@@ -230,22 +230,17 @@ public class ZdryZdryzbControl extends BaseController {
 			// start process
 			StartProcessInstance spi = initialProcessInstance(sessionBean,
 					zdryVO);
-			zdryService.setStartProcessInstance(spi.getProcessKey(),
-					spi.getBusinessKey(), spi.getApplyUserId(),
+			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(),
 					spi.getVariables());
 			zdryService.lg(sessionBean);
 
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
 			model.put(AppConst.MESSAGES, getAddSuccess());
 		} catch (BussinessException e) {
-			e.printStackTrace();
-			new RestException(e.getLocalizedMessage());
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
 			model.put(AppConst.MESSAGES, e.getLocalizedMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
-			new RestException(e.getLocalizedMessage());
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
 			model.put(AppConst.MESSAGES, getAddFail());
@@ -291,6 +286,7 @@ public class ZdryZdryzbControl extends BaseController {
 		variables.put("zdryId", zdryZdryzb.getId()); // 重点人员总表Id
 		variables.put("zdrylxmc", zdrylxmc);// 人员类型名称
 		variables.put("xm", zdryxm);// 被列管人员姓名
+		variables.put("cyzjdm", zdryVO.getZdryZdryzb().getCyzjdm());
 		variables.put("zjhm", zdryVO.getZdryZdryzb().getZjhm());// 证件号码
 		// variables.put("splx", "重点人口列管");//审批类型
 		variables.put("sqyj", zdryVO.getYwsqyy());// 申请意见

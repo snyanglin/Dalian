@@ -60,9 +60,9 @@ public class Lcgcg implements JavaDelegate {
 		 * sessionBean.getUserOrgCode();
 		 */
 
-		if ("01".equals(sqlxdm))
+		if ("01".equals(sqlxdm)){
 			zdryService.lgSuccess(sessionBean);
-		else if ("02".equals(sqlxdm))
+		}else if ("02".equals(sqlxdm))
 			zdryService.cgSuccess(sessionBean);
 		else if ("04".equals(sqlxdm)) {// 请假
 			String qjId = (String) execution.getVariable("qjId");
