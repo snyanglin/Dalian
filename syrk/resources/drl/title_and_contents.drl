@@ -1,12 +1,9 @@
 //重点人员列管成功规则文件
-package com.founder.zdrygl.messgae;
+package com.founder.zdry.messgae;
 
 //此处引入java对象
 import java.lang.String;
-import com.founder.zdrygl.base.model.ZdryGlMessageBean;
-
-//全局编码的声明
-global com.founder.zdrygl.base.dao.ZdryZdryZbDao zdryZdryZbDao;
+import com.foundcom.foundcom.founder.drools.base.zdry.model.ZdryGlMessageBeanobal com.founder.zdrygl.base.dao.ZdryZdryZbDao zdryZdryZbDao;
 
 //global com.founder.framework.organization.user.service.OrgUserService orgUserService;
 //global com.founder.framework.organization.department.service.OrgOrganizationService orgOrganizationService;
@@ -17,29 +14,114 @@ rule "LGSQ"
     when 
        	mess:ZdryGlMessageBean(xxlx == 'LGSQ',$paraMap:paraMap);
     then
-    	//消息标题
-        mess.addResultMapValue("title","重口人员列管申请");
-        
-        //构建消息体
-        String zdryXm=(String) $paraMap.get("zdryXm");
+    	//设置消息的标题
+		mess.addResultMapValue("title","重点人员列管申请");
+		
+		//获取：重点人员姓名
+		String zdryXm=(String) $paraMap.get("zdryXm");
+		//获取：重点人员类型
 		String zdrylx=(String) $paraMap.get("zdrylx");
+		//获取：发送人OrgCode
 		String fsrOrgCode = (String) $paraMap.get("fsrOrgCode");
+		//获取：发送人UserCode
 		String fsrUserCode = (String) $paraMap.get("fsrUserCode");
-		String contents = zdryZdryZbDao.getOrganizationNameByOrgCode(fsrOrgCode) 
-						+ " " + zdryZdryZbDao.getOrgUserNameByUserId(fsrUserCode)
-						+ "民警"	+ zdrylx + zdryXm + "的列管申请，请审批";
+		//构建消息正文，例如：解放责任区2 李长荣民警，涉公安访 张三的列管申请，请您审批。
+		String contents = zdryZdryzbDao.getOrganizationNameByOrgCode(fsrOrgCode) + " " + zdryZdryzbDao.getOrgUserNameByUserId(fsrUserCode)+ "民警" + zdrylx + zdryXm + "的列管申请，请审批";
+		//设置消息正文
 		mess.addResultMapValue("contents",contents);
 end
 
 
-rule "LGSPJG"
+rule "LGSPJG_SPTG"
 	activation-group "title_contents"
     when 
-       	//mess:ZdryGlMessageBean(xxlx == "LGSPJG",$paraMap:paraMap);
-       	mess:ZdryGlMessageBean(xxlx == "LGSPJG");
+       	mess:ZdryGlMessageBean(xxlx == 'LGSPJG',$paraMap:paraMap);
+		eval($paraMap.get("spjg") == "1");
     then
-        mess.addResultMapValue("title","重点人员列管审批结果");
-        mess.addResultMapValue("contents","重点人员列管审批结果");
+        //设置消息的标题
+		mess.addResultMapValue("title","重点人员列管审批结果");
+		
+		//获取：重点人员姓名
+		String zdryXm=(String) $paraMap.get("zdryXm");
+		//获取：发送人OrgCode
+		String fsrOrgCode = (String) $paraMap.get("fsrOrgCode");
+		//获取：发送人UserCode
+		String fsrUserCode = (String) $paraMap.get("fsrUserCode");
+		//构建消息正文，例如：白山路派出所 李长荣 审批同意重点人员 张三 的列管申请。
+		String contents = zdryZdryzbDao.getOrganizationNameByOrgCode(fsrOrgCode) + " " + zdryZdryzbDao.getOrgUserNameByUserId(fsrUserCode)+ " 审批同意重点人员 " + zdryXm + "的列管申请";
+		//设置消息正文
+		mess.addResultMapValue("contents",contents);
+end
+
+rule "LGSPJG_SPBTG"
+	activation-group "title_contents"
+    when 
+       	mess:ZdryGlMessageBean(xxlx == 'LGSPJG',$paraMap:paraMap);
+		eval($paraMap.get("spjg") == "0");
+    then
+        //设置消息的标题
+		mess.addResultMapValue("title","重点人员列管审批结果");
+		
+		//获取：重点人员姓名
+		String zdryXm=(String) $paraMap.get("zdryXm");
+		//获取：发送人OrgCode
+		String fsrOrgCode = (String) $paraMap.get("fsrOrgCode");
+		//获取：发送人UserCode
+		String fsrUserCode = (String) $paraMap.get("fsrUserCode");
+		//构建消息正文，例如：白山路派出所 李长荣 审批不同意重点人员 张三 的列管申请。
+		String contents = zdryZdryzbDao.getOrganizationNameByOrgCode(fsrOrgCode) + " " + zdryZdryzbDao.getOrgUserNameByUserId(fsrUserCode)+ " 审批不同意重点人员 " + zdryXm + "的列管申请";
+		//设置消息正文
+		mess.addResultMapValue("contents",contents);
+end
+
+rule "LCGSPJG"
+	activation-group "title_contents"
+    when 
+       	mess:ZdryGlMessageBean((xxlx == 'LGSPJG' || xxlx == 'CGSPJG'),$paraMap:paraMap);
+    then
+        //获取：发送人OrgCode
+		String fsrOrgCode = (String) $paraMap.get("fsrOrgCode");
+		
+		//业务申请人的UserCode
+		String ywsqrUserCode = (String)$paraMap.get("ywsqrUserCode ");
+		
+		//获取：发送人UserCode
+		String fsrUserCode = (String) $paraMap.get("fsrUserCode");
+		
+		//构建一个list消息接收人的usercode
+		List userCodes = mess.createNewStringList();
+		
+		//加入当前发送人的UserCode
+		userCodes.add(fsrUserCode );
+		
+		//加入业务申请人的UserCode
+		userCodes.add(ywsqrUserCode );
+		
+		//设置接收者
+		mess.addResultMapValue("reveiver",userCodes);
+
+end
+
+rule "LCGSQ"
+	activation-group "title_contents"
+    when 
+       	mess:ZdryGlMessageBean((xxlx == 'LGSQ' || xxlx == 'CGSQ'),$paraMap:paraMap);
+    then
+        //获取：发送人OrgCode
+		String fsrOrgCode = (String) $paraMap.get("fsrOrgCode");
+		
+		//获取上级所长的UserCode
+		List userCodes = zdryZdryzbDao.getParentOrgUserCodeByOrgCodeAndPos(fsrOrgCode,"SZ");
+		
+		//获取：发送人UserCode
+		String fsrUserCode = (String) $paraMap.get("fsrUserCode");
+		
+		//加入当前发送人的UserCode
+		userCodes.add(fsrUserCode );
+		
+		//设置接收者
+		mess.addResultMapValue("reveiver",userCodes);
+
 end
 
 
@@ -48,15 +130,21 @@ rule "CGSQ"
     when 
        	mess:ZdryGlMessageBean(xxlx == "CGSQ");
     then
+		//设置消息的标题
 		mess.addResultMapValue("title","重点人员撤管申请");
-        
-        //String zdryXm=(String) $paraMap.get("zdryXm");
-		//String zdrylx=(String) $paraMap.get("zdrylx");
-		//String fsrUserCode=(String) $paraMap.get("fsrUserCode");
-		//String fsrOrgCode=(String) $paraMap.get("fsrOrgCode");
-		//xxinfo = zdryZdryZbDao.getCgsqXxnr(zdryXm,zdrylx,fsrUserCode,fsrOrgCode);
-        
-        mess.addResultMapValue("contents","重点人员列管审批结果");
+
+		//获取：重点人员姓名
+		String zdryXm=(String) $paraMap.get("zdryXm");
+		//获取：重点人员类型
+		String zdrylx=(String) $paraMap.get("zdrylx");
+		//获取：发送人OrgCode
+		String fsrOrgCode = (String) $paraMap.get("fsrOrgCode");
+		//获取：发送人UserCode
+		String fsrUserCode = (String) $paraMap.get("fsrUserCode");
+		//构建消息正文，例如：解放责任区2 李长荣民警 提交，涉公安访 张三的列管申请，请您审批。
+		String contents = zdryZdryzbDao.getOrganizationNameByOrgCode(fsrOrgCode) + " " + zdryZdryzbDao.getOrgUserNameByUserId(fsrUserCode)+ "民警 提交 " + zdrylx + " " + zdryXm + "的撤管申请，请审批";
+		//设置消息正文
+		mess.addResultMapValue("contents",contents);
 end
 
 
