@@ -38,4 +38,17 @@ public interface RuleService {
 	 */	
 	public boolean executeRule(String ruleName, Object paramObj,Map<String, Object> globalParamMap);
 	
+	/**
+	 * 
+	 * @Title: reLoadOne
+	 * @Description: TODO(重新加载一个)
+	 * @param @param str
+	 * @param @return    设定文件
+	 * @return boolean    返回类型
+	 * @throw
+	 */
+	public boolean reLoadOne(String str);
+	
+	
+	public Map getRuleConfigMap();
 }

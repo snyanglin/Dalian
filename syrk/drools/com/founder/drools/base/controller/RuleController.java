@@ -7,12 +7,15 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.founder.drools.base.zdry.service.ZdryRuleService;
+import com.founder.drools.core.inteface.RuleService;
+import com.founder.drools.core.model.RuleConfig;
 import com.founder.framework.annotation.RestfulAnnotation;
 import com.founder.framework.base.controller.BaseController;
 /**
@@ -29,10 +32,13 @@ import com.founder.framework.base.controller.BaseController;
  */
 @Controller
 @RequestMapping("rule")
-public class RuleTestController extends BaseController {					
+public class RuleController extends BaseController {					
 	
 	@Resource(name="zdryRuleService")
 	private ZdryRuleService zdryRuleService;		
+	
+	@Autowired
+	private RuleService ruleService;
 	
 	/**
 	 * 
@@ -81,4 +87,59 @@ public class RuleTestController extends BaseController {
 		return mv;
 	
 	}		
+	
+	/**
+	 * 
+	 * @Title: manager
+	 * @Description: TODO(规则管理列表)
+	 * @param @return    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throw
+	 */
+	@RestfulAnnotation(serverId="3")
+	@RequestMapping(value = "/manager", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView manager(){			
+		ModelAndView mv = new ModelAndView("zdrygl/ruleManager");
+		Map<String, RuleConfig> ruleConfigMap = ruleService.getRuleConfigMap();
+		if(ruleConfigMap==null) ruleService.init();
+		Object[] objAry = ruleConfigMap.keySet().toArray();
+		List list=new LinkedList();
+		for(int i=0;i<objAry.length;i++){
+			Map map=new HashMap();
+			map.put("key", objAry[i]);
+			map.put("value", ruleConfigMap.get(objAry[i]).getUrl());
+			list.add(map);
+		}
+		mv.addObject("List",list);
+		return mv;
+	
+	}	
+	
+	/**
+	 * 
+	 * @Title: reloadOne
+	 * @Description: TODO(更新某一组规则)
+	 * @param @param str
+	 * @param @return    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throw
+	 */
+	@RestfulAnnotation(serverId="3")
+	@RequestMapping(value = "/reloadOne", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView reloadOne(String str){			
+		ModelAndView mv = new ModelAndView("zdrygl/ruleManager");
+		ruleService.reLoadOne(str);
+		Map<String, RuleConfig> ruleConfigMap = ruleService.getRuleConfigMap();
+		Object[] objAry = ruleConfigMap.keySet().toArray();
+		List list=new LinkedList();
+		for(int i=0;i<objAry.length;i++){
+			Map map=new HashMap();
+			map.put("key", objAry[i]);
+			map.put("value", ruleConfigMap.get(objAry[i]).getUrl());
+			list.add(map);
+		}
+		mv.addObject("List",list);
+		return mv;
+	
+	}	
 }

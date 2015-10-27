@@ -67,6 +67,7 @@ public class RuleServiceImpl implements RuleService {
 		mainRuleConfig.setUrl(ruleService+"/packages/"+ruleMainPackage+"/binary");
 		mainRuleConfig.setUserName(ruleServiceUserName);
 		mainRuleConfig.setUserPassword(ruleServicePassword);
+		mainRuleConfig.setKbase(null);
 		ruleConfigMap = new HashMap<String, RuleConfig>();
 		ruleConfigMap.put("main", mainRuleConfig);
 		
@@ -77,6 +78,7 @@ public class RuleServiceImpl implements RuleService {
 			for(int i=0;i<keyAry.length;i++){
 				packageStr=(String) map.get(keyAry[i]);
 				RuleConfig ruleConfig = new RuleConfig(ruleService+"/packages/"+packageStr+"/binary",ruleServiceUserName,ruleServicePassword);
+				ruleConfig.getKbase();
 				ruleConfigMap.put(String.valueOf(keyAry[i]), ruleConfig);
 			}
 		}else{
@@ -132,6 +134,18 @@ public class RuleServiceImpl implements RuleService {
 		
 		return false;
 	}
-
+	
+	public boolean reLoadOne(String str){
+		RuleConfig ruleConfig = ruleConfigMap.get(str);
+		if(ruleConfig!=null){
+			ruleConfig.setKbase(null);
+			ruleConfig.getKbase();
+		}
+		return false;
+	}
+	
+	public Map getRuleConfigMap(){
+		return ruleConfigMap;
+	}
 
 }
