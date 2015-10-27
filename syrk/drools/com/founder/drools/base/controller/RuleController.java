@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.founder.drools.base.zdry.service.ZdryRuleService;
@@ -18,6 +20,7 @@ import com.founder.drools.core.inteface.RuleService;
 import com.founder.drools.core.model.RuleConfig;
 import com.founder.framework.annotation.RestfulAnnotation;
 import com.founder.framework.base.controller.BaseController;
+import com.founder.framework.utils.EasyUIPage;
 /**
  * ****************************************************************************
  * @Package:      [com.founder.zdrygl.base.controller.RuleTestController.java]  
@@ -31,7 +34,7 @@ import com.founder.framework.base.controller.BaseController;
  * @Version:      [v1.0]
  */
 @Controller
-@RequestMapping("rule")
+@RequestMapping("ruleSys")
 public class RuleController extends BaseController {					
 	
 	@Resource(name="zdryRuleService")
@@ -52,7 +55,7 @@ public class RuleController extends BaseController {
 	@RestfulAnnotation(serverId="3")
 	@RequestMapping(value = "/test", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView test(){			
-		ModelAndView mv = new ModelAndView("zdrygl/ruleTest");
+		ModelAndView mv = new ModelAndView("drools/ruleTest");
 		//sessionBean = getSessionBean(sessionBean);
 		List list=new LinkedList();
 		//通过规则引擎获取消息
@@ -95,14 +98,22 @@ public class RuleController extends BaseController {
 	 * @param @return    设定文件
 	 * @return ModelAndView    返回类型
 	 * @throw
-	 */
-	@RestfulAnnotation(serverId="3")
+	 */	
 	@RequestMapping(value = "/manager", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView manager(){			
-		ModelAndView mv = new ModelAndView("zdrygl/ruleManager");
+		ModelAndView mv = new ModelAndView("drools/ruleManager");		
+		return mv;	
+	}	
+	
+	@RequestMapping(value = "/getManageList", method = RequestMethod.POST)
+	public @ResponseBody EasyUIPage getManageList(EasyUIPage page,@RequestParam(value = "rows", required = false) Integer rows) {
 		Map<String, RuleConfig> ruleConfigMap = ruleService.getRuleConfigMap();
-		if(ruleConfigMap==null) ruleService.init();
-		Object[] objAry = ruleConfigMap.keySet().toArray();
+		if(ruleConfigMap==null){
+			ruleService.init();
+			ruleConfigMap = ruleService.getRuleConfigMap();
+		}
+		
+		Object[] objAry = ruleConfigMap.keySet().toArray();		
 		List list=new LinkedList();
 		for(int i=0;i<objAry.length;i++){
 			Map map=new HashMap();
@@ -110,10 +121,10 @@ public class RuleController extends BaseController {
 			map.put("value", ruleConfigMap.get(objAry[i]).getUrl());
 			list.add(map);
 		}
-		mv.addObject("List",list);
-		return mv;
-	
-	}	
+		page.setRows(list);
+		page.setTotal(list.size());
+		return page;
+	}
 	
 	/**
 	 * 
@@ -123,23 +134,33 @@ public class RuleController extends BaseController {
 	 * @param @return    设定文件
 	 * @return ModelAndView    返回类型
 	 * @throw
-	 */
-	@RestfulAnnotation(serverId="3")
+	 */	
 	@RequestMapping(value = "/reloadOne", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView reloadOne(String str){			
-		ModelAndView mv = new ModelAndView("zdrygl/ruleManager");
-		ruleService.reLoadOne(str);
-		Map<String, RuleConfig> ruleConfigMap = ruleService.getRuleConfigMap();
-		Object[] objAry = ruleConfigMap.keySet().toArray();
-		List list=new LinkedList();
-		for(int i=0;i<objAry.length;i++){
-			Map map=new HashMap();
-			map.put("key", objAry[i]);
-			map.put("value", ruleConfigMap.get(objAry[i]).getUrl());
-			list.add(map);
-		}
-		mv.addObject("List",list);
-		return mv;
-	
+	@ResponseBody
+	public String reloadOne(String str){					
+		if(ruleService.reLoadOne(str))
+			return "success";
+		else
+			return "failed";
 	}	
+	
+	/**
+	 * 
+	 * @Title: reloadAll
+	 * @Description: TODO(reload全部)
+	 * @param @return    设定文件
+	 * @return String    返回类型
+	 * @throw
+	 */
+	@RequestMapping(value = "/reloadAll", method = {RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public String reloadAll(){					
+		try{
+			ruleService.init();
+			return "success";
+		}catch(Exception e){
+			
+		}				
+		return "failed";
+	}
 }

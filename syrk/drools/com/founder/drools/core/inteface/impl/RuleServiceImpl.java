@@ -84,6 +84,8 @@ public class RuleServiceImpl implements RuleService {
 		}else{
 			ruleConfigMap=null;//下次使用的时候才能重新初始化
 		}
+		
+		System.gc();//垃圾回收
 	}
 		
 
@@ -136,10 +138,15 @@ public class RuleServiceImpl implements RuleService {
 	}
 	
 	public boolean reLoadOne(String str){
-		RuleConfig ruleConfig = ruleConfigMap.get(str);
-		if(ruleConfig!=null){
-			ruleConfig.setKbase(null);
-			ruleConfig.getKbase();
+		try{
+			RuleConfig ruleConfig = ruleConfigMap.get(str);
+			if(ruleConfig!=null){
+				ruleConfig.setKbase(null);
+				ruleConfig.getKbase();
+				return true;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 		return false;
 	}
