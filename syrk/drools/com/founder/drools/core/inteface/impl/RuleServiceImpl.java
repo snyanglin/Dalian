@@ -42,7 +42,7 @@ public class RuleServiceImpl implements RuleService {
 	 * @return void    返回类型
 	 * @throw
 	 */		
-	public void init(){
+	public boolean init(){
 		logger.info("Rule config init");
 		String ruleService = SystemConfig.getString("RuleService");
 		if(ruleService==null){
@@ -83,9 +83,12 @@ public class RuleServiceImpl implements RuleService {
 			}
 		}else{
 			ruleConfigMap=null;//下次使用的时候才能重新初始化
+			System.gc();//垃圾回收
+			return false;
 		}
 		
 		System.gc();//垃圾回收
+		return true;
 	}
 		
 

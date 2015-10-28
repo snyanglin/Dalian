@@ -1112,8 +1112,9 @@ function getIEVersion() {
 	
 	// 全局ajax处理
 	$(document).ajaxError(function(event, request, settings, thrownError) { // 请求失败处理
-		if (request.status == 418) {
-			topMessager.alert(MESSAGER_TITLE, '用户操作超时，请重新登录！', 'error', function() {
+		if (request.status == 409) {
+				//通知系统弹出超时
+				topMessager.alert(MESSAGER_TITLE, '用户操作超时，请重新登录！', 'error', function() {
 				window.top.location.href = contextPath + "/index.jsp";
 			});
 		} else if (request.status == 308) {
