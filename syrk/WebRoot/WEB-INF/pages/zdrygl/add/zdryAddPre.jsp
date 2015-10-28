@@ -433,6 +433,7 @@ function checkZjhm() {
 		data:"zjhm="+$("#zjhm").val()+"&cyzjdm="+$("#cyzjdm").val(),
 		success:function(data) {
 			if (data) {
+				data = $.parseJSON(data);
 				$("#xm").val(data.xm);	
 				$("#xbdm").combobox("setValue", data.xbdm);
 				$("#cyzjdm").val(data.cyzjdm);
