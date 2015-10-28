@@ -1114,9 +1114,7 @@ function getIEVersion() {
 	$(document).ajaxError(function(event, request, settings, thrownError) { // 请求失败处理
 		if (request.status == 409) {
 				//通知系统弹出超时
-				topMessager.alert(MESSAGER_TITLE, '用户操作超时，请重新登录！', 'error', function() {
-				window.top.location.href = contextPath + "/index.jsp";
-			});
+				sendToMain("relogin");				
 		} else if (request.status == 308) {
 			topMessager.alert(MESSAGER_TITLE, '数据处理中或已保存，请勿重复提交！', 'error');
 		} else {
@@ -2785,4 +2783,12 @@ function beforeTableLoad(data,tableId){
 			}
 		}
 	}
+}
+
+
+//给主框架发消息，其实是发给topWindow上两级的，避免再级别变深后收不到消息
+var child = new Messenger("child",'Founder');
+function sendToMain(msg){
+	child.addTarget(window.parent.parent.parent.parent,'topWindow');
+	child.targets['topWindow'].send(msg);
 }
