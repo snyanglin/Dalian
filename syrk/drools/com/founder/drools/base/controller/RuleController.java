@@ -109,17 +109,20 @@ public class RuleController extends BaseController {
 	public @ResponseBody EasyUIPage getManageList(EasyUIPage page,@RequestParam(value = "rows", required = false) Integer rows) {
 		Map<String, RuleConfig> ruleConfigMap = ruleService.getRuleConfigMap();
 		if(ruleConfigMap==null){
-			ruleService.init();
-			ruleConfigMap = ruleService.getRuleConfigMap();
+			if(ruleService.init())
+				ruleConfigMap = ruleService.getRuleConfigMap();
 		}
 		
-		Object[] objAry = ruleConfigMap.keySet().toArray();		
+		
 		List list=new LinkedList();
-		for(int i=0;i<objAry.length;i++){
-			Map map=new HashMap();
-			map.put("key", objAry[i]);
-			map.put("value", ruleConfigMap.get(objAry[i]).getUrl());
-			list.add(map);
+		if(ruleConfigMap!=null){
+			Object[] objAry = ruleConfigMap.keySet().toArray();				
+			for(int i=0;i<objAry.length;i++){
+				Map map=new HashMap();
+				map.put("key", objAry[i]);
+				map.put("value", ruleConfigMap.get(objAry[i]).getUrl());
+				list.add(map);
+			}
 		}
 		page.setRows(list);
 		page.setTotal(list.size());
@@ -154,13 +157,10 @@ public class RuleController extends BaseController {
 	 */
 	@RequestMapping(value = "/reloadAll", method = {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public String reloadAll(){					
-		try{
-			ruleService.init();
+	public String reloadAll(){			
+		if(ruleService.init())
 			return "success";
-		}catch(Exception e){
-			
-		}				
-		return "failed";
+		else
+			return "failed";		
 	}
 }
