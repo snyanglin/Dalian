@@ -74,8 +74,9 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	@Override
 	public final void lgSuccess(SessionBean sessionBean) {
 		zdryService.lgSuccess(sessionBean);
+		// TODO 
 //		if(messageSource != null){
-			jwzhMessageService.sendMessage(MessageDict.XXLX_LGSPJG,getZdry(), MessageDict.JSLX_TO_USER, "");
+//			jwzhMessageService.sendMessage(MessageDict.XXLX_LGSPJG,getZdry(), MessageDict.JSLX_TO_USER, "");
 //		}
 	}
 
