@@ -54,6 +54,9 @@
       </extensionElements>
     </sequenceFlow>
     <sequenceFlow id="flow38" name="拒绝" sourceRef="exclusivegateway9" targetRef="endevent2">
+      <extensionElements>
+        <activiti:executionListener event="take" delegateExpression="${workRejectListener}"></activiti:executionListener>
+      </extensionElements>
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${szApprovedType=='0'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow39" name="同意" sourceRef="exclusivegateway9" targetRef="endevent1">
@@ -160,7 +163,7 @@
         <omgdi:waypoint x="541.0" y="479.0"></omgdi:waypoint>
         <omgdi:waypoint x="224.0" y="479.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="24.0" x="449.0" y="472.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="449.0" y="472.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
