@@ -26,7 +26,6 @@ import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
-import com.founder.framework.exception.RestException;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.position.service.OrgPositionService;
@@ -96,27 +95,6 @@ public class ZdryZdryzbControl extends BaseController {
 	@Autowired
 	private ZdryRuleService zdryRuleService;
 
-	/*
-	 * @Resource private ZdryShbzdryxxbService zdryShbzdryxxbService;
-	 * 
-	 * 
-	 * @Resource(name="zdryZdryzbService") private ZdryZdryzbService
-	 * zdryZdryzbService;
-	 * 
-	 * 
-	 * @Resource(name = "syrkSyrkxxzbService") private SyrkSyrkxxzbService
-	 * syrkSyrkxxzbService;
-	 * 
-	 * @Autowired private JProcessManageService processManageService;
-	 * 
-	 * @Autowired private JTaskService taskService;
-	 * 
-	 * 
-	 * 
-	 * @Resource private RyRyjbxxbService ryRyjbxxbService; /*
-	 * 
-	 * @Resource private ZdrySgafzdryxxbService zdrySgafzdryxxbService;
-	 */
 	/**
 	 * 
 	 * @Title: manage
@@ -570,7 +548,7 @@ public class ZdryZdryzbControl extends BaseController {
 				throw new BussinessException("未查询到该重点人员的信息");
 			}
 			// 验证状态是否正确
-			if (!zdryConstant.YLG.equals(zb_old.getGlzt())) {
+			if (!ZdryConstant.YLG.equals(zb_old.getGlzt())) {
 				throw new BussinessException("该重点人员正在【"
 						+ zdryConstant.getGlztStr(zb_old.getGlzt())
 						+ "】，不能办理其他业务");

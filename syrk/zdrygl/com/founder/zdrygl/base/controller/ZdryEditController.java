@@ -374,7 +374,7 @@ public class ZdryEditController extends BaseController {
 				throw new BussinessException("未查询到该重点人员的信息");
 			}
 			//验证状态是否正确
-			if(!zdryConstant.YLG.equals(zdryZb.getGlzt())){
+			if(!ZdryConstant.YLG.equals(zdryZb.getGlzt())){
 				throw new BussinessException("该重点人员正在【"+zdryConstant.getGlztStr(zdryZb.getGlzt())+"】，不能办理其他业务");
 			}						
 			

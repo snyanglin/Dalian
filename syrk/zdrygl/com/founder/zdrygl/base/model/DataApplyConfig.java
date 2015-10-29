@@ -45,6 +45,16 @@ public class DataApplyConfig {
 		return method;
 	}
 
+	/**
+	 * 
+	 * @Title: dataApply
+	 * @Description: TODO(httpClient调用华云复用接口)
+	 * @param @param cyzjdm
+	 * @param @param zjhm
+	 * @param @return    设定文件
+	 * @return String    返回类型
+	 * @throw
+	 */
 	public String dataApply(String cyzjdm, String zjhm){
 		
 		GetMethod method=getMethod(cyzjdm,zjhm);
@@ -55,8 +65,7 @@ public class DataApplyConfig {
 					|| statusCode == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
 					
 				String res=method.getResponseBodyAsString();	
-				if(res!=null){
-					//res=JsonUtil.string2json(res);
+				if(res!=null){					
 					return res;
 				}
 					

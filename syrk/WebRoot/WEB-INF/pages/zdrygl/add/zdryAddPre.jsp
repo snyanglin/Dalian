@@ -24,27 +24,6 @@
     	<input type="hidden" id="syrkid" name="zdryZdryzb.syrkid" value="" />
     	<input type="hidden" id="ryid" name="zdryZdryzb.ryid" value="" />
     	
-    	<input type="hidden" id="mzdm" name="zdryZdryzb.mzdm" value="" />
-    	<input type="hidden" id="csrq" name="zdryZdryzb.csrq" value="" />
-    	<input type="hidden" id="jgssxdm" name="zdryZdryzb.jgssxdm" value="" />
-    	<input type="hidden" id="hjd_xzqhdm" name="zdryZdryzb.hjd_xzqhdm" value="" />
-    	<input type="hidden" id="hjd_mlpdm" name="zdryZdryzb.hjd_mlpdm" value="" />
-    	
-    	<input type="hidden" id="hjd_mlpxz" name="zdryZdryzb.hjd_mlpxz" value="" />
-    	<input type="hidden" id="hjd_dzid" name="zdryZdryzb.hjd_dzid" value="" />
-    	<input type="hidden" id="hjd_dzxz" name="zdryZdryzb.hjd_dzxz" value="" />
-    	<input type="hidden" id="jzd_xzqhdm" name="zdryZdryzb.jzd_xzqhdm" value="" />
-    	<input type="hidden" id="jzd_mlpdm" name="zdryZdryzb.jzd_mlpdm" value="" />
-    	<input type="hidden" id="jzd_mlpxz" name="zdryZdryzb.jzd_mlpxz" value="" />
-    	<input type="hidden" id="jzd_dzid" name="zdryZdryzb.jzd_dzid" value="" />
-    	<input type="hidden" id="jzd_dzxz" name="zdryZdryzb.jzd_dzxz" value="" />
-    	
-    	<input type="hidden" id="jzd_zbx" name="zdryZdryzb.jzd_zbx" value="" />
-    	<input type="hidden" id="jzd_zby" name="zdryZdryzb.jzd_zby" value="" />
-    	<input type="hidden" id="gxfjdm" name="zdryZdryzb.gxfjdm" value="" />
-    	<input type="hidden" id="gxpcsdm" name="zdryZdryzb.gxpcsdm" value="" />
-    	<input type="hidden" id="gxzrqdm" name="zdryZdryzb.gxzrqdm" value="" />
-    	
 	    <table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 			<tr class="dialogTr">		    	
 				<td width="20%" class="dialogTd" align="right">证件类型：</td>
@@ -62,7 +41,7 @@
 		    	<td width="30%" class="dialogTd">
 		    		<input class="easyui-validatebox" type="text" id="zjhm" name="zdryZdryzb.zjhm" style="width:200px;float:left;" value="${zdryZdryzbVO.zjhm}" onblur="checkZjhm()"
 		    			data-options="required:true,charSet:'halfUpper',validType:['sfzh'],tipPosition:'left'" />
-		    		<div class="lodingimg" id="ryxxLoadDiv" ></div></td>
+		    		<div class="lodingimg" id="ryxxLoadDiv" ></div>
 		    	</td>
 		    	<td width="20%" class="dialogTd" align="right">性别：</td>
 		    	<td width="30%" class="dialogTd">		    		
@@ -71,9 +50,112 @@
 					valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'right'"/>		    		
 		    	</td>	
 		    </tr>
+		    </table>
+		    
+		    <!-- 隐藏的人员信息 -->
+		    <table border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="display:none" id="ryxxDiv">		    
+		    <tr class="dialogTr">		    		    
+				<td width="20%" class="dialogTd" align="right">民族：</td>
+		    	<td width="30%" class="dialogTd">
+		    		<input class="easyui-combobox" type="text" id="mzdm" name="zdryZdryzb.mzdm" value="" style="width:200px;"
+					data-options="url: contextPath + '/common/dict/GB_D_MZDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'left'"/>		    		
+		    	</td>
+		    	<td width="20%" class="dialogTd" align="right">出生日期：</td>
+		    	<td width="30%" class="dialogTd">		    		
+		    		<input class="easyui-validatebox" type="text"  id="csrq" name="zdryZdryzb.csrq" style="width:200px;" value=""/>	    		
+		    	</td>	
+		    </tr>	
+		    <tr class="dialogTr">		    		    
+				<td width="20%" class="dialogTd" align="right">籍贯省市县代码：</td>
+		    	<td width="30%" class="dialogTd">
+		    		<input class="easyui-validatebox" type="text"  id="jgssxdm" name="zdryZdryzb.jgssxdm" style="width:200px;" value=""/>
+		    	</td>
+		    	<td width="20%" class="dialogTd" align="right">户籍地_行政区划代码：</td>
+		    	<td width="30%" class="dialogTd">		  
+		    		<input class="easyui-combobox" type="text" id="hjd_xzqhdm" name="zdryZdryzb.hjd_xzqhdm" value="" style="width:200px;"
+					data-options="url: contextPath + '/common/dict/D_BZ_XZQHLIST_MUNICIPAL.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'left'"/>  		
+		    	</td>	
+		    </tr>
+		    
+		    <tr class="dialogTr">		    		    
+				<td width="20%" class="dialogTd" align="right">户籍地_门楼牌代码：</td>
+		    	<td width="30%" class="dialogTd">
+		    		<input class="easyui-validatebox" type="text"  id="hjd_mlpdm" name="zdryZdryzb.hjd_mlpdm" style="width:200px;" value=""/>
+		    	</td>
+		    	<td width="20%" class="dialogTd" align="right">户籍地_门楼牌详址：</td>
+		    	<td width="30%" class="dialogTd">		    		
+		    		<input class="easyui-validatebox" type="text"  id="hjd_mlpxz" name="zdryZdryzb.hjd_mlpxz" style="width:200px;" value=""/>	    		
+		    	</td>	
+		    </tr>	
+		    <tr class="dialogTr">		    		    
+				<td width="20%" class="dialogTd" align="right">户籍地_地址ID：</td>
+		    	<td width="30%" class="dialogTd">
+		    		<input class="easyui-validatebox" type="text"  id="hjd_dzid" name="zdryZdryzb.hjd_dzid" style="width:200px;" value=""/>
+		    	</td>
+		    	<td width="20%" class="dialogTd" align="right">户籍地_地址详址：</td>
+		    	<td width="30%" class="dialogTd">		    		
+		    		<input class="easyui-validatebox" type="text"  id="hjd_dzxz" name="zdryZdryzb.hjd_dzxz" style="width:200px;" value=""/>	    		
+		    	</td>	
+		    </tr>
+		    <tr class="dialogTr">		    		    
+				<td width="20%" class="dialogTd" align="right">居住地_行政区划代码：</td>
+		    	<td width="30%" class="dialogTd">
+		    		<input class="easyui-combobox" type="text" id="jzd_xzqhdm" name="zdryZdryzb.jzd_xzqhdm" value="" style="width:200px;"
+					data-options="url: contextPath + '/common/dict/D_BZ_XZQHLIST_MUNICIPAL.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'left'"/>		    		
+		    	</td>
+		    	<td width="20%" class="dialogTd" align="right">居住地_门楼牌代码：</td>
+		    	<td width="30%" class="dialogTd">		    		
+		    		<input class="easyui-validatebox" type="text"  id="jzd_mlpdm" name="zdryZdryzb.jzd_mlpdm" style="width:200px;" value=""/>	    		
+		    	</td>	
+		    </tr>
+		    <tr class="dialogTr">		    		    
+				<td width="20%" class="dialogTd" align="right">居住地_门楼牌详址：</td>
+		    	<td width="30%" class="dialogTd">
+		    		<input class="easyui-validatebox" type="text"  id="jzd_mlpxz" name="zdryZdryzb.jzd_mlpxz" style="width:200px;" value=""/>
+		    	</td>
+		    	<td width="20%" class="dialogTd" align="right">居住地_地址ID：</td>
+		    	<td width="30%" class="dialogTd">		    		
+		    		<input class="easyui-validatebox" type="text"  id="jzd_dzid" name="zdryZdryzb.jzd_dzid" style="width:200px;" value=""/>	    		
+		    	</td>	
+		    </tr>
+		    <tr class="dialogTr">		    		    
+				<td width="20%" class="dialogTd" align="right">居住地_地址详址：</td>
+		    	<td width="30%" class="dialogTd">
+		    		<input class="easyui-validatebox" type="text"  id="jzd_dzxz" name="zdryZdryzb.jzd_dzxz" style="width:200px;" value=""/>
+		    	</td>
+		    	<td width="20%" class="dialogTd" align="right">居住地_坐标X：</td>
+		    	<td width="30%" class="dialogTd">		    		
+		    		<input class="easyui-validatebox" type="text"  id="jzd_zbx" name="zdryZdryzb.jzd_zbx" style="width:200px;" value=""/>	    		
+		    	</td>	
+		    </tr>
+		    <tr class="dialogTr">		    		    
+				<td width="20%" class="dialogTd" align="right">居住地_坐标Y：</td>
+		    	<td width="30%" class="dialogTd">
+		    		<input class="easyui-validatebox" type="text"  id="jzd_zby" name="zdryZdryzb.jzd_zby" style="width:200px;" value=""/>
+		    	</td>
+		    	<td width="20%" class="dialogTd" align="right">管辖分局代码：</td>
+		    	<td width="30%" class="dialogTd">		    		
+		    		<input class="easyui-validatebox" type="text"  id="gxfjdm" name="zdryZdryzb.gxfjdm" style="width:200px;" value=""/>	    		
+		    	</td>	
+		    </tr>
+		    <tr class="dialogTr">		    		    
+				<td width="20%" class="dialogTd" align="right">管辖派出所代码：</td>
+		    	<td width="30%" class="dialogTd">
+		    		<input class="easyui-validatebox" type="text"  id="gxpcsdm" name="zdryZdryzb.gxpcsdm" style="width:200px;" value=""/>
+		    	</td>
+		    	<td width="20%" class="dialogTd" align="right">管辖责任区代码：</td>
+		    	<td width="30%" class="dialogTd">		    		
+		    		<input class="easyui-validatebox" type="text"  id="gxzrqdm" name="zdryZdryzb.gxzrqdm" style="width:200px;" value=""/>	    		
+		    	</td>	
+		    </tr>    
+		    </table>		  		    		    	    	
+		    
+		    <table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 		    <tr class="dialogTr">
 		    	<td colspan="4" align="center">
-		    		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="querySyrk()">查询实有人口</a>		    	
+		    		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="querySyrk()">查询实有人口</a>
+		    		<a href="javascript:void(0)" class="easyui-linkbutton" id="ryxxShow" onclick="ryxxTag(1)">显示全部</a>
+		    		<a href="javascript:void(0)" class="easyui-linkbutton" id="ryxxHide" onclick="ryxxTag(2)" style="display:none">收起部分</a>		    	
 		    	</td>		    	
 		    </tr>
 		    		     
@@ -313,14 +395,14 @@ function selectSyrk(index){
 	$("#ryid").val(rowData.ryid);
 	
 	$("#csrq").val(rowData.csrq);
-	$("#mzdm").val(rowData.mzdm);
+	$("#mzdm").combobox("setValue",rowData.mzdm);	
 	$("#jgssxdm").val(rowData.jgssxdm);
-	$("#hjd_xzqhdm").val(rowData.hjd_xzqhdm);
+	$("#hjd_xzqhdm").combobox("setValue",rowData.hjd_xzqhdm);
 	$("#hjd_mlpdm").val(rowData.hjd_mlpdm);
 	$("#hjd_mlpxz").val(rowData.hjd_mlpxz);
 	$("#hjd_dzid").val(rowData.hjd_dzid);
 	$("#hjd_dzxz").val(rowData.hjd_dzxz);
-	$("#jzd_xzqhdm").val(rowData.jzd_xzqhdm);
+	$("#jzd_xzqhdm").combobox("setValue",rowData.jzd_xzqhdm);
 	$("#jzd_mlpdm").val(rowData.jzd_mlpdm);
 	$("#jzd_mlpxz").val(rowData.jzd_mlpxz);
 	$("#jzd_dzid").val(rowData.jzd_dzid);
@@ -442,14 +524,14 @@ function checkZjhm() {
 				$("#ryid").val(data.ryid);
 				
 				$("#csrq").val(data.csrq);
-				$("#mzdm").val(data.mzdm);
+				$("#mzdm").combobox("setValue",data.mzdm);
 				$("#jgssxdm").val(data.jgssxdm);
-				$("#hjd_xzqhdm").val(data.hjd_xzqhdm);
+				$("#hjd_xzqhdm").combobox("setValue",data.hjd_xzqhdm);				
 				$("#hjd_mlpdm").val(data.hjd_mlpdm);
 				$("#hjd_mlpxz").val(data.hjd_mlpxz);
 				$("#hjd_dzid").val(data.hjd_dzid);
 				$("#hjd_dzxz").val(data.hjd_dzxz);
-				$("#jzd_xzqhdm").val(data.jzd_xzqhdm);
+				$("#jzd_xzqhdm").combobox("setValue",data.jzd_xzqhdm);				
 				$("#jzd_mlpdm").val(data.jzd_mlpdm);
 				$("#jzd_mlpxz").val(data.jzd_mlpxz);
 				$("#jzd_dzid").val(data.jzd_dzid);
@@ -468,6 +550,19 @@ function checkZjhm() {
 		error:function() {
 		}
 	});	
+}
+
+function ryxxTag(index){
+	
+	if(index==1){
+		$("#ryxxShow").hide();
+		$("#ryxxHide").show();
+		$("#ryxxDiv").show();
+	}else{
+		$("#ryxxShow").show();
+		$("#ryxxHide").hide();
+		$("#ryxxDiv").hide();
+	}
 }
 </script>
 
