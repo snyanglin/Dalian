@@ -51,7 +51,7 @@ public class newmain extends BaseController {
 		Map<String, String> map=new HashMap<String, String>();
 		map.put("status", "systemNotStarted");
 		map.put("tagId", tagId);
-		
+		GetMethod method = new GetMethod(checkUrl);
 		try {
 			/*******************************************************************
 			 * 创建与网关的HTTP连接，发送认证请求报文，并接收认证响应报文*
@@ -61,7 +61,7 @@ public class newmain extends BaseController {
 			HttpClient httpClient =  new HttpClient();
 			httpClient.setTimeout(10000);
 			httpClient.setConnectionTimeout(10000);
-			GetMethod method = new GetMethod(checkUrl);
+			
 			//设置报文传送的编码格式
 			method.setRequestHeader("Content-Type","text/xml;charset=UTF-8");	
 			
@@ -78,9 +78,12 @@ public class newmain extends BaseController {
 				}
 					
 			}
+			
 		} catch (Exception e) {
 			//e.printStackTrace();
 			logger.info("Cannot connect to URL:"+checkUrl);
+		}finally{
+			method.releaseConnection();
 		}
 			
 	    return map;

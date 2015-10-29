@@ -67,7 +67,7 @@ public class DataApplyController extends BaseController {
 	/**
 	 * 
 	 * @Title: ryxxApply
-	 * @Description: TODO(人员信息复用本地测试用，以后改用华云的URL)
+	 * @Description: TODO(人员信息复用，用华云的接口)
 	 * @param @param cyzjdm
 	 * @param @param zjhm
 	 * @param @return    设定文件
@@ -76,8 +76,6 @@ public class DataApplyController extends BaseController {
 	 */
 	@RequestMapping(value = "/ryxxApply", method = {RequestMethod.GET,RequestMethod.POST})
 	public @ResponseBody Object ryxxApply(String cyzjdm, String zjhm) {	
-		Object obj= dataApplyService.syrkApply(cyzjdm, zjhm);
-		if(obj==null) obj=dataApplyService.ryjbxxApply(cyzjdm, zjhm);
-		return 		obj;
+		return dataApplyService.ryxxApply(cyzjdm, zjhm);
 	}
 }

@@ -24,7 +24,7 @@ public interface RuleService {
 	 * @return void    返回类型
 	 * @throw
 	 */
-	public void init();
+	public boolean init();
 	/**
 	 * 
 	 * @Title: executeRule

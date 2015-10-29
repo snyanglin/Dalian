@@ -32,6 +32,11 @@ public class szApprovalTaskListener implements JavaDelegate {
     	String sporgcode= (String) paramDelegateExecution.getVariable("sporgcode");
     	String orgposid= (String) paramDelegateExecution.getVariable("orgposid");
     	String nextSpUserId= (String) paramDelegateExecution.getVariable("nextSpUserId");
+    	//如果不同意
+    	if(szApprovedType.trim().equals("0")){
+    		return;
+    	}
+    	
     	if((posid == null || posid.trim().equals(""))
     			&& (orgposid == null || orgposid.trim().equals(""))){
     		paramDelegateExecution.setVariable("szApprovedType", "1"); 

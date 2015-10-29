@@ -10,6 +10,7 @@ import com.founder.syrkgl.bean.RyRyjbxxb;
 import com.founder.syrkgl.bean.SyrkSyrkxxzb;
 import com.founder.syrkgl.dao.RyRyjbxxbDao;
 import com.founder.syrkgl.dao.SyrkSyrkxxzbDao;
+import com.founder.zdrygl.base.model.DataApplyConfig;
 
 /**
  * ****************************************************************************
@@ -31,6 +32,8 @@ public class DataApplyService extends BaseService{
 	
 	@Resource(name = "ryRyjbxxbDao")
 	private RyRyjbxxbDao ryRyjbxxbDao;
+	
+	private DataApplyConfig dataApplyConfig = new DataApplyConfig();
 		
 	public RyRyjbxxb ryjbxxApply(String cyzjdm, String zjhm) {
 		return ryRyjbxxbDao.queryByCyzjdmZjhm(cyzjdm, zjhm);		
@@ -40,4 +43,7 @@ public class DataApplyService extends BaseService{
 		return syrkSyrkxxzbDao.querySyrkByZj(cyzjdm, zjhm);		
 	}
 
+	public String ryxxApply(String cyzjdm, String zjhm) {
+		return dataApplyConfig.dataApply(cyzjdm, zjhm);		
+	}
 }

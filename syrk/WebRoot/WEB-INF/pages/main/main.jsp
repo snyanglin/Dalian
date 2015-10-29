@@ -7,6 +7,21 @@
 	<%@include file="/WEB-INF/pages/commonInclude.jsp"%>
 	<script type="text/javascript" src="<%=contextPath%>/common/jeasyui/mainFrame.js"></script>
 	<script type="text/javascript" src="<%=contextPath%>/common/jeasyui/windowTopPage.js"></script>
+	<script type="text/javascript">
+	//接收消息
+	var topWindow = new Messenger("topWindow",'Founder');
+	topWindow.listen(
+			function(msg){
+				if(msg == "relogin"){
+					topMessager.alert(MESSAGER_TITLE, '用户操作超时，请重新登录！', 'error', function() {
+						window.top.location.href = contextPath + "/index.jsp";
+					});
+				}
+				
+			}
+
+	);
+	</script>
 </head>
 <body scroll="no" topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" 
    	  style="BORDER-RIGHT: 0px none; BORDER-TOP: 0px none; MARGIN: 0px; BORDER-LEFT: 0px none; BORDER-BOTTOM: 0px none; overflow: hidden;"

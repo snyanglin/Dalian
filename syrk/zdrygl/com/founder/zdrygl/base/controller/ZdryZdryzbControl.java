@@ -26,7 +26,6 @@ import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
-import com.founder.framework.exception.RestException;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.position.service.OrgPositionService;
@@ -96,27 +95,6 @@ public class ZdryZdryzbControl extends BaseController {
 	@Autowired
 	private ZdryRuleService zdryRuleService;
 
-	/*
-	 * @Resource private ZdryShbzdryxxbService zdryShbzdryxxbService;
-	 * 
-	 * 
-	 * @Resource(name="zdryZdryzbService") private ZdryZdryzbService
-	 * zdryZdryzbService;
-	 * 
-	 * 
-	 * @Resource(name = "syrkSyrkxxzbService") private SyrkSyrkxxzbService
-	 * syrkSyrkxxzbService;
-	 * 
-	 * @Autowired private JProcessManageService processManageService;
-	 * 
-	 * @Autowired private JTaskService taskService;
-	 * 
-	 * 
-	 * 
-	 * @Resource private RyRyjbxxbService ryRyjbxxbService; /*
-	 * 
-	 * @Resource private ZdrySgafzdryxxbService zdrySgafzdryxxbService;
-	 */
 	/**
 	 * 
 	 * @Title: manage
@@ -301,10 +279,9 @@ public class ZdryZdryzbControl extends BaseController {
 			variables.put("sqrOrgLevel", sessionBean.getUserOrgLevel());// 设置申请人组织机构级别
 			variables.put("approvalMethod", "shbApproval");
 			variables.put("zdryId", zdryZdryzb.getId());
-			variables.put("sqyj", "申请将" + zdryVO.getZdryShbzdryxxb().getXm()
-					+ "列管为涉环保重点人员");
-			variables.put("xm", zdryVO.getZdryShbzdryxxb().getXm());// 被列管人员姓名
-			variables.put("zjhm", zdryVO.getZdryShbzdryxxb().getZjhm());// 证件号码
+			variables.put("sqyj", "申请将" + zdryxm	+ "列管为涉环保重点人员");
+			variables.put("xm", zdryxm);// 被列管人员姓名
+			variables.put("zjhm", zdryVO.getZdryZdryzb().getZjhm());// 证件号码
 
 			// set parameters of processinstance
 			spi.setProcessKey("shb_lcg");
@@ -312,7 +289,7 @@ public class ZdryZdryzbControl extends BaseController {
 			spi.setVariables(variables);
 		} else if (zdryZdryzb.getZdrygllxdm().equals("06")) {// 其他关注对象 改为也要 所长
 																// 审批
-			variables.put("sqlx", "治安列管");// 申请类型
+			variables.put("sqlx", "其他关注对象");// 申请类型
 			variables.put("sqlxdm", "01");// 申请类型为列管
 
 			OrgOrganization orgOrganization = orgOrganizationService
@@ -348,30 +325,25 @@ public class ZdryZdryzbControl extends BaseController {
 		if (zdryZdryzb.getZdrygllxdm().equals("01")) {
 			ZdryZb zdryZb = (ZdryZb) zdryQueryService.queryById(zdryZdryzb
 					.getId());
-			if ("0104".equals(zdryZb.getZdrylb())) {
+			// if ("0104".equals(zdryZb.getZdrylb())) {
 
-				variables.put("sqlx", "治安列管");// 申请类型
-				variables.put("sqlxdm", "01");// 申请类型为列管
-				/*
-				 * processDefinitionService.startProcessInstance(
-				 * sessionBean.getUserId(), "zalcg", zdryZdryzb.getId(),
-				 * variables);
-				 */
-				// set parameters of processinstance
-				spi.setProcessKey("zalcg");
-				spi.setBusinessKey(zdryZdryzb.getId());
-				spi.setVariables(variables);
-			} else {
-				// TODO:
-				/*
-				 * zdryUntil.lgSuccess(zdryZdryzb.getId(), zdryxm,
-				 * sessionBean.getUserId(), sessionBean.getUserName(),
-				 * sessionBean.getUserOrgCode(), null);
-				 */
-			}
+			variables.put("sqlx", "社区矫正人员列管");// 申请类型
+			variables.put("sqlxdm", "01");// 申请类型为列管
+			/*
+			 * processDefinitionService.startProcessInstance(
+			 * sessionBean.getUserId(), "zalcg", zdryZdryzb.getId(), variables);
+			 */
+			// set parameters of processinstance
+			spi.setProcessKey("sqjz");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
 
 		} else {
-			variables.put("sqlx", "治安列管");// 申请类型
+			if (zdryZdryzb.getZdrygllxdm().equals("04")) {
+				variables.put("sqlx", "非正常上访重点人员列管");// 申请类型
+			}else{
+				variables.put("sqlx", "治安列管");// 申请类型
+			}
 			variables.put("sqlxdm", "01");// 申请类型为列管
 
 			// set parameters of processinstance
@@ -570,7 +542,7 @@ public class ZdryZdryzbControl extends BaseController {
 				throw new BussinessException("未查询到该重点人员的信息");
 			}
 			// 验证状态是否正确
-			if (!zdryConstant.YLG.equals(zb_old.getGlzt())) {
+			if (!ZdryConstant.YLG.equals(zb_old.getGlzt())) {
 				throw new BussinessException("该重点人员正在【"
 						+ zdryConstant.getGlztStr(zb_old.getGlzt())
 						+ "】，不能办理其他业务");

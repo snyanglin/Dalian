@@ -11,6 +11,7 @@ import com.founder.bzdz.vo.BzdzxxbVO;
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
+import com.founder.framework.organization.position.bean.OrgPosition;
 import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.syrkgl.bean.RyRyjbxxb;
 import com.founder.syrkgl.bean.SyrkSyrkxxzb;
@@ -64,11 +65,11 @@ public class Zaywjs implements JavaDelegate {
 			String lrrzrq = (String) arg0.getVariable("lrrzrq");
 			String cyzjdm =  (String) arg0.getVariable("cyzjdm");
 			String zjhm =  (String) arg0.getVariable("zjhm");
+			
 			OrgOrganization orgOrganization = new OrgOrganization();
 			ZdryZb zdryZb = (ZdryZb) zdryQueryService.queryById(zdryId);
 			String syrkSyrkxxzbId = zdryZb.getSyrkid();
-			SyrkSyrkxxzb syrkSyrkxxzb = syrkSyrkxxzbService
-					.queryById(syrkSyrkxxzbId);
+			SyrkSyrkxxzb syrkSyrkxxzb = syrkSyrkxxzbService.queryById(syrkSyrkxxzbId);
 			if(syrkSyrkxxzb != null){
 				zdry_jzd_mlpdm = syrkSyrkxxzb.getJzd_mlpdm();// 重点人员居住地门楼盘代码
 			}else{
@@ -76,8 +77,7 @@ public class Zaywjs implements JavaDelegate {
 				RyRyjbxxb ryRyjbxxb  = ryRyjbxxbService.queryByCyzjdmZjhm(cyzjdm, zjhm);
 				zdry_jzd_mlpdm = ryRyjbxxb.getJzd_mlpdm();
 			}
-			String zdry_jzd_zrqdm = dzService.queryMldzDx(zdry_jzd_mlpdm)
-					.getZrqdm();// 重点人员居住地责任区
+			String zdry_jzd_zrqdm = dzService.queryMldzDx(zdry_jzd_mlpdm).getZrqdm();// 重点人员居住地责任区
 			if (zdrygllxdm.equals("01")) { // 人口类别为社区矫正
 
 				orgOrganization = orgOrganizationService.queryUpOrgByLevel(
@@ -143,6 +143,7 @@ public class Zaywjs implements JavaDelegate {
 
 				}
 
+				arg0.setVariableLocal("org", orgOrganization);
 			}
 
 		} catch (BussinessException aa) {

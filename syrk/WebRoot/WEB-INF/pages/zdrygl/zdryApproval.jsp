@@ -17,8 +17,41 @@
     
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center"></tr>
 			${renderedTaskForm}
+
+			<c:choose>
+			   <c:when test="${splx=='1'}"> 
+				<!-- 提交到岗位 -->
+				<input type="hidden" name="nextsplx" id="nextsplx1" value="1" />     
+			   </c:when>
+			   <c:otherwise>
+				<!-- 提交到人员 -->
+				<input type="hidden" name="nextsplx" id="nextsplx0" value="0"   />
+			   </c:otherwise>
+			</c:choose>
+			<c:if test="${splx!=null}">
+				<tr class="dialogTr"  id="PoDiv">
+					<td width="20%" class="dialogTd" align="right">审批岗位：</td>
+					<td>
+						<input type="hidden"   id="nextSpposId" name="nextSpposId" value="${position.id}" style="width: 100;" />
+						<input type="hidden" id="nextSppos" name="nextSppos" value="${position.posid}" style="width: 100;" />
+						<input type="text" id="posname12" name="posname12" style="width: 200;" value="${position.posname}" />
+						<input type="hidden" id="nextSpOrgCode" name="nextSpOrgCode" value="${org.orgcode}" style="width: 100;" />
+						<input type="button" id=orgbutton12" value="选择" onClick="SelectOrgPos()" style="cursor:pointer; background:#EEF2F8 ;border:1px solid #082F4F;HEIGHT: 18px; WIDTH: 48px;font-family:宋体;font-size:9pt;" />
+	    			</td>
+				</tr>
 			
-	   
+				<c:if test="${splx=='2'}">
+				    <tr class="dialogTr"  id="UsDiv">
+					<td width="20%" class="dialogTd" align="right">审批人员：</td> 
+					
+					<td>
+					    <input type="text" id="username12" name="username12" style="width: 200;" value="" />
+						<input type="hidden" id="nextSpUserId" name="nextSpUserId" value="" style="width: 100;" />
+					    <input type="button" id=orgbutton12" value="选择"  onClick="SelectOrgUser()"  style="cursor:pointer; background:#EEF2F8 ;border:1px solid #082F4F;HEIGHT: 18px; WIDTH: 48px;font-family:宋体;font-size:9pt;" />
+					</td>
+				    </tr>
+				</c:if>
+			</c:if>
 	    </table>
 	    	
 	    	  <div style="margin: 0 auto;"></div>   
@@ -52,17 +85,17 @@
 	
 	$(document).ready(function(){
 	
-	if($("#zdrylxmc").val()=="社区矫正人员"||$("#zdrylxmc").val()=="重点人口"||$("#zdrylxmc").val()=="非正常上访重点人员"
+	/* if($("#zdrylxmc").val()=="社区矫正人员"||$("#zdrylxmc").val()=="非正常上访重点人员"
 					||$("#zdrylxmc").val()=="其他关注对象" || $("#sqlx").val()=="请假审批")
 	{
-	$("#nextsplxDiv").hide();
-	$("#PoDiv").hide();
-	$("#UsDiv").hide();
-	}
-	else{
+	$("#nextsplxDiv").hide(); */
+	/* $("#PoDiv").hide();
+	$("#UsDiv").hide(); */
+	/* }
+	else{ */
 			$("#nextsplxDiv").hide();
-			$("#PoDiv").hide();
-			$("#UsDiv").hide();
+			/* $("#PoDiv").hide();
+			$("#UsDiv").hide();  */
 			
 		//	alert($("#agree").val());
 	
@@ -71,41 +104,57 @@
 			getDisagreeOrgCode();
 	
 			$("#nextsplxDiv").show();
-			$("#PoDiv").show();
-			$("#nextsplx0").bind("click", function(event) { $("#UsDiv").show();	});
-			$("#nextsplx1").bind("click", function(event) { $("#UsDiv").hide(); });
+			/* $("#PoDiv").show(); */
+			/* $("#nextsplx0").bind("click", function(event) { $("#UsDiv").show();	});
+			$("#nextsplx1").bind("click", function(event) { $("#UsDiv").hide(); }); */
 			$("#spjg0").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").show(); orgCode=disagreeOrgCode;orglevel=disagreeOrglevel;});
-			$("#spjg1").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").show(); orgCode=agreeOrgCode;orglevel=agreeOrglevel;	});
+			$("#spjg1").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").show(); orgCode=agreeOrgCode;orglevel=agreeOrglevel;	}); 
 	
 	
 		}
 		if(($("#agree").val()!="NoChoice")&&($("#disagree").val()=="NoChoice")){
 			getAgreeOrgCode();
-			orgCode=agreeOrgCode;
+			orgCode=agreeOrgCode;  
 			orglevel=agreeOrglevel;
 			$("#nextsplxDiv").show();
-			$("#PoDiv").show();
-			$("#nextsplx0").bind("click", function(event) {$("#UsDiv").show();  });
-			$("#nextsplx1").bind("click", function(event) { $("#UsDiv").hide(); });
-			
+			/* $("#PoDiv").show(); */
+			/* $("#nextsplx0").bind("click", function(event) {$("#UsDiv").show();  });
+			$("#nextsplx1").bind("click", function(event) { $("#UsDiv").hide(); }); */
+			alert("agree");
 			$("#spjg0").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").hide(); $("#nextsplxDiv").hide();});
-			$("#spjg1").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").show(); $("#nextsplxDiv").show(); });
+			$("#spjg1").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").show(); $("#nextsplxDiv").show(); }); 
 		}
 		if(($("#agree").val()=="NoChoice")&&($("#disagree").val()!="NoChoice")){
 
 			getDisagreeOrgCode();
 			orgCode=disagreeOrgCode;
 			orglevel=disagreeOrglevel;
-			$("#nextsplx0").bind("click", function(event) { $("#PoDiv").hide(); $("#UsDiv").show();  });
-			$("#nextsplx1").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").show(); });
-	
+			alert("disagree");
+			/* $("#nextsplx0").bind("click", function(event) { $("#PoDiv").hide(); $("#UsDiv").show();  });
+			$("#nextsplx1").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").show(); });  */
 			$("#spjg0").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").show(); $("#nextsplxDiv").show();});
-			$("#spjg1").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").hide(); $("#nextsplxDiv").hide(); });
+			$("#spjg1").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").hide(); $("#nextsplxDiv").hide(); }); 
 	
 			}
-		}
+
 		
 		loadclearSelect();
+		$("#spjg1").bind("click", function(event) { 
+			if($("#nextsplx1")=="1"){
+				/*提交到岗位*/
+				$("#UsDiv").hide(); $("#PoDiv").show();
+			}else{
+				$("#UsDiv").show(); $("#PoDiv").show();
+			}
+		});
+		$("#spjg0").bind("click", function(event) { 
+			if($("#nextsplx0")=="0"){/*提交到个人*/
+				$("#UsDiv").hide(); $("#PoDiv").hide(); 
+			}else{
+				$("#UsDiv").hide(); $("#PoDiv").hide(); 
+			}
+			
+		}); 
 		$("#saveBotton").bind("click",function() {
 			var formObject =$("#dataForm");
 			if(!formObject.form('validate')){
@@ -132,82 +181,81 @@
 
 
 
-		function getAgreeOrgCode() {
-			var su = true;
-			$.ajax({
-			async:false,
-			type:"POST",
-			url:"<%= basePath%>zdryApproval/getApprovalOrgCode",
-			dataType:"json",
-			data:"condition="+$("#agree").val(),
-			success:function(data){
-				if (data) {
-					agreeOrgCode=data.orgOrganization.orgcode;
-					agreeOrglevel=data.orgOrganization.orglevel;
-						}
-					}
-				});
-			}
-		function getDisagreeOrgCode() {
-			var su = true;
-			$.ajax({
-			async:false,
-			type:"POST",
-			url:"<%= basePath%>zdryApproval/getApprovalOrgCode",
-			dataType:"json",
-			data:"condition="+$("#disagree").val(), 
-			success:function(data){
-					if (data) {
-					disagreeOrgCode=data.orgOrganization.orgcode;
-					disagreelevel=data.orgOrganization.orglevel;
+	function getAgreeOrgCode() {
+		var su = true;
+		$.ajax({
+		async:false,
+		type:"POST",
+		url:"<%= basePath%>zdryApproval/getApprovalOrgCode",
+		dataType:"json",
+		data:"condition="+$("#agree").val(),
+		success:function(data){
+			if (data) {
+				agreeOrgCode=data.orgOrganization.orgcode;
+				agreeOrglevel=data.orgOrganization.orglevel;
 					}
 				}
 			});
 		}
-
-		function openZdrk(){
-	
-			var editUrl = "/zdrygl/"+ryid+"/"+syrkid+"/view?mode=view";
-			menu_open(xm,editUrl);
-			window.parent.$('#windowWithoutSave').dialog('close');
-		}
-		
-		function clearSelect(){
-		
-			 $("#nextSpposId").val("");
-			 $("#posidE").val("");
-			 $("#posname12").val("");
-			 $("#nextSpOrgCode").val("");
-			 $("#nextSpUserId").val("");
-			 $("#username12").val("");    
-			
-		}
-		function loadclearSelect(){
-			$("#nextsplx0").bind("click", function(event) { clearSelect(); });
-			$("#nextsplx1").bind("click", function(event) { clearSelect(); });
-			$("#spjg0").bind("click", function(event) { clearSelect();});
-			$("#spjg1").bind("click", function(event) { clearSelect();});
-		}
-
-
-
-		function SelectOrgUser(){
-			var posid=$("#nextSppos").val();
-			//alert(posid);
-			if(posid==""){
-				alert("请选择岗位");
-				return false;
+	function getDisagreeOrgCode() {
+		var su = true;
+		$.ajax({
+		async:false,
+		type:"POST",
+		url:"<%= basePath%>zdryApproval/getApprovalOrgCode",
+		dataType:"json",
+		data:"condition="+$("#disagree").val(), 
+		success:function(data){
+				if (data) {
+				disagreeOrgCode=data.orgOrganization.orgcode;
+				disagreelevel=data.orgOrganization.orglevel;
+				}
 			}
-   			public_singleSelectOrgUser(orgCode, '01', orglevel, '', posid, '', 'nextSpUserId', 'username12', '', '', '', '', false, '', window, 'onOrgUserSelected', '')
-   			
-		}
-
-		function SelectOrgPos(){
-			public_singleSelectOrgPos(orgCode, '01', orglevel, '', '','', 'nextSpposId', 'posname12', 'nextSpOrgCode', '', '', false, '', window, 'onOrgPosSelected','nextSppos')
-			 
-		}
+		});
+	}
 	
-
+	function openZdrk(){
+	
+		var editUrl = "/zdrygl/"+ryid+"/"+syrkid+"/view?mode=view";
+		menu_open(xm,editUrl);
+		window.parent.$('#windowWithoutSave').dialog('close');
+	}
+	
+	function clearSelect(){
+	
+		 $("#nextSpposId").val("");
+		 $("#posidE").val("");
+		 $("#posname12").val("");
+		 $("#nextSpOrgCode").val("");
+		 $("#nextSpUserId").val("");
+		 $("#username12").val("");    
+		
+	}
+	function loadclearSelect(){
+		$("#nextsplx0").bind("click", function(event) { clearSelect(); });
+		$("#nextsplx1").bind("click", function(event) { clearSelect(); });
+		$("#spjg0").bind("click", function(event) { clearSelect();});
+		$("#spjg1").bind("click", function(event) { clearSelect();});
+	}
+	
+	
+	
+	function SelectOrgUser(){
+		var posid=$("#nextSppos").val();
+		//alert(posid);
+		if(posid==""){
+			alert("请选择岗位");
+			return false;
+		}
+	 			public_singleSelectOrgUser(orgCode, '01', orglevel, '', posid, '', 'nextSpUserId', 'username12', '', '', '', '', false, '', window, 'onOrgUserSelected', '')
+	 			
+	}
+	
+	function SelectOrgPos(){
+		public_singleSelectOrgPos(orgCode, '01', orglevel, '', '','', 'nextSpposId', 'posname12', 'nextSpOrgCode', '', '', false, '', window, 'onOrgPosSelected','nextSppos')
+		 
+	}
+	
 function changeSpjg(newValue , oldValue){
 
 	var sqyj = $("#sqyj").val();

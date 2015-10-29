@@ -24,7 +24,7 @@
       </extensionElements>
     </endEvent>
     <exclusiveGateway id="exclusivegateway8" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="usertask6" name="户籍地民警审批" activiti:assignee="${hjdmj}">
+    <userTask id="usertask6" name="户籍地民警审批" activiti:assignee="${hjdmj}" activiti:formKey="approval.form">
       <extensionElements>
         <activiti:formProperty id="approvalMethod" name="approvalMethod" type="string" required="true"></activiti:formProperty>
       </extensionElements>
@@ -32,6 +32,8 @@
     <userTask id="sz" name="所长审批" activiti:assignee="${sz}" activiti:formKey="approval.form">
       <extensionElements>
         <activiti:formProperty id="approvalMethod" name="approvalMethod" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="spgw" name="spgw" type="string" expression="FXJGLY" required="true"></activiti:formProperty>
+        <activiti:formProperty id="splx" name="splx" type="string" expression="2" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow31" name="居住地非户籍地" sourceRef="exclusivegateway5" targetRef="usertask6">
@@ -54,9 +56,6 @@
       </extensionElements>
     </sequenceFlow>
     <sequenceFlow id="flow38" name="拒绝" sourceRef="exclusivegateway9" targetRef="endevent2">
-      <extensionElements>
-        <activiti:executionListener event="take" delegateExpression="${workRejectListener}"></activiti:executionListener>
-      </extensionElements>
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${szApprovedType=='0'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow39" name="同意" sourceRef="exclusivegateway9" targetRef="endevent1">
