@@ -78,10 +78,11 @@ body{
 	margin-left:-740px;
 	margin-top:10px;
 	cursor: pointer;
-	width:76;
-	height:26;
+	width:75px;
+	height:25px;
 }
 .erroword{
+	width:90px;
 	color: #f00;
 	height:22px;
 	float:left;
@@ -113,7 +114,7 @@ body{
 			<div class="user_img"><input class="inputon" maxlength="30" name="userid" id="userId" type="text" onfocus="this.select();" onKeyPress="userIdOnkeyPress()" class="text1"/></div>
 			<div class="pwd_img"><input class="inputon" type="password" maxlength="30" name="password" id="password" onfocus="this.select();"  onKeyPress="passwordOnkeyPress()" class="text2"/></div>
 			<div class="erroword" id="erroword"></div>
-			<img src="../images/login_btn2.png" class="login_btn1"  onclick="login();"/>
+			<img src="../images/login_btn.png" class="login_btn1"  onclick="login();"/>
 		</form>
 	</div>
 </div>
