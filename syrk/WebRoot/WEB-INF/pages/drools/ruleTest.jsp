@@ -10,9 +10,14 @@
 <body>
 <c:forEach items="${List}" var="item" varStatus="status">
 <p>
-	<b>规则名称：</b>${item.rule}<br/><br/>
-	<b>消息名字：</b>${item.title}<br/><br/>
-	<b>消息内容：</b>${item.contents}
+	<b>规则名称：</b>${item.xxlb}<br/><br/>
+	<c:if test="${item.status == 0 }">
+	<b>消息名字：</b>${item.xxbt}<br/><br/>
+	<b>消息内容：</b>${item.xxnr}<br/><br/>
+	</c:if>
+	<c:if test="${item.status == 1 }">
+	<b>错误信息：</b>${item.errorMessage}<br/><br/>
+	</c:if>
 </p>
 </c:forEach>
 

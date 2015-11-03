@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.founder.drools.base.zdry.service.ZdryRuleService;
 import com.founder.drools.core.inteface.RuleService;
 import com.founder.drools.core.model.RuleConfig;
 import com.founder.framework.annotation.RestfulAnnotation;
 import com.founder.framework.base.controller.BaseController;
+import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.utils.EasyUIPage;
+import com.founder.zdrygl.base.message.MessageDict;
+import com.founder.zdrygl.core.inteface.SysMessageInfoService;
+import com.founder.zdrygl.core.model.SysMessage;
 /**
  * ****************************************************************************
  * @Package:      [com.founder.zdrygl.base.controller.RuleTestController.java]  
@@ -37,11 +40,11 @@ import com.founder.framework.utils.EasyUIPage;
 @RequestMapping("ruleSys")
 public class RuleController extends BaseController {					
 	
-	@Resource(name="zdryRuleService")
-	private ZdryRuleService zdryRuleService;		
-	
 	@Autowired
 	private RuleService ruleService;
+	
+	@Resource
+	private SysMessageInfoService sysMessageInfoService;
 	
 	/**
 	 * 
@@ -54,42 +57,87 @@ public class RuleController extends BaseController {
 	 */
 	@RestfulAnnotation(serverId="3")
 	@RequestMapping(value = "/test", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView test(){			
+	public ModelAndView test(SessionBean sessionBean){			
 		ModelAndView mv = new ModelAndView("drools/ruleTest");
 		//sessionBean = getSessionBean(sessionBean);
 		List list=new LinkedList();
+		sessionBean = getSessionBean(sessionBean);
 		//通过规则引擎获取消息
-		Map<String, String> paraMap = new HashMap<String, String>();
-		paraMap.put("zdryXm","测试姓名");
-		paraMap.put("zdrylx","重点人员类型");
-		paraMap.put("fsrUserCode","210203194703112293");
-		paraMap.put("fsrOrgCode","210204410102");
-		paraMap.put("fsrName","发送人姓名");
-		 
 		
-		Map<String, Object> lgsq = zdryRuleService.getTitleAndContents(ZdryRuleService.LGSQ, paraMap);		
-		lgsq.put("rule", "LGSQ");
-		list.add(lgsq);		
+		Object paraObj_LGSQ = getMessageParam(MessageDict.ZDRYGL.LGSQ,sessionBean);//获取消息的参数
+		SysMessage sysMessage_LGSQ = sysMessageInfoService.initSysMessage(MessageDict.ZDRYGL.LGSQ, paraObj_LGSQ);		 		
+		list.add(sysMessage_LGSQ);		
 		
 		
-		Map<String, Object> CGSQ = zdryRuleService.getTitleAndContents(ZdryRuleService.CGSQ, paraMap);		
-		CGSQ.put("rule", "CGSQ");
-		list.add(CGSQ);
+		Object paraObj_LGSPJG = getMessageParam(MessageDict.ZDRYGL.LGSPJG,sessionBean);//获取消息的参数
+		SysMessage sysMessage_LGSPJG = sysMessageInfoService.initSysMessage(MessageDict.ZDRYGL.LGSPJG, paraObj_LGSPJG);		 		
+		list.add(sysMessage_LGSPJG);
 		
-		paraMap.put("spjg","1");	
-		Map<String, Object> LGSPJG = zdryRuleService.getTitleAndContents(ZdryRuleService.LGSPJG, paraMap);			
-		LGSPJG.put("rule", "LGSPJG_SPTG");
-		list.add(LGSPJG);
+		Object paraObj_CGSQ = getMessageParam(MessageDict.ZDRYGL.CGSQ,sessionBean);//获取消息的参数
+		SysMessage sysMessage_CGSQ = sysMessageInfoService.initSysMessage(MessageDict.ZDRYGL.CGSQ, paraObj_CGSQ);		 		
+		list.add(sysMessage_CGSQ);
 		
-		paraMap.put("spjg","0");		
-		Map<String, Object> LGSPJG2 = zdryRuleService.getTitleAndContents(ZdryRuleService.LGSPJG, paraMap);		
-		LGSPJG2.put("rule", "LGSPJG_SPBTG");
-		list.add(LGSPJG2);
+		Object paraObj_CGSPJG = getMessageParam(MessageDict.ZDRYGL.CGSPJG,sessionBean);//获取消息的参数
+		SysMessage sysMessage_CGSPJG = sysMessageInfoService.initSysMessage(MessageDict.ZDRYGL.CGSPJG, paraObj_CGSPJG);		 		
+		list.add(sysMessage_CGSPJG);
+		
+		Object paraObj_ZDSQ = getMessageParam(MessageDict.ZDRYGL.ZDSQ,sessionBean);//获取消息的参数
+		SysMessage sysMessage_ZDSQ = sysMessageInfoService.initSysMessage(MessageDict.ZDRYGL.ZDSQ, paraObj_ZDSQ);		 		
+		list.add(sysMessage_ZDSQ);
+		
+		Object paraObj_JSZD = getMessageParam(MessageDict.ZDRYGL.JSZD,sessionBean);//获取消息的参数
+		SysMessage sysMessage_JSZD = sysMessageInfoService.initSysMessage(MessageDict.ZDRYGL.JSZD, paraObj_JSZD);		 		
+		list.add(sysMessage_JSZD);
+		
+		Object paraObj_BJSZD = getMessageParam(MessageDict.ZDRYGL.BJSZD,sessionBean);//获取消息的参数
+		SysMessage sysMessage_BJSZD = sysMessageInfoService.initSysMessage(MessageDict.ZDRYGL.BJSZD, paraObj_BJSZD);		 		
+		list.add(sysMessage_BJSZD);
+		
+		Object paraObj_SJCDJG = getMessageParam(MessageDict.ZDRYGL.SJCDJG,sessionBean);//获取消息的参数
+		SysMessage sysMessage_SJCDJG = sysMessageInfoService.initSysMessage(MessageDict.ZDRYGL.SJCDJG, paraObj_SJCDJG);		 		
+		list.add(sysMessage_SJCDJG);
+		
+		Object paraObj_ZLSQ = getMessageParam(MessageDict.ZDRYGL.ZLSQ,sessionBean);//获取消息的参数
+		SysMessage sysMessage_ZLSQ = sysMessageInfoService.initSysMessage(MessageDict.ZDRYGL.ZLSQ, paraObj_ZLSQ);		 		
+		list.add(sysMessage_ZLSQ);
+		
+		Object paraObj_ZLSPJG = getMessageParam(MessageDict.ZDRYGL.ZLSPJG,sessionBean);//获取消息的参数
+		SysMessage sysMessage_ZLSPJG = sysMessageInfoService.initSysMessage(MessageDict.ZDRYGL.ZLSPJG, paraObj_ZLSPJG);		 		
+		list.add(sysMessage_ZLSPJG);
 		
 		mv.addObject("List",list);		
 		return mv;
 	
 	}		
+	
+	/**
+	 * 
+	 * @Title: getMessageParam
+	 * @Description: TODO(获取消息生产需要的参数)
+	 * @param @param xxlx
+	 * @param @param paraObj
+	 * @param @return    设定文件
+	 * @return Object    返回类型
+	 * @throw
+	 */
+	private Object getMessageParam(String xxlx,SessionBean sessionBean){
+		Map<String,Object> paramMap = new HashMap<String,Object>();
+		//公共参数处理
+//        Map<String,Object> globalParam = new HashMap<String,Object>();
+//        globalParam.put("zdryZdryzbDao", zdryZdryZbDao);
+//        paramMap.put("globalParam", globalParam);
+        
+        //私有参数处理
+        Map<String,Object> paramObj = new HashMap<String,Object>();
+        paramObj.put("fsrName", sessionBean.getUserName());//发送人姓名
+        paramObj.put("fsrUserCode", sessionBean.getUserId());//发送人代码	
+        paramObj.put("fsrOrgName", sessionBean.getUserOrgName());//发送人机构名
+        paramObj.put("zdrylxName","zdrylxName");
+        paramObj.put("zdryName","zdryName");
+        paramMap.put("paramObj", paramObj);
+        
+        return paramMap;
+	}
 	
 	/**
 	 * 

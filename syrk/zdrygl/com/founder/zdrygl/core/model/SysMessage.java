@@ -78,108 +78,165 @@ public class SysMessage implements Serializable {
 	 * 查看时间
 	 */
 	private String cksj;
+	
+	/**
+	 * 消息状态，0：成功，1失败
+	 */
+	private int status=1;
+	
+	private String errorMessage = "message init error";
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getXxbt() {
 		return xxbt;
 	}
+
 	public void setXxbt(String xxbt) {
 		this.xxbt = xxbt;
 	}
+
 	public String getXxnr() {
 		return xxnr;
 	}
+
 	public void setXxnr(String xxnr) {
 		this.xxnr = xxnr;
 	}
+
 	public String getXxlb() {
 		return xxlb;
 	}
+
 	public void setXxlb(String xxlb) {
 		this.xxlb = xxlb;
 	}
+
 	public String getYwurl() {
 		return ywurl;
 	}
+
 	public void setYwurl(String ywurl) {
 		this.ywurl = ywurl;
 	}
+
 	public String getFsr() {
 		return fsr;
 	}
+
 	public void setFsr(String fsr) {
 		this.fsr = fsr;
 	}
+
 	public String getFsrdm() {
 		return fsrdm;
 	}
+
 	public void setFsrdm(String fsrdm) {
 		this.fsrdm = fsrdm;
 	}
+
 	public String getFssj() {
 		return fssj;
 	}
+
 	public void setFssj(String fssj) {
 		this.fssj = fssj;
 	}
+
 	public String getFsrssdw() {
 		return fsrssdw;
 	}
+
 	public void setFsrssdw(String fsrssdw) {
 		this.fsrssdw = fsrssdw;
 	}
+
 	public String getFsrssdwdm() {
 		return fsrssdwdm;
 	}
+
 	public void setFsrssdwdm(String fsrssdwdm) {
 		this.fsrssdwdm = fsrssdwdm;
 	}
+
 	public String getJslx() {
 		return jslx;
 	}
+
 	public void setJslx(String jslx) {
 		this.jslx = jslx;
 	}
+
 	public String getJsr() {
 		return jsr;
 	}
+
 	public void setJsr(String jsr) {
 		this.jsr = jsr;
 	}
+
 	public String getJsrdm() {
 		return jsrdm;
 	}
+
 	public void setJsrdm(String jsrdm) {
 		this.jsrdm = jsrdm;
 	}
+
 	public String getJsrssdw() {
 		return jsrssdw;
 	}
+
 	public void setJsrssdw(String jsrssdw) {
 		this.jsrssdw = jsrssdw;
 	}
+
 	public String getJsrssdwdm() {
 		return jsrssdwdm;
 	}
+
 	public void setJsrssdwdm(String jsrssdwdm) {
 		this.jsrssdwdm = jsrssdwdm;
 	}
+
 	public String getSfck() {
 		return sfck;
 	}
+
 	public void setSfck(String sfck) {
 		this.sfck = sfck;
 	}
+
 	public String getCksj() {
 		return cksj;
 	}
+
 	public void setCksj(String cksj) {
 		this.cksj = cksj;
 	}
 
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+	
 	
 }

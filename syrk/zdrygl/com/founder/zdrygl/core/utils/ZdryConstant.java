@@ -53,13 +53,13 @@ public class ZdryConstant {
 	 */
 	static {
 		zdryServiceMap.put("00", "com.founder.zdrygl.base.service.ZdryzbService");
-		glztStrMap.put("1", "列管申请中");
-		glztStrMap.put("2", "已列管");
-		glztStrMap.put("3", "撤管申请中");
-		glztStrMap.put("4", "已撤管");
-		glztStrMap.put("5", "转递申请中");
-		glztStrMap.put("6", "下发中");
-		glztStrMap.put("7", "转类申请中");
+		glztStrMap.put(LGSQ, "列管申请中");
+		glztStrMap.put(YLG, "已列管");
+		glztStrMap.put(CGSQ, "撤管申请中");
+		glztStrMap.put(YCG, "已撤管");
+		glztStrMap.put(ZDSQ, "转递申请中");
+		glztStrMap.put(XF, "下发中");
+		glztStrMap.put(ZLSQ, "转类申请中");
 	}
 	
 	/**
