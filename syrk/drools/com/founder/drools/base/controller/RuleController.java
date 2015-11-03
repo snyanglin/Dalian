@@ -57,11 +57,19 @@ public class RuleController extends BaseController {
 	 */
 	@RestfulAnnotation(serverId="3")
 	@RequestMapping(value = "/test", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView test(SessionBean sessionBean){			
-		ModelAndView mv = new ModelAndView("drools/ruleTest");
-		//sessionBean = getSessionBean(sessionBean);
-		List list=new LinkedList();
+	public ModelAndView test(String ruleModule,SessionBean sessionBean){
+		ModelAndView mv = new ModelAndView("drools/"+ruleModule);
 		sessionBean = getSessionBean(sessionBean);
+		if("MESSAGE_ZDRYGL".equals(ruleModule)){
+			mv.addObject("List",getMessageTestList(sessionBean));
+		}
+		return mv;
+	
+	}		
+	
+	private List getMessageTestList(SessionBean sessionBean){
+		List list=new LinkedList();
+		
 		//通过规则引擎获取消息
 		
 		Object paraObj_LGSQ = getMessageParam(MessageDict.ZDRYGL.LGSQ,sessionBean);//获取消息的参数
@@ -105,10 +113,8 @@ public class RuleController extends BaseController {
 		SysMessage sysMessage_ZLSPJG = sysMessageInfoService.initSysMessage(MessageDict.ZDRYGL.ZLSPJG, paraObj_ZLSPJG);		 		
 		list.add(sysMessage_ZLSPJG);
 		
-		mv.addObject("List",list);		
-		return mv;
-	
-	}		
+		return list;
+	}
 	
 	/**
 	 * 
