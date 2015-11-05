@@ -25,7 +25,7 @@ public interface ZdrylxylbdybService {
 	 * @return List    返回类型
 	 * @throws
 	 */
-	public List getTopList();
+	public List<?> getTopList();
 
 	/**
 	 * 
@@ -36,7 +36,7 @@ public interface ZdrylxylbdybService {
 	 * @return List    返回类型
 	 * @throws
 	 */
-	public List getChildList(String lbdm_p) ;
+	public List<?> getChildList(String lbdm_p) ;
 	
 	/**
 	 * 

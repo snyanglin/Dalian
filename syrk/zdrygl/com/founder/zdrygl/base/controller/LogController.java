@@ -51,7 +51,7 @@ public class LogController extends BaseController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		Date date=new Date();
 		String endDate=sdf.format(date);
-		String startDate=sdf.format(DateTimeHelper.addSeconds(date,-60));
+		String startDate=sdf.format(DateTimeHelper.addSeconds(date,-600));//10分钟
 		List list=new LinkedList();
 		//1、按操作成功失败统计：OPERATE_RESULT  0=失败  1=成功
 		List<String> resultList=new ArrayList<String>(2);

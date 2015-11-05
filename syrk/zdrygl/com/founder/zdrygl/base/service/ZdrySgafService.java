@@ -4,9 +4,7 @@ import javax.annotation.Resource;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
-import com.founder.zdrygl.base.dao.ZdryJgdxxxbDao;
 import com.founder.zdrygl.base.dao.ZdrySgafzdryxxbDao;
-import com.founder.zdrygl.base.model.ZdryJgdxxxb;
 import com.founder.zdrygl.base.model.ZdrySgafzdryxxb;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.decorator.ZdryServiceDecorator;

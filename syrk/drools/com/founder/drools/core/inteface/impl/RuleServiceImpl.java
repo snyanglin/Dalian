@@ -98,9 +98,14 @@ public class RuleServiceImpl implements RuleService {
 			if(ruleConfigMap==null) init();
 			if(ruleConfigMap==null) 
 				throw new RuntimeException("Can not init rule server config!");
+			
+			//踏堪改为 每次都重建
+			this.reLoadOne(ruleServerName);
+			
 			RuleConfig ruleConfig = (RuleConfig) ruleConfigMap.get(ruleServerName);
 			if(ruleConfig == null){
-				init();
+				//this.reLoadOne(ruleServerName);
+				ruleConfig = (RuleConfig) ruleConfigMap.get(ruleServerName);
 				if(ruleConfig == null)
 					throw new RuntimeException("Can not find rule named \""+ruleServerName+"\"");
 			}

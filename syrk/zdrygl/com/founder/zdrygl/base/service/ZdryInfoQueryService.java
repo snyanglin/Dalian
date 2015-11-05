@@ -26,27 +26,25 @@ public class ZdryInfoQueryService extends ZdryQueryService {
 
 	@Override
 	public EasyUIPage queryList(EasyUIPage page, Object object) {
-		Map map=new HashMap();
+		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("zdryZb", object);
 		return zdryZdryZbDao.queryPageList(map, page);
 	}
 
 	@Override
 	public EasyUIPage getQueryList(EasyUIPage page, Object object) {
-		Map map=new HashMap();
+		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("zdryZb", object);
 		return zdryZdryZbDao.getQueryList(map, page);
 	}
 
 	@Override
 	public List<?> queryListByRyid(String ryid) {
-		// TODO Auto-generated method stub
 		return zdryZdryZbDao.queryListByRyId(ryid, null);
 	}
 
 	@Override
 	public List<?> queryListBySyrkId(String syrkId) {
-		// TODO Auto-generated method stub
 		return zdryZdryZbDao.queryListBySyrkId(syrkId, null);
 	}
 
@@ -59,7 +57,7 @@ public class ZdryInfoQueryService extends ZdryQueryService {
 	 * @return List    返回类型
 	 * @throw
 	 */	
-	public List queryListByEntity(ZdryZb zdryZb) {
+	public List<?> queryListByEntity(ZdryZb zdryZb) {
 		return zdryZdryZbDao.queryListByEntity(zdryZb,null);		
 	}
 	

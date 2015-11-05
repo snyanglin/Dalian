@@ -159,6 +159,7 @@ public class ZdryConstant {
 		}
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private List<TreeNode> queryChildNodeList(TreeNode parrentNode){
 		String qydm = SystemConfig.getString(AppConst.XZQH);
 		String lbdm_p="999999";
