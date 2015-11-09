@@ -24,6 +24,7 @@ import com.founder.framework.utils.EasyUIPage;
 import com.founder.zdrygl.base.message.MessageDict;
 import com.founder.zdrygl.core.inteface.SysMessageInfoService;
 import com.founder.zdrygl.core.model.SysMessage;
+import com.founder.zdrygl.core.utils.ZdryConstant;
 /**
  * ****************************************************************************
  * @Package:      [com.founder.zdrygl.base.controller.RuleTestController.java]  
@@ -45,6 +46,16 @@ public class RuleController extends BaseController {
 	
 	@Resource
 	private SysMessageInfoService sysMessageInfoService;
+	
+	@Autowired
+	private ZdryConstant zdryConstant;
+
+	@RestfulAnnotation(valiField = "zdrygllx", serverId = "3")
+	@RequestMapping(value = "/getZdrylx", method = {RequestMethod.GET,RequestMethod.POST})
+	public @ResponseBody String getZdrylx(String zdrygllx){
+		
+		return zdryConstant.getValueOfZdryDict(zdrygllx);
+	}
 	
 	/**
 	 * 

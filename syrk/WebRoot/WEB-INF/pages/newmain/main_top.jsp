@@ -37,6 +37,9 @@
 		        <div class="banner03" style="float:right;width:220px;height:72px;">
 					<table border="0" cellpadding="0" cellspacing="0" height="42" width="220" style="margin-top: 12px;">
 						<tr>
+							<td>
+								<a href="https://www.baidu.com" target="_blank" ><img src="<%=contextPath%>/images/pt.jpg" width="40" height="40" border="0"></a>
+							</td>
 							<td class="bannerUser">
 								<img src="<%=emptyImage%>" width="42" height="42" border="0">
 							</td>

@@ -120,7 +120,7 @@ body{
 </div>
 </div>
 <div class="foot">
-	<div class="copyright"><span>Copyright©2015  方正国际 版权所有 </span></div>
+	<div class="copyright"><span>Copyright©2015  四川省公安厅 版权所有 </span></div>
 </div>
 </body>
 <script language="JavaScript" >
