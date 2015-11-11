@@ -1,11 +1,13 @@
 package com.founder.zdrygl.base.message;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.founder.drools.base.zdry.service.ZdryRuleService;
+import com.founder.drools.core.inteface.RuleService;
 import com.founder.framework.exception.BussinessException;
 import com.founder.zdrygl.core.inteface.SysMessageInfoService;
 import com.founder.zdrygl.core.model.SysMessage;
@@ -26,35 +28,43 @@ import com.founder.zdrygl.core.model.SysMessage;
 public class SysMessageInfoRuleServiceImpl implements SysMessageInfoService {
 	
 	@Autowired
-	private ZdryRuleService zdryRuleService;
-	
-	@SuppressWarnings("unchecked")
+	private RuleService ruleService;
+		
 	@Override
 	public SysMessage initSysMessage(String xxlx, Object param) {
+		//处理消息类型，格式:MESSAGE_模块（ZDRYGL）_消息类型
+		String[] xxlxAry=xxlx.split("_");
+		if(xxlxAry.length<3){
+			throw new BussinessException("Message type must be like 'MESSAGE_ZDRYGL_LGSQ'");
+		}
+		
+		//规则模块名
+		String ruleName =xxlxAry[0]+"_"+xxlxAry[1];		
+		SysMessage sysMessage=new SysMessage();
+		sysMessage.setXxlb(xxlx);		
 		if(param instanceof Map){
-			Map<String,String> paraMap=(Map<String,String>) param;
-			String fsrName=(String) paraMap.get("fsrName");//发送人姓名
-			String fsrUserCode=(String) paraMap.get("fsrUserCode");//发送人代码					
+			Map paraMap=(Map) param;
+			Map globalParam = (Map) paraMap.get("globalParam");//公共参数
+			Object paramObj=paraMap.get("paramObj");//私有参数
 			
-			if(fsrName==null || fsrName.length()==0){
-				throw new BussinessException("fsrName can not be null");
+			//参数处理，至少要传个SysMessage，成功构建消息后，sysMessage.status=0，默认为1。
+			if(paramObj!=null){
+				if(paramObj instanceof List){//多个私有参数		
+					List list=(List)paramObj;
+					list.add(sysMessage);
+					//执行规则
+					ruleService.executeRule(ruleName, list, globalParam);
+				}else{//单个私有参数
+					List list=new ArrayList(2);
+					list.add(paramObj);
+					list.add(sysMessage);
+					ruleService.executeRule(ruleName, list, globalParam);
+				}
+				
+			}else{//没有私有参数
+				//执行规则
+				ruleService.executeRule(ruleName, sysMessage, globalParam);
 			}
-			if(fsrUserCode==null || fsrUserCode.length()==0){
-				throw new BussinessException("fsrUserCode can not be null");
-			}
-			
-			Map<String, Object> map = zdryRuleService.getTitleAndContents(xxlx, paraMap);
-			//信息标题
-			String xxbt=(String) map.get("title");
-			//信息内容
-			String xxnr =(String) map.get("contents");									
-			
-			SysMessage sysMessage=new SysMessage();
-			sysMessage.setXxbt(xxbt);
-			sysMessage.setXxnr(xxnr);
-			sysMessage.setFsr(fsrName);//发送人的名字 
-			sysMessage.setFsrdm(fsrUserCode);//发送人的code								
-			//sysMessage.setJslx("");//0 按人  1 按部门
 			
 			return sysMessage;
 		}else{

@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.founder.framework.exception.BussinessException;
 import com.founder.zdrygl.core.inteface.JwzhMessageService;
 import com.founder.zdrygl.core.inteface.SendMessageService;
 import com.founder.zdrygl.core.inteface.SysMessageInfoService;
@@ -45,6 +46,9 @@ public class JwzhMessageServiceImpl implements JwzhMessageService {
 	@Override
 	public void sendMessage(String xxlx, Object source) {
 		SysMessage sysMessage = sysMessageInfoService.initSysMessage(xxlx, source);
+		if(sysMessage.getStatus()!=0){
+			throw new BussinessException(sysMessage.getErrorMessage());
+		}
 //		sendMessageService.sendMessage(sysMessage,jslx,jsdx);
 	}
 	

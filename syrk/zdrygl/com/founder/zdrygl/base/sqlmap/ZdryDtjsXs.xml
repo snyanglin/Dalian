@@ -1,0 +1,870 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZdryDtjsXs">
+
+	<typeAlias alias="zdryDtjsXsxxb" type="com.founder.zdrygl.base.model.ZdryDtjsXsxxb" />
+	<typeAlias alias="DtjsGxbg" type="com.founder.zdrygl.base.model.ZdryDtjsGxbgxxb" />
+	<typeAlias alias="DtjsShgxr" type="com.founder.zdrygl.base.model.ZdryDtjsShgxrxxb" />
+	<typeAlias alias="DtjsSaxx" type="com.founder.zdrygl.base.model.ZdryDtjsSaxxb" />
+	<typeAlias alias="DtjsClxx" type="com.founder.zdrygl.base.model.ZdryDtjsClxxb" />
+	
+	
+    
+     	
+    
+    <!-- 插入人员写实表 -->
+    <insert id="saveZdryDtjsXsxxb" parameterClass="zdryDtjsXsxxb">
+       <selectKey keyProperty="id" resultClass="String">
+  			select to_number(SEQ_YJ_ZDRY.nextval) from dual
+ 	   </selectKey>
+       insert into ZDRY_DTJS_XSXXB
+       (
+        id
+        <isNotEmpty prepend="," property="xsxxbh">
+			xsxxbh
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zdry_zjhm">
+			zdry_zjhm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hssj">
+			hssj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hsddqh">
+			hsddqh
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hsddmc">
+			hsddmc
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hsddxz">
+			hsddxz
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zjzt">
+			zjzt
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="lksj">
+			lksj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="qwss">
+			qwss
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zkzt">
+			zkzt
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="wxjb">
+			wxjb
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zyyx">
+			zyyx
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zy">
+			zy
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sjsr">
+			sjsr
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="jjly">
+			jjly
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gzdw">
+			gzdw
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gzdwxz">
+			gzdwxz
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="jzdqh">
+			jzdqh
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gxdwdm">
+			gxdwdm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gxdwmc">
+			gxdwmc
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="jzdxz">
+			jzdxz
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hsqkms">
+			hsqkms
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="rylbxx">
+			rylbxx
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="cjsj">
+			cjsj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xgsj">
+			xgsj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="txrdwdm">
+			txrdwdm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="txrdwmc">
+			txrdwmc
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="txrid">
+			txrid
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="txrmc">
+			txrmc
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zxqsxx">
+			zxqsxx
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xnsfxx">
+			xnsfxx
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sfjdbr">
+			sfjdbr
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="txrsfzh">
+			txrsfzh
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zklx">
+			zklx
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="yjzq">
+			yjzq
+		</isNotEmpty>
+       )VALUES(
+       	#id#
+        <isNotEmpty prepend="," property="xsxxbh">
+			#xsxxbh#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zdry_zjhm">
+			#zdry_zjhm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hssj">
+			#hssj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hsddqh">
+			#hsddqh#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hsddmc">
+			#hsddmc#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hsddxz">
+			#hsddxz#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zjzt">
+			#zjzt#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="lksj">
+			#lksj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="qwss">
+			#qwss#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zkzt">
+			#zkzt#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="wxjb">
+			#wxjb#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zyyx">
+			#zyyx#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zy">
+			#zy#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sjsr">
+			#sjsr#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="jjly">
+			#jjly#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gzdw">
+			#gzdw#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gzdwxz">
+			#gzdwxz#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="jzdqh">
+			#jzdqh#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gxdwdm">
+			#gxdwdm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gxdwmc">
+			#gxdwmc#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="jzdxz">
+			#jzdxz#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hsqkms">
+			#hsqkms#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="rylbxx">
+			#rylbxx#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="cjsj">
+			#cjsj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xgsj">
+			#xgsj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="txrdwdm">
+			#txrdwdm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="txrdwmc">
+			#txrdwmc#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="txrid">
+			#txrid#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="txrmc">
+			#txrmc#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zxqsxx">
+			#zxqsxx#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xnsfxx">
+			#xnsfxx#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sfjdbr">
+			#sfjdbr#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="txrsfzh">
+			#txrsfzh#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zklx">
+			#zklx#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="yjzq">
+			#yjzq#
+		</isNotEmpty>
+       )
+    </insert>
+    
+    <!-- 更新管辖单位 -->
+	<update id="updateGxdw" parameterClass="DtjsGxbg">
+       update ZDRY_DTJS_GXBG
+       <dynamic prepend="set">
+			<isNotNull prepend="," property="zdryzjhm">
+				<![CDATA[ zdryzjhm = #zdryzjhm# ]]>
+			</isNotNull>	
+			<isNotNull prepend="," property="hjpcs">
+				<![CDATA[ hjpcs = #hjpcs# ]]>
+			</isNotNull>	
+			<isNotNull prepend="," property="hjpcsmc">
+				<![CDATA[ hjpcsmc = #hjpcsmc# ]]>
+			</isNotNull>	
+			<isNotNull prepend="," property="gxpcs">
+				<![CDATA[ gxpcs = #gxpcs# ]]>
+			</isNotNull>	
+			<isNotNull prepend="," property="gxpcsmc">
+				<![CDATA[ gxpcsmc = #gxpcsmc# ]]>
+			</isNotNull>	
+			<isNotNull prepend="," property="cjr">
+				<![CDATA[ cjr = #cjr# ]]>
+			</isNotNull>	
+			<isNotNull prepend="," property="cjrxm">
+				<![CDATA[ cjrxm = #cjrxm# ]]>
+			</isNotNull>	
+			<isNotNull prepend="," property="xgsj">
+				<![CDATA[ xgsj = #xgsj# ]]>
+			</isNotNull>	
+		</dynamic>
+       where zdryzjhm = #zdryzjhm#
+    </update>
+    <!-- 插入重点社会关系人人员表 -->
+    <insert id="saveShgxrb" parameterClass="DtjsShgxr">
+       <selectKey keyProperty="objectid" resultClass="String">
+  			select to_number(SEQ_YJ_ZDRY.nextval) from dual
+ 	   </selectKey>
+       insert into ZDRY_DTJS_SHGXRYXX
+       (
+        objectid
+        <isNotEmpty prepend="," property="zdry_zjhm">
+			zdry_zjhm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zjlx">
+			zjlx
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zjhm">
+			zjhm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bjzdrybh">
+			bjzdrybh
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sjzdrybh">
+			sjzdrybh
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xm">
+			xm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xmpy">
+			xmpy
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="mz">
+			mz
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xb">
+			xb
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gx">
+			gx
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gj">
+			gj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hjqh">
+			hjqh
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hjdpcsdm">
+			hjdpcsdm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hjdpcs">
+			hjdpcs
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hjdxz">
+			hjdxz
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xzdqh">
+			xzdqh
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gxdwdm">
+			gxdwdm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gxdw">
+			gxdw
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xzdxz">
+			xzdxz
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zdrylbbj">
+			zdrylbbj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zdryxl">
+			zdryxl
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="cym">
+			cym
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="ch">
+			ch
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zzmm">
+			zzmm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zjxy">
+			zjxy
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="csrq">
+			csrq
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hyzk">
+			hyzk
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="whcd">
+			whcd
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sg">
+			sg
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tz">
+			tz
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zc">
+			zc
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xh">
+			xh
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="ky">
+			ky
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tc">
+			tc
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xqah">
+			xqah
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tmtz">
+			tmtz
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tsbj">
+			tsbj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="dna">
+			dna
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xx">
+			xx
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zwbh">
+			zwbh
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zy">
+			zy
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sjsr">
+			sjsr
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="jjly">
+			jjly
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gzdwqh">
+			gzdwqh
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gzdw">
+			gzdw
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gzdwxz">
+			gzdwxz
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="lxfs">
+			lxfs
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tbdwdm">
+			tbdwdm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tbdwmc">
+			tbdwmc
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tbrid">
+			tbrid
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tbrxm">
+			tbrxm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="rksj">
+			rksj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xgsj">
+			xgsj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="status">
+			status
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="shgxrbh">
+			shgxrbh
+		</isNotEmpty>
+       )VALUES(
+       	#objectid#
+       	<isNotEmpty prepend="," property="zdry_zjhm">
+			#zdry_zjhm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zjlx">
+			#zjlx#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zjhm">
+			#zjhm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bjzdrybh">
+			#bjzdrybh#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sjzdrybh">
+			#sjzdrybh#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xm">
+			#xm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xmpy">
+			#xmpy#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="mz">
+			#mz#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xb">
+			#xb#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gx">
+			#gx#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gj">
+			#gj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hjqh">
+			#hjqh#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hjdpcsdm">
+			#hjdpcsdm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hjdpcs">
+			#hjdpcs#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hjdxz">
+			#hjdxz#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xzdqh">
+			#xzdqh#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gxdwdm">
+			#gxdwdm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gxdw">
+			#gxdw#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xzdxz">
+			#xzdxz#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zdrylbbj">
+			#zdrylbbj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zdryxl">
+			#zdryxl#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="cym">
+			#cym#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="ch">
+			#ch#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zzmm">
+			#zzmm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zjxy">
+			#zjxy#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="csrq">
+			#csrq#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="hyzk">
+			#hyzk#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="whcd">
+			#whcd#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sg">
+			#sg#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tz">
+			#tz#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zc">
+			#zc#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xh">
+			#xh#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="ky">
+			#ky#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tc">
+			#tc#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xqah">
+			#xqah#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tmtz">
+			#tmtz#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tsbj">
+			#tsbj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="dna">
+			#dna#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xx">
+			#xx#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zwbh">
+			#zwbh#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zy">
+			#zy#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sjsr">
+			#sjsr#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="jjly">
+			#jjly#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gzdwqh">
+			#gzdwqh#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gzdw">
+			#gzdw#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gzdwxz">
+			#gzdwxz#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="lxfs">
+			#lxfs#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tbdwdm">
+			#tbdwdm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tbdwmc">
+			#tbdwmc#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tbrid">
+			#tbrid#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tbrxm">
+			#tbrxm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="rksj">
+			#rksj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xgsj">
+			#xgsj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="status">
+			#status#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="shgxrbh">
+			#shgxrbh#
+		</isNotEmpty>
+       )
+    </insert>
+    <!-- 涉案信息表 -->
+    <insert id="saveSaxxb" parameterClass="DtjsSaxx">
+       <selectKey keyProperty="id" resultClass="String">
+  			select to_number(SEQ_YJ_ZDRY.nextval) from dual
+ 	   </selectKey>
+       insert into ZDRY_DTJS_SAXX
+       (
+       id
+        <isNotEmpty prepend="," property="zjhm">
+			zjhm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="ajbh">
+			ajbh
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="ajlb">
+			ajlb
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="fasj">
+			fasj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="fadd">
+			fadd
+		</isNotEmpty>       
+        <isNotEmpty prepend="," property="jyaq">
+			jyaq
+		</isNotEmpty>
+       )VALUES(
+       	#id#
+        <isNotEmpty prepend="," property="zjhm">
+			#zjhm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="ajbh">
+			#ajbh#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="ajlb">
+			#ajlb#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="fasj">
+			#fasj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="fadd">
+			#fadd#
+		</isNotEmpty>       
+        <isNotEmpty prepend="," property="jyaq">
+			#jyaq#
+		</isNotEmpty>
+       )
+    </insert>
+    <!-- 车辆信息表 -->
+    <insert id="saveClxxb" parameterClass="DtjsClxx">
+       <selectKey keyProperty="id" resultClass="String">
+  			select to_number(SEQ_YJ_ZDRY.nextval) from dual
+ 	   </selectKey>
+       insert into ZDRY_DTJS_CLXX
+       (
+       id
+        <isNotEmpty prepend="," property="zjhm">
+			zjhm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="clpp">
+			clpp
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="cllx">
+			cllx
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="clys">
+			clys
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="clhm">
+			clhm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="clly">
+			clly
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gsr">
+			gsr
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="cjsj">
+			cjsj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xgsj">
+			xgsj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zxbs">
+			zxbs
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="clxxbh">
+			clxxbh
+		</isNotEmpty>
+       )VALUES(
+       	#id#
+        <isNotEmpty prepend="," property="zjhm">
+			#zjhm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="clpp">
+			#clpp#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="cllx">
+			#cllx#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="clys">
+			#clys#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="clhm">
+			#clhm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="clly">
+			#clly#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gsr">
+			#gsr#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="cjsj">
+			#cjsj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xgsj">
+			#xgsj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zxbs">
+			#zxbs#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="clxxbh">
+			#clxxbh#
+		</isNotEmpty>
+       )
+    </insert>
+    
+    <!-- 人员写实列表信息 -->
+	<select id="queryRyxsList" parameterClass="Map" resultClass="zdryDtjsXsxxb">
+      select * from ( select rownum r ,m.* from (
+	       select * from  ZDRY_DTJS_XSXXB
+		   where 1=1
+		   	  <isNotEmpty prepend="and" property="zdryDtjsXsxxb.zdry_zjhm">
+				   zdry_zjhm like '%$zdryDtjsXsxxb.zdry_zjhm$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="zdryDtjsXsxxb.hsddqh">
+				   hsddqh = #zdryDtjsXsxxb.hsddqh#
+			  </isNotEmpty>
+			  <![CDATA[ 
+			  	order by $sort$ $order$
+			     ) m
+			  ]]>
+      <![CDATA[where rownum <= #end# ) where r > #begin#]]> 
+    </select>
+    <!-- 管辖变更信息列表 -->
+    <select id="queryGxbgList" parameterClass="Map" resultClass="DtjsGxbg">
+      select * from ( select rownum r ,m.* from (
+	       select * from ZDRY_DTJS_GXBG
+		   where 1=1
+		   	  <isNotEmpty prepend="and" property="zdryb.zdryzjhm">
+				   zdryzjhm = #zdryb.zdryzjhm#
+			  </isNotEmpty>
+			     )m
+      <![CDATA[where rownum <= #end# ) where r > #begin#]]> 
+    </select>
+    <!-- 重点人员社会关系人列表 -->
+    <select id="queryShgxrList" parameterClass="Map" resultClass="DtjsShgxr">
+      select * from ( select rownum r ,m.* from (
+	       select * from ZDRY_DTJS_SHGXRYXX
+		   where 1=1
+		   	  <isNotEmpty prepend="and" property="zdryb.objectid">
+				   objectid = #zdryb.objectid#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="zdryb.zdry_zjhm">
+				   zdry_zjhm like '%$zdryb.zdry_zjhm$%'
+			  </isNotEmpty>
+			  order by RKSJ DESC
+			     )m
+      <![CDATA[where rownum <= #end# ) where r > #begin#]]> 
+    </select>
+    <!-- 涉案信息列表 -->
+    <select id="querySaxxList" parameterClass="Map" resultClass="DtjsSaxx">
+      select * from ( select rownum r ,m.* from (
+	       select * from ZDRY_DTJS_SAXX
+		   where 1=1
+		   	  <isNotEmpty prepend="and" property="zdryb.id">
+				   id = #zdryb.id#
+			  </isNotEmpty>
+			   <isNotEmpty prepend="and" property="zdryb.zjhm">
+				    zjhm like '%$zdryb.zjhm$%'
+			  </isNotEmpty>
+			  order by ID DESC
+			     )m
+      <![CDATA[where rownum <= #end# ) where r > #begin#]]> 
+    </select>
+    <!-- 车辆信息列表 -->
+    <select id="queryClxxList" parameterClass="Map" resultClass="DtjsClxx">
+      select * from ( select rownum r ,m.* from (
+	       select * from ZDRY_DTJS_CLXX
+		   where 1=1
+		   	  <isNotEmpty prepend="and" property="zdryb.id">
+				   id = #zdryb.id#
+			  </isNotEmpty>
+			   <isNotEmpty prepend="and" property="zdryb.zjhm">
+				    zjhm like '%$zdryb.zjhm$%'
+			  </isNotEmpty>
+			  order by CJSJ DESC
+			     )m
+      <![CDATA[where rownum <= #end# ) where r > #begin#]]> 
+    </select>
+    
+     <!-- 人员写实列表总数 -->
+    <select id="queryRyxsListCount" parameterClass="Map" resultClass="Integer">
+         select count(1)
+			from  ZDRY_DTJS_XSXXB
+		  where 1=1
+		     <isNotEmpty prepend="and" property="zdryDtjsXsxxb.zdry_zjhm">
+				   zdry_zjhm like '%$zdryDtjsXsxxb.zdry_zjhm$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="zdryDtjsXsxxb.hsddqh">
+				   hsddqh = #zdryDtjsXsxxb.hsddqh#
+			  </isNotEmpty>
+    </select>  
+    <!-- 管辖变更信息列表总数 -->
+    <select id="queryGxbgListCount" parameterClass="Map" resultClass="Integer">
+         select count(1)
+			from ZDRY_DTJS_GXBG
+		  where 1=1
+		      <isNotEmpty prepend="and" property="zdryb.zdryzjhm">
+				   zdryzjhm = #zdryb.zdryzjhm#
+			  </isNotEmpty>
+    </select>
+    <!-- 重点人员社会关系人列表总数 -->
+    <select id="queryShgxrCount" parameterClass="Map" resultClass="Integer">
+         select count(1)
+			from ZDRY_DTJS_SHGXRYXX
+		  where 1=1
+		      <isNotEmpty prepend="and" property="zdryb.objectid">
+				   objectid = #zdryb.objectid#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="zdryb.zdry_zjhm">
+				   zdry_zjhm like '%$zdryb.zdry_zjhm$%'
+			  </isNotEmpty>
+    </select>
+    <!-- 涉案信息列表总数 -->
+    <select id="querySaxxCount" parameterClass="Map" resultClass="Integer">
+         select count(1)
+			from ZDRY_DTJS_SAXX
+		  where 1=1
+		      <isNotEmpty prepend="and" property="zdryb.id">
+				   id = #zdryb.id#
+			  </isNotEmpty>
+			   <isNotEmpty prepend="and" property="zdryb.zjhm">
+				    zjhm like '%$zdryb.zjhm$%'
+			  </isNotEmpty>
+    </select>
+    <!-- 车辆信息列表总数 -->
+    <select id="queryClxxCount" parameterClass="Map" resultClass="Integer">
+         select count(1)
+			from ZDRY_DTJS_CLXX
+		  where 1=1
+		      <isNotEmpty prepend="and" property="zdryb.id">
+				   id = #zdryb.id#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="zdryb.zjhm">
+				    zjhm like '%$zdryb.zjhm$%'
+			  </isNotEmpty>
+    </select>
+</sqlMap>

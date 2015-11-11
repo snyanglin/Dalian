@@ -61,7 +61,7 @@ public class ZdrylxylbdybServiceImpl  extends BaseService implements Zdrylxylbdy
 	
 	@Override
 	public Zdrylxylbdyb query(Zdrylxylbdyb entity){
-		String  address =SystemConfig.getString(AppConst.XZQH);
+//		String  address =SystemConfig.getString(AppConst.XZQH);
 		return zdrylxylbdybDao.query(entity);
 	}
 }

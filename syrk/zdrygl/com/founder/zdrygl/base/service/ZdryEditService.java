@@ -27,6 +27,9 @@ import com.founder.zdrygl.base.dao.ZdrySqsbzdryxxbDao;
 import com.founder.zdrygl.base.dao.ZdryZdrkxxbDao;
 import com.founder.zdrygl.base.dao.ZdryZszhjsbrxxbDao;
 import com.founder.zdrygl.base.model.ZdryFzcsfryxxb;
+import com.founder.zdrygl.base.model.ZdryJgdxqxjdjb;
+import com.founder.zdrygl.base.model.ZdryJkbjllxxb;
+import com.founder.zdrygl.base.model.ZdryPsjdb;
 import com.founder.zdrygl.base.model.ZdrySgafzdryxxb;
 import com.founder.zdrygl.base.model.ZdrySqjzryxxb;
 import com.founder.zdrygl.base.model.ZdrySqsbzdryxxb;
@@ -286,7 +289,7 @@ public class ZdryEditService extends BaseService {
 	 * @return List    返回类型
 	 * @throw
 	 */
-	public List jkbjryxxb_query (Map<String,Object> map){
+	public List<ZdryJkbjllxxb> jkbjryxxb_query (Map<String,Object> map){
 		map.put("maxNum", "10");
 		return zdryJkbjllxxbDao.queryViewList(map);
 	}
@@ -300,7 +303,7 @@ public class ZdryEditService extends BaseService {
 	 * @return List    返回类型
 	 * @throw
 	 */
-	public List qxjdjb_query(Map<String, Object> map){
+	public List<ZdryJgdxqxjdjb>  qxjdjb_query(Map<String, Object> map){
 		map.put("maxNum", "10");
 		return zdryJgdxqxjdjbDao.queryViewList(map);
 	}
@@ -314,7 +317,7 @@ public class ZdryEditService extends BaseService {
 	 * @return List    返回类型
 	 * @throw
 	 */
-	public List psjdb_query(Map<String, Object> map){
+	public List<ZdryPsjdb> psjdb_query(Map<String, Object> map){
 		map.put("maxNum", "10");
 		return zdryPsjdbDao.queryViewList(map);
 	}

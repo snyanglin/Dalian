@@ -98,19 +98,7 @@ public interface ZdryService {
 	 * @throw
 	 */
 	public void setStartProcessInstance(String processKey,String applyUserId, Map<String,Object> variables);
-	
-	/**
-	 * 
-	 * @Title: setMessageSource
-	 * @Description: (设置消息初始化参数)
-	 * @param @param xxlx 消息类型
-	 * @param @param source 消息源对象
-	 * @param @param jslx 接收类型
-	 * @param @param jsdx  接收对象
-	 * @return void    返回类型
-	 * @throw
-	 */
-	public void setMessageSource(String xxlx, Object source, String jslx, Object jsdx);
+		
 	
 	public Zdry getZdry();
 	

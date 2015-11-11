@@ -224,14 +224,6 @@ public class ZdryzbService implements ZdryService {
 		
 	}
 
-	@Override
-	@Deprecated  
-	public void setMessageSource(String xxlx, Object source, String jslx,
-			Object jsdx) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	/**
 	 * 
 	 * @Title: queryZdryAllInfo

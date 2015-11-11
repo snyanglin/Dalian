@@ -5,15 +5,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.founder.framework.annotation.MethodAnnotation;
-import com.founder.framework.annotation.MethodAnnotation.logType;
-import com.founder.framework.annotation.TypeAnnotation;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
-import com.founder.framework.message.bean.SysMessage;
-import com.founder.framework.message.dao.SysMessageDao;
-import com.founder.framework.utils.DateUtils;
-import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.UUID;
 import com.founder.zdrygl.base.dao.ZdryJgdxqxjdjbDao;
 import com.founder.zdrygl.base.model.ZdryJgdxqxjdjb;
@@ -58,14 +51,12 @@ public class ZdryJgdxqxjdjbService extends BaseService {
 		entity.setId(UUID.create()); // 生成主键
 		BaseService.setSaveProperties(entity, sessionBean);
 		zdryJgdxqxjdjbDao.save(entity, sessionBean);
-		//sendQjMessage(entity, sessionBean);
 	}
 
 	
 	public void update(ZdryJgdxqxjdjb entity, SessionBean sessionBean) {
 		BaseService.setUpdateProperties(entity, sessionBean);
 		zdryJgdxqxjdjbDao.update(entity);
-		//sendXjMessage(entity, sessionBean);
 	}
 
 	/**

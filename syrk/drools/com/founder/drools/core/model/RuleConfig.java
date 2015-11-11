@@ -2,8 +2,6 @@ package com.founder.drools.core.model;
 
 import org.drools.KnowledgeBase;
 
-import com.founder.zdrygl.core.utils.DroolsUtils;
-
 /**
  * ****************************************************************************
  * @Package:      [com.founder.drools.core.model.RuleConfig.java]  

@@ -54,7 +54,7 @@
 		    </table>
 		    
 		    <!-- 隐藏的人员信息 -->
-		    <table border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="display:none" id="ryxxDiv">		    
+		    <table border="0" cellpadding="0" cellspacing="10" width="100%" align="center" id="ryxxDiv">		    
 		    <tr class="dialogTr">		    		    
 				<td width="20%" class="dialogTd" align="right">民族：</td>
 		    	<td width="30%" class="dialogTd">
@@ -155,8 +155,8 @@
 		    <tr class="dialogTr">
 		    	<td colspan="4" align="center">
 		    		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="querySyrk()">查询实有人口</a>
-		    		<a href="javascript:void(0)" class="easyui-linkbutton" id="ryxxShow" onclick="ryxxTag(1)">显示全部</a>
-		    		<a href="javascript:void(0)" class="easyui-linkbutton" id="ryxxHide" onclick="ryxxTag(2)" style="display:none">收起部分</a>		    	
+		    		<a href="javascript:void(0)" class="easyui-linkbutton" id="ryxxShow" onclick="ryxxTag(1)" style="display:none">显示全部</a>
+		    		<a href="javascript:void(0)" class="easyui-linkbutton" id="ryxxHide" onclick="ryxxTag(2)" >收起部分</a>		    	
 		    	</td>		    	
 		    </tr>
 		    		     
@@ -188,9 +188,9 @@
 	    	
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right" id="lgrqText">申请日期：</td>
-		    	<td width="30%" class="dialogTd"><input type="text" name="ywclsj" id="ywclsj" class="easyui-validatebox inputreadonly" style="width: 200px;" value="${applyUser}" readonly="readonly" /></td>
+		    	<td width="30%" class="dialogTd"><input type="text" name="ywclsj" id="ywclsj" class="easyui-validatebox inputreadonly" style="width: 200px;" value="${applyDate}" readonly="readonly" /></td>
 		    	<td width="20%" class="dialogTd" align="right" id="lgrText">申请人：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" id="ywblr_xm" name="ywblr_xm" style="width:200px;" value="${applyDate}" readonly="readonly" />
+		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" id="ywblr_xm" name="ywblr_xm" style="width:200px;" value="${applyUser}" readonly="readonly" />
 		    	</td>
 	    	</tr>
 	    	<tr class="dialogTr">

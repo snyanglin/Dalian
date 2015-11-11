@@ -70,36 +70,36 @@ public class SysMessageInfoServiceImpl implements SysMessageInfoService {
 	 */
 	public String getXxbt(String xxlx) {
 		String xxbt = "";
-		if (MessageDict.XXLX_LGSQ.equals(xxlx)) {
-			xxbt = "重口人员列管申请";
-		} else if (MessageDict.XXLX_LGSPJG.equals(xxlx)) {
-			xxbt = "重点人员列管审批结果";
-
-		} else if (MessageDict.XXLX_CGSQ.equals(xxlx)) {
-			xxbt = "重点人员撤管申请";
-
-		} else if (MessageDict.XXLX_CGSPJG.equals(xxlx)) {
-			xxbt = "重点人员撤管审批结果";
-
-		} else if (MessageDict.XXLX_ZDSQ.equals(xxlx)) {
-			xxbt = "重点人员转递申请";
-
-		} else if (MessageDict.XXLX_JSZD.equals(xxlx)) {
-			xxbt = "重点人员转递接收";
-
-		} else if (MessageDict.XXLX_BJSZD.equals(xxlx)) {
-			xxbt = "重点人员拒绝接收转递";
-
-		} else if (MessageDict.XXLX_ZD_SJCDJG.equals(xxlx)) {
-			xxbt = "重点人员转递裁定";
-
-		} else if (MessageDict.XXLX_ZLSQ.equals(xxlx)) {
-			xxbt = "重点人员转类申请";
-
-		} else if (MessageDict.XXLX_ZLSPJG.equals(xxlx)) {
-			xxbt = "重点人员转类审批结果";
-
-		}
+//		if (MessageDict.XXLX_LGSQ.equals(xxlx)) {
+//			xxbt = "重口人员列管申请";
+//		} else if (MessageDict.XXLX_LGSPJG.equals(xxlx)) {
+//			xxbt = "重点人员列管审批结果";
+//
+//		} else if (MessageDict.XXLX_CGSQ.equals(xxlx)) {
+//			xxbt = "重点人员撤管申请";
+//
+//		} else if (MessageDict.XXLX_CGSPJG.equals(xxlx)) {
+//			xxbt = "重点人员撤管审批结果";
+//
+//		} else if (MessageDict.XXLX_ZDSQ.equals(xxlx)) {
+//			xxbt = "重点人员转递申请";
+//
+//		} else if (MessageDict.XXLX_JSZD.equals(xxlx)) {
+//			xxbt = "重点人员转递接收";
+//
+//		} else if (MessageDict.XXLX_BJSZD.equals(xxlx)) {
+//			xxbt = "重点人员拒绝接收转递";
+//
+//		} else if (MessageDict.XXLX_ZD_SJCDJG.equals(xxlx)) {
+//			xxbt = "重点人员转递裁定";
+//
+//		} else if (MessageDict.XXLX_ZLSQ.equals(xxlx)) {
+//			xxbt = "重点人员转类申请";
+//
+//		} else if (MessageDict.XXLX_ZLSPJG.equals(xxlx)) {
+//			xxbt = "重点人员转类审批结果";
+//
+//		}
 		return xxbt;
 	}
 
@@ -114,41 +114,41 @@ public class SysMessageInfoServiceImpl implements SysMessageInfoService {
 	 */
 	private String getXxInfo(String xxlx,Map paraMap){
 		String xxinfo = "";
-		ZdryZb zdryZb =(ZdryZb) paraMap.get("zdryZb");
-		if (MessageDict.XXLX_LGSQ.equals(xxlx)) {
-			String fsrUserCode=(String) paraMap.get("fsrUserCode");
-			String fsrOrgCode=(String) paraMap.get("fsrOrgCode");
-			xxinfo = this.getLgsqXxnr(zdryZb.getXm(),zdryZb.getZdrygllxdm(),fsrUserCode,fsrOrgCode);
-		} else if (MessageDict.XXLX_LGSPJG.equals(xxlx)) {
-			xxinfo = "重点人员列管审批结果";
-
-		} else if (MessageDict.XXLX_CGSQ.equals(xxlx)) {
-			String fsrUserCode=(String) paraMap.get("fsrUserCode");
-			String fsrOrgCode=(String) paraMap.get("fsrOrgCode");
-			xxinfo = this.getCgsqXxnr(zdryZb.getXm(),zdryZb.getZdrygllxdm(),fsrUserCode,fsrOrgCode);
-
-		} else if (MessageDict.XXLX_CGSPJG.equals(xxlx)) {
-			xxinfo = "重点人员撤管审批结果";
-
-		} else if (MessageDict.XXLX_ZDSQ.equals(xxlx)) {
-			xxinfo = "重点人员转递申请";
-
-		} else if (MessageDict.XXLX_JSZD.equals(xxlx)) {
-			xxinfo = "重点人员转递接收";
-
-		} else if (MessageDict.XXLX_BJSZD.equals(xxlx)) {
-			xxinfo = "重点人员拒绝接收转递";
-
-		} else if (MessageDict.XXLX_ZD_SJCDJG.equals(xxlx)) {
-			xxinfo = "重点人员转递裁定";
-
-		} else if (MessageDict.XXLX_ZLSQ.equals(xxlx)) {
-			xxinfo = "重点人员转类申请";
-
-		} else if (MessageDict.XXLX_ZLSPJG.equals(xxlx)) {
-			xxinfo = "重点人员转类审批结果";
-
-		}
+//		ZdryZb zdryZb =(ZdryZb) paraMap.get("zdryZb");
+//		if (MessageDict.XXLX_LGSQ.equals(xxlx)) {
+//			String fsrUserCode=(String) paraMap.get("fsrUserCode");
+//			String fsrOrgCode=(String) paraMap.get("fsrOrgCode");
+//			xxinfo = this.getLgsqXxnr(zdryZb.getXm(),zdryZb.getZdrygllxdm(),fsrUserCode,fsrOrgCode);
+//		} else if (MessageDict.XXLX_LGSPJG.equals(xxlx)) {
+//			xxinfo = "重点人员列管审批结果";
+//
+//		} else if (MessageDict.XXLX_CGSQ.equals(xxlx)) {
+//			String fsrUserCode=(String) paraMap.get("fsrUserCode");
+//			String fsrOrgCode=(String) paraMap.get("fsrOrgCode");
+//			xxinfo = this.getCgsqXxnr(zdryZb.getXm(),zdryZb.getZdrygllxdm(),fsrUserCode,fsrOrgCode);
+//
+//		} else if (MessageDict.XXLX_CGSPJG.equals(xxlx)) {
+//			xxinfo = "重点人员撤管审批结果";
+//
+//		} else if (MessageDict.XXLX_ZDSQ.equals(xxlx)) {
+//			xxinfo = "重点人员转递申请";
+//
+//		} else if (MessageDict.XXLX_JSZD.equals(xxlx)) {
+//			xxinfo = "重点人员转递接收";
+//
+//		} else if (MessageDict.XXLX_BJSZD.equals(xxlx)) {
+//			xxinfo = "重点人员拒绝接收转递";
+//
+//		} else if (MessageDict.XXLX_ZD_SJCDJG.equals(xxlx)) {
+//			xxinfo = "重点人员转递裁定";
+//
+//		} else if (MessageDict.XXLX_ZLSQ.equals(xxlx)) {
+//			xxinfo = "重点人员转类申请";
+//
+//		} else if (MessageDict.XXLX_ZLSPJG.equals(xxlx)) {
+//			xxinfo = "重点人员转类审批结果";
+//
+//		}
 		return xxinfo;
 	}
 	

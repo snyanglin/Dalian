@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="<%=basePath%>/css/syrk.css"></link>
 <title>规则引擎管理</title>
 <script type="text/javascript">
 function processFormater(val, row, index) {
@@ -13,7 +12,8 @@ function processFormater(val, row, index) {
 	}
 	else
 		return '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="reloadRule(this, \''
-	+ row.key + '\')">RELOAD</a>&nbsp;';
+				+ row.key + '\')">RELOAD</a>&nbsp;&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="testRule(\''
+				+ row.key + '\')">TESTRULE</a>';
 }
 function reloadRule(obj,key){	
 	$(obj).hide();
@@ -61,6 +61,10 @@ function reloadAll(obj){
  		}
          
 		});	
+}
+
+function testRule(key){	
+	window.open("http://localhost:8080/syrk/ruleSys/test?ruleModule="+key,"testRule","location=0,menubar=0,resizable=1,scrollbars=0,status=0,titlebar=0,toolbar=0");
 }
 </script>
 </head>

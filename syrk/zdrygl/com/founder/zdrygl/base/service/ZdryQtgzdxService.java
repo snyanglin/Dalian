@@ -26,7 +26,7 @@ import com.founder.zdrygl.core.model.Zdry;
 public class ZdryQtgzdxService  extends ZdryServiceDecorator{
 
 	private ZdrySqsbzdryxxb zdry;
-	
+	  
 	@Resource(name="zdrySqsbzdryxxbDao")
 	private ZdrySqsbzdryxxbDao  zdrySqsbzdryxxbDao;
 
