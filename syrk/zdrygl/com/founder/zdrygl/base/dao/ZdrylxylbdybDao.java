@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
+import com.founder.framework.components.AppConst;
+import com.founder.framework.config.SystemConfig;
 import com.founder.zdrygl.base.model.Zdrylxylbdyb;
 
 
@@ -72,6 +74,7 @@ public class ZdrylxylbdybDao extends BaseDaoImpl {
 		Map map=new HashMap();
 		map.put("QYDM", qydm);
 		map.put("LBDM_P", lbdm_p);
+		map.put("QYDM", SystemConfig.getString(AppConst.XZQH));
 		return queryForList("Zdrylxylbdyb.queryChildByQydm", map);
 	}
 

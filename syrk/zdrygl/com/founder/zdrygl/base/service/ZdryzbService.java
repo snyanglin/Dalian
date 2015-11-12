@@ -99,6 +99,7 @@ public class ZdryzbService implements ZdryService {
 		ZdryZb entity = new ZdryZb();
 		entity.setId(zdrycg.getZdryid_old());
 		entity.setGlzt(ZdryConstant.YLG);
+		updateZdry(sessionBean,entity);
 		if(!isDelete()){
 			deleteZdry(sessionBean,zdryzb);
 		}

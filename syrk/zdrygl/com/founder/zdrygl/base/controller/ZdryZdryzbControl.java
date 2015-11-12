@@ -25,6 +25,7 @@ import com.founder.framework.annotation.RestfulAnnotation;
 import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
+import com.founder.framework.config.SystemConfig;
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
@@ -44,6 +45,7 @@ import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.inteface.ZdrylxylbdybService;
 import com.founder.zdrygl.core.model.Zdry;
+import com.founder.zdrygl.core.utils.LcgFlagEnum;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 import com.google.gson.Gson;
 
@@ -206,10 +208,8 @@ public class ZdryZdryzbControl extends BaseController {
 			ZdryService zdryService = zdryFactory.createZdryService(zdrygllxdm,
 					zdryVO.getZdryZdryzb(), zdryVO.getZdrylbdx());
 			// start process
-			StartProcessInstance spi = initialProcessInstance(sessionBean,
-					zdryVO);
-			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(),
-					spi.getVariables());
+			StartProcessInstance spi = initialProcessInstance(sessionBean,zdryVO,LcgFlagEnum.LG);
+			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(),spi.getVariables());
 			zdryService.lg(sessionBean);
 
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
@@ -227,131 +227,6 @@ public class ZdryZdryzbControl extends BaseController {
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
 
-	}
-
-	/**
-	 * 
-	 * @Title: startLgProcess
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
-	 * @param @param sessionBean
-	 * @param @param zdryVO 设定文件
-	 * @return void 返回类型
-	 * @throws
-	 */
-	private StartProcessInstance initialProcessInstance(
-			SessionBean sessionBean, ZdryVO zdryVO) {
-		// StartProcessInstance initializes
-		StartProcessInstance spi = new StartProcessInstance();
-		spi.setApplyUserId(sessionBean.getUserId());
-
-		Map<String, Object> variables = new HashMap<String, Object>();
-		String lrrzrq = sessionBean.getUserOrgCode();
-		String zdryxm = zdryVO.getZdryZdryzb().getXm();
-		Zdrylxylbdyb zdrylxylbdyb = new Zdrylxylbdyb();
-		ZdryZb zdryZdryzb = zdryVO.getZdryZdryzb();
-		zdrylxylbdyb.setLbdm(zdryZdryzb.getZdrygllxdm());
-		String zdrylxmc = zdrylxylbdybService.query(zdrylxylbdyb).getBz();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		
-
-		variables.put("zdrylx", zdryZdryzb.getZdrygllxdm());// 人员类型
-		variables.put("zdryzb", zdryVO.getZdryZdryzb());
-		variables.put("zdrylbdx", zdryVO.getZdrylbdx());
-		
-		String createTime = formatter.format(new Date());// 申请时间
-		variables.put("createTime", createTime);
-		variables.put("lrrzrq", lrrzrq);// 录入人管辖责任区
-		variables.put("zdryId", zdryZdryzb.getId()); // 重点人员总表Id
-		variables.put("zdrylxmc", zdrylxmc);// 人员类型名称
-		variables.put("xm", zdryxm);// 被列管人员姓名
-		variables.put("cyzjdm", zdryVO.getZdryZdryzb().getCyzjdm());
-		variables.put("zjhm", zdryVO.getZdryZdryzb().getZjhm());// 证件号码
-		// variables.put("splx", "重点人口列管");//审批类型
-		variables.put("sqyj", zdryVO.getYwsqyy());// 申请意见
-		variables.put("sqrName", sessionBean.getUserName());// 申请意见
-		variables.put("zdryName", zdryxm);// 申请意见
-		variables.put("applyUserId", sessionBean.getUserId());
-		if (zdryZdryzb.getZdrygllxdm().equals("07")) {// 环保
-			variables.put("sqlx", "涉环保");
-			variables.put("sqlxdm", "01");// 列管01 撤管02
-			variables.put("splevel", "1");// 设置审批级别，一级审批
-			variables.put("sqrOrgCode", sessionBean.getUserOrgCode());// 设置申请人组织机构代码
-			variables.put("sqrOrgLevel", sessionBean.getUserOrgLevel());// 设置申请人组织机构级别
-			variables.put("approvalMethod", "shbApproval");
-			variables.put("zdryId", zdryZdryzb.getId());
-			variables.put("sqyj", "申请将" + zdryxm	+ "列管为涉环保重点人员");
-			variables.put("xm", zdryxm);// 被列管人员姓名
-			variables.put("zjhm", zdryVO.getZdryZdryzb().getZjhm());// 证件号码
-
-			// set parameters of processinstance
-			spi.setProcessKey("shb_lcg");
-			spi.setBusinessKey(zdryZdryzb.getId());
-			spi.setVariables(variables);
-		} else if (zdryZdryzb.getZdrygllxdm().equals("06")) {// 其他关注对象 改为也要 所长
-																// 审批
-			variables.put("sqlx", "其他关注对象");// 申请类型
-			variables.put("sqlxdm", "01");// 申请类型为列管
-
-			OrgOrganization orgOrganization = orgOrganizationService
-					.queryUpOrgByLevel(lrrzrq, "32");
-			String fsxOrgCode = orgOrganization.getOrgcode();// 得到本名等级为三级，派出所部门code
-			String taskParameter = fsxOrgCode + "_"
-					+ orgPositionService.queryByPosid("SZ").getId().toString(); // 部门code+所长岗位ID
-			variables.put("sz", taskParameter);
-			variables.put("approvalMethod", "szApproval");
-
-			// set parameters of processinstance
-			spi.setProcessKey("szsp");
-			spi.setBusinessKey(zdryZdryzb.getId());
-			spi.setVariables(variables);
-		} else if (zdryZdryzb.getZdrygllxdm().equals("05")) {// 涉公安访
-			variables.put("sqlx", "涉公安访列管");
-			variables.put("sqlxdm", "01");// 列管01 撤管02
-
-			OrgOrganization orgOrganization = orgOrganizationService
-					.queryUpOrgByLevel(lrrzrq, "32");
-			String fsxOrgCode = orgOrganization.getOrgcode();// 得到本名等级为三级，派出所部门code
-			String taskParameter = fsxOrgCode + "_"
-					+ orgPositionService.queryByPosid("SZ").getId().toString(); // 部门code+所长岗位ID
-			variables.put("approvalMethod", "sgafApproval");
-			variables.put("szsp", taskParameter);
-
-			// set parameters of processinstance
-			spi.setProcessKey("sgaj_lcg");
-			spi.setBusinessKey(zdryZdryzb.getId());
-			spi.setVariables(variables);
-		} else // 治安
-
-		if (zdryZdryzb.getZdrygllxdm().equals("01")) {
-			ZdryZb zdryZb = (ZdryZb) zdryQueryService.queryById(zdryZdryzb
-					.getId());
-			// if ("0104".equals(zdryZb.getZdrylb())) {
-
-			variables.put("sqlx", "社区矫正人员列管");// 申请类型
-			variables.put("sqlxdm", "01");// 申请类型为列管
-			/*
-			 * processDefinitionService.startProcessInstance(
-			 * sessionBean.getUserId(), "zalcg", zdryZdryzb.getId(), variables);
-			 */
-			// set parameters of processinstance
-			spi.setProcessKey("sqjz");
-			spi.setBusinessKey(zdryZdryzb.getId());
-			spi.setVariables(variables);
-
-		} else {
-			if (zdryZdryzb.getZdrygllxdm().equals("04")) {
-				variables.put("sqlx", "非正常上访重点人员列管");// 申请类型
-			}else{
-				variables.put("sqlx", "治安列管");// 申请类型
-			}
-			variables.put("sqlxdm", "01");// 申请类型为列管
-
-			// set parameters of processinstance
-			spi.setProcessKey("zalcg");
-			spi.setBusinessKey(zdryZdryzb.getId());
-			spi.setVariables(variables);
-		}
-		return spi;
 	}
 
 	/**
@@ -558,6 +433,9 @@ public class ZdryZdryzbControl extends BaseController {
 			// 撤管重点人员
 			ZdryService zdryService = zdryFactory.createZdryService(
 					zb_new.getZdrygllxdm(), zdrycg, zdryVO.getZdrylbdx());
+			// start process
+			StartProcessInstance spi = initialProcessInstance(sessionBean, zdryVO,LcgFlagEnum.CG);
+			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(), spi.getVariables());
 			zdryService.cg(sessionBean);
 
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
@@ -593,6 +471,239 @@ public class ZdryZdryzbControl extends BaseController {
 					+ zdrylxylbdyb.getFz());
 		}
 		return list;
+	}
+
+	/**
+	 * 
+	 * @Title: startLgProcess
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param @param sessionBean
+	 * @param @param zdryVO 设定文件
+	 * @return void 返回类型
+	 * @throws
+	 */
+	private StartProcessInstance initialProcessInstance(
+			SessionBean sessionBean, ZdryVO zdryVO, LcgFlagEnum lcgFlag) {
+		// StartProcessInstance initializes
+		Map<String, Object> variables = new HashMap<String, Object>();
+		StartProcessInstance spi = new StartProcessInstance();
+		spi.setApplyUserId(sessionBean.getUserId());
+		
+		variables.put("sqrName", sessionBean.getUserName());// 申请人姓名
+		variables.put("sqrOrgCode", sessionBean.getUserOrgCode());// 设置申请人组织机构代码
+		variables.put("sqrOrgLevel", sessionBean.getUserOrgLevel());// 设置申请人组织机构级别
+		variables.put("lrrzrq", sessionBean.getUserOrgCode());// 录入人管辖责任区
+		variables.put("applyUserId", sessionBean.getUserId());
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String createTime = formatter.format(new Date());// 申请时间
+		variables.put("createTime", createTime);
+		
+		variables.put("sqlxdm", lcgFlag.getValue());// 申请类型
+		
+		if(lcgFlag.getValue().equals("01")){
+			//列管
+			prepareLg(spi,sessionBean,zdryVO,variables);
+		}else if(lcgFlag.getValue().equals("02")){
+			//撤管
+			prepareCg(spi,sessionBean,zdryVO,variables);
+		}else{
+			
+		}
+
+		return spi;
+	}
+
+	private void prepareCg(StartProcessInstance spi, SessionBean sessionBean, ZdryVO zdryVO, Map<String, Object> variables) {
+		String zdryxm = zdryVO.getZdryZdryzb().getXm();
+		Zdrylxylbdyb zdrylxylbdyb = new Zdrylxylbdyb();
+		ZdryZb zdryZdryzb = zdryVO.getZdryZdryzb();
+		zdrylxylbdyb.setLbdm(zdryZdryzb.getZdrygllxdm());
+		String zdrylxmc = zdrylxylbdybService.query(zdrylxylbdyb).getBz();
+		
+
+		variables.put("zdrylx", zdryZdryzb.getZdrygllxdm());// 人员类型
+		variables.put("zdryzb", zdryVO.getZdryZdryzb());
+		variables.put("zdrylbdx", zdryVO.getZdrylbdx());
+		
+		variables.put("zdryId", zdryZdryzb.getId()); // 重点人员总表Id
+		variables.put("zdrylxmc", zdrylxmc);// 人员类型名称
+		variables.put("xm", zdryxm);// 被列管人员姓名
+		variables.put("cyzjdm", zdryVO.getZdryZdryzb().getCyzjdm());
+		variables.put("zjhm", zdryVO.getZdryZdryzb().getZjhm());// 证件号码
+		// variables.put("splx", "重点人口列管");//审批类型
+		variables.put("sqyj", zdryVO.getYwsqyy());// 申请意见
+		variables.put("zdryName", zdryxm);// 申请意见
+		
+		if (zdryZdryzb.getZdrygllxdm().equals("07")) {// 环保
+			variables.put("sqlx", "涉环保撤管");
+			variables.put("splevel", "1");// 设置审批级别，一级审批
+			variables.put("approvalMethod", "shbApproval");
+			variables.put("zdryId", zdryZdryzb.getId());
+			variables.put("sqyj", "申请将" + zdryxm	+ "撤管");
+			variables.put("xm", zdryxm);// 被列管人员姓名
+			variables.put("zjhm", zdryVO.getZdryZdryzb().getZjhm());// 证件号码
+
+			// set parameters of processinstance
+			spi.setProcessKey("shb_lcg");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
+		} else if (zdryZdryzb.getZdrygllxdm().equals("06")) {// 其他关注对象 改为也要 所长
+																// 审批
+			variables.put("sqlx", "其他关注对象撤管");// 申请类型
+
+			OrgOrganization orgOrganization = orgOrganizationService
+					.queryUpOrgByLevel(sessionBean.getUserOrgCode(), "32");
+			String fsxOrgCode = orgOrganization.getOrgcode();// 得到本名等级为三级，派出所部门code
+			String taskParameter = fsxOrgCode + "_"
+					+ orgPositionService.queryByPosid("SZ").getId().toString(); // 部门code+所长岗位ID
+			variables.put("sz", taskParameter);
+			variables.put("approvalMethod", "szApproval");
+
+			// set parameters of processinstance
+			spi.setProcessKey("szsp");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
+		} else if (zdryZdryzb.getZdrygllxdm().equals("05")) {// 涉公安访
+			variables.put("sqlx", "涉公安访撤管");
+
+			OrgOrganization orgOrganization = orgOrganizationService
+					.queryUpOrgByLevel(sessionBean.getUserOrgCode(), "32");
+			String fsxOrgCode = orgOrganization.getOrgcode();// 得到本名等级为三级，派出所部门code
+			String taskParameter = fsxOrgCode + "_"
+					+ orgPositionService.queryByPosid("SZ").getId().toString(); // 部门code+所长岗位ID
+			variables.put("approvalMethod", "sgafApproval");
+			variables.put("szsp", taskParameter);
+
+			// set parameters of processinstance
+			spi.setProcessKey("sgaj_lcg");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
+		} else // 治安
+
+		if (zdryZdryzb.getZdrygllxdm().equals("01")) {
+			ZdryZb zdryZb = (ZdryZb) zdryQueryService.queryById(zdryZdryzb
+					.getId());
+			// if ("0104".equals(zdryZb.getZdrylb())) {
+
+			variables.put("sqlx", "社区矫正人员撤管");// 申请类型
+			/*
+			 * processDefinitionService.startProcessInstance(
+			 * sessionBean.getUserId(), "zalcg", zdryZdryzb.getId(), variables);
+			 */
+			// set parameters of processinstance
+			spi.setProcessKey("sqjz");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
+
+		} else {
+			if (zdryZdryzb.getZdrygllxdm().equals("04")) {
+				variables.put("sqlx", "非正常上访重点人员撤管");// 申请类型
+			}else{
+				variables.put("sqlx", "治安撤管");// 申请类型
+			}
+
+			// set parameters of processinstance
+			spi.setProcessKey("zalcg");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
+		}
+	}
+
+	private void prepareLg(StartProcessInstance spi, SessionBean sessionBean, ZdryVO zdryVO, Map<String, Object> variables) {
+		String zdryxm = zdryVO.getZdryZdryzb().getXm();
+		Zdrylxylbdyb zdrylxylbdyb = new Zdrylxylbdyb();
+		ZdryZb zdryZdryzb = zdryVO.getZdryZdryzb();
+		zdrylxylbdyb.setLbdm(zdryZdryzb.getZdrygllxdm());
+		String zdrylxmc = zdrylxylbdybService.query(zdrylxylbdyb).getBz();
+		
+
+		variables.put("zdrylx", zdryZdryzb.getZdrygllxdm());// 人员类型
+		variables.put("zdryzb", zdryVO.getZdryZdryzb());
+		variables.put("zdrylbdx", zdryVO.getZdrylbdx());
+		
+		variables.put("zdryId", zdryZdryzb.getId()); // 重点人员总表Id
+		variables.put("zdrylxmc", zdrylxmc);// 人员类型名称
+		variables.put("xm", zdryxm);// 被列管人员姓名
+		variables.put("cyzjdm", zdryVO.getZdryZdryzb().getCyzjdm());
+		variables.put("zjhm", zdryVO.getZdryZdryzb().getZjhm());// 证件号码
+		// variables.put("splx", "重点人口列管");//审批类型
+		variables.put("sqyj", zdryVO.getYwsqyy());// 申请意见
+		variables.put("zdryName", zdryxm);// 申请意见
+		
+		if (zdryZdryzb.getZdrygllxdm().equals("07")) {// 环保
+			variables.put("sqlx", "涉环保");
+			variables.put("splevel", "1");// 设置审批级别，一级审批
+			variables.put("approvalMethod", "shbApproval");
+			variables.put("zdryId", zdryZdryzb.getId());
+			variables.put("sqyj", "申请将" + zdryxm	+ "列管为涉环保重点人员");
+			variables.put("xm", zdryxm);// 被列管人员姓名
+			variables.put("zjhm", zdryVO.getZdryZdryzb().getZjhm());// 证件号码
+
+			// set parameters of processinstance
+			spi.setProcessKey("shb_lcg");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
+		} else if (zdryZdryzb.getZdrygllxdm().equals("06")) {// 其他关注对象 改为也要 所长
+																// 审批
+			variables.put("sqlx", "其他关注对象");// 申请类型
+
+			OrgOrganization orgOrganization = orgOrganizationService
+					.queryUpOrgByLevel(sessionBean.getUserOrgCode(), "32");
+			String fsxOrgCode = orgOrganization.getOrgcode();// 得到本名等级为三级，派出所部门code
+			String taskParameter = fsxOrgCode + "_"
+					+ orgPositionService.queryByPosid("SZ").getId().toString(); // 部门code+所长岗位ID
+			variables.put("sz", taskParameter);
+			variables.put("approvalMethod", "szApproval");
+
+			// set parameters of processinstance
+			spi.setProcessKey("szsp");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
+		} else if (zdryZdryzb.getZdrygllxdm().equals("05")) {// 涉公安访
+			variables.put("sqlx", "涉公安访列管");
+
+			OrgOrganization orgOrganization = orgOrganizationService
+					.queryUpOrgByLevel(sessionBean.getUserOrgCode(), "32");
+			String fsxOrgCode = orgOrganization.getOrgcode();// 得到本名等级为三级，派出所部门code
+			String taskParameter = fsxOrgCode + "_"
+					+ orgPositionService.queryByPosid("SZ").getId().toString(); // 部门code+所长岗位ID
+			variables.put("approvalMethod", "sgafApproval");
+			variables.put("szsp", taskParameter);
+
+			// set parameters of processinstance
+			spi.setProcessKey("sgaj_lcg");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
+		} else // 治安
+
+		if (zdryZdryzb.getZdrygllxdm().equals("01")) {
+			ZdryZb zdryZb = (ZdryZb) zdryQueryService.queryById(zdryZdryzb
+					.getId());
+			// if ("0104".equals(zdryZb.getZdrylb())) {
+
+			variables.put("sqlx", "社区矫正人员列管");// 申请类型
+			/*
+			 * processDefinitionService.startProcessInstance(
+			 * sessionBean.getUserId(), "zalcg", zdryZdryzb.getId(), variables);
+			 */
+			// set parameters of processinstance
+			spi.setProcessKey("sqjz");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
+
+		} else {
+			if (zdryZdryzb.getZdrygllxdm().equals("04")) {
+				variables.put("sqlx", "非正常上访重点人员列管");// 申请类型
+			}else{
+				variables.put("sqlx", "治安列管");// 申请类型
+			}
+
+			// set parameters of processinstance
+			spi.setProcessKey("zalcg");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
+		}
 	}
 
 }
