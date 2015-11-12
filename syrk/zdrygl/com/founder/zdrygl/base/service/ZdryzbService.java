@@ -99,6 +99,8 @@ public class ZdryzbService implements ZdryService {
 		ZdryZb entity = new ZdryZb();
 		entity.setId(zdrycg.getZdryid_old());
 		entity.setGlzt(ZdryConstant.YLG);
+		entity.setXt_zxbz("0");//设定数据为未注销状态
+		updateZdry(sessionBean,entity);
 		if(!isDelete()){
 			deleteZdry(sessionBean,zdryzb);
 		}

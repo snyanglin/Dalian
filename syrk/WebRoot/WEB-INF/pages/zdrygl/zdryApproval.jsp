@@ -120,7 +120,6 @@
 			/* $("#PoDiv").show(); */
 			/* $("#nextsplx0").bind("click", function(event) {$("#UsDiv").show();  });
 			$("#nextsplx1").bind("click", function(event) { $("#UsDiv").hide(); }); */
-			alert("agree");
 			$("#spjg0").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").hide(); $("#nextsplxDiv").hide();});
 			$("#spjg1").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").show(); $("#nextsplxDiv").show(); }); 
 		}
@@ -129,7 +128,6 @@
 			getDisagreeOrgCode();
 			orgCode=disagreeOrgCode;
 			orglevel=disagreeOrglevel;
-			alert("disagree");
 			/* $("#nextsplx0").bind("click", function(event) { $("#PoDiv").hide(); $("#UsDiv").show();  });
 			$("#nextsplx1").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").show(); });  */
 			$("#spjg0").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").show(); $("#nextsplxDiv").show();});
