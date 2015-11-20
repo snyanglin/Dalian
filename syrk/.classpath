@@ -22,7 +22,7 @@
 	<classpathentry kind="src" path="zdrygl"/>
 	<classpathentry kind="src" path="drools"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.0"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.7.0_67">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>

@@ -8,7 +8,12 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.activiti.engine.FormService;
-import org.activiti.engine.HistoryService;
+import org.activiti.engine.form.FormProperty;
+import org.activiti.engine.form.TaskFormData;
+import org.activiti.engine.impl.RepositoryServiceImpl;
+import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
+import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
+import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +31,7 @@ import com.founder.framework.organization.assign.service.OrgAssignPublic;
 import com.founder.framework.organization.assign.vo.OrgUserInfo;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
+import com.founder.framework.organization.position.bean.OrgPosition;
 import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.framework.organization.user.service.OrgUserService;
 import com.founder.framework.utils.EasyUIPage;
@@ -111,19 +117,60 @@ public class ZdryApprovalController extends BaseController {
 	@RequestMapping(value = "/zdryApproval", method = RequestMethod.GET)
 	public ModelAndView zdryApproval(String executionId, String workflowId) {
 		ModelAndView mv = new ModelAndView("zdrygl/zdryApproval");
-
+		
+		//JTask task = taskService.findJTaskbyTaskId(workflowId);
+		TaskFormData formData = formService.getTaskFormData(workflowId);
+		Map<String, Object>  taskProps = transform(formData.getFormProperties());
+		//Map<String, Object>  variables = processDefinitionService.getVariables(executionId);
+		//获取审批类型和审批岗位
+		if(taskProps.size() > 0){
+			Object splxObj = taskProps.get("splx");
+			if(splxObj != null){
+				FormProperty splxFp = (FormProperty)splxObj;
+				String splx = splxFp == null?null:splxFp.getValue();
+				mv.addObject("splx", splx);
+			}else{
+				//用来触发界面form上岗位及人员选择的元素的隐藏
+				mv.addObject("splx", null);
+			}
+			Object spgwObj = taskProps.get("spgw");
+			if(spgwObj != null){
+				FormProperty spgwFp = (FormProperty)spgwObj;
+				String posCode = spgwFp==null?null:spgwFp.getValue();//== posId
+				OrgPosition  position = orgPositionService.queryByPosid(posCode);
+				mv.addObject("position", position);
+			}
+		}
 		String approvalMethod = (String) processDefinitionService.getVariables(
 				executionId).get("approvalMethod");
-		// String
-		// sqlxdm=(String)processDefinitionService.getVariables(executionId).get("sqlxdm");
-
-		Object renderedTaskForm = formService.getRenderedTaskForm(workflowId);
-		mv.addObject("renderedTaskForm", (String) renderedTaskForm);
 		mv.addObject("workflowId", workflowId);
 		mv.addObject("executionId", executionId);
 		mv.addObject("approvalMethod", approvalMethod);
-		// mv.addObject("sqlxdm", sqlxdm);
+		//1, 表示只显示岗位；2，表示还需显示人员列表 
+		//mv.addObject("sqlxdm", sqlxdm);
+		Object renderedTaskForm = formService.getRenderedTaskForm(workflowId);
+		mv.addObject("renderedTaskForm", (String) renderedTaskForm);
 		return mv;
+	}
+	/**
+	 * 
+	 * @Title: transform
+	 * @Description: translate List to map
+	 * @param @param formProperties
+	 * @param @return    设定文件
+	 * @return Map<String,Object>    返回类型
+	 * @throws
+	 */
+	private Map<String, Object> transform(List<FormProperty> formProperties) {
+		Map<String, Object> resMap = new HashMap<String,Object>();
+		if(formProperties == null || formProperties.size() == 0){
+			return resMap;
+		}else{
+			for(FormProperty fp: formProperties){
+				resMap.put(fp.getId(), fp);
+			}
+		}
+		return resMap;
 	}
 
 	/**
@@ -142,8 +189,8 @@ public class ZdryApprovalController extends BaseController {
 		Map<String, Object> workflowXx = new HashMap<String, Object>();
 		workflowXx = processDefinitionService.getVariables(executionId);
 
-		ZdryZb zdryZdryzb = (ZdryZb) zdryInfoQueryService.queryById((String) workflowXx
-				.get("zdryId"));
+		ZdryZb zdryZdryzb = (ZdryZb) zdryInfoQueryService
+				.queryById((String) workflowXx.get("zdryId"));
 
 		if ("04".equals(workflowXx.get("sqlxdm"))
 				&& workflowXx.get("qjId") != null) {// 请假，查询请假信息
@@ -446,7 +493,8 @@ public class ZdryApprovalController extends BaseController {
 			// variables.put(orgPositionService.queryByPosid(sessionBean.getUserPositionId()).getId()+"ApprovedType",
 			// zdryWorkflowVO.getSpjg());
 
-			ZdryZb zdryZdryzb = (ZdryZb) zdryInfoQueryService.queryById((String) zdryWorkflowVO.getZdryId());
+			ZdryZb zdryZdryzb = (ZdryZb) zdryInfoQueryService
+					.queryById((String) zdryWorkflowVO.getZdryId());
 			variables.put("listenerAgree", "");
 			variables.put("listenerDisgree", "");
 			variables.put("spyj", zdryWorkflowVO.getSpyj());
@@ -540,13 +588,16 @@ public class ZdryApprovalController extends BaseController {
 		try {
 
 			Map<String, Object> variables = new HashMap<String, Object>();
+
+			variables.put("spyj", zdryWorkflowVO.getSpyj());
+			variables.put("posid", zdryWorkflowVO.getNextSppos());// 对应数据库表org_position中的posid
+			variables.put("sporgcode", zdryWorkflowVO.getNextSpOrgCode());//
+			variables.put("orgposid", zdryWorkflowVO.getNextSpposId());// 对应org_org_pos表中的id
+			variables.put("nextSpUserId", zdryWorkflowVO.getNextSpUserId());
+
 			if (zdryWorkflowVO.getSpjg().equals("0")) {// 拒绝
-
 				variables.put("szApprovedType", "0");
-
-			}
-
-			else {// 同意
+			} else {// 同意
 				if (zdryWorkflowVO.getZdrylx().equals("01")
 						|| zdryWorkflowVO.getZdrylx().equals("02")
 						|| zdryWorkflowVO.getZdrylx().equals("04")
@@ -571,14 +622,10 @@ public class ZdryApprovalController extends BaseController {
 					variables.put("approvalMethod", "fxjzgApproval");
 					variables.put("szApprovedType", "2");
 				}
+				
 			}
-
-			variables.put("spyj", zdryWorkflowVO.getSpyj());
-			variables.put("posid", zdryWorkflowVO.getNextSppos());// 对应数据库表org_position中的posid
-			variables.put("sporgcode", zdryWorkflowVO.getNextSpOrgCode());//
-			variables.put("orgposid", zdryWorkflowVO.getNextSpposId());// 对应org_org_pos表中的id
-			variables.put("nextSpUserId", zdryWorkflowVO.getNextSpUserId());
-			taskService.completeTask(zdryWorkflowVO.getWorkflowId(), variables); // 执行任务
+			taskService.completeTask(zdryWorkflowVO.getWorkflowId(),
+					variables); // 执行任务
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
 			model.put(AppConst.MESSAGES, "已审批！");
 		} catch (Exception e) {

@@ -18,7 +18,8 @@
  		<div data-options="region:'center', split:true" style="width:800px; border-width: 0px;">
 
     <form action="<%=basePath%>zdryzb/saveLg"  id="dataFormZdry" name="dataFormZdry" method="post" enctype="multipart/form-data">    	
-    	<input type="hidden" id="id" name="zdryZdryzb.id" value="${zdryZdryzbVO.id}" />
+    	<input type="hidden" id="id" name="zdryZdryzb.id" value="${zdryZdryzbVO.id}" />   	
+    	<input type="hidden" id="zdryShbzdryxxb.id" name="zdryShbzdryxxb.id" value="${zdryZdryzbVO.id}" />
     	<input type="hidden" id="zdryLczywblb.ywblr_id" name="zdryLczywblb.ywblr_id" value="${zdryLczywblb.ywblr_id}" />
     	<input type="hidden" id="zdryHsbId" name="zdryHsbId" value="${zdryHsbId}" />
     	<input type="hidden" id="syrkid" name="zdryZdryzb.syrkid" value="" />
@@ -173,9 +174,10 @@
 					data-options="url: contextPath +'/common/dict/BD_D_ZDRYGLLX.js',  
 					valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'right',onChange:zdrylxChange"/>
 
-	    			<input type="text" name="zdryZdryzb.zdrylb" id="zdrylbStr"  class="easyui-combotree" style="width:390px;"
+	    			<input type="text" name="zdryZdryzb.zdrylb" id="zdrylbStr"  class="easyui-combotree" style="width:300px;"
 	    			data-options="onlyLeaf:true,valueField:'id',textField:'text',
 	    			multiple:false,required:true,panelWidth:400,method:'get',lines:true,tipPosition:'left'" >
+	    			<A href="#" onclick="viewWorkflowDialog();">查看流程图</a> 
 		    	</td>
 		    </tr>
 		    
@@ -563,6 +565,39 @@ function ryxxTag(index){
 		$("#ryxxHide").hide();
 		$("#ryxxDiv").hide();
 	}
+}
+function viewWorkflowDialog(){
+	var processDefinitionKey = "zalcg";
+	var zdrygllxdm = $("#zdrygllxdm").val();
+	if(zdrygllxdm == "01"){
+		//社区矫正人员
+		processDefinitionKey="sqjz";
+	}else if(zdrygllxdm == "02"){
+		//重点人口
+		processDefinitionKey="zalcg";
+	}else if(zdrygllxdm == "03"){
+		//肇事肇祸精神病人
+		processDefinitionKey="zalcg";
+	}else if(zdrygllxdm == "04"){
+		//非正常上访重点人员
+		processDefinitionKey="zalcg";
+	}else if(zdrygllxdm == "05"){
+		//涉公安访重点人员
+		processDefinitionKey="sgaf_lcg";
+	}else if(zdrygllxdm == "06"){
+		//其他关注对象
+		processDefinitionKey="szsp";
+	}else if(zdrygllxdm == "07"){
+		//涉环保重点人员
+		processDefinitionKey="shb_lcg";
+	}else if(zdrygllxdm == "08"){
+		//涉枪涉爆重点人员
+		processDefinitionKey="zalcg";
+	}
+	var url = '/syrk/diagram/diagram/' + processDefinitionKey;
+	var result=window.open(url,'newWindow','modal=yes,height=600px,width=900px,resizable=yes,z-look=yes,alwaysRaised=yes'); 
+	window.onfocus=function (){result.focus();};
+
 }
 </script>
 

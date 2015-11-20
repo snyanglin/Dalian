@@ -24,7 +24,7 @@
       </extensionElements>
     </endEvent>
     <exclusiveGateway id="exclusivegateway8" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="usertask6" name="户籍地民警审批" activiti:assignee="${hjdmj}">
+    <userTask id="usertask6" name="户籍地民警审批" activiti:assignee="${hjdmj}" activiti:formKey="approval.form">
       <extensionElements>
         <activiti:formProperty id="approvalMethod" name="approvalMethod" type="string" required="true"></activiti:formProperty>
       </extensionElements>
@@ -32,6 +32,8 @@
     <userTask id="sz" name="所长审批" activiti:assignee="${sz}" activiti:formKey="approval.form">
       <extensionElements>
         <activiti:formProperty id="approvalMethod" name="approvalMethod" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="spgw" name="spgw" type="string" expression="FXJGLY" required="true"></activiti:formProperty>
+        <activiti:formProperty id="splx" name="splx" type="string" expression="2" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow31" name="居住地非户籍地" sourceRef="exclusivegateway5" targetRef="usertask6">
@@ -160,7 +162,7 @@
         <omgdi:waypoint x="541.0" y="479.0"></omgdi:waypoint>
         <omgdi:waypoint x="224.0" y="479.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="24.0" x="449.0" y="472.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="449.0" y="472.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">

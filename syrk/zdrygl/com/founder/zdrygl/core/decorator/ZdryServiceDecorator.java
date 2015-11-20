@@ -103,6 +103,17 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	public final void cg(SessionBean sessionBean) {
 		zdryService.cg(sessionBean);
 		cg_(sessionBean);
+		//put zdryId & name to variables
+		processInstance.setBusinessKey(zdryService.getZdryId());
+		processInstance.getVariables().put("zdryId", zdryService.getZdryId());
+		
+		if(checkWorkFlow()) {
+			if(processInstance != null && StringUtils.isEmpty(processInstance.getProcessKey())){
+				throw new BussinessException("缺少流程启动参数！");
+			}else{
+				processDefinitionService.startProcessInstance(processInstance.getApplyUserId(),processInstance.getProcessKey(), processInstance.getBusinessKey(), processInstance.getVariables());
+			}
+		}
 	}
 
 	@Override
