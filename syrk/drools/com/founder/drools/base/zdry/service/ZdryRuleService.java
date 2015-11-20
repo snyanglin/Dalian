@@ -1,5 +1,6 @@
 package com.founder.drools.base.zdry.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import com.founder.drools.base.zdry.model.ZdryGlMessageBean;
 import com.founder.drools.base.zdry.model.ZdryGlOperationInfoBean;
 import com.founder.drools.base.zdry.model.ZdryLcgGllxBean;
 import com.founder.drools.core.inteface.RuleService;
+import com.founder.drools.core.model.RuleBean;
 import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 
 /**
@@ -182,5 +184,17 @@ public class ZdryRuleService {
 		bean.setZdryGllxdm(zdrylxdm);
 		ruleService.executeRule("zdryOperationRule", bean, null);
 		return bean.getLglx();
+	}
+	
+	public Map validateZdryVO(RuleBean ruleBean){
+		List list=new ArrayList();
+		list.add(ruleBean);
+		list.add(ruleBean.getParamObj());
+		
+		ruleService.executeRule("zdryValidation", list, null);
+		Map resMap=new HashMap();
+        resMap.put("ruleStatus", ruleBean.getResStatus());
+        resMap.put("ruleResponse", ruleBean.getResponse());
+		return resMap;
 	}
 }
