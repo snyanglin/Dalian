@@ -8,11 +8,15 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +30,8 @@ import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
+import com.founder.framework.exception.RestException;
+import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.framework.organization.user.service.OrgUserService;
@@ -39,6 +45,7 @@ import com.founder.zdrygl.base.model.Zdrycg;
 import com.founder.zdrygl.base.model.Zdrylxylbdyb;
 import com.founder.zdrygl.base.service.WorkFlowParametersInitialService;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
+import com.founder.zdrygl.base.validator.ZdryVOValidator;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
@@ -95,7 +102,20 @@ public class ZdryZdryzbControl extends BaseController {
 	
 	@Autowired
 	private ZdryRuleService zdryRuleService;
+	
+	@Autowired
+	private ZdryVOValidator zdryVOValidator;
 
+	@InitBinder
+	public void initBinder(WebDataBinder binder) { 
+		Object target=binder.getTarget();
+		if(target!=null && target.getClass().equals(ZdryVO.class))
+			binder.setValidator(zdryVOValidator);  
+		else{
+			//多个验证器的时候使用
+		}
+	}
+	
 	/**
 	 * 
 	 * @Title: manage
@@ -195,11 +215,17 @@ public class ZdryZdryzbControl extends BaseController {
 	 * @param @param sessionBean
 	 * @param @return 设定文件
 	 * @return ModelAndView 返回类型
+	 * @throws RestException 
 	 * @throw
 	 */
 	@RequestMapping(value = "/saveLg", method = RequestMethod.POST)
-	public ModelAndView saveLg(ZdryVO zdryVO, SessionBean sessionBean) {
+	public ModelAndView saveLg(@Valid ZdryVO zdryVO,BindingResult result, SessionBean sessionBean) throws RestException {
 		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
+		
+		if(!super.validateResult(mv, result)){
+			return mv;
+		}
+		
 		Map<String, Object> model = new HashMap<String, Object>();
 		sessionBean = getSessionBean(sessionBean);
 		try {
