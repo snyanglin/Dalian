@@ -44,7 +44,7 @@ public class ZdryVOValidator extends BaseValidator{
 			Map resMap = zdryRuleService.validateZdryVO(ruleBean);
 			Object ruleStatus = resMap.get("ruleStatus");
 			Object ruleResponse = resMap.get("ruleResponse");
-			if(!"0".equals(ruleStatus)){
+			if(!"0".equals(ruleStatus.toString())){
 				paramErrors.reject("验证失败，失败原因："+ruleResponse.toString());//此错误保存在getGlobalError中				
 			}
 			

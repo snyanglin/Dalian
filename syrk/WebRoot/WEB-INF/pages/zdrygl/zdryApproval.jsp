@@ -20,7 +20,6 @@
     
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center"></tr>
 			${renderedTaskForm}
-
 			<c:choose>
 			   <c:when test="${splx=='1'}"> 
 				<!-- 提交到岗位 -->
@@ -37,9 +36,9 @@
 					<td>
 						<input type="hidden"   id="nextSpposId" name="nextSpposId" value="${position.id}" style="width: 100;" />
 						<input type="hidden" id="nextSppos" name="nextSppos" value="${position.posid}" style="width: 100;" />
-						<input type="text" id="posname12" name="posname12" style="width: 200;" value="${position.posname}" />
+						<input type="text" id="posname12" name="posname12" style="width: 150px;" value="${position.posname}" />
 						<input type="hidden" id="nextSpOrgCode" name="nextSpOrgCode" value="${org.orgcode}" style="width: 100;" />
-						<input type="button" id=orgbutton12" value="选择" onClick="SelectOrgPos()" style="cursor:pointer; background:#EEF2F8 ;border:1px solid #082F4F;HEIGHT: 18px; WIDTH: 48px;font-family:宋体;font-size:9pt;" />
+						<input type="button" id=orgbutton12" value="选择" onClick="SelectOrgPos()" style="cursor:pointer; background:#EEF2F8 ;border:0px solid #082F4F;HEIGHT: 18px; WIDTH: 48px;font-family:宋体;font-size:9pt;" />
 	    			</td>
 				</tr>
 			
@@ -48,13 +47,14 @@
 					<td width="20%" class="dialogTd" align="right">审批人员：</td> 
 					
 					<td>
-					    <input type="text" id="username12" name="username12" style="width: 200;" value="" />
+					    <input type="text" id="username12" name="username12" style="width: 150;" value="" />
 						<input type="hidden" id="nextSpUserId" name="nextSpUserId" value="" style="width: 100;" />
-					    <input type="button" id=orgbutton12" value="选择"  onClick="SelectOrgUser()"  style="cursor:pointer; background:#EEF2F8 ;border:1px solid #082F4F;HEIGHT: 18px; WIDTH: 48px;font-family:宋体;font-size:9pt;" />
+					    <input type="button" id=orgbutton12" value="选择"  onClick="SelectOrgUser()"  style="cursor:pointer; background:#EEF2F8 ;border:0px solid #082F4F;HEIGHT: 18px; WIDTH: 48px;font-family:宋体;font-size:9pt;" />
 					</td>
 				    </tr>
 				</c:if>
 			</c:if>
+			
 	    </table>
 	    	
 	    	  <div style="margin: 0 auto;"></div>   
@@ -70,9 +70,13 @@
 			  <a id="close" class="l-btn l-btn-small"
 					href="javascript:void(0)" group=""> <span
 					class="l-btn-left l-btn-icon-left"> <span class="l-btn-text">关闭</span>
-						<span class="l-btn-icon icon-save"> </span> </span> </a>
+						<span class="l-btn-icon icon-cancel"> </span> </span> </a>
 			</div>
-	  	
+	  	<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
+	  		
+			<!-- show base information  -->
+			<jsp:include page="workflow/${xzqh }/${procDefKey }/base.jsp"></jsp:include>
+	  	</table>
 	    	
     </form>
 </div>
@@ -246,7 +250,6 @@
 	
 	
 	function SelectOrgUser(){
-		alert("..SelectOrgUser..");
 		var posid=$("#nextSppos").val();
 		//alert(posid);
 		if(posid==""){
@@ -258,7 +261,6 @@
 	}
 	
 	function SelectOrgPos(){
-		alert("..SelectOrgPos..");
 		public_singleSelectOrgPos(orgCode, '01', orglevel, '', '','', 'nextSpposId', 'posname12', 'nextSpOrgCode', '', '', false, '', window, 'onOrgPosSelected','nextSppos')
 		 
 	}

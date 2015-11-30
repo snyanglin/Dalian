@@ -325,5 +325,9 @@
 			</isNotEmpty>
 						
 	</select>							
-	
+	<!-- 根据门楼牌查询户籍地责任区代码 -->
+	<select id="queryHjdZrqdm" parameterClass="String" resultClass="String">
+		<![CDATA[ select ZRQDM from BZDZ_ADD_MLDZDXB where MLDZID=#MLDZID#]]>
+		
+	</select>
 </sqlMap>

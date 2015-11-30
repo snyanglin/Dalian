@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
+import com.founder.framework.config.SystemConfig;
 import com.founder.framework.organization.assign.service.OrgAssignPublic;
 import com.founder.framework.organization.assign.vo.OrgUserInfo;
 import com.founder.framework.organization.department.bean.OrgOrganization;
@@ -119,7 +120,7 @@ public class ZdryApprovalController extends BaseController {
 	public ModelAndView zdryApproval(String executionId, String workflowId) {
 		ModelAndView mv = new ModelAndView("zdrygl/zdryApproval");
 		
-		//JTask task = taskService.findJTaskbyTaskId(workflowId);
+		JTask task = taskService.findJTaskbyTaskId(workflowId);
 		TaskFormData formData = formService.getTaskFormData(workflowId);
 		Map<String, Object>  taskProps = transform(formData.getFormProperties());
 		//Map<String, Object>  variables = processDefinitionService.getVariables(executionId);
@@ -147,9 +148,13 @@ public class ZdryApprovalController extends BaseController {
 		mv.addObject("workflowId", workflowId);
 		mv.addObject("executionId", executionId);
 		mv.addObject("approvalMethod", approvalMethod);
+		mv.addObject("varMap",processDefinitionService.getVariables(executionId));
 		//1, 表示只显示岗位；2，表示还需显示人员列表 
 		//mv.addObject("sqlxdm", sqlxdm);
 		Object renderedTaskForm = formService.getRenderedTaskForm(workflowId);
+		String pdKey = processDefinitionService.getProcessDefinitionKey(task.getProcessDefinitionId());
+		mv.addObject("procDefKey",pdKey);
+		mv.addObject("xzqh",SystemConfig.getString("zdryQY"));
 		mv.addObject("renderedTaskForm", (String) renderedTaskForm);
 		return mv;
 	}
