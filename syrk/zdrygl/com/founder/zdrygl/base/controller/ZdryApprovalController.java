@@ -49,6 +49,7 @@ import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.base.service.ZdryJgdxqxjdjbService;
 import com.founder.zdrygl.base.vo.ZdryWorkflowVO;
+import com.founder.zdrygl.base.vo.ZdryZdryzbVO;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -106,7 +107,7 @@ public class ZdryApprovalController extends BaseController {
 	/**
 	 * 
 	 * @Title: zdryApproval
-	 * @Description: TODO(流程审批通用页面)
+	 * @Description: 流程审批通用页面
 	 * @param @param zdryId
 	 * @param @param workflowId
 	 * @param @param approvalMethod
@@ -176,7 +177,7 @@ public class ZdryApprovalController extends BaseController {
 	/**
 	 * 
 	 * @Title: getZdryXx
-	 * @Description: TODO(流程审批通用页面根据executionId获取重点人员信息流程信息)
+	 * @Description: 流程审批通用页面根据executionId获取重点人员信息流程信息
 	 * @param @param executionId
 	 * @param @return 设定文件
 	 * @return Map 返回类型
@@ -256,7 +257,7 @@ public class ZdryApprovalController extends BaseController {
 
 	/**
 	 * @Title: query
-	 * @Description: TODO(重点人员待审批页面)
+	 * @Description: 重点人员待审批页面
 	 * @param @return 设定文件
 	 * @return ModelAndView 返回类型
 	 * @throws
@@ -271,7 +272,7 @@ public class ZdryApprovalController extends BaseController {
 	/**
 	 * 
 	 * @Title: queryList
-	 * @Description: TODO(重点人员待审批列表)
+	 * @Description: 重点人员待审批列表
 	 * @param @param page
 	 * @param @param rows
 	 * @param @param entity
@@ -446,7 +447,7 @@ public class ZdryApprovalController extends BaseController {
 	/**
 	 * 
 	 * @Title: zdryApproval
-	 * @Description: TODO(审批公共方法)
+	 * @Description: 审批公共方法
 	 * @param @param zdryWorkflowVO
 	 * @param @param sessionBean
 	 * @param @return 设定文件
@@ -523,7 +524,7 @@ public class ZdryApprovalController extends BaseController {
 	/**
 	 * 
 	 * @Title: mjApproval
-	 * @Description: TODO(责任区民警审批)
+	 * @Description: 责任区民警审批
 	 * @param @param zdryWorkflowVO
 	 * @param @param sessionBean
 	 * @param @return 设定文件
@@ -571,7 +572,7 @@ public class ZdryApprovalController extends BaseController {
 	/**
 	 * 
 	 * @Title: szApproval
-	 * @Description: TODO(所长审批)
+	 * @Description: 所长审批
 	 * @param @param zdryWorkflowVO
 	 * @param @param sessionBean
 	 * @param @return 设定文件
@@ -641,7 +642,7 @@ public class ZdryApprovalController extends BaseController {
 	/**
 	 * 
 	 * @Title: fxjzgApproval
-	 * @Description: TODO(分县局管理员或分县局治安业务主管审批)
+	 * @Description: 分县局管理员或分县局治安业务主管审批
 	 * @param @param zdryWorkflowVO
 	 * @param @param sessionBean
 	 * @param @return 设定文件
@@ -842,7 +843,94 @@ public class ZdryApprovalController extends BaseController {
 
 		return mv;
 	}
+	/**
+	 * 
+	 * @Title: zdzdApproval
+	 * @Description: 原住地主动转递民警审批
+	 * @param @param zdryWorkflowVO
+	 * @param @param sessionBean
+	 * @param @return    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throws：TODO
+	 */
+	@RequestMapping(value = "/zdmjApproval", method = RequestMethod.POST)
+	public ModelAndView zdmjApproval(ZdryZdryzbVO zdryWorkflowVO,
+			SessionBean sessionBean) {
 
+		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
+		sessionBean = getSessionBean(sessionBean);
+		Map<String, Object> model = new HashMap<String, Object>();
+		try {
+
+			Map<String, Object> variables = new HashMap<String, Object>();
+
+			if (zdryWorkflowVO.getSpjg().equals("0")) {// 不接收
+
+				variables.put("sfcj", "1");
+				variables.put("spjg", "0");
+
+			} else {
+				variables.put("jslx", zdryWorkflowVO.getSpjg());
+				variables.put("spjg", "1");
+			}
+			//gtldrApproval
+			variables.put("approvalMethod", "gtldrApproval");
+			taskService.completeTask(zdryWorkflowVO.getTaskId(), variables); // 执行任务
+			model.put(AppConst.STATUS, AppConst.SUCCESS);
+			model.put(AppConst.MESSAGES, "已审批！");
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage(), e);
+			model.put(AppConst.STATUS, AppConst.FAIL);
+			model.put(AppConst.MESSAGES, "审批失败！");
+		}
+		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
+		return mv;
+	}
+	/**
+	 * 
+	 * @Title: gtldrApproval
+	 * @Description: TODO(共同领导人审批)
+	 * @param @param zdryWorkflowVO
+	 * @param @param sessionBean
+	 * @param @return    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throws
+	 */
+	@RequestMapping(value = "/gtldrApproval", method = RequestMethod.POST)
+	public ModelAndView gtldrApproval(ZdryZdryzbVO zdryWorkflowVO,
+			SessionBean sessionBean) {
+		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
+		sessionBean = getSessionBean(sessionBean);
+		Map<String, Object> model = new HashMap<String, Object>();
+		try {
+			/* value="1" 裁定为现居住地接收 ; value="0" 裁定为原居住地接收 ; value="2" 指定部门接收 */
+
+			Map<String, Object> variables = new HashMap<String, Object>();
+			if (zdryWorkflowVO.getSpjg().equals("2")) {
+				OrgOrganization targetOrgOrganization = orgOrganizationService.queryByOrgcode(zdryWorkflowVO.getSszrqdm());
+				OrgOrganization xgxpcsOrg = orgOrganizationService.queryUpOrgByLevel(zdryWorkflowVO.getSszrqdm(), "32");
+				variables.put("sszrqdm", zdryWorkflowVO.getSszrqdm());
+				variables.put("xglbm", targetOrgOrganization.getOrgcode());//210202530004
+				variables.put("xgxpcsdm", xgxpcsOrg.getOrgcode());
+				variables.put("spjg", "1");
+			}else if (zdryWorkflowVO.getSpjg().equals("1")) {
+				variables.put("jslx", zdryWorkflowVO.getSpjg());
+				variables.put("spjg", "1");
+
+			} else {
+				variables.put("spjg", zdryWorkflowVO.getSpjg());
+			}
+			taskService.completeTask(zdryWorkflowVO.getTaskId(), variables); // 执行任务
+			model.put(AppConst.STATUS, AppConst.SUCCESS);
+			model.put(AppConst.MESSAGES, "已审批！");
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage(), e);
+			model.put(AppConst.STATUS, AppConst.FAIL);
+			model.put(AppConst.MESSAGES, "审批失败！");
+		}
+		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
+		return mv;
+	}
 	@RequestMapping(value = "/queryUserByOrgAndPos/{orgcode}/{posid}", method = RequestMethod.GET)
 	public JsonObject getUserByOrgAndPos(@PathVariable String orgcode,
 			@PathVariable String posid) {

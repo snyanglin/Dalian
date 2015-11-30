@@ -18,6 +18,7 @@ import com.founder.framework.organization.user.bean.OrgUser;
 import com.founder.framework.organization.user.service.OrgUserService;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
+import com.founder.zdrygl.base.model.ZdryGzb;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.inteface.ZdryZdryzbDaoService;
 import com.founder.zdrygl.core.model.Zdry;
@@ -249,5 +250,21 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 			 }
 			 
 			 return userCodes;
+		}
+		/**
+		 * 
+		 * @Title: queryByZdrylx
+		 * @Description: TODO(这里用一句话描述这个方法的作用)
+		 * @param @param zdrylx 重点人员类型
+		 * @param @param qydm  区域代码
+		 * @param @return    设定文件
+		 * @return ZdryGzb    返回类型
+		 * @throws
+		 */
+		public ZdryGzb queryByZdrylx(String zdrylx, String qydm) {
+			Map map=new HashMap();
+			map.put("qydm", qydm);
+			map.put("zdrylx", zdrylx);
+			return (ZdryGzb) queryForObject("ZdryGzb.queryLglxByZdrylx", map);
 		}
 }

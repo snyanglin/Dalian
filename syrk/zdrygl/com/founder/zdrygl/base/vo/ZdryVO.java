@@ -29,7 +29,8 @@ import com.founder.zdrygl.core.model.Zdry;
 public class ZdryVO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	String zdrylbStr;// 重点人员类别，用逗号分隔
 	ZdryZb zdryZdryzb;//重点人员总表
 	ZdryZdrkxxb zdryZdrk;//重点人口 子表
 	ZdryJgdxxxb zdryJgdxxxb;//监管对象
@@ -165,6 +166,12 @@ public class ZdryVO implements Serializable {
 	}
 	public void setZdryZdryzbVO(ZdryZdryzbVO zdryZdryzbVO) {
 		this.zdryZdryzbVO = zdryZdryzbVO;
+	}
+	public String getZdrylbStr() {
+		return zdrylbStr;
+	}
+	public void setZdrylbStr(String zdrylbStr) {
+		this.zdrylbStr = zdrylbStr;
 	}	
 	
 			

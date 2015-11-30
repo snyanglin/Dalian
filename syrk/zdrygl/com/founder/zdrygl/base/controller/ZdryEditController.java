@@ -23,8 +23,12 @@ import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
+import com.founder.framework.organization.department.service.OrgOrganizationService;
+import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.framework.utils.DateUtils;
+import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.zdrygl.base.model.ZdryZb;
+import com.founder.zdrygl.base.service.WorkFlowParametersInitialService;
 import com.founder.zdrygl.base.service.ZdryEditService;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.base.vo.ZdryVO;
@@ -32,6 +36,8 @@ import com.founder.zdrygl.base.vo.ZdrygnVO;
 import com.founder.zdrygl.base.vo.ZdryxxzsVO;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.inteface.ZdrylxylbdybService;
+import com.founder.zdrygl.core.utils.LcgFlagEnum;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 import com.google.gson.Gson;
 /**
@@ -64,6 +70,15 @@ public class ZdryEditController extends BaseController {
 	
 	@Autowired
 	private ZdryRuleService zdryRuleService;
+	
+	@Resource(name = "orgOrganizationService")
+	private OrgOrganizationService orgOrganizationService;
+
+	@Resource(name = "orgPositionService")
+	private OrgPositionService orgPositionService;
+
+	@Resource(name = "zdrylxylbdybService")
+	private ZdrylxylbdybService zdrylxylbdybService;
 	
 	/**
 	 * 
@@ -382,8 +397,10 @@ public class ZdryEditController extends BaseController {
 			if(!sfkzl)
 				throw new BussinessException("该 重点人员管理类型 不可转类");
 			
-									
-			mv.addObject("zdryZb", zdryZb);
+
+			ZdryVO vo = new ZdryVO();
+			vo.setZdryZdryzb(zdryZb);						
+			mv.addObject("zdryZb", vo);
 			mv.addObject("zdrylxmc", zdryConstant.zdryDict().get(zdryZb.getZdrygllxdm()));
 			return mv;
 	}
@@ -400,14 +417,19 @@ public class ZdryEditController extends BaseController {
 	 * @throws
 	 */
 	@RequestMapping(value = "/zdryZL", method = RequestMethod.POST)
-	public ModelAndView zdryZL(ZdryZb zdryZb, SessionBean sessionBean,String xzdrylbmc) {
+	public ModelAndView zdryZL(ZdryVO zdryZb, SessionBean sessionBean,String xzdrylbmc) {
 		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
 		Map<String, Object> model = new HashMap<String, Object>();
 		sessionBean = getSessionBean(sessionBean);
 		try {			
 			//只传入了ID和zdrylb两个字段
-			ZdryService zdryService = zdryFactory.createZdryService(null, zdryZb, null);
-			zdryService.zl(sessionBean);	
+			String zdrygllxdm = zdryZb.getZdryZdryzb().getZdrygllxdm();// 重点人员类型
+			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdrylxylbdybService,orgOrganizationService,orgPositionService,zdryQueryService);
+			StartProcessInstance spi = wfpis.initialProcessInstance(sessionBean,zdryZb,LcgFlagEnum.ZL);
+			ZdryService zdryService = zdryFactory.createZdryService(zdrygllxdm, zdryZb.getZdryZdryzb(), zdryZb.getZdrylbdx());
+			//ZdryService zdryService = zdryFactory.createZdryService(zdryZb.getZdrygllxdm(), zdryZb, null);
+			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(),spi.getVariables());	
+			zdryService.zl(sessionBean);
 			
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
 			model.put(AppConst.MESSAGES, getUpdateSuccess());

@@ -47,7 +47,29 @@ public class ZdFail implements JavaDelegate{
 		
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
-		
+
+		String yjzd_dzid = (String)  arg0.getVariable("yjzd_dzid");
+		String yjzd_dzxz = (String)  arg0.getVariable("yjzd_dzxz");
+		String yjzd_mlpdm = (String)  arg0.getVariable("yjzd_mlpdm");
+		String yjzd_mlpxz = (String)  arg0.getVariable("yjzd_mlpxz");
+		String yjzd_xzqhdm = (String)  arg0.getVariable("yjzd_xzqhdm");
+		String yjzd_zbx = (String)  arg0.getVariable("yjzd_zbx");
+		String yjzd_zby = (String)  arg0.getVariable("yjzd_zby");
+		String yglbm = (String)  arg0.getVariable("yglbm");
+		String ryid = (String)  arg0.getVariable("ryid");
+		sessionBean.getExtendMap().put("yglbm", yglbm);		
+		sessionBean.getExtendMap().put("yjzd_dzid", yjzd_dzid);
+		sessionBean.getExtendMap().put("yjzd_dzxz", yjzd_dzxz);		
+		sessionBean.getExtendMap().put("yjzd_mlpdm", yjzd_mlpdm);
+		sessionBean.getExtendMap().put("yjzd_mlpxz", yjzd_mlpxz);	
+		sessionBean.getExtendMap().put("yjzd_xzqhdm", yjzd_xzqhdm);		
+		sessionBean.getExtendMap().put("yjzd_zbx", yjzd_zbx);	
+		sessionBean.getExtendMap().put("yjzd_zby", yjzd_zby);
+		sessionBean.getExtendMap().put("ryid", ryid);
+		sessionBean.getExtendMap().put("xgxpcsdm", (String)  arg0.getVariable("xgxpcsdm"));
+		sessionBean.getExtendMap().put("ygxpcsdm", (String)  arg0.getVariable("ygxpcsdm"));
+		String yzrqdm = (String)  arg0.getVariable("yzrqdm");//原责任区代码
+		sessionBean.getExtendMap().put("yzrqdm", yzrqdm);
 		
 		/*String zdryid=(String) arg0.getVariable("zdryid");
 		String zdryxm=(String) arg0.getVariable("xm");
@@ -60,7 +82,6 @@ public class ZdFail implements JavaDelegate{
 		
 		String spr=sessionBean.getUserId();
 		String spbm=sessionBean.getUserOrgCode();*/
-	
 		zdryService.zdFail(sessionBean);
 	}
 	

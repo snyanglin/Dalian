@@ -11,67 +11,72 @@
 <div class="easyui-layout" data-options="fit:true">
     <form action="<%=basePath%>zdryZd/saveZd" id="dataForm" name="dataForm" method="post" enctype="multipart/form-data">
     	
-    	<input type="hidden" id="id" name="id" value="${zdryZb.id}" />
+    	<input type="hidden" id="id" name="id" value="${zdryZb.zdryZdryzb.id}" />
+    	<input type="hidden" id="zdryZdryzb.id" name="zdryZdryzb.id" value="${zdryZb.zdryZdryzb.id}" />
+    	<input type="hidden" id="zdryZdryzbVO.id" name="zdryZdryzbVO.id" value="${zdryZb.zdryZdryzb.id}" />
+    	<input type="hidden" id="lxdh" name="zdryZdryzb.zdrylb" value="${zdryZb.zdryZdryzb.zdrylb}" />
+    	<input type="hidden" id="lxdh" name="zdryZdryzb.zdrygllxdm" value="${zdryZb.zdryZdryzb.zdrygllxdm}" />
+    	<input type="hidden" id="lxdh" name="zdryZdryzb.cyzjdm" value="${zdryZb.zdryZdryzb.cyzjdm}" />
     	
 	    <div data-options="region:'center', split:true" style="width:500px; border-width: 0px;">
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 			<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">姓名：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text"  id="xm" name="xm" style="width:200px;" readonly="readonly"  value="${zdryZb.xm}"/></td>
+		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text"  id="xm" name="xm" style="width:200px;" readonly="readonly"  value="${zdryZb.zdryZdryzb.xm}"/></td>
 				<td width="20%" class="dialogTd" align="right">公民身份号码：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="zjhm" style="width:200px;" readonly="readonly" value="${zdryZb.zjhm}"/></td>
+		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="zjhm" style="width:200px;" readonly="readonly" value="${zdryZb.zdryZdryzb.zjhm}"/></td>
 		    </tr>		 
 		    <tr class="dialogTr">
 	    		<td width="20%" class="dialogTd" align="right">现居住地址：</td>
-		    	<td width="80%" class="dialogTd" colspan="3"><input class="easyui-validatebox inputreadonly"  type="text" id="dz_hjdzmlpxz" name="dz_hjdzmlpxz" value="${zdryZb.jzd_dzxz}" maxlength="50"  readonly="readonly"
+		    	<td width="80%" class="dialogTd" colspan="3"><input class="easyui-validatebox inputreadonly"  type="text" id="dz_hjdzmlpxz" name="zdryZdryzbVO.dz_hjdzmlpxz" value="${zdryZb.zdryZdryzb.jzd_dzxz}" maxlength="50"  readonly="readonly"
 		    		style="width: 665px;" data-options=""/>
 		    	</td>
 		    </tr>
 		    <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">管辖派出所：</td>
 		    	<td width="30%" class="dialogTd">
-		    	<input class="easyui-validatebox inputreadonly" type="text" id="ygxpcs" name="ygxpcs" value="" style="width:200px;" readonly="readonly"/>
-		    		<input type="hidden" name="ygxpcsdm" id="ygxpcsdm" value="${zdryZb.gxpcsdm}"/>	
+		    	<input class="easyui-validatebox inputreadonly" type="text" id="ygxpcs" name="zdryZb.zdryZdryzb.ygxpcs" value="" style="width:200px;" readonly="readonly"/>
+		    		<input type="hidden" name="zdryZdryzbVO.ygxpcsdm" id="ygxpcsdm" value="${zdryZb.zdryZdryzb.gxpcsdm}"/>	
 		    	</td>
 				<td width="20%" class="dialogTd" align="right">管辖责任区：</td>
 		    	<td width="30%" class="dialogTd">
-		    		<input class="easyui-validatebox inputreadonly" type="text" id="ygxzrq" name="ygxzrq" value="" style="width:200px;" readonly="readonly"/>
-		    		<input type="hidden" name="ygxzrqdm" id="ygxzrqdm" value="${zdryZb.gxzrqdm }"/>	
+		    		<input class="easyui-validatebox inputreadonly" type="text" id="ygxzrq" name="zdryZb.zdryZdryzb.ygxzrq" value="" style="width:200px;" readonly="readonly"/>
+		    		<input type="hidden" name="zdryZdryzbVO.ygxzrqdm" id="ygxzrqdm" value="${zdryZb.zdryZdryzb.gxzrqdm }"/>	
 		    	</td>
 		    </tr>    			
 		    <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">转递地址：</td>
 		    	<td width="50%" class="dialogTd" colspan="2">
 					<input class="easyui-combobox" id="xjzd1" style="width:400px;" value="" data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
-					<input type='hidden' name='jzd_xzqhdm' id="jzd_xzqhdm" value=""/>
-					<input type='hidden' name='jzd_mlpdm' id="jzd_mlpdm" value=""/>
-					<input type='hidden' name='jzd_mlpxz' id="jzd_mlpxz" value=""/>										
-					<input type='hidden' name='jzd_zbx' id="jzd_zbx" value=""/>
-					<input type='hidden' name='jzd_zby' id="jzd_zby" value=""/>
+					<input type='hidden' name='zdryZdryzb.jzd_xzqhdm' id="jzd_xzqhdm" value=""/>
+					<input type='hidden' name='zdryZdryzb.jzd_mlpdm' id="jzd_mlpdm" value=""/>
+					<input type='hidden' name='zdryZdryzb.jzd_mlpxz' id="jzd_mlpxz" value=""/>										
+					<input type='hidden' name='zdryZdryzb.jzd_zbx' id="jzd_zbx" value=""/>
+					<input type='hidden' name='zdryZdryzb.jzd_zby' id="jzd_zby" value=""/>
 				</td>
 				<td width="30%" class="dialogTd">
 					    	<input class="easyui-combobox" id="xjzd2" style="width:200px;" value='' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
-					    	<input type='hidden' name='jzd_dzid' id="jzd_dzid" value=""/>
-					    	<input type='hidden' name='jzd_dzxz' id="jzd_dzxz" value=""/>
+					    	<input type='hidden' name='zdryZdryzb.jzd_dzid' id="jzd_dzid" value=""/>
+					    	<input type='hidden' name='zdryZdryzb.jzd_dzxz' id="jzd_dzxz" value=""/>
 				</td>	
 		    	
     	   </tr>
     	   <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">管辖派出所：</td>
 		    	<td width="30%" class="dialogTd">
-		    		<input class="easyui-validatebox inputreadonly" type="text" id="xgxpcs" name="xgxpcs" value="" style="width:200px;" readonly="readonly" />
-		    		<input type="hidden" name="sspcsdm" id="xgxpcsdm" value=""/>
+		    		<input class="easyui-validatebox inputreadonly" type="text" id="xgxpcs" name="zdryZdryzbVO.xgxpcs" value="" style="width:200px;" readonly="readonly" />
+		    		<input type="hidden" name="zdryZdryzbVO.sspcsdm" id="xgxpcsdm" value=""/>
 		    	</td>
 				<td width="20%" class="dialogTd" align="right">管辖责任区：</td>
 		    	<td width="30%" class="dialogTd">
-		    		<input class="easyui-validatebox inputreadonly" type="text" id="xgxzrq" name="xgxzrq" value="" style="width:200px;" readonly="readonly" />
-		    		<input type="hidden" name="glbm" id="xgxzrqdm" value=""/>
+		    		<input class="easyui-validatebox inputreadonly" type="text" id="xgxzrq" name="zdryZdryzbVO.xgxzrq" value="" style="width:200px;" readonly="readonly" />
+		    		<input type="hidden" name="zdryZdryzbVO.sszrqdm" id="xgxzrqdm" value=""/>
 		    	</td>
 		    </tr>
 		    <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">转递原因：</td>
 		    	<td width="30%" class="dialogTd" colspan="3">
-		    		<input class="easyui-validatebox" type="text" id="ywfqyy" name="ywfqyy" style="width: 665px;" value=""  />
+		    		<input class="easyui-validatebox" type="text" id="ywfqyy" name="zdryZdryzbVO.ywfqyy" style="width: 665px;" value=""  />
 				</td>
 		    </tr>
 		    <tr class="dialogTr">
@@ -79,7 +84,11 @@
 		    	<td width="30%" class="dialogTd" colspan="3">
 		    		<input type="file" name="uploadFile" id="uploadFile" style="width:665px;" class="easyui-validatebox" data-options="tipPosition:'left',invalidMessage:'请选择要上传的转递依据'" />
 				</td>
-		    </tr>		    
+		    </tr>	
+		    <tr>
+		    	<td><A href="#" onclick="viewWorkflowDialog();">查看流程图</a> </td>
+		    	<td></td>
+		    </tr>	    
 	    	</table>
 	    </div>
     </form>
@@ -108,6 +117,12 @@ function changeCodeToName(){
 	public_getOrgName('xgxpcsdm','xgxpcs');
 	public_getOrgName('xgxzrqdm','xgxzrq');
 }
+function viewWorkflowDialog(){
+	var processDefinitionKey = "zd";
+	var url = '/syrk/diagram/diagram/' + processDefinitionKey;
+	var result=window.open(url,'newWindow','modal=yes,height=600px,width=900px,resizable=yes,z-look=yes,alwaysRaised=yes'); 
+	window.onfocus=function (){result.focus();};
 
+}
 </script>
 </html>

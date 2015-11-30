@@ -27,19 +27,19 @@ public class ZdryZdryzbVO implements Serializable {
 	private String zjhm;
 	private String xm;
 	private String xbdm;
-	private String mzdm;
-	private String csrq;
-	private String lxdh;
-	private String dz_hjdzssxdm;
-	private String dz_hjdzmlpdm;
-	private String dz_hjdzmlpxz;
-	private String dz_hjdzdm;
-	private String dz_hjdzxz;
-	private String dz_jzdzssxdm;
-	private String dz_jzdzmlpdm;
-	private String dz_jzdzmlpxz;
-	private String dz_jzdzdm;
-	private String dz_jzdzxz;
+	private String mzdm;//民族代码
+	private String csrq;//出生日期
+	private String lxdh;//
+	private String dz_hjdzssxdm;//籍贯省市县代码
+	private String dz_hjdzmlpdm;//户籍地_门楼牌代码
+	private String dz_hjdzmlpxz;//户籍地_门楼牌详址
+	private String dz_hjdzdm;	// 户籍地_行政区划代码
+	private String dz_hjdzxz;//户籍地_地址详址
+	private String dz_jzdzssxdm;//
+	private String dz_jzdzmlpdm;//居住地_门楼牌代码
+	private String dz_jzdzmlpxz;//居住地_门楼牌详址
+	private String dz_jzdzdm;//居住地_行政区划代码
+	private String dz_jzdzxz;//居住地_地址详址
 	private String zdrygllxdm;
 	private String zdrygllxmc;//管理类型名称
 	private String zdrylb;//小类代码
@@ -47,7 +47,7 @@ public class ZdryZdryzbVO implements Serializable {
 	private String fz;//管理类型分组
 	private String glzt;
 	private String zdlgbmid;
-	private String glbm;
+	private String glbm;  //转递管理部门
 	private String condition;//模糊查询条件
 	private String ywfqyy;//业务发起原因
 	private String ywlx;//业务类型
@@ -59,6 +59,31 @@ public class ZdryZdryzbVO implements Serializable {
 	private String sqrName;  //申请人名称
 	private String sqrbmdm;  //申请人部门代码
 	private String spjg;//审批结果
+	
+	private String zdlgbmmc;
+	private String sfsjsp;
+	private String sfjm;
+	private String sfzkdm;
+	private String ssfxjdm;//分市县局
+	private String sspcsdm;//转递管辖派出所
+	private String sszrqdm;////转递管辖责任区名称
+	private String zywtjxsbx;
+	
+	private String jgbmdm;//监管部门代码
+	private String jgbmmc;//监管部门名称
+	private String zbx;
+	private String zby;
+	
+	
+	private String ygxzrqdm;
+	private String ygxpcsdm;
+	@FieldDesc("查询类型")
+	private String type;
+	@FieldDesc("半径")
+	private String mapRadius;
+	@FieldDesc("坐标值")
+	private String zbz;
+	private int srid;
 	
 	
 	public String getSpjg() {
@@ -133,31 +158,6 @@ public class ZdryZdryzbVO implements Serializable {
 
 
 
-	private String zdlgbmmc;
-	private String sfsjsp;
-	private String sfjm;
-	private String sfzkdm;
-	private String ssfxjdm;//分市县局
-	private String sspcsdm;//所属派出所
-	private String sszrqdm;//所属责任区
-	private String zywtjxsbx;
-	
-	private String jgbmdm;
-	private String jgbmmc;
-	private String zbx;
-	private String zby;
-	
-	
-	private String ygxzrqdm;
-	private String ygxpcsdm;
-	@FieldDesc("查询类型")
-	private String type;
-	@FieldDesc("半径")
-	private String mapRadius;
-	@FieldDesc("坐标值")
-	private String zbz;
-	private int srid;
-	
 	
 	
 	

@@ -11,7 +11,10 @@
 <div class="easyui-layout" data-options="fit:true">
     <form action="<%=basePath%>zdryApproval/${approvalMethod}" id="dataForm" name="dataForm" method="post">
     	
+    	<input type="hidden" id="taskId" name="taskId""  value="${workflowId}" />
     	<input type="hidden" id="workflowId" name="workflowId""  value="${workflowId}" />
+    	<input type="hidden" id="executionId" name="executionId""  value="${executionId}" />
+    	<input type="hidden" id="ryid" name="zdryZdryzb.ryid" value="" />
  
     	
     
@@ -181,6 +184,8 @@
 
 	function getAgreeOrgCode() {
 		var su = true;
+		var agree = $("#agree").val();
+		if(agree==null) return;
 		$.ajax({
 		async:false,
 		type:"POST",
@@ -197,6 +202,8 @@
 		}
 	function getDisagreeOrgCode() {
 		var su = true;
+		var agree = $("#disagree").val();
+		if(agree==null) return;
 		$.ajax({
 		async:false,
 		type:"POST",
@@ -239,6 +246,7 @@
 	
 	
 	function SelectOrgUser(){
+		alert("..SelectOrgUser..");
 		var posid=$("#nextSppos").val();
 		//alert(posid);
 		if(posid==""){
@@ -250,6 +258,7 @@
 	}
 	
 	function SelectOrgPos(){
+		alert("..SelectOrgPos..");
 		public_singleSelectOrgPos(orgCode, '01', orglevel, '', '','', 'nextSpposId', 'posname12', 'nextSpOrgCode', '', '', false, '', window, 'onOrgPosSelected','nextSppos')
 		 
 	}

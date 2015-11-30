@@ -40,7 +40,6 @@ public class ZdSuccess implements JavaDelegate{
 	public ZdryAbstractFactory zdryFactory;
 	@Override
 	public void execute(DelegateExecution arg0) throws Exception {
-		// TODO Auto-generated method stub
 		String zdrylx = (String) arg0.getVariable("zdrylx");
 		ZdryZb zdryzb = (ZdryZb) arg0.getVariable("zdryzb");
 		Zdry zdrylbdx = (Zdry) arg0.getVariable("zdrylbdx");
@@ -48,20 +47,25 @@ public class ZdSuccess implements JavaDelegate{
 		
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
-		
-		
-		/*String zdryid=(String) arg0.getVariable("zdryid");
+
+		String zdryid=(String) arg0.getVariable("zdryid");
 		String zdryxm=(String) arg0.getVariable("xm");
 		
 		String ywsqrId=(String) arg0.getVariable("applyUserId");
 		String ywsqr=(String) arg0.getVariable("sqrName");
-		String sfcj=(String) arg0.getVariable("sfcj");
-		String yglbm=(String) arg0.getVariable("ygxzrqdm");
-		String xglbm=(String) arg0.getVariable("sszrqdm");
-		
-		String spr=sessionBean.getUserId();
-		String spbm=sessionBean.getUserOrgCode();*/
-		
+		//String sfcj=(String) arg0.getVariable("sfcj");
+		String xglbm=(String) arg0.getVariable("xglbm");
+		sessionBean.getExtendMap().put("xglbm", xglbm);
+		String sszrqdm = (String)  arg0.getVariable("sszrqdm");
+		String yglbm = (String)  arg0.getVariable("yglbm");
+		String ryid = (String)  arg0.getVariable("ryid");
+		if(sszrqdm != null){
+			sessionBean.getExtendMap().put("sszrqdm", sszrqdm);
+		}
+		sessionBean.getExtendMap().put("xgxpcsdm", (String)  arg0.getVariable("xgxpcsdm"));
+		sessionBean.getExtendMap().put("ygxpcsdm", (String)  arg0.getVariable("ygxpcsdm"));
+		sessionBean.getExtendMap().put("yglbm", yglbm);
+		sessionBean.getExtendMap().put("ryid", ryid);
 		zdryService.zdSuccess(sessionBean);
 		
 	}

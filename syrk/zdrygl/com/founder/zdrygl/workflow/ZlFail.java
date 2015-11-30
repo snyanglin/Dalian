@@ -44,6 +44,7 @@ public class ZlFail implements JavaDelegate{
 		String zdrylx = (String) arg0.getVariable("zdrylx");
 		ZdryZb zdryzb = (ZdryZb) arg0.getVariable("zdryzb");
 		Zdry zdrylbdx = (Zdry) arg0.getVariable("zdrylbdx");
+		zdryzb.setZdrylb( (String) arg0.getVariable("yzdrylb"));
 		ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
 		
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();

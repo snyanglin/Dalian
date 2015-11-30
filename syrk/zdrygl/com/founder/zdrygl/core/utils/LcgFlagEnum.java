@@ -2,7 +2,9 @@ package com.founder.zdrygl.core.utils;
 
 public enum LcgFlagEnum {
 	 LG("列管", "01"),  
-	 CG("撤管", "02");
+	 CG("撤管", "02"),
+	 ZD("转递", "03"), 
+	 ZL("转类", "04");
      private String name;
      private String value;
 

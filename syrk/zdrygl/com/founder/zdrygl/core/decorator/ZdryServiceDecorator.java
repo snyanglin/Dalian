@@ -129,31 +129,51 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	@Override
 	public final void zl(SessionBean sessionBean) {
 		//转类（小类）不涉及子表的修改
+		zdryService.zl(sessionBean);//新加，改变状态
+		if(checkWorkFlow()) {
+			if(processInstance != null && StringUtils.isEmpty(processInstance.getProcessKey())){
+				throw new BussinessException("缺少流程启动参数！");
+			}else{
+				processDefinitionService.startProcessInstance(processInstance.getApplyUserId(),processInstance.getProcessKey(), processInstance.getBusinessKey(), processInstance.getVariables());
+			}
+		}
 	}
 
 	@Override
 	public final void zlSuccess(SessionBean sessionBean) {
 		//转类（小类）不涉及子表的修改
+		zdryService.zlSuccess(sessionBean);
 	}
 
 	@Override
 	public final void zlFail(SessionBean sessionBean) {
 		//转类（小类）不涉及子表的修改
+		zdryService.zlFail(sessionBean);
 	}
 
 	@Override
 	public final void zd(SessionBean sessionBean) {
 		//转递不涉及子表的修改
+		zdryService.zd(sessionBean);//新加，改变状态
+		if(checkWorkFlow()) {
+			if(processInstance != null && StringUtils.isEmpty(processInstance.getProcessKey())){
+				throw new BussinessException("缺少流程启动参数！");
+			}else{
+				processDefinitionService.startProcessInstance(processInstance.getApplyUserId(),processInstance.getProcessKey(), processInstance.getBusinessKey(), processInstance.getVariables());
+			}
+		}
 	}
 
 	@Override
 	public final void zdSuccess(SessionBean sessionBean) {
 		//转递不涉及子表的修改
+		zdryService.zdSuccess(sessionBean);
 	}
 
 	@Override
 	public final void zdFail(SessionBean sessionBean) {
 		//转递不涉及子表的修改
+		zdryService.zdFail(sessionBean);
 	}
 	
 	/**

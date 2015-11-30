@@ -1,9 +1,7 @@
 package com.founder.zdrygl.base.controller;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,24 +22,20 @@ import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
-import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.framework.organization.user.service.OrgUserService;
-import com.founder.framework.utils.DateUtils;
-import com.founder.framework.utils.EasyUIPage;
-import com.founder.framework.utils.StringUtils;
 import com.founder.service.attachment.bean.ZpfjFjxxb;
 import com.founder.service.attachment.service.ZpfjFjxxbService;
-import com.founder.syrkgl.bean.SyrkSyrkxxzb;
-import com.founder.syrkgl.dao.SyrkSyrkxxzbDao;
-import com.founder.workflow.bean.JTask;
-import com.founder.workflow.service.inteface.JProcessDefinitionService;
-import com.founder.workflow.service.inteface.JTaskService;
+import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.zdrygl.base.model.ZdryZb;
+import com.founder.zdrygl.base.service.WorkFlowParametersInitialService;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
+import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.inteface.ZdrylxylbdybService;
+import com.founder.zdrygl.core.utils.LcgFlagEnum;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 import com.google.gson.Gson;
 
@@ -75,6 +68,19 @@ public class ZdryZdController extends BaseController {
 	
 	@Resource(name = "zpfjFjxxbService")
 	private ZpfjFjxxbService zpfjFjxxbService;
+	
+	@Resource(name = "orgUserService")
+	private OrgUserService orgUserService;
+
+	@Resource(name = "orgOrganizationService")
+	private OrgOrganizationService orgOrganizationService;
+
+	@Resource(name = "orgPositionService")
+	private OrgPositionService orgPositionService;
+
+	@Resource(name = "zdrylxylbdybService")
+	private ZdrylxylbdybService zdrylxylbdybService;
+	
 	/***
 	 * 
 	 * @Title: createLg
@@ -97,8 +103,9 @@ public class ZdryZdController extends BaseController {
 		if(!zdryConstant.YLG.equals(zdryZb.getGlzt())){
 			throw new BussinessException("该重点人员正在【"+zdryConstant.getGlztStr(zdryZb.getGlzt())+"】，不能办理其他业务");
 		}
-				
-		mv.addObject("zdryZb", zdryZb);
+		ZdryVO vo = new ZdryVO();
+		vo.setZdryZdryzb(zdryZb);
+		mv.addObject("zdryZb", vo);
 		
 		return mv;
 	}
@@ -115,15 +122,20 @@ public class ZdryZdController extends BaseController {
 	 */
 	@RequestMapping(value = "/saveZd", method = RequestMethod.POST)
 	public ModelAndView saveZd(
-			ZdryZb zdryZb, 
+			ZdryVO zdryZb, 
 			SessionBean sessionBean,
 			@RequestParam(value="uploadFile") CommonsMultipartFile[] uploadFile) {
 		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
 		Map<String, Object> model = new HashMap<String, Object>();
 		sessionBean = getSessionBean(sessionBean);
 		try {
-			//撤管重点人员
-			ZdryService zdryService = zdryFactory.createZdryService(null, zdryZb, null);
+			//转递重点人员
+			// 设置流程参数
+			String zdrygllxdm = zdryZb.getZdryZdryzb().getZdrygllxdm();// 重点人员类型
+			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdrylxylbdybService,orgOrganizationService,orgPositionService,zdryQueryService);
+			StartProcessInstance spi = wfpis.initialProcessInstance(sessionBean,zdryZb,LcgFlagEnum.ZD);
+			ZdryService zdryService = zdryFactory.createZdryService(zdrygllxdm, zdryZb.getZdryZdryzb(), zdryZb.getZdrylbdx());
+			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(),spi.getVariables());
 			zdryService.zd(sessionBean);
 			
 			//处理上传的转递依据
@@ -134,7 +146,7 @@ public class ZdryZdController extends BaseController {
 					FileItem fileItem = multipartFile.getFileItem();
 					ZpfjFjxxb entity = new ZpfjFjxxb();
 					entity.setLybm("ZDRY_ZDRYZB");
-					entity.setLyid(zdryZb.getId());//保存的是当前选择的重点人员id，因为后续 转递要改成一次只转一个类型
+					entity.setLyid(zdryZb.getZdryZdryzb().getId());//保存的是当前选择的重点人员id，因为后续 转递要改成一次只转一个类型
 					entity.setLyms("重点人员转递-转递依据");
 					String wjmc = fileItem.getName();
 					if (wjmc.indexOf("\\") != -1) { // 去除完整路径
@@ -173,7 +185,7 @@ public class ZdryZdController extends BaseController {
 				model.put(AppConst.STATUS, AppConst.SUCCESS);
 				model.put(AppConst.MESSAGES, getAddSuccess());
 			}
-						
+			
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
 			model.put(AppConst.MESSAGES, "转递发起成功");
 			

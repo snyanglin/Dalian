@@ -2,7 +2,7 @@ package com.founder.zdrygl.workflow.listener;
 
 import org.springframework.stereotype.Component;
 
-@Component("workRejectListener")
+@Component("zalcgWorkRejectListener")
 public class ZalcgWorkRejectListener extends WorkRejectListener {
 	/**
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
@@ -13,7 +13,7 @@ public class ZalcgWorkRejectListener extends WorkRejectListener {
 		String szApprovedType = (String) globalExecution.getVariable("szApprovedType");
 		if(szApprovedType.trim().equals("0")){
 			//确定启动的task前一个活动
-			targetTaskDefinitionKey = "exclusivegateway5";//"usertask6";//"exclusivegateway5";
+			targetTaskDefinitionKey = "usertask6";//"usertask6";//"exclusivegateway5";
 			
 		}
 	}

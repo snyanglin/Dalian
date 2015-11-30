@@ -1,25 +1,17 @@
 package com.founder.zdrygl.workflow.listener;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.activiti.engine.TaskService;
+import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.ExecutionListener;
 import org.activiti.engine.impl.RepositoryServiceImpl;
-import org.activiti.engine.impl.TaskServiceImpl;
-import org.activiti.engine.impl.interceptor.Command;
-import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.persistence.entity.TaskEntity;
-import org.activiti.engine.impl.pvm.PvmTransition;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.impl.pvm.process.ProcessDefinitionImpl;
-import org.activiti.engine.impl.pvm.process.TransitionImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.founder.zdrygl.workflow.ProcessCoreServiceImpl;
+import com.founder.workflow.util.ctrl.impl.DefaultTaskFlowControlService;
 
 /**
  * ****************************************************************************
@@ -42,9 +34,8 @@ public abstract class WorkRejectListener implements ExecutionListener {
 	private String activityId;
 	protected DelegateExecution globalExecution;
 	protected String targetTaskDefinitionKey;
-
-	@Resource(name = "processCoreServiceImpl")
-	protected ProcessCoreServiceImpl processCoreServiceImpl;
+	@Autowired
+	ProcessEngine _processEngine;
 
 	@Override
 	public void notify(DelegateExecution execution) throws Exception {
@@ -105,25 +96,25 @@ public abstract class WorkRejectListener implements ExecutionListener {
 				.getEngineServices().getRuntimeService().createExecutionQuery()
 				.executionId(globalExecution.getId()).singleResult();
 
-		final TaskService taskService = globalExecution.getEngineServices()
-				.getTaskService();
+		//final TaskService taskService = globalExecution.getEngineServices().getTaskService();
 		globalExecution.setVariable("hjdmj", "210204000000_59642604");
 		globalExecution.setVariable("businessType", "0");
 		globalExecution.setVariable("approvalMethod", "mjApproval");
-
+		DefaultTaskFlowControlService dtfcService = new DefaultTaskFlowControlService(_processEngine);
+		dtfcService.moveTo(currentTask, pointActivity);
 		// 包装一个Command对象
-		((TaskServiceImpl) globalExecution.getEngineServices().getTaskService())
+		/*((TaskServiceImpl) globalExecution.getEngineServices().getTaskService())
 				.getCommandExecutor().execute(new Command<java.lang.Void>() {
 					@Override
 					public Void execute(CommandContext commandContext) {
 						// 创建新任务
-						/*executionEntity.setActivity(pointActivity);
+						executionEntity.setActivity(pointActivity);
 						executionEntity.executeActivity(pointActivity);
 						// 删除当前的任务 // 不能删除当前正在执行的任务，所以要先清除掉关联
 						executionEntity.removeTask(currentTask);
 						currentTask.setExecutionId(null);
 						taskService.saveTask(currentTask);
-						taskService.deleteTask(currentTask.getId(), true);*/
+						taskService.deleteTask(currentTask.getId(), true);
 						// 清空当前流向
 						List<PvmTransition> oriPvmTransitionList = processCoreServiceImpl.clearTransition(currentActivity);
 
@@ -138,9 +129,14 @@ public abstract class WorkRejectListener implements ExecutionListener {
 
 						// 还原以前流向
 						processCoreServiceImpl.restoreTransition(currentActivity, oriPvmTransitionList);
+						
+						ExecutionEntity execution = commandContext.getExecutionEntityManager().findExecutionById(_executionId);
+						execution.setActivity(_activity);
+						execution.performOperation(AtomicOperation.TRANSITION_CREATE_SCOPE);
+
 						return null;
 					}
-				});
+				});*/
 	}
 
 	public ActivityImpl getActivity(String processDefId,

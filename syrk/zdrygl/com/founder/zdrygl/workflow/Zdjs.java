@@ -25,7 +25,7 @@ import com.founder.syrkgl.service.SyrkSyrkxxzbService;
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
-
+@Deprecated
 @Component
 public class Zdjs implements JavaDelegate{
 
