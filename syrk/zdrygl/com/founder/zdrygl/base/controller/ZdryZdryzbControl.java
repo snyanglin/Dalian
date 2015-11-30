@@ -31,7 +31,6 @@ import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.exception.RestException;
-import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.framework.organization.user.service.OrgUserService;
@@ -42,14 +41,12 @@ import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.workflow.service.inteface.JProcessDefinitionService;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrycg;
-import com.founder.zdrygl.base.model.Zdrylxylbdyb;
 import com.founder.zdrygl.base.service.WorkFlowParametersInitialService;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.base.validator.ZdryVOValidator;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
-import com.founder.zdrygl.core.inteface.ZdrylxylbdybService;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.LcgFlagEnum;
 import com.founder.zdrygl.core.utils.ZdryConstant;
@@ -93,9 +90,6 @@ public class ZdryZdryzbControl extends BaseController {
 
 	@Resource(name = "orgPositionService")
 	private OrgPositionService orgPositionService;
-
-	@Resource(name = "zdrylxylbdybService")
-	private ZdrylxylbdybService zdrylxylbdybService;
 
 	@Resource(name = "zpfjFjxxbService")
 	private ZpfjFjxxbService zpfjFjxxbService;
@@ -233,7 +227,7 @@ public class ZdryZdryzbControl extends BaseController {
 			ZdryService zdryService = zdryFactory.createZdryService(zdrygllxdm,
 					zdryVO.getZdryZdryzb(), zdryVO.getZdrylbdx());
 			// start process
-			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdrylxylbdybService,orgOrganizationService,orgPositionService,zdryQueryService);
+			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdryConstant,orgOrganizationService,orgPositionService,zdryQueryService);
 			StartProcessInstance spi = wfpis.initialProcessInstance(sessionBean,zdryVO,LcgFlagEnum.LG);
 			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(),spi.getVariables());
 			zdryService.lg(sessionBean);
@@ -460,7 +454,7 @@ public class ZdryZdryzbControl extends BaseController {
 			ZdryService zdryService = zdryFactory.createZdryService(
 					zb_new.getZdrygllxdm(), zdrycg, zdryVO.getZdrylbdx());
 			// start process
-			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdrylxylbdybService,orgOrganizationService,orgPositionService,zdryQueryService);
+			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdryConstant,orgOrganizationService,orgPositionService,zdryQueryService);
 			StartProcessInstance spi = wfpis.initialProcessInstance(sessionBean, zdryVO,LcgFlagEnum.CG);
 			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(), spi.getVariables());
 			zdryService.cg(sessionBean);
@@ -476,29 +470,5 @@ public class ZdryZdryzbControl extends BaseController {
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
 	}
-
-	/**
-	 * 
-	 * @Title: queryZdryTopLbList
-	 * @Description: 查询当前区域下的一级类别列表
-	 * @param @param sessionBean
-	 * @param @return 设定文件
-	 * @return List 返回类型
-	 * @throws
-	 */
-	@RequestMapping(value = "/queryZdryTopLbList", method = RequestMethod.GET)
-	public @ResponseBody List queryZdryTopLbList(SessionBean sessionBean) {
-		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
-		Map<String, Object> model = new HashMap<String, Object>();
-		List list = zdrylxylbdybService.getTopList();
-		Zdrylxylbdyb zdrylxylbdyb;
-		for (int i = 0; i < list.size(); i++) {
-			zdrylxylbdyb = (Zdrylxylbdyb) list.get(i);
-			zdrylxylbdyb.setLbdm(zdrylxylbdyb.getLbdm() + "/"
-					+ zdrylxylbdyb.getFz());
-		}
-		return list;
-	}
-
 
 }

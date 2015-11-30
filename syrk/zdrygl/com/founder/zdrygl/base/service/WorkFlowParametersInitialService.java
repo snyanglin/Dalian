@@ -15,22 +15,20 @@ import com.founder.zdrygl.base.model.Zdrylxylbdyb;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.base.vo.ZdryZdryzbVO;
 import com.founder.zdrygl.core.inteface.ZdryQueryService;
-import com.founder.zdrygl.core.inteface.ZdrylxylbdybService;
 import com.founder.zdrygl.core.utils.LcgFlagEnum;
+import com.founder.zdrygl.core.utils.ZdryConstant;
 
 public class WorkFlowParametersInitialService {
-	ZdrylxylbdybService zdrylxylbdybService;
+	ZdryConstant zdryConstant;
 	OrgOrganizationService orgOrganizationService;
 	OrgPositionService orgPositionService;
 	ZdryQueryService zdryQueryService;
 	
 	public WorkFlowParametersInitialService(
-			ZdrylxylbdybService zdrylxylbdybService,
-			OrgOrganizationService orgOrganizationService,
+			ZdryConstant zdryConstant, OrgOrganizationService orgOrganizationService,
 			OrgPositionService orgPositionService,
 			ZdryQueryService zdryQueryService) {
 		super();
-		this.zdrylxylbdybService = zdrylxylbdybService;
 		this.orgOrganizationService = orgOrganizationService;
 		this.orgPositionService = orgPositionService;
 		this.zdryQueryService = zdryQueryService;
@@ -121,7 +119,7 @@ public class WorkFlowParametersInitialService {
 		Zdrylxylbdyb zdrylxylbdyb = new Zdrylxylbdyb();
 		ZdryZb zdryZdryzb = zdryVO.getZdryZdryzb();
 		zdrylxylbdyb.setLbdm(zdryZdryzb.getZdrygllxdm());
-		String zdrylxmc = zdrylxylbdybService.query(zdrylxylbdyb).getBz();
+		String zdrylxmc = zdryConstant.getValueOfZdryDict(zdryZdryzb.getZdrygllxdm());
 		
 
 		variables.put("zdrylx", zdryZdryzb.getZdrygllxdm());// 人员类型
@@ -217,7 +215,7 @@ public class WorkFlowParametersInitialService {
 		Zdrylxylbdyb zdrylxylbdyb = new Zdrylxylbdyb();
 		ZdryZb zdryZdryzb = zdryVO.getZdryZdryzb();
 		zdrylxylbdyb.setLbdm(zdryZdryzb.getZdrygllxdm());
-		String zdrylxmc = zdrylxylbdybService.query(zdrylxylbdyb).getBz();
+		String zdrylxmc = zdryConstant.getValueOfZdryDict(zdryZdryzb.getZdrygllxdm());
 		
 
 		variables.put("zdrylx", zdryZdryzb.getZdrygllxdm());// 人员类型
