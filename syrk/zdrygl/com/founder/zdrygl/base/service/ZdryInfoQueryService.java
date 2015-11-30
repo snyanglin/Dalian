@@ -11,9 +11,9 @@ import com.founder.framework.config.SystemConfig;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 import com.founder.zdrygl.base.model.ZdryZb;
-import com.founder.zdrygl.core.dao.ZdryInitializeDao;
 import com.founder.zdrygl.core.inteface.ZdryQueryService;
 import com.founder.zdrygl.core.model.Zdry;
+import com.founder.zdrygl.core.utils.ZdryConstant;
 
 @Service("zdryQueryService")
 public class ZdryInfoQueryService extends ZdryQueryService {
@@ -22,7 +22,7 @@ public class ZdryInfoQueryService extends ZdryQueryService {
 	private ZdryZdryZbDao zdryZdryZbDao;
 	
 	@Autowired
-	private ZdryInitializeDao zdryInitializeDao;
+	private ZdryConstant zdryConstant;
 
 	@Override
 	public EasyUIPage queryList(EasyUIPage page, Object object) {
@@ -63,7 +63,6 @@ public class ZdryInfoQueryService extends ZdryQueryService {
 	
 	@Override
 	public Zdry queryById(String zdryzbId) {
-		// TODO Auto-generated method stub
 		return zdryZdryZbDao.queryById(zdryzbId);
 	}
 	
@@ -76,15 +75,16 @@ public class ZdryInfoQueryService extends ZdryQueryService {
 	 * @return List    返回类型
 	 * @throw
 	 */
-	public List getChildList(String lbdm_p) {		
-		String  qydm =SystemConfig.getString("systemXzqh");		
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<?> getChildList(String lbdm_p) {		
+		String  qydm = SystemConfig.getString("systemXzqh");		
 		if(org.springframework.util.StringUtils.isEmpty(qydm)) qydm="210000";
-		List list = zdryInitializeDao.queryZdryDict(lbdm_p,qydm);
-		Map map;
-		List childList;
+		List<?> list = zdryConstant.queryChildByQydm(lbdm_p,qydm);
+		Map<String,Object> map;
+		List<?> childList;
 		String id,text;
 		for(int i=0;i<list.size();i++){
-			map=(Map) list.get(i);
+			map = (Map) list.get(i);
 			//树结构必须是id和text
 			id=(String) map.get("key");
 			text=(String) map.get("value");
@@ -92,7 +92,7 @@ public class ZdryInfoQueryService extends ZdryQueryService {
 			map.put("id", id);
 			map.put("text", text);
 			
-			childList=this.getChildList(id);
+			childList = this.getChildList(id);
 			if(childList!=null && childList.size()>0){//下级树结构
 				map.put("state", "closed");
 				map.put("children", childList);				

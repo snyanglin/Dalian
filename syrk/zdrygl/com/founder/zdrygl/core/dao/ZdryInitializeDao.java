@@ -56,13 +56,29 @@ public class ZdryInitializeDao extends BaseDaoImpl{
 	/**
 	 * 
 	 * @Title: queryZdryDict
-	 * @Description: TODO(根据区域代码取重点人员字典)
+	 * @Description: (根据区域代码取重点人员字典)
 	 * @param @param qydm
 	 * @param @return    设定文件
 	 * @return List    返回类型
 	 * @throw
 	 */
-	public List<?> queryZdryDict(String lbdm_p,String qydm) {
+	public List<?> queryZdryDictList(String qydm) {
+		Map<String,String> map=new HashMap<String,String>();
+		map.put("qydm", qydm);
+		return queryForList("ZdryInitialize.queryZdryDict", map);
+	}
+	
+	/**
+	 * 
+	 * @Title: getChildList
+	 * @Description: (这里用一句话描述这个方法的作用)
+	 * @param @param lbdm_p
+	 * @param @param qydm
+	 * @param @return    设定文件
+	 * @return List<?>    返回类型
+	 * @throws
+	 */
+	public List<?> getChildList(String lbdm_p,String qydm){
 		Map<String,String> map=new HashMap<String,String>();
 		map.put("lbdm_p", lbdm_p);
 		map.put("qydm", qydm);

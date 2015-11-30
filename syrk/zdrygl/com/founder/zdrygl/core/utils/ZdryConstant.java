@@ -21,7 +21,7 @@ import com.founder.zdrygl.core.dao.ZdryInitializeDao;
  * ****************************************************************************
  * @Package:      [com.founder.zdrygl.core.utils.ZdryConstant.java]  
  * @ClassName:    [ZdryConstant]   
- * @Description:  [重点人员管理常量]   
+ * @Description:  [重点人员管理常量，包含管理状态，重点人员类别字典]   
  * @Author:       [wei.wen@founder.com.cn]  
  * @CreateDate:   [2015年8月31日 下午11:01:15]   
  * @UpdateUser:   [lenovo(如多次修改保留历史记录，增加修改记录)]   
@@ -63,7 +63,7 @@ public class ZdryConstant {
 	}
 	
 	/**
-	 *  TODO(这里用一句话描述这个方法的作用)
+	 *  TODO(总表service配置待改造)
 	 */
 	
 	public Map<String,String> zdryServiceMap(){
@@ -89,6 +89,10 @@ public class ZdryConstant {
 		if(zdryDict.isEmpty())
 			zdryDict.putAll(zdryInitializeDao.queryZdryDict(SystemConfig.getString(AppConst.XZQH)==""?"210000":SystemConfig.getString(AppConst.XZQH)));
 		return zdryDict.get(zdrylxdm);
+	}
+	
+	public List<?> queryChildByQydm(String qydm,String lbdm_p){
+		return zdryInitializeDao.getChildList(lbdm_p,qydm);
 	}
 	
 	/**
@@ -162,10 +166,10 @@ public class ZdryConstant {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private List<TreeNode> queryChildNodeList(TreeNode parrentNode){
 		String qydm = SystemConfig.getString(AppConst.XZQH);
-		String lbdm_p="999999";
+		String lbdm_p = "999999";
 		if(parrentNode!=null) lbdm_p = parrentNode.getId();
 		
-		List dictList = zdryInitializeDao.queryZdryDict(lbdm_p,org.springframework.util.StringUtils.isEmpty(qydm)?"210000":qydm);
+		List dictList = zdryInitializeDao.getChildList(lbdm_p,org.springframework.util.StringUtils.isEmpty(qydm)?"210000":qydm);
 		List<TreeNode> nodeList = new ArrayList<TreeNode>();
 		if (dictList != null && dictList.size() > 0) { // 有数据
 			Map<String,String> dictMap;			
