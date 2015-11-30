@@ -32,34 +32,6 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 	@Resource(name = "orgOrganizationService")
 	private OrgOrganizationService orgOrganizationService;
 
-	private Map<String,Object> convertToMap(Zdry entity){
-		ZdryZb zdryZb = (ZdryZb)entity;
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("id",zdryZb.getId());
-		map.put("ryid",zdryZb.getRyid());
-		map.put("zdrylb",zdryZb.getZdrylb());
-		map.put("syrkid",zdryZb.getSyrkid());
-		map.put("zdrygllxdm",zdryZb.getZdrygllxdm());
-		map.put("glzt",zdryZb.getGlzt());
-		map.put("zywtjxsbx",zdryZb.getZywtjxsbx());
-		map.put("glbm",zdryZb.getGlbm());
-		map.put("cxbm",zdryZb.getCxbm());
-		map.put("jgssxdm",zdryZb.getJgssxdm());
-//		map.put("hjd_ssxjgajgdm",zdryZb.getHjd_ssxjgajgdm());
-//		map.put("hjd_sspcsdm",zdryZb.getHjd_sspcsdm());
-//		map.put("hjd_sssq",zdryZb.getHjd_sssq());
-//		map.put("jzd_szdsdm",zdryZb.getJzd_szdsdm());
-//		map.put("gxbm",zdryZb.getGxbm());
-		map.put("cyzjdm",zdryZb.getCyzjdm());
-		map.put("zjhm",zdryZb.getZjhm());
-		map.put("xm",zdryZb.getXm());
-		map.put("xbdm",zdryZb.getXbdm());
-		map.put("mzdm",zdryZb.getMzdm());
-		map.put("csrq",zdryZb.getCsrq());
-		map.put("jzd_dzxz",zdryZb.getJzd_dzxz());
-		return map;
-	}
-	
 	@Override
 	public void insert(Zdry entity) {
 		ZdryZb zdryZb = (ZdryZb)entity;
@@ -111,6 +83,7 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 	/**
 	 * 查询包括已撤管的重点人员
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Zdry> queryListByEntity(Zdry zdryZdryzb, String andCondition) {
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -262,7 +235,7 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 		 * @throws
 		 */
 		public ZdryGzb queryByZdrylx(String zdrylx, String qydm) {
-			Map map=new HashMap();
+			Map<String,String> map=new HashMap<String,String>();
 			map.put("qydm", qydm);
 			map.put("zdrylx", zdrylx);
 			return (ZdryGzb) queryForObject("ZdryGzb.queryLglxByZdrylx", map);
