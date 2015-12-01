@@ -122,6 +122,12 @@ public class AqffRfxxb extends BaseEntity implements Serializable {
 	@FieldDesc("所有的人员信息 数据库无此字段")
 	private String ryAll;
 	@FieldDesc("所有的人员返回的list 数据库无此字段")
+	private String ryinsert;
+	@FieldDesc("所有的人员添加list 数据库无此字段")
+	private String ryupdate;
+	@FieldDesc("所有的人员修改的list 数据库无此字段")
+	private String rydelete;
+	@FieldDesc("所有的人员删除的list 数据库无此字段")
 	private List<Aqffrfryxxb> ryAllList;
 	@FieldDesc("模糊查询用到的传参字段")
 	private String ffzrrxm;
@@ -479,6 +485,24 @@ public class AqffRfxxb extends BaseEntity implements Serializable {
 	}
 	public void setSfck(int sfck) {
 		this.sfck = sfck;
+	}
+	public String getRyinsert() {
+		return ryinsert;
+	}
+	public void setRyinsert(String ryinsert) {
+		this.ryinsert = ryinsert;
+	}
+	public String getRyupdate() {
+		return ryupdate;
+	}
+	public void setRyupdate(String ryupdate) {
+		this.ryupdate = ryupdate;
+	}
+	public String getRydelete() {
+		return rydelete;
+	}
+	public void setRydelete(String rydelete) {
+		this.rydelete = rydelete;
 	}
 
 }

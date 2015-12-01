@@ -306,7 +306,7 @@ HomePcs.initFloatWin_back = function(json){
 				 czrkNum = json[i].sl;
 			 }else if(json[i].lxmc=="寄住人员"){
 				 jzrkNum = json[i].sl;
-			 }else if(json[i].lxmc=="暂住人口"){
+			 }else if(json[i].lxmc=="流动人员"){
 				 ldrkNum = json[i].sl;
 			 }else if(json[i].lxmc=="境外人员"){
 				 jwrkNum = json[i].sl;
@@ -703,7 +703,7 @@ HomePcs.sydwListMBRRyxq = function(mc,zbx,zby,id){
 	HomePcs.map._MapApp.addOverlay(initMarker);
 	HomePcs.mpdzMarkerArr.push(initMarker);
 	initMarker.addListener("click", function(){
-		var editUrl = "/sydwgl/view?id="+id;
+		var editUrl = "/sydwgl_dl/view?id="+id;
 		menu_open("实有单位",editUrl);
 	});
 };

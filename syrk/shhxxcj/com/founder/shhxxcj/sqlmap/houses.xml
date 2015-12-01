@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Houses">
+	<typeAlias alias="houses" type="com.founder.shhxxcj.bean.Houses" />
+	<!-- 修改单位检查 -->
+	<update id ="update" parameterClass="houses">
+		 <![CDATA[update  houses ]]>	
+		 <dynamic prepend="set">
+		    <isNotNull prepend="," property="hszt"><![CDATA[ hszt=#hszt#]]></isNotNull>
+		    <isNotNull prepend="," property="bzdzid"><![CDATA[ bzdzid=#bzdzid#]]></isNotNull>
+		    <isNotNull prepend="," property="ss4jbmdm"><![CDATA[ ss4jbmdm=#ss4jbmdm#]]></isNotNull>
+		    <isNotNull prepend="," property="syfwid"><![CDATA[ syfwid=#syfwid#]]></isNotNull>
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>	
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="queryHouses" parameterClass="Map" resultClass="houses">
+		<![CDATA[ select * from ( select rownum r ,m.* from (
+				SELECT HOUSES.ID,HOUSES.hszt,fwxz,xm,fzsfzh,fzyddh,fzxdz, czrq,syfwid,org1.orgname fwszdpcscod,enterprise.ZCMC as enterpriseid,dz.dzmc as bzdzid FROM HOUSES 
+				left join ORG_ORGANIZATION org1 on houses.fwszdpcscod=org1.orgcode
+				left join ENTERPRISES enterprise on houses.enterpriseID=enterprise.id
+				left join BZDZ_ADD_CHDZDXB dz on houses.bzdzid=dz.chdzid
+	
+				   WHERE houses.status=0 and (HOUSES.ss4jbmdm is null or (HOUSES.ss4jbmdm is not null and HOUSES.ss4jbmdm = #entity.ss4jbmdm#))]]>
+		<isNotEmpty prepend="AND" property="entity.fwxz">
+			fwxz  like '%$entity.fwxz$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.xm">
+			xm like'%$entity.xm$%'
+		</isNotEmpty>
+			<isNotEmpty prepend="AND" property="entity.fzsfzh">
+			fzsfzh like '%$entity.fzsfzh$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.hszt">
+			hszt = #entity.hszt#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.fwszdpcscod">
+			fwszdpcscod = #entity.fwszdpcscod#
+		</isNotEmpty>
+	   <![CDATA[) m  where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+	
+		<!-- 查询数量 -->
+	<select id="queryCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(1) from  HOUSES WHERE houses.status=0 and (HOUSES.ss4jbmdm is null or (HOUSES.ss4jbmdm is not null and HOUSES.ss4jbmdm = #entity.ss4jbmdm#)) ]]>
+	<isNotEmpty prepend="AND" property="entity.fwxz">
+			fwxz  like '%$entity.fwxz$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.xm">
+			xm like'%$entity.xm$%'
+		</isNotEmpty>
+			<isNotEmpty prepend="AND" property="entity.fzsfzh">
+			fzsfzh like '%$entity.fzsfzh$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.hszt">
+			hszt = #entity.hszt#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.fwszdpcscod">
+			fwszdpcscod = #entity.fwszdpcscod#
+		</isNotEmpty>
+	   <![CDATA[ ]]>
+	</select>
+	
+	<select id="queryById" parameterClass="String" resultClass="houses">
+		<![CDATA[select * from  HOUSES where ID = #id#  ]]>
+	</select>
+	
+	<select id="queryBzdz" parameterClass="String" resultClass="String">
+		<![CDATA[select b.dzmc from houses a ,bzdz_add_chdzdxb b where b.chdzid=a.bzdzid and a.id=#id# ]]>
+	</select>
+	
+</sqlMap>

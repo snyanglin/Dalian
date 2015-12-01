@@ -1,5 +1,6 @@
 package com.founder.bzdz.service.impl;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -200,8 +201,8 @@ public class DmServiceImpl extends BaseService implements DmService {
 	 * @日期： 2015-1-7 上午10:59:13 
 	 * @throws
 	 */
-	public List<ComboBox> queryDictDm(String pcsdm) {
-		return dmDao.queryDictDm(pcsdm);
+	public List<ComboBox> queryDictDm(Map<String,String> map) {
+		return dmDao.queryDictDm(map);
 	}
 	/**
 	 * @Title: queryDictSq 

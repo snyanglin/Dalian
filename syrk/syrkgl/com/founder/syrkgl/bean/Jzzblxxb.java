@@ -83,9 +83,15 @@ public class Jzzblxxb extends BaseEntity implements Serializable{
 	@FieldDesc("备注")
 	private String bz;
 	
+	//自定义查询条件
+	private String nb_orgcode;
 	
-	
-	
+	public String getNb_orgcode() {
+		return nb_orgcode;
+	}
+	public void setNb_orgcode(String nbOrgcode) {
+		nb_orgcode = nbOrgcode;
+	}
 	public String getBz() {
 		return bz;
 	}

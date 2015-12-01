@@ -44,7 +44,7 @@
   position: absolute;
   top: 50%;
   margin-top: -8px;
-  height: 20px;
+  height: 16px;
   overflow: hidden;
 }
 .panel-icon {
@@ -57,10 +57,10 @@
 }
 .panel-tool a {
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   opacity: 0.6;
-  
+  filter: alpha(opacity=60);
   margin: 0 0 0 2px;
   vertical-align: top;
 }

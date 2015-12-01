@@ -360,7 +360,7 @@ FrameTools.Map.prototype.showNewMapServer = function(mapDiv,mapName){
 	for(var i=0;i<str.length;i++){
 		var imgStr = str[i];
 		var bz = (str.length -1) - i;
-		imgHtml += "<img id='img_"+bz+"' onclick='FrameTools.Map.showMap("+bz+","+mapName+","+str.length+");' style='cursor:hand;' src='"+contextPath+"/images/map/icons/"+imgStr.split('|')[3]+"'>&nbsp;&nbsp;"
+		imgHtml += "<img id='img_"+bz+"' onclick='FrameTools.Map.showMap("+bz+","+mapName+","+str.length+");' style='cursor:hand;' src='../images/map/icons/"+imgStr.split('|')[3]+"'>&nbsp;&nbsp;"
 	}
 	var html = "<div id='mapToolDiv' style='position:absolute;right:5px;top:10px;'>"+imgHtml+"</div>";
 	$("#"+mapDiv).append(html);
@@ -584,11 +584,7 @@ FrameTools.Map.prototype.moveMapToBjzbz = function(bjzbz){
 			}
 		}
 		/*根据图元素将地图放到最适合的级别和位置*/
-		try{
-			this._MapApp.centerAtMBR(mbr);
-		}catch(e){
-			console.log("地图DIV太小无法正常显示居中");
-		}
+		this._MapApp.centerAtMBR(mbr);
 		/*新版本cliect自动适应级别有问题必须降一级*/
 		this._MapApp.zoomOut();
 	}
@@ -707,47 +703,4 @@ FrameTools.Map.prototype.lineIntersect = function (a,b,c,d) {
         return false;  
     }  
     return true;  
-};
-
-
-
-
-/**
- * @title: initPolygonToOne 
- * @description:绘制面函数
- * @author: Li_Zhenzhong@founder.com 
- * @param linestr 面坐标
- * @param lineColor 边线颜色
- * @param lineWidth 边线宽度
- * @param fillcolor 面内颜色
- * @param fillOpacity 面内透明度
- * @param msgHtml 气泡显示,有值事点击面，将内容显示在气泡中
- * @param clickFun 点击面触发方法 自定义点击触发方法
- * @returns 
- * @date：2012-9-19下午6:24:29
- */
-FrameTools.Map.prototype.initPolygonToOne = function(linestr,lineColor,lineWidth,fillcolor,fillOpacity,msgHtml,clickFun){
-	var polygon = new Polygon(linestr,lineColor,lineWidth,fillOpacity,fillcolor);
-	this.addPolygonChickFun(polygon,msgHtml,clickFun);// 地图元素加入点击事件
-	return polygon;
-};
-
-/**
- * @title: addPolygonChickFun 
- * @description:添加面图元点击事件
- * @author: Li_Zhenzhong@founder.com 
- * @param obj 面对象
- * @param msgHtml 气泡中参数
- * @param mouseFun 是否开放动态显示标签
- * @param titleObj 标签titile对象
- * @param clickFun 点击方法
- * @date：2012-9-19下午6:26:11
- */
-FrameTools.Map.prototype.addPolygonChickFun = function(obj,msgHtml,clickFun){
-		obj.addListener("click", function(){
-				if( msgHtml!="" && msgHtml!=null)
-					obj.openInfoWindowHtml(msgHtml);
-				if( clickFun!="" && clickFun!=null)
-					clickFun();
-		});
 };

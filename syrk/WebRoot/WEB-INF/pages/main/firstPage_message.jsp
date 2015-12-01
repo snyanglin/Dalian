@@ -117,7 +117,7 @@ function datagridEdit(windowID, paramArray, dataOptions, submitConfirm,xxbt,ywur
            				iconCls: 'icon-home',
            				handler: function(){
            					window.top.$('#' + windowID).dialog('close');
-           					var editUrl = "/sydwgl/view?id="+zbz[1];
+           					var editUrl = "/sydwgl_dl/view?id="+zbz[1];
            					menu_open("实有单位编辑",editUrl);
            				}
            			},{

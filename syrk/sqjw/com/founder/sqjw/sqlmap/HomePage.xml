@@ -267,22 +267,6 @@
                   </isEqual>
                  AND T.ORGANIZATION = #zzjgdm#
 	</select>
-		<!-- 統計出租房-->
-	<select id="queryCzfTj" parameterClass="Map" resultClass="java.lang.Long">
-          SELECT COUNT(1) FROM SYFW_FWJBXXB t WHERE t.XT_ZXBZ ='0' AND t.Sfczfw ='1' AND T.SS4JBMDM = #orgCode#
-	</select>
-	<!-- 統計已查房屋-->
-	<select id="queryCheckTj" parameterClass="Map" resultClass="java.lang.Long">
-         select count(1) from SYFW_CZFWJCXXB t where t.XT_ZXBZ ='0' and t.CZFWID in(SELECT t.id FROM SYFW_FWJBXXB t WHERE t.XT_ZXBZ ='0' AND t.Sfczfw ='1' AND T.SS4JBMDM = #orgCode#)
-	</select>
-	
-	<select id="queryZdryTj" parameterClass="Map" resultClass="com.founder.sqjw.vo.ZdryCountVo">
-	select  count(1) zdrycount,t.zdrygllxdm zdrybm  from ZDRY_ZDRYZB t where t.xt_zxbz ='0' and t.glbm= #orgCode# group by t.zdrygllxdm
-	</select>
-	
-	<select id="queryZrqsyrkTj" parameterClass="Map" resultClass="com.founder.sqjw.vo.ZzjgVo">
-          SELECT AS SYRKCOUNT,t.syrkywlxdm FROM  SYRK_SYRKXXZB t WHERE t.XT_ZXBZ ='0' AND t.XT_LRRBMID =#orgCode# GROUP BY t.syrkywlxdm
-	</select>
 	<!-- 获取工作对象的坐标值 -->
 	<select id="queryGzdxList" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
 	     <isEqual property="lx" compareValue="1" prepend="">
@@ -1305,6 +1289,34 @@
 		</iterate>
 	</select>
 	
+	<!-- org_organization -->
+	<!--start with PARENTID = '194113' 
+fenju-pcs:
+	select * from (select t.*,rownum as ROWNO from (    
+	 	select ID,PARENTID,ORGCODE,ORGNAME,ORGTYPE,ORGNAMEPY,ORGLEVEL,ORGBIZTYPE, BJZBZ    
+	 		from ORG_ORGANIZATION a where XT_ZXBZ = '0'     and     ORGTYPE = '01' connect by prior ID = PARENTID         
+	  		order siblings by ORGTYPE,ORDERNO) t) ORG where ORG.ID in    
+	 		(select ID from ORG_ORGANIZATION connect by ID = prior PARENTID start with ORGLEVEL in ('32') and ORGBIZTYPE in ('01','04')) order by ROWNO
+	 		
+fengju:
+	 		select * from (select t.*,rownum as ROWNO from (    select ID,PARENTID,ORGCODE,ORGNAME,ORGTYPE,ORGNAMEPY,ORGLEVEL,ORGBIZTYPE, BJZBZ   
+      from ORG_ORGANIZATION a where XT_ZXBZ = '0'     and     ORGTYPE = '01'         
+      connect by prior ID = PARENTID start with id = 194113 
+      order siblings by ORGTYPE,ORDERNO) t) ORG where ORG.ID in    
+        (select ID from ORG_ORGANIZATION connect by ID = prior PARENTID start with ORGLEVEL in ('21')) order by ROWNO
+pcs:
+	  		select * from (select t.*,rownum as ROWNO from (    select ID,PARENTID,ORGCODE,ORGNAME,ORGTYPE,ORGNAMEPY,ORGLEVEL,ORGBIZTYPE, BJZBZ    
+		from ORG_ORGANIZATION a where XT_ZXBZ = '0'     and     ORGTYPE = '01'         
+		connect by prior ID = PARENTID start with id = '194411'
+		order siblings by ORGTYPE,ORDERNO) t) ORG where ORG.ID in    
+		(select ID from ORG_ORGANIZATION connect by ID = prior PARENTID start with ORGLEVEL in ('32') and ORGBIZTYPE in ('01','04')) order by ROWNO
+zrq:		
+		select * from (select t.*,rownum as ROWNO from (    select ID,PARENTID,ORGCODE,ORGNAME,ORGTYPE,ORGNAMEPY,ORGLEVEL,ORGBIZTYPE, BJZBZ       
+			from ORG_ORGANIZATION a where XT_ZXBZ = '0'     and     ORGTYPE = '01'            
+			connect by prior ID = PARENTID start with id='194869'   
+			order siblings by ORGTYPE,ORDERNO) t) ORG where ORG.ID in       
+			(select ID from ORG_ORGANIZATION connect by ID = prior PARENTID start with ORGLEVEL in ('50') and ORGBIZTYPE in ('01','04')) order by ROWNO
+	 -->
 	<select id="queryTree"  parameterClass="Map" resultClass="com.founder.tzgg.bean.Org_Organization">
 	  <isEmpty prepend="" property="line">
 	  <![CDATA[

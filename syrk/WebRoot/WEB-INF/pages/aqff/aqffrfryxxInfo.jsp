@@ -38,7 +38,7 @@
 			<input type="hidden" id="rfid" name="rfid" value="${rfid}" />
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 				<tr>
-				    <td class="td1">证件种类：</td>
+				    <td class="td1">证件类型：</td>
 				    <td class="td2">
 					    <script type="text/javascript">
 					    	document.write(window.top.getDictName(contextPath + '/common/dict/KX_D_CYZJDM.js', "${entity.zjlxdm}"));

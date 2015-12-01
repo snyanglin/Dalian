@@ -118,5 +118,7 @@ public class ZpfjPtryzpServiceImp implements ZpfjPtryzpService {
 	public ZpfjPtryzpxxb queryZpById(String id) {
 		return zpfjPtryzpDao.queryZpById(id);
 	}
+
+
 	
 }

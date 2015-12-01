@@ -104,7 +104,7 @@
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">居住证领取方式：</td>
 		    	<td width="30%" class="dialogTd"><input class="easyui-combobox inputreadonly" type="text" id="jzz_lqfsdm" name="jzz_lqfsdm" style="width:190px;" value="${entity.jzz_lqfsdm}" disabled="disabled"
-					data-options="url: contextPath + '/common/dict/BD_D_JZZLQFSDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'left'"
+					data-options="url: contextPath + '/common/dict/BD_D_JZZLQFSDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'left'" />
 		    	</td>
 		    	
 		    	
@@ -124,7 +124,7 @@
 	    	
 	    	<tr class="dialogTr">
 				<td width="20%" class="dialogTd" align="right">收件地址：</td>
-				<td width="80%" class="dialogTd" colspan="3"><input  type='text' id='jzd_dzxz' class="easyui-validatebox inputreadonly" style="width:525px;" value="${entity.jzd_dzxz}" readonly="readonly"/></td>
+				<td width="80%" class="dialogTd" colspan="3"><input  type='text' id='jzz_kddz' name="jzz_kddz" class="easyui-validatebox inputreadonly" style="width:525px;" value="${entity.jzz_kddz}" readonly="readonly"/></td>
 			</tr>
 			
 			<tr class="dialogTr">

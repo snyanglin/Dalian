@@ -23,8 +23,8 @@ import com.founder.framework.components.AppConst;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
 import com.founder.framework.utils.UUID;
-import com.founder.sydw.bean.Dwjbxxb;
-import com.founder.sydw.service.DwjbxxbService;
+import com.founder.sydw_dl.bean.Dwjbxxb;
+import com.founder.sydw_dl.service.DwjbxxbService;
 import com.google.gson.Gson;
 /******************************************************************************
  * @Package:      [com.founder.aqff.controller.AqffRfxxbController.java]  
@@ -49,6 +49,20 @@ public class AqffRfxxbController extends BaseController{
 	//单位基本信息表service
 	@Resource(name = "dwjbxxbService")
 	private DwjbxxbService dwjbxxbService;
+	
+	/**
+	 * 领导页面：群防群治
+	 * @param page
+	 * @param rows
+	 * @param lrrbmid
+	 * @return
+	 */
+	@RequestMapping(value = "/getQfqz", method = RequestMethod.POST)
+	public @ResponseBody EasyUIPage getQfqz(EasyUIPage page,@RequestParam(value = "rows") Integer rows, @RequestParam(value = "lrrbmid") String lrrbmid) {
+		page.setPagePara(rows);
+		EasyUIPage result = rfxxService.queryRf(page, lrrbmid);
+		return result;
+	}
 	
 	/**
 	 * @Title: addRfxx
@@ -102,9 +116,6 @@ public class AqffRfxxbController extends BaseController{
 		ModelAndView mv = new ModelAndView("redirect:/forward/" + AppConst.FORWORD);
 		Map<String, Object> model = new HashMap<String, Object>();
 		SessionBean sessionBean = getSessionBean();
-		JSONArray  jcxmxJsonArray =JSONArray.fromObject(entity.getRyAll());
-		List<Aqffrfryxxb> list = new ArrayList<Aqffrfryxxb>();
-		list = (List<Aqffrfryxxb>)jcxmxJsonArray.toCollection(jcxmxJsonArray, Aqffrfryxxb.class);
 		int rfxxnum = 0;
 		String orgcode = sessionBean.getUserOrgCode();
 		entity.setXt_lrrbmid(orgcode);
@@ -119,13 +130,6 @@ public class AqffRfxxbController extends BaseController{
 				}
 				entity.setId(UUID.create());
 				rfxxService.insertRfxx(entity, sessionBean);
-				//添加人员之前先删掉之前已有人员
-				rfxxService.deleteRfryxx(entity);
-				for(int i = 0;i<list.size();i++){
-					Aqffrfryxxb rfry = list.get(i);
-					rfry.setRfid(entity.getId());
-					rfxxService.saveRfcyxx(rfry, sessionBean);
-				}
 				model.put(AppConst.STATUS, AppConst.SUCCESS);
 				model.put(AppConst.MESSAGES,  getMessage("add.success"));
 				model.put(AppConst.SAVE_ID, entity.getId()); // 返回主键
@@ -141,13 +145,6 @@ public class AqffRfxxbController extends BaseController{
 					}
 				}
 				rfxxService.updateRfxx(entity, sessionBean);
-				//添加人员之前先删掉之前已有人员
-				rfxxService.deleteRfryxx(entity);
-				for(int i = 0;i<list.size();i++){
-					Aqffrfryxxb rfry = list.get(i);
-					rfry.setRfid(entity.getId());
-					rfxxService.saveRfcyxx(rfry, sessionBean);
-				}
 				model.put(AppConst.STATUS, AppConst.SUCCESS);
 				model.put(AppConst.MESSAGES,  getMessage("update.success"));
 			}
@@ -259,7 +256,7 @@ public class AqffRfxxbController extends BaseController{
 				int ints = rfxxService.queryRfcyxxByZjhm(newnetity);
 				Aqffrfryxxb rfxxdb = rfxxService.queryRfcyxxById(entity);
 				String zjhm = "";
-				if(!"".equals(entity.getId())){
+				if(""!=entity.getId()){
 					zjhm = rfxxdb.getZjhm();
 				}
 				if(ints==0&&!zjhm.equals(entity.getZjhm())){
@@ -271,10 +268,21 @@ public class AqffRfxxbController extends BaseController{
 					model.put(AppConst.MESSAGES,  "人员重复!");
 					model.put(AppConst.SAVE_ID, entity.getId());
 				}
+				if(""!=entity.getDz_jzdzmlpxz()&&entity.getDz_jzdzdm()==""){
+					model.put(AppConst.STATUS, AppConst.ERRORS);
+					model.put(AppConst.MESSAGES,  "请先选择有效的单位地址！");
+					model.put(AppConst.SAVE_ID, entity.getId());
+				}
 			} else {
-				model.put(AppConst.STATUS, AppConst.SUCCESS);
-				model.put(AppConst.MESSAGES, getMessage("update.success"));
-				model.put(AppConst.SAVE_ID, entity.getId()); // 返回主键
+				if(""!=entity.getDz_jzdzmlpxz()&&entity.getDz_jzdzdm()==""){
+					model.put(AppConst.STATUS, AppConst.ERRORS);
+					model.put(AppConst.MESSAGES,  "请先选择有效的单位地址！");
+					model.put(AppConst.SAVE_ID, entity.getId());
+				}else{
+					model.put(AppConst.STATUS, AppConst.SUCCESS);
+					model.put(AppConst.MESSAGES, getMessage("update.success"));
+					model.put(AppConst.SAVE_ID, entity.getId()); // 返回主键
+				}
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -352,7 +360,7 @@ public class AqffRfxxbController extends BaseController{
 	public ModelAndView addRfryxx(String id,String mainTabID,String states,String rfid,String infoUrl,String zjhm,String zjlxdm,
 			String xm,String xbdm,String whcddm,String zzmmdm,String rylydm,String zznzw,String lxfs,
 			String cjsj,String dz_jzdzmlpdm,String dz_jzdzmlpxz,String dz_jzdzdm,
-			String dz_jzdzssxqdm,String dz_jzdzxz,String cylbdm,String bz,String gzdw,String dwid,String index) {
+			String dz_jzdzssxqdm,String dz_jzdzxz,String cylbdm,String bz,String gzdw,String dwid,String index,String zjhms) {
 		ModelAndView mv = new ModelAndView("aqff/aqffrfryxxAdd");
 		mv.addObject("mainTabID", mainTabID);
 		mv.addObject("states", states);
@@ -411,6 +419,7 @@ public class AqffRfxxbController extends BaseController{
 		mv.addObject("infoUrl", infoUrl==null ? "":infoUrl);
 		mv.addObject("flag", flag);
 		mv.addObject("entity", entity);
+		mv.addObject("zjhms", zjhms);
 		return mv;
 	}
 	

@@ -20,11 +20,12 @@ import org.aspectj.lang.annotation.Pointcut;
 import com.founder.bzdz.service.DzService;
 import com.founder.bzdz.vo.BzdzxxbVO;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
+import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.StringUtils;
-import com.founder.sydw.bean.Cyryxxb;
-import com.founder.sydw.bean.Dwjbxxb;
-import com.founder.sydw.dao.CyryxxbDao;
-import com.founder.sydw.dao.DwjbxxbDao;
+import com.founder.sydw_dl.bean.Cyryxxb;
+import com.founder.sydw_dl.bean.Dwjbxxb;
+import com.founder.sydw_dl.dao.CyryxxbDao;
+import com.founder.sydw_dl.dao.DwjbxxbDao;
 import com.founder.syrkgl.bean.SyrkCzrkxxb;
 import com.founder.syrkgl.bean.SyrkJwryxxb;
 import com.founder.syrkgl.bean.SyrkJzrkxxb;
@@ -38,8 +39,11 @@ import com.founder.syrkgl.dao.SyrkLdrkxxbDao;
 import com.founder.syrkgl.dao.SyrkSyrkxxzbDao;
 import com.founder.syrkgl.dao.SyrkWlhryxxbDao;
 import com.founder.ywxt.bean.Ywxtcyryxxb;
+import com.founder.ywxt.bean.Ywxtsfqypzb;
 import com.founder.ywxt.factory.XtFactory;
+import com.founder.ywxt.service.AbstractXtTask;
 import com.founder.ywxt.service.XtTaskService;
+import com.founder.ywxt.service.YwxtsfqypzService;
 
 /**
  * ****************************************************************************
@@ -80,7 +84,19 @@ public class SyrkModelInterceptor {
 	@Resource(name = "dwjbxxbDao")
 	private DwjbxxbDao dwjbxxbDao;
 	
-	
+	@Resource
+	private YwxtsfqypzService ywxtsfqypzService;
+
+	//人户分离协同类型
+	private static String YWXTLX_RHFLXT="01";
+	//实有人口注销协同
+	private static String YWXTLX_SYRKZXXT="02";
+	//工作单位协同
+	private static String YWXTLX_RYGZDWXT="03";
+	//联系电话协同
+	private static String YWXTLX_RYLXDHXT="04";
+
+	/***
 
 	/***
 	 * 
@@ -195,7 +211,7 @@ public class SyrkModelInterceptor {
 	 *             *
 	 * 
 	 * @Title: rhflXt
-	 * @Description: TODO(分户分离协同，根据证件号码和证件种类，查询非本责任区情况)
+	 * @Description: TODO(分户分离协同，根据证件号码和证件类型，查询非本责任区情况)
 	 * @param @param C 设定文件
 	 * @return void 返回类型
 	 * @throws
@@ -204,6 +220,11 @@ public class SyrkModelInterceptor {
 			NoSuchMethodException, IntrospectionException,
 			IllegalArgumentException, IllegalAccessException,
 			InvocationTargetException {
+		 Ywxtsfqypzb pz =ywxtsfqypzService.queryByYwxtlx(YWXTLX_RHFLXT);
+		   if(pz!=null &&pz.getSfqy().equals("0")){
+			   return;
+		   }
+		
 		Class refClass = obj.getClass();
 		// 这里bean内key值必须通用类型，由于没有抽象父类
 		PropertyDescriptor cyzjdmP = new PropertyDescriptor("cyzjdm", refClass);
@@ -253,6 +274,10 @@ public class SyrkModelInterceptor {
 			NoSuchMethodException, IntrospectionException,
 			IllegalArgumentException, IllegalAccessException,
 			InvocationTargetException {
+		 Ywxtsfqypzb pz =ywxtsfqypzService.queryByYwxtlx(YWXTLX_SYRKZXXT);
+		   if(pz!=null &&pz.getSfqy().equals("0")){
+			   return;
+		   }
 		Class refClass = obj.getClass();
 		// 这里bean内key值必须通用类型，由于没有抽象父类
 		PropertyDescriptor xtZxbzP = new PropertyDescriptor("xt_zxbz", refClass);
@@ -294,6 +319,10 @@ public class SyrkModelInterceptor {
 	private void rygzdwXt(Object obj,String zdmc) throws SecurityException,
 			NoSuchMethodException, IllegalArgumentException,
 			IllegalAccessException, InvocationTargetException, IntrospectionException {
+		 Ywxtsfqypzb pz =ywxtsfqypzService.queryByYwxtlx(YWXTLX_RYGZDWXT);
+		   if(pz!=null &&pz.getSfqy().equals("0")){
+			   return;
+		   }
 		Class refClass = obj.getClass();
 		// 这里bean内key值必须通用类型，由于没有抽象父类
 		PropertyDescriptor gzdwidP;
@@ -352,6 +381,10 @@ public class SyrkModelInterceptor {
 	private void rylxdhXt(Object obj,String zdmc) throws SecurityException,
 			NoSuchMethodException, IllegalArgumentException,
 			IllegalAccessException, InvocationTargetException, IntrospectionException {
+		 Ywxtsfqypzb pz =ywxtsfqypzService.queryByYwxtlx(YWXTLX_RYLXDHXT);
+		   if(pz!=null &&pz.getSfqy().equals("0")){
+			   return;
+		   }
 		Class refClass = obj.getClass();
 		// 这里bean内key值必须通用类型，由于没有抽象父类
 		PropertyDescriptor zjhmP = new PropertyDescriptor(zdmc, refClass);
@@ -452,12 +485,18 @@ public class SyrkModelInterceptor {
 		ywxtcyryxxb.setSspcs(orgOrganizationService.queryParentOrgByOrgcode(sszrq).getOrgcode());
 		ywxtcyryxxb.setSszrq(sszrq);
 		ywxtcyryxxb.setXtdz("发起");
+		ywxtcyryxxb.setXtjg(AbstractXtTask.RIGHT);
+		ywxtcyryxxb.setXt_cjsj(DateUtils.getSystemDateTimeString());
+		ywxtcyryxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		listCyr.add(ywxtcyryxxb);
 		Map<String,String> jsMap=new HashMap<String,String>();
 		ywxtcyryxxb=new Ywxtcyryxxb();
 		ywxtcyryxxb.setSspcs(pcsdm);
 		ywxtcyryxxb.setSszrq(zrqdm);
 		ywxtcyryxxb.setXtdz("接收");
+		ywxtcyryxxb.setXtjg(AbstractXtTask.ERROR);
+		ywxtcyryxxb.setXt_cjsj(DateUtils.getSystemDateTimeString());
+		ywxtcyryxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		listCyr.add(ywxtcyryxxb);
 		paramMap.put("users", listCyr);
 		//这里拼接JSONMap用于生产JSON
@@ -508,6 +547,9 @@ public class SyrkModelInterceptor {
 		ywxtcyryxxb.setSspcs(orgOrganizationService.queryParentOrgByOrgcode(sszrq).getOrgcode());
 		ywxtcyryxxb.setSszrq(sszrq);
 		ywxtcyryxxb.setXtdz("发起");
+		ywxtcyryxxb.setXtjg(AbstractXtTask.RIGHT);
+		ywxtcyryxxb.setXt_cjsj(DateUtils.getSystemDateTimeString());
+		ywxtcyryxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		listCyr.add(ywxtcyryxxb);
 		Map<String,String> jsMap=new HashMap<String,String>();
 		jsMap.put("zjhm", syrkWlhryxxb.getZjhm());
@@ -521,6 +563,9 @@ public class SyrkModelInterceptor {
 		ywxtcyryxxb.setSspcs(orgOrganizationService.queryParentOrgByOrgcode(syrkWlhryxxb.getXt_zhxgrbmid()).getOrgcode());
 		ywxtcyryxxb.setSszrq(syrkWlhryxxb.getXt_zhxgrbmid());
 		ywxtcyryxxb.setXtdz("接收");
+		ywxtcyryxxb.setXtjg(AbstractXtTask.ERROR);
+		ywxtcyryxxb.setXt_cjsj(DateUtils.getSystemDateTimeString());
+		ywxtcyryxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		listCyr.add(ywxtcyryxxb);
 		paramMap.put("users", listCyr);
 		//这里拼接JSONMap用于生产JSON
@@ -541,7 +586,7 @@ public class SyrkModelInterceptor {
 	 * @throws IllegalArgumentException *
 	 * 
 	 * @Title: xtByLdrk
-	 * @Description: TODO(暂住人口协同参数拼接，这5类方法，由于人口模型抽象不具体，比如3类人有zjhm字段，2类人有gmsfzhm字段)
+	 * @Description: TODO(流动人员协同参数拼接，这5类方法，由于人口模型抽象不具体，比如3类人有zjhm字段，2类人有gmsfzhm字段)
 	 * @param @param obj
 	 * @param @param syrkCzrkxxb
 	 * @param @param xtType    设定文件
@@ -573,6 +618,9 @@ public class SyrkModelInterceptor {
 		ywxtcyryxxb.setSspcs(orgOrganizationService.queryParentOrgByOrgcode(sszrq).getOrgcode());
 		ywxtcyryxxb.setSszrq(sszrq);
 		ywxtcyryxxb.setXtdz("发起");
+		ywxtcyryxxb.setXtjg(AbstractXtTask.RIGHT);
+		ywxtcyryxxb.setXt_cjsj(DateUtils.getSystemDateTimeString());
+		ywxtcyryxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		listCyr.add(ywxtcyryxxb);
 		Map<String,String> jsMap=new HashMap<String,String>();
 		jsMap.put("zjhm", syrkLdrkxxb.getZjhm());
@@ -586,6 +634,9 @@ public class SyrkModelInterceptor {
 		ywxtcyryxxb.setSspcs(orgOrganizationService.queryParentOrgByOrgcode(syrkLdrkxxb.getXt_zhxgrbmid()).getOrgcode());
 		ywxtcyryxxb.setSszrq(syrkLdrkxxb.getXt_zhxgrbmid());
 		ywxtcyryxxb.setXtdz("接收");
+		ywxtcyryxxb.setXtjg(AbstractXtTask.ERROR);
+		ywxtcyryxxb.setXt_cjsj(DateUtils.getSystemDateTimeString());
+		ywxtcyryxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		listCyr.add(ywxtcyryxxb);
 		paramMap.put("users", listCyr);
 		//这里拼接JSONMap用于生产JSON
@@ -640,6 +691,9 @@ public class SyrkModelInterceptor {
 		ywxtcyryxxb.setSspcs(orgOrganizationService.queryParentOrgByOrgcode(sszrq).getOrgcode());
 		ywxtcyryxxb.setSszrq(sszrq);
 		ywxtcyryxxb.setXtdz("发起");
+		ywxtcyryxxb.setXtjg(AbstractXtTask.RIGHT);
+		ywxtcyryxxb.setXt_cjsj(DateUtils.getSystemDateTimeString());
+		ywxtcyryxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		listCyr.add(ywxtcyryxxb);
 		Map<String,String> jsMap=new HashMap<String,String>();
 		jsMap.put("zjhm", syrkjzrkxxb.getGmsfhm());
@@ -653,6 +707,9 @@ public class SyrkModelInterceptor {
 		ywxtcyryxxb.setSspcs(orgOrganizationService.queryParentOrgByOrgcode(syrkjzrkxxb.getXt_zhxgrbmid()).getOrgcode());
 		ywxtcyryxxb.setSszrq(syrkjzrkxxb.getXt_zhxgrbmid());
 		ywxtcyryxxb.setXtdz("接收");
+		ywxtcyryxxb.setXtjg(AbstractXtTask.ERROR);
+		ywxtcyryxxb.setXt_cjsj(DateUtils.getSystemDateTimeString());
+		ywxtcyryxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		listCyr.add(ywxtcyryxxb);
 		paramMap.put("users", listCyr);
 		//这里拼接JSONMap用于生产JSON
@@ -706,6 +763,9 @@ public class SyrkModelInterceptor {
 		ywxtcyryxxb.setSspcs(orgOrganizationService.queryParentOrgByOrgcode(sszrq).getOrgcode());
 		ywxtcyryxxb.setSszrq(sszrq);
 		ywxtcyryxxb.setXtdz("发起");
+		ywxtcyryxxb.setXtjg(AbstractXtTask.RIGHT);
+		ywxtcyryxxb.setXt_cjsj(DateUtils.getSystemDateTimeString());
+		ywxtcyryxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		listCyr.add(ywxtcyryxxb);
 		Map<String,String> jsMap=new HashMap<String,String>();
 		jsMap.put("zjhm", syrkJwryxxb.getZjhm());
@@ -723,6 +783,9 @@ public class SyrkModelInterceptor {
 		ywxtcyryxxb.setSspcs(orgOrganizationService.queryParentOrgByOrgcode(syrkJwryxxb.getXt_zhxgrbmid()).getOrgcode());
 		ywxtcyryxxb.setSszrq(syrkJwryxxb.getXt_zhxgrbmid());
 		ywxtcyryxxb.setXtdz("接收");
+		ywxtcyryxxb.setXtjg(AbstractXtTask.ERROR);
+		ywxtcyryxxb.setXt_cjsj(DateUtils.getSystemDateTimeString());
+		ywxtcyryxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		listCyr.add(ywxtcyryxxb);
 		paramMap.put("users", listCyr);
 		//这里拼接JSONMap用于生产JSON
@@ -771,10 +834,13 @@ public class SyrkModelInterceptor {
 		ywxtcyryxxb.setSspcs(orgOrganizationService.queryParentOrgByOrgcode(sszrq).getOrgcode());
 		ywxtcyryxxb.setSszrq(sszrq);
 		ywxtcyryxxb.setXtdz("发起");
+		ywxtcyryxxb.setXtjg(AbstractXtTask.RIGHT);
+		ywxtcyryxxb.setXt_cjsj(DateUtils.getSystemDateTimeString());
+		ywxtcyryxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		listCyr.add(ywxtcyryxxb);
 		Map<String,String> jsMap=new HashMap<String,String>();
 		jsMap.put("zjhm", syrkCzrkxxb.getGmsfhm());
-		jsMap.put("cyzjdm", "111");//15年6月1号张悦说常口肯定是身份证，这里只作为json数据储存，常口表没有证件种类字段
+		jsMap.put("cyzjdm", "111");//15年6月1号张悦说常口肯定是身份证，这里只作为json数据储存，常口表没有证件类型字段
 		jsMap.put("id", syrkCzrkxxb.getId());
 		jsMap.put("xm", syrkCzrkxxb.getXm());
 		jsMap.put("ryid", syrkCzrkxxb.getRyid());
@@ -784,6 +850,9 @@ public class SyrkModelInterceptor {
 		ywxtcyryxxb.setSspcs(orgOrganizationService.queryParentOrgByOrgcode(syrkCzrkxxb.getXt_zhxgrbmid()).getOrgcode());
 		ywxtcyryxxb.setSszrq(syrkCzrkxxb.getXt_zhxgrbmid());
 		ywxtcyryxxb.setXtdz("接收");
+		ywxtcyryxxb.setXtjg(AbstractXtTask.ERROR);
+		ywxtcyryxxb.setXt_cjsj(DateUtils.getSystemDateTimeString());
+		ywxtcyryxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		listCyr.add(ywxtcyryxxb);
 		paramMap.put("users", listCyr);
 		//这里拼接JSONMap用于生产JSON

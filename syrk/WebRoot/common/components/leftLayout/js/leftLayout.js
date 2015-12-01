@@ -34,6 +34,7 @@ var LeftLayout = {
 	 * @param {Function} func 回调函数
 	 */
 	init : function(param, callbackFunc) {
+		
 		var id = param.id;
 		if(param.lfwidth){
 			LeftLayout.lfwidth = param.lfwidth;
@@ -65,6 +66,8 @@ var LeftLayout = {
 		if (typeof(callbackFunc) === 'function') {
 			callbackFunc();
 		}
+		LeftLayout.showLefLayout();
+
 	},
 	/**
 	 * 调整左侧宽度

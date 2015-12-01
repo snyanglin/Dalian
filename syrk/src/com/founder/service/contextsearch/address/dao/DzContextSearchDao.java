@@ -68,10 +68,11 @@ public class DzContextSearchDao extends BaseDaoImpl {
 				contextField = "DZMCPWD";
 			}
 			String innerCondition = ""; // 全文内部条件（根据索引是否在内部注入条件）
-			if (!StringUtils.isBlank(condition.getPcsdm())) {
-				innerCondition = "PCSDM=''" + condition.getPcsdm() + "''";
-			} else if (!StringUtils.isBlank(condition.getZrqdm())) {
+			 if (!StringUtils.isBlank(condition.getZrqdm())) {
 				innerCondition = "ZRQDM=''" + condition.getZrqdm() + "''";
+			} 
+			  else if (!StringUtils.isBlank(condition.getPcsdm())) {
+				innerCondition = "PCSDM=''" + condition.getPcsdm() + "''";
 			} else if (!StringUtils.isBlank(condition.getFxjdm())) {
 				innerCondition = "FXJDM=''" + condition.getFxjdm() + "''";
 			}
@@ -123,4 +124,51 @@ public class DzContextSearchDao extends BaseDaoImpl {
 		return list;
 	}
 
+	
+	/**
+	 * 
+	 * @Title: searchAddressMlph
+	 * @Description: TODO(搜索内保单位下的单位的地址门楼牌)
+	 * @param @param condition
+	 * @param @return    设定文件
+	 * @return List<DzContextCombo>    返回类型
+	 * @throws
+	 */
+	public List<DzContextCombo> searchNbAddressMlph(DzContextCondition condition) {
+		String glbmid = condition.getZrqdm();
+		condition.setZrqdm(null);
+		List<DzContextCombo> list = new ArrayList<DzContextCombo>();
+		String searchKey = condition.getSearchKey();
+		condition.setSearchKey(getCutSearchKey(searchKey));
+		String queryExpression = getQueryExpression(condition);
+		condition.setZrqdm(glbmid);
+		if (!StringUtils.isBlank(queryExpression)) {
+			condition.setQueryExpression(queryExpression);
+			list = queryForList("DzContextSearch.searchNbAddressMlph", condition);
+		}
+		return list;
+	}
+
+	/**
+	 * 
+	 * @Title: searchAddressMlphXz
+	 * @Description: TODO(搜索内保单位下的单位的地址门楼牌详址)
+	 * @param @param condition
+	 * @param @return    设定文件
+	 * @return List<DzContextCombo>    返回类型
+	 * @throws
+	 */
+	public List<DzContextCombo> searchNbAddressMlphXz(DzContextCondition condition) {
+		String glbmid = condition.getZrqdm();
+		condition.setZrqdm(null);
+		List<DzContextCombo> list = new ArrayList<DzContextCombo>();
+		if (!StringUtils.isBlank(condition.getId())) {
+			String searchKey = condition.getSearchKey();
+			condition.setSearchKey(getCutSearchKey(searchKey));
+			condition.setZrqdm(glbmid);
+			list = queryForList("DzContextSearch.searchNbAddressMlphXz",
+					condition);
+		}
+		return list;
+	}
 }

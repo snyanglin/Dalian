@@ -152,18 +152,6 @@ public class CkyjzlDao extends BaseDaoImpl {
 	}
 	
 	/**
-	 * @Title: updateCkzlyjqsb
-	 * @Description: TODO(修改长控指令反馈表)
-	 * @param @param entity
-	 * @param @return    设定文件
-	 * @return String    返回类型
-	 * @throws
-	 */
-	public int updateCkzlyjqsb(CkyjzlQsb entity) {
-		return update("Ckyjzl.updateCkzlyjqsb", entity); 
-	}
-	
-	/**
 	 * @Title: cyryxxb_export
 	 * @Description: TODO(常控警情导出功能)
 	 * @param @param dwid

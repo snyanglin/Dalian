@@ -8,8 +8,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.beanutils.MethodUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,18 +25,18 @@ import com.founder.framework.message.dao.SysMessageDao;
 import com.founder.framework.utils.DateUtils;
 import com.founder.service.attachment.bean.ZpfjFjxxb;
 import com.founder.syrkgl.bean.RyRyjbxxb;
-import com.founder.syrkgl.bean.SyrkJwryxxb;
 import com.founder.syrkgl.bean.SyrkSyrkxxzb;
 import com.founder.syrkgl.service.RyRyjbxxbService;
 import com.founder.syrkgl.service.RyRylxfsxxbService;
 import com.founder.syrkgl.service.SyrkEditService;
-import com.founder.syrkgl.service.SyrkJwryxxbService;
 import com.founder.syrkgl.service.SyrkSyrkxxzbService;
 import com.founder.syrkgl.vo.SyrkgnVo;
 import com.founder.syrkgl.vo.SyrkxxzsVo;
-import com.founder.zdrygl.base.model.ZdryZb;
-import com.founder.zdrygl.core.inteface.ZdryQueryService;
+import com.founder.zdry.service.ZdryZdryzbService;
+import com.founder.zdry.vo.ZdryZdryzbVO;
+
 import com.google.gson.Gson;
+import org.apache.commons.beanutils.MethodUtils;
 
 /***
  * ****************************************************************************
@@ -61,16 +59,16 @@ public class SyrkEditController extends BaseController {
 	private SyrkEditService syrkEditService;
 	@Resource(name = "syrkSyrkxxzbService")
 	private SyrkSyrkxxzbService syrkSyrkxxzbService;
-	@Autowired
-	private ZdryQueryService zdryQueryService;
+	@Resource(name = "zdryZdryzbService")
+	private ZdryZdryzbService zdryZdryzbService;
 	@Resource(name = "ryRyjbxxbService")
 	private RyRyjbxxbService ryRyjbxxbService;
 	@Resource(name = "ryRylxfsxxbService")
 	private RyRylxfsxxbService ryRylxfsxxbService;
-	@Resource(name = "syrkJwryxxbService")
-	private SyrkJwryxxbService syrkJwryxxbService;
 	@Resource(name = "sysMessageDao")
 	private SysMessageDao sysMessageDao;
+	
+	
 	/**
 	 * 
 	 * @Title: view
@@ -88,14 +86,11 @@ public class SyrkEditController extends BaseController {
 			@PathVariable(value = "syrkid") String syrkid,
 			@RequestParam(value = "mode", defaultValue = "edit") String mode,String messageid)
 			throws BussinessException {
-		SysMessage sysmessage = new SysMessage();
-		try{
+		if(messageid != null && !"".equals(messageid)){
+			SysMessage sysmessage = new SysMessage();
 			sysmessage.setId(Long.valueOf(messageid));
 			sysMessageDao.upadate(sysmessage);
-			}
-			catch(Exception e){
-				e.printStackTrace();
-			}
+		}
 		ModelAndView mv = new ModelAndView("syrkgl/syrkEdit");
 		List<SyrkSyrkxxzb> SyrkSyrkxxzbList = syrkSyrkxxzbService.queryListByRyid(ryid);
 		
@@ -108,11 +103,11 @@ public class SyrkEditController extends BaseController {
 		}
 		String lxdh =ryRylxfsxxbService.queryLastLxfs(ryid);
 		//查询本辖区重口信息,等待需求确认
-		List zdryList = zdryQueryService.queryListBySyrkId(syrkid);
+		List<ZdryZdryzbVO> zdryList = zdryZdryzbService.queryZdryBySyrkid(syrkid);
 		if(!zdryList.isEmpty()){
-			ZdryZb temp; 
+			ZdryZdryzbVO temp; 
 			for (int i = 0; i < zdryList.size(); i++) {
-				temp = (ZdryZb) zdryList.get(i);
+				temp = zdryList.get(i);
 				if("1".equals(temp.getGlzt())){
 					zdryList.remove(i);
 					i--;
@@ -121,6 +116,7 @@ public class SyrkEditController extends BaseController {
 		}
 		SyrkSyrkxxzb temp = null;
 		String syrklx="";
+		String gxzrq="";
 		List<Map<String, String>> syrkList = new ArrayList<Map<String, String>>();
 		Map<String, String> map = null;
 		for (int i = 0; i < SyrkSyrkxxzbList.size(); i++) {
@@ -132,12 +128,14 @@ public class SyrkEditController extends BaseController {
 			if (syrkid.equals(temp.getId())) {
 				map.put("isEdit", "1");
 				syrklx=temp.getSyrkywlxdm();
+				gxzrq=temp.getGxzrqdm();
 				//SyrkSyrkxxzbList.remove(i);
 			} else{
 				map.put("isEdit", "0");
 			}
 			syrkList.add(map);
 		}
+		mv.addObject("gxzrq",gxzrq);
 		mv.addObject("ry",ryRyjbxxb);
 		mv.addObject("syrkid",syrkid);
 		mv.addObject("mode", mode);
@@ -147,18 +145,10 @@ public class SyrkEditController extends BaseController {
 		
 		String zdry = "" ;
 		for (int i = 0; i < zdryList.size(); i++) {
-			zdry += ((ZdryZb) zdryList.get(i)).getZdrygllxdm()+",";
+			zdry += zdryList.get(i).getZdrygllxdm()+",";
 		}
 		zdry = zdry.lastIndexOf(",") == zdry.length() ?zdry.substring(0, zdry.length()-1):zdry;
 		mv.addObject("zdry", zdry);
-		//判断是否为境外人员
-		SyrkJwryxxb jwryxxb = new SyrkJwryxxb();
-		SyrkSyrkxxzb zx = syrkSyrkxxzbService.queryById(syrkid);
-		if("4".equals(zx.getSyrkywlxdm())){
-			jwryxxb = syrkJwryxxbService.queryById(syrkid);
-		}
-		mv.addObject("syrkywlxdm",zx.getSyrkywlxdm());
-		mv.addObject("jwry",jwryxxb);
 		return mv;
 	}
 	

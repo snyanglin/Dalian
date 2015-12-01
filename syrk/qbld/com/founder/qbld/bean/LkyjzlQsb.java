@@ -38,23 +38,7 @@ public class LkyjzlQsb extends BaseEntity implements Serializable {
 	private String qsdw;
 	@FieldDesc("签收单位机构代码,采用GA/Z 02 D3000")
 	private String qsdwjgdm;
-	@FieldDesc("接口发送状态， ‘0’发送成功；‘1’发送失败")
-	private String fszt;
-	@FieldDesc("接口调用状态码")
-	private String code;
 	
-	public String getFszt() {
-		return fszt;
-	}
-	public void setFszt(String fszt) {
-		this.fszt = fszt;
-	}
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
 	public String getLdxxbh() {
 		return ldxxbh;
 	}

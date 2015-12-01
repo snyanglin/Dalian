@@ -6,6 +6,7 @@ $(document).ready(function(){
 		setInputReadonly('zjhm',true);
 		setInputReadonly('xbdm',true);
 		setInputReadonly('xm',true);
+		setInputReadonly('zjlxdm',true);
 		//setInputReadonly('whcddm',true);
 		//setInputReadonly('zzmmdm',true);
 
@@ -108,7 +109,6 @@ $(function(){
             return $('#rfryxxForm').form('validate');  
         },  
         success:function(data){  
-        	alert(2);
             var json = $.parseJSON(data);
             if(json.status != 'success'){
             	topMessagerAlert(null,json.message);
@@ -139,7 +139,7 @@ function executeTabPageMethod1(mainTabID, method,methodSty) {
 	}
 	catch (err) {}
 }
-//证件种类验证绑定
+//证件类型验证绑定
 function validateZjhm(param){
 	$('#zjhm').val("");
 	if(param.id=='111'){
@@ -151,10 +151,23 @@ function validateZjhm(param){
 		cancelJzhmCtr();
 	}
 }
-//根据证件种类与号码 ，进行人员比对，复用
+//根据证件类型与号码 ，进行人员比对，复用
 function checkZjhm(){
 	if ($('#zjhm').validatebox("isValid")){
 		var zjhm = $('#zjhm').val();
+		var yzcf=0;
+		var zjhmsz = zjhms.split(",");
+		for(var j=0;j<zjhmsz.length;j++){
+			if(zjhmsz[j]==zjhm){
+				yzcf=1;
+			}
+		}
+		if(yzcf==1){
+			topMessagerAlert(null,zjhm+"此证件号码重复！");
+			$('#zjhm').val("");
+			return;
+		}
+
 		$.ajax({
 			type:"POST",
 			url: contextPath + "/ryRyjbxxb/dataApply",
@@ -176,13 +189,26 @@ function checkZjhm(){
 					$("#xbdm").combobox("setValue",data.ryRyjbxxb.xbdm);
 					setInputReadonly('xbdm',true);
 				}
-				if(data.ryRyjbxxb.xbdm!=''){
-					$("#whcddm").combobox("setValue",data.ryRyjbxxb.xldm);
-					//setInputReadonly('whcddm',true);
+				
+				if(data.ryRyjbxxb.jzd_xzqhdm!=''){
+					$("#dz_jzdzmlpdm").val(data.ryRyjbxxb.jzd_mlpdm);
+					$("#dz_jzdzmlpxz").val(data.ryRyjbxxb.jzd_mlpxz);
+					$("#dz_jzdzdm").val(data.ryRyjbxxb.jzd_dzid);
+					$("#dz_jzdzssxqdm").val(data.ryRyjbxxb.jzd_xzqhdm);
+					$("#dz_jzdzxz").val(data.ryRyjbxxb.jzd_dzxz);
+					$("#fzd3").combobox("setValue",data.ryRyjbxxb.jzd_mlpxz);
+					var dzxz=data.ryRyjbxxb.jzd_dzxz;
+					var ss = dzxz.replace(data.ryRyjbxxb.jzd_mlpxz,"");
+					$("#fzd4").combobox("setValue",ss);
 				}
-				if(data.ryRyjbxxb.xbdm!=''){
-					$("#zzmmdm").combobox("setValue",data.ryRyjbxxb.zzmmdm);
-					//setInputReadonly('zzmmdm',true);
+				if(data.ryRyjbxxb.xldm!=''){
+					$("#whcddm").combobox("setValue",data.ryRyjbxxb.xldm);//学历代码
+				}
+				if(data.ryRyjbxxb.lxdh!=''){
+					$("#lxfs").val(data.ryRyjbxxb.lxdh);//联系电话
+				}
+				if(data.ryRyjbxxb.zzmmdm!=''){
+					$("#zzmmdm").combobox("setValue",data.ryRyjbxxb.zzmmdm);//政治面貌代码
 				}
 			}
 		});	

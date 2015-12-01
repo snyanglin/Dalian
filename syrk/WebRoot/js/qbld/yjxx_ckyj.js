@@ -1,7 +1,7 @@
 if(typeof Yjxx =="undefined" || !Yjxx){
 	Yjxx = {};
 }
-Yjxx.buttonFlag = false;//按钮状态，当点击按钮式，如果上次处理未结束，禁止执行下一个方法。
+
 
 /**
  * @title:initCkyjQueryHtml
@@ -11,16 +11,13 @@ Yjxx.buttonFlag = false;//按钮状态，当点击按钮式，如果上次处理
  */
 Yjxx.initCkyjQueryHtml = function(type){
 	Yjxx.type = type;
-	/**
-	 * 当显示类型为待签收或待反馈时，值显示红色级别复选框。否则显示所有颜色预警记录
-	 */
 	if(type==0||type==1){
-		jbhtml = "<div class='jbdiv1'><input type='checkbox' name='yjjb' value='1' onclick='Yjxx.queryCkyjList();' checked disabled/>红色</div>";
+		jbhtml = "<input type='checkbox' name='yjjb' value='1' onclick='Yjxx.queryCkyjList();' checked disabled/>红色";
 	} else{
-		jbhtml = "<div class='jbdiv1'><input type='checkbox' name='yjjb'  onclick='Yjxx.queryCkyjList();' value='1' checked/>红色</div>"+
-		"<div class='jbdiv2'><input type='checkbox' name='yjjb' value='2'   onclick='Yjxx.queryCkyjList();' checked/>橙色</div>"+
-		"<div class='jbdiv3'><input type='checkbox' name='yjjb' value='4'   onclick='Yjxx.queryCkyjList();' checked/>黄色</div>"+
-		"<div class='jbdiv4'><input type='checkbox' name='yjjb' value='5'  onclick='Yjxx.queryCkyjList();'  checked/>蓝色</div>";
+		jbhtml = "<input type='checkbox' name='yjjb'  onclick='Yjxx.queryCkyjList();' value='1' checked/>红色"+
+		"<input type='checkbox' name='yjjb' value='2'   onclick='Yjxx.queryCkyjList();' checked/>橙色"+
+		"<input type='checkbox' name='yjjb' value='4'   onclick='Yjxx.queryCkyjList();' checked/>黄色"+
+		"<input type='checkbox' name='yjjb' value='5'  onclick='Yjxx.queryCkyjList();'  checked/>蓝色";
 	}
 	$(".yjjbCheckBox").html(jbhtml);
 	Yjxx.initCkyjSimpleQuery();
@@ -61,7 +58,7 @@ Yjxx.initCkyjAdvancedQuery = function(){
 	'<tr><td class="whereName">姓名</td><td><input class="whereInput" id="where_xm" maxlength=15></td></tr>'+
 	'<tr><td class="whereName">证件号码</td><td><input class="whereInput" id="where_sfzh" maxlength=18></td></tr>'+
 	'<tr><td class="whereName">人员类型</td><td><input id="where_lx" ></td></tr>'+
-	'<tr><td class="whereName">预警发布时间</td><td><input class="whereInput" id="where_yjfbsjB" onclick="WdatePicker({skin:\'whyGreen\',dateFmt:\'yyyyMMddHHmmss\'})" ><br>-'+
+	'<tr><td class="whereName">预警发布时间</td><td><input class="whereInput" id="where_yjfbsjB" onclick="WdatePicker({skin:\'whyGreen\',dateFmt:\'yyyyMMddHHmmss\'})" >-'+
 	'	<input class="whereInput" id="where_yjfbsjE" onclick="WdatePicker({skin:\'whyGreen\',dateFmt:\'yyyyMMddHHmmss\'})"></td></tr>'+
 	'<tr><td colspan=2 class="queryButton"><a href="#" id="advancedQueryButton" class="easyui-linkbutton" onclick="Yjxx.queryCkyjList();" >查询</a>'+
 	'										<a href="#" id="clearAdvancedQueryButton" class="easyui-linkbutton" onclick="Yjxx.clearYjxxAdvancedQueryValue();" >重置</a></td></tr>'+
@@ -115,9 +112,6 @@ Yjxx.clearYjxxAdvancedQueryValue = function(){
  * @date:2015-4-21下午4:12:07
  */
 Yjxx.queryCkyjList = function(total,begin,end,page){
-	/**
-	 * 获取级别复选框条件
-	 */
 	var checkObj = $(":checkBox");
 	var num = checkObj.length
 	var yjjb = ""; 
@@ -126,9 +120,6 @@ Yjxx.queryCkyjList = function(total,begin,end,page){
 		yjjb+=checkObj[i].value+",";
 	}
 	var param = "";
-	/**
-	 * 查询类型为模糊查询时，判断根据条件内容为数字和字母组合的放入身份证条件，否则放入姓名条件
-	 */
 	if(document.getElementById("where_all")){
 		var value = $("#where_all").val();
 		var reg = new RegExp("^[0-9a-zA-Z]*$");
@@ -139,7 +130,7 @@ Yjxx.queryCkyjList = function(total,begin,end,page){
 		}else{
 			xm = value;
 		}
-		param = {
+		param = {"yjjsdw":userOrgCode,
 				"yjjb":yjjb.substring(0, yjjb.length-1),
 				"qsfkzt":Yjxx.type,
 				"zdryxm":xm,
@@ -150,7 +141,7 @@ Yjxx.queryCkyjList = function(total,begin,end,page){
 				"end":end,
 				"page":page}
 	 }else{
-		 param = {
+		 param = {"yjjsdw":userOrgCode,
 					"yjjb":yjjb.substring(0, yjjb.length-1),
 					"qsfkzt":Yjxx.type,
 					"zdryxm":$("#where_xm").val(),
@@ -167,7 +158,6 @@ Yjxx.queryCkyjList = function(total,begin,end,page){
 	var url = contextPath+'/ckyj/queryCkyjList';
 	var fajax = new FrameTools.Ajax(url,Yjxx.queryCkyjList_back);
 	fajax.send(param);
-	$(document.body).mask("努力加载中...");
 };
 
 /**
@@ -178,10 +168,9 @@ Yjxx.queryCkyjList = function(total,begin,end,page){
  * @date:2015-4-20下午6:59:28
  */
 Yjxx.queryCkyjList_back = function(json){
-	$(document.body).unmask();
 	var  rsHtml = "<table class='listTable'>";
 		rsHtml+="<tr class='countInfo'>" +
-		"<td colspan=4 >共有<font color='#17a9ff'>"+json.total+"</font>条预警信息<a href='#' id='exportButton' class='easyui-linkbutton' onclick='Yjxx.exportCkyjList();' >导出</a></td>"+
+		"<td colspan=4 >共有<font color='#17a9ff'>"+json.total+"</font>条预警信息</td>"+
 		"</tr>";
 	var rows = json.rows;
 		num = rows.length
@@ -215,10 +204,6 @@ Yjxx.queryCkyjList_back = function(json){
 		rsHtml += "<tr class='fyTr'><td colspan=4 >"+Yjxx.showfy(json.total,json.rownum,json.page,"Yjxx.queryCkyjList")+"</td></tr>";
 		rsHtml+="</table>";
 	$("#InfoList").html(rsHtml);
-	$("#exportButton").linkbutton({
-		iconCls:"icon-xls",
-			plain:true
-	} ) 
 	Yjxx.initChangeListColor();
 };
 
@@ -235,7 +220,6 @@ Yjxx.queryOneCkyjInfo = function(yjxxbh){
 	var url = contextPath+'/ckyj/queryCkyj';
 	var fajax = new FrameTools.Ajax(url,Yjxx.showOneCkyjInfo);
 	fajax.send({"yjxxbh":yjxxbh});
-	$(document.body).mask("努力加载中...");
 }
 
 /**
@@ -247,18 +231,11 @@ Yjxx.queryOneCkyjInfo = function(yjxxbh){
  * @date:2015-5-6下午6:28:20
  */
 Yjxx.showOneCkyjInfo = function(json){
-	$(document.body).unmask();
-	/**
-	 * 传入显示对象为空时，显示当前显示对象
-	 */
 	if(json==null)
 		json = Yjxx.indexInfoObj;
-	/**
-	 * 当前显示对象为空时，赋值传入的对象
-	 */
 	if(Yjxx.indexInfoObj==null)
 		Yjxx.indexInfoObj = json;
-	else if(Yjxx.indexInfoObj != json ){//如果传入对于与当前显示对象不同，则显示返回按钮
+	else if(Yjxx.indexInfoObj != json ){
 		$("#backButtonTd").html("<a href='#' id='backButton' onclick='Yjxx.showOneCkyjInfo()' >返回</a>")
 	}else{
 		$("#backButtonTd").html("");
@@ -272,16 +249,10 @@ Yjxx.showOneCkyjInfo = function(json){
 	$("#documentButton").linkbutton({
 		   text:'电子档案'
 	   })
-	/**
-	 *如果显示为当前显示对象，则显示历史记录按钮
-	 */
     if(Yjxx.indexInfoObj == json ){
     	$("#lsListButton").linkbutton({
 	   		text:'历史'
  	   	} ) 
- 	   	/**
- 	   	 * 预警级别为红色时显示操作按钮，不等于0则显示反馈，否则显示签收
- 	   	 */
  	   	if(json.yjjb==1){
 	 	   	if(json.qsfkzt!=0){
 		 	   	$("#qsfkButton").linkbutton({
@@ -306,9 +277,6 @@ Yjxx.showOneCkyjInfo = function(json){
  */
 Yjxx.buildCkyjInfoHtml = function(json){
 	var zdryxl = "";
-	/**
-	 * 当重点人员类型有多个时进行拆分翻译
-	 */
 	if(json.zdryxl.indexOf(",")!=-1){
 		var zdryArr = json.zdryxl.split(",");
 		var num = zdryArr.length;
@@ -329,47 +297,33 @@ Yjxx.buildCkyjInfoHtml = function(json){
 					"		<td id='imgTd' rowspan=6 ><img style='width:150px;height:185px;' src='"+contextPath + "/ckyj/queryQbldZpSingle.jpg?sfzh="+json.sfzh + "'></img></td></tr>" +
 			"			<tr><td class='infoName'>性别</td><td class='infoValue'>"+ window.top.getDictName(contextPath + '/common/dict/D_QBLD_XB.js', json.xbdm) +"</td>" +
 					"		<td class='infoName'>籍贯</td><td class='infoValue'>"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_XB.js', json.jgssxdm) +"</td></tr>" +
-			"			<tr><td class='infoName'>其他证件号码</td><td class='infoValue' >"+json.qtzjhm+"</td>" +
-					"<td class='infoName'>外文姓名</td><td class='infoValue' >"+json.zdrywwxm+"</td></tr>" +
-			"			<tr><td class='infoName'>户籍地祥址</td><td class='infoValue' colspan=3>"+json.hjd_dzxz+" </td></tr>" +
-			"			<tr><td class='infoName'>现住地祥址</td><td class='infoValue' colspan=3>"+json.jzd_dzxz+" </td></tr>" +
-			//gem
-			//"			<tr><td class='infoName'>管辖单位</td><td class='infoValue' colspan=3>"+json.gxpcsdm+"</td></tr>" +
-			"			<tr><td class='infoName'>重点人细类</td><td class='infoValue' colspan=3>"+ window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZDRYXL.js',  json.zdryxl) +"</td></tr>" +
-			"			<tr><td class='infoName'>入库时间</td><td class='infoValue'colspan=4>"+json.rksj+"</td>" +
-			//gem修改
-			//"<td class='infoName'>有效性</td><td class='infoValue' colspan=2></td></tr>" +
-			"</tr>"+ 
-			//"			<tr><td class='infoName'>发文字号</td><td class='infoValue' colspan=5>"+json.fwzh+"</td></tr>" +
-			"			<tr><td class='infoName'>数据来源</td><td class='infoValue'>"+json.sjly+"</td>" +
-			"			<td class='infoName'>列管单位</td><td class='infoValue' colspan=2>"+ json.lgdw +"</td></tr>" +
+			"			<tr><td class='infoName'>其他证件号码</td><td class='infoValue' colspan=3>"+json.qtzjhm+"</td></tr>" +
+			"			<tr><td class='infoName'>户籍地祥址</td><td class='infoValue' colspan=3>"+json.hjd_dzxz+" </td>" +
+			"			<tr><td class='infoName'>现住地祥址</td><td class='infoValue' colspan=3>"+json.jzd_dzxz+" </td>" +
+			"			<tr><td class='infoName'>管辖单位</td><td class='infoValue' colspan=3>"+json.gxpcsdm+"</td>" +
+			"			<tr><td class='infoName'>立案单位</td><td class='infoValue'>缺少</td>" +
+					"		<td class='infoName'>重点人细类</td><td class='infoValue' colspan=2>"+ window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZDRYXL.js',  json.zdryxl) +"</td></tr>" +
+			"			<tr><td class='infoName'>入库时间</td><td class='infoValue'>"+json.rksj+"</td><td class='infoName'>有效性</td><td class='infoValue' colspan=2></td></tr>" +
 			"		</table>" +
 			"	</td>" +
 			"</tr>"+
 			"<tr><td class='infoTypeTd'>活<br>动<br>信<br>息</td>" +
 			"	<td>" +
 			"		<table class='infoBodyTable'>" +
-			"			<tr><td class='infoName'>登记姓名</td><td class='infoValue'>"+json.djxm+"</td><td id='mapTd' colspan=2 rowspan=8><iframe id='mapDiv' src='qbld|map?zbx=" + json.dzms_zbx + "&zby=" + json.dzms_zby + "&dwmc=" + json.hdfsddssshcs + "' ></iframe></td></tr>" +
+			"			<tr><td class='infoName'>登记姓名</td><td class='infoValue'>"+json.djxm+"</td><td id='mapTd' colspan=2 rowspan=8><iframe id='mapDiv' src='qbld|map' ></iframe></td></tr>" +
 			"			<tr><td class='infoName'>登记性别</td><td class='infoValue'>"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZDRYXBDM.js', json.djxb) +"</td></tr>" +
 			"			<tr><td class='infoName'>登记证件号码</td><td class='infoValue'>"+json.djzjhm+"</td></tr>" +
-			"			<tr><td class='infoName'>预警接收单位</td><td class='infoValue'>"+json.yjjsdw+"</td></tr>" +
+			"			<tr><td class='infoName'>预警接受单位</td><td class='infoValue'>"+json.yjjsdw+"</td></tr>" +
 			"			<tr><td class='infoName'>预警级别</td><td class='infoValue'>"+ window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZDRYYJJB.js', json.yjjb) +"</td></tr>" +
 			"			<tr><td class='infoName'>签收时限</td><td class='infoValue'>"+json.qssx.substring(0,4)+"/"+json.qssx.substring(4,6)+"/"+json.qssx.substring(6,8)+" "+json.qssx.substring(8,10)+":"+json.qssx.substring(10,12)+":"+json.qssx.substring(12,14)+"</td></tr>" +
-			"			<tr><td class='infoName'>首次反馈时限</td><td class='infoValue'>"+json.scczfksx.substring(0,4)+"/"+json.scczfksx.substring(4,6)+"/"+json.scczfksx.substring(6,8)+" "+json.scczfksx.substring(8,10)+":"+json.scczfksx.substring(10,12)+":"+json.scczfksx.substring(12,14)+"</td></tr>" +
 			"			<tr><td class='infoName'>登记出生日期</td><td class='infoValue'>"+json.djcsrq+"</td></tr>" +
-			"			<tr><td class='infoName'>活动发生时间</td><td class='infoValue'>"+ json.hdfssj.substring(0,4)+"/"+json.hdfssj.substring(4,6)+"/"+json.hdfssj.substring(6,8)+" "+json.hdfssj.substring(8,10)+":"+json.hdfssj.substring(10,12)+":"+json.hdfssj.substring(12,14)+"</td>" +
-			"				<td class='infoName'>预警发布时间</td><td class='infoValue'>"+ json.yjfbsj.substring(0,4)+"/"+json.yjfbsj.substring(4,6)+"/"+json.yjfbsj.substring(6,8)+" "+json.yjfbsj.substring(8,10)+":"+json.yjfbsj.substring(10,12)+":"+json.yjfbsj.substring(12,14)+"</td></tr>" +
-			"			<tr><td class='infoName'>动态信息分类</td><td class='infoValue'>"+ window.top.getDictName(contextPath + '/common/dict/D_QBLD_DTSMZXXLB.js', json.dtxxlb)+"</td>" +
-			"				<td class='infoName'>活动发生地区划</td><td class='infoValue'>"+ window.top.getDictName(contextPath + '/common/dict/D_BZ_XZQH_MUNICIPAL.js', json.hdfsddqh)+"</td></tr>" +
-			"			<tr><td class='infoName'>活动发生地祥址</td><td class='infoValue'>"+json.hdfsddxz+"</td><td class='infoName'>活动发生地社会场所</td><td class='infoValue'><a href='#' onclick='Yjxx.openMapWindow(\""+json.dzms_zbx+"\",\""+json.dzms_zby+"\", \"" + json.hdfsddssshcs + "\");'>"+json.hdfsddssshcs+"</a></td></tr>" +
+			"			<tr><td class='infoName'>活动发生时间</td><td class='infoValue'>"+ json.hdfssj.substring(0,4)+"/"+json.hdfssj.substring(4,6)+"/"+json.hdfssj.substring(6,8)+" "+json.hdfssj.substring(8,10)+":"+json.hdfssj.substring(10,12)+":"+json.hdfssj.substring(12,14)+"</td></tr>" +
+			"			<tr><td class='infoName'>活动发生地祥址</td><td class='infoValue'>"+json.hdfsddxz+"</td><td class='infoName'>活动发生地社会场所</td><td class='infoValue'><a href='#' onclick='Yjxx.openMapWindow(\""+json.zbx+"\",\""+json.zby+"\");'>"+json.hdfsddssshcs+"</a></td></tr>" +
 			"			<tr><td class='infoName'>发生地公安机关</td><td class='infoValue'>"+json.hdfsddssgajg+"</td><td class='infoName'>动态信息提供单位</td><td class='infoValue'>"+json.dtxxtgdw+"</td></tr>" +
 			"			<tr><td class='infoName'>信息比对时间</td><td class='infoValue'>"+json.xxbdsj.substring(0,4)+"/"+json.xxbdsj.substring(4,6)+"/"+json.xxbdsj.substring(6,8)+" "+json.xxbdsj.substring(8,10)+":"+json.xxbdsj.substring(10,12)+":"+json.xxbdsj.substring(12,14) +"</td><td class='infoName'>信息比对单位</td><td class='infoValue'>"+json.xxbddw+"</td></tr>" +
 			"			<tr><td class='infoName'>活动相关信息</td><td class='infoValue' colspan=3>"+json.hdxgxx+"</td></tr>" +
 			"			<tr><td class='infoName'>备注</td><td class='infoValue' colspan=3>"+json.bz+"</td></tr>";
 			
-	/**
-	 * 判断是否显示签收人信息
-	 */
 	if(json.qsrxm){
 		html += 	"			<tr><td class='infoName'>签收人</td><td class='infoValue'>"+json.qsrxm+
 			"				</td><td class='infoName'>签收时间</td><td class='infoValue'>"+json.qssj+"</td></tr>" +
@@ -459,9 +413,6 @@ Yjxx.ckyjQs_back = function(qsRs){
  * @date:2015-4-29下午4:44:23
  */
 Yjxx.showCkyjFkFrom = function(){
-	if(Yjxx.buttonFlag)
-		return;
-	Yjxx.buttonFlag = true;
 	Yjxx.changeOtherDivShow();
 	$("#otherInfoDiv").html("<div id='otherInfoListDiv'></div>");
 	$("#otherInfoListDiv").tabs({
@@ -473,30 +424,30 @@ Yjxx.showCkyjFkFrom = function(){
 	fkHtml = "<table class='addCzfkTable'>" +
 			"			<tr><td class='infoName red'>目标发现状态</td><td class='infoValue' colspan=3><div onclick='Yjxx.changeYjxxCzfkTypeHtml(0,this)' class ='fxzt' id='fxzt_wfx'>未发现</div>" +
 			"				<div class ='fxzt' id='fxzt_yfx'  onclick='Yjxx.changeYjxxCzfkTypeHtml(1,this)'>已发现</div><input id='czfk_mbfxzt' style='display:none' value='0'></td></tr>" +
-			"			<tr class='wfxTr'><td class='infoName red'>预警产生的原因</td><td  class='infoValue' colspan=3><input id='czfk_yjcsyy' class='notNull'></td></tr>" +
-			"			<tr id='qtyyTr' style='display:none'><td class='infoName red'>其他原因</td><td  class='infoValue' colspan=3><textarea id='czfk_qtyy' class='notNull' maxlength=200 placeholder='最多填写200个文字'></textarea></td></tr>" +
-			"			<tr class='yfxTr'><td class='infoName red'>发现责任民警姓名</td><td   class='infoValue'><input id='czfk_fxmbzrmjxm' class='notNull' readonly placeholder='点击选择发现责任民警'  onclick='public_singleSelectOrgUser(\"\", \"\", \"\", \"\", \"\",\"\", \"czfk_fxmbzrmjsfzh\", \"czfk_fxmbzrmjxm\", \"\", \"czfk_fxmbzrdwjgdm\", \"czfk_fxmbzrdw\", \"\", false, \"\", window, \"\", \"\")' ></td>" +
-			"							<td class='infoName red'>发现责任民警身份证号</td><td class='infoValue'><input id='czfk_fxmbzrmjsfzh'  class='notNull' placeholder='自动填写' readonly></td></tr>" +
-			"			<tr class='yfxTr'><td class='infoName red'>发现责任单位</td><td   class='infoValue' colspan=3><input id='czfk_fxmbzrdw'  class='notNull' placeholder='自动填写' readonly><input id='czfk_fxmbzrdwjgdm' style='display:none' ></td></tr>" +
-			"			<tr class='yfxTr'><td class='infoName red'>处置责任民警姓名</td><td   class='infoValue'><input id='czfk_czzrmjxm' readonly  class='notNull' placeholder='点击选择处置责任民警' onclick='public_singleSelectOrgUser(\"\", \"\", \"\", \"\", \"\",\"\", \"czfk_czzrmjsfzh\", \"czfk_czzrmjxm\", \"\", \"czfk_czzrdwjgdm\", \"czfk_czzrdw\", \"\", false, \"\", window, \"\", \"\")'></td>" +
-			"							<td class='infoName red'>处置责任民警身份证号</td><td class='infoValue'><input id='czfk_czzrmjsfzh' readonly  class='notNull' placeholder='自动填写'></td></tr>" +
-			"			<tr class='yfxTr'><td class='infoName red'>处置责任单位</td><td   class='infoValue' colspan=3><input id='czfk_czzrdw' readonly  class='notNull' placeholder='自动填写'><input id='czfk_czzrdwjgdm' style='display:none' ></td></tr>" +
-			"			<tr class='yfxTr'><td class='infoName red'>处置时间</td><td  class='infoValue'><input id='czfk_czsj'  class='notNull' onclick='WdatePicker({skin:\"whyGreen\",dateFmt:\"yyyyMMddHHmmss\"})'></td>" +
-			"							<td class='infoName red'>处置地点区划</td><td class='infoValue'><input id='czfk_czddqh' v class='notNull' alue='510104,510106'></td></tr>" +
-			"			<tr class='yfxTr'><td class='infoName red'>处置地点祥址</td><td   class='infoValue' colspan=3><input id='czfk_czddxz'  class='notNull' ></td></tr>" +
-			"			<tr class='yfxTr'><td class='infoName red'>采取处置措施</td><td   class='infoValue'><input id='czfk_cqczcs'  class='notNull' ></td>" +
-			"							<td class='infoName red'>处置结果/细类</td><td class='infoValue'><input id='czfk_czjg'  class='notNull' ><input id='czfk_czcsxl' class='notNull'  style='display:none'><input id='czfk_zbxl'  class='notNull' style='display:none'></td></tr>" +
-			"			<tr style='display:none' id='wzhyyTr'><td class='infoName red'>未抓获原因</td><td class='infoValue' colspan=3><textarea id='czfk_wzhyy'  class='notNull' maxlength=200 placeholder='最多填写200个文字'></textarea></td>" +
+			"			<tr class='wfxTr'><td class='infoName red'>预警产生的原因</td><td  class='infoValue' colspan=3><input id='czfk_yjcsyy'></td></tr>" +
+			"			<tr id='qtyyTr' ><td class='infoName red'>其他原因</td><td  class='infoValue' colspan=3><textarea id='czfk_qtyy' maxlength=200 placeholder='最多填写200个文字'></textarea></td></tr>" +
+			"			<tr class='yfxTr'><td class='infoName red'>发现责任民警姓名</td><td   class='infoValue'><input id='czfk_fxmbzrmjxm' readonly placeholder='点击选择发现责任民警'  onclick='public_singleSelectOrgUser(\"\", \"\", \"\", \"\", \"\",\"\", \"czfk_fxmbzrmjsfzh\", \"czfk_fxmbzrmjxm\", \"\", \"czfk_fxmbzrdwjgdm\", \"czfk_fxmbzrdw\", \"\", false, \"\", window, \"\", \"\")' ></td>" +
+			"							<td class='infoName red'>发现责任民警身份证号</td><td class='infoValue'><input id='czfk_fxmbzrmjsfzh' placeholder='自动填写' readonly></td></tr>" +
+			"			<tr class='yfxTr'><td class='infoName red'>发现责任单位</td><td   class='infoValue' colspan=3><input id='czfk_fxmbzrdw' placeholder='自动填写' readonly><input id='czfk_fxmbzrdwjgdm' style='display:none' ></td></tr>" +
+			"			<tr class='yfxTr'><td class='infoName red'>处置责任民警姓名</td><td   class='infoValue'><input id='czfk_czzrmjxm' readonly placeholder='点击选择处置责任民警' onclick='public_singleSelectOrgUser(\"\", \"\", \"\", \"\", \"\",\"\", \"czfk_czzrmjsfzh\", \"czfk_czzrmjxm\", \"\", \"czfk_czzrdwjgdm\", \"czfk_czzrdw\", \"\", false, \"\", window, \"\", \"\")'></td>" +
+			"							<td class='infoName red'>处置责任民警身份证号</td><td class='infoValue'><input id='czfk_czzrmjsfzh' readonly placeholder='自动填写'></td></tr>" +
+			"			<tr class='yfxTr'><td class='infoName red'>处置责任单位</td><td   class='infoValue' colspan=3><input id='czfk_czzrdw' readonly placeholder='自动填写'><input id='czfk_czzrdwjgdm' style='display:none' ></td></tr>" +
+			"			<tr class='yfxTr'><td class='infoName red'>处置时间</td><td  class='infoValue'><input id='czfk_czsj' onclick='WdatePicker({skin:\"whyGreen\",dateFmt:\"yyyyMMddHHmmss\"})'></td>" +
+			"							<td class='infoName red'>处置地点区划</td><td class='infoValue'><input id='czfk_czddqh' value='510104,510106'></td></tr>" +
+			"			<tr class='yfxTr'><td class='infoName red'>处置地点祥址</td><td   class='infoValue' colspan=3><input id='czfk_czddxz' ></td></tr>" +
+			"			<tr class='yfxTr'><td class='infoName red'>采取处置措施</td><td   class='infoValue'><input id='czfk_cqczcs' ></td>" +
+			"							<td class='infoName red'>处置结果/细类</td><td class='infoValue'><input id='czfk_czjg' ><input id='czfk_czcsxl' style='display:none'><input id='czfk_zbxl' style='display:none'></td></tr>" +
+			"			<tr style='display:none' id='wzhyyTr'><td class='infoName red'>未抓获原因</td><td class='infoValue' colspan=3><textarea id='czfk_wzhyy' maxlength=200 placeholder='最多填写200个文字'></textarea></td>" +
 			"			<tr style='display:none' id='xcxxcjTr'><td class='infoName'>现场信息采集</td><td class='infoValue' colspan=3><textarea id='czfk_xcxxcj' maxlength=200 placeholder='最多填写200个文字'></textarea></td>" +
-			"			<tr class='yfxTr'><td class='infoName'>吸毒查获尿检信息</td><td class='infoValue' colspan=3>毒品种类：<input id='czfk_nj_dpzl' style='width:150px'>尿检结果：<input id='czfk_nj_njjg' style='width:150px'><a href='#' id='add_njxx' onclick='Yjxx.addCkyj_njxx();'>添加</a>" +
+			"			<tr class='yfxTr'><td class='infoName'>尿检信息</td><td class='infoValue' colspan=3>毒品种类：<input id='czfk_nj_dpzl' style='width:150px'>尿检结果：<input id='czfk_nj_njjg' style='width:150px'><a href='#' id='add_njxx' onclick='Yjxx.addCkyj_njxx();'>添加</a>" +
 			"								<table id='czfk_xdchnjxxDiv'><tr><td class='dpInfoName'>毒品种类</td><td class='dpInfoName'>尿检结果</td></tr></table>" +
 			"								<input id='czfk_xdchnjxx' style='display:none'>" +
 			"								</td></tr>" +
-			"			<tr class='yfxTr'><td class='infoName'>现场查获物品信息</td><td class='infoValue' colspan=3>毒品种类：<input id='czfk_wp_dpzl' style='width:150px'>缴获数量（克）：<input id='czfk_wp_jhsl' style='width:150px'><a href='#' id='add_wpxx' onclick='Yjxx.addCkyj_wpxx();'>添加</a>" +
+			"			<tr class='yfxTr'><td class='infoName'>物品信息</td><td class='infoValue' colspan=3>毒品种类：<input id='czfk_wp_dpzl' style='width:150px'>缴获数量（克）：<input id='czfk_wp_jhsl' style='width:150px'><a href='#' id='add_wpxx' onclick='Yjxx.addCkyj_wpxx();'>添加</a>" +
 			"								<table id='czfk_xcchwpxxDiv'><tr><td class='dpInfoName'>毒品种类</td><td class='dpInfoName'>缴获数量（克）</td></tr></table>" +
 			"								<input id='czfk_xcchwpxx' style='display:none'>" +
 			"								</td></tr>" +
-			"			<tr><td class='infoName red'>处置经过描述</td><td class='infoValue' colspan=3><textarea id='czfk_czjgms'  class='notNull' maxlength=200 placeholder='最多填写200个文字'></textarea></td></tr>" +
+			"			<tr><td class='infoName red'>处置经过描述</td><td class='infoValue' colspan=3><textarea id='czfk_czjgms' maxlength=200 placeholder='最多填写200个文字'></textarea></td></tr>" +
 			"			<tr><td class='infoName'>立案侦查工作评估</td><td class='infoValue'><input id='czfk_lxzcgzpg' ></td>" +
 			"				<td class='infoName'>目标从事职业类型</td><td class='infoValue'><input id='czfk_mbcszylx' ></td></tr>" +
 			"			<tr><td class='infoName'>工作评估依据</td><td class='infoValue' colspan=3><textarea id='czfk_lxzcgzpgyj' maxlength=450 placeholder='最多填写450个文字'></textarea></td></tr>" +
@@ -513,6 +464,7 @@ Yjxx.showCkyjFkFrom = function(){
 		content:'<div id="fkjlListDiv">123</div>'
 	});
 	$("#czfk_yjcsyy").combobox({
+		url: contextPath + '/common/dict/D_QBLD_YJYY.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
@@ -525,15 +477,6 @@ Yjxx.showCkyjFkFrom = function(){
 			}else{
 				$("#qtyyTr").hide();
 			}
-		},
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-				$("#czfk_yjcsyy").combobox('reload',  contextPath + '/common/dict/D_QBLD_YJYY.js'); 
-			}
-			
 		}
 	});
 	initMbcszylxSelect = function(newVal){
@@ -548,132 +491,83 @@ Yjxx.showCkyjFkFrom = function(){
 		
 	}
 	$("#czfk_mbcszylx").combobox({
+		url: contextPath + '/common/dict/D_QBLD_ZDRYCSZYLX.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:250,
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-				$("#czfk_mbcszylx").combobox('reload',  contextPath + '/common/dict/D_QBLD_ZDRYCSZYLX.js'); 
-			}
-			
-		}
+		width:250
 	})
 	$("#czfk_lxzcgzpg").combobox({
+		url: contextPath + '/common/dict/D_QBLD_CKYJLXZCGZDM.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
 		width:250,
-		onChange:initMbcszylxSelect,
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-				$("#czfk_lxzcgzpg").combobox('reload',  contextPath + '/common/dict/D_QBLD_CKYJLXZCGZDM.js'); 
-			}
-			
-		}
+		onChange:initMbcszylxSelect
 	});
 	
 	
 	$("#czfk_czddqh").combotree({
+		url:contextPath + '/common/dict/D_BZ_XZQH_MUNICIPAL.js',
 		onlyLeaf:true,
 		multiple:false,
+		required:true,
 		panelWidth:320,
 		method:'get',
 		editable:true,
 		lines:true,
 		onSelect:function(obj){
 			$("#czfk_czddxz").val(obj.text)
-		},
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-				$("#czfk_czddqh").combotree('reload',  contextPath + '/common/dict/D_BZ_XZQH_MUNICIPAL.js'); 
-			}
 		}
 	})
 	
 	
 	$("#czfk_nj_dpzl").combobox({
+		url: contextPath + '/common/dict/D_QBLD_DPZL.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:200,
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-				$("#czfk_nj_dpzl").combobox('reload',  contextPath + '/common/dict/D_QBLD_DPZL.js'); 
-			}
-		}
+		width:200
 	})
 	$("#czfk_wp_dpzl").combobox({
+		url: contextPath + '/common/dict/D_QBLD_DPZL.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:200,
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-				$("#czfk_wp_dpzl").combobox('reload',  contextPath + '/common/dict/D_QBLD_DPZL.js'); 
-			}
-		}
+		width:200
 	})
 	$("#czfk_nj_njjg").combobox({
+		url: contextPath + '/common/dict/D_QBLD_ZDRYXDNJJGDM.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:200,
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-				$("#czfk_nj_njjg").combobox('reload',  contextPath + '/common/dict/D_QBLD_ZDRYXDNJJGDM.js'); 
-			}
-		}
+		width:200
 	})
 	$("#czfk_zbxl").combobox({
+		url: contextPath + '/common/dict/D_QBLD_GKZHXL.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:150,
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-				$("#czfk_zbxl").combobox('reload',  contextPath + '/common/dict/D_QBLD_GKZHXL.js'); 
-			}
-		}
+		width:150
 	});
 	/**
 	 * 初始化处置结果下拉框
 	 */
 	initCzjgSelect = function(val){
 		$("#czfk_czjg").combobox({
+			url: contextPath + '/common/dict/D_QBLD_ZDRYYJCZJGLX.js',
 			dataFilter:val+'[^0]',
 			valueField:'id',
 			textField:'text',
@@ -682,9 +576,6 @@ Yjxx.showCkyjFkFrom = function(){
 			tipPosition:'left',
 			width:100,
 			onChange:function(val){
-				/**
-				 * 判断处置类型为未抓获时显示未抓获原因和现场采集属性
-				 */
 				if(val==11){
 					$("#wzhyyTr").show();
 					$("#xcxxcjTr").show();
@@ -694,36 +585,22 @@ Yjxx.showCkyjFkFrom = function(){
 					$("#czfk_wzhyy").val("");
 					$("#czfk_xcxxcj").val("");
 				}
-				/**
-				 * 判断处置类型为已抓获时抓捕细类属性
-				 */
 				if(val==12){
 					$("#czfk_zbxl").next('.combo').show();
 				}else{
 					$("#czfk_zbxl").next('.combo').hide();
 					$("#czfk_zbxl").combobox("setValue","");
 				}
-			},
-			onShowPanel:function(){
-				if(this.flag){
-					return;
-				}else{
-					this.flag = true;
-					$("#czfk_czjg").combobox('reload',  contextPath + '/common/dict/D_QBLD_ZDRYYJCZJGLX.js'); 
-				}
 			}
 		});
-		/**
-		 * 处置场所细类
-		 */
 		if(val==2){
 			$("#czfk_czcsxl").next('.combo').show();
 		}else{
 			$("#czfk_czcsxl").next('.combo').hide();
 		}
-	};
+	}
 	$("#czfk_cqczcs").combobox({
-		url:contextPath + '/common/dict/D_QBLD_ZDRYCZCSLX.js',
+		url: contextPath + '/common/dict/D_QBLD_ZDRYCZCSLX.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
@@ -731,23 +608,16 @@ Yjxx.showCkyjFkFrom = function(){
 		tipPosition:'left',
 		width:250,
 		onChange:initCzjgSelect
-	});
+	})
 	$("#czfk_czcsxl").combobox({
+				url: contextPath + '/common/dict/D_QBLD_ZDRYGKCSLX.js',
 				dataFilter:'.{3}',
 				valueField:'id',
 				textField:'text',
 				selectOnNavigation:false,
 				method:'get',
 				tipPosition:'left',
-				width:150,
-				onShowPanel:function(){
-					if(this.flag){
-						return;
-					}else{
-						this.flag = true;
-						$("#czfk_czcsxl").combobox('reload',  contextPath + '/common/dict/D_QBLD_ZDRYGKCSLX.js'); 
-					}
-				}
+				width:150
 			});
 	
 	if(Yjxx.indexInfoObj.yjjb == 1){
@@ -770,8 +640,6 @@ Yjxx.showCkyjFkFrom = function(){
    $("#fxzt_wfx").click();
    Yjxx.queryCkyjFkList();
    $("#otherInfoListDiv").tabs('select',0);
-  Yjxx.buttonFlag = false;
-		
 };
 /**
  * @method:addCkyj_njxx
@@ -788,9 +656,6 @@ Yjxx.addCkyj_njxx = function(){
 		$.messager.alert("提示:","种类和结果不能为空！","info");
 		return;
 	}
-	/**
-	 * 显示尿检信息，最多添加8条尿检记录
-	 */
 	if($("#czfk_xdchnjxx").val()=="")
 		$("#czfk_xdchnjxx").val($("#czfk_nj_dpzl").val()+"/"+$("#czfk_nj_njjg").val());
 	else{
@@ -853,9 +718,6 @@ Yjxx.addCkyj_wpxx = function(){
 	}
 	var zs = "";
 	var xs = "";
-	/**
-	 *验证物品数量显示是否正确 
-	 */
 	if(wpsl.indexOf(".")!=-1){
 		var re = /([0-9]+.[0-9]{3})[0-9]*/;
 		wpsl = wpsl.replace(re,"$1");
@@ -866,6 +728,7 @@ Yjxx.addCkyj_wpxx = function(){
 		while(zs.length<7){
 			zs = " "+zs;
 		}
+		
 		while(xs.length<3){
 			xs+=" ";
 		}
@@ -875,9 +738,7 @@ Yjxx.addCkyj_wpxx = function(){
 		}
 		zs = wpsl+"   ";
 	}
-	/**
-	 * 显示物品信息值，并限制最多显示七项
-	 */
+	
 	if($("#czfk_xcchwpxx").val()=="")
 		$("#czfk_xcchwpxx").val('{"DP":'+$("#czfk_wp_dpzl").val()+'/'+zs+xs+'}');
 	else{
@@ -1009,34 +870,6 @@ Yjxx.clearYjxxCzfkValue = function(){
  * @date:2015-5-9下午5:19:57
  */
 Yjxx.addCkyjCzfk = function(){
-	
-	var inputObjs = $(".addCzfkTable .notNull ")
-	var num = inputObjs.length
-	for(var i = 0;i<num;i++){
-		if($(inputObjs[i]).val()==""){
-			/**
-			 * 反馈发现目标和未发现对不同的字段验证
-			 */
-			if($("#czfk_mbfxzt").val()==0){
-				if("czfk_yjcsyy"==inputObjs[i].id){
-					$.messager.alert("提示","红色标题信息必须填写！");
-					return;
-				}else if("czfk_qtyy"==inputObjs[i].id&&$("#czfk_yjcsyy").val()==9){
-					$.messager.alert("提示","红色标题信息必须填写！");
-					return;
-				}
-			}else{
-				if("czfk_yjcsyy"!=inputObjs[i].id&&"czfk_qtyy"!=inputObjs[i].id){
-						if(("czfk_wzhyy"==inputObjs[i].id&&$("#czfk_czjg").val()==11)||("czfk_zbxl"==inputObjs[i].id&&$("#czfk_czjg").val()==12)||("czfk_czcsxl"==inputObjs[i].id&&$("#czfk_cqczcs").val()==2)){
-							$.messager.alert("提示","红色标题信息必须填写！");
-							return;
-						}
-						
-				}
-			}
-				
-		}
-	}
 	var param;
 	/**
 	 * 获取表单内容,并拼成JSON对象
@@ -1060,13 +893,8 @@ Yjxx.addCkyjCzfk = function(){
 	param+="'yjxxbh':'"+Yjxx.indexInfoObj.yjxxbh+"'})";
 	param = eval(param);
 	var url = contextPath+'/ckyj/updateCkyjxxbAndSaveFkb';
-	$.messager.confirm('确认对话框', '您是否确定要提交数据？', function(r){
-		if (r){
-			var fajax = new FrameTools.Ajax(url,Yjxx.addCkyjCzfk_back);
-			fajax.send(param);
-			$(document.body).mask("努力加载中...");
-		}
-	});
+	var fajax = new FrameTools.Ajax(url,Yjxx.addCkyjCzfk_back);
+	fajax.send(param);
 };
 /**
  * @method:addCkyjCzfk_back
@@ -1129,7 +957,7 @@ Yjxx.showMoreFkInfo = function(obj){
 				"			<tr ><td class='infoName'>现场信息采集</td><td   class='infoValue' colspan=3>"+obj.xcxxcj+"</td></tr>";
 	}
 	if(obj.xdchnjxx!=""){
-		fkHtml +="			<tr ><td class='infoName'>吸毒查获尿检信息</td><td   class='infoValue' colspan=3>";
+		fkHtml +="			<tr ><td class='infoName'>尿检信息</td><td   class='infoValue' colspan=3>";
 		var njxxArr; 
 		if(obj.xdchnjxx.indexOf(",")!=-1){
 			var njxxArrs = obj.xdchnjxx.split(",");
@@ -1150,7 +978,7 @@ Yjxx.showMoreFkInfo = function(obj){
 		var wpxx = obj.xcchwpxx.replace('{"DP":','').replace('}','');
 		
 		
-		fkHtml +="			<tr ><td class='infoName'>现场查获物品信息</td><td   class='infoValue' colspan=3>";
+		fkHtml +="			<tr ><td class='infoName'>物品信息</td><td   class='infoValue' colspan=3>";
 		var wpxxArr; 
 		if(wpxx.indexOf(",")!=-1){
 			var wpxxArrs = wpxx.split(",");
@@ -1182,23 +1010,8 @@ Yjxx.showMoreFkInfo = function(obj){
 		fkHtml +="</td></tr>" ;
 	}
 	
-	if(obj.mbfxzt==0&&Yjxx.indexInfoObj.yjzlbh){
-		fkHtml +="<tr><td class='infoName'>活动目的：</td><td class='infoValue' colspan=3>"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_HDMD.js', obj.hdmd)+"</textarea></td></tr>";
-		if(obj.czfk_txfs_sf==1){
-			fkHtml +="<tr><td class='infoName'>通讯方式：</td><td class='infoValue' colspan=3>"+obj.txfs+"</textarea></td></tr>";
-		}
-		if(obj.czfk_sswp_sf==1){
-			fkHtml +="<tr><td class='infoName'>随身物品：</td><td class='infoValue' colspan=3>"+obj.sswp+"</textarea></td></tr>";
-		}
-		if(obj.czfk_jtgj_sf==1){
-			fkHtml +="<tr><td class='infoName'>交通工具：</td><td class='infoValue' colspan=3>"+obj.jtgj+"</textarea></td></tr>";
-		}
-		if(obj.czfk_txryqk_sf==1){
-			fkHtml +="<tr><td class='infoName'>同行人员：</td><td class='infoValue' colspan=3>"+obj.txryqk+"</textarea></td></tr>";
-		}
-	}
 	
-	fkHtml +="		<tr><td class='infoName'>处置经过描述</td><td class='infoValue' colspan=3>"+obj.czjgms+"</textarea></td></tr>"+
+	fkHtml +="			<tr><td class='infoName'>处置经过描述</td><td class='infoValue' colspan=3>"+obj.czjgms+"</textarea></td></tr>"+
 		"			<tr><td class='infoName'>立案侦查工作评估</td><td class='infoValue'>"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_CKYJLXZCGZDM.js', obj.lxzcgzpg)+"</td>" + 
 		"				<td class='infoName'>目标从事职业类型</td><td class='infoValue'>"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZDRYCSZYLX.js', obj.mbcszylx)+"</td></tr>" +
 		"			<tr><td class='infoName'>工作评估依据</td><td class='infoValue' colspan=3>"+obj.lxzcgzpgyj+"</td></tr>" +
@@ -1223,52 +1036,5 @@ Yjxx.showMoreFkInfo = function(obj){
 			content:fkHtml
 		});
 	}
-};
-/**
- * @method:exportCkyjList
- * @package:syrk/js/qbld	
- * @description:导出记录
- * @author:Li_Zhenzhong
- * @date:2015-7-7下午5:09:50
- */
-Yjxx.exportCkyjList = function(){
-	/**
-	 * 获取级别复选框条件
-	 */
-	var checkObj = $(":checkBox");
-	var num = checkObj.length
-	var yjjb = ""; 
-	for(var i = 0;i<num;i++){
-		if(checkObj[i].checked)
-		yjjb+=checkObj[i].value+",";
-	}
-	var param = "";
-	/**
-	 * 查询类型为模糊查询时，判断根据条件内容为数字和字母组合的放入身份证条件，否则放入姓名条件
-	 */
-	if(document.getElementById("where_all")){
-		var value = $("#where_all").val();
-		var reg = new RegExp("^[0-9a-zA-Z]*$");
-		var xm ="";
-		var sfzh = "";
-		if(reg.test(value)){
-			sfzh = value
-		}else{
-			xm = value;
-		}
-		param = "yjjb="+yjjb.substring(0, yjjb.length-1)+
-				"&qsfkzt="+Yjxx.type+
-				"&zdryxm="+xm+
-				"&sfzh="+sfzh;
-	 }else{
-		 param = "yjjb="+yjjb.substring(0, yjjb.length-1)+
-					"&qsfkzt="+Yjxx.type+
-					"&zdryxm="+$("#where_xm").val()+
-					"&sfzh="+$("#where_sfzh").val()+
-					"&zdryxl="+$("#where_lx").val()+
-					"&yjfbsjB="+$("#where_yjfbsjB").val()+
-					"&yjfbsjE="+$("#where_yjfbsjE").val();
-	 }
-	var url=contextPath +"/ckyj/ckyjxxb_export?"+param;
-	window.open(url);
 }
+

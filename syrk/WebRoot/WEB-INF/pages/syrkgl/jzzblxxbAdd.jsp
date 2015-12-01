@@ -103,10 +103,12 @@ function beforeSubmit() {
 }
 
 function afterSubmit(arr) {
-	if(arr["saveID"]){
-		$("#pk").val(["saveID"]);
+	if(arr["message_yqf"]){
+		alert(arr["message_yqf"]);
 	}
-	
+	if(arr["saveID"]){
+		$("#pk").val(arr["saveID"]);
+	}
 }
 function lqfsChange(){
    var jzzlqfsdm = $("#jzz_lqfsdm").val();

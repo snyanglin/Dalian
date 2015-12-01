@@ -24,7 +24,7 @@
 	    		  <input type='hidden' name='messageid' id="messageid" value="${messageid}"/>
 	    		  <input type='hidden' name='jzdzid' id="jzdzid" value="${jzdzid}"/>
 	    		  <tr class="dialogTr">
-				    	<td width="20%" class="dialogTd" align="right">证件种类：</td>
+				    	<td width="20%" class="dialogTd" align="right">证件类型：</td>
 				    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="jbxx_cyzjdm" name="jbxx.cyzjdm" value="${ryjbxxb.cyzjdm}" style="width:200px;"
 							data-options="required:true,url: contextPath + '/common/dict/D_BZ_CYZJ.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'left'"/></td> 
 				    	<td width="20%" class="dialogTd" align="right">证件号码：</td>
@@ -82,7 +82,7 @@
 				    	<input type='hidden' name='jbxx.dz_hjdmlpxz' id="jbxx_dz_hjdmlpxz" value="${ryjbxxb.dz_hjdmlpxz}"/>
 			    	</td>
 			    	<td width="30%" class="dialogTd">
-				    	<input class="easyui-combobox" id="jbxx_hjd2" style="width:200px;" value="${fn:replace(ryjbxxb.dz_hjdzxz, ryjbxxb.dz_hjdmlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+				    	<input class="easyui-combobox" id="jbxx_hjd2" style="width:200px;" value='${fn:replace(ryjbxxb.dz_hjdzxz, ryjbxxb.dz_hjdmlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 				    	<input type='hidden' name='jbxx.dz_hjdzdm' id="jbxx_dz_hjdzdm" value="${ryjbxxb.dz_hjdzdm}"/>
 				    	<input type='hidden' name='jbxx.dz_hjdzssxdm' id="jbxx_dz_hjdzssxdm" value="${ryjbxxb.dz_hjdzssxdm}"/>
 				    	<input type='hidden' name='jbxx.dz_hjdzxz' id="jbxx_dz_hjdzxz" value="${ryjbxxb.dz_hjdzxz}"/>
@@ -96,7 +96,7 @@
 				    	<input type='hidden' name='jbxx.dz_jzdmlpxz' id="jbxx_dz_jzdmlpxz" value="${ryjbxxb.dz_jzdmlpxz}"/>
 			    	</td>
 			    	<td width="30%" class="dialogTd">
-				    	<input class="easyui-combobox" id="jbxx_jzd2" style="width:200px;" value="${fn:replace(ryjbxxb.dz_jzdzxz, ryjbxxb.dz_jzdmlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+				    	<input class="easyui-combobox" id="jbxx_jzd2" style="width:200px;" value='${fn:replace(ryjbxxb.dz_jzdzxz, ryjbxxb.dz_jzdmlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 				    	<input type='hidden' name='jbxx.dz_jzdzdm' id="jbxx_dz_jzdzdm" value="${ryjbxxb.dz_jzdzdm}"/>
 				    	<input type='hidden' name='jbxx.dz_jzdzssxdm' id="jbxx_dz_jzdzssxdm" value="${ryjbxxb.dz_jzdzssxdm}"/>
 				    	<input type='hidden' name='jbxx.dz_jzdzxz' id="jbxx_dz_jzdzxz" value="${ryjbxxb.dz_jzdzxz}"/>
@@ -188,7 +188,7 @@
 			    	        data-options="required:false,url: contextPath + '/common/dict/D_BZ_RYGX.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"></td>
 		    	</tr>
 		    	<tr class="dialogTr">
-			    	<td width="20%" class="dialogTd" align="right">房主证件种类：</td>
+			    	<td width="20%" class="dialogTd" align="right">房主证件类型：</td>
 			    	<td width="30%" class="dialogTd"><input class='easyui-combobox-delay' type='text' name='jzrk.fzcyzjdm' id="jzrk_fzcyzjdm" value="${jzrk.fzcyzjdm}" style="width:200px;"
 			    	        data-options="mode:'remote',valueField:'id',textField:'text',selectOnNavigation:false,method:'post',onChange:jzrk_fzcyzjdm_onchange"/>
 			    	</td>
@@ -212,7 +212,7 @@
 				    	<input type='hidden' name='jzrk.dz_fzjzdzmlpxz' id="jzrk_dz_fzjzdzmlpxz" value="${jzrk.dz_fzjzdzmlpxz}"/>
 			    	</td>
 			    	<td width="30%" class="dialogTd">
-				    	<input class="easyui-combobox" id="jzrk_fzdz2" style="width:200px;" value="${fn:replace(jzrk.dz_fzjzdzxz, jzrk.dz_fzjzdzmlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+				    	<input class="easyui-combobox" id="jzrk_fzdz2" style="width:200px;" value='${fn:replace(jzrk.dz_fzjzdzxz, jzrk.dz_fzjzdzmlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 				    	<input type='hidden' name='jzrk.dz_fzjzdzdm' id='jzrk_dz_fzjzdzdm' value="${jzrk.dz_fzjzdzdm}" />
 				    	<input type='hidden' name='jzrk.dz_fzjzdzssxdm' id='jzrk_dz_fzjzdzssxdm' value="${jzrk.dz_fzjzdzssxdm}" />
 				    	<input type='hidden' name='jzrk.dz_fzjzdzxz' id='jzrk_dz_fzjzdzxz' value="${jzrk.dz_fzjzdzxz}" /> 
@@ -274,7 +274,7 @@
 						data-options="url: contextPath + '/common/dict/D_RK_FWCZQK.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'left'"/></td>
 		    	</tr>
 		    	<tr class="dialogTr"> 
-			    	<td width="20%" class="dialogTd" align="right">房主常用证件种类：</td>
+			    	<td width="20%" class="dialogTd" align="right">房主常用证件类型：</td>
 			    	<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" name="ldrk.fzcyzjdm" id="ldrk_fzcyzjdm" value="${ldrk.fzcyzjdm}" style="width:200px;"
 						data-options="mode:'remote',valueField:'id',textField:'text',selectOnNavigation:false,required:false,method:'post',onChange:ldrk_fzcyzjdm_onchange"/></td>
 			    	<td width="20%" class="dialogTd" align="right">房主常用证件号码：</td>
@@ -295,7 +295,7 @@
 				    	<input type='hidden' name='ldrk.dz_fzjzdzmlpxz' id="ldrk_dz_fzjzdzmlpxz" value="${ldrk.dz_fzjzdzmlpxz}"/>
 			    	</td>
 			    	<td width="30%" class="dialogTd">
-				    	<input class="easyui-combobox" id="ldrk_fzdz2" style="width:200px;" value="${fn:replace(ldrk.dz_fzjzdzxz, ldrk.dz_fzjzdzmlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+				    	<input class="easyui-combobox" id="ldrk_fzdz2" style="width:200px;" value='${fn:replace(ldrk.dz_fzjzdzxz, ldrk.dz_fzjzdzmlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 				    	<input type='hidden' name='ldrk.dz_fzjzdzdm' id='ldrk_dz_fzjzdzdm' value="${ldrk.dz_fzjzdzdm}" />
 				    	<input type='hidden' name='ldrk.dz_fzjzdzssxdm' id='ldrk_dz_fzjzdzssxdm' value="${ldrk.dz_fzjzdzssxdm}" />
 				    	<input type='hidden' name='ldrk.dz_fzjzdzxz' id='ldrk_dz_fzjzdzxz' value="${ldrk.dz_fzjzdzxz}" /> 
@@ -385,7 +385,7 @@
 			    	        data-options="required:false,url: contextPath + '/common/dict/D_BZ_RYGX.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"></td>
 		    	</tr>
 		    	<tr class="dialogTr">
-			    	<td width="20%" class="dialogTd" align="right">房主常用证件种类：</td>
+			    	<td width="20%" class="dialogTd" align="right">房主常用证件类型：</td>
 			    	<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" name="jwry.fzcyzjdm" id="jwry_fzcyzjdm" value="${jwry.fzcyzjdm}" style="width:200px;"
 						data-options="mode:'remote',valueField:'id',textField:'text',selectOnNavigation:false,required:false,method:'post',onChange:jwry_fzcyzjdm_onchange"/></td>
 			    	<td width="20%" class="dialogTd" align="right">房主常用证件号码：</td>
@@ -406,7 +406,7 @@
 				    	<input type='hidden' name='jwry.dz_fzjzdzmlpxz' id="jwry_dz_fzjzdzmlpxz" value="${jwry.dz_fzjzdzmlpxz}"/>
 			    	</td>
 			    	<td width="30%" class="dialogTd">
-				    	<input class="easyui-combobox" id="jwry_fzdz2" style="width:200px;" value="${fn:replace(jwry.dz_fzjzdzxz, jwry.dz_fzjzdzmlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+				    	<input class="easyui-combobox" id="jwry_fzdz2" style="width:200px;" value='${fn:replace(jwry.dz_fzjzdzxz, jwry.dz_fzjzdzmlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 				    	<input type='hidden' name='jwry.dz_fzjzdzdm' id='jwry_dz_fzjzdzdm' value="${jwry.dz_fzjzdzdm}" />
 				    	<input type='hidden' name='jwry.dz_fzjzdzssxdm' id='jwry_dz_fzjzdzssxdm' value="${jwry.dz_fzjzdzssxdm}" />
 				    	<input type='hidden' name='jwry.dz_fzjzdzxz' id='jwry_dz_fzjzdzxz' value="${jwry.dz_fzjzdzxz}" /> 
@@ -544,7 +544,7 @@
 						data-options="url: contextPath + '/common/dict/D_RK_FWCZQK.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'left'"/></td>
 		    	</tr>
 		    	<tr class="dialogTr">
-			    	<td width="20%" class="dialogTd" align="right">房主常用证件种类：</td>
+			    	<td width="20%" class="dialogTd" align="right">房主常用证件类型：</td>
 			    	<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="wlczrk_fzcyzjdm" name="wlczrk.fzcyzjdm" value="${wlczrk.fzcyzjdm}" style="width:200px;"
 						data-options="mode:'remote',valueField:'id',textField:'text',selectOnNavigation:false,required:false,method:'post',onChange:wlczrk_fzcyzjdm_onchange"/></td>
 			    	<td width="20%" class="dialogTd" align="right">房主常用证件号码：</td>
@@ -565,7 +565,7 @@
 				    	<input type='hidden' name='wlczrk.dz_fzjzdzmlpxz' id="wlczrk_dz_fzjzdzmlpxz" value="${wlczrk.dz_fzjzdzmlpxz}"/>
 			    	</td>
 			    	<td width="30%" class="dialogTd">
-				    	<input class="easyui-combobox" id="wlczrk_fzdz2" style="width:200px;" value="${fn:replace(wlczrk.dz_fzjzdzxz, wlczrk.dz_fzjzdzmlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+				    	<input class="easyui-combobox" id="wlczrk_fzdz2" style="width:200px;" value='${fn:replace(wlczrk.dz_fzjzdzxz, wlczrk.dz_fzjzdzmlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 				    	<input type='hidden' name='wlczrk.dz_fzjzdzdm' id='wlczrk_dz_fzjzdzdm' value="${wlczrk.dz_fzjzdzdm}" />
 				    	<input type='hidden' name='wlczrk.dz_fzjzdzssxdm' id='wlczrk_dz_fzjzdzssxdm' value="${wlczrk.dz_fzjzdzssxdm}" />
 				    	<input type='hidden' name='wlczrk.dz_fzjzdzxz' id='wlczrk_dz_fzjzdzxz' value="${wlczrk.dz_fzjzdzxz}" /> 
@@ -937,7 +937,7 @@ $(document).ready(function(){
 function exit_onclick() {
 	closeSelf();
 }
-/**根据证件种类 设置证件号码验证 与人员基本信息只读状态*/
+/**根据证件类型 设置证件号码验证 与人员基本信息只读状态*/
 function cyzjdmOnchange(newVal, oldVal) {
 	var newFirst = "";
 	if (!newVal) {
@@ -975,7 +975,7 @@ function cyzjdmOnchange(newVal, oldVal) {
 }
 
 /**
- * 根据证件种类与号码 ，进行人员比对，复用
+ * 根据证件类型与号码 ，进行人员比对，复用
  */
 function checkZjhm() {
 	if (!$("#jbxx_cyzjdm").combo("isValid")){

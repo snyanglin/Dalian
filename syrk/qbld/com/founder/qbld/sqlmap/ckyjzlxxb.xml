@@ -28,7 +28,7 @@
 				   fbsj lt;= #ckyjzlb.fbsjE#
 			  </isNotEmpty>
 			  <isNotEmpty prepend="and" property="ckyjzlb.xfjsdw">
-				   xfjsdw like '$ckyjzlb.xfjsdw$%'
+				   xfjsdw like '$xfjsdw.xfjsdw$%'
 			  </isNotEmpty>
 			  <isNotEmpty prepend="and" property="ckyjzlb.qsfkzt">
 				   qsfkzt = #ckyjzlb.qsfkzt#
@@ -100,7 +100,8 @@
 				<![CDATA[ qssj = #qssj# ]]>
 			</isNotNull>
 		</dynamic>
-       where yjzlbh = #yjzlbh#
+       where qsfkzt = '0' 
+          and yjzlbh = #yjzlbh#
     </update>
     
     <!-- 插入预警指令签收表 -->
@@ -150,6 +151,9 @@
 			yjzlbh
 		<isNotEmpty prepend="," property="fksj">
 			fksj
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fkrsfzh">
+			fkrsfzh
 		</isNotEmpty>
 		<isNotEmpty prepend="," property="fkrsfzh">
 			fkrsfzh
@@ -216,6 +220,9 @@
 		</isNotEmpty>
 		<isNotEmpty prepend="," property="czzrmjsfzh">
 			czzrmjsfzh
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czzrmjxm">
+			czzrmjxm
 		</isNotEmpty>
 		<isNotEmpty prepend="," property="czzrmjxm">
 			czzrmjxm
@@ -321,6 +328,9 @@
 		<isNotEmpty prepend="," property="fkrsfzh">
 			#fkrsfzh#
 		</isNotEmpty>
+		<isNotEmpty prepend="," property="fkrsfzh">
+			#fkrsfzh#
+		</isNotEmpty>
 		<isNotEmpty prepend="," property="fkrxm">
 			#fkrxm#
 		</isNotEmpty>
@@ -383,6 +393,9 @@
 		</isNotEmpty>
 		<isNotEmpty prepend="," property="czzrmjsfzh">
 			#czzrmjsfzh#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="czzrmjxm">
+			#czzrmjxm#
 		</isNotEmpty>
 		<isNotEmpty prepend="," property="czzrmjxm">
 			#czzrmjxm#
@@ -508,7 +521,7 @@
 			  </isNotEmpty>
     </select>
     
-    <!-- 更新长控预警指令反馈表调用接口状态 -->
+    <!-- 更新尿检物品功能 -->
 	<update id="updateCkyjzlczFkb" parameterClass="ckyjzlFk">
        update qbld_ck_yjzlfkb
        <dynamic prepend="set">
@@ -517,26 +530,6 @@
 			</isNotNull>
 			<isNotNull prepend="," property="xcchwpxx">
 				<![CDATA[ xcchwpxx = #xcchwpxx# ]]>
-			</isNotNull>
-			<isNotNull prepend="," property="fszt">
-				<![CDATA[ fszt = #fszt# ]]>
-			</isNotNull>
-			<isNotNull prepend="," property="code">
-				<![CDATA[ code = #code# ]]>
-			</isNotNull>			
-		</dynamic>
-       where yjzlbh = #yjzlbh#
-    </update>
-    
-    <!-- 更新长控预警指令签收表调用接口状态 -->
-	<update id="updateCkzlyjqsb" parameterClass="ckyjzlQs">
-       update qbld_ck_zlqsb
-       <dynamic prepend="set">
-			<isNotNull prepend="," property="fszt">
-				<![CDATA[ fszt = #fszt# ]]>
-			</isNotNull>
-			<isNotNull prepend="," property="code">
-				<![CDATA[ code = #code# ]]>
 			</isNotNull>			
 		</dynamic>
        where yjzlbh = #yjzlbh#
@@ -546,26 +539,9 @@
 	<select id="queryCkyjzlListExport" parameterClass="Map" resultClass="java.util.HashMap">
 	       select * from qbld_ck_zlxxb
 		   where 1=1
-			  <isNotEmpty prepend="and" property="ckyjzlb.yjzlbh">
-				   yjzlbh = #ckyjzlb.yjzlbh#
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="ckyjzlb.zlbt">
-				   zlbt like '%$ckyjzlb.zlbt$%'
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="ckyjzlb.zljb">
-				   zljb in($ckyjzlb.zljb$)
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="ckyjzlb.fbsjB">
-				   fbsj gt;= #ckyjzlb.fbsjB#
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="ckyjzlb.fbsjE">
-				   fbsj lt;= #ckyjzlb.fbsjE#
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="ckyjzlb.xfjsdw">
-				   xfjsdw like '$xfjsdw.xfjsdw$%'
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="ckyjzlb.qsfkzt">
-				   qsfkzt = #ckyjzlb.qsfkzt#
+			  <isNotEmpty prepend="and" property="ckyjxxb.yjzlbh">
+				   yjzlbh in ($ckyjxxb.yjzlbh$)
+				   
 			  </isNotEmpty>
     </select>
     

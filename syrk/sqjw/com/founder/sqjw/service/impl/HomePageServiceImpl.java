@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
+import com.founder.spsxt.vo.TreeJson;
 import com.founder.sqjw.bean.LogInfo;
 import com.founder.sqjw.bean.TjSyrk;
 import com.founder.sqjw.bean.Tjgzjl;
@@ -23,7 +24,6 @@ import com.founder.sqjw.bean.Xjtjcar;
 import com.founder.sqjw.bean.Xjtjemployee;
 import com.founder.sqjw.dao.HomePageDao;
 import com.founder.sqjw.service.HomePageService;
-import com.founder.sqjw.vo.ZdryCountVo;
 import com.founder.sqjw.vo.ZzjgVo;
 import com.founder.tzgg.bean.Org_Organization;
 /**
@@ -1539,7 +1539,28 @@ public class HomePageServiceImpl implements HomePageService{
 		return lists;
 	}
 	
-	
+	/**
+	 * @Title: jsonTree 
+	 * @描述: tree
+	 * @参数: 传入参数定义  
+	 * @throws
+	 */
+	public List  jsonTree(String id, String orgcode, String flag) {
+		List<TreeJson> list = new ArrayList<TreeJson>();
+		List<Org_Organization> lists = new ArrayList<Org_Organization>();
+		Map attr = null;
+		lists = homePageDao.queryTree(id, orgcode, flag);
+		for (Org_Organization org: lists) {
+			TreeJson node = new TreeJson();
+			node.setId(""+org.getId());
+			node.setPid(""+org.getParentid());
+			node.setText(org.getOrgname());
+			node.setOrgcode(org.getOrgcode());
+			list.add(node);
+		}
+		List<TreeJson> lastTree = TreeJson.formatTree(list);
+		return lastTree;
+	}
 	
 	/**
      * @Title: jqChart 
@@ -1912,24 +1933,5 @@ public class HomePageServiceImpl implements HomePageService{
 		return returnMap;
 	}
 	//jz end
-	@Override
-	public Map<String, Object> queryzrqtj(Map<String, Object> paramMap) {
-		// TODO Auto-generated method stub
-		//统计实有人口的
-		List<ZzjgVo> zzjg = homePageDao.queryPcsTj(paramMap);
-		//统计实有重点人口
-		List<ZdryCountVo> zdry = homePageDao.queryZdryTj(paramMap);
-		//统计房屋的
-		long czf = homePageDao.queryCzfTj(paramMap);
-		long checkf = homePageDao.queryCheckTj(paramMap);
-		//long uncheckf = homePageDao.queryunCheckTj(paramMap);
-		//统计治安管理的
-		Map<String, Object> resMap = new HashMap<String, Object>();
-		resMap.put("zzjg", zzjg);
-		resMap.put("zdry", zdry);
-		resMap.put("czf", czf);
-		resMap.put("checkf", checkf);
-		return resMap;
-	}
 	
 }

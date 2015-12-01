@@ -143,22 +143,5 @@ public class ZpfjFjxxbDao extends BaseDaoImpl {
 	public ZpfjFjxxb queryZpByLyid(String lyid) {
 		return (ZpfjFjxxb) queryForObject("ZpfjFjxxb.queryZpByLyid", lyid);
 	}
-	
-	/**
-	 * 
-	 * @Title: queryListByLybmAndId
-	 * @Description: TODO(根据类别和id查询附件列表)
-	 * @param @param lybm
-	 * @param @param lyid
-	 * @param @return    设定文件
-	 * @return List<ZpfjFjxxb>    返回类型
-	 * @throw
-	 */
-	public List<ZpfjFjxxb> queryListByLybmAndId(String lybm,String lyid){
-		Map map=new HashMap();
-		map.put("lybm",lybm);
-		map.put("id",lyid);
-		return queryForList("ZpfjFjxxb.fjxx_query", map);
-	}
 
 }

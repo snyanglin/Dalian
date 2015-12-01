@@ -6,9 +6,11 @@
     SessionBean userInfo = (SessionBean)session.getAttribute("userSession");
     String userOrgCode = "";
     String bjzbz = "";
+    String orgBizType = "";
     if(userInfo!=null){
         userOrgCode = userInfo.getUserOrgCode();
         bjzbz = userInfo.getBjzbz();
+        orgBizType = userInfo.getUserOrgBiztype();
     }
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -20,6 +22,8 @@
        var userOrgCode = "<%=userOrgCode%>"; 
        var bjzbz = "<%=bjzbz%>";
        var orglevel = "<%=userInfo.getUserOrgLevel()%>";
+       var orgBizType = "<%=orgBizType%>";
+       var editAble = false;
     </script>
     <link rel="stylesheet" type="text/css" href="<%=contextPath%>/css/bzdz.css"></link>
     <script type="text/javascript" src="<%=contextPath%>/js/bzdz/dzManage/dzManage.js"></script>

@@ -19,6 +19,7 @@
 			var mainTabID="${mainTabID}";
 			var states="${states}";
 			var dwmc="${dwmc}";
+			var zjhms="${zjhms}";
 			var zrqdm = "<%=userOrgCode%>";
 
 				var zjhm="${zjhm}";
@@ -71,7 +72,7 @@
 			<input type="hidden" id="rfid" name="rfid" value="${rfid}" />
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 				<tr>
-				    <td class="td1">证件种类：</td>
+				    <td class="td1">证件类型：</td>
 				    <td class="td2">
 				    	<input class="easyui-combobox" id="zjlxdm" name="zjlxdm" value="${entity.zjlxdm}" 
 						style="width:240px;" data-options="required:true
@@ -108,7 +109,7 @@
 				    <td class="td2">
 					    <input type="text" name="whcddm" id="whcddm" value="${entity.whcddm}" class="easyui-combobox " 
 					    style="width:240px;"
-						data-options="required:false,url: contextPath + '/common/dict/QBLD_D_WHCD.js'
+						data-options="required:false,url: contextPath + '/common/dict/D_QBLD_WHCD.js'
 						,valueField:'id',textField:'text',tipPosition:'left',selectOnNavigation:false,method:'get'"/>
 				    </td>
 				    <td class="td1">政治面貌：</td>
@@ -155,14 +156,15 @@
 				    <td colspan="2"  class="td2">
 					    <input class="easyui-combobox" id="fzd3"  style="width:420px;" 
 					    value="${entity.dz_jzdzmlpxz}" 
-					    data-options="required:false,mode:'remote'
-					    ,method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    data-options="required:false,mode:'remote'    
+					    ,method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false,onSelect:function(param){
+						yzqk(param);}">
 				    	<input type='hidden' name='dz_jzdzmlpdm' id="dz_jzdzmlpdm" value="${entity.dz_jzdzmlpdm}"/>
 				    	<input type='hidden' name='dz_jzdzmlpxz' id="dz_jzdzmlpxz" value="${entity.dz_jzdzmlpxz}"/>
 				    </td>
 				    <td class="td2" align="right">
 					    <input class="easyui-combobox"  id="fzd4" style="width:240px;" 
-					    value="${fn:replace(entity.dz_jzdzxz, entity.dz_jzdzmlpxz, '')}" 
+					    value='${fn:replace(entity.dz_jzdzxz, entity.dz_jzdzmlpxz, "")}' 
 					    data-options="required:false,mode:'remote',method:'post'
 					    ,panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 				    	<input type='hidden' name='dz_jzdzdm' id="dz_jzdzdm" value="${entity.dz_jzdzdm}"/>
@@ -184,7 +186,7 @@
 				    <td class="td1">成员类别：</td>
 				    <td  class="td2">
 					    <input type="text" name="cylbdm" id="cylbdm" value="${entity.cylbdm}" 
-					    class="easyui-combobox " style="width:240px;" data-options="required:false,url: contextPath + '/common/dict/D_AQFF_RYLYDM.js'
+					    class="easyui-combobox " style="width:240px;" data-options="required:false,url: contextPath + '/common/dict/BD_D_CYLB.js'
 						,valueField:'id',textField:'text',tipPosition:'left',selectOnNavigation:false,method:'get'"/>
 				    </td>
 				</tr>

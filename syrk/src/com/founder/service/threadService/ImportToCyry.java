@@ -18,7 +18,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.founder.framework.base.entity.SessionBean;
-import com.founder.sydw.service.CyrydrrwxxbService;
+import com.founder.sydw_dl.service.CyrydrrwxxbService;
 
 /******************************************************************************
  * @Package:      [com.founder.service.threadService.ImportToCyry.java]  

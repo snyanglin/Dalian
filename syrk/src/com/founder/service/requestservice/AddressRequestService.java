@@ -22,7 +22,7 @@ import java.net.URLEncoder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.founder.sydw.bean.AddressResultBean;
+import com.founder.sydw_dl.bean.AddressResultBean;
 
 import com.google.gson.Gson;
 

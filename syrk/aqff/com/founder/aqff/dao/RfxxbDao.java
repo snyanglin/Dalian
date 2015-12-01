@@ -85,6 +85,43 @@ public class RfxxbDao extends BaseDaoImpl{
 		return super.update("Zaff_rfxxb.deleterfry", entity);
 	}
 	
+	public EasyUIPage queryDownListByParentID(EasyUIPage page,Long parentid,
+			String orgType, String orgLevel, String orgBizType) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (parentid == null) {
+			map.put("parentid", new Long(0));
+		} else {
+			map.put("parentid", parentid);
+		}
+		map.put("orgtype", orgType);
+		String orgParameterCondition = "";
+		if (!StringUtils.isBlank(orgLevel)) {
+			orgParameterCondition = "ORGLEVEL in ('"
+					+ orgLevel.replaceAll(",", "','") + "')";
+		}
+		if (!StringUtils.isBlank(orgBizType)) {
+			if (!StringUtils.isBlank(orgParameterCondition)) {
+				orgParameterCondition += " and ";
+			}
+			orgParameterCondition += "ORGBIZTYPE in ('"
+					+ orgBizType.replaceAll(",", "','") + "')";
+		}
+		map.put("orgParameterCondition", orgParameterCondition);
+		map.put("begin", page.getBegin());
+		map.put("end", page.getEnd());
+		String sort = page.getSort();
+		String order = page.getOrder();
+		if (StringUtils.isBlank(sort)) { // 榛樿鎺掑簭
+			sort = "id";
+			order = "asc";
+		}
+		map.put("sort", sort);
+		map.put("order", order);
+		page.setTotal((Integer) queryForObject("Zaff_rfxxb.queryCountRfxx", map));
+		page.setRows(queryForList("Zaff_rfxxb.queryRfxx", map));
+		return page;
+	}
+	
 	/**
 	 * @Title: queryRf
 	 * @Description: TODO(人防信息分页精确查询)

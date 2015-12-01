@@ -55,7 +55,7 @@
 						    	<td width="40%" class="dialogTd" align="right">事件类型：</td>
 						    	<td width="60%" class="dialogTd">
 									<input class="easyui-combobox" type="text" id="sjlx" name="sjlx" style="width:130px;" 
-									data-options="url: contextPath + '/common/dict/DL_D_ZDRYGLLXDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/>
+									data-options="url: contextPath + '/common/dict/BD_D_ZDRYLBDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/>
 									</td>
 						</tr>
 						<tr class="dialogTr">
@@ -74,14 +74,14 @@
 						    	<td width="40%" class="dialogTd" align="right">触发线路：</td>
 						    	<td width="60%" class="dialogTd">
 									<input class="easyui-combobox" type="text" id="cfxl" name="cfxl" style="width:130px;" 
-									data-options="url: contextPath + '/common/dict/DL_D_ZDRYGLLXDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/>
+									data-options="url: contextPath + '/common/dict/BD_D_ZDRYLBDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/>
 									</td>
 						</tr>
 						 <tr class="dialogTr" style="display: none;">
 						    	<td width="40%" class="dialogTd" align="right">触发人：</td>
 						    	<td width="60%" class="dialogTd">
 									<input class="easyui-combobox" type="text" id="cfr" name="cfr" style="width:130px;" 
-									data-options="url: contextPath + '/common/dict/DL_D_ZDRYGLLXDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/>
+									data-options="url: contextPath + '/common/dict/BD_D_ZDRYLBDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/>
 									</td>
 						</tr>
 					<tr class="dialogTr">

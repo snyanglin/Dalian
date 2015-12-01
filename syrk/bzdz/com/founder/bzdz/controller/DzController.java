@@ -67,12 +67,23 @@ public class DzController extends BaseController {
 		if(null != sessionBean){
 			OrgOrganization userOrg = orgOrganizationService.queryById(sessionBean.getUserOrgId());
 			String orglevel = userOrg.getOrglevel();
-			if(("21").equals(orglevel)){
-				entity.setFxjdm((String)sessionBean.getUserOrgCode());
-			}else if("32".equals(orglevel)){
-				entity.setPcsdm((String)sessionBean.getUserOrgCode());
-			}else if("50".equals(orglevel)){
-				entity.setZrqdm((String)sessionBean.getUserOrgCode());
+			if("12".equals(sessionBean.getUserOrgBiztype())){
+				//内保登陆
+				if("20".equals(sessionBean.getUserOrgLevel())){
+					//支队:不设置管理派出所信息，DB层校验会不通过
+					entity.setFxjdm(sessionBean.getUserOrgCode());//支队本真相当于分县局级别
+				}else{
+					//大队
+					entity.setPcsdm(sessionBean.getExtendValue("parentOrgCode"));
+				}
+			}else{
+				if(("21").equals(orglevel)){
+					entity.setFxjdm((String)sessionBean.getUserOrgCode());
+				}else if("32".equals(orglevel)){
+					entity.setPcsdm((String)sessionBean.getUserOrgCode());
+				}else if("50".equals(orglevel)){
+					entity.setZrqdm((String)sessionBean.getUserOrgCode());
+				}
 			}
 		}
 		return dzService.queryDzList(page, entity);
@@ -273,12 +284,21 @@ public class DzController extends BaseController {
 		if(null != sessionBean){
 			OrgOrganization userOrg = orgOrganizationService.queryById(sessionBean.getUserOrgId());
 			String orglevel = userOrg.getOrglevel();
-			if(("21").equals(orglevel)){
-				entity.setFxjdm((String)sessionBean.getUserOrgCode());
-			}else if("32".equals(orglevel)){
-				entity.setPcsdm((String)sessionBean.getUserOrgCode());
-			}else if("50".equals(orglevel)){
-				entity.setZrqdm((String)sessionBean.getUserOrgCode());
+			
+			if("12".equals(sessionBean.getUserOrgBiztype())){
+				if(("20").equals(orglevel)){
+					entity.setFxjdm((String)sessionBean.getUserOrgCode());
+				}else{
+					entity.setPcsdm((String)sessionBean.getUserOrgCode());
+				}
+			}else{
+				if(("21").equals(orglevel)){
+					entity.setFxjdm((String)sessionBean.getUserOrgCode());
+				}else if("32".equals(orglevel)){
+					entity.setPcsdm((String)sessionBean.getUserOrgCode());
+				}else if("50".equals(orglevel)){
+					entity.setZrqdm((String)sessionBean.getUserOrgCode());
+				}
 			}
 		}
 		return dzService.queryShDzList(page, entity);

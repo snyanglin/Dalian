@@ -64,7 +64,6 @@
             		<!-- onClickRow:doOnClickRow 单击行事件 --> 
 				    <thead>
 				        <tr>
-				            <th data-options="field:'wflx',width:100,align:'center',halign:'center',sortable:true,formatter:dictFormatter,dictName:contextPath+'/common/dict/D_ZAFF_WFLX.js'">物防类型</th>
 				            <th data-options="field:'wfzl',width:100,align:'center',halign:'center',sortable:true,formatter:dictFormatter,dictName:contextPath+'/common/dict/D_ZAFF_WFZL.js'">物防种类</th>
 				            <th data-options="field:'sl',width:40,align:'center',halign:'center',sortable:true">数量</th>
 				            <th data-options="field:'dz_wfdzxz',width:220,align:'left',sortable:true,halign:'center',formatter:subjzdz,sortable:true">物防地址</th>
@@ -115,14 +114,7 @@
 	    <div class="easyui-layout" data-options="fit:true">   
 	        <div data-options="region:'left'">  
 	        <form id ="queryForm" >
-		        <table border="0" cellpadding="0" cellspacing="6" width="100%" height="100%" align="center">
-	       			<tr class="dialogTr">
-				    	<td width="30%" class="dialogTd" align="right">物防类型：</td>
-				    	<td width="70%" class="dialogTd">
-							<input class="easyui-combobox" type="text" id="wflx" name="wflx" style="width:150px;"
-							data-options="url:contextPath+'/common/dict/D_ZAFF_WFLX.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false"/>
-						</td>
-			   		</tr>
+		        <table border="0" cellpadding="0" cellspacing="10" width="100%" height="100%" align="center">
 		       		<tr class="dialogTr">
 				    	<td width="30%" class="dialogTd" align="right">物防种类：</td>
 				    	<td width="70%" class="dialogTd">

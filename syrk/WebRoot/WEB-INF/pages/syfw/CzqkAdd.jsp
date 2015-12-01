@@ -181,6 +181,11 @@ function checkCzryZjhm(){
 					dataType:"json",
 					data:"fwdz_dzid="+fwdz_dzid+"&ryid="+data.ryRyjbxxb.id,
 					success:function(data) {
+                        if(data.fzIsChzr){
+                        	topMessager.alert("", "房主和承租人不能是同一个人");
+                        	clearRyfyxx(); 
+                        	return;
+                         }
 						if(data.returnValue =="0"){
 							$.messager.confirm("提示","该人员信息非本辖区实有人口,请先录入实有人口信息!",function(r){
 								if(r){

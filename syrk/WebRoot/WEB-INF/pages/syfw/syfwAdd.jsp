@@ -33,7 +33,7 @@
 					    		<input type='hidden' name='fwjbxxb.fwdz_zbx' id="syfw_fwdz_zbx" value="${entity.fwdz_zbx}"/>
 				    		</td>
 							<td width="30%" class="dialogTd">
-								<input class="easyui-combobox" id="syfw_fwdz2" style="width:200px;" value="${fn:replace(entity.fwdz_dzxz, entity.fwdz_mlpxz, '')}" data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+								<input class="easyui-combobox" id="syfw_fwdz2" style="width:200px;" value='${fn:replace(entity.fwdz_dzxz, entity.fwdz_mlpxz, "")}' data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 						    	<input type='hidden' name='fwjbxxb.fwdz_dzid' id='syfw_dz_fwdzid' value="${entity.fwdz_dzid}" />
 						    	<input type='hidden' name='fwjbxxb.fwdz_xzqhdm' id='syfw_dz_fwdzxzqhdm' value="${entity.fwdz_xzqhdm}" />
 						    	<input type='hidden' name='fwjbxxb.fwdz_dzxz' id='syfw_dz_fwdzxz' value="${entity.fwdz_dzxz}" /> 
@@ -79,10 +79,11 @@
 							<td width="20%" class="dialogTd" align="right">是否出租房：</td>
 							<td width="30%" class="dialogTd">	
 								<input class="easyui-combobox" type="text" id="sfczfw" name="fwjbxxb.sfczfw" style="width:200px;" value="${entity.sfczfw}"
-								data-options="url:contextPath +'/common/dict/D_GG_SF.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'right'"/>
+								data-options="url:contextPath+'/common/dict/BD_D_SF.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'left'"/>
 							</td>
-							
-													
+							<td width="20%" class="dialogTd" align="right"></td>
+							<td width="30%" class="dialogTd">	
+							</td>						
 						</tr>
 						<tr class="dialogTr">
 							<td width="20%" class="dialogTd" align="right">所属单位：</td>
@@ -197,9 +198,8 @@
 				    	<tr class="czfwxx dialogTr">
 						    <td width="20%" class="dialogTd" align="right">与房主关系：</td>
 						    <td width="30%" class="dialogTd"><input class="easyui-combotree" type="text" id="czur_yfzgx_rygxdm" name="czfwxxb.czur_yfzgx_rygxdm" style="width:200px;" 
-									data-options="url: contextPath + '/common/dict/XZ_D_RYGXDM.js',onlyLeaf:true,dataFilter:'',multiple:false,method:'get',editable:true,lines:true" />
+									data-options="url: contextPath + '/common/dict/BD_D_RYGXDM.js',onlyLeaf:true,dataFilter:'',multiple:false,method:'get',editable:true,lines:true" />
 						    </td>
-						    
 				    	<tr>
 				    	<tr class="dialogTr">
 		    	      		<td width="20%" class="dialogTd" align="right" style="color: #FF0000;font-weight: bold;">房屋房主信息：</td>
@@ -311,6 +311,8 @@ $(document).ready(function(){
 	$("#fz_zjhm").bind("blur",function(e){ checkRyxx("fz_",true); });
 	$("#czur_zjhm").bind("blur",function(e){ checkRyxx("czur_"); });
 	$("#tgr_zjhm").bind("blur",function(e){ checkRyxx("tgr_",true); });
+	
+	
 	initAddressSearch('syfw_fwdz1', {zrqdm:'${zrqdm}'}, 'syfw_dz_fwmlpdm', 'syfw_dz_fwmlpxz', 'syfw_fwdz2', {text:'syfw_dz_fwdzxz',dzxzqh:'syfw_dz_fwdzxzqhdm',id:'syfw_dz_fwdzid',dzzbx:'syfw_fwdz_zbx',dzzby:'syfw_fwdz_zby'}, null, 'checkDzcf');
 	initDepartmentSearch('gzdw-box', {glpcsid: ''}, 'fwssdw_dwid', 'fwssdw_dwmc', {},'queryFrByDwid');
 	
@@ -320,6 +322,13 @@ $(document).ready(function(){
 	}
 	$("#saveBotton").bind("click",function() {
 		if ($("#syfwForm").form('validate')) {
+
+			if($("#fz_zjhm").val() == $("#tgr_zjhm").val()){
+				topMessager.alert(MESSAGER_TITLE, "房主与托管人不能相同！", "warn");
+				return;
+			}
+
+			
 			if ($("#syfw_dz_fwdzid").val() == "") {
 				topMessager.alert('', '请先选择有效的房屋地址！');
 				$("#fwdzTd").find("input.combo-text").first().focus();
@@ -362,6 +371,7 @@ $(document).ready(function(){
 	
 });
 var _zjhm = "";
+
 function checkRyxx(rylx , isReat){ 
 	if(!$("#"+rylx+"zjhm").validatebox("isValid")){
 		return;
@@ -370,10 +380,18 @@ function checkRyxx(rylx , isReat){
 		//return;
 	}
 	if(isReat){
-		if($("#fz_zjhm").val() == $("#tgr_zjhm").val()){
+		if($("#fz_zjhm").val()!="" && ($("#fz_zjhm").val() == $("#tgr_zjhm").val())){
 			topMessager.alert(MESSAGER_TITLE, "房主与托管人不能相同！", "warn");
 			return ;
 		}
+	}
+	//如果没填托管人信息 把托管人的姓名和联系电话必填去掉
+
+	if(rylx=="tgr_" && !$("#tgr_zjhm").val()){
+		$("#tgr_xm").validatebox({required:false});
+		$("#tgr_lxdh").validatebox({required:false});
+		return;
+		
 	}
 	$("#"+rylx+"LoadDiv").show();//显示加载进度图片
 	$.ajax({
@@ -469,6 +487,18 @@ function tgrzjdm_onchange(newVal, oldVal) {
 	}else {
 		$("#tgr_zjhm").validatebox({validType:['maxLength[30]']});
 	}
+	if(newVal){
+		$("#tgr_xm").validatebox({required:true});
+		$("#tgr_lxdh").validatebox({required:true});
+		$("#tgr_zjhm").validatebox({required:true});
+		
+	}else{
+
+		$("#tgr_xm").validatebox({required:false});
+		$("#tgr_lxdh").validatebox({required:false});
+		$("#tgr_zjhm").validatebox({required:false});
+		}
+	
 }
 function cuzrzjdm_onchange(newVal, oldVal) {
 	if (newVal) {
@@ -490,7 +520,6 @@ function doInit(paramArray) {
 
 function beforeSubmit(){
 	
-	
 }
 
 function afterSubmit(arr) {
@@ -501,7 +530,7 @@ function afterSubmit(arr) {
 function queryFrByDwid(){
 	$.ajax({
 		type:"GET",
-		url:"<%= basePath%>sydw/"+$("#fwssdw_dwid").val()+"/fr",
+		url:"<%= basePath%>sydw_dl/"+$("#fwssdw_dwid").val()+"/fr",
 		dataType:"json",
 		success:function(data){
 			if (data) {

@@ -1,13 +1,9 @@
 package com.founder.zafffwqz.service;
 
-import java.util.List;
-
 import com.founder.framework.annotation.MethodAnnotation;
 import com.founder.framework.annotation.MethodAnnotation.logType;
 import com.founder.framework.annotation.TypeAnnotation;
 import com.founder.framework.base.entity.SessionBean;
-import com.founder.service.contextsearch.department.bean.DwContextCombo;
-import com.founder.service.contextsearch.department.bean.DwContextCondition;
 import com.founder.zafffwqz.bean.ZaffWfxx;
 
 /******************************************************************************
@@ -55,8 +51,4 @@ public interface WfxxbService {
 	 */
 	@MethodAnnotation(value = "治安防范物防信息表修改", type = logType.update)
 	public int updateWfxxb(ZaffWfxx entity, SessionBean sessionBean);
-	
-	
-	public List<DwContextCombo> searchXqContext(DwContextCondition condition);
-
 }

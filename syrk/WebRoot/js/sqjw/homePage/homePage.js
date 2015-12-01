@@ -55,12 +55,32 @@ HomePage.loadMap = function(){
 	HomePage.map.showNewMapServer("mapDiv","HomePage.map");
 	/*加载地图工具条*/
 	HomePage.map.buildTools("mapDiv","toolDiv","HomePage.map");
+	/*设置工具条显示的位置*/
+	HomePage.diyToolDiv();
+	/*窗口变化地图工具条自动变*/
+	$("#mapDiv").resize(function(){HomePage.diyToolDiv();});
 	if(bjzbz!="" && bjzbz!='null'){
 		/*计算辖区面积*/
 		HomePage.showAreaMJ(bjzbz);
 		/*显示当前用户边界*/
 		HomePage.moveMapToBjzbz();
 	}
+};
+/**
+ * @title:diyToolDiv
+ * @description:设置工具条显示的位置
+ * @author: zhang_guoliang@founder.com
+ * @param  
+ * @param   
+ * @date:2014-07-08 16:32:45
+ */	
+HomePage.diyToolDiv =function(){
+	var left = $("#mapDiv").offset().left+5;
+	var top = $("#mapDiv").height() - 5;
+	$("#toolDiv").css({
+		"top" : top,
+		"left" : left
+	});
 };
 /**
  * @title:moveMapToBjzbz
@@ -444,7 +464,7 @@ HomePage.initFloatWin_back = function(json){
 				 czrkNum = json[i].sl;
 			 }else if(json[i].lxmc=="寄住人口"){
 				 jzrkNum = json[i].sl;
-			 }else if(json[i].lxmc=="暂住人口"){
+			 }else if(json[i].lxmc=="流动人员"){
 				 ldrkNum = json[i].sl;
 			 }else if(json[i].lxmc=="境外人员"){
 				 jwrkNum = json[i].sl;
@@ -510,8 +530,8 @@ HomePage.openFloatWin = function(){
 	    HomePage.floatWin.close();
 	}
 	var titleWin = "辖区概况 "+HomePage.XqMJ+"(平方米)";
-	var left = $("#mapDiv").width() - 290;
-	HomePage.floatWin = new FrameTools.FloatWin(titleWin,"mapDiv",280,350,85,left,85,null,250,0.9);
+	var left = $("#mapDiv").width() - 260;
+	HomePage.floatWin = new FrameTools.FloatWin(titleWin,"mapDiv",250,350,85,left,85,null,250,0.9);
 	HomePage.floatWin.setOpHtml(HomePage.queryHTML);
 };
 /**
@@ -527,7 +547,7 @@ HomePage.gridList = function(bs){
 	}else if(bs=='20'){
 		menu_open('重点人员管理', '/zdryzb/manager')
 	}else if(bs=='30'){
-		menu_open('实有单位管理', '/sydwcx/queryDwByLx')
+		menu_open('实有单位管理', '/sydwcx_dl/queryDwByLx')
 	}
 };
 /**

@@ -686,7 +686,7 @@ HomePage.initFloatWin_back = function(json){
 				 czrkNum = json[i].sl;
 			 }else if(json[i].lxmc=="寄住人员"){
 				 jzrkNum = json[i].sl;
-			 }else if(json[i].lxmc=="暂住人口"){
+			 }else if(json[i].lxmc=="流动人员"){
 				 ldrkNum = json[i].sl;
 			 }else if(json[i].lxmc=="境外人员"){
 				 jwrkNum = json[i].sl;
@@ -808,11 +808,11 @@ HomePage.gridList = function(bs){
 	}else if(bs=='10'){
 		menu_open('重点人口', '/forward/zdrk|zdrkMain')
 	}else if(bs=='20'){
-		menu_open('实有单位', '/forward/sydw|sydwMain')
+		menu_open('实有单位', '/forward/sydw_dl|sydwMain')
 	}else if(bs=='6'){
 		menu_open('实有人口核实', '/forward/syrk|syrkHs')
 	}else if(bs=='21'){
-		menu_open('实有单位核实', '/forward/sydw|sydwHs')
+		menu_open('实有单位核实', '/forward/sydw_dl|sydwHs')
 	}
 };
 /**

@@ -33,9 +33,9 @@ public interface SyfwEditService {
 	@MethodAnnotation(value = "修改实有房屋", type = logType.update)
 	public void updateFwjbxxb(Fwjbxxb entity, SessionBean sessionBean);
 
-	//gem
-	public Fwjbxxb queryFwxx(String fwdz_dzid);
-	
+
+	public boolean checkFzIsChzr(String ryid,String fw_dzid);
+
 	/**
 	 * 查询房屋里的人数
 	 * 
@@ -134,6 +134,8 @@ public interface SyfwEditService {
 	 * @throws
 	 */
 	public int getCountRkjzdzzb(String ryid,String sszrqdm);
+	
+	
 
 	/**
 	 * 

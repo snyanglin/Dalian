@@ -10,9 +10,9 @@ if(typeof Yjxx =="undefined" || !Yjxx){
  */
 Yjxx.initLkzlQueryHtml = function(type){
 	Yjxx.type = type;
-	var jbhtml = "<div class='jbdiv1'><input type='checkbox' name='zljb' value='1' onclick='Yjxx.queryLkzlList();' checked/>一级</div>"+
-	"<div class='jbdiv2'><input type='checkbox' name='zljb' value='2' onclick='Yjxx.queryLkzlList();' checked/>二级</div>"+
-	"<div class='jbdiv3'><input type='checkbox' name='zljb' value='3' onclick='Yjxx.queryLkzlList();'' checked/>三级</div>"
+	var jbhtml = "<input type='checkbox' name='zljb' value='1' onclick='Yjxx.queryLkzlList();' checked/>一级"+
+	"<input type='checkbox' name='zljb' value='2' onclick='Yjxx.queryLkzlList();' checked/>二级"+
+	"<input type='checkbox' name='zljb' value='3' onclick='Yjxx.queryLkzlList();'' checked/>三级"
 	$(".yjjbCheckBox").html(jbhtml);
 	Yjxx.initLkzlSimpleQuery();
 }
@@ -52,7 +52,7 @@ Yjxx.initLkzlAdvancedQuery = function(){
 	'<tr><td colspan=2 class="queryType"><a href="#" class="easyui-linkbutton" id="toggleButton" onclick="Yjxx.initLkyjSimpleQuery()" >模糊查询</a></td></tr>'+
 	'<tr><td class="whereName">指令类型</td><td><input class="whereInput" id="where_lkzllx"></td></tr>'+
 	'<tr><td class="whereName">申请单位</td><td><input id="where_sqdwjgdm" style="display:none"><input class="whereInput" id="where_sqdwjg" onclick="public_singleSelectOrg(\'\', \'01\', \'\', \'03,04\', \'where_sqdwjgdm\', \'where_sqdwjg\', \'\', false, false, \'\', window, \'\', \'\')"></td></tr>'+
-	'<tr><td class="whereName">指令发布时间</td><td><input class="whereInput" id="where_zlfbsjB" onclick="WdatePicker({skin:\'whyGreen\',dateFmt:\'yyyyMMddHHmmss\'})" ><br>-'+
+	'<tr><td class="whereName">指令发布时间</td><td><input class="whereInput" id="where_zlfbsjB" onclick="WdatePicker({skin:\'whyGreen\',dateFmt:\'yyyyMMddHHmmss\'})" >-'+
 	'	<input class="whereInput" id="where_zlfbsjE" onclick="WdatePicker({skin:\'whyGreen\',dateFmt:\'yyyyMMddHHmmss\'})"></td></tr>'+
 	'<tr><td colspan=2 class="queryButton"><a href="#" id="advancedQueryButton" class="easyui-linkbutton" onclick="Yjxx.queryLkzlList();" >查询</a>'+
 	'										<a href="#" id="clearAdvancedQueryButton" class="easyui-linkbutton" onclick="Yjxx.clearLkzlAdvancedQueryValue();" >重置</a></td></tr>'+
@@ -108,9 +108,6 @@ Yjxx.clearLkzlAdvancedQueryValue = function(){
  * @date:2015-5-8下午6:58:44
  */
 Yjxx.queryLkzlList = function(total,begin,end,page){
-	/**
-	 * 获取级别复选框条件
-	 */
 	var checkObj = $(":checkBox");
 	var num = checkObj.length
 	var yjjb = ""; 
@@ -119,9 +116,6 @@ Yjxx.queryLkzlList = function(total,begin,end,page){
 		yjjb+=checkObj[i].value+",";
 	}
 	var param = "";
-	/**
-	 * 查询类型为模糊查询时，判断根据条件内容为数字和字母组合的放入身份证条件，否则放入姓名条件
-	 */
 	if(document.getElementById("where_all")){
 		var value = $("#where_all").val();
 		var reg = new RegExp("^[0-9a-zA-Z]*$");
@@ -132,7 +126,7 @@ Yjxx.queryLkzlList = function(total,begin,end,page){
 		}else{
 			xm = value;
 		}
-		param = {
+		param = {"zljsdw":userOrgCode,
 				"lkzljb":yjjb.substring(0, yjjb.length-1),
 				"qsfkzt":Yjxx.type,
 				"bbkrxm":xm,
@@ -143,7 +137,7 @@ Yjxx.queryLkzlList = function(total,begin,end,page){
 				"end":end,
 				"page":page}
 	 }else{
-		 param = {
+		 param = {"zljsdw":userOrgCode,
 					"lkzljb":yjjb.substring(0, yjjb.length-1),
 					"qsfkzt":Yjxx.type,
 					"sqdwjgdm":$("#where_sqdwjgdm").val(),
@@ -158,7 +152,6 @@ Yjxx.queryLkzlList = function(total,begin,end,page){
 	var url = contextPath+'/lkyjzl/queryLkyjzlList';
 	var fajax = new FrameTools.Ajax(url,Yjxx.queryLkzlList_back);
 	fajax.send(param);
-	$(document.body).mask("努力加载中...");
 };
 
 /**
@@ -170,10 +163,9 @@ Yjxx.queryLkzlList = function(total,begin,end,page){
  * @date:2015-5-8下午7:00:22
  */
 Yjxx.queryLkzlList_back = function(json){
-	$(document.body).unmask();
 	var  rsHtml = "<table class='listTable'>";
 		rsHtml+="<tr class='countInfo'>" +
-		"<td colspan=4 >共有<font color='#17a9ff'>"+json.total+"</font>条预警信息<a href='#' id='exportButton' class='easyui-linkbutton' onclick='Yjxx.exportLkzlList();' >导出</a></td>"+
+		"<td colspan=4 >共有<font color='#17a9ff'>"+json.total+"</font>条预警信息</td>"+
 		"</tr>";
 	var rows = json.rows;
 		num = rows.length
@@ -206,10 +198,6 @@ Yjxx.queryLkzlList_back = function(json){
 		rsHtml += "<tr class='fyTr'><td colspan=4 >"+Yjxx.showfy(json.total,json.rownum,json.page,"Yjxx.queryLkzlList")+"</td></tr>";
 		rsHtml+="</table>";
 	$("#InfoList").html(rsHtml);
-	$("#exportButton").linkbutton({
-		iconCls:"icon-xls",
-			plain:true
-	} ) 
 	Yjxx.initChangeListColor();
 };
 
@@ -226,7 +214,6 @@ Yjxx.queryOneLkzlInfo = function(lkzlbh){
 	var url = contextPath+'/lkyjzl/queryLkyjzl';
 	var fajax = new FrameTools.Ajax(url,Yjxx.showOneLkzlInfo);
 	fajax.send({"lkzlbh":lkzlbh});
-	$(document.body).mask("努力加载中...");
 }
 
 /**
@@ -238,7 +225,6 @@ Yjxx.queryOneLkzlInfo = function(lkzlbh){
  * @date:2015-5-8下午7:03:19
  */
 Yjxx.showOneLkzlInfo = function(json){
-	$(document.body).unmask();
 	if(json==null)
 		json = Yjxx.indexInfoObj;
 	if(Yjxx.indexInfoObj==null)
@@ -250,12 +236,9 @@ Yjxx.showOneLkzlInfo = function(json){
 	}
 	$("#infoTitle").html("姓名："+json.bbkrxm);
 	$("#opButtonTd").html("<a href='#' id='qsfkButton'></a>")
-	$("#asInfoButton").html("")
 	$("#oneInfoDiv").height($(".infoTr").height()-5);
 	$("#oneInfoDiv").html(Yjxx.buildLkzlInfoHtml(json));
-	/**
-	   	 * 预警级别为红色时显示操作按钮，不等于0则显示反馈，否则显示签收
-	   	 */
+	
    if(Yjxx.indexInfoObj == json ){
  	   	if(json.qsfkzt!=0){
 	 	   	$("#qsfkButton").linkbutton({
@@ -287,7 +270,7 @@ Yjxx.buildLkzlInfoHtml = function(json){
 			"		<table class='infoBodyTable'>" +
 			"			<tr><td class='infoName'>被布控人性别</td><td class='infoValue'>"+json.bbkrxb+"</td><td class='infoName'>被布控人出生日期</td><td class='infoValue'>"+json.bbkrcsrq+"</td>" +
 					"<td id='imgTd' rowspan=6><img style='width:150px;height:185px;' src='"+contextPath + "/ckyj/queryQbldZpSingle.jpg?sfzh="+json.bbkrzjhm + "'></img></td></tr>" +
-			"			<tr><td class='infoName'>被布控人证件种类</td><td class='infoValue'>"+json.bbkrzjlx+"</td><td class='infoName'>被布控人证件号码</td><td class='infoValue'> "+json.bbkrzjhm+"</td></tr>" +
+			"			<tr><td class='infoName'>被布控人证件类型</td><td class='infoValue'>"+json.bbkrzjlx+"</td><td class='infoName'>被布控人证件号码</td><td class='infoValue'> "+json.bbkrzjhm+"</td></tr>" +
 			"			<tr><td class='infoName'>被布控人其它特征信息</td><td class='infoValue' colspan=4>"+json.bbkrqttzxx+"</td></tr>" +
 			"			<tr><td class='infoName'>布控起始时间</td><td class='infoValue'>"+json.bkqssj+"</td><td class='infoName'>布控截止时间</td><td class='infoValue'> "+json.bkjzsj+"</td></tr>" +
 			"			<tr><td class='infoName'>临控指令类型</td><td class='infoValue'>"+json.lkzllx+"</td><td class='infoName'>临控指令级别</td><td class='infoValue'> "+json.lkzljb+"</td></tr>" +
@@ -299,44 +282,22 @@ Yjxx.buildLkzlInfoHtml = function(json){
 			"			<tr><td class='infoName'>签收时限</td><td class='infoValue'>"+json.fbrxm+"</td><td class='infoName'>首次处置反馈时限</td><td class='infoValue' colspan=2>"+json.fbzrdw+"</td></tr>" +
 			"			<tr><td class='infoName'>处置措施</td><td class='infoValue' colspan=4>"+json.czcsyq+"</td></tr>" +
 			"			<tr><td class='infoName'>执法依据</td><td class='infoValue' colspan=4>"+json.zfyj+"</td></tr>" +
-			"			<tr><td class='infoName'>备注</td><td class='infoValue' colspan=4>"+json.bz+"</td></tr>" ;
-			/**
-			 * 判断是否显示签收人信息
-			 */
-			if(json.qsrxm){
-				html += 	"			<tr><td class='infoName'>签收人</td><td class='infoValue'>"+json.qsrxm+
-					"				</td><td class='infoName'>签收时间</td><td class='infoValue'>"+json.qssj+"</td></tr>" +
-					"			<tr><td class='infoName'>签收单位</td><td class='infoValue' colspan=3>"+json.qsdw+"</td></tr>";
-			}	
-			html +="		</table>" +
+			"			<tr><td class='infoName'>备注</td><td class='infoValue' colspan=4>"+json.bz+"</td></tr>" +
+			"			<tr><td class='infoName'>签收人</td><td class='infoValue'>关联签收信息</td><td class='infoName'>签收时间</td><td class='infoValue' colspan=2>关联签收信息</td></tr>" +
+			"			<tr><td class='infoName'>签收单位</td><td class='infoValue' colspan=4>关联签收信息</td></tr>" +
+			"		</table>" +
 			"	</td>" +
 			"</tr>"+
 			"</table>";
 	return html;
 };
-/**
- * @method:lkzlQs
- * @package:syrk/js/qbld	
- * @description:临控指令签收
- * @author:Li_Zhenzhong
- * @date:2015-6-25下午3:22:28
- */
+
 Yjxx.lkzlQs = function(){
 	var url = contextPath+'/lkyjzl/updateLkyjzlbAndSaveQsb	';
 	var fajax = new FrameTools.Ajax(url,Yjxx.lkzlQs_back);
 	fajax.send({"lkzlbh":Yjxx.indexInfoObj.lkzlbh});
-	$(document.body).mask("努力加载中...");
 };
-/**
- * @method:lkzlQs_back
- * @package:syrk/js/qbld	
- * @description:签收反馈状态，成功显示反馈按钮
- * @param qsRs
- * @author:Li_Zhenzhong
- * @date:2015-6-25下午3:22:42
- */
 Yjxx.lkzlQs_back = function(qsRs){
-	$(document.body).unmask();
 	if(qsRs.status=="success"){
 		$.messager.show({
 			title:"提示信息",
@@ -350,13 +311,6 @@ Yjxx.lkzlQs_back = function(qsRs){
 		Yjxx.QueryDyjCount();
 	}
 }
-/**
- * @method:showLkzlFkFrom
- * @package:syrk/js/qbld	
- * @description:TODO
- * @author:Li_Zhenzhong
- * @date:2015-6-25下午3:23:07
- */
 Yjxx.showLkzlFkFrom = function(){
 	Yjxx.changeOtherDivShow();
 	$("#otherInfoDiv").html("<div id='otherInfoListDiv'></div>");
@@ -426,25 +380,10 @@ Yjxx.addLkzlCzfk = function(){
 	param+="'lkzlbh':'"+Yjxx.indexInfoObj.lkzlbh+"'})";
 	param = eval(param);
 	var url = contextPath+'/lkyjzl/updateLkyjzlbAndSaveFkb';
-	
-	$.messager.confirm('确认对话框', '您是否确定要提交数据？', function(r){
-		if (r){
-			var fajax = new FrameTools.Ajax(url,Yjxx.addLkzlCzfk_back);
-			fajax.send(param);
-			$(document.body).mask("努力加载中...");
-		}
-	});
+	var fajax = new FrameTools.Ajax(url,Yjxx.addLkzlCzfk_back);
+	fajax.send(param);
 };
-/**
- * @method:addLkzlCzfk_back
- * @package:syrk/js/qbld	
- * @description:添加反馈信息返回状态
- * @param fkRs
- * @author:Li_Zhenzhong
- * @date:2015-6-25下午3:26:27
- */
 Yjxx.addLkzlCzfk_back = function(fkRs){
-	$(document.body).unmask();
 	if(fkRs.status=="success"){
 		$.messager.show({
 			title:"提示信息",
@@ -457,13 +396,6 @@ Yjxx.addLkzlCzfk_back = function(fkRs){
 		Yjxx.QueryDyjCount();
 	}
 };
-/**
- * @method:queryLkzlFkList
- * @package:syrk/js/qbld	
- * @description:查询反馈列表
- * @author:Li_Zhenzhong
- * @date:2015-6-25下午3:26:50
- */
 Yjxx.queryLkzlFkList = function(){
 	$('#fkjlListDiv').datagrid({
 		idField:'czfkxxbh',
@@ -488,14 +420,6 @@ Yjxx.queryLkzlFkList = function(){
 		}
 	});
 }
-/**
- * @method:showMoreLkzlFkInfo
- * @package:syrk/js/qbld	
- * @description:查看反馈详情
- * @param obj
- * @author:Li_Zhenzhong
- * @date:2015-6-25下午3:27:04
- */
 Yjxx.showMoreLkzlFkInfo = function(obj){
 	var fkHtml = "<table class='addCzfkTable'>"
 	if(obj.mbfxzt!=0){
@@ -520,9 +444,6 @@ Yjxx.showMoreLkzlFkInfo = function(obj){
 	}
 	fkHtml += "			<tr><td class='infoName'>处置经过描述</td><td class='infoValue' colspan=3>"+obj.czjgms+"</textarea></td></tr></table>";
 	var  tab  = $("#otherInfoListDiv").tabs('getTab','历史反馈');
-	/**
-	 * 判断标签是否存在，存在则切换，不存在则新建
-	 */
 	if(tab){
 		 $("#otherInfoListDiv").tabs('update',{
 			 tab:tab,
@@ -540,50 +461,4 @@ Yjxx.showMoreLkzlFkInfo = function(obj){
 			content:fkHtml
 		});
 	}
-};
-/**
- * @method:exportLkzlList
- * @package:syrk/js/qbld	
- * @description:导出记录
- * @author:Li_Zhenzhong
- * @date:2015-7-7下午5:29:52
- */
-Yjxx.exportLkzlList = function(){
-	/**
-	 * 获取级别复选框条件
-	 */
-	var checkObj = $(":checkBox");
-	var num = checkObj.length
-	var yjjb = ""; 
-	for(var i = 0;i<num;i++){
-		if(checkObj[i].checked)
-		yjjb+=checkObj[i].value+",";
-	}
-	var param = "";
-	/**
-	 * 查询类型为模糊查询时，判断根据条件内容为数字和字母组合的放入身份证条件，否则放入姓名条件
-	 */
-	if(document.getElementById("where_all")){
-		var value = $("#where_all").val();
-		var reg = new RegExp("^[0-9a-zA-Z]*$");
-		var xm ="";
-		var sfzh = "";
-		if(reg.test(value)){
-			sfzh = value;
-		}else{
-			xm = value;
-		}
-		param = "lkzljb="+yjjb.substring(0, yjjb.length-1)+
-				"&qsfkzt="+Yjxx.type+
-				"&bbkrxm="+xm+
-				"&bbkrzjhm="+sfzh;
-	 }else{
-		 param = "lkzljb="+yjjb.substring(0, yjjb.length-1)+
-					"&qsfkzt="+Yjxx.type+
-					"&sqdwjgdm="+$("#where_sqdwjgdm").val()+
-					"&zlfbsjB="+$("#where_zlfbsjB").val()+
-					"&zlfbsjE="+$("#where_zlfbsjE").val();
-	 }
-	var url=contextPath +"/lkyjzl/lkyjzlb_export?"+param;
-	window.open(url);
-};
+}

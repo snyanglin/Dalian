@@ -27,9 +27,9 @@
     	var userOrgCode = "<%=userOrgCode%>";
     	var userOrgName = "<%=userOrgName%>";
    		var userName = "<%=userName%>";
-    	bodyHeight=0;//操作窗口高度
+    	bodyHeight=0;
     	$(function(){
-    		Yjxx.QueryDyjCount();//查询分类统计数
+    		Yjxx.QueryDyjCount();
     		$(".yjCountDiv div").hover(function(){
     			Yjxx.changeDCountColor(this)
     		},function(){
@@ -39,25 +39,10 @@
     		$(window).resize();
     		$("#ckyj_dqs").click();
  		});
-    	/**
-    	*刷新设置列表和详细窗口的大小
-    	*/
  		$(window).resize(function() {
 			$("#InfoList").css("height",bodyHeight-$("#countTr").height()-$("#whereTr").height()-25);
 			$("#otherDiv").css("width",$(document).width()-310);
-			$("#xxfbIframe").css("height",$(".infoTr").height()-30);
 		});
-		
-		//gem刷新数量
-		function pushlet(){
-			Yjxx.QueryDyjCount();
-		}
-		
-		//gem十分钟频率刷新
-		window.setInterval("refresh_auto();", 600000);
-		function refresh_auto() {
-		   pushlet();
-		}
     </script>
   </head>
   <body>
@@ -106,18 +91,16 @@
   				</td>
   				<td class="infoTd">
   					<table class="infoTable" >
-    	  				<tr class="titleTr"><td id='backButtonTd'></td><td id='infoTitle'>信息发布</td><td id='asInfoButton'></td></tr>
-    					<tr class="infoTr"><td colspan=3><div id="oneInfoDiv"><iframe style="width:98%;" id="xxfbIframe" src="qbld|xxfb"></iframe></div></td></tr>
-    					<tr class="opTr"><td colspan=3 id='opButtonTd'></td></tr>
+    	  				<tr class="titleTr"><td id='backButtonTd'></td><td id='infoTitle'>描述</td><td id='asInfoButton'></td></tr>
+    					<tr class="infoTr"><td colspan=3><div id="oneInfoDiv">详情</div></td></tr>
+    					<tr class="opTr"><td colspan=3 id='opButtonTd'>操作</td></tr>
     				</table>
   				</td>
   				<div id="otherDiv">
     					<div class="toggleOtherDiv" onclick="Yjxx.changeOtherDivShow()">弹出</div>
     					<div id="otherInfoDiv"><div id="otherInfoListDiv"></div></div>
     			</div>
-    			<div id="bigMapDiv" style="display:none;">
-    				<iframe id="bigMapframe" style="width:100%;height:100%" src="" />
-    			</div>
+    			<iframe id="bigMapDiv" style="display:none;width:800;height:600" src=""/>
   			</tr>
   		</table>
   </body>

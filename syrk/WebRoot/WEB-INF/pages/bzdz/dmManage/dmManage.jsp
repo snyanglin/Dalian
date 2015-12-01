@@ -62,7 +62,7 @@
 		<!-- 查询条件 -->
         <div id="datagridToolbar" style="padding:5px;height:auto;">
 			<form id="queryForm">
-			<table cellspacing="0" cellpadding="0" border="0" id="dmTable">
+			<table cellspacing="0" cellpadding="0" border="0" >
 				<tbody>
 				     <tr class="dialogTr">
 						<td class="dialogTd" style="width:85px" align="right">地名名称：</td>
@@ -82,17 +82,10 @@
 					  <tr class="dialogTr"> 
 					    <td class="dialogTd" style="width:85px" align="right">管辖分(县)局：</td>
 					    <td class="dialogTd" style="width:140px" align="right">
-						    <input type="text" name="gxsxj" id ="gxsxj" class="easyui-combobox"
-						            data-options="valueField:'id',textField:'text',method:'get',selectOnNavigation:false,isTopLoad:false,
-						                          url:contextPath + '/orgPublicSelect/queryComboBoxList?orgLevel=21',
-						                          onLoadSuccess:function(){$('#gxsxj').combobox('setValue','<%=userOrgCode%>');},
-						            			  onChange:function(newValue, oldValue){var parentOrgCode = $('#gxsxj').combobox('getValue');
-						                                  if(parentOrgCode==''){
-						                                 	 $('#gxpcs').combobox('loadData',[]);
-						                                  }else{
-						                                  	 var url = contextPath + '/orgPublicSelect/queryComboBoxList?orgLevel=32&parentOrgCode='+parentOrgCode;
-						                                  	 $('#gxpcs').combobox('reload', url);
-						                                  }}" style="width:140px;"/>
+							<input type="text" name="gxsxj" id ="gxsxj" class="easyui-combobox" 
+							             data-options="valueField:'id',textField:'text',url:'<%=basePath %>gzjk/queryOrg',
+							             onLoadSuccess:function(){$('#gxsxj').combobox('setValue','<%=userOrgCode%>');},
+							             onSelect:function(rec){var url = '<%=basePath %>gzjk/queryOrgLower?orgCode='+rec.id;$('#gxpcs').combobox('reload', url);}" style="width:140px;"/>
 					    </td>
 					    <td class="toolbarTd"><div class="datagrid-btn-separator"></div></td>
 					    <td class="dialogTd" style="width:85px" align="right">管辖派出所：</td>

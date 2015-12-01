@@ -640,6 +640,20 @@ public class SysDictService {
 			String zzjgdm, String auth, String userId) {
 		List<SysDict> list = sysDictDao.findOrganizationDictForCustomize(
 				zzjgdm, auth, userId);
+		return constructTreeString(zdbh, zdbhMc, list);
+	}
+	
+	
+	public String createLocalOrganizationTreeJS(String zdbh, String zdbhMc,
+			String zzjgdm, String auth, String userId) {
+		List<SysDict> list = sysDictDao.findLocalOrganizationDictForCustomize(
+				zzjgdm, auth, userId);
+		return constructTreeString(zdbh, zdbhMc, list);
+	}
+	
+
+	private String constructTreeString(String zdbh, String zdbhMc,
+			List<SysDict> list) {
 		String treeName = zdbhMc;// 字典名称
 		int nameMaxLength = 23;// 最大树形选择框宽度（汉字个数）
 		if (list != null && list.size() > 0) {// 有数据

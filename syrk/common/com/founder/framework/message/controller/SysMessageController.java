@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
-import com.founder.framework.annotation.RestfulAnnotation;
 import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
@@ -121,6 +120,7 @@ public class SysMessageController extends BaseController {
 		mv.addObject("infoList", infoList);
 		return mv;
 	}
+
 	/**
 	 * 修改消息表状态
 	 * 
@@ -379,24 +379,4 @@ public class SysMessageController extends BaseController {
 		return mv;
 	}
 	// end
-	/**
-	 * @Title: queryMessage 
-	 * @描述: 查询系统消息【服务接口】
-	 * @作者: zhang_guoliang@founder.com 
-	 * @参数: 传入参数定义 
-	 * @返回值: ModelAndView    返回类型 
-	 * @throws
-	 */
-	@SuppressWarnings("unchecked")
-	@RestfulAnnotation(serverId="3")
-	@RequestMapping(value = "/queryMessage", method = RequestMethod.POST)
-	public @ResponseBody List<SysMessage> queryMessage(SysMessage sysMessage,SessionBean sessionBean){
-		sessionBean = getSessionBean(sessionBean);
-		sysMessage.setJsrdm(sessionBean.getUserId());
-		sysMessage.setJsrssdwdm(sessionBean.getUserOrgCode());
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("sysMessage", sysMessage);
-		List<SysMessage> infoList = sysMessageService.searchMessage(map);
-		return infoList;
-	}
 }

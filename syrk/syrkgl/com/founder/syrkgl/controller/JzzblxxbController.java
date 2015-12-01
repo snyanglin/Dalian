@@ -1,15 +1,12 @@
 package com.founder.syrkgl.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URLEncoder;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
@@ -25,6 +22,8 @@ import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
+import com.founder.framework.organization.department.bean.OrgOrganization;
+import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
@@ -60,6 +59,8 @@ public class JzzblxxbController extends BaseController {
 
 	@Resource(name = "ryRyjbxxbService")
 	private RyRyjbxxbService ryRyjbxxbService;
+	@Resource(name = "orgOrganizationService")
+	private OrgOrganizationService orgOrganizationService;
 
 	/**
 	 * 
@@ -181,43 +182,81 @@ public class JzzblxxbController extends BaseController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		sessionBean = getSessionBean(sessionBean);
 
-		// 添加不可重复录入居住证规则
-		Jzzblxxb hasJzz = jzzblxxbService.checkRyJzz(entity.getRyid());
-		if (hasJzz != null) {
-			model.put(AppConst.STATUS, AppConst.FAIL);
-			if (StringUtils.isBlank(hasJzz.getYxq_jzrq())){
-				model.put(AppConst.MESSAGES, hasJzz.getBl_pcsmc() + "已经申请居住证");
-			}else{
-			model.put(AppConst.MESSAGES, hasJzz.getBl_pcsmc() + "已经申请居住证，有效期至"
-					+ hasJzz.getYxq_jzrq());
-			}
-		} else {
-			try {
-				if ("50".equals(sessionBean.getUserOrgLevel())) {
-					entity.setBl_fjmc(sessionBean.getExtendValue("ssFsxName"));
-					entity.setBl_fjdm(sessionBean.getExtendValue("ssFsxCode"));
-					entity.setBl_pcsmc(sessionBean.getExtendValue("ssPcsName"));
-					entity.setBl_pcsdm(sessionBean.getExtendValue("ssPcsCode"));
-					entity.setBl_zrqmc(sessionBean.getUserOrgName());
-					entity.setBl_zrqdm(sessionBean.getUserOrgCode());
-					jzzblxxbService.saveJzzblxx(entity, sessionBean);
-				} else if ("32".equals(sessionBean.getUserOrgLevel())) {
-					entity.setBl_fjmc(sessionBean.getExtendValue("ssFsxName"));
-					entity.setBl_fjdm(sessionBean.getExtendValue("ssFsxCode"));
+		try {
+			
+			if("12".equals(sessionBean.getUserOrgBiztype())){
+				if("20".equals(sessionBean.getUserOrgLevel())){
+					//内保支队办理
+					entity.setBl_fjmc(sessionBean.getUserOrgName());
+					entity.setBl_fjdm(sessionBean.getUserOrgCode());
+				}else{
+					//内保大队办理
+					OrgOrganization org = this.orgOrganizationService.queryParentOrgByOrgcode(sessionBean.getUserOrgCode());
+					entity.setBl_fjmc(org.getOrgname());
+					entity.setBl_fjdm(org.getOrgcode());
 					entity.setBl_pcsmc(sessionBean.getUserOrgName());
 					entity.setBl_pcsdm(sessionBean.getUserOrgCode());
-					jzzblxxbService.saveJzzblxx(entity, sessionBean);
 				}
+				jzzblxxbService.saveJzzblxx(entity, sessionBean);
+				
 				model.put(AppConst.STATUS, AppConst.SUCCESS);
 				model.put(AppConst.MESSAGES, getAddSuccess());
 				model.put(AppConst.SAVE_ID, entity.getId()); // 返回主键
-			} catch (Exception e) {
-				e.printStackTrace();
-				logger.error(e.getLocalizedMessage(), e);
-				model.put(AppConst.STATUS, AppConst.FAIL);
-				model.put(AppConst.MESSAGES, getAddFail());
+			}else{
+				
+				// 添加不可重复录入居住证规则
+				Jzzblxxb hasSameJzd_dzxz = jzzblxxbService.queryJzzblxxbByJzd_dzxzAndSyrkid(entity.getJzd_dzxz(), entity.getSyrkid());
+				if (hasSameJzd_dzxz != null) {
+					model.put(AppConst.STATUS, AppConst.FAIL);
+					model.put(AppConst.MESSAGES, "该实有人口，于 "+hasSameJzd_dzxz.getJzzblrq()+" 已申请过【"+hasSameJzd_dzxz.getJzd_dzxz()+"】的居住证");
+				}else{
+					if ("50".equals(sessionBean.getUserOrgLevel())) {
+						entity.setBl_fjmc(sessionBean.getExtendValue("ssFsxName"));
+						entity.setBl_fjdm(sessionBean.getExtendValue("ssFsxCode"));
+						entity.setBl_pcsmc(sessionBean.getExtendValue("ssPcsName"));
+						entity.setBl_pcsdm(sessionBean.getExtendValue("ssPcsCode"));
+						entity.setBl_zrqmc(sessionBean.getUserOrgName());
+						entity.setBl_zrqdm(sessionBean.getUserOrgCode());
+						jzzblxxbService.saveJzzblxx(entity, sessionBean);
+					} else if ("32".equals(sessionBean.getUserOrgLevel())) {
+						entity.setBl_fjmc(sessionBean.getExtendValue("ssFsxName"));
+						entity.setBl_fjdm(sessionBean.getExtendValue("ssFsxCode"));
+						entity.setBl_pcsmc(sessionBean.getUserOrgName());
+						entity.setBl_pcsdm(sessionBean.getUserOrgCode());
+						jzzblxxbService.saveJzzblxx(entity, sessionBean);
+					}
+					
+					// 校验该人最后办理的居住证
+					Jzzblxxb hasJzz = jzzblxxbService.queryLastYblJzz(entity.getRyid());
+					if (hasJzz != null) {
+						//页面消息提示
+						String message = "";
+						if (StringUtils.isBlank(hasJzz.getYxq_jzrq())){
+							message = hasJzz.getBl_pcsmc() + " 已签发该实有人口居住证";
+						}else{
+							message = hasJzz.getBl_zrqmc() + " 已签发该实有人口居住证";
+						}
+						if(org.apache.commons.lang.StringUtils.isNotBlank(hasJzz.getJzz_qfrq())){
+							message = message + "，签发日期：" + hasJzz.getJzz_qfrq();
+						}
+						
+						model.put("message_yqf", message);
+						//发送消息
+						jzzblxxbService.noticeLastYblPcs(hasJzz, entity, sessionBean);
+					}
+					
+					model.put(AppConst.STATUS, AppConst.SUCCESS);
+					model.put(AppConst.MESSAGES, getAddSuccess());
+					model.put(AppConst.SAVE_ID, entity.getId()); // 返回主键
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getLocalizedMessage(), e);
+			model.put(AppConst.STATUS, AppConst.FAIL);
+			model.put(AppConst.MESSAGES, getAddFail());
 		}
+		
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
 	}
@@ -244,17 +283,71 @@ public class JzzblxxbController extends BaseController {
 		sessionBean = getSessionBean(sessionBean);
 		String orglevel = sessionBean.getUserOrgLevel();
 		EasyUIPage easyui = null;
-		String fxjdm = sessionBean.getExtendValue("ssFsxCode");
-		if (!"30".equals(orglevel)) {
-			entity.setBl_fjdm(fxjdm);
-		}
-		if ("31".equals(orglevel) || "30".equals(orglevel)) {
+		
+		if("12".equals(sessionBean.getUserOrgBiztype())){
+			entity.setNb_orgcode(sessionBean.getUserOrgCode());
 			easyui = jzzblxxbService.queryJzzblList(page, entity);
+		}else{
+			String fxjdm = sessionBean.getExtendValue("ssFsxCode");
+			if (!"30".equals(orglevel)) {
+				entity.setBl_fjdm(fxjdm);
+			}
+			if ("31".equals(orglevel) || "30".equals(orglevel)) {
+				easyui = jzzblxxbService.queryJzzblList(page, entity);
+			}
 		}
-
 		return easyui;
 	}
 
+	
+	@RestfulAnnotation(serverId = "3")
+	@RequestMapping(value = "/export", method = RequestMethod.GET)
+	public @ResponseBody
+	void export(String bl_fjdm,String bl_pcsdm,String bl_zrqdm,String jzzblrq,String jzzbljsrq,String jzz_yxqdm,String xm,String zjhm, HttpServletResponse response,SessionBean sessionBean) {
+		sessionBean = getSessionBean(sessionBean);
+		String orglevel = sessionBean.getUserOrgLevel();
+		EasyUIPage easyui = null;
+		Jzzblxxb entity=new Jzzblxxb();
+		entity.setBl_fjdm(bl_fjdm);
+		entity.setBl_pcsdm(bl_pcsdm);
+		entity.setBl_zrqdm(bl_zrqdm);
+		entity.setJzzblrq(jzzblrq);
+		entity.setJzzbljsrq(jzzbljsrq);
+		entity.setJzz_yxqdm(jzz_yxqdm);
+		entity.setXm(xm);
+		entity.setZjhm(zjhm);
+		if("12".equals(sessionBean.getUserOrgBiztype())){
+			entity.setNb_orgcode(sessionBean.getUserOrgCode());
+		}else{
+			String fxjdm = sessionBean.getExtendValue("ssFsxCode");
+			if (!"30".equals(orglevel)) {
+				entity.setBl_fjdm(fxjdm);
+			}
+			if ("31".equals(orglevel) || "30".equals(orglevel)) {
+			}
+		}
+
+		ServletOutputStream outputStream=null;
+		try {
+			outputStream = response.getOutputStream();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			String fileName = new String(("居住证下载").getBytes(), "ISO8859-1");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		response.setHeader("Content-disposition", "attachment;filename=jzzbl_" + DateUtils.getSystemDateString() + ".xlsx");
+
+		
+		this.jzzblxxbService.exportExcel(entity, outputStream);
+	
+	}
+	
+	
 	/**
 	 * 
 	 * @Title: jzzView
@@ -314,50 +407,6 @@ public class JzzblxxbController extends BaseController {
 		return new Gson().toJson(jzzblxxbService.queryIdsForPrint(entity)) ;
 	}
 
-	/***
-	 * 
-	 * @Title: jzzbl_export
-	 * @Description: TODO(居住证导出)
-	 * @author wu_chunhui@founder.com.cn
-	 * @param @param dwid
-	 * @param @param response 设定文件
-	 * @return void 返回类型
-	 * @throws
-	 */
-	@RequestMapping(value = "/jzzbl_export")
-	public void jzzbl_export(String exportIds, HttpServletResponse response,
-			HttpServletRequest request, SessionBean sessionBean) {
-		response.setContentType("application/binary;charset=UTF-8");
-		ServletOutputStream outputStream = null;
-		sessionBean = getSessionBean(sessionBean);
-		try {
-			outputStream = response.getOutputStream();
-			File file = jzzblxxbService.jzzbl_export(exportIds, response,
-					request, sessionBean);
-			response.setHeader("Content-disposition", "attachment;filename="
-					+ URLEncoder.encode("居住证导出.zip", "UTF-8"));
-			FileInputStream in = new FileInputStream(file);
-			byte bytes[] = new byte[1024];
-			int len = 0;
-			while ((len = in.read(bytes)) != -1) {
-				outputStream.write(bytes, 0, len);
-			}
-			outputStream.flush();
-			outputStream.close();
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		} finally {
-			try {
-				outputStream.close();
-			} catch (IOException e2) {
-				e2.printStackTrace();
-			}
-			// 删除临时文件
-
-		}
-	}
-	
 	
 	
 	

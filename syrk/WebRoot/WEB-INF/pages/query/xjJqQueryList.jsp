@@ -56,14 +56,14 @@
 						    	<td width="40%" class="dialogTd" align="right">出警方式：</td>
 						    	<td width="60%" class="dialogTd">
 									<input class="easyui-combobox" type="text" id="cjfs" name="cjfs" style="width:130px;" 
-									data-options="url: contextPath + '/common/dict/DL_D_ZDRYGLLXDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/>
+									data-options="url: contextPath + '/common/dict/BD_D_ZDRYLBDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/>
 									</td>
 						</tr>
 						<tr class="dialogTr">
 						    	<td width="40%" class="dialogTd" align="right">警情类别：</td>
 						    	<td width="60%" class="dialogTd">
 									<input class="easyui-combobox" type="text" id="jqlb" name="jqlb" style="width:130px;" 
-									data-options="url: contextPath + '/common/dict/DL_D_ZDRYGLLXDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/>
+									data-options="url: contextPath + '/common/dict/BD_D_ZDRYLBDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/>
 									</td>
 						</tr>
 						<tr class="dialogTr">

@@ -91,35 +91,8 @@
 				<![CDATA[ qsfkzt = #qsfkzt# ]]>
 			</isNotNull>	
 		</dynamic>
-       where lkzlbh = #lkzlbh#
-    </update>
-    
-    <!-- 更新临控指令信息签收表 -->
-	<update id="updateLkyjzlqsb" parameterClass="lkyjzlQs">
-       update qbld_lk_zlqsb
-      <dynamic prepend="set">
-			<isNotNull prepend="," property="fszt">
-				<![CDATA[ fszt = #fszt# ]]>
-			</isNotNull>
-			<isNotNull prepend="," property="code">
-				<![CDATA[ code = #code# ]]>
-			</isNotNull>	
-		</dynamic>
-       where lkzlbh = #lkzlbh#
-    </update>
-    
-    <!-- 更新临控预警调用ws接口状态表 -->
-	<update id="updateLkyjzlczFkb" parameterClass="lkyjzlFk">
-       update qbld_lk_zlczfkb
-      <dynamic prepend="set">
-			<isNotNull prepend="," property="fszt">
-				<![CDATA[ fszt = #fszt# ]]>
-			</isNotNull>
-			<isNotNull prepend="," property="code">
-				<![CDATA[ code = #code# ]]>
-			</isNotNull>	
-		</dynamic>
-       where czfkxxbh = #czfkxxbh#
+       where qsfkzt = '0' 
+          and lkzlbh = #lkzlbh#
     </update>
     
     <!-- 插入临控指令信息签收表 -->
@@ -394,22 +367,8 @@
 	       select * from qbld_lk_zlxxb
 		   where 1=1
 			  <isNotEmpty prepend="and" property="lkyjzlb.lkzlbh">
-				   lkzlbh = #lkyjzlb.lkzlbh#
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="lkyjzlb.lkzljb">
-				   lkzljb in($lkyjzlb.lkzljb$)
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="lkyjzlb.zljsdw">
-				   zljsdw like '$lkyjzlb.zljsdw$%'
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="lkyjzlb.qsfkzt">
-				   qsfkzt = #lkyjzlb.qsfkzt#
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="lkyjzlb.zlfbsjB">
-				   <![CDATA[ zlfbsj >= #lkyjzlb.zlfbsjB#  ]]> 
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="lkyjzlb.zlfbsjE">
-				    <![CDATA[ zlfbsj <= #lkyjzlb.zlfbsjE# ]]> 
+				   lkzlbh in ($lkyjzlb.lkzlbh$)
+				   
 			  </isNotEmpty>
     </select>
     

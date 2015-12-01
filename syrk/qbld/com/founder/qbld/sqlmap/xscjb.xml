@@ -64,7 +64,10 @@
     <select id="queryXs" parameterClass="Map" resultClass="xscjb">
          select *
 			from qbld_xs_cjb
-		  where jlid = #xscjb.jlid#
+		  where 1=1
+		      <isNotEmpty prepend="and" property="xscjb.jlid">
+				   jlid = #xscjb.jlid#
+			  </isNotEmpty>
     </select>
     
     <!-- 插入线索表 -->
@@ -174,9 +177,6 @@
         <isNotEmpty prepend="," property="xxzw">
 			xxzw
 		</isNotEmpty>
-        <isNotEmpty prepend="," property="xbyjlbt">
-			xbyjlbt
-		</isNotEmpty>
        )VALUES(
 			#jlid#
         <isNotEmpty prepend="," property="bssj">
@@ -281,24 +281,7 @@
         <isNotEmpty prepend="," property="xxzw">
 			#xxzw#
 		</isNotEmpty>
-		<isNotEmpty prepend="," property="xbyjlbt">
-			#xbyjlbt#
-		</isNotEmpty>
        )
     </insert>
-    
-    <!-- 更新尿检物品功能 -->
-	<update id="updateXsb" parameterClass="xscjb">
-       update qbld_xs_cjb
-       <dynamic prepend="set">
-			<isNotNull prepend="," property="fszt">
-				<![CDATA[ fszt = #fszt# ]]>
-			</isNotNull>
-			<isNotNull prepend="," property="code">
-				<![CDATA[ code = #code# ]]>
-			</isNotNull>			
-		</dynamic>
-       where jlid = #jlid#
-    </update>
     
 </sqlMap>

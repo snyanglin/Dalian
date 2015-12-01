@@ -22,22 +22,6 @@ public class Lkyjxxb extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String dzms_zbx;
-	private String dzms_zby;
-	
-	public String getDzms_zbx() {
-		return dzms_zbx;
-	}
-	public void setDzms_zbx(String dzms_zbx) {
-		this.dzms_zbx = dzms_zbx;
-	}
-	public String getDzms_zby() {
-		return dzms_zby;
-	}
-	public void setDzms_zby(String dzms_zby) {
-		this.dzms_zby = dzms_zby;
-	}
-	
 	private String zlfbsjB;
 	private String zlfbsjE;
 	//返回签收信息
@@ -142,11 +126,11 @@ public class Lkyjxxb extends BaseEntity implements Serializable {
 	private String sqdwjgdm;
 	@FieldDesc("原临控指令编号")
 	private String ylkzlbh;
-	@FieldDesc("被布控人证件种类")
+	@FieldDesc("被布控人证件类型")
 	private String bbkrzjlx;
 	@FieldDesc("被布控人其他特征信息")
 	private String bbkrqttzxx;
-	@FieldDesc("登记证件种类")
+	@FieldDesc("登记证件类型")
 	private String djzjlx;
 	@FieldDesc("处置措施要求")
 	private String czcsyq;

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="gzltjbBcZrq">
+
+	<typeAlias alias="gzltjb" type="com.founder.gzjk.bean.Gzltjb"/>
+	<typeAlias alias="gzltjVo" type="com.founder.gzjk.vo.GzltjVo"/>
+	
+	<insert id="save" parameterClass="gzltjb">
+	                      
+    <![CDATA[ insert into KHTJ_GZLTJB (ID,RHYZ_ADD,RHYZ_UPDATE,RHYZ_DELETE,RHFL_ADD,RHFL_UPDATE,RHFL_DELETE,JZRK_ADD,JZRK_UPDATE,JZRK_DELETE,
+	                                    LDRK_ADD,LDRK_UPDATE,LDRK_DELETE,WLHRY_ADD,WLHRY_UPDATE,WLHRY_DELETE,
+	                                    JWRY_ADD,JWRY_UPDATE,JWRY_DELETE,DW_ADD,DW_UPDATE,DW_DELETE,CYRY_ADD,CYRY_UPDATE,CYRY_DELETE,
+	                                   CZFW_ADD,CZFW_UPDATE,CZFW_DELETE,CZR_ADD, CZR_UPDATE,CZR_DELETE,TJRQ,GXFJDM,GXFJNAME,GXPCSDM,GXPCSNAME,GXZRQDM,GXZRQNAME,BZ,]]><include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#,#rhyz_add#,#rhyz_update#,#rhyz_delete#,#rhfl_add#,#rhfl_update#,#rhfl_delete#,#jzrk_add#,
+	                  #jzrk_update#,#jzrk_delete#,#ldrk_add#,#ldrk_update#,#ldrk_delete#,#wlhry_add#,#wlhry_update#,#wlhry_delete#,
+	                  #jwry_add#,#jwry_update#,#jwry_delete#,#dw_add#,#dw_update#,#dw_delete#,#cyry_add#,#cyry_update#,#cyry_delete#,
+	                  #czfw_add#,#czfw_update#,#czfw_delete#,
+	                  #czr_add#,#czr_update#,#czr_delete#,#tjrq#,#gxfjdm#,#gxfjname#,#gxpcsdm#,#gxpcsname#,#gxzrqdm#,#gxzrqname#,#bz#,]]>
+			<include refid="insertXtzdVal"/>)
+ 
+	</insert>
+	
+	<!-- 实有人口 (除常住人口)-工作量统计采集查询-->
+	<select id="querySyrkGzltj" parameterClass="Map" resultClass="gzltjVo">
+		<![CDATA[
+       select GXZRQDM,GXPCSDM,GXFJDM,
+          nvl(sum(case
+                 when xt_zxbz = '0' and  substr(xt_zhxgsj,1,10) = substr(xt_lrsj,1,10) then
+                  1
+                 else
+                  0
+               end),
+           0) xz,
+       nvl(sum(case
+                 when xt_zxbz = '0' and xt_zhxgsj <> xt_lrsj then
+                  1
+                 else
+                  0
+               end),
+           0) xg,
+       nvl(sum(case
+                 when xt_zxbz = '1' then
+                  1
+                 else
+                  0
+               end),
+           0) zx
+      from syrk_syrkxxzb
+      where xt_zhxgsj like '$date$%' and SYRKYWLXDM=#syrkywlxdm#]]>
+      <isNotEmpty prepend="AND" property="gxzrqdm">
+			gxzrqdm = #gxzrqdm#
+	  </isNotEmpty>
+      group by GXZRQDM,GXPCSDM,GXFJDM
+		 
+	</select>
+		<!-- 除常住人口（人户一致/人户分离）-工作量统计采集查询-->
+	<select id="queryCzrkGzltj" parameterClass="Map" resultClass="gzltjVo">
+		<![CDATA[
+       select b.GXZRQDM,b.GXPCSDM,b.GXFJDM,
+          nvl(sum(case
+                 when a.xt_zxbz = '0' and substr(a.xt_zhxgsj,1,10) =substr(a.xt_lrsj,1,10) then
+                  1
+                 else
+                  0
+               end),
+           0) xz,
+       nvl(sum(case
+                 when a.xt_zxbz = '0' and a.xt_zhxgsj <> a.xt_lrsj then
+                  1
+                 else
+                  0
+               end),
+           0) xg,
+       nvl(sum(case
+                 when a.xt_zxbz = '1' then
+                  1
+                 else
+                  0
+               end),
+           0) zx
+      from syrk_czrkxxb a left join syrk_syrkxxzb b on a.id=b.id
+      where a.xt_zhxgsj like '$date$%' and a.SFRHYZDM=#sfrhyzdm# ]]>
+       <isNotEmpty prepend="AND" property="gxzrqdm">
+			gxzrqdm = #gxzrqdm#
+	  </isNotEmpty>
+      group by b.GXZRQDM,b.GXPCSDM,b.GXFJDM
+		
+	</select>
+		<!--出租房屋  工作量统计采集查询-->
+	<select id="queryCzfwGzltj" parameterClass="Map" resultClass="gzltjVo">
+	<![CDATA[
+	select ss4jbmdm gxzrqdm ,ss3jbmdm  gxpcsdm,ss2jbmdm gxfjdm,
+       nvl(sum(case
+                 when xt_zxbz = '0' and substr(xt_zhxgsj,1,10) = substr(xt_lrsj,1,10) then
+                  1
+                 else
+                  0
+               end),
+           0) xz,
+       nvl(sum(case
+                 when xt_zxbz = '0' and xt_zhxgsj <> xt_lrsj then
+                  1
+                 else
+                  0
+               end),
+           0) xg,
+       nvl(sum(case
+                 when xt_zxbz = '1' then
+                  1
+                 else
+                  0
+               end),
+           0) zx
+      from SYFW_FWJBXXB a
+      where xt_zhxgsj like '$date$%' and sfczfw='1'
+      
+       ]]>
+        <isNotEmpty prepend="AND" property="gxzrqdm">
+			ss4jbmdm = #gxzrqdm#
+	  </isNotEmpty>
+      group by ss4jbmdm,ss3jbmdm,ss2jbmdm
+	
+	</select>
+	
+		<!-- 承租人工作量统计 -->
+	<select id="queryCzrGzltj" parameterClass="Map" resultClass="gzltjVo">
+		<![CDATA[
+       select c.ss4jbmdm gxzrqdm ,c.ss3jbmdm  gxpcsdm,c.ss2jbmdm gxfjdm,
+       nvl(sum(case
+                 when a.xt_zxbz = '0' and substr(a.xt_zhxgsj,1,10) =substr(a.xt_lrsj,1,10) then
+                  1
+                 else
+                  0
+               end),
+           0) xz,
+       nvl(sum(case
+                 when a.xt_zxbz = '0' and a.xt_zhxgsj <> a.xt_lrsj then
+                  1
+                 else
+                  0
+               end),
+           0) xg,
+       nvl(sum(case
+                 when a.xt_zxbz = '1' then
+                  1
+                 else
+                  0
+               end),
+           0) zx
+      from SYFW_CZQKDJXXB a
+      left join SYFW_CZFWXXB b on a.czfwid=b.id
+      left join SYFW_FWJBXXB c on b.fwid=c.id
+      where a.xt_zhxgsj like '$date$%'   
+       ]]>
+      <isNotEmpty prepend="AND" property="gxzrqdm">
+			c.ss4jbmdm = #gxzrqdm#
+	  </isNotEmpty>      
+      group by c.ss4jbmdm,c.ss3jbmdm,c.ss2jbmdm
+	
+	</select>
+	
+			<!--实有单位  工作量统计采集查询-->
+	<select id="queryDwGzltj" parameterClass="Map" resultClass="gzltjVo">
+	<![CDATA[
+	select GLBMID gxzrqdm ,GLPCSID  gxpcsdm,GLFXJID  gxfjdm,
+       nvl(sum(case
+                 when xt_zxbz = '0' and substr(xt_zhxgsj,1,10) = substr(xt_lrsj,1,10) then
+                  1
+                 else
+                  0
+               end),
+           0) xz,
+       nvl(sum(case
+                 when xt_zxbz = '0' and xt_zhxgsj <> xt_lrsj then
+                  1
+                 else
+                  0
+               end),
+           0) xg,
+       nvl(sum(case
+                 when xt_zxbz = '1' then
+                  1
+                 else
+                  0
+               end),
+           0) zx
+      from DW_DWJBXXB
+      where xt_zhxgsj like '$date$%' ]]>
+        <isNotEmpty prepend="AND" property="gxzrqdm">
+			GLBMID = #gxzrqdm#
+	  </isNotEmpty>      
+      group by GLBMID,GLPCSID,GLFXJID
+	
+	</select>
+	
+			<!--从业人员  工作量统计采集查询-->
+	<select id="queryDwCyryGzltj" parameterClass="Map" resultClass="gzltjVo">
+	<![CDATA[
+	select b.GLBMID gxzrqdm ,b.GLPCSID  gxpcsdm,b.GLFXJID  gxfjdm,
+       nvl(sum(case
+                 when a.xt_zxbz = '0' and substr(a.xt_zhxgsj,1,10) =substr(a.xt_lrsj,1,10) then
+                  1
+                 else
+                  0
+               end),
+           0) xz,
+       nvl(sum(case
+                 when a.xt_zxbz = '0' and a.xt_zhxgsj <> a.xt_lrsj then
+                  1
+                 else
+                  0
+               end),
+           0) xg,
+       nvl(sum(case
+                 when a.xt_zxbz = '1' then
+                  1
+                 else
+                  0
+               end),
+           0) zx
+      from DW_CYRYXXB a
+      left join DW_DWJBXXB b on a.dwid=b.id
+      where a.xt_zhxgsj like '$date$%' ]]>
+      
+        <isNotEmpty prepend="AND" property="gxzrqdm">
+			b.GLBMID = #gxzrqdm#
+	  </isNotEmpty>      
+      
+      group by b.GLBMID,b.GLPCSID,b.GLFXJID
+	
+	</select>
+     
+     
+   
+
+    
+
+</sqlMap>

@@ -24,7 +24,6 @@
 	<update id="update" parameterClass="ywxtcyryxxb">
 		<![CDATA[ update YWXT_CYRYXXB ]]>	
 		<dynamic prepend="set">
-			 <isNotNull prepend="," property="id"><![CDATA[ ID=#id# ]]></isNotNull>
 			 <isNotNull prepend="," property="cyrid"><![CDATA[ CYRID=#cyrid# ]]></isNotNull>
 			 <isNotNull prepend="," property="cyrxm"><![CDATA[ CYRXM=#cyrxm# ]]></isNotNull>
 			 <isNotNull prepend="," property="xtdz"><![CDATA[ XTDZ=#xtdz# ]]></isNotNull>

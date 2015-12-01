@@ -49,6 +49,13 @@ $(function(){
 				$("#dz_zzdzssxqdm").val("");
 				$("#dz_zzdzxz").val("");
 			}
+			var deletes = $('#dg0').datagrid('getChanges',"deleted");
+			var jsondeleted = JSON.stringify(deletes);
+			if(deletes!=''){
+				$("#rydelete").val(jsondeleted);
+			}else{
+				$("#rydelete").val("[]");
+			}
         	var rows = $('#dg0').datagrid('getRows');
         	var jsonrows = JSON.stringify(rows);
         	$("#ryAll").val(jsonrows);
@@ -148,7 +155,6 @@ function editRow(linkObject, index) {
 	var dwid =  rows[index].dwid;
 	var id =  rows[index].id;
 
-	
 	var editUrl = contextPath + '/rfxxb/addRfryxx?rfid='+rfid+'&mainTabID='+getMainTabID()+'&states=update'
 	+'&zjhm='+zjhm+'&zjlxdm='+zjlxdm+'&xm='+xm+'&xbdm='+xbdm+'&whcddm='+whcddm+'&zzmmdm='+zzmmdm+'&rylydm='+rylydm+'&zznzw='+zznzw
 	+'&lxfs='+lxfs+'&cjsj='+cjsj+'&dz_jzdzmlpdm='+dz_jzdzmlpdm+'&dz_jzdzmlpxz='+dz_jzdzmlpxz+'&dz_jzdzdm='+dz_jzdzdm+'&dz_jzdzssxqdm='+dz_jzdzssxqdm
@@ -164,8 +170,13 @@ function editRow(linkObject, index) {
 }
 //新增人员
 function rfryxxAdd(obj){
+	var rows = $('#dg0').datagrid('getRows');
+	var zjhms=[];
+	for(var i=0;i<rows.length;i++){
+		zjhms[i]=rows[i].zjhm;
+	}
 	var rfid = document.getElementById("pk").value;
-	var editUrl = contextPath + '/rfxxb/addRfryxx?rfid='+rfid+'&mainTabID='+getMainTabID()+'&states=add';
+	var editUrl = contextPath + '/rfxxb/addRfryxx?rfid='+rfid+'&mainTabID='+getMainTabID()+'&states=add&zjhms='+zjhms;
 	var editUrl = editUrl + (editUrl.indexOf('?') != -1 ? '&' : '?');
 	datagridAdd(obj, 'addWindow', null,{
 		title : '人防人员信息',
@@ -209,7 +220,8 @@ function reloadDg(methodSty) {
 			cylbdm:strs[15],
 			bz:strs[16],
 			gzdw:strs[17],
-			dwid:strs[18]
+			dwid:strs[18],
+			id:strs[19]
 		}
 	});
 }
@@ -218,11 +230,10 @@ function updaterows(strss) {
 	
 	var strs = strss.split('@');
 	$("#dg0").datagrid("deleteRow",strs[20]);
-	
 	var rows = $('#dg0').datagrid('getRows');
 	$("#dg0").datagrid("loadData",rows);
-	
-	$('#dg0').datagrid('updateRow',{
+	/*$('#dg0').datagrid('updateRow',{
+	//$('#dg0').datagrid('insertRow',{
 		index: strs[20],
 		row: {
 			zjhm: strs[0],
@@ -245,7 +256,9 @@ function updaterows(strss) {
 			gzdw:strs[17],
 			dwid:strs[18]
 		}
-	});
+	});*/
+	//var rows = $('#dg0').datagrid('getRows');
+	//$("#dg0").datagrid("loadData",rows);
 }
 function rfryList(){
 	var reloadUrl  =  contextPath +'/rfxxb/queryRfcyxx';

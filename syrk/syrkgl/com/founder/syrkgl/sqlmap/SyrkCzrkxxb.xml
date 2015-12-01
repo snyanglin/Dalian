@@ -41,6 +41,7 @@
 		<isNotEmpty prepend="," property="hjd_mlpxz"><![CDATA[ hjd_mlpxz]]></isNotEmpty>
 		<isNotEmpty prepend="," property="hjd_dzid"><![CDATA[ hjd_dzid]]></isNotEmpty>
 		<isNotEmpty prepend="," property="hjd_dzxz"><![CDATA[ hjd_dzxz]]></isNotEmpty>
+		<isNotEmpty prepend="," property="hjd_dzms"><![CDATA[ hjd_dzms]]></isNotEmpty>		
 		<isNotEmpty prepend="," property="jzd_xzqhdm"><![CDATA[ jzd_xzqhdm]]></isNotEmpty>
 		<isNotEmpty prepend="," property="jzd_mlpdm"><![CDATA[ jzd_mlpdm]]></isNotEmpty>
 		<isNotEmpty prepend="," property="jzd_mlpxz"><![CDATA[ jzd_mlpxz]]></isNotEmpty>
@@ -104,6 +105,8 @@
 		<isNotEmpty prepend="," property="hjd_mlpxz"><![CDATA[ #hjd_mlpxz#]]></isNotEmpty>
 		<isNotEmpty prepend="," property="hjd_dzid"><![CDATA[#hjd_dzid#]]></isNotEmpty>
 		<isNotEmpty prepend="," property="hjd_dzxz"><![CDATA[#hjd_dzxz#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="hjd_dzms"><![CDATA[#hjd_dzms#]]></isNotEmpty>
+		
 		<isNotEmpty prepend="," property="jzd_xzqhdm"><![CDATA[ #jzd_xzqhdm#]]></isNotEmpty>
 		<isNotEmpty prepend="," property="jzd_mlpdm"><![CDATA[ #jzd_mlpdm#]]></isNotEmpty>
 		<isNotEmpty prepend="," property="jzd_mlpxz"><![CDATA[ #jzd_mlpxz#]]></isNotEmpty>
@@ -171,6 +174,7 @@
 			<isNotNull prepend="," property="hjd_mlpxz"><![CDATA[ hjd_mlpxz=#hjd_mlpxz#]]></isNotNull>
 			<isNotNull prepend="," property="hjd_dzid"><![CDATA[hjd_dzid =#hjd_dzid#]]></isNotNull>
 			<isNotNull prepend="," property="hjd_dzxz"><![CDATA[ hjd_dzxz=#hjd_dzxz#]]></isNotNull>
+			<isNotNull prepend="," property="hjd_dzms"><![CDATA[ hjd_dzxz=#hjd_dzms#]]></isNotNull>			
 			<isNotNull prepend="," property="jzd_xzqhdm"><![CDATA[ jzd_xzqhdm = #jzd_xzqhdm#]]></isNotNull>
 			<isNotNull prepend="," property="jzd_mlpdm"><![CDATA[jzd_mlpdm = #jzd_mlpdm#]]></isNotNull>
 			<isNotNull prepend="," property="jzd_mlpxz"><![CDATA[jzd_mlpxz= #jzd_mlpxz#]]></isNotNull>
@@ -248,10 +252,30 @@
 		   <isNotEmpty prepend="," property="rkglswyydm">
 				RKGLSWYYDM = #rkglswyydm#
 		   </isNotEmpty>
-		   <isNotEmpty prepend="," property="id">
-		        ID = #id# 
-		   </isNotEmpty>
-		    ,<include refid="deleteXtzd"/>
+			   <isNotEmpty prepend="," property="xt_zhxgsj">
+		        XT_ZHXGSJ = #xt_zhxgsj# 
+		    </isNotEmpty>
+		        <isNotEmpty prepend="," property="xt_zhxgrxm">
+		        XT_ZHXGRXM = #xt_zhxgrxm# 
+		    </isNotEmpty>
+		        <isNotEmpty prepend="," property="xt_zhxgrid">
+		        XT_ZHXGRID = #xt_zhxgrid# 
+		    </isNotEmpty>
+		        <isNotEmpty prepend="," property="xt_zhxgrbm">
+		        XT_ZHXGRBM = #xt_zhxgrbm# 
+		    </isNotEmpty>
+		        <isNotEmpty prepend="," property="xt_zhxgrbmid">
+		        XT_ZHXGRBMID = #xt_zhxgrbmid# 
+		    </isNotEmpty>
+		        <isNotEmpty prepend="," property="xt_zhxgip">
+		        XT_ZHXGIP = #xt_zhxgip# 
+		    </isNotEmpty>
+		        <isNotEmpty prepend="," property="xt_zxbz">
+		        XT_ZXBZ ='1' 
+		    </isNotEmpty>
+		        <isNotEmpty prepend="," property="xt_zxyy">
+		        XT_ZXYY = #xt_zxyy# 
+		    </isNotEmpty>	
 		</dynamic>
 		WHERE ID = #id#
 	</update>

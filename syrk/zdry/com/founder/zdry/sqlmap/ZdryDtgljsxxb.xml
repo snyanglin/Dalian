@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZdryDtgljsxxb">
+	
+	<typeAlias alias="zdryDtgljsxxb" type="com.founder.zdry.bean.ZdryDtgljsxxb" />
+	
+	<!-- 查询列表 -->
+	<select id="queryCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) from ZDRY_DTGLJSXXB t where XT_ZXBZ = '0' and ZDRYID = #zdryDtgljsxxb.zdryid# ]]>
+		<isNotEmpty prepend="and" property="zdryDtgljsxxb.sfzkdm">
+			SFZKDM = #zdryDtgljsxxb.sfzkdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryDtgljsxxb.dtjs">
+			DTJS like '%$zdryDtgljsxxb.dtjs$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryDtgljsxxb.dtjsmj_xm">
+			DTJSMJ_XM like '%$zdryDtgljsxxb.dtjsmj_xm$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryDtgljsxxb.jslxdm">
+			JSLXDM = #zdryDtgljsxxb.jslxdm#
+		</isNotEmpty>
+	</select>
+	<select id="queryList" parameterClass="Map" resultClass="zdryDtgljsxxb">
+		<![CDATA[ select * from ( select rownum r ,m.* from (
+			select * from ZDRY_DTGLJSXXB t where t.XT_ZXBZ = '0' and ZDRYID = #zdryDtgljsxxb.zdryid# ]]>
+			<isNotEmpty prepend="and" property="zdryDtgljsxxb.sfzkdm">
+				SFZKDM = #zdryDtgljsxxb.sfzkdm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryDtgljsxxb.dtjs">
+				DTJS like '%$zdryDtgljsxxb.dtjs$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryDtgljsxxb.dtjsmj_xm">
+				DTJSMJ_XM like '%$zdryDtgljsxxb.dtjsmj_xm$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryDtgljsxxb.jslxdm">
+				JSLXDM = #zdryDtgljsxxb.jslxdm#
+			</isNotEmpty>
+			<![CDATA[ order by $sort$ $order$) m  
+		where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+
+	<!-- 查询显示列表 -->
+	<select id="queryViewList" parameterClass="Map" resultClass="zdryDtgljsxxb">
+		<![CDATA[ select * from (
+			select * from ZDRY_DTGLJSXXB t where t.XT_ZXBZ = '0' and ZDRYID = #zdryid# ]]>
+			<![CDATA[ order by js_sj desc) m where rownum <= #maxNum# ]]>
+	</select>
+
+	<!-- 查询单条（根据主键） -->
+	<select id="queryById" parameterClass="String" resultClass="zdryDtgljsxxb">
+		<![CDATA[ select * from ZDRY_DTGLJSXXB t where ID = #id# and XT_ZXBZ = '0' and rownum = 1 ]]>
+	</select>
+
+	<!-- 新增 -->
+	<insert id="save" parameterClass="zdryDtgljsxxb">
+		<![CDATA[ insert into ZDRY_DTGLJSXXB (ID,ZDRYID,SFZKDM,JS_SJ,DTJS,DTJSMJ_ID,DTJSMJ_XM,JSLXDM,BZ, ]]><include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#,#zdryid#,#sfzkdm#,#js_sj#,#dtjs#,#dtjsmj_id#,#dtjsmj_xm#,#jslxdm#,#bz#,]]>
+			<include refid="insertXtzdVal"/>)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterClass="zdryDtgljsxxb">
+		<![CDATA[ update ZDRY_DTGLJSXXB ]]>	
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="sfzkdm"><![CDATA[ SFZKDM=#sfzkdm# ]]></isNotNull>
+			<isNotNull prepend="," property="js_sj"><![CDATA[ JS_SJ=#js_sj# ]]></isNotNull>
+			<isNotNull prepend="," property="dtjs"><![CDATA[ DTJS=#dtjs# ]]></isNotNull>
+			<isNotNull prepend="," property="dtjsmj_id"><![CDATA[ DTJSMJ_ID=#dtjsmj_id# ]]></isNotNull>
+			<isNotNull prepend="," property="dtjsmj_xm"><![CDATA[ DTJSMJ_XM=#dtjsmj_xm# ]]></isNotNull>
+			<isNotNull prepend="," property="jslxdm"><![CDATA[ JSLXDM=#jslxdm# ]]></isNotNull>
+			<isNotNull prepend="," property="bz"><![CDATA[ BZ=#bz# ]]></isNotNull>
+			,<include refid="updateXtzd"/>				
+		</dynamic>
+		<![CDATA[ where ID = #id#]]>	
+	</update>
+	
+	<!-- 注销 -->
+	<update id="delete" parameterClass="zdryDtgljsxxb">
+		<![CDATA[ update ZDRY_DTGLJSXXB set ]]><include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>	
+	</update>
+
+</sqlMap>

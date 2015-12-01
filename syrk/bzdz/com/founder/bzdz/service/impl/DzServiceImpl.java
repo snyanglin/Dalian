@@ -73,6 +73,28 @@ public class DzServiceImpl extends BaseService implements DzService {
 	 * @throws
 	 */
 	public void saveDz(BzdzxxbVO entity, SessionBean sessionBean) {
+		
+		if("12".equals(sessionBean.getUserOrgBiztype())){
+			//内保登陆
+			if("20".equals(sessionBean.getUserOrgLevel())){
+				//支队本真相当于分县局级别
+				entity.setFxjdm(sessionBean.getUserOrgCode());
+				entity.setFxjmc(sessionBean.getUserOrgName());
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}else{
+				//大队
+				entity.setFxjdm(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setFxjmc(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}
+		}
+		
 		//地址是否进行审核状态【系统配置】
 		String bzdzSh = SystemConfig.getString("bzdzSh");
 		//门楼地址表
@@ -135,6 +157,28 @@ public class DzServiceImpl extends BaseService implements DzService {
 	 * @throws
 	 */
 	public void saveChDz(BzdzxxbVO entity, SessionBean sessionBean) {
+		
+		if("12".equals(sessionBean.getUserOrgBiztype())){
+			//内保登陆
+			if("20".equals(sessionBean.getUserOrgLevel())){
+				//支队本真相当于分县局级别
+				entity.setFxjdm(sessionBean.getUserOrgCode());
+				entity.setFxjmc(sessionBean.getUserOrgName());
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}else{
+				//大队
+				entity.setFxjdm(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setFxjmc(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}
+		}
+		
 		//地址是否进行审核状态【系统配置】
 		String bzdzSh = SystemConfig.getString("bzdzSh");
 		if("1".equals(bzdzSh)){
@@ -146,6 +190,7 @@ public class DzServiceImpl extends BaseService implements DzService {
 			}
 			List<BzdzxxbVO> volist = dzDao.queryMldzShb(entity.getMldzid());
 			if(volist.size()==0){
+				
 				//将对象表数据插入到审核表中
 				dzDao.insertMldzShb(entity);
 			}
@@ -466,6 +511,26 @@ public class DzServiceImpl extends BaseService implements DzService {
 	 * @throws
 	 */
 	public void updateSh(BzdzxxbVO entity, SessionBean sessionBean){
+		if("12".equals(sessionBean.getUserOrgBiztype())){
+			//内保登陆
+			if("20".equals(sessionBean.getUserOrgLevel())){
+				//支队本真相当于分县局级别
+				entity.setFxjdm(sessionBean.getUserOrgCode());
+				entity.setFxjmc(sessionBean.getUserOrgName());
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}else{
+				//大队
+				entity.setFxjdm(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setFxjmc(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}
+		}
 		setUpdateProperties(entity,sessionBean);
 		entity.setShrxm(entity.getXt_zhxgrxm());
 		entity.setShrid(entity.getXt_zhxgrid());
@@ -596,6 +661,28 @@ public class DzServiceImpl extends BaseService implements DzService {
 	 * @throws
 	 */
 	public void updateMldz(BzdzxxbVO entity, SessionBean sessionBean) {
+		
+		if("12".equals(sessionBean.getUserOrgBiztype())){
+			//内保登陆
+			if("20".equals(sessionBean.getUserOrgLevel())){
+				//支队本真相当于分县局级别
+				entity.setFxjdm(sessionBean.getUserOrgCode());
+				entity.setFxjmc(sessionBean.getUserOrgName());
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}else{
+				//大队
+				entity.setFxjdm(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setFxjmc(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}
+		}
+		
 		//地址是否进行审核状态【系统配置】
 		String bzdzSh = SystemConfig.getString("bzdzSh");
 		//更新门楼地址对象表 修改备注字段进入已启用（维护中）状态
@@ -687,6 +774,28 @@ public class DzServiceImpl extends BaseService implements DzService {
 	 * @throws
 	 */
 	public void updateDymc(BzdzxxbVO entity, SessionBean sessionBean) {
+		
+		if("12".equals(sessionBean.getUserOrgBiztype())){
+			//内保登陆
+			if("20".equals(sessionBean.getUserOrgLevel())){
+				//支队本真相当于分县局级别
+				entity.setFxjdm(sessionBean.getUserOrgCode());
+				entity.setFxjmc(sessionBean.getUserOrgName());
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}else{
+				//大队
+				entity.setFxjdm(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setFxjmc(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}
+		}
+		
 		//更新层户地址对象表
 		setUpdateProperties(entity,sessionBean);
 		//获取对应门楼地址对象数据
@@ -727,6 +836,28 @@ public class DzServiceImpl extends BaseService implements DzService {
 	 * @throws
 	 */
 	public void updateDycs(BzdzxxbVO entity, SessionBean sessionBean) {
+		
+		if("12".equals(sessionBean.getUserOrgBiztype())){
+			//内保登陆
+			if("20".equals(sessionBean.getUserOrgLevel())){
+				//支队本真相当于分县局级别
+				entity.setFxjdm(sessionBean.getUserOrgCode());
+				entity.setFxjmc(sessionBean.getUserOrgName());
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}else{
+				//大队
+				entity.setFxjdm(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setFxjmc(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}
+		}
+		
 		//获取对应门楼地址对象数据
 		BzdzxxbVO mldz = dzDao.queryMldzDx(entity.getMldzid());
 		entity.setDzmc(mldz.getDzmc());
@@ -797,6 +928,28 @@ public class DzServiceImpl extends BaseService implements DzService {
 	 * @throws
 	 */
 	public void updateDyhs(BzdzxxbVO entity, SessionBean sessionBean) {
+		
+		if("12".equals(sessionBean.getUserOrgBiztype())){
+			//内保登陆
+			if("20".equals(sessionBean.getUserOrgLevel())){
+				//支队本真相当于分县局级别
+				entity.setFxjdm(sessionBean.getUserOrgCode());
+				entity.setFxjmc(sessionBean.getUserOrgName());
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}else{
+				//大队
+				entity.setFxjdm(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setFxjmc(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}
+		}
+		
 		//获取对应门楼地址对象数据
 		BzdzxxbVO mldz = dzDao.queryMldzDx(entity.getMldzid());
 		entity.setDzmc(mldz.getDzmc());
@@ -849,6 +1002,28 @@ public class DzServiceImpl extends BaseService implements DzService {
 	 * @throws
 	 */
 	public void updateDyLchs(BzdzxxbVO entity, SessionBean sessionBean) {
+		
+		if("12".equals(sessionBean.getUserOrgBiztype())){
+			//内保登陆
+			if("20".equals(sessionBean.getUserOrgLevel())){
+				//支队本真相当于分县局级别
+				entity.setFxjdm(sessionBean.getUserOrgCode());
+				entity.setFxjmc(sessionBean.getUserOrgName());
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}else{
+				//大队
+				entity.setFxjdm(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setFxjmc(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}
+		}
+		
 		//获取对应门楼地址对象数据
 		BzdzxxbVO mldz = dzDao.queryMldzDx(entity.getMldzid());
 		entity.setDzmc(mldz.getDzmc());
@@ -900,6 +1075,28 @@ public class DzServiceImpl extends BaseService implements DzService {
      * @throws
      */
 	public void updateDyfjmc(BzdzxxbVO entity, SessionBean sessionBean) {
+		
+		if("12".equals(sessionBean.getUserOrgBiztype())){
+			//内保登陆
+			if("20".equals(sessionBean.getUserOrgLevel())){
+				//支队本真相当于分县局级别
+				entity.setFxjdm(sessionBean.getUserOrgCode());
+				entity.setFxjmc(sessionBean.getUserOrgName());
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}else{
+				//大队
+				entity.setFxjdm(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setFxjmc(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}
+		}
+		
 		//获取对应门楼地址对象数据
 		BzdzxxbVO mldz = dzDao.queryMldzDx(entity.getMldzid());
 		entity.setDzmc(mldz.getDzmc());
@@ -966,6 +1163,28 @@ public class DzServiceImpl extends BaseService implements DzService {
 	 * @throws
 	 */
 	public void updateHouseHb(BzdzxxbVO entity, SessionBean sessionBean) {
+		
+		if("12".equals(sessionBean.getUserOrgBiztype())){
+			//内保登陆
+			if("20".equals(sessionBean.getUserOrgLevel())){
+				//支队本真相当于分县局级别
+				entity.setFxjdm(sessionBean.getUserOrgCode());
+				entity.setFxjmc(sessionBean.getUserOrgName());
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}else{
+				//大队
+				entity.setFxjdm(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setFxjmc(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}
+		}
+		
 		setUpdateProperties(entity, sessionBean);
 		String chdz[] = entity.getChdzid().toString().split(",");
 		String fjhbbz = getRandColorCode();
@@ -1005,6 +1224,28 @@ public class DzServiceImpl extends BaseService implements DzService {
 	 * @throws
 	 */
 	public void updateHouseQxHb(BzdzxxbVO entity, SessionBean sessionBean) {
+		
+		if("12".equals(sessionBean.getUserOrgBiztype())){
+			//内保登陆
+			if("20".equals(sessionBean.getUserOrgLevel())){
+				//支队本真相当于分县局级别
+				entity.setFxjdm(sessionBean.getUserOrgCode());
+				entity.setFxjmc(sessionBean.getUserOrgName());
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}else{
+				//大队
+				entity.setFxjdm(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setFxjmc(sessionBean.getExtendValue("parentOrgCode"));
+				entity.setPcsdm(sessionBean.getUserOrgCode());
+				entity.setPcsmc(sessionBean.getUserOrgName());
+				entity.setZrqdm(sessionBean.getUserOrgCode());
+				entity.setZrqmc(sessionBean.getUserOrgName());
+			}
+		}
+		
 		setUpdateProperties(entity, sessionBean);
 		dzDao.updateHouseQxHb(entity);
 	}

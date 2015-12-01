@@ -38,7 +38,6 @@ Zdrxs.queryZdryInfo = function(zjhm){
 	var url = contextPath+'/zdry/queryZdry';
 	var fajax = new FrameTools.Ajax(url,Zdrxs.queryZdryInfo_back);
 	fajax.send(param);
-	$(document.body).mask("努力加载中...");
 };
 /**
  * @method:queryZdryInfo_back
@@ -49,12 +48,8 @@ Zdrxs.queryZdryInfo = function(zjhm){
  * @date:2015-6-18下午3:31:11
  */
 Zdrxs.queryZdryInfo_back = function(obj){
-	$(document.body).unmask();
 	$("#zdryOpButtonTr").show();
 	$("#zdrySxxx").show();
-	/**
-	 * 关闭所有信息标签
-	 */
 	while($("#otherInfoListDiv").tabs("tabs").length>0){
 			$("#otherInfoListDiv").tabs("close",0);
 	}
@@ -71,9 +66,6 @@ Zdrxs.queryZdryInfo_back = function(obj){
 				case 'tmtz':val = Zdrxs.getDicValues(val,'/','D_QBLD_TMTZ');break;
 				default:break;
 			}
-			/**
-			 *显示正确的时间格式
-			 */
 			if('zjlasj,createdate,'.indexOf(key)!=-1){
 				val = val.substring(0,4)+"/"+val.substring(4,6)+"/"+val.substring(6,8)+" "+val.substring(8,10)+":"+val.substring(10,12)+":"+val.substring(12,14) ;
 			}
@@ -94,9 +86,6 @@ Zdrxs.queryZdryInfo_back = function(obj){
  * @date:2015-6-1上午10:34:11
  */
 Zdrxs.queryZdryList = function(total,begin,end,page){
-	/**
-	 * 获取复选框查询条件
-	 */
 	var checkObj = $("#queryFrom :checkBox");
 	var num = checkObj.length
 	var xszt = ""; 
@@ -119,7 +108,6 @@ Zdrxs.queryZdryList = function(total,begin,end,page){
 	var url = contextPath+'/zdry/queryZdryList';
 	var fajax = new FrameTools.Ajax(url,Zdrxs.queryZdryList_back);
 	fajax.send(param);
-	$(document.body).mask("努力加载中...");
 };
 /**
  * @method:queryZdryList_back
@@ -130,7 +118,6 @@ Zdrxs.queryZdryList = function(total,begin,end,page){
  * @date:2015-6-1上午10:34:27
  */
 Zdrxs.queryZdryList_back = function(json){
-	$(document.body).unmask();
 	Zdrxs.listObj = json.rows;
 	var num = Zdrxs.listObj.length;
 	var  rsHtml = "<table class='listTable'>"+
@@ -175,9 +162,6 @@ Zdrxs.queryOneZdryInfo = function(index){
 	Zdrxs.zdryXsInfoObj = obj;
 	for(key in obj){
 		var val = obj[key];
-		/**
-		 * 字典进行翻译，时间格式条件
-		 */
 		if(val!=""&&val!=null){
 			switch(key){
 				case 'xb':val = window.top.getDictName(contextPath + '/common/dict/D_QBLD_XB.js',val);break;
@@ -225,6 +209,7 @@ Zdrxs.getDicValues = function(val,slipt,dicname){
  */
 Zdrxs.initXsSelectVal = function(){
 	$("#zdrxs_hsddqh").combotree({
+		url:contextPath + '/common/dict/D_BZ_XZQH_MUNICIPAL.js',
 		onlyLeaf:true,
 		multiple:false,
 		panelWidth:320,
@@ -234,146 +219,86 @@ Zdrxs.initXsSelectVal = function(){
 		width:'100%',
 		onSelect:function(obj){
 			$("#zdrxs_hsddxz").val(obj.text)
-		},
-		onShowPanel:function(){
-			$("#zdrxs_hsddqh").combotree('reload', contextPath + '/common/dict/D_BZ_XZQH_MUNICIPAL.js'); 
 		}
 	})
 	$("#zdrxs_qwss").combotree({
+		url:contextPath + '/common/dict/D_BZ_XZQH.js',
 		onlyLeaf:true,
 		multiple:false,
 		panelWidth:320,
 		method:'get',
 		editable:true,
 		lines:true,
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combotree('reload', contextPath + '/common/dict/D_BZ_XZQH.js'); 
-			}
-		}
+		width:'100%'
 	})
-	,
 	$("#zdrxs_jzdqh").combotree({
+		url:contextPath + '/common/dict/D_BZ_XZQH.js',
 		onlyLeaf:true,
 		multiple:false,
 		panelWidth:320,
 		method:'get',
 		editable:true,
 		lines:true,
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combotree('reload', contextPath + '/common/dict/D_BZ_XZQH.js'); 
-			}
-		}
+		width:'100%'
 	})
 	
 	$("#zdrxs_zkzt").combobox({
+		url: contextPath + '/common/dict/D_QBLD_ZKZT.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_ZKZT.js'); 
-			}
-		}
+		width:'100%'
 	});
 	$("#zdrxs_zyjsnzt").combobox({
+		url: contextPath + '/common/dict/D_QBLD_ZDRYZYJSNZT.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_ZDRYZYJSNZT.js'); 
-			}
-		}
+		width:'100%'
 	});
 	$("#zdrxs_wxjb").combobox({
+		url: contextPath + '/common/dict/D_QBLD_WXJB.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_WXJB.js'); 
-			}
-		}
+		width:'100%'
 	});
 	$("#zdrxs_zy").combotree({
+		url:contextPath + '/common/dict/GB_D_ZYLBDM.js',
 		onlyLeaf:true,
 		multiple:false,
 		panelWidth:320,
 		method:'get',
 		editable:true,
 		lines:true,
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-				$(this).combotree('reload', contextPath + '/common/dict/GB_D_ZYLBDM.js'); 
-			}
-		}
+		width:'100%'
 	})
 
 	
 	$("#zdrxs_sjsr").combobox({
+		url: contextPath + '/common/dict/D_QBLD_SJSR.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-				$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_SJSR.js'); 
-			}
-		}
+		width:'100%'
 	});
 	
 	$("#zdrxs_jjly").combobox({
+		url: contextPath + '/common/dict/D_QBLD_JJLY.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-				$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_JJLY.js'); 
-			}
-		}
+		width:'100%'
 	});
 	$("#zdrxs_sfjdbr").combobox({
 		url: contextPath + '/common/dict/D_QBLD_SF.js',
@@ -382,31 +307,16 @@ Zdrxs.initXsSelectVal = function(){
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-				$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_SF.js'); 
-			}
-		}
+		width:'100%'
 	});
 	$("#zdrxs_zjzt").combobox({
+		url: contextPath + '/common/dict/D_QBLD_ZJZT.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-				$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_ZJZT.js'); 
-			}
-		}
+		width:'100%'
 	});
 }
 /**
@@ -428,20 +338,19 @@ Zdrxs.initXsTab = function(){
 		 '		<td class="infoName red">在籍状态</td><td class="infoValue"><input id="zdrxs_zjzt" class="notNull" > </td></tr>'+
 		 '	<tr><td class="infoName">离开时间</td><td class="infoValue"><input id="zdrxs_lksj" onclick="WdatePicker({skin:\'whyGreen\',dateFmt:\'yyyyMMddHHmmss\'})" ></td>'+
 		 '		<td class="infoName">去往省市</td><td class="infoValue"><input id="zdrxs_qwss"></td></tr>'+
-		 '	<tr><td class="infoName red">危险级别</td><td class="infoValue"><input id="zdrxs_wxjb" class="notNull" > </td>'+
+		 '	<tr><td class="infoName red">危险级别（提示）</td><td class="infoValue"><input id="zdrxs_wxjb" class="notNull" > </td>'+
 		 '		<td class="infoName">主要意向</td><td class="infoValue" ><input id="zdrxs_zyyx" maxlength=150></td></tr>'+
 		 '	<tr><td class="infoName">职业</td><td class="infoValue"><input id="zdrxs_zy"></td>'+
 		 '		<td class="infoName">实际收入</td><td class="infoValue"><input id="zdrxs_sjsr"> </td></tr>'+
 		 '	<tr><td class="infoName">经济来源</td><td class="infoValue"><input id="zdrxs_jjly"></td>'+
-		 //gem修改'		<td class="infoName">联系方式</td><td class="infoValue"><input id="zdrxs_lxfs"> </td></tr>'+
-		 '		<td class="infoName"></td><td class="infoValue"></td></tr>'+
+		 '		<td class="infoName">联系方式</td><td class="infoValue"><input id="zdrxs_lxfs"> </td></tr>'+
 		 '	<tr><td class="infoName">工作单位</td><td class="infoValue"><input id="zdrxs_gzdw" maxlength=150></td>'+
 		 '		<td class="infoName">工作单位详址</td><td class="infoValue"> <input id="zdrxs_gzdwxz" maxlength=300></td></tr>'+
 		 '	<tr><td class="infoName">现住地区划</td><td class="infoValue"><input id="zdrxs_jzdqh"></td>'+
 		 '		<td class="infoName">现住地详址</td><td class="infoValue"><input id="zdrxs_jzdxz"> </td></tr>'+
-		 '	<tr><td class="infoName">管辖单位（派出所）</td><td class="infoValue">'+userOrgName+'</td>'+
+		 '	<tr><td class="infoName">管辖单位</td><td class="infoValue">'+userOrgName+'</td>'+
 		 '		<td class="infoName  red">是否见到本人</td><td class="infoValue"><input id="zdrxs_sfjdbr"  class="notNull" > </td></tr>'+
-		 '	<tr><td class="infoName">核实情况描述</td><td class="infoValue" colspan=3><textarea id="zdrxs_xsqkms" maxlength=750></textarea></td></tr>'+
+		 '	<tr><td class="infoName">核实情况描述（提示）</td><td class="infoValue" colspan=3><textarea id="zdrxs_xsqkms" maxlength=750></textarea></td></tr>'+
 		 '	<tr><td class="infoName">属性信息</td><td class="infoValue" colspan=3>'+
 		 '		<a href="#" class="easyui-linkbutton" iconCls="icon-attach" plain="true" onclick="Zdrxs.openZtTab();">在逃</a>'+
 		 '		<a href="#" class="easyui-linkbutton" iconCls="icon-attach" plain="true" onclick="Zdrxs.openSwTab();">涉稳</a>'+
@@ -493,14 +402,14 @@ Zdrxs.setSfjdbrVal = function(flag){
 Zdrxs.openZtTab = function(){
 	if($("#otherInfoListDiv").tabs('getTab','在逃信息')==null){
 		var html ='<table class="infoBodyTable" id="zt_Table"> '+
-		 '	<tr><td class="infoName">在逃类别</td><td class="infoValue"><input id="zdrxsZt_ztlx"></td>'+
+		 '	<tr><td class="infoName">在逃类型</td><td class="infoValue"><input id="zdrxsZt_ztlx"></td>'+
 		 '		<td class="infoName">立案时间</td><td class="infoValue" ><input id="zdrxsZt_lasj" onclick="WdatePicker({skin:\'whyGreen\',dateFmt:\'yyyyMMddHHmmss\'})"  ></td>'+
 		 '		<td class="infoName">立案单位</td><td class="infoValue" ><input id="zdrxsZt_ladwdm" style="display:none"><input id="zdrxsZt_ladwmc" onClick="public_singleSelectOrg(\''+userOrgCode+'\', \'01\', \'32\', \'\', \'zdrxsZt_ladwdm\', \'zdrxsZt_ladwmc\', \'\', false, false, \'\', window, \'\', \'\')"></td></tr>'+
 		 '	<tr><td class="infoName">逃跑时间</td><td class="infoValue" ><input id="zdrxsZt_tpsj" onclick="WdatePicker({skin:\'whyGreen\',dateFmt:\'yyyyMMddHHmmss\'})" ></td>'+
 		 '		<td class="infoName">逃跑方向</td><td class="infoValue"><input id="zdrxsZt_tpfx"></td>'+
 		 '		<td class="infoName">立逃日期</td><td class="infoValue" ><input id="zdrxsZt_ltrq" onclick="WdatePicker({skin:\'whyGreen\',dateFmt:\'yyyyMMddHHmmss\'})" ></td></tr>'+
 		 '	<tr><td class="infoName">立逃单位</td><td class="infoValue"><input id="zdrxsZt_ltdwdm" style="display:none"><input id="zdrxsZt_ltdwmc" onClick="public_singleSelectOrg(\''+userOrgCode+'\', \'01\', \'32\', \'\', \'zdrxsZt_ltdwdm\', \'zdrxsZt_ltdwmc\', \'\', false, false, \'\', window, \'\', \'\')"></td>'+
-		 '		<td class="infoName">案件类别</td><td class="infoValue" ><input id="zdrxsZt_ajlb"></td>'+
+		 '		<td class="infoName">案件类型</td><td class="infoValue" ><input id="zdrxsZt_ajlb"></td>'+
 		 '		<td class="infoName">督捕级别</td><td class="infoValue"><input id="zdrxsZt_dbjb"></td>'+
 		 '	<tr><td class="infoName">案情描述</td><td class="infoValue" colspan=5><textarea id="zdrxsZt_aqms" maxlength=1500 placeholder="最多填写1500个文字"></textarea></td></tr>' +
 		 '	<tr  align="center">'+
@@ -944,7 +853,6 @@ Zdrxs.openSdXdTab = function(){
 		$("#otherInfoListDiv").tabs('select','涉毒-吸毒信息');
 	}
 };
-
 /**
  * @method:openSdZdTab
  * @package:syrk/js/qbld	
@@ -955,16 +863,15 @@ Zdrxs.openSdXdTab = function(){
 Zdrxs.openSdZdTab = function(){
 	if($("#otherInfoListDiv").tabs('getTab','涉毒-制毒信息')==null){
 		var html ='<table class="infoBodyTable" id="sdzd_Table"> '+
-		 '	<tr><td class="infoName">毒品种类</td><td class="infoValue" style="width:300px;"><input id="zdrxsSdZd_dpzl"></td>'+
+		 '	<tr><td class="infoName">毒品种类</td><td class="infoValue"><input id="zdrxsSdZd_dpzl"></td>'+
 		 '		<td class="infoName">毒品种类其他</td><td class="infoValue" colspan=3><input id="zdrxsSdZd_dpzlqt" maxlength=150></td></tr>'+
 		 '	<tr><td class="infoName">制毒化学品</td><td class="infoValue"><input id="zdrxsSdZd_zdhxp"></td>'+
 		 '		<td class="infoName">制毒化学品其他</td><td class="infoValue" colspan=3><input id="zdrxsSdZd_zdhxpqt" maxlength=150></td></tr>'+
 		 '	<tr><td class="infoName">毒品去向</td><td class="infoValue"><input id="zdrxsSdZd_dpqx"></td>'+
 		 '		<td class="infoName">毒品去向其他</td><td class="infoValue" colspan=3><input id="zdrxsSdZd_dpqxqt" maxlength=150></td></tr>'+
 		 '	<tr><td class="infoName">毒资去向</td><td class="infoValue"><input id="zdrxsSdZd_shdzqx"></td>'+
-		 '		<td class="infoName">毒资去向其他</td><td class="infoValue" colspan=3><input id="zdrxsSdZd_dzqxqt" maxlength=150></td></tr>'+
-		 '	<tr id="adds"><td class="infoName">贩毒地点</td><td class="infoValue" colspan=5><input id="zdrxsSdZd_fmdd"/>'
-		 + '</td></tr>' +
+		 '		<td class="infoName">毒资取向其他</td><td class="infoValue" colspan=3><input id="zdrxsSdZd_dzqxqt" maxlength=150></td></tr>'+
+		 '	<tr><td class="infoName">贩毒地点</td><td class="infoValue" colspan=5><input id="zdrxsSdZd_fmdd"></td></tr>' +
 		 '	<tr  align="center">'+
 		 '		<td colspan=6>'+
 		 '			<a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="Zdrxs.saveZdryOtherInfo(\'sdzd_Table\',\'zdrxsSdZd_\',\'/zdry/saveZdrySdZdxxb\');">添加</a>'+
@@ -1017,34 +924,16 @@ Zdrxs.openSdZdTab = function(){
 			width:'100%'
 		});
 		
-		//gem
 		$("#zdrxsSdZd_fmdd").combotree({
+			url:contextPath + '/common/dict/D_BZ_XZQH.js',
 			onlyLeaf:true,
 			multiple:false,
 			panelWidth:320,
 			method:'get',
 			editable:true,
 			lines:true,
-			width:'100%',
-			onShowPanel:function(){
-				if(this.flag){
-					return;
-				}else{
-					this.flag = true;
-					$(this).combotree('reload', contextPath + '/common/dict/D_BZ_XZQH.js'); 
-				}
-			}
+			width:'100%'
 		})
-		
-//		$("#zdrxsSdZd_fmdd").combotree({
-//			onlyLeaf:true,
-//			multiple:false,
-//			panelWidth:320,
-//			method:'get',
-//			editable:true,
-//			lines:true,
-//			width:'100%'
-//		});
 		
 		
 		$('#sdzdListDiv').datagrid({
@@ -1060,10 +949,8 @@ Zdrxs.openSdZdTab = function(){
 			queryParams:{"zdryzjhm":Zdrxs.zdryXsInfoObj.sfzh},
 			pageSize:10,
 			columns:[[
-			          {field:'fmdd',title:'贩毒地点',width:$("#otherInfoListDiv").width()*.24,align:'center',
-			        	  formatter:function(value,rec){return window.top.getDictName(contextPath + '/common/dict/D_BZ_XZQH.js', value)}},       
-		  		    	{field:'dpzl',title:'毒品种类',width:$("#otherInfoListDiv").width()*.24,align:'center',
-		  		    		formatter:function(value,rec){return window.top.getDictName(contextPath + '/common/dict/D_QBLD_DPZL.js', value)}},       
+						{field:'dpzl',title:'毒品种类',width:$("#otherInfoListDiv").width()*.24,align:'center',
+			  		    	formatter:function(value,rec){return window.top.getDictName(contextPath + '/common/dict/D_QBLD_DPZL.js', value)}},       
 						{field:'zdhxp',title:'制毒化学品',width:$("#otherInfoListDiv").width()*.24,align:'center',
 				  		    	formatter:function(value,rec){return window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZDHXP.js', value)}},       
 						{field:'dpqx',title:'制毒去向',width:$("#otherInfoListDiv").width()*.24,align:'center',
@@ -1089,7 +976,7 @@ Zdrxs.openSdZdTab = function(){
 Zdrxs.openSdFdTab = function(){
 	if($("#otherInfoListDiv").tabs('getTab','涉毒-贩毒信息')==null){
 		var html ='<table class="infoBodyTable" id="sdfd_Table"> '+
-		 '	<tr><td class="infoName">毒品种类</td><td class="infoValue" style="width:400px;"><input id="zdrxsSdFd_fmdpzl"></td>'+
+		 '	<tr><td class="infoName">毒品种类</td><td class="infoValue"><input id="zdrxsSdFd_fmdpzl"></td>'+
 		 '		<td class="infoName">毒品种类其他</td><td class="infoValue" ><input id="zdrxsSdFd_dplyqt" maxlength=150></td></tr>'+
 		 '	<tr><td class="infoName">毒品来源</td><td class="infoValue"><input id="zdrxsSdFd_dply" maxlength=300></td>'+
 		 '		<td class="infoName">毒品来源其他</td><td class="infoValue" ><input id="zdrxsSdFd_dplyqt" maxlength=150></td></tr>'+
@@ -1097,7 +984,7 @@ Zdrxs.openSdFdTab = function(){
 		 '	<tr><td class="infoName">贩卖毒品渠道</td><td class="infoValue"><input id="zdrxsSdFd_fmdpqd"></td>' +
 		 '		<td class="infoName">毒品其他渠道</td><td class="infoValue" ><input id="zdrxsSdFd_dpqdqt" maxlength=150></td></tr>'+
 		 '	<tr><td class="infoName">毒资去向</td><td class="infoValue"><input id="zdrxsSdFd_shdzqx"></td>'+
-		 '		<td class="infoName">毒资去向其他</td><td class="infoValue"><input id="zdrxsSdFd_dzqxqt" maxlength=150></td></tr>'+
+		 '		<td class="infoName">毒资取向其他</td><td class="infoValue"><input id="zdrxsSdFd_dzqxqt" maxlength=150></td></tr>'+
 		 '	<tr  align="center">'+
 		 '		<td colspan=4>'+
 		 '			<a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="Zdrxs.saveZdryOtherInfo(\'sdfd_Table\',\'zdrxsSdFd_\',\'/zdry/saveZdrySdFdxxb\');">添加</a>'+
@@ -1631,7 +1518,7 @@ Zdrxs.openZszhjsbZszhjlTab = function(){
 	if($("#otherInfoListDiv").tabs('getTab','肇事肇祸精神病-肇事肇祸记录')==null){
 		var html ='<table class="infoBodyTable" id="zszhjsbZszhjl_Table"> '+
 		 '	<tr><td class="infoName">肇事肇祸类别</td><td class="infoValue"><input id="zszhjsbZszhjl_zszhlb"></td>'+
-		 '		<td class="infoName">事发时间</td><td class="infoValue" style="width:300"><input id="zszhjsbZszhjl_sfsj"  onclick="WdatePicker({skin:\'whyGreen\',dateFmt:\'yyyyMMddHHmmss\'})"></td>'+
+		 '		<td class="infoName">事发时间</td><td class="infoValue"><input id="zszhjsbZszhjl_sfsj"  onclick="WdatePicker({skin:\'whyGreen\',dateFmt:\'yyyyMMddHHmmss\'})"></td>'+
 		 '		<td class="infoName">事发地点</td><td class="infoValue" ><input id="zszhjsbZszhjl_sfdd" maxlength=300>'+
 		 '		<input id="zszhjsbZszhjl_xxbh" value="'+$("#zszhjsbXs_xxbh").val()+'"  style="display:none"></td></tr>'+
 		 
@@ -1775,40 +1662,22 @@ Zdrxs.openShgxrTab = function(){
  * @date:2015-6-8上午10:52:59
  */
 Zdrxs.showMoreShgxrInfo = function(row){
-	if(row){
-		if($("#otherInfoListDiv").tabs('getTab','社会关系人信息')==null){
-			var html = Zdrxs.initShgxrHtml(row);
-			$("#otherInfoListDiv").tabs('add',{
-				title:'社会关系人信息',
-				closable:true,
-				content:html
-			});
-		}else{
-			$("#otherInfoListDiv").tabs('select','社会关系人信息');
-			var html = Zdrxs.initShgxrHtml(row)
-			var tab = $('#otherInfoListDiv').tabs('getSelected');  // 获取选择的面板
-			$('#otherInfoListDiv').tabs('update', {
-				tab: tab,
-				options: {
-					content:html
-				}
-			});
-
-		}
+	if($("#otherInfoListDiv").tabs('getTab','社会关系人信息')==null){
+		var html = "";
+		html = Zdrxs.initShgxrHtml(row)
+		$("#otherInfoListDiv").tabs('add',{
+			title:'社会关系人信息',
+			closable:true,
+			content:html
+		});
+		Zdrxs.initShgxrSelectVal();
 	}else{
-		if($("#otherInfoListDiv").tabs('getTab','添加社会关系人')==null){
-			var html = Zdrxs.initShgxrHtml(row)
-			$("#otherInfoListDiv").tabs('add',{
-				title:'添加社会关系人',
-				closable:true,
-				content:html
-			});
-			Zdrxs.initShgxrSelectVal();
-		}else{
-			$("#otherInfoListDiv").tabs('select','添加社会关系人');
-		}
+		$("#otherInfoListDiv").tabs('select','社会关系人信息');
+		html = Zdrxs.initShgxrHtml(row);
+		var tab = $('#otherInfoListDiv').tabs('getSelected');  // 获取选择的面板
+		tab.panel('refresh', html);
+		Zdrxs.initShgxrSelectVal();
 	}
-	
 }
 /**
  * @method:initShgxrHtml
@@ -1822,17 +1691,17 @@ Zdrxs.showMoreShgxrInfo = function(row){
 Zdrxs.initShgxrHtml = function(row){
 	if(row == null){
 		html ="<table class='infoBodyTable' id='shgxr_Table'>" +
-		"<tr><td class='infoName red'>证件种类</td><td class='infoValue' ><input id='shgxr_zjlx'  class='notNull' ></td>" +
+		"<tr><td class='infoName red'>证件类型</td><td class='infoValue' ><input id='shgxr_zjlx'  class='notNull' ></td>" +
 		"	 <td class='infoName red' >证件号码</td><td class='infoValue' colspan=2><input id='shgxr_zjhm'   class='notNull' ></td><td id='shgxr_imgTd' rowspan=6><img></img></td></tr>" +
 		"<tr><td class='infoName'>部级重点人员编号</td><td class='infoValue' ><input id='shgxr_bjzdrybh'> </td><td class='infoName'>省级重点人员编号</td><td class='infoValue'  colspan=2><input id='shgxr_sjzdrybh'> </td></tr>" +
 		"<tr><td class='infoName red'>关系类型</td><td class='infoValue' ><input id='shgxr_gx'   class='notNull' ></td>" +
 		"	 <td class='infoName red'>重点人员细类</td><td class='infoValue'  colspan=2><input id='shgxr_zdryxl'   class='notNull' > </td></tr>" +
 		"<tr><td class='infoName red'>姓名</td><td class='infoValue' ><input id='shgxr_xm'   class='notNull' ></td>" +
 		"	 <td class='infoName red'>性别</td><td class='infoValue'  colspan=2><input id='shgxr_xb'   class='notNull' > </td></tr>" +
-		"<tr><td class='infoName red'>民族</td><td class='infoValue' ><input id='shgxr_mz'   class='notNull' ></td>" +
+		"<tr><td class='infoName red'>名族</td><td class='infoValue' ><input id='shgxr_mz'   class='notNull' ></td>" +
 		"	 <td class='infoName red'>国籍</td><td class='infoValue'  colspan=2><input id='shgxr_gj' class='notNull' > </td></tr>" +
 		"<tr><td class='infoName red'>户籍区划</td><td class='infoValue' ><input id='shgxr_hjqh'  class='notNull' ></td>" +
-		"	 <td class='infoName red'>户籍地派出所</td><td class='infoValue'  colspan=2><input id='shgxr_hjdpcsdm' style='display:none'   class='notNull' ><input id='shgxr_hjdpcs'   class='notNull'  onclick='public_singleSelectOrg(\""+userOrgCode+"\", \"01\", \"32\", \"\", \"shgxr_hjdpcsdm\", \"shgxr_hjdpcs\", \"\", false, false, \"\", window, \"\", \"\")'> </td></tr>" +
+		"	 <td class='infoName red'>户籍地派出所</td><td class='infoValue'  colspan=2><input id='shgxr_hjdpcs' style='display:none'   class='notNull' ><input id='shgxr_hjdpcs'   class='notNull'  onclick='onclick='public_singleSelectOrg(\'"+userOrgCode+"\', \'01\', \'32\', \'\', \'shgxr_gxdwdm\', \'shgxr_hjdpcs\', \'\', false, false, \'\', window, \'\', \'\')''> </td></tr>" +
 		"<tr><td class='infoName red'>户籍地祥址</td><td class='infoValue'  colspan=5><input id='shgxr_hjdxz'   class='notNull' ></td></tr>" +
 		"<tr><td class='infoName'>入库时间</td><td class='infoValue' ><input id='shgxr_rksj' readonly></td><td class='infoName'>填报单位名称</td><td class='infoValue' colspan=3><input id='shgxr_tbdwmc' value='"+userOrgName+"' readonly> </td></tr>" +
 		"<tr><td class='infoName'>曾用名</td><td class='infoValue' ><input id='shgxr_cym'></td>" +
@@ -1843,7 +1712,7 @@ Zdrxs.initShgxrHtml = function(row){
 		"	 <td class='infoName'>婚姻状况</td><td class='infoValue' ><input id='shgxr_hyzk'> </td></tr>" +
 		"<tr><td class='infoName'>文化程度</td><td class='infoValue' ><input id='shgxr_whcd'></td>" +
 		"	 <td class='infoName'>身高(cm)</td><td class='infoValue' ><input id='shgxr_sg' maxlength=3></td>" +
-		"	 <td class='infoName'>体重(kg)</td><td class='infoValue' ><input id='shgxr_tz' maxlength=3></td></tr>" +
+		"	 <td class='infoName'>体重(KG)</td><td class='infoValue' ><input id='shgxr_tz' maxlength=3></td></tr>" +
 		"<tr><td class='infoName'>足长(mm)</td><td class='infoValue' ><input id='shgxr_zc' maxlength=3></td>" +
 		"	 <td class='infoName'>鞋号(mm)</td><td class='infoValue' ><input id='shgxr_xh' maxlength=3></td>" +
 		"	 <td class='infoName'>口音</td><td class='infoValue' ><input id='shgxr_ky'> </td></tr>" +
@@ -1859,65 +1728,60 @@ Zdrxs.initShgxrHtml = function(row){
 		"<tr><td class='infoName'>特殊标记</td><td class='infoValue' colspan=5 ><input id='shgxr_tmtz_rtbw' style='width:100px'><input id='shgxr_tmtz_tsbj' style='width:100px'>" +
 		"			<a href='#' class='easyui-linkbutton' iconCls='icon-add' onclick='$(\"#shgxr_tsbj\").val($(\"#shgxr_tsbj\").val()+$(\"#shgxr_tmtz_rtbw\").combobox(\"getText\")+\":\"+$(\"#shgxr_tmtz_tsbj\").combobox(\"getText\")+\",\")'>添加</a>"+
 		"<br><input id='shgxr_tsbj'></td></tr>" +
-		//'		<td class="infoName">联系方式</td><td class="infoValue"><input id="zdrxs_lxfs"> </td></tr>'+
-		 //gem修改为下面
-		 '<td class="infoName"></td><td class="infoValue"></td></tr>'+
+		"<tr><td class='infoName'>联系方式</td><td class='infoValue' colspan=5 ><input  id='shgxr_tbdwd'></td></tr>" +
 		"<tr><td class='infoName'>工作单位区划</td><td class='infoValue' ><input id='shgxr_gzdwqh'></td>" +
 		"	 <td class='infoName'>工作单位</td><td class='infoValue'  colspan=3><input id='shgxr_gzdw'> </td></tr>" +
 		"<tr><td class='infoName'>工作单位祥址</td><td class='infoValue' colspan=5><input  id='shgxr_gzdwxz'></td></tr>" +
 		"<tr><td class='infoName'>现住地区划</td><td class='infoValue' ><input id='shgxr_xzdqh'></td>" +
-		"	 <td class='infoName'>管辖单位（派出所）</td><td class='infoValue' colspan=3 ><input id='shgxr_gxdwdm' style='display:none'><input id='shgxr_gxdw'  onclick='public_singleSelectOrg(\"210000000000\", \"01\", \"32\", \"\", \"shgxr_gxdwdm\", \"shgxr_gxdw\", \"\", false, false, \"\", window, \"\", \"\")'></td></tr>" +
+		"	 <td class='infoName'>管辖单位</td><td class='infoValue' colspan=3 ><input id='shgxr_gxdwdm' style='display:none'><input id='shgxr_gxdw'  onclick='public_singleSelectOrg(\'210000000000\', \'01\', \'32\', \'\', \'shgxr_gxdwdm\', \'shgxr_gxdw\', \'\', false, false, \'\', window, \'\', \'\')'></td></tr>" +
 		"<tr><td class='infoName'>现住地祥址</td><td class='infoValue' colspan=5 ><input id='shgxr_xzdxz'></td></tr>" +
-		"<tr><td class='infoName'>填报人姓名</td><td class='infoValue' colspan=5 >"+userName+"</td></tr>" +
 		 "	<tr  align='center'>" +
 		 "		<td colspan=6>" +
 		 "			<a href='#' class='easyui-linkbutton' iconCls='icon-add' onclick='Zdrxs.saveZdryOtherInfo(\"shgxr_Table\",\"shgxr_\",\"/zdry/saveShgxrxxb\");'>添加</a>" +
 		 '			<a href="#" class="easyui-linkbutton" iconCls="icon-reload" onclick="Zdrxs.reset(\'shgxr_Table\');">重置</a>'+
-		 "			<a href='#' class='easyui-linkbutton' iconCls='icon-cancel' onclick='Zdrxs.closeTab(\"添加社会关系人\");'>关闭</a>" +
+		 "			<a href='#' class='easyui-linkbutton' iconCls='icon-cancel' onclick='Zdrxs.closeTab(\"社会关系人信息\");'>关闭</a>" +
 		 "		</td>" +
 		 "  </tr>" +
 		 "	</table>" ;
 	}else{
 		html ="<table class='infoBodyTable' >" +
-		"<tr><td class='infoName'>证件种类</td><td class='infoValue' >"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZJLX.js', row.zjlx)+"</td><td class='infoName' >证件号码</td><td class='infoValue' colspan=2>"+row.zjhm+"</td><td id='shgxr_imgTd' rowspan=6><img></img></td></tr>" +
+		"<tr><td class='infoName'>证件类型</td><td class='infoValue' >"+row.zjlx+"</td><td class='infoName' >证件号码</td><td class='infoValue' colspan=2>"+row.zjhm+"</td><td id='shgxr_imgTd' rowspan=6><img></img></td></tr>" +
 		"<tr><td class='infoName'>部级重点人员编号</td><td class='infoValue' >"+row.bjzdrybh+"</td><td class='infoName'>省级重点人员编号</td><td class='infoValue'  colspan=2>"+row.sjzdrybh+"</td></tr>" +
-		"<tr><td class='infoName'>关系类型</td><td class='infoValue' >"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_GX.js', row.gx)+"</td><td class='infoName'>重点人员细类</td><td class='infoValue'  colspan=2>"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZDRYLB.js', row.zdryxl)+"</td></tr>" +
-		"<tr><td class='infoName'>姓名</td><td class='infoValue' >"+row.xm+"</td><td class='infoName'>性别</td><td class='infoValue'  colspan=2>"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_XB.js', row.xb)+"</td></tr>" +
-		"<tr><td class='infoName'>民族</td><td class='infoValue' >"+window.top.getDictName(contextPath + '/common/dict/D_BZ_MZ.js', row.mz)+"</td><td class='infoName'>国籍</td><td class='infoValue'  colspan=2>"+window.top.getDictName(contextPath + '/common/dict/D_BZ_GJDQ.js', row.gj)+"</td></tr>" +
-		"<tr><td class='infoName'>户籍区划</td><td class='infoValue' >"+window.top.getDictName(contextPath + '/common/dict/D_BZ_XZQH.js', row.hjqh)+"</td><td class='infoName'>户籍地派出所</td><td class='infoValue'  colspan=2>"+row.hjdpcs+" </td></tr>" +
+		"<tr><td class='infoName'>关系类型</td><td class='infoValue' >"+row.gx+"</td><td class='infoName'>重点人员细类</td><td class='infoValue'  colspan=2>"+row.zdryxl+"</td></tr>" +
+		"<tr><td class='infoName'>姓名</td><td class='infoValue' >"+row.xm+"</td><td class='infoName'>性别</td><td class='infoValue'  colspan=2>"+row.xb+"</td></tr>" +
+		"<tr><td class='infoName'>名族</td><td class='infoValue' >"+row.mz+"</td><td class='infoName'>国籍</td><td class='infoValue'  colspan=2>"+row.gj+"</td></tr>" +
+		"<tr><td class='infoName'>户籍区划</td><td class='infoValue' >"+row.hjqh+"</td><td class='infoName'>户籍地派出所</td><td class='infoValue'  colspan=2>"+row.hjdpcs+" </td></tr>" +
 		"<tr><td class='infoName'>户籍地祥址</td><td class='infoValue'  colspan=5>"+row.hjdxz+"</td></tr>" +
 		"<tr><td class='infoName'>入库时间</td><td class='infoValue' >"+row.rksj+"</td><td class='infoName'>填报单位名称</td><td class='infoValue' colspan=3>"+row.tbdwmc+"</td></tr>" +
 		"<tr><td class='infoName'>曾用名</td><td class='infoValue' >"+row.cym+"</td>" +
 		"	 <td class='infoName'>绰号</td><td class='infoValue' >"+row.ch+"</td>" +
-		"	 <td class='infoName'>政治面貌</td><td class='infoValue' >"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZZMM.js', row.zzmm)+" </td></tr>" +
-		"<tr><td class='infoName'>宗教信仰</td><td class='infoValue' >"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZJXY.js', row.zjxy)+"</td>" +
-		"	 <td class='infoName'>出生日期</td><td class='infoValue' >"+row.csrq+"</td>" +
-		"	 <td class='infoName'>婚姻状况</td><td class='infoValue' >"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_HYZK.js', row.hyzk)+" </td></tr>" +
-		"<tr><td class='infoName'>文化程度</td><td class='infoValue' >"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_WHCD.js', row.whcd)+"</td>" +
+		"	 <td class='infoName'>政治面貌</td><td class='infoValue' >"+row.zzmm+" </td></tr>" +
+		"<tr><td class='infoName'>宗教信仰</td><td class='infoValue' >"+row.ZJXY+"</td>" +
+		"	 <td class='infoName'>出生日期</td><td class='infoValue' >"+row.CSRQ+"</td>" +
+		"	 <td class='infoName'>婚姻状况</td><td class='infoValue' >"+row.HYZK+" </td></tr>" +
+		"<tr><td class='infoName'>文化程度</td><td class='infoValue' >"+row.whcd+"</td>" +
 		"	 <td class='infoName'>身高(cm)</td><td class='infoValue' >"+row.sg+"</td>" +
-		"	 <td class='infoName'>体重(kg)</td><td class='infoValue' >"+row.tz+"</td></tr>" +
+		"	 <td class='infoName'>体重(KG)</td><td class='infoValue' >"+row.tz+"</td></tr>" +
 		"<tr><td class='infoName'>足长(mm)</td><td class='infoValue' >"+row.zc+"</td>" +
 		"	 <td class='infoName'>鞋号(mm)</td><td class='infoValue' >"+row.xh+"</td>" +
-		"	 <td class='infoName'>口音</td><td class='infoValue' >"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_KY.js', row.ky)+" </td></tr>" +
-		"<tr><td class='infoName'>特长</td><td class='infoValue' >"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZC.js', row.tc)+"</td>" +
-		"	 <td class='infoName'>兴趣爱好</td><td class='infoValue' >"+row.xqah+"</td>" +
+		"	 <td class='infoName'>口音</td><td class='infoValue' >"+row.ky+" </td></tr>" +
+		"<tr><td class='infoName'>特长</td><td class='infoValue' >"+row.tc+"</td>" +
+		"	 <td class='infoName'>兴趣爱好</td><td class='infoValue' >"+row.xxah+"</td>" +
 		"	 <td class='infoName'>体貌特征</td><td class='infoValue' >"+row.tmtz+" </td></tr>" +
 		"<tr><td class='infoName'>DNA</td><td class='infoValue' >"+row.dna+"</td>" +
-		"	 <td class='infoName'>血型</td><td class='infoValue' >"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_XX.js', row.xx)+"</td>" +
+		"	 <td class='infoName'>血型</td><td class='infoValue' >"+row.xx+"</td>" +
 		"	 <td class='infoName'>指纹编号</td><td class='infoValue' >"+row.zwbh+" </td></tr>" +
-		"<tr><td class='infoName'>职业</td><td class='infoValue' >"+window.top.getDictName(contextPath + '/common/dict/D_BZ_ZYFLYDM.js', row.zy)+"</td>" +
-		"	 <td class='infoName'>实际收入</td><td class='infoValue' >"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_SJSR.js', row.sjsr)+"</td>" +
-		"	 <td class='infoName'>经济来源</td><td class='infoValue' >"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_JJLY.js', row.jjly)+" </td></tr>" +
+		"<tr><td class='infoName'>职业</td><td class='infoValue' >"+row.zy+"</td>" +
+		"	 <td class='infoName'>实际收入</td><td class='infoValue' >"+row.sjsr+"</td>" +
+		"	 <td class='infoName'>经济来源</td><td class='infoValue' >"+row.jjly+" </td></tr>" +
 		"<tr><td class='infoName'>特殊标记</td><td class='infoValue' colspan=5 >"+row.tsbj+"</td></tr>" +
-		//gem修改"<tr><td class='infoName'>联系方式</td><td class='infoValue' colspan=5 >"+row.lxfs+"</td></tr>" +
-		"<tr><td class='infoName'></td><td class='infoValue' colspan=5 ></td></tr>" +
-		"<tr><td class='infoName'>工作单位区划</td><td class='infoValue' >"+window.top.getDictName(contextPath + '/common/dict/D_BZ_XZQH.js', row.gzdwqh)+"</td>" +
-		"	 <td class='infoName'>工作单位</td><td class='infoValue'  colspan=3>"+row.gzdw+" </td></tr>" +
-		"<tr><td class='infoName'>工作单位祥址</td><td class='infoValue' colspan=5>"+row.gzdwxz+"</td></tr>" +
-		"<tr><td class='infoName'>现住地区划</td><td class='infoValue' >"+window.top.getDictName(contextPath + '/common/dict/D_BZ_XZQH.js', row.xzdqh)+"</td>" +
-		"	 <td class='infoName'>管辖单位（派出所）</td><td class='infoValue' colspan=3>"+row.gxdw+"</td></tr>" +
+		"<tr><td class='infoName'>联系方式</td><td class='infoValue' colspan=5 >"+row.tbdwd+"</td></tr>" +
+		"<tr><td class='infoName'>工作单位区划</td><td class='infoValue' >"+row.gzdwqh+"</td>" +
+		"	 <td class='infoName'>工作单位</td><td class='infoValue' >"+row.gzdw+" </td></tr>" +
+		"<tr><td class='infoName'>工作单位祥址</td><td class='infoValue' colspan=5>"+shgxr_gzdwxz+"</td></tr>" +
+		"<tr><td class='infoName'>现住地区划</td><td class='infoValue' >"+row.xzdqh+"</td>" +
+		"	 <td class='infoName'>管辖单位</td><td class='infoValue' >"+row.gxdw+"</td></tr>" +
 		"<tr><td class='infoName'>现住地祥址</td><td class='infoValue' colspan=5 >"+row.xzdxz+"</td></tr>" +
-		"<tr><td class='infoName'>填报人姓名</td><td class='infoValue' colspan=5 >"+row.tbrxm+"</td></tr>" +
 		"</table>" ;
 	}
 	return html;
@@ -1932,154 +1796,84 @@ Zdrxs.initShgxrHtml = function(row){
  */
 Zdrxs.initShgxrSelectVal = function(){
 	$("#shgxr_tmtz_rtbw").combobox({
+		url: contextPath + '/common/dict/D_QBLD_RTBW.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_RTBW.js'); 
-			}
-		}
+		width:'100%'
 	});
 	$("#shgxr_tmtz_tsbj").combobox({
+		url: contextPath + '/common/dict/D_QBLD_TSBJ.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_TSBJ.js'); 
-			}
-		}
+		width:'100%'
 	});
 	
-	$("#shgxr_zdryxl").combobox({
-		valueField:'id',
-		textField:'text',
-		selectOnNavigation:false,
-		method:'get',
-		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_ZDRYLB.js'); 
-			}
-		}
-	});
+	
 	$("#shgxr_zjlx").combobox({
+		url: contextPath + '/common/dict/D_QBLD_ZJLX.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_ZJLX.js'); 
-			}
-		}
+		width:'100%'
 	});
 	$("#shgxr_gx").combobox({
+		url: contextPath + '/common/dict/D_QBLD_GX.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_GX.js'); 
-			}
-		}
+		width:'100%'
 	});
 	$("#shgxr_xb").combobox({
+		url: contextPath + '/common/dict/D_QBLD_XB.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/GB_D_XBDM.js'); 
-			}
-		}
+		width:'100%'
 	});
 	$("#shgxr_mz").combobox({
+		url: contextPath + '/common/dict/D_BZ_MZ.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_BZ_MZ.js'); 
-			}
-		}
+		width:'100%'
 	});
 
 	$("#shgxr_gj").combotree({
+		url:contextPath + '/common/dict/D_BZ_GJDQ.js',
 		onlyLeaf:true,
 		multiple:false,
 		panelWidth:320,
 		method:'get',
 		editable:true,
 		lines:true,
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-				$(this).combotree('reload', contextPath + '/common/dict/D_BZ_GJDQ.js'); 
-			}
-		}
+		width:'100%'
 	})
 	$("#shgxr_hjqh").combotree({
+		url:contextPath + '/common/dict/D_BZ_XZQH.js',
 		onlyLeaf:true,
 		multiple:false,
 		panelWidth:320,
 		method:'get',
 		editable:true,
 		lines:true,
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combotree('reload', contextPath + '/common/dict/D_BZ_XZQH.js'); 
-			}
-		}
+		width:'100%'
 	})
 	$("#shgxr_gzdwqh").combotree({
+		url:contextPath + '/common/dict/D_BZ_XZQH.js',
 		onlyLeaf:true,
 		multiple:false,
 		panelWidth:320,
@@ -2089,19 +1883,11 @@ Zdrxs.initShgxrSelectVal = function(){
 		width:'100%',
 		onSelect:function(obj){
 			$("#shgxr_gzdwxz").val(obj.text)
-		},
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combotree('reload', contextPath + '/common/dict/D_BZ_XZQH.js'); 
-			}
 		}
-
 		
 	})
 	$("#shgxr_xzdqh").combotree({
+		url:contextPath + '/common/dict/D_BZ_XZQH.js',
 		onlyLeaf:true,
 		multiple:false,
 		panelWidth:320,
@@ -2111,197 +1897,112 @@ Zdrxs.initShgxrSelectVal = function(){
 		width:'100%',
 		onSelect:function(obj){
 			$("#shgxr_xzdxz").val(obj.text)
-		},
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combotree('reload', contextPath + '/common/dict/D_BZ_XZQH.js'); 
-			}
 		}
 	})
 	
 	$("#shgxr_zzmm").combobox({
+		url:contextPath + '/common/dict/D_QBLD_ZZMM.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_ZZMM.js'); 
-			}
-		}
+		width:'100%'
 	})
 	
 	$("#shgxr_hyzk").combobox({
+		url:contextPath + '/common/dict/D_QBLD_HYZK.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_HYZK.js'); 
-			}
-		}
+		width:'100%'
 	})
 
 	$("#shgxr_whcd").combobox({
+		url:contextPath + '/common/dict/D_QBLD_WHCD.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_WHCD.js'); 
-			}
-		}
+		width:'100%'
 	})
 	$("#shgxr_zjxy").combobox({
+		url:contextPath + '/common/dict/D_QBLD_ZJXY.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_ZJXY.js'); 
-			}
-		}
-	});
+		width:'100%'
+	})
 	$("#shgxr_ky").combobox({
+		url:contextPath + '/common/dict/D_QBLD_KY.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_KY.js'); 
-			}
-		}
-	});
+		width:'100%'
+	})
 	$("#shgxr_tc").combobox({
+		url:contextPath + '/common/dict/D_QBLD_ZC.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_ZC.js'); 
-			}
-		}
-	});
+		width:'100%'
+	})
 	$("#shgxr_tmtz").combotree({
+		url:contextPath + '/common/dict/D_QBLD_TMTZ.js',
 		onlyLeaf:true,
 		multiple:false,
 		panelWidth:320,
 		method:'get',
 		editable:true,
 		lines:true,
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combotree('reload', contextPath + '/common/dict/D_QBLD_TMTZ.js'); 
-			}
-		}
-	});
+		width:'100%'
+	})
 	
 	$("#shgxr_zy").combotree({
+		url:contextPath + '/common/dict/D_BZ_ZYFLYDM.js',
 		onlyLeaf:true,
 		multiple:false,
 		panelWidth:320,
 		method:'get',
 		editable:true,
 		lines:true,
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combotree('reload', contextPath + '/common/dict/D_BZ_ZYFLYDM.js'); 
-			}
-		}
+		width:'100%'
 	})
 	$("#shgxr_sjsr").combobox({
+		url:contextPath + '/common/dict/D_QBLD_SJSR.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_SJSR.js'); 
-			}
-		}
+		width:'100%'
 	})
 	$("#shgxr_jjly").combobox({
+		url:contextPath + '/common/dict/D_QBLD_JJLY.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_JJLY.js'); 
-			}
-		}
+		width:'100%'
 	})
 	$("#shgxr_xx").combobox({
+		url:contextPath + '/common/dict/D_QBLD_XX.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
 		method:'get',
 		tipPosition:'left',
-		width:'100%',
-		onShowPanel:function(){
-			if(this.flag){
-				return;
-			}else{
-				this.flag = true;
-			$(this).combobox('reload', contextPath + '/common/dict/D_QBLD_XX.js'); 
-			}
-		}
+		width:'100%'
 	})
 }
 
@@ -2315,10 +2016,9 @@ Zdrxs.initShgxrSelectVal = function(){
 Zdrxs.openSaTab = function(){
 	$("#opInfoTr").show();
 	var html ='<table class="infoBodyTable" id="sa_Table"> '+
-	 '	<tr><td class="infoName">案件编号</td><td class="infoValue" id="zdrxsSa_ajbh" ></td><td class="infoName">案件类型</td><td class="infoValue"  id="zdrxsSa_ajlb" ></td></tr>'+
-	 //gem修改 '	<tr><td class="infoName">案件名称</td><td class="infoValue" colspan=3 id="zdrxsSa_ajmc"></td></tr>'+
+	 '	<tr><td class="infoName">案件编号</td><td class="infoValue" id="zdrxsSa_ajbh" ></td><td class="infoName">案件名称</td><td class="infoValue"  id="zdrxsSa_ajmc" ></td></tr>'+
 	 '	<tr><td class="infoName">发案时间</td><td class="infoValue" id="zdrxsSa_fasj" ></td><td class="infoName">发案地点</td><td class="infoValue"  id="zdrxsSa_fadd" ></td></tr>'+
-	 '	<tr><td class="infoName">简要案情</td><td class="infoValue" colspan=3 id="zdrxsSa_jyaq"></td></tr>'+
+	 '	<tr><td class="infoName">简要案情</td><td class="infoValue" colspan=3><textarea id="zdrxsSa_jyaq" maxlength=1500></textarea></td></tr>'+
 	 '	</table>'+
 	 ' <div style="height:310px;overflow:auto"><div id="saListDiv"></div></div>';
 	if($("#otherInfoListDiv").tabs('getTab','涉案信息')==null){
@@ -2342,7 +2042,7 @@ Zdrxs.openSaTab = function(){
 			pageSize:10,
 			columns:[[
 		  		    {field:'hssj',title:'案件编号',width:$('#otherInfoListDiv').width()*.24,align:'center'},    
-		  		    //gem修改 {field:'hsddxz',title:'案件名称',width:$('#otherInfoListDiv').width()*.50,align:'center'},    
+		  		    {field:'hsddxz',title:'案件名称',width:$('#otherInfoListDiv').width()*.50,align:'center'},    
 		  		    {field:'sfjdbr',title:'发案时间',width:$('#otherInfoListDiv').width()*.12,align:'center'},
 		  		    {field:'zkzt',title:'发案地点',width:$('#otherInfoListDiv').width()*.12,align:'center'}
 			    ]],
@@ -2369,10 +2069,10 @@ Zdrxs.openClxxTab = function(){
 	$("#opInfoTr").show();
 	if($("#otherInfoListDiv").tabs('getTab','车辆信息')==null){
 		var html ='<table class="infoBodyTable" id="clxx_Table"> '+
-		 '	<tr><td class="infoName red">车辆品牌</td><td class="infoValue" style="width:100px"><input id="clxx_clpp"  class="notNull" ></td>'+
+		 '	<tr><td class="infoName red">车辆品牌</td><td class="infoValue"><input id="clxx_clpp"  class="notNull" ></td>'+
 		 '	 	<td class="infoName red">车辆类型</td><td class="infoValue"><input id="clxx_cllx"  class="notNull" ></td>'+
 		 '		<td class="infoName red">车辆颜色</td><td class="infoValue"><input id="clxx_clys"  class="notNull" ></td><tr>'+
-		 '	<tr><td class="infoName red">车辆号码</td><td class="infoValue" style="width:100px"><input id="clxx_clhm"  class="notNull" ></td>'+
+		 '	<tr><td class="infoName red">车辆号码</td><td class="infoValue"><input id="clxx_clhm"  class="notNull" ></td>'+
 		 '	 	<td class="infoName red">车辆来源</td><td class="infoValue"><input id="clxx_clly"  class="notNull" ></td>'+
 		 '		<td class="infoName red">归属人</td><td class="infoValue"><input id="clxx_gsr"  class="notNull" ></td><tr>'+
 		 '	<tr  align="center">'+
@@ -2408,7 +2108,15 @@ Zdrxs.openClxxTab = function(){
 			tipPosition:'left',
 			width:'100%'
 		});
-
+		$("#clxx_clys").combobox({
+			url: contextPath + '/common/dict/D_QBLD_YSDM.js',
+			valueField:'id',
+			textField:'text',
+			selectOnNavigation:false,
+			method:'get',
+			tipPosition:'left',
+			width:'100%'
+		});
 		$('#clxxListDiv').datagrid({
 			idField:'id',
 			fit:true,
@@ -2423,20 +2131,18 @@ Zdrxs.openClxxTab = function(){
 			pageSize:10,
 			columns:[[
 						{field:'clpp',title:'车辆品牌',width:$("#otherInfoListDiv").width()*.19},    
-						{field:'cllx',title:'车辆类型',width:$("#otherInfoListDiv").width()*.19,
-			  		    	formatter:function(value,rec){return window.top.getDictName(contextPath + '/common/dict/D_QBLD_CLLX.js', value)}},   
-						{field:'clys',title:'车辆颜色',width:$("#otherInfoListDiv").width()*.19,
-			  		    	formatter:function(value,rec){return window.top.getDictName(contextPath + '/common/dict/D_QBLD_YSDM.js', value)}},
+						{field:'cllx',title:'车辆类型',width:$("#otherInfoListDiv").width()*.19},    
+						{field:'clys',title:'车辆颜色',width:$("#otherInfoListDiv").width()*.19}, 
 						{field:'clhm',title:'车辆号码',width:$("#otherInfoListDiv").width()*.19},  
 						{field:'gsr',title:'归属人',width:$("#otherInfoListDiv").width()*.19}    
 			    ]],
-		onClickRow:function(index,row){
-			$("#clxx_clpp").val(row.clpp);
-			$("#clxx_cllx").combobox("setValue",row.cllx);
-			$("#clxx_clys").combobox("setValue",row.clys);
-			$("#clxx_clhm").val(row.clhm);
-			$("#clxx_clly").val(row.clly);
-			$("#clxx_gsr").val(row.gsr);
+				onClickRow:function(index,row){
+					$("#clxx_clpp").html(row.clpp);
+					$("#clxx_cllx").html(row.cllx);
+					$("#clxx_clys").html(row.clys);
+					$("#clxx_clhm").html(row.clhm);
+					$("#clxx_clly").html(row.clly);
+					$("#clxx_gsr").html(row.gsr);
 			}
 		});
 	}else{
@@ -2476,7 +2182,6 @@ Zdrxs.initGxbgTab = function(){
 	}
 	var url=contextPath+'/zdry/queryGxbgList';
 	var fajax = new FrameTools.Ajax(url,function(rsJson){
-		$(document.body).unmask();
 		var obj = rsJson.rows[0];
 		$("#gxbg_cjr").val(obj.cjr);
 		$("#gxbg_cjrxm").val(obj.cjrxm);
@@ -2486,7 +2191,6 @@ Zdrxs.initGxbgTab = function(){
 		$("#gxbg_gxpcsmc").val(obj.gxpcsmc);
 	});
 	fajax.send({"zdryzjhm":Zdrxs.zdryXsInfoObj.sfzh});
-	$(document.body).mask("努力加载中...");
 }
 /**
  * @method:saveGxbgInfo
@@ -2498,7 +2202,7 @@ Zdrxs.initGxbgTab = function(){
 Zdrxs.saveGxbgInfo = function(){
 	var url=contextPath+'/zdry/updateGxbg';
 		if($("#gxbg_cjr").val()==""||$("#gxbg_hjpcs").val()==""||$("#gxbg_hjpcs").val()==""){
-			$.messager.alert("提示","红色标题信息必须填写！");
+			alert("红色标题信息必须填写！");
 			return;
 		}
 		 param = {
@@ -2506,15 +2210,9 @@ Zdrxs.saveGxbgInfo = function(){
 			"hjpcs":$("gxbg_hjpcs").val(),
 			"gxpcs":$("gxbg_gxpcs").val(),
 			"zdryzjhm":Zdrxs.zdryXsInfoObj.sfzh
-			};
-	 $.messager.confirm('确认对话框', '您是否确定要提交数据？', function(r){
-			if (r){
-				var fajax = new FrameTools.Ajax(url,Zdrxs.saveGxbgInfo_back);
-				fajax.send(param);
-				$(document.body).mask("努力加载中...");
 			}
-	});	 
-	
+	var fajax = new FrameTools.Ajax(url,Zdrxs.saveGxbgInfo_back);
+	fajax.send(param);
 }
 /**
  * @method:saveGxbgInfo_back
@@ -2525,7 +2223,6 @@ Zdrxs.saveGxbgInfo = function(){
  * @date:2015-6-11上午10:44:26
  */
 Zdrxs.saveGxbgInfo_back = function(rsJson){
-	$(document.body).unmask();
 	if(rsJson.status=="success"){
 		$.messager.show({
 			title:"提示信息",
@@ -2534,7 +2231,7 @@ Zdrxs.saveGxbgInfo_back = function(rsJson){
 			showType:'slide'
 		})
 	}else{
-		$.messager.alert("提示","提交失败！");
+		alert("提交失败")
 	}
 }
 /**
@@ -2552,22 +2249,13 @@ Zdrxs.closeTab = function(title){
 	}
 }
 
-/**
- * @method:saveZdryOtherInfo
- * @package:syrk/js/qbld	
- * @description:保存重点人员其他属性
- * @param tableName
- * @param valName
- * @param url
- * @author:Li_Zhenzhong
- * @date:2015-7-1下午4:05:01
- */
+
 Zdrxs.saveZdryOtherInfo = function(tableName,valName,url){
 	var inputObjs = $(".infoBodyTable .notNull ")
 	var num = inputObjs.length
 	for(var i = 0;i<num;i++){
 		if($(inputObjs[i]).val()==""){
-			$.messager.alert("提示","红色标题信息必须填写！");
+			alert("红色标题信息必须填写！");
 			return;
 		}
 	}
@@ -2608,15 +2296,9 @@ Zdrxs.saveZdryOtherInfo = function(tableName,valName,url){
 	param+="'"+zdName+"':'"+Zdrxs.zdryXsInfoObj.sfzh+"'})";
 	param = eval(param);
 	var url = contextPath+url;
-	$.messager.confirm('确认对话框', '您是否确定要提交数据？', function(r){
-		if (r){
-			var fajax = new FrameTools.Ajax(url,Zdrxs.saveZdryOtherInfo_back);
-			fajax.send(param);
-			$(document.body).mask("努力加载中...");
-		}
-	});	
-	
-};
+	var fajax = new FrameTools.Ajax(url,Zdrxs.saveZdryOtherInfo_back);
+	fajax.send(param);
+}
 
 /**
  * @method:saveXsInfo_back
@@ -2627,20 +2309,19 @@ Zdrxs.saveZdryOtherInfo = function(tableName,valName,url){
  * @date:2015-6-2下午2:29:26
  */
 Zdrxs.saveZdryOtherInfo_back = function(rsJson){
-	$(document.body).unmask();
 	if(rsJson.status=="success"){
 		$.messager.show({
 			title:"提示信息",
 			msg:"信息提交成功",
 			time:3000,
 			showType:'slide'
-		});
+		})
 		var tab = $('#otherInfoListDiv').tabs('getSelected');
 		tableName = tab.panel('options').id;
-		Zdrxs.reset(tableName+"_Table");
+		Zdrxs.reset(tableName+"_Table")
 		$("#"+tableName+"ListDiv").datagrid("reload");
 	}else{
-		$.messager.alert("提示","写实提交失败！");
+		alert("写实提交失败")
 	}
 };
 
@@ -2697,36 +2378,44 @@ Zdrxs.showZdrxsLsList = function(){
  */
 Zdrxs.showMoreXsInfo = function(obj){
 	/**
-	 * 判断是否已打开历史写实信息标签，如果已打开则替换内容，否则新建标签  
+	 * 判断是否已打开历史写实信息标签，如果已打开则替换内容，否则新建标签
 	 */
-	var html ='<table class="infoBodyTable" > '+
-	 '	<tr><td class="infoName">核实时间</td><td class="infoValue" >'+obj.hssj.substring(0,4)+"/"+obj.hssj.substring(4,6)+"/"+obj.hssj.substring(6,8)+" "+obj.hssj.substring(8,10)+":"+obj.hssj.substring(10,12)+":"+obj.hssj.substring(12,14)
-	 +'</td><td class="infoName">核实地点区划</td><td class="infoValue">'+window.top.getDictName(contextPath + '/common/dict/D_BZ_XZQH.js', obj.hsddqh)+'</td></tr>'+
-	 '	<tr><td class="infoName">核实地点名称</td><td class="infoValue">'+obj.hsddmc+'</td><td class="infoName">核实地点详址</td><td class="infoValue">'+obj.hsddxz+'></td></tr>'+
-	 '	<tr><td class="infoName">在控状态</td><td class="infoValue">'+window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZKZT.js', obj.zkzt)+'</td><td class="infoName">在籍状态</td><td class="infoValue">'+window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZJZT.js', obj.zjzt)+'</td></tr>'+
-	 '	<tr><td class="infoName">离开时间</td><td class="infoValue">'+obj.lksj.substring(0,4)+"/"+obj.lksj.substring(4,6)+"/"+obj.lksj.substring(6,8)+" "+obj.lksj.substring(8,10)+":"+obj.lksj.substring(10,12)+":"+obj.lksj.substring(12,14)
-	 +'</td><td class="infoName">去往省市</td><td class="infoValue">'+window.top.getDictName(contextPath + '/common/dict/D_BZ_XZQH.js', obj.qwss)+'</td></tr>'+
-	 '	<tr><td class="infoName">危险级别</td><td class="infoValue">'+window.top.getDictName(contextPath + '/common/dict/D_QBLD_WXJB.js', obj.wxjb)+'</td><td class="infoName">主要意向</td><td class="infoValue" >'+obj.zyyx+'</td></tr>'+
-	 '	<tr><td class="infoName">职业</td><td class="infoValue">'+window.top.getDictName(contextPath + '/common/dict/GB_D_ZYLBDM.js', obj.zy)+'</td><td class="infoName">实际收入</td><td class="infoValue">'+window.top.getDictName(contextPath + '/common/dict/D_QBLD_SJSR.js', obj.sjsr)+'</td></tr>'+
-	 //gem修改 '	<tr><td class="infoName">经济来源</td><td class="infoValue">'+window.top.getDictName(contextPath + '/common/dict/D_QBLD_JJLY.js', obj.jjly)+'</td><td class="infoName">联系方式</td><td class="infoValue">'+obj.lxfs+'</td></tr>'+
-	 '	<tr><td class="infoName">经济来源</td><td class="infoValue">'+window.top.getDictName(contextPath + '/common/dict/D_QBLD_JJLY.js', obj.jjly)+'</td><td class="infoName"></td><td class="infoValue"></td></tr>'+
-	 '	<tr><td class="infoName">工作单位</td><td class="infoValue">'+obj.gzdw+'</td><td class="infoName">工作单位详址</td><td class="infoValue">'+obj.gzdwxz+'</td></tr>'+
-	 '	<tr><td class="infoName">现住地区划</td><td class="infoValue">'+window.top.getDictName(contextPath + '/common/dict/D_BZ_XZQH.js', obj.hsddqh)+'</td><td class="infoName">现住地详址</td><td class="infoValue">'+obj.jzdxz+'</td></tr>'+
-	 '	<tr><td class="infoName">管辖单位（派出所）</td><td class="infoValue">'+obj.gxdwmc+'</td><td class="infoName  red">是否见到本人</td><td class="infoValue">'+window.top.getDictName(contextPath + '/common/dict/D_QBLD_SF.js', obj.sfjdbr)+'</td></tr>'+
-	 '	<tr><td class="infoName">核实情况描述</td><td class="infoValue" colspan=3>'+obj.hsqkms+'</td></tr>'+
-	 '	</table>';
 	if($("#otherInfoListDiv").tabs('getTab','历史写实信息')!=null){
 		$("#otherInfoListDiv").tabs('select','历史写实信息');
+		var html ='<table class="infoBodyTable" > '+
+		 '	<tr><td class="infoName red">核实时间</td><td class="infoValue" >'+obj.hssj+'</td><td class="infoName red">核实地点区划</td><td class="infoValue">'+obj.hsddqh+'</td></tr>'+
+		 '	<tr><td class="infoName red">核实地点名称</td><td class="infoValue">'+obj.hsddmc+'</td><td class="infoName red">核实地点详址</td><td class="infoValue">'+obj.hsddxz+'></td></tr>'+
+		 '	<tr><td class="infoName red">在控状态</td><td class="infoValue">'+obj.zkzt+'</td><td class="infoName red">在籍状态</td><td class="infoValue">'+obj.zjzt+'</td></tr>'+
+		 '	<tr><td class="infoName">离开时间</td><td class="infoValue">'+obj.lksj+'</td><td class="infoName">去往省市</td><td class="infoValue">'+obj.qwss+'</td></tr>'+
+		 '	<tr><td class="infoName red">危险级别（提示）</td><td class="infoValue">'+obj.wxjb+'</td><td class="infoName">主要意向</td><td class="infoValue" >'+obj.zyyx+'</td></tr>'+
+		 '	<tr><td class="infoName">职业</td><td class="infoValue">'+obj.zy+'</td><td class="infoName">实际收入</td><td class="infoValue">'+obj.sjsr+'</td></tr>'+
+		 '	<tr><td class="infoName">经济来源</td><td class="infoValue">'+obj.jjly+'</td><td class="infoName">联系方式</td><td class="infoValue">'+obj.lxfs+'</td></tr>'+
+		 '	<tr><td class="infoName">工作单位</td><td class="infoValue">'+obj.gzdw+'</td><td class="infoName">工作单位详址</td><td class="infoValue">'+obj.gzdwxz+'</td></tr>'+
+		 '	<tr><td class="infoName">现住地区划</td><td class="infoValue"'+obj.jzdqh+'</td><td class="infoName">现住地详址</td><td class="infoValue">'+obj.jzdxz+'</td></tr>'+
+		 '	<tr><td class="infoName">管辖单位</td><td class="infoValue">'+obj.gxdwmc+'</td><td class="infoName  red">是否见到本人</td><td class="infoValue">'+obj.sfjdbr+'</td></tr>'+
+		 '	<tr><td class="infoName">核实情况描述（提示）</td><td class="infoValue" colspan=3>'+obj.hsqkms+'</td></tr>'+
+		 '	</table>';
 		$("#otherInfoListDiv").tabs('update',{
 			tab:$("#otherInfoListDiv").tabs('getTab','历史写实信息'),
 			options: {
 				title: '历史写实信息',
-				closable:true,
 				content: html  
 			}
 		});
 	}else{
-		
+		var html ='<table class="infoBodyTable" > '+
+		 '	<tr><td class="infoName red">核实时间</td><td class="infoValue" >'+obj.hssj+'</td><td class="infoName red">核实地点区划</td><td class="infoValue">'+obj.hsddqh+'</td></tr>'+
+		 '	<tr><td class="infoName red">核实地点名称</td><td class="infoValue">'+obj.hsddmc+'</td><td class="infoName red">核实地点详址</td><td class="infoValue">'+obj.hsddxz+'></td></tr>'+
+		 '	<tr><td class="infoName red">在控状态</td><td class="infoValue">'+obj.zkzt+'</td><td class="infoName red">在籍状态</td><td class="infoValue">'+obj.zjzt+'</td></tr>'+
+		 '	<tr><td class="infoName">离开时间</td><td class="infoValue">'+obj.lksj+'</td><td class="infoName">去往省市</td><td class="infoValue">'+obj.qwss+'</td></tr>'+
+		 '	<tr><td class="infoName red">危险级别（提示）</td><td class="infoValue">'+obj.wxjb+'</td><td class="infoName">主要意向</td><td class="infoValue" >'+obj.zyyx+'</td></tr>'+
+		 '	<tr><td class="infoName">职业</td><td class="infoValue">'+obj.zy+'</td><td class="infoName">实际收入</td><td class="infoValue">'+obj.sjsr+'</td></tr>'+
+		 '	<tr><td class="infoName">经济来源</td><td class="infoValue">'+obj.jjly+'</td><td class="infoName">联系方式</td><td class="infoValue">'+obj.lxfs+'</td></tr>'+
+		 '	<tr><td class="infoName">工作单位</td><td class="infoValue">'+obj.gzdw+'</td><td class="infoName">工作单位详址</td><td class="infoValue">'+obj.gzdwxz+'</td></tr>'+
+		 '	<tr><td class="infoName">现住地区划</td><td class="infoValue"'+obj.jzdqh+'</td><td class="infoName">现住地详址</td><td class="infoValue">'+obj.jzdxz+'</td></tr>'+
+		 '	<tr><td class="infoName">管辖单位</td><td class="infoValue">'+obj.gxdw+'</td><td class="infoName  red">是否见到本人</td><td class="infoValue">'+obj.sfjdbr+'</td></tr>'+
+		 '	<tr><td class="infoName">核实情况描述（提示）</td><td class="infoValue" colspan=3>'+obj.xsqkms+'</td></tr>'+
+		 '	</table>';
 		$("#otherInfoListDiv").tabs('add',{
 			title:'历史写实信息',
 			content:html
@@ -2743,7 +2432,6 @@ Zdrxs.showMoreXsInfo = function(obj){
  * @date:2015-6-9上午11:13:14
  */
 Zdrxs.reset = function(tableName){
-	$("#adds").show();
 	var inputObjs = $("#"+tableName+" input")
 	var length = inputObjs.length;
 	for(var i = 0; i < length ; i++){
@@ -2773,7 +2461,6 @@ Zdrxs.reset = function(tableName){
  * @date:2015-6-9上午11:22:27
  */
 Zdrxs.showInfo = function(row,type){
-	$('#adds').hide();
 	for(key in row){
 		var val = row[key];
 		if(val!=""&&val!=null){

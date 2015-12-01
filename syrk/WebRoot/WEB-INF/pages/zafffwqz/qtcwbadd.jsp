@@ -24,7 +24,7 @@
 				<div id="id_1">   		
 				<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">  
 					<tr class="dialogTr">
-				    	<td width="20%" class="dialogTd" align="right">证件种类：</td>
+				    	<td width="20%" class="dialogTd" align="right">证件类型：</td>
 				    	<td width="30%" class="dialogTd">
 				    		<input class="easyui-combobox" id="cyzjdm" name="cyzjdm" value="${entity.cyzjdm}" 
 				    		style="width:200px;" data-options="required:true,url: contextPath + '/common/dict/D_BZ_CYZJ.js',
@@ -66,7 +66,7 @@
 					<input type='hidden' name='dz_jzdzmlpdm' id="dz_jzdzmlpdm" value="${entity.dz_jzdzmlpdm}"/>
 						<input type='hidden' name='dz_jzdzmlpxz' id="dz_jzdzmlpxz" value="${entity.dz_jzdzmlpxz}"/></td>
 					<td width="30%" class="dialogTd">
-				    	<input class="easyui-combobox" id="jzd2" style="width:200px;" value="${fn:replace(entity.dz_jzdzxz, entity.dz_jzdzmlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+				    	<input class="easyui-combobox" id="jzd2" style="width:200px;" value='${fn:replace(entity.dz_jzdzxz, entity.dz_jzdzmlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 				    	<input type='hidden' name='dz_jzdzdm' id='dz_jzdzdm' value="${entity.dz_jzdzdm}" />
 				    	<input type='hidden' name='dz_jzdzssxdm' id='dz_jzdzssxdm' value="${entity.dz_jzdzssxdm}" />
 				    	<input type='hidden' name='dz_jzdzxz' id='dz_jzdzxz' value="${entity.dz_jzdzxz}" /> 
@@ -247,7 +247,7 @@
 <script type="text/javascript" >
 var mainTabID = "${mainTabID}";
 
-/**根据证件种类 设置证件号码验证 与人员基本信息只读状态*/
+/**根据证件类型 设置证件号码验证 与人员基本信息只读状态*/
 function setPassPort(newVal,oldVal){
 	if(newVal==""){
 		$("#zjhm").validatebox({validType:null});

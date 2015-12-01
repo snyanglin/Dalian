@@ -74,7 +74,6 @@
          select *
 			from qbld_lk_yjxxb a left join qbld_lk_yjqsb b
 			on(a.lkzlbh = b.lkzlbh)
-		 	left join dw_dwjbxxb c on(c.zagldwbm = a.hdfsddssshcsdm)
 		  where 1=1
 		      <isNotEmpty prepend="and" property="lkyjxxb.lkzlbh">
 				   a.lkzlbh = #lkyjxxb.lkzlbh#
@@ -102,35 +101,8 @@
 				<![CDATA[ xgsj = sysdate ]]>
 			</isNotNull>			
 		</dynamic>
-       where lkzlbh = #lkzlbh#
-    </update>
-    
-    <!-- 更新临控预警签收表功能 -->
-	<update id="updateLkyjqsb" parameterClass="lkyjQs">
-       update qbld_lk_yjqsb
-       <dynamic prepend="set">
-			<isNotNull prepend="," property="fszt">
-				<![CDATA[ fszt = #fszt# ]]>
-			</isNotNull>
-			<isNotNull prepend="," property="code">
-				<![CDATA[ code = #code# ]]>
-			</isNotNull>			
-		</dynamic>
-       where lkzlbh = #lkzlbh#
-    </update>
-    
-    <!-- 更新临控预警反馈表功能 -->
-	<update id="updateLkyjczFkb" parameterClass="lkyjFk">
-       update qbld_lk_yjczfkb
-       <dynamic prepend="set">
-			<isNotNull prepend="," property="fszt">
-				<![CDATA[ fszt = #fszt# ]]>
-			</isNotNull>
-			<isNotNull prepend="," property="code">
-				<![CDATA[ code = #code# ]]>
-			</isNotNull>			
-		</dynamic>
-       where czfkxxbh = #czfkxxbh#
+       where qsfkzt = '0' 
+          and lkzlbh = #lkzlbh#
     </update>
     
     <!-- 插入临控预警签收表 -->
@@ -404,26 +376,9 @@
 	<select id="queryLkyjListExport" parameterClass="Map" resultClass="java.util.HashMap">
 	       select * from QBLD_LK_YJXXB
 		   where 1=1
-			  <isNotEmpty prepend="and" property="lkyjxxb.sqrxm">
-				   sqrxm like '%$lkyjxxb.sqrxm$%'
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="lkyjxxb.sqrsfzh">
-				   sqrsfzh like '%$lkyjxxb.sqrsfzh$%'
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="lkyjxxb.lkzljb">
-				   lkzljb in($lkyjxxb.lkzljb$)
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="lkyjxxb.qsfkzt">
-				   qsfkzt = #lkyjxxb.qsfkzt#
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="lkyjxxb.zljsdw">
-				   zljsdw like '$lkyjxxb.zljsdw$%'
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="lkyjxxb.zlfbsjB">
-				   <![CDATA[ zlfbsj >= #lkyjxxb.zlfbsjB#  ]]> 
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="lkyjxxb.zlfbsjE">
-				    <![CDATA[ zlfbsj <= #lkyjxxb.zlfbsjE# ]]> 
+			  <isNotEmpty prepend="and" property="lkyjxxb.lkzlbh">
+				   lkzlbh in ($lkyjxxb.lkzlbh$)
+				   
 			  </isNotEmpty>
     </select>
     

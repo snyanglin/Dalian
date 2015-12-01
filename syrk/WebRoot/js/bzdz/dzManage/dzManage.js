@@ -14,10 +14,13 @@ DzManage.setInt = "";//记录延时
  * @date:2014-12-26 10:37:32
  */
 $(function(){
+	
 	DzManage.onloadMap();
-	//新增权限判断
-	if(orglevel != "50"){
+	//隐藏新增功能判断：（治安 且 不是民警）或 （内保 且 没有辖区）
+	if((orglevel != "50" && orgBizType == "01") || (orgBizType == "12" && (bjzbz == null || bjzbz == "" || bjzbz == "null" || typeof(bjzbz) == "undefined"))){
  	   document.getElementById("dzaddid").style.display = "none";
+    }else{
+    	editAble = true;
     }
 });
 /**
@@ -58,7 +61,7 @@ DzManage.onloadMap = function(){
  */	
 DzManage.datagridProcessFormater = function(val,row,index){
 	if(row.dzzt=="01"){
-		if(orglevel != "50"){
+		if(!editAble){
 			return '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="DzManage.doUpdateAndXq(this, '+index+',1,0,1)">详情</a>&nbsp;';
 		}else{
 			if(row.bz=="维护中"){
@@ -70,14 +73,14 @@ DzManage.datagridProcessFormater = function(val,row,index){
 			}
 		}
     }else if(row.dzzt=="02"){
-    	if(orglevel != "50"){
+    	if(!editAble){
     		return '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="DzManage.dzVerifyShAndXq(this, '+index+',1,1,1)">详情</a>&nbsp;';
     	}else{
     		return '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="DzManage.dzVerifyShAndXq(this, '+index+',1,1,1)">详情</a>&nbsp;'+
 	           	   '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="DzManage.doDeleteDspAndTh(this, '+index+',2)">注销</a>&nbsp;';
     	}
     }else if(row.dzzt=="03"){
-    	if(orglevel != "50"){
+    	if(!editAble){
     		return '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="DzManage.dzVerifyShAndXq(this, '+index+',1,1,1)">详情</a>&nbsp;';
     	}else{
     		if(bzdzSh=="1"){

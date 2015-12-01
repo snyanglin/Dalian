@@ -1,5 +1,7 @@
 package com.founder.syrkgl.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -7,8 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
+import com.founder.framework.message.bean.SysMessage;
+import com.founder.framework.message.dao.SysMessageDao;
+import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.StringUtils;
+import com.founder.syrkgl.bean.RyRyjbxxb;
 import com.founder.syrkgl.bean.SyrkLdrkxxb;
+import com.founder.syrkgl.bean.SyrkSyrkxxzb;
 import com.founder.syrkgl.dao.SyrkLdrkxxbDao;
 import com.founder.syrkgl.service.RyRyjbxxbService;
 import com.founder.syrkgl.service.RyRylxfsxxbService;
@@ -44,6 +51,9 @@ public class SyrkLdrkxxbServiceImpl extends BaseService implements
 	@Resource(name = "ryRylxfsxxbService")
 	private RyRylxfsxxbService ryRylxfsxxbService;
 	
+	@Resource
+	private SysMessageDao sysMessageDao;
+	
 	@Override
 	public SyrkLdrkxxb queryById(String id) {
 		return syrkLdrkxxbDao.queryById(id);
@@ -59,6 +69,46 @@ public class SyrkLdrkxxbServiceImpl extends BaseService implements
 	@Override
 	public void update(SyrkLdrkxxb entity, SessionBean sessionBean) {
 		setUpdateProperties(entity, sessionBean);
+		//判断 如果户籍地址描述被修改了，要给其他地的实有人口民警发消息
+		RyRyjbxxb ryjbxxb=this.ryRyjbxxbService.queryById(entity.getRyid());
+		String oldHjd_ms=StringUtils.isBlank(ryjbxxb.getHjd_dzms())?"":ryjbxxb.getHjd_dzms();
+		String newHjd_ms=StringUtils.isBlank(entity.getHjd_dzms())?"":entity.getHjd_dzms();
+		//新户籍地址和旧户籍地址都不等，则发消息给其他责任区的民警提醒户籍地址已变更
+		if(!newHjd_ms.equals(oldHjd_ms)){
+			//判断这个人是否在其他地区是实有人口  是的话 给其他责任区发消息提醒
+			SyrkSyrkxxzb syrkzb=new SyrkSyrkxxzb();
+			syrkzb.setCyzjdm(entity.getCyzjdm());
+			syrkzb.setZjhm(entity.getZjhm());
+			List<SyrkSyrkxxzb> syrkZbs=this.syrkxxzbService.queryList(syrkzb);
+			if(syrkZbs!=null && syrkZbs.size()>0){
+				for(SyrkSyrkxxzb zb:syrkZbs){
+					//不给自己发
+					if(!entity.getId().equals(zb.getId())){
+						SysMessage message = new SysMessage();
+						message.setFsr(sessionBean.getUserName());
+						message.setFsrdm(sessionBean.getUserId());
+						message.setFssj(DateUtils.getSystemDateTimeString());
+						message.setFsrssdw(sessionBean.getUserOrgName());
+						message.setFsrssdwdm(sessionBean.getUserOrgCode());
+						if(StringUtils.isBlank(newHjd_ms)){
+							message.setXxnr(sessionBean.getUserOrgName()+"民警"+sessionBean.getUserName()+"删除了实有人口"+entity.getXm()+"的户籍地址描述");
+	
+						}else{
+							message.setXxnr(sessionBean.getUserOrgName()+"民警"+sessionBean.getUserName()+"将实有人口"+entity.getXm()+"的户籍地址描述修改为"+entity.getHjd_dzms());
+
+						}
+						message.setXxbt("流动人口户籍地址描述修改提醒");
+						message.setXxlb("1");
+						sysMessageDao.saveMessageByOrgCondition(message, zb.getGxzrqdm(), "01", "50", "04", false, false);
+
+					
+					}
+				}
+			}
+			
+			
+		}
+		
 		syrkLdrkxxbDao.update(entity);
 		syrkxxzbService.synchronizeSyrkxxzb(entity);
 		ryRyjbxxbService.synchronizeRyjbxxb(entity, sessionBean);

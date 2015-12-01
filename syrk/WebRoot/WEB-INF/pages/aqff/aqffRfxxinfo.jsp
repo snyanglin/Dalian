@@ -180,7 +180,7 @@
 						        	 <th data-options="field:'zjhm',width:200,align:'left',sortable:true,halign:'center'">证件号码</th>
 						        	 <th data-options="field:'xm',width:100,align:'left',sortable:true,halign:'center'">姓名</th>
 						        	 <th data-options="field:'xbdm',width:100,align:'left',sortable:true,halign:'center',formatter:dictFormatter,dictName:contextPath+'/common/dict/D_BZ_XB.js'">性别</th>
-						        	 <th data-options="field:'zjlxdm',width:200,align:'left',sortable:true,halign:'center',formatter:dictFormatter,dictName:contextPath+ '/common/dict/D_BZ_CYZJ.js'">证件种类</th>
+						        	 <th data-options="field:'zjlxdm',width:200,align:'left',sortable:true,halign:'center',formatter:dictFormatter,dictName:contextPath+ '/common/dict/D_BZ_CYZJ.js'">证件类型</th>
 						        	 <th data-options="field:'dz_jzdzxz',width:350,align:'left',sortable:true,halign:'center'">居住地址</th>
 						            <th data-options="field:'process',align:'center',halign:'center',formatter:processFormater">操作</th>
 								</tr>

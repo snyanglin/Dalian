@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -36,16 +37,16 @@ public interface JzzblxxbService {
       */
      public void saveJzzblxx(Jzzblxxb entity,SessionBean sessionBean);
      
-     /**
-      * 
-      * @Title: jzzblxxb
-      * @Description: TODO(居住证通过ID查询单条)
-      * @param @param map
-      * @param @return    设定文件
-      * @return Jzzblxxb    返回类型
-      * @throws
-      */
-     public List<Jzzblxxb>  jzzblxxb_query(Map<String,Object> map);
+//     /**
+//      * 
+//      * @Title: jzzblxxb
+//      * @Description: TODO(居住证通过ID查询单条)
+//      * @param @param map
+//      * @param @return    设定文件
+//      * @return Jzzblxxb    返回类型
+//      * @throws
+//      */
+//     public List<Jzzblxxb>  jzzblxxb_query(Map<String,Object> map);
      
      /**
       * 
@@ -58,6 +59,10 @@ public interface JzzblxxbService {
       * @throws
       */
      public EasyUIPage queryJzzblList(EasyUIPage page, Jzzblxxb entity);
+     
+     
+     public void exportExcel(Jzzblxxb entity,ServletOutputStream outputStream);
+     
      /**
       * 
       * @Title: queryJzzblxxb
@@ -68,6 +73,10 @@ public interface JzzblxxbService {
       * @throws
       */
      public Jzzblxxb queryJzzblxxb(String  id);
+     
+     public Jzzblxxb queryJzzblxxbIgnoreXt_zxbz(String  id);
+     
+     
      /**
       * 
       * @Title: updateJzzblxxb
@@ -79,17 +88,7 @@ public interface JzzblxxbService {
       */
      public void updateJzzblxxb(Jzzblxxb entity,SessionBean sessionBean);
      
-     /***
-      * 
-      * @Title: jzzbl_export
-      * @Description: TODO(居住证带照片批量导出)
-      * @param @param exportIds
-      * @param @param response
-      * @param @return    设定文件
-      * @return boolean    返回类型
-      * @throws
-      */
-     public File jzzbl_export(String exportIds, HttpServletResponse response,HttpServletRequest request,SessionBean sessionBean);
+ 
      
      /***
       * 
@@ -113,6 +112,23 @@ public interface JzzblxxbService {
       * @throws
       */
      public Jzzblxxb checkRyJzz(String ryid);
+     
+     public Jzzblxxb queryJzzblxxbByJzd_dzxzAndSyrkid(String jzd_dzxz,String syrkid);
+     
+     /**
+      * 查询最新的已办理居住证信息
+      * 
+      * @param ryid
+      * @return
+      */
+     public Jzzblxxb queryLastYblJzz(String ryid);
+     
+     /**
+      * 消息通知最后办理居住证民警
+      * @param lastYblJzzblxxb
+      */
+     public void noticeLastYblPcs(Jzzblxxb lastYblJzzblxxb, Jzzblxxb beSavedJzzblxxb,SessionBean sessionBean);
+     
      /***
       * 
       * @Title: queryIdsForPrint

@@ -1191,60 +1191,60 @@
 	<update id="updateMldz" parameterClass="bzdzxxbvo">
 	   UPDATE BZDZ_ADD_MLDZDXB
 	    <dynamic prepend="set">
-            <isNotEmpty prepend="," property="xzqhdm">
+            <isNotNull prepend="," property="xzqhdm">
 				XZQHDM = #xzqhdm#
-			</isNotEmpty>
-			<isNotEmpty prepend="," property="dmdm">
+			</isNotNull>
+			<isNotNull prepend="," property="dmdm">
 				DMDM = #dmdm#
-			</isNotEmpty>
-			<isNotEmpty prepend="," property="dmmc">
+			</isNotNull>
+			<isNotNull prepend="," property="dmmc">
 				DMMC = #dmmc#
-			</isNotEmpty>
-			<isNotEmpty prepend="," property="sqdm">
+			</isNotNull>
+			<isNotNull prepend="," property="sqdm">
 				SQDM = #sqdm#
-			</isNotEmpty>
-			<isNotEmpty prepend="," property="zrqdm">
+			</isNotNull>
+			<isNotNull prepend="," property="zrqdm">
 				ZRQDM = #zrqdm#
-			</isNotEmpty>
-			<isNotEmpty prepend="," property="pcsdm">
+			</isNotNull>
+			<isNotNull prepend="," property="pcsdm">
 				PCSDM = #pcsdm#
-			</isNotEmpty>
-	        <isNotEmpty prepend="," property="fxjdm">
+			</isNotNull>
+	        <isNotNull prepend="," property="fxjdm">
 				FXJDM = #fxjdm#
-			</isNotEmpty>
-			<isNotEmpty prepend="," property="mlphqz">
+			</isNotNull>
+			<isNotNull prepend="," property="mlphqz">
 				MLPHQZ = #mlphqz#
-			</isNotEmpty>
-			<isNotEmpty prepend="," property="mlph">
+			</isNotNull>
+			<isNotNull prepend="," property="mlph">
 				MLPH = #mlph#
-			</isNotEmpty>
-			<isNotEmpty prepend="," property="mlphhz">
+			</isNotNull>
+			<isNotNull prepend="," property="mlphhz">
 				MLPHHZ = #mlphhz#
-			</isNotEmpty>
-			<isNotEmpty prepend="," property="mlphqc">
+			</isNotNull>
+			<isNotNull prepend="," property="mlphqc">
 				MLPHQC = #mlphqc#
-			</isNotEmpty>
-			<isNotEmpty prepend="," property="dzmc">
+			</isNotNull>
+			<isNotNull prepend="," property="dzmc">
 				DZMC = #dzmc#
-			</isNotEmpty>
-			<isNotEmpty prepend="," property="dzmcpy">
+			</isNotNull>
+			<isNotNull prepend="," property="dzmcpy">
 				DZMCPY = #dzmcpy#
-			</isNotEmpty>
-			<isNotEmpty prepend="," property="dzmcpwd">
+			</isNotNull>
+			<isNotNull prepend="," property="dzmcpwd">
 				DZMCPWD = #dzmcpwd#
-			</isNotEmpty>
-			<isNotEmpty prepend="," property="dzmcpypwd">
+			</isNotNull>
+			<isNotNull prepend="," property="dzmcpypwd">
 				DZMCPYPWD = #dzmcpypwd#
-			</isNotEmpty>
-			<isNotEmpty prepend="," property="zbx">
+			</isNotNull>
+			<isNotNull prepend="," property="zbx">
 				ZBX = #zbx#
-			</isNotEmpty>
-			<isNotEmpty prepend="," property="zby">
+			</isNotNull>
+			<isNotNull prepend="," property="zby">
 				ZBY = #zby#
-			</isNotEmpty>
-			<isNotEmpty prepend="," property="dtcwfk">
+			</isNotNull>
+			<isNotNull prepend="," property="dtcwfk">
 				DTCWFK = #dtcwfk#
-			</isNotEmpty>
+			</isNotNull>
 			,
 			<include refid="updateXtzd"/>
        </dynamic>

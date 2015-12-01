@@ -31,7 +31,7 @@ public class RyRyjlxxb extends BaseEntity implements Serializable {
 	private String id;
 	@FieldDesc("人员ID")
 	private String ryid;
-	@FieldDesc("经历类型")
+	@FieldDesc("经历类型代码")
 	private String jllxdm;
 	@FieldDesc("开始时间")
 	private String kssj;

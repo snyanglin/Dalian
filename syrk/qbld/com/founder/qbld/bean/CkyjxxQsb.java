@@ -44,10 +44,6 @@ public class CkyjxxQsb extends BaseEntity implements Serializable {
 	private String jkfksj;
 	@FieldDesc("接口反馈状态 '0' 未反馈 '1' 已反馈")
 	private String jkfkzt;
-	@FieldDesc("接口发送状态， ‘0’发送成功；‘1’发送失败")
-	private String fszt;
-	@FieldDesc("接口调用状态码")
-	private String code;
 	
 	public String getLdxxbh() {
 		return ldxxbh;
@@ -115,16 +111,5 @@ public class CkyjxxQsb extends BaseEntity implements Serializable {
 	public void setJkfkzt(String jkfkzt) {
 		this.jkfkzt = jkfkzt;
 	}
-	public String getFszt() {
-		return fszt;
-	}
-	public void setFszt(String fszt) {
-		this.fszt = fszt;
-	}
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
+
 }

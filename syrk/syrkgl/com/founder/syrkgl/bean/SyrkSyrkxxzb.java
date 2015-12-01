@@ -21,10 +21,7 @@ import com.founder.framework.base.entity.BaseEntity;
 public class SyrkSyrkxxzb extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	//gem
-	private String age;
-	
+
 	@FieldDesc("实有人口ID")
 	private String id;
 	@FieldDesc("人员ID")
@@ -37,10 +34,6 @@ public class SyrkSyrkxxzb extends BaseEntity implements Serializable {
 	private String zjhm;
 	@FieldDesc("姓名")
 	private String xm;
-	@FieldDesc("外文姓")
-	private String wwx;
-	@FieldDesc("外文名")
-	private String wwm;
 	@FieldDesc("性别代码")
 	private String xbdm;
 	@FieldDesc("民族代码")
@@ -79,31 +72,20 @@ public class SyrkSyrkxxzb extends BaseEntity implements Serializable {
 	private String gxpcsdm;
 	@FieldDesc("管辖责任区代码")
 	private String gxzrqdm;
-	@FieldDesc("管辖责任区名称")
-	private String gxzrqmc;
-	
-	public String getAge() {
-		return age;
-	}
-
-	public void setAge(String age) {
-		this.age = age;
-	}
-
-	// 搜索查询关键字
+	//搜索查询关键字
 	private String searchbox;
-	// 空间查询坐标值
-	private String drawZbz;
-	// 空间查询类型
-	// drawCircle 设置当前地图操作状态为绘制圆形状态
-	// drawRect 设置当前地图操作状态为绘制矩形状态
-	// drawPolygon 设置当前地图操作状态为绘制多边形状态
+	//空间查询坐标值
+    private String drawZbz;
+	//空间查询类型
+    //   drawCircle  设置当前地图操作状态为绘制圆形状态
+    //	 drawRect    设置当前地图操作状态为绘制矩形状态
+    //   drawPolygon 设置当前地图操作状态为绘制多边形状态
 	private String drawType;
-	// 空间查询半径弧度值
-	private String drawRadius;
-	// 地图图层ID
+	//空间查询半径弧度值
+    private String drawRadius;
+	//地图图层ID
 	private int drawSrid;
-
+	
 	public String getDrawRadius() {
 		return drawRadius;
 	}
@@ -344,28 +326,4 @@ public class SyrkSyrkxxzb extends BaseEntity implements Serializable {
 		this.gxzrqdm = gxzrqdm;
 	}
 
-	public String getWwx() {
-		return wwx;
-	}
-
-	public void setWwx(String wwx) {
-		this.wwx = wwx;
-	}
-
-	public String getWwm() {
-		return wwm;
-	}
-
-	public void setWwm(String wwm) {
-		this.wwm = wwm;
-	}
-
-	public String getGxzrqmc() {
-		return gxzrqmc;
-	}
-
-	public void setGxzrqmc(String gxzrqmc) {
-		this.gxzrqmc = gxzrqmc;
-	}
-	
 }

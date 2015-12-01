@@ -75,7 +75,7 @@
 				    	<input type='hidden' name='bazzdzdzmlpxz' id="bazzdzdzmlpxz" value="${entity.bazzdzdzmlpxz}"/>
 				  </td>
 				<td width="30%" class="dialogTd" >
-				<input class="easyui-combobox" id="jzd2" style="width:200px;" value="${fn:replace(entity.bazzdzdzxz, entity.bazzdzdzmlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+				<input class="easyui-combobox" id="jzd2" style="width:200px;" value='${fn:replace(entity.bazzdzdzxz, entity.bazzdzdzmlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 				<input type="hidden" name="bazzdzdm" id="bazzdzdm" value="${entity.bazzdzdm}"/>
 				<input type="hidden" name="bazzdzssxdm" id="bazzdzssxdm" value="${entity.bazzdzssxdm}"/>
 			    <input type='hidden' name='bazzdzdzxz' id="bazzdzdzxz" value="${entity.bazzdzdzxz}"/>
@@ -177,7 +177,7 @@ $(document).ready(function(){
 		$("#zjlx").combobox("setValue","111");
 	}
 });
-/**根据证件种类 设置证件号码验证 与人员基本信息只读状态*/
+/**根据证件类型 设置证件号码验证 与人员基本信息只读状态*/
 function setPassPort(newVal,oldVal){
 	if(newVal==""){
 		$("#fzrzjhm").validatebox({validType:null});
@@ -197,7 +197,7 @@ function setPassPort(newVal,oldVal){
 	}
 }
 /**
- * 根据证件种类与号码 ，进行人员比对，复用
+ * 根据证件类型与号码 ，进行人员比对，复用
  */
 function check(){
 	if(!$("#zjlx").combo("isValid")){

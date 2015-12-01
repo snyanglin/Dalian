@@ -38,7 +38,7 @@
 	
 	<!-- 查询人员的多张照片 -->
 	<select id="queryPtryzpList" parameterClass="zpfjPtryzpglb" resultClass="zpfjPtryzpxxb">
-		<![CDATA[ select x.ZP from ZPFJ_PTRYZPGLB t,ZPFJ_PTRYZPXXB x where t.XT_ZXBZ = '0' ]]> 
+		<![CDATA[ select x.* from ZPFJ_PTRYZPGLB t,ZPFJ_PTRYZPXXB x where t.XT_ZXBZ = '0' ]]> 
 			<isNotEmpty prepend="and" property="ryid">
 				t.RYID = #ryid# 
 			</isNotEmpty>

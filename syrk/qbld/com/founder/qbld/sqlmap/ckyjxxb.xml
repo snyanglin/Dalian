@@ -65,7 +65,7 @@
 				    <![CDATA[ yjfbsj <= #ckyjxxb.yjfbsjE# ]]> 
 			  </isNotEmpty>
 			  <isNotEmpty prepend="and" property="ckyjxxb.zdryxl">
-				   (zdryxl like'$ckyjxxb.zdryxl$%' or zdryxl like',$ckyjxxb.zdryxl$%')
+				   zdryxl = #ckyjxxb.zdryxl#
 			  </isNotEmpty>
 			  <![CDATA[ 
 			  	order by $sort$ $order$
@@ -104,7 +104,7 @@
 				    <![CDATA[ yjfbsj <= #ckyjxxb.yjfbsjE# ]]> 
 			  </isNotEmpty>
 			  <isNotEmpty prepend="and" property="ckyjxxb.zdryxl">
-				   (zdryxl like'$ckyjxxb.zdryxl$%' or zdryxl like',$ckyjxxb.zdryxl$%')
+				   zdryxl = #ckyjxxb.zdryxl#
 			  </isNotEmpty>
     </select>
 	
@@ -113,7 +113,6 @@
          select *
 			from qbld_ck_yjxxb a left join qbld_ck_yjqsb b
 			on(a.yjxxbh = b.yjxxbh)
-			left join dw_dwjbxxb c on(c.zagldwbm = a.hdfsddssshcsdm)
 		  where 1=1
 		      <isNotEmpty prepend="and" property="ckyjxxb.yjxxbh">
 				   a.yjxxbh = #ckyjxxb.yjxxbh#
@@ -597,26 +596,6 @@
 			</isNotNull>
 			<isNotNull prepend="," property="xcchwpxx">
 				<![CDATA[ xcchwpxx = #xcchwpxx# ]]>
-			</isNotNull>
-			<isNotNull prepend="," property="fszt">
-				<![CDATA[ fszt = #fszt# ]]>
-			</isNotNull>
-			<isNotNull prepend="," property="code">
-				<![CDATA[ code = #code# ]]>
-			</isNotNull>			
-		</dynamic>
-       where yjxxbh = #yjxxbh#
-    </update>
-    
-    <!-- 更新长控预警签收表功能 -->
-	<update id="updateCkyjqsb" parameterClass="ckyjQs">
-       update qbld_ck_yjqsb
-       <dynamic prepend="set">
-			<isNotNull prepend="," property="fszt">
-				<![CDATA[ fszt = #fszt# ]]>
-			</isNotNull>
-			<isNotNull prepend="," property="code">
-				<![CDATA[ code = #code# ]]>
 			</isNotNull>			
 		</dynamic>
        where yjxxbh = #yjxxbh#
@@ -626,32 +605,8 @@
 	<select id="queryCkyjListExport" parameterClass="Map" resultClass="java.util.HashMap">
 	       select * from qbld_ck_yjxxb
 		   where 1=1
-			  <isNotEmpty prepend="and" property="ckyjxxb.zdryxm">
-				   zdryxm like '%$ckyjxxb.zdryxm$%'
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="ckyjxxb.sfzh">
-				   sfzh like '%$ckyjxxb.sfzh$%'
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="ckyjxxb.yjjb">
-				   yjjb in($ckyjxxb.yjjb$)
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="ckyjxxb.qsfkzt">
-				   qsfkzt = #ckyjxxb.qsfkzt#
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="ckyjxxb.yjjsdw">
-				   yjjsdw like '$ckyjxxb.yjjsdw$%'
-			  </isNotEmpty>
 			  <isNotEmpty prepend="and" property="ckyjxxb.yjxxbh">
-				   yjxxbh in($ckyjxxb.yjxxbh$)
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="ckyjxxb.yjfbsjB">
-				   <![CDATA[ yjfbsj >= #ckyjxxb.yjfbsjB#  ]]> 
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="ckyjxxb.yjfbsjE">
-				    <![CDATA[ yjfbsj <= #ckyjxxb.yjfbsjE# ]]> 
-			  </isNotEmpty>
-			  <isNotEmpty prepend="and" property="ckyjxxb.zdryxl">
-				   (zdryxl like'$ckyjxxb.zdryxl.zdryxl$%' or zdryxl like',$ckyjxxb.zdryxl.zdryxl$%')
+				   yjxxbh in ($ckyjxxb.yjxxbh$)
 			  </isNotEmpty>
     </select>
     
@@ -664,8 +619,7 @@
 	<!-- 常控预警详情-->
     <select id="queryJbxx" parameterClass="ckyj" resultClass="ckyj">
         select *  from syrk_syrkxxzb a  
-		left join (select * from zdry_zdryzb c where c.xt_zhxgsj = (select max(d.xt_zhxgsj) from zdry_zdryzb d)) e 
-		on e.ryid = a.ryid
+		left join (select * from zdry_zdryzb c where c.xt_zhxgsj = (select max(d.xt_zhxgsj) from zdry_zdryzb d)) e on e.zjhm = a.zjhm
 		where  a.xt_zhxgsj = (select max(b.xt_zhxgsj) from syrk_syrkxxzb b)
 		 and  rownum = 1
 		      <isNotEmpty prepend="and" property="sfzh">

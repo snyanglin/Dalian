@@ -25,7 +25,7 @@
 								<input class="easyui-validatebox" id="syfw_fwdz1" style="width:400px;" value="${entity.fwdz_mlpxz}" >
 				    		</td>
 							<td width="30%" class="dialogTd">
-								<input class="easyui-validatebox" id="syfw_fwdz2" style="width:200px;" value="${fn:replace(entity.fwdz_dzxz, entity.fwdz_mlpxz, '')}" >
+								<input class="easyui-validatebox" id="syfw_fwdz2" style="width:200px;" value='${fn:replace(entity.fwdz_dzxz, entity.fwdz_mlpxz, "")}' >
 							</td>
 						</tr>
 						<tr class="dialogTr">
@@ -68,7 +68,7 @@
 							<td width="20%" class="dialogTd" align="right">是否出租房：</td>
 							<td width="30%" class="dialogTd">	
 								<input class="easyui-combobox" type="text" id="sfczfw" name="fwjbxxb.sfczfw" style="width:200px;" value="${entity.sfczfw}"
-								data-options="url:contextPath+'/common/dict/D_GG_SF.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'left'"/>
+								data-options="url:contextPath+'/common/dict/BD_D_SF.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'left'"/>
 							</td>
 						</tr>
 						<tr class="dialogTr">
@@ -341,7 +341,7 @@ function tgrzjdm_onchange(newVal, oldVal) {
 function queryFrByDwid(){
 	$.ajax({
 		type:"GET",
-		url:"<%= basePath%>sydw/"+$("#fwssdw_dwid").val()+"/fr",
+		url:"<%= basePath%>sydw_dl/"+$("#fwssdw_dwid").val()+"/fr",
 		dataType:"json",
 		success:function(data){
 			if (data) {

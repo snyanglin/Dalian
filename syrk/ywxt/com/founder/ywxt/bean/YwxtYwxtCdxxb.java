@@ -32,8 +32,8 @@ public class YwxtYwxtCdxxb extends BaseEntity implements Serializable {
 	private String spr;
 	@FieldDesc("审批结果")
 	private String spjg;
-	@FieldDesc("协同人员表ID")
-	private String xtryid;
+	@FieldDesc("协同业务表ID")
+	private String xtywid;
 	@FieldDesc("备注")
 	private String bz;
 
@@ -77,12 +77,12 @@ public class YwxtYwxtCdxxb extends BaseEntity implements Serializable {
 		this.spjg = spjg;
 	}
 
-	public String getXtryid() {
-		return xtryid;
+	public String getXtywid() {
+		return xtywid;
 	}
 
-	public void setXtryid(String xtryid) {
-		this.xtryid = xtryid;
+	public void setXtywid(String xtywid) {
+		this.xtywid = xtywid;
 	}
 
 	public String getBz() {

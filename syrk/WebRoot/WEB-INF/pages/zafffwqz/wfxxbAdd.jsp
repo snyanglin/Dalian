@@ -50,26 +50,13 @@
 		    	        </td>
 	    	      </tr>
 	    	      <tr class="dialogTr">
-	    	          <td width="20%" class="dialogTd" align="right">
-			       		  <input type="radio" id="dw_wflx" name="wflx" checked="checked" value="0" onclick="onRadioClick(0);">单位名称：
-		       		  </td>
+			          <td width="20%" class="dialogTd" align="right">单位：</td>
 			    	  <td width="80%" class="dialogTd" colspan="3">
 			    	      <input type="hidden" id="dwid" name="dwid" value="${entity.dwid}" />
 			    	      <input type="hidden" id="dwmc" name="dwmc" />
 			    	      <input class="easyui-combobox" type="text" id="dw-box" name="dw-box" 
 		    	      			data-options="mode:'remote',method:'post',panelHeight: 22,valueField:'id',
 		    	      			textField:'text',selectOnNavigation:false,required:true" name="dw-box" value="${dwmc}" maxlength="50" style="width:595px;"/></td>
-		    	  </tr>
-		    	  <tr class="dialogTr">
-	    	          <td width="20%" class="dialogTd" align="right">
-			       		  <input type="radio" id="xq_wflx" name="wflx" value="1" onclick="onRadioClick(1);">小区名称：
-		       		  </td>
-			    	  <td width="80%" class="dialogTd" colspan="3">
-			    	      <input type="hidden" id="xqid" name="xqid" value="${entity.xqid}" />
-			    	      <input type="hidden" id="xqmc" name="xqmc" />
-			    	      <input class="easyui-combobox" type="text" id="xq-box" name="xq-box" 
-		    	      			data-options="mode:'remote',method:'post',panelHeight: 22,valueField:'id',
-		    	      			textField:'text',selectOnNavigation:false,required:true" name="xq-box" value="${xqmc}" maxlength="50" style="width:595px;"/></td>
 		    	  </tr>
 	    		  <tr class="dialogTr">
 				    	<td width="20%" class="dialogTd" align="right">物防种类：</td>
@@ -109,7 +96,7 @@
 				    	<input type='hidden' name='dz_wfdzmlpxz' id="wfdzmlpxz" value="${entity.dz_wfdzmlpxz}"/>
 			    	</td>
 			    	<td width="30%" class="dialogTd">
-				    	<input class="easyui-combobox" id="wfdz2" style="width:200px;" value="${fn:replace(entity.dz_wfdzxz, entity.dz_wfdzmlpxz, '')}" 
+				    	<input class="easyui-combobox" id="wfdz2" style="width:200px;" value='${fn:replace(entity.dz_wfdzxz, entity.dz_wfdzmlpxz, "")}' 
 				    			data-options="required:false,mode:'remote',method:'post',panelHeight: 22,
 				    			valueField:'id',textField:'text',selectOnNavigation:false">
 				    	<input type='hidden' name='dz_wfdzdm' id="wfdzdm" value="${entity.dz_wfdzdm}"/>

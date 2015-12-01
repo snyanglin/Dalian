@@ -85,7 +85,7 @@ DzBuildingRoom.initRyList = function(){
 DzBuildingRoom.querySyrkZp = function(json){
 	var htmlText = "";
 	$.each(json,function(i){
-		htmlText += "<li><img width='132'height='160' alt='' src='"+contextPath+"/zpfjPtryzp/queryPtryzpSingle.jpg?ryid="+json[i].ryid+"&zjhm="+json[i].zjhm+"&cyzjdm="+json[i].cyzjdm+"'/></li>";
+		htmlText += "<li><img width='120'height='140' alt='' src='"+contextPath+"/zpfjPtryzp/queryPtryzpSingle.jpg?ryid="+json[i].ryid+"&zjhm="+json[i].zjhm+"&cyzjdm="+json[i].cyzjdm+"'/></li>";
 	});
 	$("#xjzryzp").html(htmlText);
 };
@@ -133,6 +133,6 @@ DzBuildingRoom.doSyrkXq = function(index){
 DzBuildingRoom.doSyDwXq = function(index){
 	var rows = $('#dg').datagrid('getData');
 	var rowData = rows.rows[index];
-	var editUrl = "/sydwgl/view?id="+rowData.id+"&mode=view";
+	var editUrl = "/sydwgl_dl/view?id="+rowData.id+"&mode=view";
 	menu_open("实有单位信息【"+rowData.dwmc+"】",editUrl);
 };

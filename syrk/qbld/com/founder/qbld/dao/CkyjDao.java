@@ -144,18 +144,6 @@ public class CkyjDao extends BaseDaoImpl {
 	}
 	
 	/**
-	 * @Title: updateCkyjqsb
-	 * @Description: TODO(记录调用ws接口报错字段信息)
-	 * @param @param entity
-	 * @param @return    设定文件
-	 * @return int    返回类型
-	 * @throws
-	 */
-	public int updateCkyjqsb(CkyjxxQsb entity) {
-		return update("Ckyj.updateCkyjqsb", entity); 
-	}
-	
-	/**
 	 * @Title: saveckyjQs
 	 * @Description: TODO(插入预警签收表)
 	 * @param @param entity
@@ -268,7 +256,7 @@ public class CkyjDao extends BaseDaoImpl {
 	}
 	
 	/**
-	 * @Title: saveZp
+	 * @Title: saveckyjQs
 	 * @Description: TODO(保存照片)
 	 * @param @param entity
 	 * @param @return    设定文件

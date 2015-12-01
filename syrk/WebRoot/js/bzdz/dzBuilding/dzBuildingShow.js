@@ -10,7 +10,7 @@ DzBuildingShow.dsdyHtml = "";//地上单元HTML
 DzBuildingShow.dxdyHtml = "";//地下单元HTML
 DzBuildingShow.czrknum = 0;//常住人口
 DzBuildingShow.jzrknum = 0;//寄住人口
-DzBuildingShow.ldrynum = 0;//暂住人口
+DzBuildingShow.ldrynum = 0;//流动人员
 DzBuildingShow.jwrynum = 0;//境外人员
 DzBuildingShow.wlhrynum = 0;//未落户人员
 DzBuildingShow.sydwnum = 0;//实有单位
@@ -110,7 +110,7 @@ DzBuildingShow.onloadChjgJbxx = function(){
 	$("#jzwjbxxDiv").html("地址："+dzmc+"；共居住<span id='zsId' style='font-size: 16px;font-family:微软雅黑;font-weight:normal;'>"+zs+"</span>人，" +
 		"其中常住人口<span id='czrkId' style='font-size: 16px;font-family:微软雅黑; font-weight:normal;'>"+DzBuildingShow.czrknum+"</span>人、" +
 			"寄住人口<span id='zzrkId' style='font-size: 16px;font-family:微软雅黑; font-weight:normal;'>"+DzBuildingShow.jzrknum+"</span>人、" +
-		    "暂住人口<span id='jwrkId' style='font-size: 16px;font-family:微软雅黑; font-weight:normal;'>"+DzBuildingShow.ldrynum+"</span>人、" +
+		    "流动人员<span id='jwrkId' style='font-size: 16px;font-family:微软雅黑; font-weight:normal;'>"+DzBuildingShow.ldrynum+"</span>人、" +
 			"境外人员<span id='jzrkId' style='font-size: 16px;font-family:微软雅黑; font-weight:normal;'>"+DzBuildingShow.jwrynum+"</span>人、" +
 			"未落户人员<span id='jzrkId' style='font-size: 16px;font-family:微软雅黑; font-weight:normal;'>"+DzBuildingShow.wlhrynum+"</span>人、" +
 			"重点人口<span id='zdrkId' style='font-size: 16px;font-family:微软雅黑; font-weight:normal;'>0</span>人；" +
@@ -237,8 +237,8 @@ DzBuildingShow.getHsHtml = function(cs,hs,dys,bz){
 			}
 			htmlStr += "</td></tr><tr><td style='width:25px;height:13px;'>";
 			if(DzBuildingShow.jsonHsdz[t].ldrynum!=0){
-				//暂住人口
-				htmlStr += "<img src='"+contextPath+"/images/bzdz/building/zzrk.png' alt='暂住人口共："+DzBuildingShow.jsonHsdz[t].ldrynum+"人' style='width:14px;height:13px;'/>";
+				//流动人员
+				htmlStr += "<img src='"+contextPath+"/images/bzdz/building/zzrk.png' alt='流动人员共："+DzBuildingShow.jsonHsdz[t].ldrynum+"人' style='width:14px;height:13px;'/>";
 				DzBuildingShow.ldrynum += parseInt(DzBuildingShow.jsonHsdz[t].ldrynum);
 			}
 			htmlStr += "</td><td style='width:25px;height:13px;'>";
@@ -297,8 +297,8 @@ DzBuildingShow.getHsHtml = function(cs,hs,dys,bz){
 			}
 			htmlStr += "</td></tr><tr><td style='width:25px;height:13px;'>";
 			if(DzBuildingShow.jsonHsdz[t].ldrynum!=0){
-				//暂住人口
-				htmlStr += "<img src='"+contextPath+"/images/bzdz/building/zzrk.png' alt='暂住人口共："+DzBuildingShow.jsonHsdz[t].ldrynum+"人' style='width:14px;height:13px;'/>";
+				//流动人员
+				htmlStr += "<img src='"+contextPath+"/images/bzdz/building/zzrk.png' alt='流动人员共："+DzBuildingShow.jsonHsdz[t].ldrynum+"人' style='width:14px;height:13px;'/>";
 				DzBuildingShow.ldrynum += parseInt(DzBuildingShow.jsonHsdz[t].ldrynum);
 			}
 			htmlStr += "</td><td style='width:25px;height:13px;'>";

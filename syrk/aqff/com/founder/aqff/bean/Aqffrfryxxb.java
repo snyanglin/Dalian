@@ -24,7 +24,7 @@ public class Aqffrfryxxb extends BaseEntity implements Serializable {
 	private String rfid;
 	@FieldDesc("成员类别代码")
 	private String cylbdm;
-	@FieldDesc("证件种类")
+	@FieldDesc("证件类型")
 	private String zjlxdm;
 	@FieldDesc("证件号码")
 	private String zjhm;

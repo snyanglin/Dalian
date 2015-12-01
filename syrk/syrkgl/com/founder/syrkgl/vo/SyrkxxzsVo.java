@@ -3,6 +3,7 @@ package com.founder.syrkgl.vo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 /****
  * ****************************************************************************
  * @Package:      [com.founder.syrkgl.vo.SyrkxxzsVo.java]  

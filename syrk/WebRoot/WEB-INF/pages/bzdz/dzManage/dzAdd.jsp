@@ -24,6 +24,7 @@
      <script type="text/javascript">
        var userOrgCode = "<%=userOrgCode%>"; 
        var bjzbz = "<%=bjzbz%>";
+       
        var mainTabID = "${mainTabID}";
        var dzBmCount = parseInt("${dzBmArrayLength}");
        //注销重建标识
@@ -45,7 +46,7 @@
 							  data-options="required:true,url: contextPath + '/common/dict/D_BZ_XZQHLIST_MUNICIPAL.js',dataFilter:'.*[^00]$',
 					                        method:'get',valueField:'id',textField:'text',selectOnNavigation:false,
 					                        onLoadSuccess:function(){$('#xzqhdm').combobox('setValue','<%=xzqhdm%>');$('#xzqhmc').val($('#xzqhdm').combobox('getText'));},
-					                        onSelect:function(rec){$('#xzqhmc').val(rec.text);}" style="width:215px;"/>
+					                        onSelect:function(rec){$('#xzqhmc').val(rec.text);$('#dmdm').combobox('reload');}" style="width:215px;"/>
 				   </td>
                </tr>
                <tr class="dialogTr">
@@ -54,6 +55,7 @@
 		    	       <input type="hidden" name="dmmc" id="dmmc" value="">
 		    	       <input type="text" id="dmdm" name="dmdm" class="easyui-combobox" 
 		    	            data-options="required:true,url:contextPath+'/dm/queryDictDm',valueField:'id',textField:'text',isTopLoad:false,
+		    	            onBeforeLoad:function(param){param.xzqhdm=$('#xzqhdm').combobox('getValue');},
 		    	            onChange:function(rec,oldValue){$('#dmmc').val($('#dmdm').combobox('getText'));DzAdd.setMlpqc();},
 		    	            onSelect:function(rec){$('#dmmc').val(rec.text);DzAdd.setMlpqc();}" style="width:215px;"/>
 		    	   </td>

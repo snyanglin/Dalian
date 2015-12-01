@@ -337,6 +337,24 @@ public class Sys2DictController extends BaseController {
 		
 		return model;
 	}
+	
+	@RequestMapping(value = "/getLocalOrganizationDictTreeJSON" , method =RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> getLocalOrganizationDictTreeJSON(HttpServletRequest request, @ModelAttribute SysDict entity, String zzjgdm, String auth) {
+		String userId = null;
+		if ("1".equals(auth) || "11".equals(auth)) {
+			SessionBean sb = getSessionBean();
+			userId = (sb == null ? "" : sb.getUserId());
+		}
+		
+		String returnJSStr = sysDictService.createLocalOrganizationTreeJS(entity.getZdbh(), entity.getZdmc(), zzjgdm, auth, userId);
+		Map<String, String> model = new HashMap<String, String>();
+		model.put(entity.getZdbh(), "<script type='text/javascript'>" + StringUtil.enterNewline + returnJSStr.split("■")[0] + "</script>");
+		//model.put(entity.getZdbh() + "_DATA", ("<script type='text/javascript'>" + StringUtil.enterNewline + "var data = {};" + StringUtil.enterNewline + "data['-1_RO'] = 'text: "+ entity.getZdmc() + "';" + StringUtil.enterNewline + returnJSStr.split("■")[1].replace("var data = {};" + StringUtil.enterNewline, "") + "</script>").replaceAll("data", "data_" + entity.getZdbh()));
+		model.put(entity.getZdbh() + "_DATA", ("<script type='text/javascript'>" + StringUtil.enterNewline + "var data = {};" + StringUtil.enterNewline + "data['-1_RO'] = 'text:';" + StringUtil.enterNewline + returnJSStr.split("■")[1].replace("var data = {};" + StringUtil.enterNewline, "") + "</script>").replaceAll("data", "data_" + entity.getZdbh()));
+		
+		return model;
+	}
 	/**
 	 * 
 	 * <p>说明：获取gps分组树形JSON</p>

@@ -21,6 +21,7 @@ function info_czrkxxb_(){
 	sb.append("<li><span class='spantitle'>户号：</span><span name='hh' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>与户主关系：</span><span name='yhzgxdm' dict='/common/dict/GB_D_JTGXDM' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>户籍地：</span><span name='hjd_dzxz' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>户籍地址描述：</span><span name='hjd_dzms' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>居住地：</span><span name='jzd_dzxz'  class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>学历：</span><span name='xldm' dict='/common/dict/GB_D_XLDM' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>婚姻状况：</span><span name='hyzkdm' dict='/common/dict/GB_D_HYZKDM' class='edit_word input_w2'></span></li>");
@@ -52,6 +53,7 @@ function info_jzrkxxb_(){
 	sb.append("<li><span class='spantitle'>性别：</span><span name='xbdm' dict='/common/dict/GB_D_XBDM' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>民族：</span><span name='mzdm' dict='/common/dict/GB_D_MZDM' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>户籍地：</span><span name='hjd_dzxz' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>户籍地址描述：</span><span name='hjd_dzms' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>出生日期：</span><span name='csrq' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>居住地：</span><span name='jzd_dzxz'  class='edit_word input_w1'></span></li>");
 	sb.append("<li><span class='spantitle'>寄住类别：</span><span name='jzlbdm' dict='/common/dict/BD_D_JZLBDM' class='edit_word input_w2'></span></li>");
@@ -64,7 +66,7 @@ function info_jzrkxxb_(){
 	sb.append("<li><span class='spantitle'>居住处所：</span><span name='zjzcsfldm'  dict='/common/dict/ZA_D_JZCSFLYDM'  class='edit_word input_w1'></span></li>");
 	sb.append("<li><span class='spantitle'>房屋承租情况：</span><span name='fwczqkdm' dict='/common/dict/ZA_D_FWCZQKDM' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>与房主关系：</span><span name='chzr_yfzgx_rygxdm' dict='/common/dict/XZ_D_RYGXDM' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>房主证件种类：</span><span name='fz_cyzjdm' dict='/common/dict/KX_D_CYZJDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>房主证件类型：</span><span name='fz_cyzjdm' dict='/common/dict/KX_D_CYZJDM' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>房主证件号码：</span><span name='fz_zjhm' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>房主姓名：</span><span name='fz_xm' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>房主联系电话：</span><span name='fz_lxdh' class='edit_word input_w2'></span></li>");
@@ -87,7 +89,7 @@ function info_ldrkxxb_(){
 	sb.append("<li><span class='spantitle'>性别：</span><span name='xbdm' dict='/common/dict/GB_D_XBDM' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>出生日期：</span><span name='csrq' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>民族：</span><span name='mzdm' dict='/common/dict/GB_D_MZDM' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>户籍地：</span><span name='hjd_dzxz' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>户籍地址描述：</span><span name='hjd_dzms' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>居住地：</span><span name='jzd_dzxz'  class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>学历：</span><span name='xldm' dict='/common/dict/GB_D_XLDM' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>婚姻状况：</span><span name='hyzkdm' dict='/common/dict/GB_D_HYZKDM' class='edit_word input_w2'></span></li>");
@@ -129,36 +131,26 @@ function info_ldrkxxb_(){
 function info_jwryxxb_(){
 	var sb = new StringBuffer();
 	sb.append("<ul>");
-	sb.append("<li><span class='spantitle'>住房种类：</span><span name='zjzcsfldm' dict='/common/dict/ZA_D_JZCSFLYDM' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>身份证号码：</span><span name='qt_sfzhm' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>入宿日期：</span><span name='rjrq' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>拟离开日期：</span><span name='qztjl_jzrq' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>房主身份类别：</span><span name='fz_sflb' dict='/common/dict/D_JWRY_FZSFLB' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>房主证件种类：</span><span name='fz_cyzjdm'  dict='/common/dict/KX_D_CYZJDM'  class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>房主证件号码：</span><span name='fz_zjhm' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>房主姓名：</span><span name='fz_xm' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>房主联系电话：</span><span name='fz_lxdh' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>房主国籍：</span><span name='fz_gjdm' dict='/common/dict/GB_D_GJHDQDM' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>房主性别：</span><span name='fz_xbdm' dict='/common/dict/GB_D_XBDM' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>房主出生日期：</span><span name='fz_csrq' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>房主外文姓：</span><span name='fz_wwx' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>房主外文名：</span><span name='fz_wwm' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>留宿单位：</span><span name='lsdw_dwmc' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>接待单位：</span><span name='jddw_dwmc' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>留宿单位联系电话：</span><span name='lsdw_lxdh' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>接待单位联系电话：</span><span name='jddw_lxdh' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>紧急情况联系人：</span><span name='lxr_xm' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>紧急情况联系电话：</span><span name='lxr_lxdh' class='edit_word input_w2'></span></li>");
-	sb.append("<li><span class='spantitle'>备注：</span><span name='bz' class='edit_word input_w2'></span></li>");
-	/*sb.append("<li><span class='spantitle'>居住地：</span><span name='jzd_dzxz'  class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>外文姓：</span><span name='wwx' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>外文名：</span><span name='wwm' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>中文姓名：</span><span name='xm' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>联系电话：</span><span name='lxdh' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>国籍：</span><span name='gjdm' dict='/common/dict/GB_D_GJHDQDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>性别：</span><span name='xbdm' dict='/common/dict/GB_D_XBDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>出生日期：</span><span name='csrq' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>居住地：</span><span name='jzd_dzxz'  class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>签证种类：</span><span name='qzjlxkzldm' dict='/common/dict/ZA_D_QZZLDM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>签证号：</span><span name='qzjlxkh' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>证件截止日期：</span><span name='zj_jzrq'  class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>签证签发机关：</span><span name='qzjlxkqfjgmc'  class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>签证截止日期：</span><span name='qzjlxk_jzrq'  class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>签证停留截止日期：</span><span name='qztjl_jzrq'  class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>居住事由：</span><span name='zjzsydm'  dict='/common/dict/ZA_D_RKQYYYDM'  class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>居住处所：</span><span name='zjzcsfldm' dict='/common/dict/ZA_D_JZCSFLYDM'  class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>住宿日期：</span><span name='zsrq'    class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>是否常住：</span><span name='jwryczbs' dict='/common/dict/BD_D_SFDM'  class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>入境口岸：</span><span name='rjkadm' dict='/common/dict/CRJ_D_RCJKADM' class='edit_word input_w2'></span></li>");
+	sb.append("<li><span class='spantitle'>入境日期：</span><span name='rjrq'  class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>拟离开日期：</span><span name='nlkrq'  class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>来自国家：</span><span name='lzgjdqdm' dict='/common/dict/GB_D_GJHDQDM'  class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>外国人居留事由：</span><span name='wgrjlsydm'   dict='/common/dict/CRJ_D_WGRJLSYDM' class='edit_word input_w2'></span></li>");
@@ -182,12 +174,14 @@ function info_jwryxxb_(){
 	sb.append("<li><span class='spantitle'>房主联系电话：</span><span name='fz_lxdh' class='edit_word input_w1'></span></li>");
 	//sb.append("<li><span class='spantitle'>房主外文姓：</span><span name='fz_wwx' class='edit_word input_w1'></span></li>");
 	//sb.append("<li><span class='spantitle'>房主外文名：</span><span name='fz_wwm' class='edit_word input_w1'></span></li>");
-	sb.append("<li><span class='spantitle'>房主居住地：</span><span name='fz_jzd_dzxz' class='edit_word input_w1'></span></li>");*/
+	sb.append("<li><span class='spantitle'>房主居住地：</span><span name='fz_jzd_dzxz' class='edit_word input_w1'></span></li>");
 	sb.append("<input type='hidden' name='id' /><input type='hidden' name='method' value='jwryxxb' /><input type='hidden' name='editUrl' value='/syrkJwryxxb/{id}' />");
 	sb.append("</ul>");
 	sb.append("<div class='clear'></div>");
 	return sb.toString();
 }
+
+
 
 /****************************************************05-未落户人员******************************************************************************************/
 //未落常住人口信息
@@ -279,7 +273,7 @@ function info_jzzblxxb_(){
 	sb.append("<li><span class='spantitle'>快递地址：</span><span name='jzz_kddz' class='edit_word input_w1'></span></li>");
 	sb.append("<li><span class='spantitle'>快递单号：</span><span name='jzz_kddh' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>制证人：</span><span name='zzr_xm' class='edit_word input_w2'></span></li>");
-	sb.append("<li class='uline2'></li>");
+	sb.append("<li class='uline2'><a class='delfw_btn ulrt_btn' value='test' href='javascript:void(0);'></a></li>");
 	sb.append("<input type='hidden' name='id' />");
 	sb.append("</ul>");
 	return sb.toString();

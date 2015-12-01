@@ -35,7 +35,7 @@
 				<div data-options="region:'center', split:true" style="width:100%; border-width: 0px;">
 					<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 						<tr class="dialogTr">
- 								<td width="20%" class="dialogTd" align="right">证件种类：</td>
+ 								<td width="20%" class="dialogTd" align="right">证件类型：</td>
 								<td width="30%" class="dialogTd">
 									<input type="text" name="cyzjdm" id="zjlx"  value="${entity.cyzjdm}" class="easyui-combobox" style="width:200px;"
 											data-options="required:true,url: contextPath + '/common/dict/D_BZ_CYZJ.js',
@@ -77,7 +77,7 @@
 										<input type='hidden' name='dz_jzdzmlpdm' id="dz_jzdzmlpdm" value="${entity.dz_jzdzmlpdm}"/>
 										<input type='hidden' name='dz_jzdzmlpxz' id="dz_jzdzmlpxz" value="${entity.dz_jzdzmlpxz}"/></td>
 								<td width="30%" class="dialogTd">
-    									<input class="easyui-combobox" id="jzd2" style="width:200px;" value="${fn:replace(entity.dz_jzdzxz, entity.dz_jzdzmlpxz, '')}" 
+    									<input class="easyui-combobox" id="jzd2" style="width:200px;" value='${fn:replace(entity.dz_jzdzxz, entity.dz_jzdzmlpxz, "")}' 
     												data-options="required:false,mode:'remote',method:'post',
     												panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 										<input type='hidden' name='dz_jzdzdm' id='dz_jzdzdm' value="${entity.dz_jzdzdm}" />
@@ -93,7 +93,7 @@
 										<input type='hidden' name='dz_hjdzmlpdm' id="dz_hjdzmlpdm" value="${entity.dz_hjdzmlpdm}"/>
 										<input type='hidden' name='dz_hjdzmlpxz' id="dz_hjdzmlpxz" value="${entity.dz_hjdzmlpxz}"/></td>
 								<td width="30%" class="dialogTd">
-										<input class="easyui-combobox" id="hjd2" style="width:200px;" value="${fn:replace(entity.dz_hjdzxz, entity.dz_hjdzmlpxz, '')}"
+										<input class="easyui-combobox" id="hjd2" style="width:200px;" value='${fn:replace(entity.dz_hjdzxz, entity.dz_hjdzmlpxz, "")}'
 												 data-options="required:false,mode:'remote',method:'post',panelHeight: 22,
 												 valueField:'id',textField:'text',selectOnNavigation:false"/>
 										<input type='hidden' name='dz_hjdzdm' id='dz_hjdzdm' value="${entity.dz_hjdzdm}" />

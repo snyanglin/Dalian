@@ -7,10 +7,12 @@
     String userOrgCode = "";
     String orglevel = "";
     String bjzbz = "";
+    String biztype = "";
     if(userInfo!=null){
         userOrgCode = userInfo.getUserOrgCode();
         orglevel = userInfo.getUserOrgLevel();
         bjzbz = userInfo.getBjzbz();
+        biztype = userInfo.getUserOrgBiztype();
     }
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -20,6 +22,7 @@
     <script type="text/javascript">
        var bjzbz = "<%=bjzbz%>";
        var orglevel = "<%=orglevel%>";
+       var biztype = "<%=biztype%>";
     </script>
     <style type="text/css">
     	.infoTable{font-size: 15px;font-family: Microsoft YaHei;text-align: left;}
@@ -77,15 +80,14 @@
            </div>
            <div id="win" class="easyui-window" title="实有人口精确查询"  data-options="iconCls:'icon-search',
                 collapsible:false,minimizable:false,maximizable:false,
-		        modal:true,closed:true,width:380,height:320">
+		        modal:true,closed:true,width:380,height:300">
 		        <form id ="queryForm" >
 			        <table id="jqcxTable" border="0" cellpadding="0" cellspacing="10" width="100%" height="100%" align="center" delayParse="true">
 				        <tr class="dialogTr">
 						    	<td width="30%" class="dialogTd" align="right">人员类型：</td>
 						    	<td width="70%" class="dialogTd">
 									<input class="easyui-combobox-delay" type="text" id="syrkywlxdm" name="syrkywlxdm" style="width:180px;"
-								    	   data-options="url: contextPath + '/common/dict/BD_D_SYRKYWLXDM.js',
-								    	   valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/>
+								    	   data-options="url: contextPath + '/common/dict/BD_D_SYRKYWLXDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/>
 								</td>
 					   	</tr>	
 				        <tr class="dialogTr">
@@ -119,15 +121,7 @@
 					    	<td width="70%" class="dialogTd">
 					            <input type="text" name="jzd_dzxz" id ="jzd_dzxz" class="easyui-validatebox" data-options="required:false,validType:'maxLength[30]'" style="width:180px;"/>
 					        </td>
-				    	</tr>
-				    	<!-- gem begin -->
-				    	<tr class="dialogTr">
-					    	<td width="30%" class="dialogTd" align="right">年龄(周岁)：</td>
-					    	<td width="70%" class="dialogTd">
-					            <input type="text" name="age" id ="age" class="easyui-numberbox" data-options="required:false,validType:'maxLength[3]'" style="width:180px;"/>
-					        </td>
-				    	</tr>
-				    	<!-- gem end -->	
+				    	</tr>	
 				    	<tr class="dialogTr" style="padding-bottom:0px;margin-bottom:0px;">
 					    	<td colspan="2" align="right">
 					    		<a class="easyui-linkbutton" iconCls="icon-ok" onclick="SyrkGl.queryButton();">确定</a>

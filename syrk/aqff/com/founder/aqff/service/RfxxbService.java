@@ -21,6 +21,9 @@ import com.founder.framework.utils.EasyUIPage;
  */
 @TypeAnnotation("安全防范-人防信息")
 public interface RfxxbService {
+	
+	@MethodAnnotation(value = "查询组织下的全部人防信息", type = logType.query)
+	public EasyUIPage queryRf(EasyUIPage page, String lrrbmid);
 	@MethodAnnotation(value = "人防信息添加", type = logType.insert)
 	public void insertRfxx(AqffRfxxb entity, SessionBean sessionBean);
 	//@MethodAnnotation(value = "新增安全防范-人防和人员信息", type = logType.insert)

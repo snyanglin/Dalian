@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.founder.framework.annotation.DBInfoAnnotation;
 import com.founder.framework.annotation.FieldDesc;
+import com.founder.framework.base.entity.BaseEntity;
 
 @DBInfoAnnotation(tableName = "RY_JZZBLBHSEQUENCE", pk = "code")
 public class JzzblBhSequence implements Serializable{

@@ -7,14 +7,6 @@ var menuindex = 0;
 Index.setMenuIndex = function(index){
 		menuindex=index;
 }
-/**
- * @method:openPage
- * @package:syrk/js/qbld	
- * @description:根据模块id进行页面跳转
- * @param name
- * @author:Li_Zhenzhong
- * @date:2015-6-25上午11:26:37
- */
 Index.openPage = function(name){
 	switch(name){
 	case 1: $("#modulePageIframe").attr("src",basePath+"forward/qbld|yjxx");break;

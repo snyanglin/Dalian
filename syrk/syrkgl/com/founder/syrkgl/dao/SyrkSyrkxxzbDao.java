@@ -73,7 +73,6 @@ public class SyrkSyrkxxzbDao extends BaseDaoImpl {
 	 * @return List<SyrkSyrkxxzb> 返回类型
 	 * @throws
 	 */
-	@SuppressWarnings("unchecked")
 	public List<SyrkSyrkxxzb> queryListByRyid(String ryid) {
 		if (StringUtils.isBlank(ryid)) {
 			return null;
@@ -105,7 +104,6 @@ public class SyrkSyrkxxzbDao extends BaseDaoImpl {
 	 * @return SyrkSyrkxxzb 返回类型
 	 * @throws
 	 */
-	@SuppressWarnings("unchecked")
 	public List<SyrkSyrkxxzb> queryPersonByDzDm(String jzd_dzid, String gxzrqdm) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("jzd_dzid", jzd_dzid);
@@ -153,10 +151,13 @@ public class SyrkSyrkxxzbDao extends BaseDaoImpl {
 		map.put("order", order);
 		map.put("entity", entity);
 		//修改人 wuchunhui@founder.com，需求变更redmine #2520
+		
+		
 		page.setRows(queryForList("SyrkSyrkxxzb.query", map));
 		page.setTotal((Integer) queryForObject("SyrkSyrkxxzb.queryCount", map));
 		return page;
 	}
+
 
 	/**
 	 * 
@@ -205,7 +206,6 @@ public class SyrkSyrkxxzbDao extends BaseDaoImpl {
 	 * @return String 返回类型（从个时用逗号分隔）
 	 * @throws
 	 */
-	@SuppressWarnings("unchecked")
 	public String queryRyGxzrq(String ryid, String zrqdm) {
 		String returnValue = "";
 		if (!StringUtils.isBlank(ryid)) {
@@ -236,7 +236,6 @@ public class SyrkSyrkxxzbDao extends BaseDaoImpl {
 	 * @return List<SyrkSyrkxxzb> 返回类型
 	 * @throws
 	 */
-	@SuppressWarnings("unchecked")
 	public List<SyrkSyrkxxzb> queryRyGxzrqList(String ryid) {
 		if (StringUtils.isBlank(ryid)) {
 			return null;
@@ -254,7 +253,6 @@ public class SyrkSyrkxxzbDao extends BaseDaoImpl {
 	 * @return void    返回类型
 	 * @throws
 	 */
-	@SuppressWarnings("unchecked")
 	public List<SyrkSyrkxxzb> queryHsbSyrkidByZjhm(Map<String,String> map){
 		return queryForList("SyrkSyrkxxzb.querySyrkByZjhm", map);
 	}
@@ -279,7 +277,12 @@ public class SyrkSyrkxxzbDao extends BaseDaoImpl {
 			map.put("tableName", "SYRK_SYRKXXZB T");
 		}
 		List<?> list = queryForList("SyrkSyrkxxzb.querySyrk", map);
-		if (page.getBegin() == 0) {
+		
+	    int count = (Integer)queryForObject("SyrkSyrkxxzb.querySyrkCount", map);
+	    
+	    page.setTotal(count);
+	    
+		/*if (page.getBegin() == 0) {
 			if (list != null && list.size() > 0) {
 				page.setTotal(list.size());
 			} else {
@@ -291,7 +294,7 @@ public class SyrkSyrkxxzbDao extends BaseDaoImpl {
 					page.setTotal(list.size());
 				}
 			}
-		}
+		}*/
 		page.setRows(list);
 		return page;
 	}
@@ -316,38 +319,9 @@ public class SyrkSyrkxxzbDao extends BaseDaoImpl {
 		Integer count = (Integer) queryForObject("SyrkSyrkxxzb.querySyrkCount",map);
 		return count.longValue();
 	}
-	/**
-	 * @Title: dataApply 
-	 * @描述: 验证境外人员是否存在多条数据，存在后发送消息提醒
-	 * @作者: zhang_guoliang@founder.com 
-	 * @参数: 传入参数定义 
-	 * @日期： 2015-6-2 上午9:28:49 
-	 * @返回值: List<SyrkSyrkxxzb>    返回类型 
-	 * @throws
-	 */
-	@SuppressWarnings("unchecked")
-	public List<SyrkSyrkxxzb> dataApply(String cyzjdm,String zjhm,String syrkywlxdm){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("cyzjdm", cyzjdm);
-		map.put("zjhm", zjhm);
-		map.put("syrkywlxdm", syrkywlxdm);
-		return queryForList("SyrkSyrkxxzb.dataApply", map);
-	}
 	
-	/**
-	 * 
-	 * @Title: querySyrkByZj
-	 * @Description: TODO(根据证件查实有人口)
-	 * @param @param cyzjdm 证件类型
-	 * @param @param zjhm 证件号码
-	 * @param @return    设定文件
-	 * @return SyrkSyrkxxzb    返回类型
-	 * @throw
-	 */
-	public SyrkSyrkxxzb querySyrkByZj(String cyzjdm,String zjhm) {
-		SyrkSyrkxxzb entity = new SyrkSyrkxxzb();
-		entity.setCyzjdm(cyzjdm);
-		entity.setZjhm(zjhm);		
-		return (SyrkSyrkxxzb) queryForObject("SyrkSyrkxxzb.queryByZJ",entity);		
+	
+	public List<SyrkSyrkxxzb> queryList(SyrkSyrkxxzb entity){
+		return (List<SyrkSyrkxxzb>)queryForList("SyrkSyrkxxzb.queryList", entity);
 	}
 }

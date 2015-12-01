@@ -86,23 +86,7 @@ public class LkyjzlczFkb extends BaseEntity implements Serializable {
 	private String czfkxxbh;
 	@FieldDesc("处置措施细类 采用GA XXX.2中的“重点人员处置措施细类代码”")
 	private String czcsxl;
-	@FieldDesc("接口发送状态， ‘0’发送成功；‘1’发送失败")
-	private String fszt;
-	@FieldDesc("接口调用状态码")
-	private String code;
 	
-	public String getFszt() {
-		return fszt;
-	}
-	public void setFszt(String fszt) {
-		this.fszt = fszt;
-	}
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
 	public String getCzcsxl() {
 		return czcsxl;
 	}

@@ -88,30 +88,6 @@ public class LkyjzlDao extends BaseDaoImpl {
 	}
 	
 	/**
-	 * @Title: updateLkyjzlczFkb
-	 * @Description: TODO(更新长控指令反馈表调用ws接口状态)
-	 * @param @param entity
-	 * @param @return    设定文件
-	 * @return int    返回类型
-	 * @throws
-	 */
-	public int updateLkyjzlczFkb(LkyjzlczFkb entity) {
-		return update("Lkyjzl.updateLkyjzlczFkb", entity); 
-	}
-	
-	/**
-	 * @Title: updateLkyjzlqsb
-	 * @Description: TODO(临控预警指令签收调用ws接口庄状态码更新)
-	 * @param @param entity
-	 * @param @return    设定文件
-	 * @return int    返回类型
-	 * @throws
-	 */
-	public int updateLkyjzlqsb(LkyjzlQsb entity) {
-		return update("Lkyjzl.updateLkyjzlqsb", entity); 
-	}
-	
-	/**
 	 * @Title: saveLkyjzlQs
 	 * @Description: TODO(新增预警指令签收数据)
 	 * @param @param entity

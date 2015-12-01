@@ -47,7 +47,7 @@
 						onClickRow:SyfwQuery.onClickRow">
 			        <thead>
 			          <tr>
-			           	<th data-options="field:'fwlbdm',width:70,align:'left',halign:'center',sortable:true,formatter:dictFormatter,dictName:contextPath+'/common/dict/D_BZ_FWLBDM.js'">房屋类别</th>
+			           	<th data-options="field:'fwlbdm',width:70,align:'left',halign:'center',sortable:true,formatter:dictFormatter,dictName:contextPath+'/common/dict/ZA_D_FWLBDM.js'">房屋类别</th>
 						<th data-options="field:'fwdz_dzxz',width:200,align:'right',halign:'center',formatter:subjzdz,sortable:true">房屋地址</th>
 						<th data-options="field:'fz_xm',width:70,align:'center',halign:'center',sortable:true">房主</th>
 						<th data-options="field:'sfczfw',width:70,align:'center',halign:'center',sortable:true,formatter:dictFormatter,dictName:contextPath+'/common/dict/D_BZ_SF.js'">出租房屋</th>
@@ -102,7 +102,7 @@
 							<td width="70%" class="dialogTd"><input
 								class="easyui-combobox" type="text" id="fwlbdm" name="fwlbdm"
 								style="width:150px;"
-								data-options="url: contextPath + '/common/dict/D_BZ_FWLBDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'" />
+								data-options="url: contextPath + '/common/dict/ZA_D_FWLBDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'" />
 							</td>
 						</tr>
 						<tr class="dialogTr">

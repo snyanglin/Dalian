@@ -20,13 +20,17 @@ import org.aspectj.lang.annotation.Pointcut;
 import com.founder.bzdz.service.DzService;
 import com.founder.bzdz.vo.BzdzxxbVO;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
+import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.StringUtils;
-import com.founder.sydw.bean.Cyryxxb;
+import com.founder.sydw_dl.bean.Cyryxxb;
 import com.founder.syrkgl.bean.SyrkCzrkxxb;
 import com.founder.syrkgl.dao.SyrkSyrkxxzbDao;
 import com.founder.ywxt.bean.Ywxtcyryxxb;
+import com.founder.ywxt.bean.Ywxtsfqypzb;
 import com.founder.ywxt.factory.XtFactory;
+import com.founder.ywxt.service.AbstractXtTask;
 import com.founder.ywxt.service.XtTaskService;
+import com.founder.ywxt.service.YwxtsfqypzService;
 
 /**
  * ****************************************************************************
@@ -52,7 +56,11 @@ public class SydwModelInterceptor {
 	private XtFactory xtFactory;
 	@Resource(name = "orgOrganizationService")
 	private OrgOrganizationService orgOrganizationService;
+	@Resource
+	private YwxtsfqypzService ywxtsfqypzService;
 
+	
+	private static String YWXTLX_CYRYSYRKXT="05";
 	/***
 	 * 
 	 * @Title: srykPoint
@@ -61,7 +69,7 @@ public class SydwModelInterceptor {
 	 * @return void 返回类型
 	 * @throws
 	 */
-	@Pointcut("execution(* com.founder.sydw.dao.*.*(..))")
+	@Pointcut("execution(* com.founder.sydw_dl.dao.*.*(..))")
 	public void srdwPoint() {
 	}
 
@@ -85,8 +93,11 @@ public class SydwModelInterceptor {
 			try {
 				for (int i = 0; i < args.length; i++) {
 					if (args[i] instanceof Cyryxxb) {
-						// 从业人员人口协同
-						cyrySyrkXt(args[i]);
+					  
+							// 从业人员人口协同
+							cyrySyrkXt(args[i]);
+					   
+					
 					}
 				}
 			} catch (SecurityException e) {
@@ -121,7 +132,7 @@ public class SydwModelInterceptor {
 	 *             *
 	 * 
 	 * @Title: rhflXt
-	 * @Description: TODO(分户分离协同，根据证件号码和证件种类，查询非本责任区情况)
+	 * @Description: TODO(分户分离协同，根据证件号码和证件类型，查询非本责任区情况)
 	 * @param @param C 设定文件
 	 * @return void 返回类型
 	 * @throws
@@ -130,6 +141,11 @@ public class SydwModelInterceptor {
 			NoSuchMethodException, IntrospectionException,
 			IllegalArgumentException, IllegalAccessException,
 			InvocationTargetException {
+		 Ywxtsfqypzb pz =ywxtsfqypzService.queryByYwxtlx(YWXTLX_CYRYSYRKXT);
+		   if(pz!=null &&pz.getSfqy().equals("0")){
+			   return;
+		   }
+		
 		Class refClass = obj.getClass();
 		// 这里bean内key值必须通用类型，由于没有抽象父类
 		PropertyDescriptor dzXzzdmP = new PropertyDescriptor("dz_xzzdmlpdm", refClass);
@@ -191,12 +207,18 @@ public class SydwModelInterceptor {
 		ywxtcyryxxb.setSspcs(orgOrganizationService.queryParentOrgByOrgcode(sszrq).getOrgcode());
 		ywxtcyryxxb.setSszrq(sszrq);
 		ywxtcyryxxb.setXtdz("发起");
+		ywxtcyryxxb.setXtjg(AbstractXtTask.RIGHT);
+		ywxtcyryxxb.setXt_cjsj(DateUtils.getSystemDateTimeString());
+		ywxtcyryxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		listCyr.add(ywxtcyryxxb);
 		Map<String,String> jsMap=new HashMap<String,String>();
 		ywxtcyryxxb=new Ywxtcyryxxb();
 		ywxtcyryxxb.setSspcs(pcsdm);
 		ywxtcyryxxb.setSszrq(zrqdm);
 		ywxtcyryxxb.setXtdz("接收");
+		ywxtcyryxxb.setXtjg(AbstractXtTask.ERROR);
+		ywxtcyryxxb.setXt_cjsj(DateUtils.getSystemDateTimeString());
+		ywxtcyryxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		listCyr.add(ywxtcyryxxb);
 		paramMap.put("users", listCyr);
 		//这里拼接JSONMap用于生产JSON

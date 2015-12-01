@@ -75,21 +75,13 @@
 						<tr>
 						    <td class="dialogTd" style="width:80px;" align="right">管辖派出所：</td>
 							<td class="dialogTd" style="width:137px;" align="right"> 
-								<input type="text" name='pcsdm' id="pcsdm" class="easyui-combobox"
-						            data-options="valueField:'id',textField:'text',method:'get',selectOnNavigation:false,isTopLoad:false,
-						             			  url:contextPath + '/orgPublicSelect/queryComboBoxList?orgLevel=32&parentOrgCode=<%=userOrgCode%>',
-					         					  onChange:function(newValue, oldValue){var parentOrgCode = $('#pcsdm').combobox('getValue');
-					         		                       if(parentOrgCode==''){
-					         		                          $('#zrqdm').combobox('loadData', []);
-					         		                       }else{
-					         		                         var url = contextPath + '/orgPublicSelect/queryComboBoxList?orgLevel=50&parentOrgCode='+parentOrgCode;    
-		   													 $('#zrqdm').combobox('reload', url);
-					         		                       }}" style="width:137px;"/>
+							    <input id="pcsdm" name='pcsdm' class="easyui-combobox" data-options="valueField:'id',textField:'text',url:'<%=contextPath%>/gzjk/queryOrgLower?orgCode=<%=userOrgCode%>',
+						         onSelect:function(rec){var url='<%=contextPath%>/gzjk/queryOrgLowest?orgCode='+rec.id;$('#zrqdm').combobox('reload',url);}" style="width:137px;"/>
 							</td>
 							<td class="toolbarTd"><div class="datagrid-btn-separator"></div></td>
 							<td class="dialogTd" style="width:80px;" align="right">管辖责任区：</td>
 							<td class="dialogTd" style="width:137px;" align="right"> 
-								 <input type="text" id="zrqdm" name="zrqdm" class="easyui-combobox" data-options="valueField:'id',textField:'text',method:'get',selectOnNavigation:false,isTopLoad:false" style="width:137px;"/>
+								 <input id="zrqdm" name="zrqdm" class="easyui-combobox" data-options="valueField:'id',textField:'text'" style="width:137px;"/>
 							</td>
 							<td class="toolbarTd"><div class="datagrid-btn-separator"></div></td>
 							<td class="toolbarTd" align="left">

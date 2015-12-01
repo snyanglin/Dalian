@@ -305,7 +305,7 @@ function loadRelationMessage() {
 }
 
 /*
- * 证件种类验证绑定
+ * 证件类型验证绑定
  */
 function validateZjhm(param,name){
 	$('#'+name+'zjhm').val("");
@@ -321,7 +321,7 @@ function validateZjhm(param,name){
 
 
 /*
- * 根据证件种类与号码 ，进行人员比对，复用
+ * 根据证件类型与号码 ，进行人员比对，复用
  * name 模块名称
  */
 function checkZjhm(name){

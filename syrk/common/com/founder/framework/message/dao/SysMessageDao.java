@@ -9,22 +9,14 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.util.WebUtils;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
-import com.founder.framework.config.SystemConfig;
 import com.founder.framework.message.bean.SysMessage;
-import com.founder.framework.message.webservice.ITipInfoWebService;
-import com.founder.framework.message.webservice.TipBean;
-import com.founder.framework.message.webservice.TipInfoWebServiceImplService;
 import com.founder.framework.organization.assign.vo.OrgUserInfo;
 import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.EasyUIPage;
@@ -71,7 +63,6 @@ public class SysMessageDao extends BaseDaoImpl {
 				entity.setJslx("0"); // 默认接收类型为人员
 			}
 			insert("Message.save", entity);
-			sysMessageSend(entity);
 			returnValue = entity.getId();
 		}
 		return returnValue;
@@ -128,7 +119,6 @@ public class SysMessageDao extends BaseDaoImpl {
 					saveEntity.setYwurl(ywurl);
 				}
 				insert("Message.save", saveEntity);
-				sysMessageSend(entity);
 				returnArray[i] = saveEntity.getId();
 			}
 		}
@@ -177,7 +167,6 @@ public class SysMessageDao extends BaseDaoImpl {
 					saveEntity.setJsrssdwdm(userInfo.getOrgcode());
 					saveEntity.setSfck("0");
 					saveEntity.setXxbt(entity.getXxbt());
-					saveEntity.setDkfs(entity.getDkfs());
 					String ywurl = entity.getYwurl();
 					if (!StringUtils.isBlank(ywurl)) {
 						if (ywurl.indexOf("?") == -1) {
@@ -188,7 +177,6 @@ public class SysMessageDao extends BaseDaoImpl {
 						saveEntity.setYwurl(ywurl);
 					}
 					insert("Message.save", saveEntity);
-					sysMessageSend(entity);
 					returnArray[i] = saveEntity.getId();
 				}
 			}
@@ -391,20 +379,20 @@ public class SysMessageDao extends BaseDaoImpl {
 			map.put("orgCodeCondition", orgCodeCondition);
 			String orgParameterCondition = "";
 			if (!StringUtils.isBlank(orgType)) {
-				orgParameterCondition = "org.ORGTYPE = '" + orgType + "'";
+				orgParameterCondition = "a.ORGTYPE = '" + orgType + "'";
 			}
 			if (!StringUtils.isBlank(orgLevel)) {
 				if (!StringUtils.isBlank(orgParameterCondition)) {
 					orgParameterCondition += " and ";
 				}
-				orgParameterCondition = "org.ORGLEVEL in ('"
+				orgParameterCondition = "a.ORGLEVEL in ('"
 						+ orgLevel.replaceAll(",", "','") + "')";
 			}
 			if (!StringUtils.isBlank(orgBizType)) {
 				if (!StringUtils.isBlank(orgParameterCondition)) {
 					orgParameterCondition += " and ";
 				}
-				orgParameterCondition += "org.ORGBIZTYPE in ('"
+				orgParameterCondition += "a.ORGBIZTYPE in ('"
 						+ orgBizType.replaceAll(",", "','") + "')";
 			}
 			if (StringUtils.isBlank(orgParameterCondition)) {
@@ -680,7 +668,7 @@ public class SysMessageDao extends BaseDaoImpl {
 	}
 
 	/**
-	 * 联系电话变更提醒
+	 * 联系电话变更提醒 (先注掉此方法 之前的sqlmap里的查询语句是老版实有人口  表已经对不上了)
 	 * 
 	 * @param map
 	 *            (ryid:人员id, lxdh:联系电话, ywmc:业务名称)
@@ -689,7 +677,7 @@ public class SysMessageDao extends BaseDaoImpl {
 	 *            是否排除当前用户责任区
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
+	/*@SuppressWarnings("unchecked")
 	public String lxdhBgTx(Map<String, Object> map, SessionBean sessionBean,
 			boolean check) {
 		String returnValue = "0";
@@ -711,10 +699,10 @@ public class SysMessageDao extends BaseDaoImpl {
 					String xxnr = "";
 					Map<String, String> tempMap = new HashMap<String, String>();
 					for (Map<String, Object> entity : list) { // 数据规则的话只有一条记录
-						/*
+						
 						 * if(StringUtils.isBlank(entity.get("ZDRYID"))){//不是重点人员
 						 * break; }
-						 */
+						 
 						if (StringUtils.isBlank(entity.get("GXZRQDM"))) {// 无所属责任区
 							break;
 						} else {
@@ -734,7 +722,7 @@ public class SysMessageDao extends BaseDaoImpl {
 						if (!StringUtils.isBlank(entity.get("XM"))) {
 							tempMap.put("xm", entity.get("XM").toString());
 						}
-						/*
+						
 						 * if(!StringUtils.isBlank(map.get("lxdh"))){
 						 * if(!StringUtils.isBlank(entity.get("LXFS"))){//原值不为空
 						 * if
@@ -743,7 +731,7 @@ public class SysMessageDao extends BaseDaoImpl {
 						 * }else{//原值为空
 						 * if(StringUtils.isBlank(map.get("lxdh"))){//未发生变化
 						 * break; } } }
-						 */
+						 
 						if (entity.get("ZB_RYID") != null) {// 联系方式子表的ryid字段不为空,说明已存在此联系电话
 							break;
 						}
@@ -777,7 +765,7 @@ public class SysMessageDao extends BaseDaoImpl {
 							// saveMessageByUser(sysMsg, "admin");
 							saveMessageToAdmin(sysMsg, "admin", false, false);
 							// 更新人员联系方式子表
-							/*
+							
 							 * Rylxfszb entity = new Rylxfszb();
 							 * entity.setRyid(map.get("ryid").toString());
 							 * entity
@@ -786,7 +774,7 @@ public class SysMessageDao extends BaseDaoImpl {
 							 * BaseService.setUpdateProperties(entity,
 							 * sessionBean); update("Message.updateRylxdh",
 							 * entity);
-							 */
+							 
 						}
 					}
 				}
@@ -797,7 +785,7 @@ public class SysMessageDao extends BaseDaoImpl {
 		}
 		return returnValue;
 	}
-
+*/
 
 
 	public String url(String type, Map map, SessionBean sessionBean,
@@ -971,39 +959,4 @@ public class SysMessageDao extends BaseDaoImpl {
 		return sb.toString().substring(0, sb.toString().lastIndexOf(","));
 	}
 
-	/**
-	 * 
-	 * @Title: sysMessageSend
-	 * @Description: 消息推送调用webservice接口数据发送到东软门户。
-	 * @param @param sysMessage    设定文件
-	 * @return void    返回类型
-	 * @throws
-	 */
-	public  void sysMessageSend(SysMessage sysMessage){
-		TipInfoWebServiceImplService tip= new TipInfoWebServiceImplService(); 
-		ITipInfoWebService ms = tip.getTipInfoWebServiceImplPort(); 
-		TipBean tib = new TipBean();  
-		tib.setUploadFrom(SystemConfig.getString("systemName"));
-		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
-		SessionBean sessionBean = (SessionBean)WebUtils.getSessionAttribute(request, "userSession");
-		String ip = sessionBean.getRemoteAddr();
-		String userId = sessionBean.getUserId();
-		tib.setUploadIP(ip);
-		Date now = new Date();
-		long time = now.getTime();
-		tib.setUploadDate(time);
-		tib.setUserID(userId);
-//		tib.setUserPKIID(value);
-		tib.setTipTitle(sysMessage.getXxbt());
-		tib.setTipBigType("1");
-		tib.setTipType("1");
-//		tib.setTipDate(value);
-		String contextPath = request.getContextPath();
-		String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + contextPath + "/";
-		String url = basePath + "sysMessage/view?id="+sysMessage.getId();
-		tib.setTipURL(url);
-		tib.setWinWidth(880);
-		tib.setWinHeight(420);
-		String  result = ms.sendTip(tib);
-	}
 }

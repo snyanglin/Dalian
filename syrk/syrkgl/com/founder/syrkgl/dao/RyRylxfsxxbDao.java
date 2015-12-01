@@ -127,6 +127,7 @@ public class RyRylxfsxxbDao extends BaseDaoImpl {
 	public RyRylxfsxxb queryLxfsValidLs(String ryid, String lxfs){
 		RyRylxfsxxb entity = new RyRylxfsxxb();
 		entity.setLxfs(lxfs);
+		entity.setRyid(ryid);
 		List<RyRylxfsxxb> list = queryForList("RyRylxfsxxb.queryLxfsValidLs", entity);
 		RyRylxfsxxb returnVal = new RyRylxfsxxb();
 		if(list != null && list.size() > 0){

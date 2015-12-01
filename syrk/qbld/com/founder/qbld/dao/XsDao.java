@@ -72,17 +72,5 @@ public class XsDao extends BaseDaoImpl {
 		insert("Xscjb.saveXscjb", entity); 
 		return entity.getJlid();
 	}
-
-	/**
-	 * @Title: updateXsb
-	 * @Description: TODO(记录调用ws接口报错字段信息)
-	 * @param @param entity
-	 * @param @return    设定文件
-	 * @return int    返回类型
-	 * @throws
-	 */
-	public int updateXsb(Xscjb entity) {
-		return update("Xscjb.updateXsb", entity); 
-	}
 	
 }

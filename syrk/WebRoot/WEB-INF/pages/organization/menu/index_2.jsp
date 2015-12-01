@@ -59,8 +59,8 @@ if (userInfo != null) {
 				 <area shape="rect" coords="361,292,486,424" href="javascript:void(0);" 	onclick="window.open('http://10.80.5.226:7001/bzdz/userLogin_loginExternal.action?userId=<%=userID %>')"/>
 				 <area shape="rect" coords="215,384,322,525" href="javascript:void(0);" 	onclick="window.open('http://10.80.5.226:7001/bzdz/userLogin_loginExternal.action?userId=<%=userID %>')"/>
 				 
-				 <area shape="rect" coords="41,309,171,425"  href="javascript:void(0);" 	 onclick="openWinDow('实有单位管理','/sydwcx/queryDwByLx')"/>
-				 <area shape="rect" coords="47,116,169,252"  href="javascript:void(0);" 	onclick="openWinDow('实有单位核实','/forward/sydw|sydwHs')"/>
+				 <area shape="rect" coords="41,309,171,425"  href="javascript:void(0);" 	 onclick="openWinDow('实有单位管理','/sydwcx_dl/queryDwByLx')"/>
+				 <area shape="rect" coords="47,116,169,252"  href="javascript:void(0);" 	onclick="openWinDow('实有单位核实','/forward/sydw_dl|sydwHs')"/>
 				 <area shape="rect" coords="192,212,321,332" href="javascript:void(0);" 	onclick="openWinDow('消息提醒','/forward/message|sysMessage')"	/>
 			</map>
 	</div>

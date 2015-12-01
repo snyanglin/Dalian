@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sun.misc.BASE64Decoder;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
+import com.founder.framework.exception.BussinessException;
 import com.founder.framework.utils.BeanUtils;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
@@ -319,14 +320,12 @@ public class RyRyjbxxbServiceImpl implements RyRyjbxxbService {
 		RyRyjbxxb ryRyjbxxb = null;
 		if (!StringUtils.isBlank(zjhm)) {
 			ryRyjbxxb = ryRyjbxxbDao.queryByCyzjdmZjhm(cyzjdm, zjhm);
-			boolean invokeRequestService = false;
 			boolean insertRyJbxx = false;
 			boolean insertPicture = false;
 			if ("111".equals(cyzjdm) || "112".equals(cyzjdm)
 					|| "335".equals(cyzjdm)) { // 身份证类型、临时身份证、机动车驾驶证
 				if (ryRyjbxxb == null) {
 					insertRyJbxx = true;
-					invokeRequestService = true;
 					insertPicture = true;
 				} else {
 					ZpfjPtryzpglb zpfjPtryzpglb = new ZpfjPtryzpglb();
@@ -334,12 +333,11 @@ public class RyRyjbxxbServiceImpl implements RyRyjbxxbService {
 					long pictureCount = zpfjPtryzpDao
 							.queryPtryzpCount(zpfjPtryzpglb);
 					if (pictureCount == 0) {
-						invokeRequestService = true;
 						insertPicture = true;
 					}
 				}
-				if (invokeRequestService) {
-					String url = "http://10.78.17.238:9999/lbs";
+				String url = "http://10.78.17.238:9999/lbs";
+				if (insertRyJbxx) {
 					String urlParameter = "operation=GetPersonInfoByID&content=";
 					String content = "{\"data\":[{\"czrkgmsfhm\":\"" + zjhm
 							+ "\"}]}";
@@ -398,87 +396,96 @@ public class RyRyjbxxbServiceImpl implements RyRyjbxxbService {
 									ryRyjbxxbDao.save(ryRyjbxxb, sessionBean);
 								}
 
+							}else{
+								logger.debug("调用全国常住人口信息失败！");
+								throw new BussinessException("调用全国常住人口失败！");
 							}
 						} else {
-							logger.debug("调用全国常住人口失败！错误码：" + statusCode);
+							logger.debug("调用全国常住人口信息失败！");
+							throw new BussinessException("调用全国常住人口失败！");
 						}
 					} catch (Exception e) {
-						e.printStackTrace();
+						throw new BussinessException("调用全国常住人口失败！");
 					}
-					if (insertPicture) {
-						String zpParameter = "operation=GetPersonPhotoByID&content=";
-						String zpContent = "{\"data\":[{\"rybh\":\"" + zjhm
-								+ "\"}]}";
-						try {
+				
+				}
+				if (insertPicture) {
+					String zpParameter = "operation=GetPersonPhotoByID&content=";
+					String zpContent = "{\"data\":[{\"rybh\":\"" + zjhm
+							+ "\"}]}";
+					try {
 
-							zpContent = zpParameter
-									+ java.net.URLEncoder.encode(zpContent,
-											"UTF-8");
-							PostMethod postMethod = new PostMethod(url);
-							byte[] b = zpContent.getBytes("utf-8");
-							InputStream is = new ByteArrayInputStream(b, 0,
-									b.length);
-							RequestEntity re = new InputStreamRequestEntity(is,
-									b.length,
-									"application/soap+xml; charset=utf-8");
-							postMethod.setRequestEntity(re);
-							HttpClient httpClient = new HttpClient();
-							HttpConnectionManagerParams managerParams = httpClient
-									.getHttpConnectionManager().getParams();
-							managerParams.setConnectionTimeout(50000);
-							int statusCode = httpClient
-									.executeMethod(postMethod);
-							if (statusCode == 200) {
-								logger.debug("调用成功！");
-								String soapResponseData = postMethod
-										.getResponseBodyAsString();
-								JSONObject jb = JSONObject
-										.fromObject(soapResponseData);
-								if ((Integer) jb.get("datalen") > 0) {
-									JSONObject jo = jb.getJSONArray("data")
-											.getJSONObject(0);
-									byte[] pictureByte = null;
-									try {
-										pictureByte = new BASE64Decoder()
-												.decodeBuffer(jo
-														.getString("photo"));
-									} catch (Exception ex) {
-									}
-									if (pictureByte != null) {
-										ZpfjPtryzpxxb zpfjPtryzpxxb = new ZpfjPtryzpxxb();
-										zpfjPtryzpxxb.setId(UUID.create());
-										zpfjPtryzpxxb.setZp(pictureByte);
-										zpfjPtryzpxxb.setZpslt(pictureByte);
-										BaseService.setSaveProperties(
-												zpfjPtryzpxxb, sessionBean);
-										zpfjPtryzpDao.savePtryzpxxb(
-												zpfjPtryzpxxb, null);
-										ZpfjPtryzpglb zpfjPtryzpglb = new ZpfjPtryzpglb();
-										zpfjPtryzpglb.setId(UUID.create());
-										zpfjPtryzpglb
-												.setRyid(ryRyjbxxb.getId());
-										zpfjPtryzpglb.setZpid(zpfjPtryzpxxb
-												.getId());
-										zpfjPtryzpglb.setLyms("人员基本信息表");
-										zpfjPtryzpglb
-												.setLyid(ryRyjbxxb.getId());
-										zpfjPtryzpglb.setLybm("RY_RYJBXXB");
-										BaseService.setSaveProperties(
-												zpfjPtryzpglb, sessionBean);
-										zpfjPtryzpDao.savePtryzpglb(
-												zpfjPtryzpglb, null);
-									}
-
-								} else {
-									System.out.println("调用照片失败！错误码："
-											+ statusCode);
+						zpContent = zpParameter
+								+ java.net.URLEncoder.encode(zpContent,
+										"UTF-8");
+						PostMethod postMethod = new PostMethod(url);
+						byte[] b = zpContent.getBytes("utf-8");
+						InputStream is = new ByteArrayInputStream(b, 0,
+								b.length);
+						RequestEntity re = new InputStreamRequestEntity(is,
+								b.length,
+								"application/soap+xml; charset=utf-8");
+						postMethod.setRequestEntity(re);
+						HttpClient httpClient = new HttpClient();
+						HttpConnectionManagerParams managerParams = httpClient
+								.getHttpConnectionManager().getParams();
+						managerParams.setConnectionTimeout(50000);
+						int statusCode = httpClient
+								.executeMethod(postMethod);
+						if (statusCode == 200) {
+							logger.debug("调用成功！");
+							String soapResponseData = postMethod
+									.getResponseBodyAsString();
+							JSONObject jb = JSONObject
+									.fromObject(soapResponseData);
+							if ((Integer) jb.get("datalen") > 0) {
+								JSONObject jo = jb.getJSONArray("data")
+										.getJSONObject(0);
+								byte[] pictureByte = null;
+								try {
+									pictureByte = new BASE64Decoder()
+											.decodeBuffer(jo
+													.getString("photo"));
+								} catch (Exception ex) {
 								}
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
+								if (pictureByte != null) {
+									ZpfjPtryzpxxb zpfjPtryzpxxb = new ZpfjPtryzpxxb();
+									zpfjPtryzpxxb.setId(UUID.create());
+									zpfjPtryzpxxb.setZp(pictureByte);
+									zpfjPtryzpxxb.setZpslt(pictureByte);
+									BaseService.setSaveProperties(
+											zpfjPtryzpxxb, sessionBean);
+									zpfjPtryzpDao.savePtryzpxxb(
+											zpfjPtryzpxxb, null);
+									ZpfjPtryzpglb zpfjPtryzpglb = new ZpfjPtryzpglb();
+									zpfjPtryzpglb.setId(UUID.create());
+									zpfjPtryzpglb
+											.setRyid(ryRyjbxxb.getId());
+									zpfjPtryzpglb.setZpid(zpfjPtryzpxxb
+											.getId());
+									zpfjPtryzpglb.setLyms("人员基本信息表");
+									zpfjPtryzpglb
+											.setLyid(ryRyjbxxb.getId());
+									zpfjPtryzpglb.setLybm("RY_RYJBXXB");
+									BaseService.setSaveProperties(
+											zpfjPtryzpglb, sessionBean);
+									zpfjPtryzpDao.savePtryzpglb(
+											zpfjPtryzpglb, null);
+								}
 
+							} else {
+								logger.debug("调用全国常住人口照片失败,没有照片信息！");
+							}
+						}else{
+							logger.debug("调用全国常住人口照片失败！" );
+							
+						}
+					} catch (Exception e) {
+						if(insertRyJbxx){
+							throw new BussinessException("调用全国常住人口失败！");
+						}
 					}
+
 				}
 			}
 		}
@@ -667,6 +674,7 @@ public class RyRyjbxxbServiceImpl implements RyRyjbxxbService {
 		// jbxx.setHjd_mlpxz(entity.getHjd_mlpxz());
 		// jbxx.setHjd_dzid(entity.getHjd_dzid());
 		// jbxx.setHjd_dzxz(entity.getHjd_dzxz());
+		jbxx.setHjd_dzms(entity.getHjd_dzms());
 		BaseService.setSaveProperties(jbxx, sessionBean);
 		ryRyjbxxbDao.update(jbxx, sessionBean);
 	}

@@ -36,8 +36,8 @@
 	    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="czrk_mzdm" name="mzdm" value="${czrk.mzdm}" style="width:200px;" 
 				data-options="url: contextPath + '/common/dict/GB_D_MZDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right'"/></td> 
 	    	<td width="20%" class="dialogTd" align="right">联系电话：</td>
-    		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="czrk_lxdh" name="lxdh" value="${czrk.lxdh}" style="width:200px;" maxlength="18"
-				data-options="validType:['phone'],charSet:'half',tipPosition:'left'" onblur="checkLxdh('czrk_lxdh','ryid')"/></td>
+    		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="czrk_lxdh" name="lxdh" value="${czrk.lxdh}" style="width:200px;" maxlength="11"
+				data-options="validType:['mobile'],charSet:'half',tipPosition:'left'" onblur="checkLxdh('czrk_lxdh','ryid')"/></td>
       	</tr>
       	<tr class="dialogTr">
 	    	<td width="20%" class="dialogTd" align="right">出生国家：</td>
@@ -122,7 +122,7 @@
 					    	<input type="hidden" id="czrk_jzd_mlpxz" name="jzd_mlpxz" value="${czrk.jzd_mlpxz}"/>
 				    	</td>
 				    	<td width="30%" class="dialogTd" align="left">
-					    	<input class="easyui-combobox" id="czrk_jzd2" style="width:200px;" value="${fn:replace(czrk.jzd_dzxz, czrk.jzd_mlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    	<input class="easyui-combobox" id="czrk_jzd2" style="width:200px;" value='${fn:replace(czrk.jzd_dzxz, czrk.jzd_mlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    	<input type="hidden" id="czrk_jzd_dzid" name="jzd_dzid" value="${czrk.jzd_dzid}"/>
 					    	<input type="hidden" id="czrk_jzd_xzqhdm" name="jzd_xzqhdm" value="${czrk.jzd_xzqhdm}"/>
 					    	<input type="hidden" id="czrk_jzd_dzxz" name="jzd_dzxz" value="${czrk.jzd_dzxz}"/>
@@ -156,7 +156,7 @@
 		    	<input type="hidden" id="czrk_lbsqk_lzd_mlpxz" name="lbsqk_lzd_mlpxz" value="${czrk.lbsqk_lzd_mlpxz}"/>
 	    	</td>
 	    	<td width="30%" class="dialogTd" align="left">
-		    	<input class="easyui-combobox" id="czrk_lbsqk_lzd2" style="width:200px;" value="${fn:replace(czrk.lbsqk_lzd_dzxz, czrk.lbsqk_lzd_mlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+		    	<input class="easyui-combobox" id="czrk_lbsqk_lzd2" style="width:200px;" value='${fn:replace(czrk.lbsqk_lzd_dzxz, czrk.lbsqk_lzd_mlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 		    	<input type="hidden" id="czrk_lbsqk_lzd_dzid" name="lbsqk_lzd_dzid" value="${czrk.lbsqk_lzd_dzid}"/>
 		    	<input type="hidden" id="czrk_lbsqk_lzd_xzqhdm" name="lbsqk_lzd_xzqhdm" value="${czrk.lbsqk_lzd_xzqhdm}"/>
 		    	<input type="hidden" id="czrk_lbsqk_lzd_dzxz" name="lbsqk_lzd_dzxz" value="${czrk.lbsqk_lzd_dzxz}"/>
@@ -179,14 +179,13 @@ function doInit(paramArray) {
 
 	setInputReadonly("czrk_gmsfhm", true);
 	//setInputReadonly("czrk_hjd_dzxz", true);
-	setInputReadonly("czrk_jzd1", true);
-	setInputReadonly("czrk_jzd2", true);
+	
 	if($("#czrk_jzd_dzid").val()==""&&$("#czrk_jzd2").val()!=""){
 		setInputReadonly("czrk_jzd1", false);
 		setInputReadonly("czrk_jzd2", false);
 	}
 	
-
+	setInputReadonly("czrk_hjd_dzxz", true);
 	// 大数据的下拉列表初始化
 	initComboBox("czrk_csdssxdm", contextPath + "/common/dict/GB_D_XZQHDMLIST.js"); 
 	initComboBox("czrk_jgssxdm", contextPath + "/common/dict/GB_D_XZQHDMLIST.js"); 
@@ -197,7 +196,8 @@ function doInit(paramArray) {
 	initAddressSearch("czrk_jzd1", {zrqdm:'#czrk_zrqdm'}, "czrk_jzd_mlpdm", "czrk_jzd_mlpxz", "czrk_jzd2", {text:"czrk_jzd_dzxz",dzxzqh:"czrk_jzd_xzqhdm",id:"czrk_jzd_dzid",dzzbx:"czrk_jzd_zbx",dzzby:"czrk_jzd_zby"}, null, null);
 	czrk_jggjdqdm_onChange($("#czrk_jggjdqdm").combobox("getValue"));
 	
-	
+	setInputReadonly("czrk_jzd1", true);
+	setInputReadonly("czrk_jzd2", true);
 }
 
 function beforeSubmit() {

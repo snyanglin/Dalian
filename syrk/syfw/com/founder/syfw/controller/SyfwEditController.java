@@ -31,6 +31,7 @@ import com.founder.syfw.bean.Czfwjcxxb;
 import com.founder.syfw.bean.Czfwxxb;
 import com.founder.syfw.bean.FwCzqkdjxxb;
 import com.founder.syfw.bean.Fwjbxxb;
+import com.founder.syfw.service.CzfwzbService;
 import com.founder.syfw.service.SyfwEditService;
 import com.founder.syfw.service.SyfwQueryService;
 import com.founder.syfw.vo.FwEditVO;
@@ -64,6 +65,8 @@ public class SyfwEditController extends BaseController {
 
 	@Resource(name = "syfwQueryService")
 	private SyfwQueryService syfwQueryService;
+	@Resource
+	private CzfwzbService czfwzbService;
 
 	/**
 	 * v3
@@ -151,27 +154,7 @@ public class SyfwEditController extends BaseController {
 			entity.setSs4jbmdm(sessionBean.getUserOrgCode());
 		} 
 		//增加查询条件 end
-		EasyUIPage uipage =  syfwQueryService.queryFw(page, entity);
-		List<?> syfws = uipage.getRows();
-		for(int i=0;i<syfws.size();i++){
-			SyfwListVo syfw= (SyfwListVo) syfws.get(i);
-			String sfczw = syfw.getSfczfw();
-			if(sfczw.equals("1")){
-				Czfwxxb entity1 = new Czfwxxb();
-				String id = syfw.getId();
-				entity1.setFwid(id);
-				entity1 = syfwEditService.czfw_query(entity1);
-				if(entity1 ==null){
-					syfw.setSfczfw("未出租");
-				}else{
-					syfw.setSfczfw("已出租");
-				}
-			}else{
-				syfw.setSfczfw("否");
-			}
-			
-		}
-		return uipage;
+		return syfwQueryService.queryFw(page, entity);
 	}
 
 	/**
@@ -605,17 +588,26 @@ public class SyfwEditController extends BaseController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		SessionBean sessionBean = getSessionBean();
 		try {
-			FwCzqkdjxxb currEntity =syfwEditService.queryCzqkdjxx(entity);
-			if(currEntity == null){
-				syfwEditService.saveCzqkdjxx(entity, sessionBean);
-				model.put(AppConst.STATUS, AppConst.SUCCESS);
-				model.put(AppConst.MESSAGES, "新增【承租情况登记信息】成功！");
-				model.put(AppConst.SAVE_ID, entity.getId()); // 返回主键
-			} else {
-				syfwEditService.updateCzqkdjxx(entity, sessionBean);
-				model.put(AppConst.STATUS, AppConst.SUCCESS);
-				model.put(AppConst.MESSAGES, "修改【承租情况登记信息】成功！");
+			Czfwxxb czfwxxb=this.czfwzbService.queryCzfwxxb(entity.getCzfwid());
+			Fwjbxxb fwjbxxb=this.syfwEditService.queryFwjbxxbById(czfwxxb.getFwid());
+			if(fwjbxxb.getFz_cyzjdm().equals(entity.getChzr_cyzjdm()) && fwjbxxb.getFz_zjhm().equals(entity.getChzr_zjhm())){
+				model.put(AppConst.STATUS, AppConst.FAIL);
+				model.put(AppConst.MESSAGES, "房主和承租人不能是同一个人");
+			}else{
+				FwCzqkdjxxb currEntity =syfwEditService.queryCzqkdjxx(entity);
+				
+				if(currEntity == null){
+					syfwEditService.saveCzqkdjxx(entity, sessionBean);
+					model.put(AppConst.STATUS, AppConst.SUCCESS);
+					model.put(AppConst.MESSAGES, "新增【承租情况登记信息】成功！");
+					model.put(AppConst.SAVE_ID, entity.getId()); // 返回主键
+				} else {
+					syfwEditService.updateCzqkdjxx(entity, sessionBean);
+					model.put(AppConst.STATUS, AppConst.SUCCESS);
+					model.put(AppConst.MESSAGES, "修改【承租情况登记信息】成功！");
+				}
 			}
+			
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
@@ -639,9 +631,15 @@ public class SyfwEditController extends BaseController {
 	public @ResponseBody Map<String, Object> getRyjbxxb(@RequestParam(value="fwdz_dzid")String fwdz_dzid,@RequestParam()String ryid) {
 		Map<String, Object> model = new HashMap<String, Object>();
 		SessionBean sessionBean = getSessionBean();
+		
+		boolean bool=syfwEditService.checkFzIsChzr(ryid, fwdz_dzid);
+		model.put("fzIsChzr", bool);
+		
 		int returnValue = syfwEditService.getCountRkjzdzzb(ryid, sessionBean.getUserOrgCode().toString());
 		if(returnValue != 0)
 			returnValue = syfwEditService.checkCzrjzdz(fwdz_dzid,ryid,sessionBean.getUserOrgCode())?2:1;
+		
+		
 		model.put("returnValue",returnValue );
 		return model;
 	}
@@ -694,20 +692,6 @@ public class SyfwEditController extends BaseController {
 	@RequestMapping(value = "/querySyfwCount", method = RequestMethod.POST)
 	public @ResponseBody long querySyfwCount(SyfwListVo entity, SessionBean sessionBean) {
 		return syfwQueryService.querySyfwCount(entity);
-	}
-	
-	/**
-	 * gem
-	 * @Title: getFw
-	 * @Description: TODO(根据ID获取房屋基本信息)
-	 * @param @param id
-	 * @param @return    设定文件
-	 * @return Fwjbxxb    返回类型
-	 * @throws
-	 */
-	@RequestMapping(value = "/getFwxx", method = {RequestMethod.POST})
-	public @ResponseBody Fwjbxxb getFwxx(String fwdz_dzid){
-		return syfwEditService.queryFwxx(fwdz_dzid);
 	}
 	
 }

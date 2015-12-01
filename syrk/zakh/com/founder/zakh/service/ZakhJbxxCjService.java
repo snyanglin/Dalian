@@ -16,7 +16,6 @@ import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 
-import com.founder.zakh.bean.ZakhJbxxCjBean;
 import com.founder.zakh.vo.KhfstjVO;
 
 /******************************************************************************
@@ -32,27 +31,6 @@ import com.founder.zakh.vo.KhfstjVO;
  */
 
 public interface ZakhJbxxCjService {
-	/**
-	 * 
-	 * @Title: save
-	 * @Description: 保存基本信息采集信息
-	 * @param @param entitey    设定文件
-	 * @return void    返回类型
-	 * @throws
-	 */
-	public void save(ZakhJbxxCjBean entitey);
-	
-
-	
-	/**
-	 * 
-	 * @Title: update
-	 * @Description: 更新基本信息采集信息
-	 * @param @param entitey    设定文件
-	 * @return int    返回类型
-	 * @throws
-	 */
-	public int update(ZakhJbxxCjBean entitey);
 	
 
 	/**
@@ -68,6 +46,18 @@ public interface ZakhJbxxCjService {
 
 	
 	public void bckhfstj(String date);
+	
+	/**
+	 * 补充某个组织机构的考核分数
+	 * @Title: bckhfstjByOrgCode
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param @param date
+	 * @param @param orgCode    设定文件
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public void bckhfstjByOrgCode(String date,String orgCode);
+
 	
 
 	public Map<String,Object> queryXXByGzltj(Map<String,String> paramMap);

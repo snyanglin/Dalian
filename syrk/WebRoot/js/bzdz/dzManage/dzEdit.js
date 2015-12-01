@@ -181,8 +181,17 @@ DzEdit.onloadReadonly = function(){
 	setInputReadonly('zrqmc', true);
 	//不合格原因【只读】
 	setInputReadonly('shbhgyy', true);
+	
 	if(dzChb=="1"){
 		document.getElementById("bhgyyid").style.display = "";	
+	}
+	
+	if(type == "1"){  
+		setInputReadonly('mlphqz', true);
+		setInputReadonly('mlphhz', true);
+		setInputReadonly('mlph', true);
+		setInputReadonly('sqdm', true);
+		setInputReadonly('dtcwfk', true);
 	}
 };
 /**

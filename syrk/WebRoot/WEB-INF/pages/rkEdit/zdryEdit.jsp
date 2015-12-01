@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>重点人员档案</title>
-<script type="text/javascript" src="<%=contextPath%>/js/zdrygl/zdryinfo-mould.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/js/zdryinfo-mould.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/js/infoEdit.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=contextPath%>/css/trace.css"></link>
 <style>
@@ -73,9 +73,7 @@
 					<tr>
 						<th  align="right" width="130">居住地址：</th> <td width="270" colspan="3">${zdry.dz_jzdzxz }</td>
 					</tr>
-					<tr>
-						<th  align="right" width="130">主要问题及现实表现：</th> <td width="270" colspan="3">${zdry.zywtjxsbx }</td>
-					</tr>
+
 				</table>
 		</td>
 	</tr>

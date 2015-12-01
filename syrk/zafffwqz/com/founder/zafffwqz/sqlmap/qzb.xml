@@ -124,9 +124,6 @@
 			<isNotEmpty prepend="," property="fyyxfzrq">
 				<![CDATA[ fyyxfzrq]]>	
 			</isNotEmpty>
-			<isNotEmpty prepend="," property="bz">
-				<![CDATA[ bz]]>	
-			</isNotEmpty>
 			,
 			<include refid="insertXtzd"/>
 			)
@@ -246,9 +243,6 @@
 			<isNotEmpty prepend="," property="fyyxfzrq">
 				<![CDATA[ #fyyxfzrq#]]>	
 			</isNotEmpty>
-			<isNotEmpty prepend="," property="bz">
-				<![CDATA[ #bz#]]>	
-			</isNotEmpty>
 			,
 			<include refid="insertXtzdVal"/>									
 	    	  )	    	
@@ -292,8 +286,7 @@
 			<isNotNull prepend="," property="cbryj"><![CDATA[ cbryj=#cbryj#]]></isNotNull>
 			<isNotNull prepend="," property="cbr"><![CDATA[ cbr=#cbr#]]></isNotNull>	
 			<isNotNull prepend="," property="sl"><![CDATA[ sl=#sl#]]></isNotNull>
-			<isNotNull prepend="," property="fyyxfzrq"><![CDATA[ fyyxfzrq=#fyyxfzrq#]]></isNotNull>	
-			<isNotNull prepend="," property="bz"><![CDATA[ bz=#bz#]]></isNotNull>		
+			<isNotNull prepend="," property="fyyxfzrq"><![CDATA[ fyyxfzrq=#fyyxfzrq#]]></isNotNull>		
 			,<include refid="updateXtzd"/>				
 		</dynamic>
 	 <![CDATA[ where id = #id#]]>	
@@ -303,7 +296,7 @@
 	<select id="queryQzbCount" parameterClass="Map" resultClass="Integer">
 		<![CDATA[ select count(*) from FWQZ_QZB  where XT_ZXBZ = '0' ]]>
 		<isNotEmpty prepend="and" property="zjhm">
-			zjhm like '%$zjhm$%'
+			zjhm = #zjhm#
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="xm">
 			xm like  '%$xm$%'  
@@ -327,7 +320,7 @@
 						select rownum r, t.* from ( 
 							select * from FWQZ_QZB where XT_ZXBZ = '0']]>
 		<isNotEmpty prepend="and" property="zjhm">
-			zjhm like '%$zjhm$%'
+			zjhm = #zjhm#
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="xm">
 			xm like  '%$xm$%'  

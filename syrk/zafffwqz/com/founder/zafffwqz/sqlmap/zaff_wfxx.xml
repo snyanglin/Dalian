@@ -13,9 +13,6 @@
 						FROM ZAFF_WFXXB A where 
 						XT_ZXBZ= '0'
 					]]>
-				<isNotEmpty prepend="and" property="wfxx.wflx">
-					A.WFLX = #wfxx.wflx#
-				</isNotEmpty>
 				<isNotEmpty prepend="and" property="wfxx.wfzl">
 					A.WFZL = #wfxx.wfzl#
 				</isNotEmpty>				
@@ -45,9 +42,6 @@
 		<![CDATA[select count(1)
 					FROM ZAFF_WFXXB A where 
 							XT_ZXBZ= '0']]>
-				<isNotEmpty prepend="and" property="wfxx.wflx">
-					A.WFLX = #wfxx.wflx#
-				</isNotEmpty>
 				<isNotEmpty prepend="and" property="wfxx.wfzl">
 					A.WFZL = #wfxx.wfzl#
 				</isNotEmpty>				

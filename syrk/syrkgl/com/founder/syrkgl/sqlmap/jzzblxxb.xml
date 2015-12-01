@@ -18,13 +18,13 @@
   	
   	<!-- 查询居住证办理信息列表 -->
   	<select id="queryJzzblxxList" parameterClass="String" resultClass="jzzblxxb">
-		<![CDATA[select * from RY_JZZBLXXB t where t.ryid=#ryid# and t.xt_zxbz='0' order by xt_zhxgsj desc]]>
+		<![CDATA[select * from RY_JZZBLXXB t where t.syrkid=#syrkid# ]]>
+		<![CDATA[ and t.xt_zxbz='0' order by xt_zhxgsj desc ]]>
 	</select>
 	
-  	
   	<!-- 统计居住证数量 -->
   	<select id="queryZzCount" parameterClass="Map" resultClass="Integer">
-		<![CDATA[ select count(*) from RY_JZZBLXXB  where xt_zxbz='0'  ]]>
+		<![CDATA[ select count(*) from RY_JZZBLXXB t where xt_zxbz=#jzzblxxb.xt_zxbz#   ]]>
 		<isNotEmpty prepend="and" property="jzzblxxb.bl_fjdm">
 			<![CDATA[bl_fjdm = #jzzblxxb.bl_fjdm#]]>
 		</isNotEmpty>
@@ -52,13 +52,18 @@
 		<isNotEmpty prepend="and" property="jzzblxxb.xm">
 			<![CDATA[xm like '%' || #jzzblxxb.xm# || '%']]>
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.nb_orgcode">
+			exists (select 1 from org_organization org 
+			         where (org.orgcode = t.bl_pcsdm or org.orgcode = t.bl_fjdm) 
+			         and org.orgbiztype = '12')
+		</isNotEmpty>
 	</select>
 	
 	<!-- 查询居住证列表 -->
 	<select id="queryZzList" parameterClass="Map" resultClass="jzzblxxb">
 		<![CDATA[ select * from ( 
 						select rownum r, t.* from ( 
-							select * from RY_JZZBLXXB where xt_zxbz='0' 
+							select * from RY_JZZBLXXB b where xt_zxbz=#jzzblxxb.xt_zxbz# 
 							]]>
 		<isNotEmpty prepend="and" property="jzzblxxb.bl_fjdm">
 			<![CDATA[bl_fjdm = #jzzblxxb.bl_fjdm#]]>
@@ -90,14 +95,69 @@
 		<isNotEmpty prepend="and" property="jzzblxxb.zjhm">
 			<![CDATA[ zjhm like '%' || #jzzblxxb.zjhm# || '%']]>
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.nb_orgcode">
+			exists (select 1 from org_organization org 
+			         where (org.orgcode = b.bl_pcsdm or org.orgcode = b.bl_fjdm) 
+			         and org.orgbiztype = '12')
+		</isNotEmpty>
 		<![CDATA[ order by $sort$ $order$ ) t
 			where rownum <= #end# ) where r >#begin# ]]>
 	</select>
+	
+	
+	
+		<!-- 查询居住证列表 不带分页 -->
+	<select id="queryList" parameterClass="Map" resultClass="jzzblxxb">
+		<![CDATA[ select * from ( 						
+							select * from RY_JZZBLXXB b where xt_zxbz='0' and jzz_blztdm = '2'
+							 and jzz_lqfsdm = '2'
+							]]>
+		<isNotEmpty prepend="and" property="jzzblxxb.bl_fjdm">
+			<![CDATA[bl_fjdm = #jzzblxxb.bl_fjdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.bl_pcsdm">
+			<![CDATA[bl_pcsdm = #jzzblxxb.bl_pcsdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.bl_zrqdm">
+			<![CDATA[bl_zrqdm = #jzzblxxb.bl_zrqdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.jzzblrq">
+			<![CDATA[jzzblrq >= #jzzblxxb.jzzblrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.jzzbljsrq">
+			<![CDATA[jzzblrq <= #jzzblxxb.jzzbljsrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.jzz_yxqdm">
+			<![CDATA[jzz_yxqdm = #jzzblxxb.jzz_yxqdm#]]>
+		</isNotEmpty>
+
+		<isNotEmpty prepend="and" property="jzzblxxb.xm">
+			<![CDATA[ xm like '%' || #jzzblxxb.xm# || '%']]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.zjhm">
+			<![CDATA[ zjhm like '%' || #jzzblxxb.zjhm# || '%']]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzzblxxb.nb_orgcode">
+			exists (select 1 from org_organization org 
+			         where (org.orgcode = b.bl_pcsdm or org.orgcode = b.bl_fjdm) 
+			         and org.orgbiztype = '12')
+		</isNotEmpty>
+          <![CDATA[
+          ) order by bl_fjdm asc,bl_pcsdm asc,bl_zrqdm asc,jzz_qfrq desc
+           ]]>
+	</select>
+	
+	
   	<!-- 通过ID查询居住证办理信息 -->
   	<select id="queryJzzblxxb" parameterClass="String" resultClass="jzzblxxb">
 		<![CDATA[select * from RY_JZZBLXXB t where t.id = #id# and t.xt_zxbz ='0']]>
 	</select>
-  	
+	
+	<!-- 通过ID查询办理信息，忽略注销 -->
+  	<select id="queryJzzblxxbIgnoreXt_zxbz" parameterClass="String" resultClass="jzzblxxb">
+		<![CDATA[select * from RY_JZZBLXXB t where t.id = #id# ]]>
+	</select>
+	
   	<!-- 修改居住证办理信息 -->
   	<update  id="updateJzzblxxb" parameterClass="jzzblxxb">
 	 <![CDATA[ update RY_JZZBLXXB]]>	
@@ -172,7 +232,16 @@
 	
 	<!-- 查询人口居住证有效期内部可重复申请 -->
 	<select id="queryJzzblxxbByryidAndDate" parameterClass="String" resultClass="jzzblxxb">
-		<![CDATA[select * from RY_JZZBLXXB where ryid=#ryid# and (YXQ_JZRQ>(select to_char(sysdate,'yyyy-mm-dd') as nowTime from dual) or YXQ_JZRQ is null) and  rownum=1 and xt_zxbz='0' ]]>
+		<![CDATA[select * from RY_JZZBLXXB where ryid=#ryid# and (YXQ_JZRQ> to_char(sysdate,'yyyy-mm-dd') or YXQ_JZRQ is null) and  rownum=1 and xt_zxbz='0' ]]>
+	</select>
+	
+	<!-- 查询已办理居住证(最新的) -->
+	<select id="queryLastYblJzzblxxByRyid" parameterClass="String" resultClass="jzzblxxb">
+		<![CDATA[select * from RY_JZZBLXXB where ryid=#ryid# and rownum=1 and xt_zxbz='0' and JZZ_BLZTDM = '2' order by JZZ_QFRQ desc ]]>
+	</select>
+	
+	<select id="queryJzzblxxbByJzd_dzxzAndSyrkid" parameterClass="Map" resultClass="jzzblxxb">
+		<![CDATA[select * from RY_JZZBLXXB where syrkid=#syrkid# and jzd_dzxz = #jzd_dzxz# and rownum=1 and xt_zxbz='0' order by JZZ_QFRQ desc ]]>
 	</select>
 	
 	<!-- 取得所有查询条件的居住证ID，用于查询结果打印 -->

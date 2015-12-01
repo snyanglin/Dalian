@@ -1,4 +1,5 @@
 package com.founder.syrkgl.service.impl;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,8 @@ import com.founder.framework.config.SystemConfig;
 import com.founder.framework.dictionary.service.SysDictGlService;
 import com.founder.framework.message.bean.SysMessage;
 import com.founder.framework.message.dao.SysMessageDao;
+import com.founder.framework.organization.department.bean.OrgOrganization;
+import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.MapUtils;
@@ -40,6 +43,7 @@ import com.founder.syrkgl.service.RyRylxfsxxbService;
 import com.founder.syrkgl.service.RyRyzjxxbService;
 import com.founder.syrkgl.service.SyrkSyrkxxzbService;
 import com.founder.syrkgl.vo.SyrkAddVO;
+import com.founder.zdry.service.ZdryZdryzbService;
 
 /**
  * ****************************************************************************
@@ -91,12 +95,17 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 
 	@Resource(name = "sysDictGlService")
 	private SysDictGlService sysDictGlService;
+	@Resource(name="syrkSyrkxxzbService")
+	private SyrkSyrkxxzbService syrkxxzbService;
 
 	@Resource(name = "gisService")
 	private GisService gisService;
-//	@Resource(name="zdryZdryzbService")
-//	private ZdryZdryzbService zdryZdryzbService;
+	@Resource(name="zdryZdryzbService")
+	private ZdryZdryzbService zdryZdryzbService;
 
+	@Resource(name = "orgOrganizationService")
+	private OrgOrganizationService orgOrganizationService;
+	
 	@Override
 	public SyrkSyrkxxzb queryById(String id) {
 		return syrkSyrkxxzbDao.queryById(id);
@@ -126,6 +135,7 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 		RyRyjbxxb jbxx = syrkAddVO.getJbxx();
 		String ryid = jbxx.getId();
 		String jzd_dzid = "";
+		
 		if (!StringUtils.isBlank(ryid)) { // 人员基本表有数据
 			SyrkSyrkxxzb syrkSyrkxxzb = queryCzrkByRyid(ryid);
 			String hjd_gxfjdm = ""; // 户籍地管辖分局
@@ -152,16 +162,21 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 						}
 					}
 				}
-			} else if ("3".equals(syrkywlxdm)) { // 新增暂住人口
+			} else if ("3".equals(syrkywlxdm)) { // 新增流动人员
+				if("12".equals(sessionBean.getUserOrgBiztype())){
+					//内保登记时，不需要校验
+					return errorMessage;
+				}
+				
 				jzd_dzid = syrkAddVO.getLdrk().getJzd_dzid();
 				if (!StringUtils.isBlank(hjd_gxfjdm)) { // 户籍地管辖分局不为空（本地常口）
 					if (districtOrgCode.indexOf("," + hjd_gxfjdm + ",") != -1) { // 户籍地为市辖区分局
 						if (districtOrgCode.indexOf("," + ssFsxCode + ",") != -1) { // 现住址为市辖区分局
-							errorMessage = "该人员户籍地为市区管辖分局，不能登记为暂住人口！";
+							errorMessage = "该人员户籍地为市区管辖分局，不能登记为流动人员！";
 						}
 					} else { // 户籍地为其他分局
 						if (hjd_gxfjdm.equals(ssFsxCode)) { // 现住址为户籍地分局
-							errorMessage = "该人员户籍地为当前管辖分局，不能登记为暂住人口！";
+							errorMessage = "该人员户籍地为当前管辖分局，不能登记为流动人员！";
 						}
 					}
 				}
@@ -194,6 +209,7 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 		SyrkSyrkxxzb syrk = new SyrkSyrkxxzb();
 		String syrkid = UUID.create();
 		String ryid="";
+		
 		if ("1".equals(syrkywlxdm)) { // 新增常住人口
 			SyrkCzrkxxb czrk = syrkAddVO.getCzrk();
 			jbxx.setSyrkbz("1");
@@ -243,7 +259,7 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 			czrk.setZylbdm(jbxx.getZylbdm());
 			czrk.setGzdw(syrkAddVO.getGzdw());
 			czrk.setGzdwid(syrkAddVO.getGzdwid());
-
+			czrk.setHjd_dzms(jbxx.getHjd_dzms());
 			setSaveProperties(czrk, sessionBean);
 			syrkCzrkxxbDao.insert(czrk);
 		} else if ("2".equals(syrkywlxdm)) { // 新增寄住人口
@@ -280,6 +296,7 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 			jzrk.setHjd_mlpxz(jbxx.getHjd_mlpxz());
 			jzrk.setHjd_dzid(jbxx.getHjd_dzid());
 			jzrk.setHjd_dzxz(jbxx.getHjd_dzxz());
+			jzrk.setHjd_dzms(jbxx.getHjd_dzms());
 			jzrk.setLxdh(jbxx.getLxdh());
 			jzrk.setZy(jbxx.getZy());
 			jzrk.setZylbdm(jbxx.getZylbdm());
@@ -288,7 +305,11 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 
 			setSaveProperties(jzrk, sessionBean);
 			syrkJzrkxxbDao.insert(jzrk);
-		} else if ("3".equals(syrkywlxdm)) { // 新增暂住人口
+		} else if ("3".equals(syrkywlxdm)) { 
+			
+			RyRyjbxxb oldRyjbxxb=this.ryRyjbxxbService.queryByCyzjdmZjhm(jbxx.getCyzjdm(), jbxx.getZjhm());
+			
+			// 新增流动人员
 			SyrkLdrkxxb ldrk = syrkAddVO.getLdrk();
 			jbxx.setSyrkbz("1");
 			jbxx.setJzd_dzid(ldrk.getJzd_dzid());
@@ -327,6 +348,7 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 			ldrk.setHjd_mlpxz(jbxx.getHjd_mlpxz());
 			ldrk.setHjd_dzid(jbxx.getHjd_dzid());
 			ldrk.setHjd_dzxz(jbxx.getHjd_dzxz());
+			ldrk.setHjd_dzms(jbxx.getHjd_dzms());
 			ldrk.setZy(jbxx.getZy());
 			ldrk.setZylbdm(jbxx.getZylbdm());
 			ldrk.setGzdw(syrkAddVO.getGzdw());
@@ -334,6 +356,53 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 
 			setSaveProperties(ldrk, sessionBean);
 			syrkLdrkxxbDao.insert(ldrk);
+			
+			//如果户籍地址描述和人员基本信息表的不一样则
+			//给其他地区的此实有人口发消息提醒 提醒户籍地址变更
+			String oldHjd_ms="";
+			String newHjd_ms=StringUtils.isBlank(jbxx.getHjd_dzms())?"":jbxx.getHjd_dzms();
+
+		    if(oldRyjbxxb!=null){
+		    	oldHjd_ms=oldRyjbxxb.getHjd_dzms();
+		    	//新户籍地址和旧户籍地址都不等，则发消息给其他责任区的民警提醒户籍地址已变更
+				if(!newHjd_ms.equals(oldHjd_ms)){
+					//判断这个人是否在其他地区是实有人口  是的话 给其他责任区发消息提醒
+					SyrkSyrkxxzb syrkzb=new SyrkSyrkxxzb();
+					syrkzb.setCyzjdm(ldrk.getCyzjdm());
+					syrkzb.setZjhm(ldrk.getZjhm());
+					List<SyrkSyrkxxzb> syrkZbs=this.syrkxxzbService.queryList(syrkzb);
+					if(syrkZbs!=null && syrkZbs.size()>0){
+						for(SyrkSyrkxxzb zb:syrkZbs){
+								SysMessage message = new SysMessage();
+								message.setFsr(sessionBean.getUserName());
+								message.setFsrdm(sessionBean.getUserId());
+								message.setFssj(DateUtils.getSystemDateTimeString());
+								message.setFsrssdw(sessionBean.getUserOrgName());
+								message.setFsrssdwdm(sessionBean.getUserOrgCode());
+								if(StringUtils.isBlank(newHjd_ms)){
+									message.setXxnr(sessionBean.getUserOrgName()+"民警"+sessionBean.getUserName()+"删除了实有人口"+ldrk.getXm()+"的户籍地址描述");
+			
+								}else{
+									message.setXxnr(sessionBean.getUserOrgName()+"民警"+sessionBean.getUserName()+"将实有人口"+ldrk.getXm()+"的户籍地址描述修改为"+jbxx.getHjd_dzms());
+
+								}
+								message.setXxbt("流动人口户籍地址描述修改提醒");
+								message.setXxlb("1");
+								sysMessageDao.saveMessageByOrgCondition(message, zb.getGxzrqdm(), "01", "50", "04", false, false);
+							
+						}
+					}
+					
+					oldRyjbxxb.setHjd_dzms(newHjd_ms);
+					this.ryRyjbxxbService.saveOrUpdate(oldRyjbxxb, sessionBean);
+					
+				}
+		    }else{
+				this.ryRyjbxxbService.saveOrUpdate(jbxx, sessionBean);
+
+		    }	    
+		
+			
 		} else if ("4".equals(syrkywlxdm)) { // 新增境外人员
 			SyrkJwryxxb jwry = syrkAddVO.getJwry();
 			jbxx.setSyrkbz("1");
@@ -360,72 +429,12 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 			syrk.setJzd_dzxz(jwry.getJzd_dzxz());
 			syrk.setJzd_zbx(jwry.getJzd_zbx());
 			syrk.setJzd_zby(jwry.getJzd_zby());
-			
+
 			jwry.setId(syrkid);
 			jwry.setRyid(ryid);
 			jwry.setCyzjdm(jbxx.getCyzjdm());
 			jwry.setZjhm(jbxx.getZjhm());
 			jwry.setXm(jbxx.getXm());
-			//如果此境外人员已经存在发送消息提醒【核实注销】
-			List<SyrkSyrkxxzb> xxzb = syrkSyrkxxzbDao.dataApply(jwry.getCyzjdm(), jwry.getZjhm(),syrkywlxdm);
-			if(xxzb.size()>0){
-				for(int i=0;i<xxzb.size();i++){
-					SyrkSyrkxxzb xxzbvo = xxzb.get(i);
-					SysMessage sysMsg = new SysMessage();
-					String xm = xxzbvo.getXm();
-					if("".equals(xm)){
-						xm = xxzbvo.getWwm()+" "+xxzbvo.getWwx();
-					}
-					String xxnr = "您辖区的境外人员【"+xm+" 证件号码"+xxzbvo.getZjhm()+"】已被【"+xxzbvo.getGxzrqmc()+"】辖区进行登记，请尽快进行核实注销！";
-					sysMsg.setXxnr(xxnr);
-					sysMsg.setXxlb("1");
-					sysMsg.setYwurl(xxzbvo.getRyid());
-					sysMsg.setFsr(sessionBean.getUserName());
-					sysMsg.setFsrdm(sessionBean.getUserId());
-					sysMsg.setFsrssdw(sessionBean.getUserOrgName());
-					sysMsg.setFsrssdwdm(sessionBean.getUserOrgCode());
-					sysMsg.setFssj(DateUtils.getSystemDateTimeString());
-					sysMsg.setSfck("0");
-					sysMsg.setXxbt("境外人员核实注销");
-					//发送消息提醒
-					sysMessageDao.saveMessageByOrg(sysMsg,xxzbvo.getGxzrqdm(), false, false);
-				}
-			}
-			//判断是否存在地址描述业务员流程
-			if(!StringUtils.isBlank(jwry.getDzms_sspcsdm())&&!StringUtils.isBlank(jwry.getDzms_zbx())){
-				StringBuffer sb = new StringBuffer();
-				sb.append("(描述)");
-				sb.append(jwry.getDzms_mldz());
-				sb.append(jwry.getDzms_chdz());
-				jwry.setDzms(sb.toString());
-                //发送部门ID
-				String orgCode = jwry.getDzms_sszrqdm();
-				if("".equals(orgCode)){
-					 orgCode = jwry.getDzms_sspcsdm();
-				}
-				String xm = jwry.getXm();
-				if("".equals(xm)){
-					xm = jwry.getWwm()+" "+jwry.getWwx();
-				}
-				//发送内容
-				SysMessage sysMsg = new SysMessage();
-				String xxnr = "因登记境外人员【"+xm+" 证件号码"+jwry.getZjhm()+"】时，无法选择【"+jwry.getDzms()+"】。请尽快维护该地址！";
-				sysMsg.setXxnr(xxnr);
-				sysMsg.setXxlb("1");
-				sysMsg.setYwurl(jwry.getId()+","+jwry.getRyid()+","+jwry.getDzms()+","+jwry.getDzms_zbx()+","+jwry.getDzms_zby()+",0");
-				sysMsg.setFsr(sessionBean.getUserName());
-				sysMsg.setFsrdm(sessionBean.getUserId());
-				sysMsg.setFsrssdw(sessionBean.getUserOrgName());
-				sysMsg.setFsrssdwdm(sessionBean.getUserOrgCode());
-				sysMsg.setFssj(DateUtils.getSystemDateTimeString());
-				sysMsg.setSfck("0");
-				sysMsg.setXxbt("标准地址维护");
-				//发送消息提醒
-				sysMessageDao.saveMessageByOrg(sysMsg,orgCode, false, false);
-				//地址赋值
-				syrk.setJzd_mlpxz(jwry.getDzms_mldz());
-				syrk.setJzd_dzxz(jwry.getDzms());
-			}
 			setSaveProperties(jwry, sessionBean);
 			syrkJwryxxbDao.insert(jwry);
 		} else if ("5".equals(syrkywlxdm)) { // 新增未落户人员
@@ -497,9 +506,21 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 		syrk.setMzdm(jbxx.getMzdm());
 		syrk.setCsrq(jbxx.getCsrq());
 		syrk.setJgssxdm(jbxx.getJgssxdm());
-		syrk.setGxfjdm(sessionBean.getExtendValue("ssFsxCode"));
-		syrk.setGxpcsdm(sessionBean.getExtendValue("ssPcsCode"));
-		syrk.setGxzrqdm(sessionBean.getUserOrgCode());
+		
+		if("12".equals(sessionBean.getUserOrgBiztype())){
+			if("20".equals(sessionBean.getUserOrgLevel())){//内保支队
+				syrk.setGxfjdm(sessionBean.getUserOrgCode());
+			}else{//内保大队
+				OrgOrganization org = orgOrganizationService.queryParentOrgByOrgcode(sessionBean.getUserOrgCode());
+				syrk.setGxfjdm(org.getOrgcode());
+				syrk.setGxpcsdm(sessionBean.getUserOrgCode());
+			}
+		}else{
+			syrk.setGxfjdm(sessionBean.getExtendValue("ssFsxCode"));
+			syrk.setGxpcsdm(sessionBean.getExtendValue("ssPcsCode"));
+			syrk.setGxzrqdm(sessionBean.getUserOrgCode());
+		}
+		
 		syrk.setHjd_xzqhdm(jbxx.getHjd_xzqhdm());
 		syrk.setHjd_mlpdm(jbxx.getHjd_mlpdm());
 		syrk.setHjd_mlpxz(jbxx.getHjd_mlpxz());
@@ -619,15 +640,16 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 		
 		SyrkSyrkxxzb syrk = new SyrkSyrkxxzb();
 		setCrossoutProperties(syrk, sessionBean);
+		String xxnr = "";
 		String errorMessage="";
 		if ("1".equals(entity.getSyrkywlxdm())) {
 			//判断是否为重点人口
-//			int zdrkCount = zdryZdryzbService.queryForCount(entity.getCzrk().getId());
-//            if(zdrkCount>0){
-//            	errorMessage="此实有人口是重点人口，不能注销";
-//            	return errorMessage;
-//
-//            }
+			int zdrkCount = zdryZdryzbService.queryForCount(entity.getCzrk().getId());
+            if(zdrkCount>0){
+            	errorMessage="此实有人口是重点人口，不能注销";
+            	return errorMessage;
+
+            }
 			
 			// 注销【常住人口】表数据
 			setCrossoutProperties(entity.getCzrk(), sessionBean);
@@ -638,12 +660,12 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 			syrk.setXt_zxbz(entity.getCzrk().getXt_zxbz());
 		} else if ("2".equals(entity.getSyrkywlxdm())) {
 			//判断是否为重点人口
-//			int zdrkCount = zdryZdryzbService.queryForCount(entity.getJzrk().getId());
-//            if(zdrkCount>0){
-//            	errorMessage="此实有人口是重点人口，不能注销";
-//            	return errorMessage;
-//
-//            }
+			int zdrkCount = zdryZdryzbService.queryForCount(entity.getJzrk().getId());
+            if(zdrkCount>0){
+            	errorMessage="此实有人口是重点人口，不能注销";
+            	return errorMessage;
+
+            }
 			// 注销【寄住人口】表数据
 			setCrossoutProperties(entity.getJzrk(), sessionBean);
 			syrkJzrkxxbDao.delete(entity.getJzrk());
@@ -653,13 +675,13 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 			syrk.setXt_zxbz(entity.getJzrk().getXt_zxbz());
 		} else if ("3".equals(entity.getSyrkywlxdm())) {
 			//判断是否为重点人口
-//			int zdrkCount = zdryZdryzbService.queryForCount(entity.getLdrk().getId());
-//            if(zdrkCount>0){
-//            	errorMessage="此实有人口是重点人口，不能注销";
-//            	return errorMessage;
-//
-//            }
-			// 注销【暂住人口】表数据
+			int zdrkCount = zdryZdryzbService.queryForCount(entity.getLdrk().getId());
+            if(zdrkCount>0){
+            	errorMessage="此实有人口是重点人口，不能注销";
+            	return errorMessage;
+
+            }
+			// 注销【流动人员】表数据
 			setCrossoutProperties(entity.getLdrk(), sessionBean);
 			syrkLdrkxxbDao.delete(entity.getLdrk());
 			// 赋值给人员信息总表
@@ -668,12 +690,12 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 			syrk.setXt_zxbz(entity.getLdrk().getXt_zxbz());
 		} else if ("4".equals(entity.getSyrkywlxdm())) {
 			//判断是否为重点人口
-//			int zdrkCount = zdryZdryzbService.queryForCount(entity.getJwry().getId());
-//            if(zdrkCount>0){
-//            	errorMessage="此实有人口是重点人口，不能注销";
-//            	return errorMessage;
-//
-//            }
+			int zdrkCount = zdryZdryzbService.queryForCount(entity.getJwry().getId());
+            if(zdrkCount>0){
+            	errorMessage="此实有人口是重点人口，不能注销";
+            	return errorMessage;
+
+            }
 			// 注销【境外人员】表数据
 			setCrossoutProperties(entity.getJwry(), sessionBean);
 			syrkJwryxxbDao.delete(entity.getJwry());
@@ -681,32 +703,13 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 			syrk.setId(entity.getJwry().getId());
 			syrk.setRyid(entity.getJwry().getRyid());
 			syrk.setXt_zxbz(entity.getJwry().getXt_zxbz());
-			//如果注销的为未非本辖区的境外人员发送消息提醒
-			SyrkSyrkxxzb xxzb = syrkSyrkxxzbDao.queryById(entity.getJwry().getId());
-			if(!sessionBean.getUserOrgCode().equals(xxzb.getGxzrqdm())){
-				//发送内容
-				SysMessage sysMsg = new SysMessage();
-				String xxnr = "您辖区的境外人员【"+xxzb.getXm()+" 证件号码"+xxzb.getZjhm()+"】，已被【"+sessionBean.getUserOrgName()+"】注销请进行核实。";
-				sysMsg.setXxnr(xxnr);
-				sysMsg.setXxlb("1");
-				sysMsg.setYwurl("");
-				sysMsg.setFsr(sessionBean.getUserName());
-				sysMsg.setFsrdm(sessionBean.getUserId());
-				sysMsg.setFsrssdw(sessionBean.getUserOrgName());
-				sysMsg.setFsrssdwdm(sessionBean.getUserOrgCode());
-				sysMsg.setFssj(DateUtils.getSystemDateTimeString());
-				sysMsg.setSfck("0");
-				sysMsg.setXxbt("境外人员注销");
-				//发送消息提醒
-				sysMessageDao.saveMessageByOrg(sysMsg,xxzb.getGxzrqdm(), false, false);
-			}
 		} else if ("5".equals(entity.getSyrkywlxdm())) {
 			//判断是否为重点人口
-//			int zdrkCount = zdryZdryzbService.queryForCount(entity.getWlrk().getId());
-//            if(zdrkCount>0){
-//            	errorMessage="此实有人口是重点人口，不能注销";
-//            	return errorMessage;
-//            }
+			int zdrkCount = zdryZdryzbService.queryForCount(entity.getWlrk().getId());
+            if(zdrkCount>0){
+            	errorMessage="此实有人口是重点人口，不能注销";
+            	return errorMessage;
+            }
 			// 注销【未落户人员】表数据
 			setCrossoutProperties(entity.getWlrk(), sessionBean);
 			syrkWlhryxxbDao.delete(entity.getWlrk());
@@ -835,5 +838,11 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 			}
 		}
 		return syrkSyrkxxzbDao.querySyrkCount(entity);
+	}
+
+	@Override
+	public List<SyrkSyrkxxzb> queryList(SyrkSyrkxxzb entity) {
+		
+		return this.syrkSyrkxxzbDao.queryList(entity);
 	}
 }

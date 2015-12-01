@@ -41,12 +41,6 @@ public class QbldUtil {
 	public static final String QS = "1";
 	//反馈状态
 	public static final String FK = "2";
-	//发送成功状态码
-	public static final String FSCG = "1";
-	//全国库url
-	public static final String URL = "http://10.78.17.238:9999/lbs";
-	
-	public static final String WSURL = "http://10.78.42.201:9010";
 	
 	/**
 	 * @Title: isOrg
@@ -63,17 +57,10 @@ public class QbldUtil {
 		OrgOrganization userOrg = orgOrganizationServices.queryById(orgcodeId);
 		String orglevel = userOrg.getOrglevel();
 		String orgcode = "";
-		//分局级别
 		if(("21").equals(orglevel)){
 			orgcode = orgcodes.substring(0, 6);
-		}
-		//派出所级别
-		else if("32".equals(orglevel)){
+		}else if("32".equals(orglevel)){
 			orgcode = orgcodes.substring(0, 8);
-		} 
-		//情报落地功能只有分局、派出所可见；else就是为了防止责任区用户操作后报错；
-		else {
-			orgcode = orgcodes;
 		}
 		return orgcode;
 	}
@@ -132,11 +119,11 @@ public class QbldUtil {
 	 * @return JSONObject    返回类型
 	 * @throws
 	 */
-	public static JSONObject getService(String urlParameter, String content){
+	public static JSONObject getService(String url, String urlParameter, String content){
 		JSONObject json = null;
 		try {
 			content = urlParameter + java.net.URLEncoder.encode(content, "UTF-8");
-			PostMethod postMethod = new PostMethod(URL);
+			PostMethod postMethod = new PostMethod(url);
 			byte[] b = content.getBytes("utf-8");
 			InputStream is = new ByteArrayInputStream(b, 0, b.length);
 			RequestEntity re = new InputStreamRequestEntity(is, b.length, "application/soap+xml; charset=utf-8");

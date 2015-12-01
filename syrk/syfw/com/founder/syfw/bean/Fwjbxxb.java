@@ -82,54 +82,10 @@ public class Fwjbxxb extends BaseEntity implements Serializable {
 	private String ss4jbmdm;
 	
 	@FieldDesc("备注")
-	
-	private String jzd_dzid;
-	private String jzd_mlpdm;
-	private String jzd_mlpxz;
-	private String jzd_xzqhdm;
-	private String jzd_dzxz;
-	private String dyh_shmc;
-	
-	public String getDyh_shmc() {
-		return dyh_shmc;
-	}
-	public void setDyh_shmc(String dyh_shmc) {
-		this.dyh_shmc = dyh_shmc;
-	}
-	public String getJzd_mlpdm() {
-		return jzd_mlpdm;
-	}
-	public void setJzd_mlpdm(String jzd_mlpdm) {
-		this.jzd_mlpdm = jzd_mlpdm;
-	}
-	public String getJzd_xzqhdm() {
-		return jzd_xzqhdm;
-	}
-	public void setJzd_xzqhdm(String jzd_xzqhdm) {
-		this.jzd_xzqhdm = jzd_xzqhdm;
-	}
-	public String getJzd_dzxz() {
-		return jzd_dzxz;
-	}
-	public void setJzd_dzxz(String jzd_dzxz) {
-		this.jzd_dzxz = jzd_dzxz;
-	}
 	private String bz;
 	/**实有人口居住地址子表统计*/
 	private String jzrs;
 	
-	public String getJzd_mlpxz() {
-		return jzd_mlpxz;
-	}
-	public void setJzd_mlpxz(String jzd_mlpxz) {
-		this.jzd_mlpxz = jzd_mlpxz;
-	}
-	public String getJzd_dzid() {
-		return jzd_dzid;
-	}
-	public void setJzd_dzid(String jzd_dzid) {
-		this.jzd_dzid = jzd_dzid;
-	}
 	public String getJzrs() {
 		return jzrs;
 	}

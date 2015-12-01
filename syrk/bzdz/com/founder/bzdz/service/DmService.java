@@ -1,5 +1,7 @@
 package com.founder.bzdz.service;
 import java.util.List;
+import java.util.Map;
+
 import com.founder.bzdz.vo.DmxxbVO;
 import com.founder.framework.annotation.TypeAnnotation;
 import com.founder.framework.base.entity.SessionBean;
@@ -132,7 +134,7 @@ public interface DmService {
 	 * @返回值: List<DmxxbVO>    返回类型 
 	 * @throws
 	 */
-	public List<ComboBox> queryDictDm(String pcsdm);
+	public List<ComboBox> queryDictDm(Map<String,String> map);
 	/**
 	 * @Title: queryDictSq 
 	 * @描述: 获取社区下拉框字典

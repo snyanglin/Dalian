@@ -21,7 +21,6 @@ import com.founder.sqjw.bean.XjtjXq;
 import com.founder.sqjw.bean.Xjtjcar;
 import com.founder.sqjw.bean.Xjtjemployee;
 import com.founder.sqjw.bean.Xjxlrw;
-import com.founder.sqjw.vo.ZdryCountVo;
 import com.founder.sqjw.vo.ZzjgVo;
 import com.founder.tzgg.bean.Org_Organization;
 
@@ -1011,28 +1010,4 @@ public class HomePageDao extends BaseDaoImpl {
 				return queryForList("HomePage.syfwChart", params);
 			}
 		//jz end
-
-			public List<ZzjgVo> queryZrqsyrkTj(Map<String, Object> paramMap) {
-				
-				return  queryForList("HomePage.queryZrqsyrkTj", paramMap);
-			}
-			public long queryCzfTj(Map<String, Object> paramMap) {
-				return (long) queryForObject("HomePage.queryCzfTj", paramMap);
-			}
-
-			public long queryCheckTj(Map<String, Object> paramMap) {
-				// TODO Auto-generated method stub
-				return (long) queryForObject("HomePage.queryCheckTj", paramMap);
-				
-			}
-
-			public long queryunCheckTj(Map<String, Object> paramMap) {
-				// TODO Auto-generated method stub
-				return (long) queryForObject("HomePage.queryunCheckTj", paramMap);
-			}
-
-			public List<ZdryCountVo> queryZdryTj(Map<String, Object> paramMap) {
-				
-				return  queryForList("HomePage.queryZdryTj", paramMap);
-			}
 }

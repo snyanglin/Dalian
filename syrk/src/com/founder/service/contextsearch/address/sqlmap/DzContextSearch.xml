@@ -26,4 +26,37 @@
 			</isNotEmpty>
 			<![CDATA[ order by TEXT) where rownum <= 10 ]]>
 	</select>
+	
+	<!-- 内保单位管辖的门楼牌号） -->
+	<select id="searchNbAddressMlph" parameterClass="com.founder.service.contextsearch.address.bean.DzContextCondition" resultClass="com.founder.service.contextsearch.address.bean.DzContextCombo">
+		<![CDATA[ 
+		select t1. MLDZID    as ID,
+       t1.DZMC   AS TEXT,
+       t1.FXJDM  AS DZFXJDM,
+       t1.PCSDM  AS DZPCSDM,
+       t1.ZRQDM  AS DZZRQDM,
+       t1.XZQHDM AS DZXZQH,
+       t1.DMDM   AS DZJLXDM,
+       t1.DMMC   AS DZJLXMC,
+       t1.ZBX    as DZZBX,
+       t1.ZBY    as DZZBY from BZDZ_ADD_MLDZDXB t1 where t1.xt_zxbz='0' and exists  (SELECT 1 FROM DW_DWJBXXB where xt_zxbz = '0' AND GLBMID=#zrqdm# and t1.MLDZID=DW_DWJBXXB.DZ_DWDZMLPDM and DW_DWJBXXB.DZ_DWDZDM <> DW_DWJBXXB.DZ_DWDZMLPDM )
+		
+			]]>
+			<isNotEmpty prepend="and" property="queryExpression">
+				$queryExpression$
+			</isNotEmpty>			
+			<![CDATA[ and rownum <= 10 ]]>
+	</select>
+	<!-- 内保单位管辖的（门楼牌号详址） -->
+	<select id="searchNbAddressMlphXz" parameterClass="com.founder.service.contextsearch.address.bean.DzContextCondition" resultClass="com.founder.framework.utils.ComboBox">
+		<![CDATA[ 
+            select * from (select CHDZID as ID,(DYH || '-' || SHMC) as TEXT from BZDZ_ADD_CHDZDXB t1
+			where XT_ZXBZ = '0' and DZJB = '4' and MLDZID = #id# AND  exists (SELECT 1  FROM DW_DWJBXXB T2 WHERE t1.CHDZID=t2.DZ_DWDZDM AND GLBMID=#zrqdm# and T2.xt_zxbz='0' )  
+			
+			]]>
+			<isNotEmpty prepend="and" property="searchKey">
+				(DYH || '-' || SHMC) like '%$searchKey$%'
+			</isNotEmpty>
+			<![CDATA[ order by TEXT) where rownum <= 10 ]]>
+	</select>
 </sqlMap>

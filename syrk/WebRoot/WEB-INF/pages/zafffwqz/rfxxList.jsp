@@ -33,7 +33,7 @@
 							        <tr>
 							       	 	<th data-options="checkbox:true,align:'center',halign:'center'"></th>
 							            <th data-options="field:'ffzzxsdm',	width:10,	align:'center' ,sortable:true,halign:'center',formatter:dictFormatter,dictName:contextPath+'/common/dict/D_ZAFF_ZZXS.js'">组织形式</th>
-							            <th data-options="field:'ffzrrcyzjdm', 	width:10,	align:'center' ,	halign:'center',sortable:true,formatter:dictFormatter,dictName:contextPath+'/common/dict/D_BZ_CYZJ.js'">证件种类</th>
+							            <th data-options="field:'ffzrrcyzjdm', 	width:10,	align:'center' ,	halign:'center',sortable:true,formatter:dictFormatter,dictName:contextPath+'/common/dict/D_BZ_CYZJ.js'">证件类型</th>
 							            <th data-options="field:'ffzrrzjhm', 	width:20,	align:'center',	halign:'center',sortable:true">证件号码</th>
 							            <th data-options="field:'ffzrrxm', 	width:10,	align:'center',	halign:'center'	,sortable:true">姓名</th>
 							           	<th data-options="field:'dz_ffzrrjzdzxz', width:25,	align:'left',	halign:'center',sortable:true,formatter:subjzdz">负责人居住地址</th>

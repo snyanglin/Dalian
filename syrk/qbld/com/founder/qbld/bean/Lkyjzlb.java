@@ -159,7 +159,7 @@ public class Lkyjzlb extends BaseEntity implements Serializable {
 	private String bkqssj;
 	@FieldDesc("布控截止时间")
 	private String bkjzsj;
-	@FieldDesc("被布控人证件种类")
+	@FieldDesc("被布控人证件类型")
 	private String bbkrzjlx;
 	@FieldDesc("被布控人证件号码")
 	private String bbkrzjhm;

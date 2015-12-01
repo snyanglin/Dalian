@@ -95,7 +95,7 @@
 							<tr><td class='infoTypeTd'>人<br>员<br>信<br>息</td>
 								<td>
 									<table class='infoBodyTable'>
-										<tr><td class='infoName  red'>证件种类</td><td class='infoValue'><input id="lksq_bbkrzjlx" name="bbkrzjlx" class="notNull"></td><td class='infoName  red'>证件号码</td><td class='infoValue'><input id="lksq_bbkrzjhm" class="notNull"   name="bbkrzjhm" maxlength="18"></td><td id='imgTd' rowspan=6><img id="lksq_zp" style='width:150;height:185px'></img></td></tr>
+										<tr><td class='infoName  red'>证件类型</td><td class='infoValue'><input id="lksq_bbkrzjlx" name="bbkrzjlx" class="notNull"></td><td class='infoName  red'>证件号码</td><td class='infoValue'><input id="lksq_bbkrzjhm" class="notNull"   name="bbkrzjhm" maxlength="18"></td><td id='imgTd' rowspan=6><img id="lksq_zp" style='width:150;height:185px'></img></td></tr>
 										<tr><td class='infoName  red'>姓名</td><td class='infoValue'><input id="lksq_bbkrxm" name="bbkrxm" class="notNull" maxlength="15"></td><td class='infoName  red'>性别</td><td class='infoValue'><input id="lksq_bbkrxb" class="notNull"   name="bbkrxb"></td></tr>
 										<tr><td class='infoName  red'>出生日期</td><td class='infoValue'><input id="lksq_bbkrcsrq" name="bbkrcsrq" class="notNull"  onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyyMMdd'})"></td><td class='infoName'>身高</td><td class='infoValue'><input id="lksq_bc_sg" name="bc_sg"  maxlength=56 ></td></tr>
 										<tr><td class='infoName'>体貌特征</td><td class='infoValue' colspan=3><textarea id='lksq_bc_tmtz' maxlength=128 name="bc_tmtz" placeholder="最多填写128个文字"></textarea></td></tr>
@@ -110,13 +110,11 @@
 									<table class='infoBodyTable'>
 										<tr><td class='infoName  red'>布控类型</td><td class='infoValue'><input value="私密布控"></td><td class='infoName  red'>预警人</td><td class='infoValue'><input id="lksq_yjrmc" class="notNull"  value="<%=userName%>"  name="yjrmc"></td></tr>
 										<tr><td class='infoName  red'>预警单位</td><td class='infoValue' colspan=3><input id="lksq_yjdwmc"  class="notNull" value="<%=userOrgName%>"   name="yjdwmc"></td></tr>
-										<tr><td class='infoName  red'>临控指令级别</td><td class='infoValue'><input id="lksq_bc_bkjb"  class="notNull" name="bc_bkjb"></td><td class='infoName  red'>管控级别(类型)</td><td class='infoValue'><input id="lksq_bc_gklx" class="notNull"   name="bc_gklx"></td></tr>
+										<tr><td class='infoName  red'>指令级别</td><td class='infoValue'><input id="lksq_bc_bkjb"  class="notNull" name="bc_bkjb"></td><td class='infoName  red'>管控级别(类型)</td><td class='infoValue'><input id="lksq_bc_gklx" class="notNull"   name="bc_gklx"></td></tr>
 										<tr><td class='infoName  red'>起始时间</td><td class='infoValue'><input id="lksq_bkqssj"  class="notNull" name="bkqssj"  onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyyMMddHHmmss'})"></td>
 										<td class='infoName  red'>截止时间</td><td class='infoValue'><input id="lksq_bkjzsj" name="bkjzsj" class="notNull"   onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyyMMddHHmmss'})"><input id="lksq_bkts" name="bkts"  style="display:none"></td></tr>
 										<tr><td class='infoName  red'>处置措施</td><td class='infoValue' colspan=3><input id="lksq_bc_cccs" class="notNull"  name="bc_cccs"></td></tr>
-										<!-- gem修改 
 										<tr><td class='infoName'>短信号码</td><td class='infoValue' colspan=3><input id="lksq_sqrlxhm1" name="sqrlxhm1" maxlength="40"  placeholder='多个已;号隔开'  ></td></tr>
-										 -->
 										<tr><td class='infoName  red'>布控原因</td><td class='infoValue' colspan=3><textarea id='lksq_bkyy' class="notNull"  name="bkyy" maxlength=512 placeholder="最多填写512个文字"></textarea></td></tr>
 										<tr><td class='infoName  red'>处置要求</td><td class='infoValue' colspan=3><textarea id='lksq_czyq' class="notNull"  name="czyq" maxlength=512 placeholder="最多填写512个文字"></textarea></td></tr>
 										<tr><td class='infoName  red'>执法依据</td><td class='infoValue' colspan=3><textarea id='lksq_zfyj' class="notNull"  name="zfyj" maxlength=512 placeholder="最多填写512个文字"></textarea></td></tr>

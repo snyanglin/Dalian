@@ -51,7 +51,7 @@ function beforeSubmit() {
 	if(flag=="add"){
 	$.ajax({
 		type:"POST",
-		url:basePaht+"sydwgl/checkIfExistByCol",
+		url:basePaht+"sydwgl_dl/checkIfExistByCol",
 		async:false,
 		dataType:"json",
 		data:{colMap:'{\'tableName\':\'FWQZ_MD_DSRXXZB\',\'colList\':[{\'colName\':\'cyzjdm\',\'colValue\':\''+$('#zjlx').val()+'\'},{\'colName\':\'zjhm\',\'colValue\':\''+$('#zjhm').val()+'\'}]},{\'colName\':\'xt_zxbz\',\'colValue\':\'0\'}]}'},
@@ -73,7 +73,7 @@ function beforeSubmit() {
 
 
 var _zjhm = "";
-/**根据证件种类 设置证件号码验证 与人员基本信息只读状态*/
+/**根据证件类型 设置证件号码验证 与人员基本信息只读状态*/
 function setPassPort(newVal,oldVal){
 	if(!newVal){
 		return ;
@@ -110,7 +110,7 @@ function clearValues(){
 	
 }
 /**
- * 根据证件种类与号码 ，进行人员比对，复用
+ * 根据证件类型与号码 ，进行人员比对，复用
  */
 function check(){
 	if(!$("#zjlx").combo("isValid")){

@@ -35,7 +35,7 @@
 			    		<input type='hidden' name='dz_sqdzmlpxz' id="sqdz_sqdzmlpxz" value="${entity.dz_sqdzmlpxz}"/>
 		    		</td>
 					<td width="30%" class="dialogTd">
-						<input class="easyui-combobox" id="sqdz2" style="width:200px;" value="${fn:replace(entity.dz_sqdzxz, entity.dz_sqdzmlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+						<input class="easyui-combobox" id="sqdz2" style="width:200px;" value='${fn:replace(entity.dz_sqdzxz, entity.dz_sqdzmlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 				    	<input type='hidden' name='dz_sqdzdm' id='sqdz_sqdzdm' value="${entity.dz_sqdzdm}" />
 				    	<input type='hidden' name='dz_sqdzssxdm' id='sqdz_sqdzssxdm' value="${entity.dz_sqdzssxdm}" />
 				    	<input type='hidden' name='dz_sqdzxz' id='sqdz_sqdzxz' value="${entity.dz_sqdzxz}" /> 
@@ -199,7 +199,7 @@ function setFormDataToSpan(containObject,_p) {
 	});
 }
 
-/**根据证件种类 设置证件号码验证 与人员基本信息只读状态*/
+/**根据证件类型 设置证件号码验证 与人员基本信息只读状态*/
 function setPassPort(newVal,oldVal){
 	if (!newVal) {
 		return;

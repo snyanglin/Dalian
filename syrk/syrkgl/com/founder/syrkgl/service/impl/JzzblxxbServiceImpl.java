@@ -1,5 +1,6 @@
 package com.founder.syrkgl.service.impl;
 import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,16 +10,28 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi3.hssf.util.CellRangeAddress;
+import org.apache.poi3.xssf.usermodel.XSSFCell;
+import org.apache.poi3.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi3.xssf.usermodel.XSSFRow;
+import org.apache.poi3.xssf.usermodel.XSSFSheet;
+import org.apache.poi3.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
+import com.founder.framework.config.SystemConfig;
 import com.founder.framework.dictionary.service.SysDictGlService;
 import com.founder.framework.exception.BussinessException;
+import com.founder.framework.message.bean.SysMessage;
+import com.founder.framework.message.dao.SysMessageDao;
+import com.founder.framework.organization.department.bean.OrgOrganization;
+import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
@@ -29,6 +42,7 @@ import com.founder.service.attachment.dao.ZpfjPtryzpDao;
 import com.founder.syrkgl.bean.Jzzblxxb;
 import com.founder.syrkgl.bean.SyrkLdrkxxb;
 import com.founder.syrkgl.dao.JzzblxxbDao;
+import com.founder.syrkgl.dao.RyRyjbxxbDao;
 import com.founder.syrkgl.dao.SyrkLdrkxxbDao;
 import com.founder.syrkgl.service.JzzblBhSequenceService;
 import com.founder.syrkgl.service.JzzblxxbService;
@@ -53,6 +67,11 @@ public class JzzblxxbServiceImpl extends BaseService implements JzzblxxbService 
 	
 	@Resource(name="jzzblBhSequenceService")
 	private JzzblBhSequenceService jzzblBhSequenceService;
+	@Resource
+	private OrgOrganizationService orgOrganizationService;
+	
+	@Resource
+	private SysMessageDao sysMessageDao;
 	
 	@Override
 	public SyrkLdrkxxb queryLdrk(String id) {
@@ -98,27 +117,136 @@ public class JzzblxxbServiceImpl extends BaseService implements JzzblxxbService 
 
 
 
-	@Override
-	public List<Jzzblxxb> jzzblxxb_query(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		String ryid=(String) map.get("ryid");
-		List<Jzzblxxb> list = null;
-		if(!StringUtils.isBlank(ryid)){
-			list= jzzblxxbDao.queryJzzblxxList(ryid);
-		}
-		return list;
-	}
+//	@Override
+//	public List<Jzzblxxb> jzzblxxb_query(Map<String, Object> map) {
+//		// TODO Auto-generated method stub
+//		String ryid=(String) map.get("ryid");
+//		List<Jzzblxxb> list = null;
+//		if(!StringUtils.isBlank(ryid)){
+//			list= jzzblxxbDao.queryJzzblxxList(ryid);
+//		}
+//		return list;
+//	}
 
 
 
 
 	@Override
 	public EasyUIPage queryJzzblList(EasyUIPage page, Jzzblxxb entity) {
-		// TODO Auto-generated method stub
 		return jzzblxxbDao.queryJzzblList(page, entity);
 	}
 
+	@Override
+	public void exportExcel(Jzzblxxb entity,ServletOutputStream outputStream) {
+		List<Jzzblxxb> list=jzzblxxbDao.queryJzzblList(entity);
 
+		XSSFWorkbook wb = new XSSFWorkbook();
+		XSSFSheet sheet = wb.createSheet("居住证");
+		sheet.setColumnWidth(1, 5000);
+		sheet.setColumnWidth(4, 5000);
+		sheet.setColumnWidth(5, 10000);
+		sheet.setColumnWidth(6, 10000);
+		sheet.setColumnWidth(7, 10000);
+		XSSFRow head = sheet.createRow(0);
+		XSSFCell cell = null;
+
+		XSSFCellStyle style = wb.createCellStyle();
+		style.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+		style.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);
+
+		cell = head.createCell(0);
+		cell.setCellStyle(style);
+		cell.setCellValue("序号");
+
+		cell = head.createCell(1);
+		cell.setCellValue("身份证号");
+		cell.setCellStyle(style);
+
+		cell = head.createCell(2);
+		cell.setCellValue("姓名");
+		cell.setCellStyle(style);
+
+		cell = head.createCell(3);
+		cell.setCellValue("收件人姓名");
+		cell.setCellStyle(style);
+
+		cell = head.createCell(4);
+		cell.setCellValue("收件人电话");
+		cell.setCellStyle(style);
+
+		cell = head.createCell(5);
+		cell.setCellValue("收件地址");
+		cell.setCellStyle(style);
+
+		cell = head.createCell(6);
+		cell.setCellValue("所属派出所");
+		cell.setCellStyle(style);
+		
+		cell = head.createCell(7);
+		cell.setCellValue("所属责任区");
+		cell.setCellStyle(style);
+		for (int i = 0; i < list.size(); i++) {
+
+				XSSFRow rowJcxx = sheet.createRow(i + 1);
+				// 序号
+				cell = rowJcxx.createCell(0);
+				cell.setCellStyle(style);
+				cell.setCellValue(i+1);
+				// 身份证号
+				cell = rowJcxx.createCell(1);
+				cell.setCellStyle(style);
+				cell.setCellValue(list.get(i).getZjhm());
+				// 姓名
+				cell = rowJcxx.createCell(2);
+				cell.setCellStyle(style);
+				cell.setCellValue(list.get(i).getXm());
+
+				// 收件人姓名
+				cell = rowJcxx.createCell(3);
+				cell.setCellStyle(style);
+				cell.setCellValue(list.get(i).getJzz_kdsjr());
+
+				// 收件人电话
+				cell = rowJcxx.createCell(4);
+				cell.setCellStyle(style);
+				cell.setCellValue(list.get(i).getJzz_kdlxdh());
+
+				// 收件地址
+				cell = rowJcxx.createCell(5);
+				cell.setCellStyle(style);
+				cell.setCellValue(list.get(i).getJzz_kddz());
+
+				// 所属派出所
+				cell = rowJcxx.createCell(6);
+				cell.setCellStyle(style);
+				OrgOrganization pcs=this.orgOrganizationService.queryByOrgcode(list.get(i).getBl_pcsdm());
+				cell.setCellValue(pcs.getOrgname());
+
+				// 所属责任区
+				cell = rowJcxx.createCell(7);
+				cell.setCellStyle(style);
+				OrgOrganization zrq=this.orgOrganizationService.queryByOrgcode(list.get(i).getBl_zrqdm());
+				cell.setCellValue(zrq.getOrgname());
+		}
+		try {
+			wb.write(outputStream);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			outputStream.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			outputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
+		
+		
+	}
 
 
 	@Override
@@ -172,70 +300,7 @@ public class JzzblxxbServiceImpl extends BaseService implements JzzblxxbService 
 		}
 		return entity;
 	 }
-	
-	@Override
-	public File jzzbl_export(String exportIds, HttpServletResponse response,HttpServletRequest request,SessionBean sessionBean){
-		List<Jzzblxxb> jzzbList = jzzblxxbDao.queryJzzblxxbByIds(exportIds);
-		List<String> dataList=new ArrayList<String>();
-		dataList.add("姓名,性别,民族,出生年月,户籍地址1,户籍地址2,户籍地址3,居住地址1,居住地址2,居住地址3,身份证号码,序号,有效期限");
-		//添加性别转换
-		Map<String, String> xbdmDictMap=new HashMap<String, String> ();
-		Map<String,String> mzdmDictMap=new HashMap<String, String> ();
-		try {
-			xbdmDictMap = sysDictGlService.getDictMap("GB_D_XBDM");
-			mzdmDictMap = sysDictGlService.getDictMap("GB_D_MZDM");
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-		String path =request.getSession().getServletContext().getRealPath("/")+"/temp";
-		List<File> srcfileList = new ArrayList<File>();
-		//民族转换
-		String hjz1="",hjz2="",hjz3="",jzd1="",jzd2="",jzd3="";
-		for (Jzzblxxb jzzblxxb : jzzbList) {
-			//地址123，每个字符只能有12个（因为打印控件只支持一行12个字符，它不会自己换行。最多支持36个字)截取好输出，做打印的公司是SB,做打印的公司是SB
-			String hjd_dzxz =jzzblxxb.getHjd_dzxz();
-			String jzd_dzxz =jzzblxxb.getJzd_dzxz();
-			if(!StringUtils.isBlank(hjd_dzxz)&&hjd_dzxz.length()>12){
-				hjz1=hjd_dzxz.substring(0,11);
-				if(hjd_dzxz.length()>24)
-				hjz2=hjd_dzxz.substring(12,23);
-				else
-				hjz2=hjd_dzxz.substring(12,hjd_dzxz.length());	
-			}
-			if(!StringUtils.isBlank(hjd_dzxz)&&hjd_dzxz.length()>23){
-				hjz3=hjd_dzxz.substring(24,hjd_dzxz.length());
-			}
-			if(!StringUtils.isBlank(jzd_dzxz)&&jzd_dzxz.length()>12){
-				jzd1=jzd_dzxz.substring(0,11);
-				if(jzd_dzxz.length()>24)
-				jzd2=jzd_dzxz.substring(12,23);
-				else
-				jzd2=jzd_dzxz.substring(12,jzd_dzxz.length());
-			}
-			if(!StringUtils.isBlank(jzd_dzxz)&&jzd_dzxz.length()>23){
-				jzd3=jzd_dzxz.substring(24,jzd_dzxz.length());
-			}
-			jzzblxxb=jzzView(jzzblxxb.getId(), sessionBean);
-			dataList.add(jzzblxxb.getXm()+","+xbdmDictMap.get(jzzblxxb.getXbdm())+","+mzdmDictMap.get(jzzblxxb.getMzdm())+","+jzzblxxb.getCsrq()+","+
-					hjz1+","+hjz2+","+hjz3+","+jzd1+","+jzd2+","+jzd3+","+jzzblxxb.getZjhm()+","+jzzblxxb.getDy_bh()+","+jzzblxxb.getYxq_jzrq());
-			ZpfjPtryzpglb zpfjPtryzpglb = new ZpfjPtryzpglb();
-			zpfjPtryzpglb.setRyid(jzzblxxb.getRyid());
-			ZpfjPtryzpxxb zpfjPtryzpxxb =zpfjPtryzpDao.queryPtryzpSingle(zpfjPtryzpglb);
-			FileUtils.exportImageFromStream(zpfjPtryzpxxb.getZp(), new File(path+"/"+jzzblxxb.getZjhm()+".jpg"));
-			//去掉重复文件名，以免压缩报错
-			if(!srcfileList.contains(new File(path+"/"+jzzblxxb.getZjhm()+".jpg"))){
-				srcfileList.add(new File(path+"/"+jzzblxxb.getZjhm()+".jpg"));
-			}
-		}
-		//导出的文件保存在本地,后续压缩使用
-		FileUtils.exportCsv(new File(path+"/SJ.csv"), dataList);
-		srcfileList.add(new File(path+"/SJ.csv"));
-		//压缩文件
-		FileUtils.zipFiles(srcfileList, new File(path+"/"+"居住证导出.zip"));
-		return new File(path+"/"+"居住证导出.zip");
-	
-	}
-	
+
 	public Jzzblxxb checkRyJzz(String ryid){
 		Jzzblxxb countJzz = jzzblxxbDao.checkRyJzz(ryid);
 		return countJzz;
@@ -246,4 +311,57 @@ public class JzzblxxbServiceImpl extends BaseService implements JzzblxxbService 
 		 List<Jzzblxxb> list =jzzblxxbDao.queryIdsForPrint(entity);
 		 return list;
 	}
+	@Override
+	public Jzzblxxb queryLastYblJzz(String ryid) {
+		return this.jzzblxxbDao.queryLastYblJzzblxxByRyid(ryid);
+	}
+	
+	@Override
+	public void noticeLastYblPcs(Jzzblxxb lastYblJzzblxxb, Jzzblxxb beSavedJzzblxxb, SessionBean sessionBean) {
+		
+		// 根据业务表数据,构造代办消息
+		SysMessage message = new SysMessage();
+		message.setFsr(sessionBean.getUserName());
+		message.setFsrdm(sessionBean.getUserId());
+		message.setFssj(DateUtils.getSystemDateTimeString());
+		message.setFsrssdw(sessionBean.getUserOrgName());
+		message.setFsrssdwdm(sessionBean.getUserOrgCode());
+		
+		message.setXxbt("居住证再次办理提醒");//消息标题
+		
+		String orgName = "";
+		if(org.apache.commons.lang.StringUtils.isNotBlank(beSavedJzzblxxb.getBl_zrqmc())){
+			orgName = beSavedJzzblxxb.getBl_zrqmc();
+		}else if(org.apache.commons.lang.StringUtils.isNotBlank(beSavedJzzblxxb.getBl_pcsmc())){
+			orgName = beSavedJzzblxxb.getBl_pcsmc();
+		}else{
+			orgName = beSavedJzzblxxb.getBl_fjmc();
+		}
+		
+		String sendToOrgCode = "";
+		if(org.apache.commons.lang.StringUtils.isNotBlank(lastYblJzzblxxb.getBl_zrqdm())){
+			sendToOrgCode = lastYblJzzblxxb.getBl_zrqdm();
+		}else if(org.apache.commons.lang.StringUtils.isNotBlank(lastYblJzzblxxb.getBl_pcsdm())){
+			sendToOrgCode = lastYblJzzblxxb.getBl_pcsdm();
+		}else{
+			sendToOrgCode = lastYblJzzblxxb.getBl_fjdm();
+		}
+		
+		message.setXxnr(orgName + "民警【"+beSavedJzzblxxb.getBlr_xm()+"】，于 "+lastYblJzzblxxb.getJzzblrq()+" 申请办理你辖区实有人口"+lastYblJzzblxxb.getXm()+"【"+lastYblJzzblxxb.getZjhm()+"】的居住证");
+		message.setXxlb("1");
+		
+		sysMessageDao.saveMessageByOrg(message, sendToOrgCode, false, false);
+		
+	}
+	
+	@Override
+	public Jzzblxxb queryJzzblxxbIgnoreXt_zxbz(String id) {
+		return this.jzzblxxbDao.queryJzzblxxbIgnoreXt_zxbz(id);
+	}
+	@Override
+	public Jzzblxxb queryJzzblxxbByJzd_dzxzAndSyrkid(String jzd_dzxz, String syrkid) {
+		return this.jzzblxxbDao.queryJzzblxxbByJzd_dzxzAndSyrkid(jzd_dzxz, syrkid);
+	}
+
+	
 }

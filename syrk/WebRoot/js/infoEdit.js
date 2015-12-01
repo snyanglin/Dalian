@@ -30,14 +30,10 @@ $.parser.onComplete = function() {
 		}
 	});
 };
-
 /*************************************************事件方法 **/
 //查询
 function queryObj(_this){
 	var _ul = $(_this).is("ul")?_this:$(_this).find("ul");
-	if($(_ul).find("input[name='callback']").val()){
-		eval($(_ul).find("input[name='callback']").val()+"()");
-	}
 	if($(_ul).find("input[name='method']").val()){
 		$.ajax({
 			type:"get",
@@ -85,7 +81,7 @@ function queryObj(_this){
 				}
 			},
 			complete:function(){
-				console.info('mainComplete');
+				//console.info('mainComplete');
 				iterateDict(_ul);
 			}
 		});
@@ -102,7 +98,7 @@ function queryChildInfo(_ul,str,isRefresh){
 		type:"get",
 		url:contextPath+infoPara.queryUrl + $(_ul).find("input[name='method2']").val(),
 		dataType:"json",
-		data:infoPara.queryPara+"&maxNum="+$(_ul).attr("maxNum")+"&zdryid="+$(_ul).parents("div.lf_conta").attr("zdryid"),
+		data:infoPara.queryPara+"&syrkid="+$(_ul).parents("div.lf_conta").attr("syrkId")+"&maxNum="+$(_ul).attr("maxNum")+"&zdryid="+$(_ul).parents("div.lf_conta").attr("zdryid"),
 		success:function(data){
 			if(data.entity){
 				if($(_ul).find("input[name='method2']").attr("fj")=="true"){
@@ -145,12 +141,11 @@ function queryChildInfo(_ul,str,isRefresh){
 					if(data.entity.length > 0 && $(_ul).attr("sfdt") == "1"){
 						$(_ul).find("a.addfw_btn").hide();
 					}
-					
 				}
 			}
 		},
 		complete:function(){
-			console.info('chlidComplete');
+			//console.info('chlidComplete');
 			removechildLoading($(_ul).find("a.ulrefresh_btn"));
 			bindChildEvents(_ul);
 			if($(".savebtn").is(":visible")){
@@ -165,8 +160,9 @@ function queryChildInfo(_ul,str,isRefresh){
 			}
 			//这里去掉小项的添加,修改，删除
 			if($(_ul).parents("div.lf_conta").attr("isEdit")=="0"){
-			$(_ul).find("a.addfw_btn").remove();
-			$(_ul).find("a.editfw_btn ulrt_btn").remove();
+				$(_ul).find("a.addfw_btn").remove();
+				$(_ul).find("a.editfw_btn").remove();
+				$(_ul).find("a.delfw_btn").remove();
 			}
 		}
 	});
@@ -311,7 +307,7 @@ function edit_complete(){
 			return false;
 		}
 	}*/
-	//document.location.reload() ;
+	document.location.reload() ;
 }
 
 ////红色字 鼠标经过效果
@@ -329,11 +325,10 @@ function sylbIcon(){
 }
 //信息编辑
 function editEnable(){
-	
 	var _this = $(this).parent().parent();
 	var title = $(_this).find(".dllf").text();
 	var _ul = $(_this).find("ul").first();
-	var zdryParam="&zdryid="+$(_ul).parents("div.lf_conta").attr("zdryid")+"&syrkid="+$(_ul).parents("div.lf_conta").attr("syrkId");
+	var zdryParam="&zdryid="+$(_ul).parents("div.lf_conta").attr("zdryid");
 	var openUrl = $(_ul).find("input[name='openUrl']").val();
 	if(openUrl=="")return false;
 	var menuName= $(_ul).find("input[name='openUrl']").attr("menu");
@@ -360,24 +355,13 @@ function editEnable(){
 }
 //业务办理
 function doServer(){
-	var dkfs = $(this).attr("dkfs");
-	if(dkfs=="1"){
-		var editUrl = contextPath +  $(this).attr("url");
-		editUrl = editUrl + infoPara.serverOpenPara;
-		window.open(editUrl,$(this).attr("title"),"location=0,menubar=0,resizable=1,scrollbars=0,status=0,titlebar=0,toolbar=0");
-	}else if(dkfs=="2"){
-		var editUrl = $(this).attr("url");
-		editUrl = editUrl + (editUrl.indexOf('?') != -1 ? '&' : '?');
-		editUrl = editUrl + infoPara.serverPara;
-		menu_open($(this).attr("title"),editUrl);
-	}else{
-		var editUrl = contextPath +  $(this).attr("url");
-		var confirmmsg = $(this).attr("confirmmsg");
-		editUrl = editUrl + (editUrl.indexOf('?') != -1 ? '&' : '?');
-		editUrl = editUrl + infoPara.serverPara;
-		var paramArray = $.parseJSON(infoPara.serverIframePara);
-		infoOpen(editUrl,$(this).attr("title"),paramArray, confirmmsg , "edit_complete");
-	}
+	
+	var editUrl = contextPath +  $(this).attr("url");
+	var confirmmsg = $(this).attr("confirmmsg");
+	editUrl = editUrl + (editUrl.indexOf('?') != -1 ? '&' : '?');
+	editUrl = editUrl + infoPara.serverPara;
+	var paramArray = $.parseJSON(infoPara.serverIframePara);
+	infoOpen(editUrl,$(this).attr("title"),paramArray, confirmmsg , "edit_complete");
 }
 //子项信息添加
 function addChildInfoHtml(){
@@ -635,7 +619,7 @@ function getServerMenu(gnlxdm){
  */
  function serverLXRHtml(obj){
 	var sb = new StringBuffer();
-	sb.append("<li><a href='javascript:void(0);' id='serverMenu_"+obj.id+"' url='"+obj.gnanurl+"' title='"+obj.gnanmc+"' dkfs='"+obj.dkfs+"' confirmMsg='"+obj.bctsxx+"' class='addInfo' >"+obj.gnanmc+"</a></li>");
+	sb.append("<li><a href='javascript:void(0);' id='serverMenu_"+obj.id+"' url='"+obj.gnanurl+"' title='"+obj.gnanmc+"' confirmMsg='"+obj.bctsxx+"' class='addInfo' >"+obj.gnanmc+"</a></li>");
 	return sb.toString();
 }
  
@@ -645,7 +629,7 @@ function getServerMenu(gnlxdm){
 
 function serverMenuHtml(obj){
 	var sb = new StringBuffer();
-	sb.append("<li><a href='javascript:void(0);' id='serverMenu_"+obj.id+"' url='"+obj.gnanurl+"' title='"+obj.gnanmc+"' dkfs='"+obj.dkfs+"' confirmMsg='"+obj.bctsxx+"' class='doServer' >"+obj.gnanmc+"</a></li>");
+	sb.append("<li><a href='javascript:void(0);' id='serverMenu_"+obj.id+"' url='"+obj.gnanurl+"' title='"+obj.gnanmc+"' confirmMsg='"+obj.bctsxx+"' class='doServer' >"+obj.gnanmc+"</a></li>");
 	return sb.toString();
 }
 //信息新增修改

@@ -28,7 +28,6 @@ import jxl.common.Logger;
 import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
-import com.founder.framework.organization.right.service.OrgRightPublic;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
 import com.founder.zafffwqz.bean.Jhyxswjbxxb;

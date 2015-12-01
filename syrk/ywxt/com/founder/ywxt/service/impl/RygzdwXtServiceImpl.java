@@ -69,6 +69,8 @@ public class RygzdwXtServiceImpl extends AbstractXtTask {
 		YwxtYwxtxxb ywxtYwxtxxb = new YwxtYwxtxxb();
 		ywxtYwxtxxb.setDatajson(jsonStr);
 		ywxtYwxtxxb.setYwlx(XTLX);
+		ywxtYwxtxxb.setXt_cjsj(DateUtils.getSystemDateTimeString());
+		ywxtYwxtxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		ywxtYwxtxxbDao.save(ywxtYwxtxxb);
 		for (int i = 0; i < listCyr.size(); i++) {
 			Ywxtcyryxxb ywxtcyryxxb = listCyr.get(i);
@@ -92,6 +94,7 @@ public class RygzdwXtServiceImpl extends AbstractXtTask {
 
 		}
 		ywxtYwxtxxb.setYwnr(messageContent);
+		ywxtYwxtxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		ywxtYwxtxxbDao.update(ywxtYwxtxxb);
 
 		// 发起协同任务通过message功能组件
@@ -110,6 +113,8 @@ public class RygzdwXtServiceImpl extends AbstractXtTask {
 		}else if ("0".equals(xtjg)&&approvalLevel==2) {
 			doBusinessRefuse((String) map.get("xtId"), sessionBean);
 		}
+		//清理协同业务数据
+		super.receiveXtywxx(map, approvalLevel, sessionBean, XTLX);
 	}
 
 	/***
@@ -146,7 +151,7 @@ public class RygzdwXtServiceImpl extends AbstractXtTask {
 				+ fqMap.get("gzdw"));
 		message.setXxbt("人员工作单位协同待办");
 		message.setXxlb("6");
-		message.setYwurl("/sydwgl/view?id=" + fqMap.get("gzdwid"));
+		message.setYwurl("/sydwgl_dl/view?id=" + fqMap.get("gzdwid"));
 		message.setFsr(sessionBean.getUserName());
 		message.setFsrdm(sessionBean.getUserId());
 		message.setFssj(DateUtils.getSystemDateTimeString());

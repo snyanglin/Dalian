@@ -20,7 +20,6 @@ import com.founder.service.provinceservice.bean.ServiceZtryBean;
 /**
  * ****************************************************************************
  * 
- * @Package: [cn.ccsgroup.ccsframework.httpService.SSOAuthHttpClient.java]
  * @ClassName: [SSOAuthHttpClient]
  * @Description: [SSO登录权限认证服务 调用client]
  * @Author: [weiwen ]

@@ -29,7 +29,7 @@
 		                   <td style="font-size: 16px;font-family:'微软雅黑'; font-weight:normal;">图例：
 				    			<img src="<%=contextPath%>/images/bzdz/building/czrk.png" style="width:20px;height:19px; vertical-align: middle;"/>&nbsp;常住人口&nbsp;&nbsp;
 				    			<img src="<%=contextPath%>/images/bzdz/building/jzrk.png" style="width:20px;height:19px; vertical-align: middle;"/>&nbsp;寄住人口&nbsp;&nbsp;
-				    			<img src="<%=contextPath%>/images/bzdz/building/zzrk.png" style="width:20px;height:20px; vertical-align: middle;"/>&nbsp;暂住人口&nbsp;&nbsp;
+				    			<img src="<%=contextPath%>/images/bzdz/building/zzrk.png" style="width:20px;height:20px; vertical-align: middle;"/>&nbsp;流动人员&nbsp;&nbsp;
 				    			<img src="<%=contextPath%>/images/bzdz/building/jwrk.png" style="width:20px;height:19px; vertical-align: middle;"/>&nbsp;境外人员&nbsp;&nbsp;
 				    			<img src="<%=contextPath%>/images/bzdz/building/zdrk.png" style="width:20px;height:19px; vertical-align: middle;"/>&nbsp;重点人口&nbsp;&nbsp;
 				    			<img src="<%=contextPath%>/images/bzdz/building/sydw.png" style="width:20px;height:19px; vertical-align: middle;"/>&nbsp;实有单位&nbsp;&nbsp;&nbsp;&nbsp;

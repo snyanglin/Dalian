@@ -42,15 +42,20 @@ public class RfxxServiceImpl extends BaseService implements RfxxService {
 		//一次保存时，要把参与人员也保存进去;
 		setSaveProperties(entity, sessionBean);
 		rfxxDao.insertRfxx(entity);
+		
+		//先不调用电话提醒了，电话提醒用的sql是老版的实有人口
 		//联系电话变更提醒
-		Map<String, Object> map = new HashMap<String, Object>();
+/*		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("ryid", entity.getFffzrid());
 		map.put("lxdh", entity.getFfzrrlxdh());
 		map.put("lxdhlxdm", "1");
 		map.put("lxfsColName", "lxfs");
 		map.put("tableName", "rk_rylxfszb");
 		map.put("ywmc", "【人防信息登记】");
-		sysMessageDao.lxdhBgTx(map, sessionBean, false);
+		sysMessageDao.lxdhBgTx(map, sessionBean, false);*/
+		
+		
+		
 //		Map<String, Object> map = new HashMap<String, Object>();
 //		map.put("ryid", entity.getFfzrrid());
 //		map.put("lxdh", entity.getFfzrrlxdh());
@@ -68,8 +73,10 @@ public class RfxxServiceImpl extends BaseService implements RfxxService {
 	@Override
 	public int updateRfxx(ZaffRfxxb entity, SessionBean sessionBean) {
 		setUpdateProperties(entity, sessionBean);
+		
+		//先不调用电话提醒了，电话提醒用的sql是老版的实有人口
 		//联系电话变更提醒
-		Map<String, Object> map = new HashMap<String, Object>();
+		/*Map<String, Object> map = new HashMap<String, Object>();
 		map.put("ryid", entity.getFffzrid());
 		map.put("lxdh", entity.getFfzrrlxdh());
 		map.put("lxdhlxdm", "1");
@@ -78,7 +85,9 @@ public class RfxxServiceImpl extends BaseService implements RfxxService {
 		map.put("idColName", "id");
 		map.put("idColValue", entity.getId());
 		map.put("ywmc", "【人防信息登记】");
-		sysMessageDao.lxdhBgTx(map, sessionBean, false);
+		sysMessageDao.lxdhBgTx(map, sessionBean, false);*/
+		
+		
 //		Map<String, Object> map = new HashMap<String, Object>();
 //		map.put("ryid", entity.getFfzrrid());
 //		map.put("lxdh", entity.getFfzrrlxdh());

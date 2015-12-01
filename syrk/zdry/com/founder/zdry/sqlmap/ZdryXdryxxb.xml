@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZdryXdryxxb">
+	
+	<typeAlias alias="zdryXdryxxb" type="com.founder.zdry.bean.ZdryXdryxxb" />
+
+
+	<select id="queryList" parameterClass="String" resultClass="ZdryXdryxxb">
+		<![CDATA[ select t.* from ZDRY_XDRYXXB t where t.ZDRYID = #zdryid# and t.XT_ZXBZ = '0' order by t.XT_LRSJ desc ]]>
+	</select>
+
+	<!-- 查询单条（根据主键） -->
+	<select id="queryById" parameterClass="String" resultClass="ZdryXdryxxb">
+		<![CDATA[ select t.* from ZDRY_XDRYXXB t where  t.id = #id# and t.XT_ZXBZ = '0'  ]]>
+	</select>
+	<select id="queryByZdryid" parameterClass="String" resultClass="ZdryXdryxxb">
+		<![CDATA[ select t.* from ZDRY_XDRYXXB t where  t.zdryid = #id# and t.XT_ZXBZ = '0'  ]]>
+	</select>
+
+	<!-- 新增 -->
+	<insert id="save" parameterClass="zdryXdryxxb">
+		<![CDATA[ insert into ZDRY_XDRYXXB (ID,ZDRYID,XSQKDM,CCXDZLDM,XDYYDM,XDFSDM,DPLYDM,DZLYDM,WHSHHG,CCXD_RQ,CCCH_RQ,CCCHXZ,CHJGMC,CCCHCZQKDM,XDRYXZDM,GTXDQK,JDQK,FXRQ,FXCS,FXCHCZQKDM,FXCHCZDWDM,FXCHCZDWMC,FXDPZLDM,FXCHXZ,DPZLDM, ]]><include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#,#zdryid#,#xsqkdm#,#ccxdzldm#,#xdyydm#,#xdfsdm#,#dplydm#,#dzlydm#,#whshhg#,#ccxd_rq#,#ccch_rq#,#ccchxz#,#chjgmc#,#ccchczqkdm#,#xdryxzdm#,#gtxdqk#,#jdqk#,#fxrq#,#fxcs#,#fxchczqkdm#,#fxchczdwdm#,#fxchczdwmc#,#fxdpzldm#,#fxchxz#,#dpzldm#,]]><include refid="insertXtzdVal"/>)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterClass="zdryXdryxxb">
+		<![CDATA[ update ZDRY_XDRYXXB ]]>	
+		<dynamic prepend="set">
+			 <isNotNull prepend="," property="xsqkdm"><![CDATA[ XSQKDM=#xsqkdm# ]]></isNotNull>
+			 <isNotNull prepend="," property="ccxdzldm"><![CDATA[ CCXDZLDM=#ccxdzldm# ]]></isNotNull>
+			 <isNotNull prepend="," property="xdyydm"><![CDATA[ XDYYDM=#xdyydm# ]]></isNotNull>
+			 <isNotNull prepend="," property="xdfsdm"><![CDATA[ XDFSDM=#xdfsdm# ]]></isNotNull>
+			 <isNotNull prepend="," property="dplydm"><![CDATA[ DPLYDM=#dplydm# ]]></isNotNull>
+			 <isNotNull prepend="," property="dzlydm"><![CDATA[ DZLYDM=#dzlydm# ]]></isNotNull>
+			 <isNotNull prepend="," property="whshhg"><![CDATA[ WHSHHG=#whshhg# ]]></isNotNull>
+			 <isNotNull prepend="," property="ccxd_rq"><![CDATA[ CCXD_RQ=#ccxd_rq# ]]></isNotNull>
+			 <isNotNull prepend="," property="ccch_rq"><![CDATA[ CCCH_RQ=#ccch_rq# ]]></isNotNull>
+			 <isNotNull prepend="," property="ccchxz"><![CDATA[ CCCHXZ=#ccchxz# ]]></isNotNull>
+			 <isNotNull prepend="," property="chjgmc"><![CDATA[ CHJGMC=#chjgmc# ]]></isNotNull>
+			 <isNotNull prepend="," property="ccchczqkdm"><![CDATA[ CCCHCZQKDM=#ccchczqkdm# ]]></isNotNull>
+			 <isNotNull prepend="," property="xdryxzdm"><![CDATA[ XDRYXZDM=#xdryxzdm# ]]></isNotNull>
+			 <isNotNull prepend="," property="gtxdqk"><![CDATA[ GTXDQK=#gtxdqk# ]]></isNotNull>
+			 <isNotNull prepend="," property="jdqk"><![CDATA[ JDQK=#jdqk# ]]></isNotNull>
+			 <isNotNull prepend="," property="fxrq"><![CDATA[ FXRQ=#fxrq# ]]></isNotNull>
+			 <isNotNull prepend="," property="fxcs"><![CDATA[ FXCS=#fxcs# ]]></isNotNull>
+			 <isNotNull prepend="," property="fxchczqkdm"><![CDATA[ FXCHCZQKDM=#fxchczqkdm# ]]></isNotNull>
+			 <isNotNull prepend="," property="fxchczdwdm"><![CDATA[ FXCHCZDWDM=#fxchczdwdm# ]]></isNotNull>
+			 <isNotNull prepend="," property="fxchczdwmc"><![CDATA[ FXCHCZDWMC=#fxchczdwmc# ]]></isNotNull>
+			 <isNotNull prepend="," property="fxdpzldm"><![CDATA[ FXDPZLDM=#fxdpzldm# ]]></isNotNull>
+			 <isNotNull prepend="," property="fxchxz"><![CDATA[ FXCHXZ=#fxchxz# ]]></isNotNull>
+			 <isNotNull prepend="," property="dpzldm"><![CDATA[ DPZLDM=#dpzldm# ]]></isNotNull>	
+			 ,<include refid="updateXtzd"/>				
+		</dynamic>
+		<![CDATA[ where ID = #id#]]>	
+	</update>
+	
+	<!-- 注销 -->
+	<update id="delete" parameterClass="zdryXdryxxb">
+		<![CDATA[ update ZDRY_XDRYXXB set ]]><include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>	
+	</update>
+	
+</sqlMap>

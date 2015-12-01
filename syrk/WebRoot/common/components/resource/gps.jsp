@@ -122,7 +122,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 <!-- /实时警力 -->
 <script type="text/javascript">
+
 	var dwbh = "${userSession.userOrgCode}";
+	
     var isLoad = "${param.isLoad}";//是否从交通态势管理：周边警力-跳转标志
     var roadid= "${param.roadid}";//交通态势管理：路段ID
 	gps.init(dwbh,isLoad,roadid); 

@@ -253,7 +253,7 @@ function datagridEdit(datagrid_ID, windowID, paramArray, dataOptions, submitConf
            				iconCls: 'icon-home',
            				handler: function(){
            					window.top.$('#' + windowID).dialog('close');
-           					var editUrl = "/sydwgl/view?id="+zbz[1];
+           					var editUrl = "/sydwgl_dl/view?id="+zbz[1];
            					menu_open("实有单位编辑",editUrl);
            				}
            			},{

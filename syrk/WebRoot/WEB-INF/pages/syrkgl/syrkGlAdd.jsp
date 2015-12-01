@@ -1,20 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.founder.framework.base.entity.SessionBean"%>
-<%@ include file="/WEB-INF/pages/commonInclude.jsp"%>
+<%@include file="/WEB-INF/pages/commonInclude.jsp"%>
 <%
     SessionBean userInfo = (SessionBean)session.getAttribute("userSession");
+    String userOrgCode = "";
     String orglevel = "";
+    String bjzbz = "";
+    String biztype = "";
     if(userInfo!=null){
-    	orglevel = userInfo.getUserOrgLevel();
+        userOrgCode = userInfo.getUserOrgCode();
+        orglevel = userInfo.getUserOrgLevel();
+        bjzbz = userInfo.getBjzbz();
+        biztype = userInfo.getUserOrgBiztype();
     }
 %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>实有人口新增</title>
-<script type="text/javascript">
-   var orglevel = "<%=orglevel%>";
-</script>
+
 <script type="text/javascript" src="<%=contextPath%>/js/syrkgl/syrkGlAdd.js"></script>
 
 </head>
@@ -34,13 +38,13 @@
 					<input type="hidden" id="jbxx_id" name="jbxx.id" value="${ryRyjbxxb.id}"/>
 					<tr class="dialogTr">
 						<td width="20%" class="dialogTd" align="right" style="color: #FF0000;font-weight: bold;">实有人口业务类型：</td>
-						<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="syrkywlxdm" name="syrkywlxdm" value="${syrkywlxdm}" style="width:200px;"
-							data-options="url: contextPath + '/common/dict/BD_D_SYRKYWLXDM.js',dataFilter: '2|3|4|5',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right',required:true,onChange:syrkywlxdm_onChange"/></td> 
-						<td width="20%" class="dialogTd" align="right" id="jbxx_zjzlId">证件种类：</td>
-						<td width="30%" class="dialogTd"><div id="jbxx_zjzlDiv"><input class="easyui-combobox" type="text" id="jbxx_cyzjdm" name="jbxx.cyzjdm" value="${ryRyjbxxb.cyzjdm}" style="width:200px;"
-							data-options="required:true,url: contextPath + '/common/dict/KX_D_CYZJDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'left',onChange:jbxx_cyzjdm_onChange"/></div></td> 
+						<td width="30%" class="dialogTd">
+							<input class="easyui-combobox" type="text" id="syrkywlxdm" name="syrkywlxdm" value="${syrkywlxdm}" style="width:200px;"
+							data-options="url: contextPath + '/common/dict/BD_D_SYRKYWLXDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right',required:true,onChange:syrkywlxdm_onChange"/></td> 
+						<td width="20%" class="dialogTd" align="right">证件种类：</td>
+						<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="jbxx_cyzjdm" name="jbxx.cyzjdm" value="${ryRyjbxxb.cyzjdm}" style="width:200px;"
+							data-options="required:true,url: contextPath + '/common/dict/KX_D_CYZJDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'left',onChange:jbxx_cyzjdm_onChange"/></td> 
 					</tr>
-					<tbody id="jbxxZjbody">
 					<tr class="dialogTr">
 				    	<td width="20%" class="dialogTd" align="right">证件号码：</td>
 				    	<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jbxx_zjhm" name="jbxx.zjhm" value="${ryRyjbxxb.zjhm}" style="width:200px;float:left;" maxlength="30" 
@@ -49,7 +53,7 @@
 		    	        <td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jbxx_xm" name="jbxx.xm" value="${ryRyjbxxb.xm}" style="width:200px;" maxlength="50"
 		    	        	data-options="tipPosition:'left'"/></td>
 					</tr>
-					</tbody>
+
 					<!-- 基本信息补充 -->		
 	    	      	<tbody id="jbxxTbody">
 					<tr class="dialogTr">
@@ -65,8 +69,8 @@
 				    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="jbxx_mzdm" name="jbxx.mzdm" value="${ryRyjbxxb.mzdm}" style="width:200px;" 
 							data-options="url: contextPath + '/common/dict/GB_D_MZDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right'"/></td> 
 				    	<td width="20%" class="dialogTd" align="right">联系电话：</td>
-			    		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jbxx_lxdh" name="jbxx.lxdh" value="${ryRyjbxxb.lxdh}" style="width:200px;" maxlength="18"
-							data-options="validType:['phone'],charSet:'half',tipPosition:'left'" onblur="checkLxdh('jbxx_lxdh','jbxx_id')"/></td>
+			    		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jbxx_lxdh" name="jbxx.lxdh" value="${ryRyjbxxb.lxdh}" style="width:200px;" maxlength="11"
+							data-options="validType:['mobile'],charSet:'half',tipPosition:'left'" onblur="checkLxdh('jbxx_lxdh','jbxx_id')"/></td>
 					</tr>
 					<tr class="dialogTr">
 				    	<td width="20%" class="dialogTd" align="right">出生国家：</td>
@@ -182,7 +186,7 @@
 					    	<input type="hidden" id="czrk1_hjd_mlpxz" value="${ryRyjbxxb.hjd_mlpxz}"/>
 				    	</td>
 				    	<td width="30%" class="dialogTd" align="left">
-					    	<input class="easyui-combobox" id="czrk1_hjd2" style="width:200px;" value="${fn:replace(ryRyjbxxb.hjd_dzxz, ryRyjbxxb.hjd_mlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    	<input class="easyui-combobox" id="czrk1_hjd2" style="width:200px;" value='${fn:replace(ryRyjbxxb.hjd_dzxz, ryRyjbxxb.hjd_mlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    	<input type="hidden" id="czrk1_hjd_dzid" value="${ryRyjbxxb.hjd_dzid}"/>
 					    	<input type="hidden" id="czrk1_hjd_xzqhdm" value="${ryRyjbxxb.hjd_xzqhdm}"/>
 					    	<input type="hidden" id="czrk1_hjd_dzxz" value="${ryRyjbxxb.hjd_dzxz}"/>
@@ -216,7 +220,7 @@
 					    	<input type="hidden" id="czrk_jzd_mlpxz" name="czrk.jzd_mlpxz" value="${czrk.jzd_mlpxz}"/>
 				    	</td>
 				    	<td width="30%" class="dialogTd" align="left">
-					    	<input class="easyui-combobox" id="czrk_jzd2" style="width:200px;" value="${fn:replace(czrk.jzd_dzxz, czrk.jzd_mlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    	<input class="easyui-combobox" id="czrk_jzd2" style="width:200px;" value='${fn:replace(czrk.jzd_dzxz, czrk.jzd_mlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    	<input type="hidden" id="czrk_jzd_dzid" name="czrk.jzd_dzid" value="${czrk.jzd_dzid}"/>
 					    	<input type="hidden" id="czrk_jzd_xzqhdm" name="czrk.jzd_xzqhdm" value="${czrk.jzd_xzqhdm}"/>
 					    	<input type="hidden" id="czrk_jzd_dzxz" name="czrk.jzd_dzxz" value="${czrk.jzd_dzxz}"/>
@@ -249,7 +253,7 @@
 					    	<input type="hidden" id="czrk_lbsqk_lzd_mlpxz" name="czrk.lbsqk_lzd_mlpxz" value="${czrk.lbsqk_lzd_mlpxz}"/>
 				    	</td>
 				    	<td width="30%" class="dialogTd" align="left">
-					    	<input class="easyui-combobox" id="czrk_lbsqk_lzd2" style="width:200px;" value="${fn:replace(czrk.lbsqk_lzd_dzxz, czrk.lbsqk_lzd_mlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    	<input class="easyui-combobox" id="czrk_lbsqk_lzd2" style="width:200px;" value='${fn:replace(czrk.lbsqk_lzd_dzxz, czrk.lbsqk_lzd_mlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    	<input type="hidden" id="czrk_lbsqk_lzd_dzid" name="czrk.lbsqk_lzd_dzid" value="${czrk.lbsqk_lzd_dzid}"/>
 					    	<input type="hidden" id="czrk_lbsqk_lzd_xzqhdm" name="czrk.lbsqk_lzd_xzqhdm" value="${czrk.lbsqk_lzd_xzqhdm}"/>
 					    	<input type="hidden" id="czrk_lbsqk_lzd_dzxz" name="czrk.lbsqk_lzd_dzxz" value="${czrk.lbsqk_lzd_dzxz}"/>
@@ -277,7 +281,7 @@
 					    	<input type="hidden" id="jzrk_jzd_mlpxz" name="jzrk.jzd_mlpxz" value="${jzrk.jzd_mlpxz}"/>
 				    	</td>
 				    	<td width="30%" class="dialogTd" align="left">
-					    	<input class="easyui-combobox" id="jzrk_jzd2" style="width:200px;" value="${fn:replace(jzrk.jzd_dzxz, jzrk.jzd_mlpxz, '')}" data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    	<input class="easyui-combobox" id="jzrk_jzd2" style="width:200px;" value='${fn:replace(jzrk.jzd_dzxz, jzrk.jzd_mlpxz, "")}' data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    	<input type="hidden" id="jzrk_jzd_dzid" name="jzrk.jzd_dzid" value="${jzrk.jzd_dzid}"/>
 					    	<input type="hidden" id="jzrk_jzd_xzqhdm" name="jzrk.jzd_xzqhdm" value="${jzrk.jzd_xzqhdm}"/>
 					    	<input type="hidden" id="jzrk_jzd_dzxz" name="jzrk.jzd_dzxz" value="${jzrk.jzd_dzxz}"/>
@@ -343,7 +347,7 @@
 					    	<input type="hidden" id="jzrk_fz_jzd_mlpxz" name="jzrk.fz_jzd_mlpxz" value="${jzrk.fz_jzd_mlpxz}"/>
 				    	</td>
 				    	<td width="30%" class="dialogTd" align="left">
-					    	<input class="easyui-combobox" id="jzrk_fz_jzd2" style="width:200px;" value="${fn:replace(jzrk.fz_jzd_dzxz, jzrk.fz_jzd_mlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    	<input class="easyui-combobox" id="jzrk_fz_jzd2" style="width:200px;" value='${fn:replace(jzrk.fz_jzd_dzxz, jzrk.fz_jzd_mlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    	<input type="hidden" id="jzrk_fz_jzd_dzid" name="jzrk.fz_jzd_dzid" value="${jzrk.fz_jzd_dzid}"/>
 					    	<input type="hidden" id="jzrk_fz_jzd_xzqhdm" name="jzrk.fz_jzd_xzqhdm" value="${jzrk.fz_jzd_xzqhdm}"/>
 					    	<input type="hidden" id="jzrk_fz_jzd_dzxz" name="jzrk.fz_jzd_dzxz" value="${jzrk.fz_jzd_dzxz}"/>
@@ -359,7 +363,7 @@
     				<tbody>
     				<input type="hidden" id="ldrk_id" name="ldrk.id" value="${ldrk.id}"/>
 					<tr class="dialogTr">
-	    	      		<td width="20%" class="dialogTd" align="right" style="color: #FF0000;font-weight: bold;">暂住人口信息：</td>
+	    	      		<td width="20%" class="dialogTd" align="right" style="color: #FF0000;font-weight: bold;">流动人员信息：</td>
 	    	      		<td width="80%" class="dialogTd" colspan="3"><div id="ldrkDiv" style="display:none;"></div></td>
 					</tr>
 			
@@ -371,7 +375,7 @@
 					    	<input type="hidden" id="ldrk_jzd_mlpxz" name="ldrk.jzd_mlpxz" value="${ldrk.jzd_mlpxz}"/>
 				    	</td>
 				    	<td width="30%" class="dialogTd" align="left">
-					    	<input class="easyui-combobox" id="ldrk_jzd2" style="width:200px;" value="${fn:replace(ldrk.jzd_dzxz, ldrk.jzd_mlpxz, '')}" data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    	<input class="easyui-combobox" id="ldrk_jzd2" style="width:200px;" value='${fn:replace(ldrk.jzd_dzxz, ldrk.jzd_mlpxz, "")}' data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    	<input type="hidden" id="ldrk_jzd_dzid" name="ldrk.jzd_dzid" value="${ldrk.jzd_dzid}"/>
 					    	<input type="hidden" id="ldrk_jzd_xzqhdm" name="ldrk.jzd_xzqhdm" value="${ldrk.jzd_xzqhdm}"/>
 					    	<input type="hidden" id="ldrk_jzd_dzxz" name="ldrk.jzd_dzxz" value="${ldrk.jzd_dzxz}"/>
@@ -397,12 +401,8 @@
 					</tr>
 					<tr class="dialogTr">
 				    	<td width="20%" class="dialogTd" align="right">来自国家：</td>
-				    	<td width="30%" class="dialogTd">
-				    		<input class="easyui-combobox-delay" type="text" id="ldrk_lzd_gjhdqdm" name="ldrk.lzd_gjhdqdm" 
-				    		disabled="disabled" value="${ldrk.lzd_gjhdqdm}" style="width:200px;" r
-							data-options="url: contextPath + '/common/dict/GB_D_GJHDQDM.js',valueField:'id',textField:'text',
-							selectOnNavigation:false,method:'get',tipPosition:'right'"/>
-						</td>
+				    	<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="ldrk_lzd_gjhdqdm" name="ldrk.lzd_gjhdqdm" value="${ldrk.lzd_gjhdqdm}" style="width:200px;" 
+							data-options="url: contextPath + '/common/dict/GB_D_GJHDQDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right'"/></td>
 				    	<td width="20%" class="dialogTd" align="right">区域范围：</td>
 				    	<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="ldrk_qyfwdm" name="ldrk.qyfwdm" value="${ldrk.qyfwdm}" style="width:200px;" 
 							data-options="url: contextPath + '/common/dict/KX_ZA_RKQYQYFWDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'left'"/></td>
@@ -415,7 +415,7 @@
 					    	<input type="hidden" id="ldrk_lzd_mlpxz" name="ldrk.lzd_mlpxz" value="${ldrk.lzd_mlpxz}"/>
 				    	</td>
 				    	<td width="30%" class="dialogTd" align="left">
-					    	<input class="easyui-combobox" id="ldrk_lzd2" style="width:200px;" value="${fn:replace(ldrk.lzd_dzxz, ldrk.lzd_mlpxz, '')}" data-options="mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    	<input class="easyui-combobox" id="ldrk_lzd2" style="width:200px;" value='${fn:replace(ldrk.lzd_dzxz, ldrk.lzd_mlpxz, "")}' data-options="mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    	<input type="hidden" id="ldrk_lzd_dzid" name="ldrk.lzd_dzid" value="${ldrk.lzd_dzid}"/>
 					    	<input type="hidden" id="ldrk_lzd_xzqhdm" name="ldrk.lzd_xzqhdm" value="${ldrk.lzd_xzqhdm}"/>
 					    	<input type="hidden" id="ldrk_lzd_dzxz" name="ldrk.lzd_dzxz" value="${ldrk.lzd_dzxz}"/>
@@ -464,7 +464,7 @@
 					    	<input type="hidden" id="ldrk_fz_jzd_mlpxz" name="ldrk.fz_jzd_mlpxz" value="${ldrk.fz_jzd_mlpxz}"/>
 				    	</td>
 				    	<td width="30%" class="dialogTd" align="left">
-					    	<input class="easyui-combobox" id="ldrk_fz_jzd2" style="width:200px;" value="${fn:replace(ldrk.fz_jzd_dzxz, ldrk.fz_jzd_mlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    	<input class="easyui-combobox" id="ldrk_fz_jzd2" style="width:200px;" value='${fn:replace(ldrk.fz_jzd_dzxz, ldrk.fz_jzd_mlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    	<input type="hidden" id="ldrk_fz_jzd_dzid" name="ldrk.fz_jzd_dzid" value="${ldrk.fz_jzd_dzid}"/>
 					    	<input type="hidden" id="ldrk_fz_jzd_xzqhdm" name="ldrk.fz_jzd_xzqhdm" value="${ldrk.fz_jzd_xzqhdm}"/>
 					    	<input type="hidden" id="ldrk_fz_jzd_dzxz" name="ldrk.fz_jzd_dzxz" value="${ldrk.fz_jzd_dzxz}"/>
@@ -479,92 +479,43 @@
 				<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="display: none;" id="jwryTable" delayParse="true">
     				<tbody>
     				<input type="hidden" id="jwry_id" name="jwry.id" value="${jwry.id}"/>
-    				<tr class="dialogTr">
-	    	      		<td width="20%" class="dialogTd" style="color: #FF0000;font-weight: bold;" align="right">临住登记：</td>
+					<tr class="dialogTr">
+	    	      		<td width="20%" class="dialogTd" align="right" style="color: #FF0000;font-weight: bold;">境外人员信息：</td>
 	    	      		<td width="80%" class="dialogTd" colspan="3"><div id="jwryDiv" style="display:none;"></div></td>
 					</tr>
 					<tr class="dialogTr">
-					    <td width="20%" class="dialogTd" align="right">国籍（地区）：</td>
-				    	<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_gjdm" name="jwry.gjdm" value="${jwry.gjdm}" style="width:200px;" 
-							data-options="required:true,url: contextPath + '/common/dict/GB_D_GJHDQDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right',onChange:jwry_gjdm_onChange"/></td> 
-					    <td width="50%" class="dialogTd" rowspan="9" colspan="2" align="center" style="border: 1px solid #dedfe3;">
-					       <img src="<%=contextPath%>/common/skin/images/empty_ryzp.jpg" style="width:162px;height:200px;"/>
-					    </td>
-					</tr>
-					<tr class="dialogTr">
-					    <td width="20%" class="dialogTd" align="right">证件种类：</td>
-						<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_cyzjdm" name="jwry.cyzjdm" value="${jwry.cyzjdm}" style="width:200px;"
-							data-options="required:true,url: contextPath + '/common/dict/KX_D_CYZJDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right'"/></td>
-					</tr>
-					<tr class="dialogTr">
-					    <td width="20%" class="dialogTd" align="right">证件号码：</td>
-				    	<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_zjhm" name="jwry.zjhm" value="${jwry.zjhm}" style="width:200px;float:left;" maxlength="30" 
-		    	        	data-options="required:true,charSet:'halfUpper',invalidMessage:'请输入正确的证件号码', tipPosition:'right'" onblur="jwry_zjhm_onblur()"/><div class="lodingimg" id="jwryLoadDiv"></div></td>
-					</tr>
-					<tr class="dialogTr">
-					    <td width="20%" class="dialogTd" align="right">中文姓名：</td>
-		    	        <td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_xm" name="jwry.xm" value="${jwry.xm}" style="width:200px;" maxlength="50"
-		    	        	data-options="tipPosition:'left'"/></td>
-					</tr>
-					<tr class="dialogTr">
-					    <td width="20%" class="dialogTd" align="right">外文姓：</td>
+		    	        <td width="20%" class="dialogTd" align="right">外文姓：</td>
 		    	        <td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_wwx" name="jwry.wwx" value="${jwry.wwx}" style="width:200px;" maxlength="40"
-		    	        	data-options="required:true,validType:['letter'],charSet:'half',tipPosition:'right'"/></td>
-					</tr>
-					<tr class="dialogTr">
-					    <td width="20%" class="dialogTd" align="right">外文名：</td>
+		    	        	data-options="validType:['letter'],charSet:'half',tipPosition:'right'"/></td>
+		    	        <td width="20%" class="dialogTd" align="right">外文名：</td>
 		    	        <td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_wwm" name="jwry.wwm" value="${jwry.wwm}" style="width:200px;" maxlength="40"
-		    	        	data-options="required:true,validType:['letter'],charSet:'half',tipPosition:'right'"/></td>
+		    	        	data-options="validType:['letter'],charSet:'half',tipPosition:'left'"/></td>
 					</tr>
 					<tr class="dialogTr">
-					    <td width="20%" class="dialogTd" align="right">性别：</td>
+				    	<td width="20%" class="dialogTd" align="right">国籍：</td>
+				    	<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_gjdm" name="jwry.gjdm" value="${jwry.gjdm}" style="width:200px;" 
+							data-options="required:false,url: contextPath + '/common/dict/GB_D_GJHDQDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right'"/></td> 
+				    	<td width="20%" class="dialogTd" align="right">性别：</td>
 				    	<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_xbdm" name="jwry.xbdm" value="${jwry.xbdm}" style="width:200px;" 
-							data-options="required:true,url: contextPath + '/common/dict/GB_D_XBDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right'"/></td> 
+							data-options="required:false,url: contextPath + '/common/dict/GB_D_XBDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'left'"/></td> 
 					</tr>
 					<tr class="dialogTr">
-					    <td width="20%" class="dialogTd" align="right">出生日期：</td>
+				    	<td width="20%" class="dialogTd" align="right">出生日期：</td>
 		    	 		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_csrq" name="jwry.csrq" value="${jwry.csrq}" style="width:200px;" 
-		    	 			data-options="required:true,validType:['date[\'yyyy-MM-dd\']'],tipPosition:'right'" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d'})"/></td>
-					</tr>
-					<tr class="dialogTr">
-				    	<td width="20%" class="dialogTd" align="right">身份证号码：</td>
-				    	<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_qt_sfzhm" name="jwry.qt_sfzhm" value="${jwry.qt_sfzhm}" style="width:200px;float:left;" maxlength="30" 
-		    	        	data-options="required:false,charSet:'halfUpper',invalidMessage:'请输入正确的身份证号码', tipPosition:'right'"/></td>
-					</tr>
-					<tr class="dialogTr">
-						<td width="20%" class="dialogTd" align="right">签证（注）种类：</td>
-						<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_qzjlxkzldm" name="jwry.qzjlxkzldm" value="${jwry.qzjlxkzldm}" style="width:200px;"
-							data-options="required:false,url: contextPath + '/common/dict/ZA_D_QZZLDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',panelOptionsNumber:8,tipPosition:'right'"/></td> 	
-				    	<td width="20%" class="dialogTd" align="right">签证（注）号码：</td>
-				    	<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_qzjlxkh" name="jwry.qzjlxkh" value="${jwry.qzjlxkh}" style="width:200px;" maxlength="30"  
-		    	        	data-options="required:false,validType:['letterOrNum'],charSet:'half',tipPosition:'right'"/></td>
-					</tr>
-					<tr class="dialogTr">
-				    	<td width="20%" class="dialogTd" align="right">入境日期：</td>
-		    	 		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_rjrq" name="jwry.rjrq" value="${jwry.rjrq}" style="width:200px;" 
 		    	 			data-options="required:false,validType:['date[\'yyyy-MM-dd\']'],tipPosition:'right'" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d'})"/></td>
-				    	<td width="20%" class="dialogTd" align="right">停留有效日期：</td>
-		    	 		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_qztjl_jzrq" name="jwry.qztjl_jzrq" value="${jwry.qztjl_jzrq}" style="width:200px;" 
-		    	 			data-options="required:false,validType:['date[\'yyyy-MM-dd\']'],tipPosition:'right'" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'jwry_rjrq\')}'})"/></td>
+				    	<td width="20%" class="dialogTd" align="right">联系方式：</td>
+			    		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_lxdh" name="jwry.lxdh" value="${jwry.lxdh}" style="width:200px;" maxlength="18"
+							data-options="validType:['phone'],charSet:'half',tipPosition:'left'" onblur="checkLxdh('jwry_lxdh','jbxx_id')"/></td>
 					</tr>
 					<tr class="dialogTr">
-	    	      		<td width="20%" class="dialogTd" style="color: #FF0000;font-weight: bold;" align="right">住址信息：</td>
-	    	      		<td width="80%" class="dialogTd" colspan="3"></td>
-					</tr>
-					<tr class="dialogTr">
-						<td width="20%" class="dialogTd" align="right">住房种类：</td>
-		    	        <td width="80%" class="dialogTd" colspan="3"><input class="easyui-combotree-delay" type="text" id="jwry_zjzcsfldm" name="jwry.zjzcsfldm" value="${jwry.zjzcsfldm}" style="width:200px;" 
-							data-options="url: contextPath + '/common/dict/ZA_D_JZCSFLYDM.js',onlyLeaf:true,dataFilter:'',multiple:false,method:'get',editable:true,lines:true"/></td>
-					</tr>
-					<tr class="dialogTr">
-				    	<td width="20%" class="dialogTd" align="right"><input type="radio" id="jzdzRadio" name="dzRadio" checked="checked" value="0" onclick="onRadioClick(0);">现住址：</td>
+				    	<td width="20%" class="dialogTd" align="right">居住地：</td>
 				    	<td width="50%" class="dialogTd" colspan="2">
 					    	<input class="easyui-combobox" id="jwry_jzd1" style="width:380px;" value="${jwry.jzd_mlpxz}" data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    	<input type="hidden" id="jwry_jzd_mlpdm" name="jwry.jzd_mlpdm" value="${jwry.jzd_mlpdm}"/>
 					    	<input type="hidden" id="jwry_jzd_mlpxz" name="jwry.jzd_mlpxz" value="${jwry.jzd_mlpxz}"/>
 				    	</td>
 				    	<td width="30%" class="dialogTd" align="left">
-					    	<input class="easyui-combobox" id="jwry_jzd2" style="width:200px;" value="${fn:replace(jwry.jzd_dzxz, jwry.jzd_mlpxz, '')}" data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    	<input class="easyui-combobox" id="jwry_jzd2" style="width:200px;" value='${fn:replace(jwry.jzd_dzxz, jwry.jzd_mlpxz, "")}' data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    	<input type="hidden" id="jwry_jzd_dzid" name="jwry.jzd_dzid" value="${jwry.jzd_dzid}"/>
 					    	<input type="hidden" id="jwry_jzd_xzqhdm" name="jwry.jzd_xzqhdm" value="${jwry.jzd_xzqhdm}"/>
 					    	<input type="hidden" id="jwry_jzd_dzxz" name="jwry.jzd_dzxz" value="${jwry.jzd_dzxz}"/>
@@ -572,91 +523,79 @@
 					    	<input type="hidden" id="jwry_jzd_zby" name="jwry.jzd_zby" value="${jwry.jzd_zby}"/>
 				    	</td>
 					</tr>
-					<tbody id="dzmsbody">
 					<tr class="dialogTr">
-			       		<td width="20%" class="dialogTd" align="right"><input type="radio" id="dzmsRadio" name="dzRadio" value="1" onclick="onRadioClick(1);">地址描述：</td>
-						<td width="50%" class="dialogTd" colspan="2">
-							<input class="easyui-combobox" id="dzms_mldzXz" style="width:380px;" value="${jwry.dzms_mldz}" 
-								data-options="mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false" >
-							<input type='hidden' id="dzms_mldz" name='jwry.dzms_mldz' value="${jwry.dzms_mldz}"/>
-						</td>
-						<td width="30%" class="dialogTd">
-						    <input class="easyui-validatebox" name='jwry.dzms_chdz' id="dzms_chdz" style="width:200px;" value='${jwry.dzms_chdz}'>
-					    </td>	
-		    	   </tr>
-		    	   <tr class="dialogTr">
-		    	   		<td width="20%" class="dialogTd" align="right"></td>
-						<td width="50%" class="dialogTd" colspan="2">
-							<input class="easyui-validatebox" id="dzms_sspcsmc" name="jwry.dzms_sspcsmc" style="width: 49%;" value="地址描述所属派出所">
-							<input class="easyui-validatebox" id="dzms_sszrqmc" name="jwry.dzms_sszrqmc" style="width: 48%;" value="地址描述所属责任区">
-							<input type="hidden" id="dzms_sspcsdm" name="jwry.dzms_sspcsdm" value="${jwry.dzms_sspcsdm}">
-							<input type="hidden" id="dzms_sszrqdm" name="jwry.dzms_sszrqdm" value="${jwry.dzms_sszrqdm}">
-							<input type="hidden" id="entity_zbx" name="jwry.dzms_zbx" value="${jwry.dzms_zbx}">
-							<input type="hidden" id="entity_zby" name="jwry.dzms_zby" value="${jwry.dzms_zby}">
-						</td>
-					    <td class="dialogTd">
-							 <a id="dtbdButton" class="l-btn l-btn-small" href="javascript:void(0)" group="" disabled="disabled">
-								<span class="l-btn-left l-btn-icon-left">
-									<span class="l-btn-text">标点</span>
-									<span class="l-btn-icon icon-biaodian"></span>
-								</span>
-							 </a>
-					    </td>
-		    	    </tr>
-		    	    </tbody>
+						<td width="20%" class="dialogTd" align="right">签证种类：</td>
+						<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_qzjlxkzldm" name="jwry.qzjlxkzldm" value="${jwry.qzjlxkzldm}" style="width:200px;"
+							data-options="required:false,url: contextPath + '/common/dict/ZA_D_QZZLDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',panelOptionsNumber:8,tipPosition:'right'"/></td> 
+				    	<td width="20%" class="dialogTd" align="right">签证号：</td>
+				    	<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_qzjlxkh" name="jwry.qzjlxkh" value="${jwry.qzjlxkh}" style="width:200px;" maxlength="30"  
+		    	        	data-options="required:false,validType:['letterOrNum'],charSet:'half',tipPosition:'left'"/></td>
+					</tr>
 					<tr class="dialogTr">
-				    	<td width="20%" class="dialogTd" align="right">入宿日期：</td>
+				    	<td width="20%" class="dialogTd" align="right">证件截止日期：</td>
+		    	 		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_zj_jzrq" name="jwry.zj_jzrq" value="${jwry.zj_jzrq}" style="width:200px;" 
+		    	 			data-options="required:false,validType:['date[\'yyyy-MM-dd\']'],tipPosition:'right'" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})"/></td>
+				    	<td width="20%" class="dialogTd" align="right">签证签发机关：</td>
+		    	 		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_qzjlxkqfjgmc" name="jwry.qzjlxkqfjgmc" value="${jwry.qzjlxkqfjgmc}" style="width:200px;" maxlength="50" 
+		    	        	data-options="required:false,tipPosition:'left'"/></td>
+					</tr>
+					<tr class="dialogTr">
+				    	<td width="20%" class="dialogTd" align="right">签证截止日期：</td>
+		    	 		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_qzjlxk_jzrq" name="jwry.qzjlxk_jzrq" value="${jwry.qzjlxk_jzrq}" style="width:200px;" 
+		    	 			data-options="required:false,validType:['date[\'yyyy-MM-dd\']'],tipPosition:'right'" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})"/></td>
+				    	<td width="20%" class="dialogTd" align="right">签证停留截止日期：</td>
+		    	 		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_qztjl_jzrq" name="jwry.qztjl_jzrq" value="${jwry.qztjl_jzrq}" style="width:200px;" 
+		    	 			data-options="required:false,validType:['date[\'yyyy-MM-dd\']'],tipPosition:'left'" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})"/></td>
+					</tr>
+					<tr class="dialogTr">
+				    	<td width="20%" class="dialogTd" align="right">居住事由：</td>
+				    	<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_zjzsydm" name="jwry.zjzsydm" value="${jwry.zjzsydm}" style="width:200px;" 
+							data-options="url: contextPath + '/common/dict/ZA_D_RKQYYYDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right'"/></td>
+				    	<td width="20%" class="dialogTd" align="right">居住处所：</td>
+				    	<td width="30%" class="dialogTd"><input class="easyui-combotree-delay" type="text" id="jwry_zjzcsfldm" name="jwry.zjzcsfldm" value="${jwry.zjzcsfldm}" style="width:200px;" 
+							data-options="url: contextPath + '/common/dict/ZA_D_JZCSFLYDM.js',onlyLeaf:true,dataFilter:'',multiple:false,method:'get',editable:true,lines:true,onChange:jwry_zjzcsfldm_onChange"/></td>
+					</tr>
+					<tr class="dialogTr">
+				    	<td width="20%" class="dialogTd" align="right">住宿日期：</td>
 		    	 		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_zsrq" name="jwry.zsrq" value="${jwry.zsrq}" style="width:200px;" 
-		    	 			data-options="required:true,validType:['date[\'yyyy-MM-dd\']'],tipPosition:'right'" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})"/></td>
-		    	 	    <td width="20%" class="dialogTd" align="right">拟离开日期：</td>
-		    	 		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_nlkrq" name="jwry.nlkrq" value="${jwry.nlkrq}" style="width:200px;" 
-		    	 			data-options="required:true,validType:['date[\'yyyy-MM-dd\']'],tipPosition:'right'" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'jwry_zsrq\')}'})"/></td>
+		    	 			data-options="required:false,validType:['date[\'yyyy-MM-dd\']'],tipPosition:'right'" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})"/></td>
+				    	<td width="20%" class="dialogTd" align="right">是否常住：</td>
+		    	 		<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_jwryczbs" name="jwry.jwryczbs" value="${jwry.jwryczbs}" style="width:200px;" 
+							data-options="url: contextPath + '/common/dict/BD_D_SFDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'left'"/></td>
 					</tr>
 					<tr class="dialogTr">
-		    	        <td width="20%" class="dialogTd" align="right">房主身份类别：</td>
-		    	        <td width="80%" class="dialogTd" colspan="3">
-                            <input type="radio" id="jnryId" name="jwry.fz_sflb" value="0" onclick="jwry_fzsflb_onClick()" checked="checked">境内人员
-                            <input type="radio" id="jwryId" name="jwry.fz_sflb" value="1" onclick="jwry_fzsflb_onClick()">境外人员		    	        
- 		    	        </td>
-					</tr>
-					<tr class="dialogTr">
-						<td width="20%" class="dialogTd" align="right">房主证件种类：</td>
-						<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_fz_cyzjdm" name="jwry.fz_cyzjdm" value="${jwry.fz_cyzjdm}" style="width:200px;"
-							data-options="required:false,url: contextPath + '/common/dict/KX_D_CYZJDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',panelOptionsNumber:8,tipPosition:'right',onChange:jwry_fz_cyzjdm_onChange"/></td> 
-				    	<td width="20%" class="dialogTd" align="right">房主证件号码：</td>
-				    	<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_fz_zjhm" name="jwry.fz_zjhm" value="${jwry.fz_zjhm}" style="width:200px;float:left;" maxlength="30"
-		    	        	data-options="required:false,charSet:'halfUpper',invalidMessage:'请输入正确的证件号码',tipPosition:'right'" onblur="jwry_fz_zjhm_onblur()"/><div class="lodingimg" id="jwry_fzLoadDiv"></div></td>
-						<input type="hidden" id="jwry_fz_ryid" name="jwry.fz_ryid" value="${jwry.fz_ryid}"/>
-					</tr>
-					<tr class="dialogTr">
-		    	        <td width="20%" class="dialogTd" align="right">房主姓名：</td>
-		    	        <td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_fz_xm" name="jwry.fz_xm" value="${jwry.fz_xm}" style="width:200px;" maxlength="50"
-		    	        	data-options="tipPosition:'right'"/></td>
-				    	<td width="20%" class="dialogTd" align="right">房主联系电话：</td>
-			    		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_fz_lxdh" name="jwry.fz_lxdh" value="${jwry.fz_lxdh}" style="width:200px;" maxlength="18"
-							data-options="validType:['phone'],charSet:'half',tipPosition:'right'" onblur="checkLxdh('jwry_fz_lxdh','jwry_fz_ryid')"/></td>
-					</tr>
-					<tr class="dialogTr" id="jwry_fz_tr1" style="display: none;">
-				    	<td width="20%" class="dialogTd" align="right">房主国籍：</td>
-				    	<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_fz_gjdm" name="jwry.fz_gjdm" value="${jwry.fz_gjdm}" style="width:200px;" 
-							data-options="required:false,url: contextPath + '/common/dict/GB_D_GJHDQDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right'"/></td>
-				    	<td width="20%" class="dialogTd" align="right">房主性别：</td>
-			    		<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_fz_xbdm" name="jwry.fz_xbdm" value="${jwry.fz_xbdm}" style="width:200px;" 
-							data-options="required:false,url: contextPath + '/common/dict/GB_D_XBDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right'"/></td> 
-					</tr>
-					<tr class="dialogTr" id="jwry_fz_tr2" style="display: none;">
-					    <td width="20%" class="dialogTd" align="right">房主外文姓：</td>
-		    	        <td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_fz_wwx" name="jwry.fz_wwx" value="${jwry.fz_wwx}" style="width:200px;" maxlength="40"
-		    	        	data-options="required:false,validType:['letter'],charSet:'half',tipPosition:'right'"/></td>
-					 	<td width="20%" class="dialogTd" align="right">房主外文名：</td>
-		    	        <td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_fz_wwm" name="jwry.fz_wwm" value="${jwry.fz_wwm}" style="width:200px;" maxlength="40"
-		    	        	data-options="required:false,validType:['letter'],charSet:'half',tipPosition:'right'"/></td>
-					</tr>
-					<tr class="dialogTr" id="jwry_fz_tr3" style="display: none;">
-		    	        <td width="20%" class="dialogTd" align="right">房主出生日期：</td>
-		    	        <td width="30%" class="dialogTd" colspan="3"><input class="easyui-validatebox" type="text" id="jwry_fz_csrq" name="jwry.fz_csrq" value="${jwry.fz_csrq}" style="width:200px;" 
+				    	<td width="20%" class="dialogTd" align="right">入境日期：</td>
+		    	 		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_rjrq" name="jwry.rjrq" value="${jwry.rjrq}" style="width:200px;" 
 		    	 			data-options="required:false,validType:['date[\'yyyy-MM-dd\']'],tipPosition:'right'" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d'})"/></td>
+				    	<td width="20%" class="dialogTd" align="right">入境口岸：</td>
+		    	 		<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_rjkadm" name="jwry.rjkadm" value="${jwry.rjkadm}" style="width:200px;" 
+							data-options="url: contextPath + '/common/dict/CRJ_D_RCJKADM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'left'"/></td>
 					</tr>
+					<tr class="dialogTr">
+				    	<td width="20%" class="dialogTd" align="right">拟离开日期：</td>
+		    	 		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_nlkrq" name="jwry.nlkrq" value="${jwry.nlkrq}" style="width:200px;" 
+		    	 			data-options="required:false,validType:['date[\'yyyy-MM-dd\']'],tipPosition:'right'" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'jwry_rjrq\')}'})"/></td>
+				    	<td width="20%" class="dialogTd" align="right">来自国家：</td>
+		    	 		<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_lzgjdqdm" name="jwry.lzgjdqdm" value="${jwry.lzgjdqdm}" style="width:200px;" 
+							data-options="url: contextPath + '/common/dict/GB_D_GJHDQDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'left'"/></td>
+					</tr>
+					<tr class="dialogTr">
+				    	<td width="20%" class="dialogTd" align="right">外国人居留事由：</td>
+		    	 		<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_wgrjlsydm" name="jwry.wgrjlsydm" value="${jwry.wgrjlsydm}" style="width:200px;" 
+							data-options="url: contextPath + '/common/dict/CRJ_D_WGRJLSYDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right'"/></td>
+				    	<td width="20%" class="dialogTd" align="right">境外人员入境事由：</td>
+		    	 		<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_jwryrjsydm" name="jwry.jwryrjsydm" value="${jwry.jwryrjsydm}" style="width:200px;" 
+							data-options="url: contextPath + '/common/dict/CRJ_D_JWRYRJSYDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'left'"/></td>
+					</tr>
+					<tr class="dialogTr">
+				    	<td width="20%" class="dialogTd" align="right">境外人员入境登记身份：</td>
+		    	 		<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_jwryrjdjsfdm" name="jwry.jwryrjdjsfdm" value="${jwry.jwryrjdjsfdm}" style="width:200px;" 
+							data-options="url: contextPath + '/common/dict/CRJ_D_JWRYRJDJSFDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right'"/></td>
+				    	<td width="20%" class="dialogTd" align="right">工作许可登记：</td>
+		    	 		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_gzxkdj" name="jwry.gzxkdj" value="${jwry.gzxkdj}" style="width:200px;" maxlength="30"
+		    	        	data-options="required:false,validType:['letterOrNum'],charSet:'half',tipPosition:'left'"/></td>
+					</tr>
+		
 					<tr class="dialogTr">
 				    	<td width="20%" class="dialogTd" align="right">留宿单位：</td>
 				    	<td width="80%" class="dialogTd" colspan="3">
@@ -672,31 +611,76 @@
 				    		<input class="easyui-combobox" id="jwry_jddw_dwmc_select" data-options="mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false,required:false" type="text" value="${jwry.jddw_dwmc}" maxlength="50" style="width:595px;" /></td>
 					</tr>
 					<tr class="dialogTr">
+				    	<td width="20%" class="dialogTd" align="right">工作单位联系电话：</td>
+			    		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_gzdw_lxdh" name="jwry.gzdw_lxdh" value="${jwry.gzdw_lxdh}" style="width:200px;" maxlength="18"
+							data-options="validType:['phone'],charSet:'half',tipPosition:'right'"/></td>
 				    	<td width="20%" class="dialogTd" align="right">留宿单位联系电话：</td>
 			    		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_lsdw_lxdh" name="jwry.lsdw_lxdh" value="${jwry.lsdw_lxdh}" style="width:200px;" maxlength="18"
-							data-options="validType:['phone'],charSet:'half',tipPosition:'right'"/></td>
-						<td width="20%" class="dialogTd" align="right">接待单位联系电话：</td>
+							data-options="validType:['phone'],charSet:'half',tipPosition:'left'"/></td>
+					</tr>
+					<tr class="dialogTr">
+				    	<td width="20%" class="dialogTd" align="right">接待单位联系电话：</td>
 			    		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_jddw_lxdh" name="jwry.jddw_lxdh" value="${jwry.jddw_lxdh}" style="width:200px;" maxlength="18"
 							data-options="validType:['phone'],charSet:'half',tipPosition:'right'"/></td>
+				    	<td width="20%" class="dialogTd" align="right">是否非法就业：</td>
+				    	<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_sfffjy" name="jwry.sfffjy" value="${jwry.sfffjy}" style="width:200px;" 
+							data-options="url: contextPath + '/common/dict/BD_D_SFDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',panelOptionsNumber:8,tipPosition:'left'"/></td>
 					</tr>
 					<tr class="dialogTr">
-				    	<td width="20%" class="dialogTd" align="right">紧急情况联系人：</td>
-			    		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_lxr_xm" name="jwry.lxr_xm" value="${jwry.lxr_xm}" style="width:200px;" maxlength="18"
-							data-options="tipPosition:'right'"/></td>
-						<td width="20%" class="dialogTd" align="right">紧急情况联系电话：</td>
-			    		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_lxr_lxdh" name="jwry.lxr_lxdh" value="${jwry.lxr_lxdh}" style="width:200px;" maxlength="18"
-							data-options="validType:['phone'],charSet:'half',tipPosition:'right'"/></td>
+				    	<td width="20%" class="dialogTd" align="right">是否非法入境：</td>
+				    	<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_sfffrjdm" name="jwry.sfffrjdm" value="${jwry.sfffrjdm}" style="width:200px;" 
+							data-options="url: contextPath + '/common/dict/BD_D_SFDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',panelOptionsNumber:8,tipPosition:'right'"/></td>
+				    	<td width="20%" class="dialogTd" align="right">是否非法居留：</td>
+				    	<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_sfffjldm" name="jwry.sfffjldm" value="${jwry.sfffjldm}" style="width:200px;" 
+							data-options="url: contextPath + '/common/dict/BD_D_SFDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',panelOptionsNumber:8,tipPosition:'left'"/></td>
 					</tr>
-					<tr class="dialogTr">
-				    	<td width="20%" class="dialogTd" align="right">备注：</td>
-				    	<td width="80%" class="dialogTd" colspan="3"><textarea id="jwry_bz" name="jwry.bz" class="easyui-validatebox" style="width: 595px; height:48px;overflow: auto;"
-							data-options="validType:['maxLength[250]'],invalidMessage:'备注不能超过250个汉字，请重新输入！',tipPosition:'right'">${jwry.bz}</textarea></td>
-			    	</tr>
+
+					<tr class="dialogTr" id="jwry_fz_tr1" style="display: none;">
+				    	<td width="20%" class="dialogTd" align="right">房屋承租情况：</td>
+				    	<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_fwczqkdm" name="jwry.fwczqkdm" value="${jwry.fwczqkdm}" style="width:200px;" 
+							data-options="url: contextPath + '/common/dict/ZA_D_FWCZQKDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right'"/></td>
+				    	<td width="20%" class="dialogTd" align="right">与房主关系：</td>
+				    	<td width="30%" class="dialogTd"><input class="easyui-combotree-delay" type="text" id="jwry_chzr_yfzgx_rygxdm" name="jwry.chzr_yfzgx_rygxdm" value="${jwry.chzr_yfzgx_rygxdm}" style="width:200px;" 
+							data-options="url: contextPath + '/common/dict/XZ_D_RYGXDM.js',onlyLeaf:true,dataFilter:'',multiple:false,method:'get',editable:true,lines:true"/></td>
+    						<input type="hidden" id="jwry_fz_ryid" name="jwry.fz_ryid" value="${jwry.fz_ryid}"/>
+						</td>
+					</tr>
+					<tr class="dialogTr" id="jwry_fz_tr2" style="display: none;">
+						<td width="20%" class="dialogTd" align="right">房主证件种类：</td>
+						<td width="30%" class="dialogTd"><input class="easyui-combobox-delay" type="text" id="jwry_fz_cyzjdm" name="jwry.fz_cyzjdm" value="${jwry.fz_cyzjdm}" style="width:200px;"
+							data-options="required:false,url: contextPath + '/common/dict/KX_D_CYZJDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',panelOptionsNumber:8,tipPosition:'right',onChange:jwry_fz_cyzjdm_onChange"/></td> 
+				    	<td width="20%" class="dialogTd" align="right">房主证件号码：</td>
+				    	<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_fz_zjhm" name="jwry.fz_zjhm" value="${jwry.fz_zjhm}" style="width:200px;float:left;" maxlength="30"
+		    	        	data-options="required:false,charSet:'halfUpper',invalidMessage:'请输入正确的证件号码',tipPosition:'left'" onblur="jwry_fz_zjhm_onblur()"/><div class="lodingimg" id="jwry_fzLoadDiv"></div></td>
+					</tr>
+					<tr class="dialogTr" id="jwry_fz_tr3" style="display: none;">
+		    	        <td width="20%" class="dialogTd" align="right">房主姓名：</td>
+		    	        <td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_fz_xm" name="jwry.fz_xm" value="${jwry.fz_xm}" style="width:200px;" maxlength="50"
+		    	        	data-options="tipPosition:'right'"/></td>
+				    	<td width="20%" class="dialogTd" align="right">房主联系电话：</td>
+			    		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jwry_fz_lxdh" name="jwry.fz_lxdh" value="${jwry.fz_lxdh}" style="width:200px;" maxlength="18"
+							data-options="validType:['phone'],charSet:'half',tipPosition:'left'" onblur="checkLxdh('jwry_fz_lxdh','jwry_fz_ryid')"/></td>
+					</tr>
+					<tr class="dialogTr" id="jwry_fz_tr4" style="display: none;">
+				    	<td width="20%" class="dialogTd" align="right">房主居住地址：</td>
+				    	<td width="50%" class="dialogTd" colspan="2">
+					    	<input class="easyui-combobox" id="jwry_fz_jzd1" style="width:380px;" value="${jwry.fz_jzd_mlpxz}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    	<input type="hidden" id="jwry_fz_jzd_mlpdm" name="jwry.fz_jzd_mlpdm" value="${jwry.fz_jzd_mlpdm}"/>
+					    	<input type="hidden" id="jwry_fz_jzd_mlpxz" name="jwry.fz_jzd_mlpxz" value="${jwry.fz_jzd_mlpxz}"/>
+				    	</td>
+				    	<td width="30%" class="dialogTd" align="left">
+					    	<input class="easyui-combobox" id="jwry_fz_jzd2" style="width:200px;" value='${fn:replace(jwry.fz_jzd_dzxz, jwry.fz_jzd_mlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    	<input type="hidden" id="jwry_fz_jzd_dzid" name="jwry.fz_jzd_dzid" value="${jwry.fz_jzd_dzid}"/>
+					    	<input type="hidden" id="jwry_fz_jzd_xzqhdm" name="jwry.fz_jzd_xzqhdm" value="${jwry.fz_jzd_xzqhdm}"/>
+					    	<input type="hidden" id="jwry_fz_jzd_dzxz" name="jwry.fz_jzd_dzxz" value="${jwry.fz_jzd_dzxz}"/>
+				    	</td>
+					</tr>
+	    	      	
     				</tbody>
 				</table>
     			</form>
-    			
-    			<form action="<%=basePath%>syrkGl/save" id="wlrkForm" name="wlrkForm" method="post">
+
+   				<form action="<%=basePath%>syrkGl/save" id="wlrkForm" name="wlrkForm" method="post">
 				<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="display: none;" id="wlrkTable" delayParse="true">
     				<tbody>
     				<input type="hidden" id="wlrk_id" name="wlrk.id" value="${wlrk.id}"/>
@@ -719,7 +703,7 @@
 					    	<input type="hidden" id="wlrk_jzd_mlpxz" name="wlrk.jzd_mlpxz" value="${wlrk.jzd_mlpxz}"/>
 				    	</td>
 				    	<td width="30%" class="dialogTd" align="left">
-					    	<input class="easyui-combobox" id="wlrk_jzd2" style="width:200px;" value="${fn:replace(wlrk.jzd_dzxz, wlrk.jzd_mlpxz, '')}" data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    	<input class="easyui-combobox" id="wlrk_jzd2" style="width:200px;" value='${fn:replace(wlrk.jzd_dzxz, wlrk.jzd_mlpxz, "")}' data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    	<input type="hidden" id="wlrk_jzd_dzid" name="wlrk.jzd_dzid" value="${wlrk.jzd_dzid}"/>
 					    	<input type="hidden" id="wlrk_jzd_xzqhdm" name="wlrk.jzd_xzqhdm" value="${wlrk.jzd_xzqhdm}"/>
 					    	<input type="hidden" id="wlrk_jzd_dzxz" name="wlrk.jzd_dzxz" value="${wlrk.jzd_dzxz}"/>
@@ -778,7 +762,7 @@
 					    	<input type="hidden" id="wlrk_fz_jzd_mlpxz" name="wlrk.fz_jzd_mlpxz" value="${wlrk.fz_jzd_mlpxz}"/>
 				    	</td>
 				    	<td width="30%" class="dialogTd" align="left">
-					    	<input class="easyui-combobox" id="wlrk_fz_jzd2" style="width:200px;" value="${fn:replace(wlrk.fz_jzd_dzxz, wlrk.fz_jzd_mlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    	<input class="easyui-combobox" id="wlrk_fz_jzd2" style="width:200px;" value='${fn:replace(wlrk.fz_jzd_dzxz, wlrk.fz_jzd_mlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    	<input type="hidden" id="wlrk_fz_jzd_dzid" name="wlrk.fz_jzd_dzid" value="${wlrk.fz_jzd_dzid}"/>
 					    	<input type="hidden" id="wlrk_fz_jzd_xzqhdm" name="wlrk.fz_jzd_xzqhdm" value="${wlrk.fz_jzd_xzqhdm}"/>
 					    	<input type="hidden" id="wlrk_fz_jzd_dzxz" name="wlrk.fz_jzd_dzxz" value="${wlrk.fz_jzd_dzxz}"/>
@@ -788,28 +772,34 @@
     				</tbody>
 				</table>
     			</form>
-    		  </div>	
+			</div>
 			
 		</div>
 	    </div>
 	    </div>
+
 		<div id="saveDiv" style="text-align:center; height:50px; padding-top: 10px; display:none;">
-			<a id="saveAndPrintButton" class="l-btn l-btn-small" href="javascript:void(0)" group="" onclick="saveForm(1)" style="display: none;">
-				<span class="l-btn-left l-btn-icon-left">
-					<span class="l-btn-text">保存并打印</span>
-					<span class="l-btn-icon icon-save"> </span>
-				</span>
-			</a>
-			&nbsp;&nbsp;
-			<a id="saveButton" class="l-btn l-btn-small" href="javascript:void(0)" group="" onclick="saveForm(0)">
+			<a id="saveButton" class="l-btn l-btn-small" href="javascript:void(0)" group="" onclick="saveForm()">
 				<span class="l-btn-left l-btn-icon-left">
 					<span class="l-btn-text">保存</span>
 					<span class="l-btn-icon icon-save"> </span>
 				</span>
 			</a>
+			<!-- 
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a id="resetButton" class="l-btn l-btn-small" href="javascript:void(0)" group="" onclick="resetForm()">
+				<span class="l-btn-left l-btn-icon-left">
+					<span class="l-btn-text">重置</span>
+					<span class="l-btn-icon icon-reset"> </span>
+				</span>
+			</a>
+			-->
 		</div>
+
    	</td></tr></table>
 </div>
+
+
 </body>
 <script type="text/javascript">
 var mainTabID = "${mainTabID}";
@@ -818,6 +808,9 @@ var pcsdm = "${pcsdm}";
 var zrqdm = "${zrqdm}";
 var cyzjdm = "${ryRyjbxxb.cyzjdm}"; 
 var zjhm = "${ryRyjbxxb.zjhm}"; 
+var biztype = "<%=biztype %>";
+var userOrgCode = "<%= userOrgCode%>";
+
 function doInit(paramArray) {
 
 }

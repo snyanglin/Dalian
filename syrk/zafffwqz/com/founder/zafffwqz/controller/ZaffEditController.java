@@ -12,7 +12,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.beanutils.MethodUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +31,9 @@ import com.founder.zafffwqz.service.SqjwsxxbService;
 import com.founder.zafffwqz.service.ZaffEditService;
 import com.founder.zafffwqz.vo.ZaffgnVO;
 import com.founder.zafffwqz.vo.ZaffxxzsVO;
+
 import com.google.gson.Gson;
+import org.apache.commons.beanutils.MethodUtils;
 
 /**
  * 治安防范查看编辑页面控制器
@@ -157,7 +158,7 @@ public class ZaffEditController extends BaseController {
 	 */
 	@RequestMapping(value = "/delete_xxzsnrb", method = RequestMethod.GET)
 	public ModelAndView delete_xxzsnrb(String url, String id) {
-		ModelAndView mv = new ModelAndView("sydw/sydwmessagEdit");
+		ModelAndView mv = new ModelAndView("sydw_dl/sydwmessagEdit");
 		mv.addObject("url", url);
 		mv.addObject("id", id);
 		return mv;

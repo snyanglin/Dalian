@@ -157,13 +157,13 @@ SyrkQuery.openInfoWindow = function(row){
 	var zjhm = rowData.zjhm;
 	var csrq = rowData.csrq;
 	var cyzjdm = rowData.cyzjdm;
-	var hjdz = "";
+	var hjdz = rowData.hjd_dzms;
 	var jzdz = "";
-	if(rowData.hjd_dzxz!=null){
-		hjdz = rowData.hjd_dzxz;
-	}else{
-		hjdz = rowData.hjd_mlpxz;
-	}
+//	if(rowData.hjd_dzxz!=null){
+//		hjdz = rowData.hjd_dzxz;
+//	}else{
+//		hjdz = rowData.hjd_mlpxz;
+//	}
 	if(rowData.jzd_dzxz!=null){
 		jzdz = rowData.jzd_dzxz;
 	}else{
@@ -198,8 +198,8 @@ SyrkQuery.openInfoWindow = function(row){
 			       "<tr><td class='infoTable' width='80'>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td><td class='infoTable1'>"+xbmc+"</td>" +
 			       "<td class='infoTable'>民&nbsp;族：<span class='infoTable1'>"+mzmc+"</span></td></tr>" +
 			       "<tr><td class='infoTable' width='80'>出生日期：</td><td class='infoTable1' colspan='2'>"+rowData.csrq+"</td></tr>" +
-			       "<tr><td class='infoTable' width='80'>证件号码：</td><td class='infoTable1' colspan='2'><a class='infoTable' style='text-decoration:underline;' href='javascript:void(0)' onclick='SyrkQuery.doSyrkXq("+row+")'>"+rowData.zjhm+"</a></td></tr>" +
-			       "<tr><td class='infoTable' width='80'>户籍地址：</td><td class='infoTable1' colspan='2'>"+hjdz+"</td></tr>";
+			       "<tr><td class='infoTable' width='80'>证件号码：</td><td class='infoTable1' colspan='2'><a class='infoTable' style='text-decoration:underline;' href='javascript:void(0)' onclick='SyrkQuery.doSyrkXq("+row+")'>"+rowData.zjhm+"</a></td></tr>" 
+			      /* "<tr><td class='infoTable' width='80'>户籍地址描述：</td><td class='infoTable1' colspan='2'>"+hjdz+"</td></tr>";*/
 			       if(rowData.jzd_mlpdm!=""&&rowData.jzd_dzid!=""){
 			    	   openHtml += "<tr><td class='infoTable' width='80'>现居地址：</td><td class='infoTable1' colspan='2'><a class='infoTable' style='text-decoration:underline;' href='javascript:void(0)' onclick='SyrkQuery.doBuildingShow("+row+")'>"+jzdz+"</a></td></tr>";
 			       }else{
@@ -312,13 +312,6 @@ SyrkQuery.queryButton = function(){
 	var zjhm = document.getElementById("zjhm").value;
 	var xbdm = document.getElementById("xbdm").value;
 	var mzdm = document.getElementById("mzdm").value;
-	//gem 需求说只按照年龄，不按照年龄段
-	var ageTemp = document.getElementById("age").value;
-	var year = new Date().getFullYear();
-	var age = "";
-	if (ageTemp!=null && ageTemp!='') {
-		age = year - ageTemp;
-	}
 	var jzd_dzxz = document.getElementById("jzd_dzxz").value;
 	var searchbox = $('#searchbox').searchbox('getValue');
 	$('#dg').datagrid('load',{    
@@ -328,7 +321,6 @@ SyrkQuery.queryButton = function(){
 		'zjhm':zjhm,
 		'xbdm':xbdm,
 		'mzdm':mzdm,
-		'age': age,
 		'jzd_dzxz':jzd_dzxz,
 		'searchbox':searchbox,
 		'drawType':SyrkQuery.drawType,

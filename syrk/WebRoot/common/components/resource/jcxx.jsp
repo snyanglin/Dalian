@@ -16,28 +16,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
+	
   </head>
   
   <body>
          
 <div class="rtcontpadding"> 
-<!-- 基础信息 -->
-<!-- <div class="padding6">
-<a href="#" class="btnzy" title="流量"><span class="zy_ll">流量</span></a>
-</div> -->
-<div class="linec"></div>
+
 <div class="padding6" id="layer_data_content">
 </div>
-<div id="no_data" style="display:none;">
+<!-- <div id="no_data" style="display:none;">
 无专题权限
+</div> -->
+<div class="input_selectbg" id="ssjl_zzjg">
+				<input type="hidden" id="ssjl_jczyzzjg_dm" />
+				<input type="text" id="ssjl_jczyzzjg_mc" class="zzjg_slect input_select" style="width:225px;" onExit="Jcxx.showJcxx($('#ssjl_jczyzzjg_dm').val())"/>
+				<div class="clear" id="ssjl_jczyzzjg_data_Div"></div>
 </div>
+<!-- 基础信息 -->
+<div class="padding6">
+<a href="#" class="btnClick" id="tw" title="天网" onclick="Jcxx.tianwang();"><span class="tw">天网</span></a>
+
+<a href="#" class="btnzy" id="kk" title="卡口" onclick="Jcxx.kakou();"><span class="kk">卡口</span></a>
+
+
+</div> 
 <div class="linec"></div>
 <!--查询方式-->
 <div class="rt_title"><strong>快捷查询</strong></div>
 <div class="rt_contli" id="query_mode">
 <div id="fast_query_mode"></div>
-<a href="javascript:void(0)" class="btnfs bnt_xqn bnt_xqn_disabled" disabled="" id="xqSearch" title="辖区内查询" ></a>
-<a href="javascript:void(0)" class="btnfs bnt_syn" id="visionSearch" title="视野内查询" ></a>
+<a href="javascript:void(0)" class="btnfs bnt_xqn" id="xqSearch" title="辖区内查询" onclick="Jcxx.xqSearch();" ></a>
+<a href="javascript:void(0)" class="btnfs bnt_syn" id="visionSearch" title="视野内查询"  onclick="Jcxx.visionSearch();"></a>
 
 <a href="javascript:void(0)" class="btnfs bnt_fsqc" id="jcxx_clear" title="清除" onclick="Jcxx.clear();"></a>
 
@@ -80,7 +90,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
    var isLoad = "${param.isLoad}";//是否从交通态势管理：周边资源-跳转标志
    var roadid= "${param.roadid}";//交通态势管理：路段ID
-   Jcxx.init(isLoad,roadid);
+   var dwbh = "${userSession.userOrgCode}";
+   Jcxx.init(isLoad,roadid,dwbh);
 </script>
  </body>
 </html>

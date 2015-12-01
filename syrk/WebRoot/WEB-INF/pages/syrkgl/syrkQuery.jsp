@@ -83,15 +83,14 @@
            </div>
            <div id="win" class="easyui-window" title="实有人口精确查询"  data-options="iconCls:'icon-search',
                 collapsible:false,minimizable:false,maximizable:false,
-		        modal:true,closed:true,width:380,height:370">
+		        modal:true,closed:true,width:380,height:330">
 		        <form id ="queryForm" >
 			        <table border="0" cellpadding="0" cellspacing="10" width="100%" height="100%" align="center">
 				        <tr class="dialogTr">
 						    	<td width="30%" class="dialogTd" align="right">人员类型：</td>
 						    	<td width="70%" class="dialogTd">
 									<input class="easyui-combobox" type="text" id="syrkywlxdm" name="syrkywlxdm" style="width:180px;"
-								    	   data-options="url: contextPath + '/common/dict/BD_D_SYRKYWLXDM.js',
-								    	   valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/>
+								    	   data-options="url: contextPath + '/common/dict/BD_D_SYRKYWLXDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/>
 								</td>
 					   	</tr>	
 				        <tr class="dialogTr">
@@ -101,7 +100,7 @@
 					    	</td>
 				    	</tr>
 				    	<tr class="dialogTr">
-					    	<td width="30%" class="dialogTd" align="right">证件种类：</td>
+					    	<td width="30%" class="dialogTd" align="right">证件类型：</td>
 					    	<td width="70%" class="dialogTd">
 					    	    <input class="easyui-combobox" type="text" id="cyzjdm" name="cyzjdm" style="width:180px;"
 							    	   data-options="url: contextPath + '/common/dict/KX_D_CYZJDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get'"/>
@@ -133,14 +132,6 @@
 					            <input type="text" name="jzd_dzxz" id ="jzd_dzxz" class="easyui-validatebox" data-options="required:false,validType:'maxLength[30]'" style="width:180px;"/>
 					        </td>
 				    	</tr>	
-				    	<!-- gem begin -->
-				    	<tr class="dialogTr">
-					    	<td width="30%" class="dialogTd" align="right">年龄(周岁)：</td>
-					    	<td width="70%" class="dialogTd">
-					            <input type="text" name="age" id ="age" class="easyui-numberbox" data-options="required:false,validType:'maxLength[3]'" style="width:180px;"/>
-					        </td>
-				    	</tr>
-				    	<!-- gem end -->	
 				    	<tr class="dialogTr" style="padding-bottom:0px;margin-bottom:0px;">
 					    	<td colspan="2" align="right">
 					    		<a class="easyui-linkbutton" iconCls="icon-ok" onclick="SyrkQuery.queryButton();">确定</a>

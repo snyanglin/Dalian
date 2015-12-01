@@ -86,7 +86,12 @@ public class SyrkEditDao extends BaseDaoImpl {
 	 */
 	public List<ZpfjFjxxb> fjxx_query(Map<String, Object> map){
 		map.put("lybm","SYRK_SYRKXXZB");
-		map.put("id",map.get("lyid"));
+		if(map.get("lyid")!=null){
+			map.put("id",map.get("lyid"));
+		}
+		else if(map.get("syrkid")!=null){
+			map.put("id",map.get("syrkid"));
+		}
 		return queryForList("ZpfjFjxxb.fjxx_query", map);
 	}
 

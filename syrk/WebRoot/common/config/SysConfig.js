@@ -15,7 +15,7 @@ var SysConfig = {
 	 */
 	SYSTEM_NAME : "智能交通管理可视化业务平台",
 	
-	EZSERVER_DEV_URL : "http://10.80.8.178:9080/EzServerClient/js/EzMapAPI.js",
+	EZSERVER_DEV_URL : "http://10.80.8.179:9080/EzServerClient/js/EzMapAPI.js",
 	
 	/**
 	 * EzMapService地址【可修改】
@@ -25,7 +25,7 @@ var SysConfig = {
 	/**
 	 * EzBuilder4.0开发库引入地址【可修改】POService/EzBuilderAPI/JavascriptApi
 	 */
-	EZBUILDER_DEV_URL : "http://10.80.8.178:9080/POService/EzBuilderAPI/JavascriptApi/JsEzbuilder.js",
+	EZBUILDER_DEV_URL : "http://10.80.8.178:7001/POService40/EzBuilderAPI/JavascriptApi/JsEzbuilder.js",
 
 	/**
 	 * 空间数据库用户名【可修改】

@@ -114,7 +114,7 @@ table{margin-top:5px}
 
 .input_div{ clear:both;}
 .input_div span{ float:left; padding:5px;}
-.input_selectbg{ width:155px; height:21px; border:none; margin:5px; padding:0 0 0 5px;background:url(../images/input_select.png) left 1px no-repeat; float:left; overflow:visible; position:relative;}
+.input_selectbg{ width:155px; height:21px; border:none; margin:5px; padding:0 0 0 5px;background:url(../images/input_select.png) left 1px no-repeat; float:left; overflow:visible; position:relative;z-index: 2}
 .input_select{ width:150px; height:21px; border:none; padding:0 5px; background:url(../images/input_select.png) right  -20px no-repeat; line-height:20px;}
 .input_select_li{ margin:0; padding:0; width:163px; border:solid 1px #c0c0c0; border-top:none; background:#ffffff; list-style:none; position:absolute; top:20px; left:0; display:none;}
 .input_select_li li{ margin:0; padding:0 5px; width:153px;}

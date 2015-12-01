@@ -26,15 +26,6 @@ public class SyrkgnVo implements Serializable {
 	private String gnlxdm;
 	private String gndybm;
 	private String bctsxx;
-	private String dkfs;
-
-	public String getDkfs() {
-		return dkfs;
-	}
-
-	public void setDkfs(String dkfs) {
-		this.dkfs = dkfs;
-	}
 
 	public String getBctsxx() {
 		return bctsxx;

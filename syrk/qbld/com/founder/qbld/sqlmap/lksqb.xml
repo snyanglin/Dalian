@@ -34,10 +34,7 @@
 			  <isNotEmpty prepend="and" property="lksqb.bkqssjE">
 				    <![CDATA[ bkqssj <= #lksqb.bkqssjE# ]]> 
 			  </isNotEmpty>
-			  <![CDATA[ 
-			  	order by $sort$ $order$
-			     ) m
-			  ]]>
+			     )m
       <![CDATA[where rownum <= #end# ) where r > #begin#]]> 
     </select>
     

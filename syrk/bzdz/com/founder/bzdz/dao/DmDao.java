@@ -9,6 +9,7 @@ import com.founder.bzdz.vo.DmxxbVO;
 import com.founder.framework.base.dao.BaseDaoImpl;
 import com.founder.framework.utils.ComboBox;
 import com.founder.framework.utils.EasyUIPage;
+import com.founder.framework.utils.StringUtils;
 /**
  * @类名: DmDao 
  * @描述: 地名管理Dao
@@ -247,8 +248,8 @@ public class DmDao extends BaseDaoImpl {
 	 * @throws
 	 */
 	@SuppressWarnings("unchecked")
-	public List<ComboBox> queryDictDm(String pcsdm) {
-		return queryForList("com.founder.bzdz.sqlmap.Dm.queryDictDm",pcsdm);
+	public List<ComboBox> queryDictDm(Map<String,String> map) {
+		return queryForList("com.founder.bzdz.sqlmap.Dm.queryDictDm",map);
 	}
 	/**
 	 * @Title: queryDictSq 
@@ -261,6 +262,10 @@ public class DmDao extends BaseDaoImpl {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<ComboBox> queryDictSq(String pcsdm) {
-		return queryForList("com.founder.bzdz.sqlmap.Dm.queryDictSq",pcsdm);
+		Map<String,String> map = new HashMap<String, String>();
+		if(!StringUtils.isBlank(pcsdm)){
+			map.put("pcsdm", pcsdm);
+		}
+		return queryForList("com.founder.bzdz.sqlmap.Dm.queryDictSq",map);
 	}
 }

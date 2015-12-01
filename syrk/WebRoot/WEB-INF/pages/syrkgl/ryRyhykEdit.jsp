@@ -61,7 +61,7 @@
 		    	
 		    </tr>
     	   <tr class="dialogTr">
-		    	<td width="20%" class="dialogTd" align="right">是否实名：</td>
+		    	<td width="20%" class="dialogTd" align="right">是否实名代码：</td>
 		    	<td width="30%">
 			        <input type="text" name="sfsmdm" id="sfsmdm" value="${entity.sfsmdm}" class="easyui-combobox" style="width:200px;" 
 				     data-options="url: contextPath + '/common/dict/D_BZ_SF.js',dataFilter: '0|1',required:true,method:'get',

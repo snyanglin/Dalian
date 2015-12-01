@@ -3,7 +3,7 @@ package com.founder.alarm.plugin.test;
 import org.springframework.stereotype.Repository;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
-import com.founder.sydw.bean.Ldxxb;
+import com.founder.sydw_dl.bean.Ldxxb;
 
 @Repository("testDao")
 public class TestDao extends BaseDaoImpl {

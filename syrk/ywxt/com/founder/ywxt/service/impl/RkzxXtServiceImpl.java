@@ -68,7 +68,8 @@ public class RkzxXtServiceImpl extends AbstractXtTask {
 		YwxtYwxtxxb ywxtYwxtxxb = new YwxtYwxtxxb();
 		ywxtYwxtxxb.setDatajson(jsonStr);
 		ywxtYwxtxxb.setYwlx(XTLX);
-
+		ywxtYwxtxxb.setXt_cjsj(DateUtils.getSystemDateTimeString());
+		ywxtYwxtxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		ywxtYwxtxxbDao.save(ywxtYwxtxxb);
 		for (int i = 0; i < listCyr.size(); i++) {
 			Ywxtcyryxxb ywxtcyryxxb = listCyr.get(i);
@@ -92,6 +93,7 @@ public class RkzxXtServiceImpl extends AbstractXtTask {
 
 		}
 		ywxtYwxtxxb.setYwnr(messageContent);
+		ywxtYwxtxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		ywxtYwxtxxbDao.update(ywxtYwxtxxb);
 
 		// 发起协同任务通过message功能组件
@@ -110,6 +112,8 @@ public class RkzxXtServiceImpl extends AbstractXtTask {
 		}else if ("0".equals(xtjg)&&approvalLevel==2) {
 			doBusinessRefuse((String) map.get("xtId"), sessionBean);
 		}
+		//清理协同业务数据
+		super.receiveXtywxx(map, approvalLevel, sessionBean, XTLX);
 	}
 
 	/***

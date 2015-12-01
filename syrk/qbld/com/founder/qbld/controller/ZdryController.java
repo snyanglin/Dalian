@@ -643,8 +643,6 @@ public class ZdryController extends BaseController {
 		sessionBean = getSessionBean(sessionBean);
 		entity.setTbdwdm(sessionBean.getUserOrgCode());
 		entity.setTbdwmc(sessionBean.getUserOrgNameQc());
-		entity.setTbrid(sessionBean.getUserId());
-		entity.setTbrxm(sessionBean.getUserName());
 		try {
 			zdryService.saveShgxr(entity);
 			model.put(AppConst.STATUS, AppConst.SUCCESS);

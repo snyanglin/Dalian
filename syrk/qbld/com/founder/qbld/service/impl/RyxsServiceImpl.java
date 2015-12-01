@@ -34,15 +34,6 @@ public class RyxsServiceImpl extends BaseService implements RyxsService {
 	@Resource(name = "ryxsDao")
 	private RyxsDao ryxsDao;
 
-	/**
-	 * @Title: queryRyxsList
-	 * @Description: TODO(人员写实列表查询)
-	 * @param @param page
-	 * @param @param entity
-	 * @param @return    设定文件
-	 * @return EasyUIPage    返回类型
-	 * @throws
-	 */
 	@Override
 	public EasyUIPage queryRyxsList(EasyUIPage page, Ryxsb entity) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -64,14 +55,6 @@ public class RyxsServiceImpl extends BaseService implements RyxsService {
 		return page;
 	}
 
-	/**
-	 * @Title: queryRyxs
-	 * @Description: TODO(根据id获取人员写实详情)
-	 * @param @param entity
-	 * @param @return    设定文件
-	 * @return Ryxsb    返回类型
-	 * @throws
-	 */
 	@Override
 	public Ryxsb queryRyxs(Ryxsb entity) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -79,14 +62,6 @@ public class RyxsServiceImpl extends BaseService implements RyxsService {
 		return ryxsDao.queryRyxs(map);
 	}
 
-	/**
-	 * @Title: saveRyxsb
-	 * @Description: TODO(人员写实表)
-	 * @param @param entity
-	 * @param @return    设定文件
-	 * @return String    返回类型
-	 * @throws
-	 */
 	@Override
 	public String saveRyxsb(Ryxsb entity) {
 		SimpleDateFormat formatStr = new SimpleDateFormat("yyyyMMddHHmmss"); 

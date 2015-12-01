@@ -33,8 +33,9 @@
 								<td valign="top" align="center" style="width:200px;">
 									<div class="pphoto_1" style="text-align: center;" >
 										<div>
-											<img id="topPhotoid" width="160"
-												height="200" alt="" />
+											<!-- <img id="topPhotoid" width="160"
+												height="200" alt="" /> -->
+												<div id="uploadFileImageDiv" style="width: 200px; height:200px; border: 1px solid #86B6CF; text-align: center;"></div>
 										</div>
 									</div>
 									<div style="padding-left: 15px;">
@@ -54,13 +55,12 @@
 											<c:if test="${zdry != ''}">
 											<span>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="openZdrk('${ry.xm }','${ry.id}','${syrkid}')">
 											
-											<script type="text/javascript">document.write(window.top.getDictName(contextPath + '/common/dict/DL_D_ZDRYGLLXDM.js', "${zdry}"));</script>
+											<script type="text/javascript">document.write(window.top.getDictName(contextPath + '/common/dict/BD_D_ZDRYLBDM.js', "${zdry}"));</script>
 											</a></span>
 											</c:if>
 											</strong>
 										</td>
 									 </tr>
-									 <tbody id="jbxxInfo">
 									 <tr>
 									      <th  align="right" width="100">证件种类：</th>
 										  <td width="120"><script type="text/javascript">document.write(window.top.getDictName(contextPath + '/common/dict/KX_D_CYZJDM.js', "${ry.cyzjdm}"));</script></td>
@@ -92,60 +92,17 @@
 										  <td width="120"><script type="text/javascript"> document.write(window.top.getDictName(contextPath + '/common/dict/GB_D_GJHDQDM.js', "${ry.jggjdqdm}"));</script></td>
 									 </tr>
 									 <tr >
-									      <th  align="right" width="100">户籍地址：</th>
+									      <th  align="right" width="100">户籍地址描述：</th>
 										  <c:choose>
 										  <c:when test="${ry.hjd_dzxz !=null}">
-										  <td  colspan="3" width="270">${ry.hjd_dzxz }</td>	
+										  <td  colspan="3" width="270">${ry.hjd_dzms}</td>	
 										  </c:when>
 										  <c:otherwise>
-										  <td  colspan="3" width="270">${ry.hjd_mlpxz}</td>	
+										  <td  colspan="3" width="270">${ry.hjd_dzms}</td>	
 										  </c:otherwise>
 										  </c:choose>
 										  </td>
 									 </tr>
-									 </tbody>
-									 <tbody id="jwryInfo">
-									     <tr>
-										     <th align="right" width="100">国籍（地区）：</th>
-											 <td width="120"><script type="text/javascript">document.write(window.top.getDictName(contextPath + '/common/dict/GB_D_GJHDQDM.js', "${jwry.gjdm}"));</script></td>
-											 <th align="right" width="100">证件种类：</th>
-											 <td width="120"><script type="text/javascript">document.write(window.top.getDictName(contextPath + '/common/dict/KX_D_CYZJDM.js', "${jwry.cyzjdm}"));</script></td>
-										 </tr>
-									     <tr>
-											 <th align="right" width="100">证件号码：</th>
-											 <td width="120">${jwry.zjhm}</td>
-											 <th align="right" width="100">中文姓名：</th>
-											 <td width="120">${jwry.xm}</td>
-										 </tr>
-										 <tr>
-											 <th align="right" width="100">外文姓：</th>
-											 <td width="120">${jwry.wwx}</td>
-											 <th align="right" width="100">外文名：</th>
-											 <td width="120">${jwry.wwm}</td>
-										 </tr>
-										 <tr>
-										     <th align="right" width="100">性别：</th>
-											 <td width="120"><script type="text/javascript"> document.write(window.top.getDictName(contextPath + '/common/dict/GB_D_XBDM.js', "${jwry.xbdm}"));</script></td>
-										     <th align="right" width="100">出生日期：</th>
-											 <td width="90">${jwry.csrq}</td>
-										 </tr>
-										 <tr>
-										     <th align="right" width="100">签证（注）种类：</th>
-											 <td width="120"><script type="text/javascript">document.write(window.top.getDictName(contextPath + '/common/dict/ZA_D_QZZLDM.js', "${jwry.qzjlxkzldm}"));</script></td>
-											 <th align="right" width="100">签证（注）号码：</th>
-											 <td width="120">${jwry.qzjlxkh}</td>
-										 </tr>
-										 <tr>
-										     <th align="right" width="100">入境日期：</th>
-											 <td width="120">${jwry.rjrq}</td>
-											 <th align="right" width="100">停留有效日期：</th>
-											 <td width="120">${jwry.qztjl_jzrq}</td>
-										 </tr>
-										 <tr>
-										     <th align="right" width="100">现住址：</th>
-											 <td width="340" colspan="3">${jwry.jzd_dzxz}</td>
-										 </tr>
-									 </tbody>
 									</table>
 									<!--可隐藏部分 -->
 									<div id="moreInfo" />
@@ -254,7 +211,6 @@ var infoPara = {
 		zpUrl:"/zpfjPtryzp/queryZpById.jpg",
 		editPara:"ryid="+$("#ryid_main").val()+"&"+$("#serverPara").val(),
 		editIframePara:'{"ryid":"'+$("#ryid_main").val()+'",'+$("#formPara").val()+'}',
-		serverOpenPara:"ryid="+$("#ryid_main").val()+";"+$("#serverPara").val(),
 		serverPara:"ryid="+$("#ryid_main").val()+"&"+$("#serverPara").val(),
 		serverIframePara:'{"ryid":"'+$("#ryid_main").val()+'",'+$("#formPara").val()+'}',
 		add_childInfo_para:"ryid="+$("#ryid_main").val(),
@@ -264,14 +220,6 @@ var infoPara = {
 		del_childInfo:"/syrkEdit/delete_xxzsnrb"
 	};
 $(document).ready(function(){
-	/***************境外人员，页面初开始**************************/
-	if(${syrkywlxdm}=="4"){
-		$("#jbxxInfo").hide();
-		$("#moreButton").hide();
-	}else{
-		$("#jwryInfo").hide();
-	}
-	/***************境外人员，页面初结束**************************/
 	$("#moreInfo").hide();
 	var mode_ = $("#mode_").val();
  	if(mode_=="view"){
@@ -293,8 +241,91 @@ $(document).ready(function(){
 	iterateDict($("div.lf_conta").eq(1));
 	$(".rt").show();
 	$(".rt_view").hide();
-	document.getElementById("topPhotoid").src = contextPath+"/zpfjPtryzp/queryPtryzpSingle.jpg?ryid=${ry.id}&zjhm=${ry.zjhm}&cyzjdm=${ry.cyzjdm}";
+	//document.getElementById("topPhotoid").src = contextPath+"/zpfjPtryzp/queryPtryzpSingle.jpg?ryid=${ry.id}&zjhm=${ry.zjhm}&cyzjdm=${ry.cyzjdm}";
+	uploadRyFileImageView('uploadFileImageDiv', 200, 200, contextPath + '/common/skin/images/empty_ryzp.jpg');
+
 });
+
+function uploadRyFileImageView(divID, imgWidth, imgHeight, emptyImage) {
+	/* if ("undefined" == typeof lybm || lybm == null || lybm == "" || 
+		"undefined" == typeof lyid || lyid == null || lyid == "" || 
+		"undefined" == typeof divID || divID == null || divID == "") {
+		topMessager.alert('', '查看附件图片查传入参数错误！');
+		return;
+	} */
+	$.ajax({
+		type: "POST",
+		url: contextPath + "/zpfjPtryzp/queryRyzpIdList",
+		dataType: "json",
+		data: "ryid=${ry.id}&zjhm=${ry.zjhm}&cyzjdm=${ry.cyzjdm}",
+		success: function(data) {
+			if (data) {
+				var idArray = data.split(",");
+				var id = idArray[0];
+				var imgUrl = contextPath + "/zpfjPtryzp/queryZpById.jpg?id=" + id;
+				var divHtml = "<img id='"+ divID +"Img' src='"+ imgUrl +"' width='"+imgWidth+"' height='"+imgHeight+"' border='0' idString='"+ data +"' idIndex='1' style='cursor:pointer'/>";
+				divHtml += "<div style='width:100%; padding-top:2px; padding-bottom:2px;'><span id='"+ divID +"ImgIndex'>1</span> / " + idArray.length + " 张</span>&nbsp;&nbsp;";
+				divHtml += "<input type='button' id='"+ divID +"ImgPrev' value='上一张' disabled='disabled' style='cursor:pointer'/>&nbsp;";
+				if (idArray.length == 1) {
+					divHtml += "<input type='button' id='"+ divID +"ImgNext' value='下一张' disabled='disabled' style='cursor:pointer'/>";
+				}
+				else {
+					divHtml += "<input type='button' id='"+ divID +"ImgNext' value='下一张' style='cursor:pointer'/>";
+				}
+				divHtml += "</div>";
+				$('#' + divID).html(divHtml);
+				$('#' + divID).bind("dblclick",function() {
+					cancelBubble();
+				});
+				$('#' + divID + 'Img').bind("click",function() {
+					var imgUrl = $('#' + divID + 'Img').attr('src');
+					window.open(imgUrl);
+				});
+				$('#' + divID + 'ImgPrev').bind("click",function() {
+					$('#' + divID + 'ImgNext').prop('disabled', false);
+					var idString = $('#' + divID + 'Img').attr('idString');
+					var idArray = idString.split(",");
+					var idIndex = $('#' + divID + 'Img').attr('idIndex');
+					idIndex = parseInt(idIndex) - 1;
+					$('#' + divID + 'Img').attr('idIndex', idIndex);
+					var id = idArray[idIndex - 1];
+					var imgUrl = contextPath + "/zpfjPtryzp/queryZpById.jpg?id=" + id;
+					$('#' + divID + 'ImgIndex').html(idIndex);
+					$('#' + divID + 'Img').attr('src', imgUrl);
+					if (idIndex == 1) {
+						$('#' + divID + 'ImgPrev').prop('disabled', true);
+					}
+				});
+				$('#' + divID + 'ImgNext').bind("click",function() {
+					$('#' + divID + 'ImgPrev').prop('disabled', false);
+					var idString = $('#' + divID + 'Img').attr('idString');
+					var idArray = idString.split(",");
+					var idIndex = $('#' + divID + 'Img').attr('idIndex');
+					idIndex = parseInt(idIndex) + 1;
+					$('#' + divID + 'Img').attr('idIndex', idIndex);
+					var id = idArray[idIndex - 1];
+					var imgUrl = contextPath + "/zpfjPtryzp/queryZpById.jpg?id=" + id;
+					$('#' + divID + 'ImgIndex').html(idIndex);
+					$('#' + divID + 'Img').attr('src', imgUrl);
+					if (idIndex == idArray.length) {
+						$('#' + divID + 'ImgNext').prop('disabled', true);
+					}
+				});
+			}
+			else {
+				if ("undefined" == typeof emptyImage || emptyImage == null || emptyImage == "") {
+					var divHtml = "<div style='width:100%; padding-top:10px; padding-bottom:10px; color: #666666'>暂无照片</div>";
+					$('#' + divID).html(divHtml);
+				}
+				else {
+					var divHtml = "<img id='"+ divID +"Img' src='"+ emptyImage +"' width='100%' height='100%' border='0'/>";
+					$('#' + divID).html(divHtml);
+				}
+			}
+		}
+	});
+}
+
 
 
 function moreInfoMethod(){

@@ -518,7 +518,7 @@
 	<insert id="insertSydwTop20" parameterClass="String" >
 		<![CDATA[ INSERT into GZTS_LSB (ID,url,dz,ywlx ,xt_cjsj,xt_lrsj ,XT_LRRXM,XT_LRRID , bdlx ,gxfxjdm ,gxpcsdm  , gxzrqdm , zbx,zby) 
 			SELECT sys_guid() ID,
-             'sydwgl/view?id=' || ywid url,
+             'sydwgl_dl/view?id=' || ywid url,
              dz,
              '04' ywlx,
              xt_cjsj,
@@ -621,7 +621,7 @@
 	</select>
 	<!-- 2014.11.3 -->
 	<select id="queryGzjkSydwById" parameterClass="String" resultClass="gzjkTemp">
-		<![CDATA[ select  t.dz_dwdzxz dz,  '04' ywlx , t.xt_cjsj , dwmc,  t.XT_LRRXM , t.xt_lrrid ,c.zbx,c.zby,  t.GLFXJID gxfxjdm, t.GLPCSID gxpcsdm , t.GLBMID gxzrqdm ,'sydwgl/view?id='||t.id url from DW_DWJBXXB t, bzdz_bzdzxxb c where t.id=#value# and t.dz_dwdzdm = c.id(+) ]]>
+		<![CDATA[ select  t.dz_dwdzxz dz,  '04' ywlx , t.xt_cjsj , dwmc,  t.XT_LRRXM , t.xt_lrrid ,c.zbx,c.zby,  t.GLFXJID gxfxjdm, t.GLPCSID gxpcsdm , t.GLBMID gxzrqdm ,'sydwgl_dl/view?id='||t.id url from DW_DWJBXXB t, bzdz_bzdzxxb c where t.id=#value# and t.dz_dwdzdm = c.id(+) ]]>
 	</select>
 	
 	

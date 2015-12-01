@@ -79,8 +79,8 @@
 				        <tr>
 				            <th data-options="field:'jqbh',width:90,align:'left',sortable:true,halign:'center', formatter:getScore">警情编号</th>
 				            <th data-options="field:'jjsj',width:70,align:'center',sortable:true,halign:'center'">接警时间</th>
-				            <th data-options="field:'cjfs',width:60,align:'left',halign:'center',sortable:true,formatter:dictFormatter,dictName:contextPath+'/common/dict/DL_D_ZDRYGLLXDM.js'">出警方式</th>
-				            <th data-options="field:'jqlb',width:60,align:'left',halign:'center',sortable:true,formatter:dictFormatter,dictName:contextPath+'/common/dict/DL_D_ZDRYGLLXDM.js'">警情类别</th>
+				            <th data-options="field:'cjfs',width:60,align:'left',halign:'center',sortable:true,formatter:dictFormatter,dictName:contextPath+'/common/dict/BD_D_ZDRYLBDM.js'">出警方式</th>
+				            <th data-options="field:'jqlb',width:60,align:'left',halign:'center',sortable:true,formatter:dictFormatter,dictName:contextPath+'/common/dict/BD_D_ZDRYLBDM.js'">警情类别</th>
 				            <th  data-options="field:'jqfsdz',width:100,align:'left',halign:'center',sortable:true,formatter:subjzdz">警情发生地址</th>
 				            <th  data-options="field:'jyjq',width:200,align:'left',halign:'center',sortable:true,formatter:subjzdz">简要警情</th>
 				            <th data-options="field:'zbx',hidden:true">zbx</th>

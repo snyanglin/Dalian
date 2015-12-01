@@ -321,6 +321,28 @@ public class SysDictDao extends BaseDaoImpl {
 	
 	/**
 	 * 
+	 * <p>说明：根据自定义的SQL语句查询出本地化的组织机构字典对象集合（用于生成定制的JS文件）</p>
+	 * <p>时间：2014-3-12 下午3:12:59</p>
+	 * @param zzjgdm 组织机构代码
+	 * @param auth 权限
+	 * @param userId 用户登录ID
+	 * @return list  v3222
+	 */
+	public List<SysDict> findLocalOrganizationDictForCustomize(String zzjgdm, String auth, String userId) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(" select t1.orgcode as dm,t1.orgname as ct,t1.ORGNAMEPY as py,t1.ORGNAMEWB as wb,t1.orglevel as treeLevel,t2.orgcode as parentDm,CONNECT_BY_ISLEAF as isTreeLeaf");
+		builder.append(" from (select * from org_organization where  xt_zxbz = '0' and orgbiztype='01' and orglevel in('10','21','32')) t1 ");
+		builder.append(" left join  org_organization t2 on t1.parentid=t2.id");
+		builder.append(" START WITH t1.orgcode ='" + zzjgdm + "'");
+		builder.append(" CONNECT BY PRIOR t1.orgcode = t2.orgcode");
+		builder.append(" ORDER BY t1.orglevel ASC, t1.orgcode ASC");
+		
+		return super.queryForList("Ldym.findDictList", builder.toString());
+
+	}
+	
+	/**
+	 * 
 	 * <p>说明：根据自定义的SQL语句查询出GPS组织机构字典对象集合（用于生成定制的JS文件）</p>
 	 * <p>时间：2014-3-12 下午3:12:59</p>
 	 * @param zzjgdm 组织机构代码

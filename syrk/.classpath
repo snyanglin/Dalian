@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="zdry"/>
+	<classpathentry kind="src" path="xjpt"/>
+	<classpathentry kind="src" path="sydw_dl"/>
+	<classpathentry kind="src" path="jzym"/>
+	<classpathentry kind="src" path="jfxt"/>
+	<classpathentry kind="src" path="zykc"/>
+	<classpathentry kind="src" path="shhxxcj"/>
 	<classpathentry kind="src" path="ldym"/>
 	<classpathentry kind="src" path="common"/>
 	<classpathentry kind="src" path="zafffwqz"/>
@@ -8,7 +15,6 @@
 	<classpathentry kind="src" path="bzdz"/>
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="src" path="sqjw"/>
-	<classpathentry kind="src" path="sydw"/>
 	<classpathentry kind="src" path="zdrw"/>
 	<classpathentry kind="src" path="task"/>
 	<classpathentry kind="src" path="yjjb"/>
@@ -18,7 +24,6 @@
 	<classpathentry kind="src" path="aqff"/>
 	<classpathentry kind="src" path="ywxt"/>
 	<classpathentry kind="src" path="qbld"/>
-	<classpathentry kind="src" path="xlff"/>
 	<classpathentry kind="src" path="zdrygl"/>
 	<classpathentry kind="src" path="drools"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.0"/>

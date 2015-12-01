@@ -21,10 +21,10 @@ import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.RestException;
-import com.founder.framework.organization.department.bean.OrgOrganization;
-import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.message.bean.SysMessage;
 import com.founder.framework.message.dao.SysMessageDao;
+import com.founder.framework.organization.department.bean.OrgOrganization;
+import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
 import com.founder.syrkgl.bean.RyRyjbxxb;
@@ -60,12 +60,9 @@ public class SyrkGlController extends BaseController {
 
 	@Resource(name = "dzService")
 	private DzService dzService;
-
-	@Resource(name = "orgOrganizationService")
-	private OrgOrganizationService orgOrganizationService;
-	
 	@Resource(name = "sysMessageDao")
 	private SysMessageDao sysMessageDao;
+	
 	/**
 	 * @Title: query
 	 * @Description: TODO(实有人口管理列表页面跳转)
@@ -75,14 +72,12 @@ public class SyrkGlController extends BaseController {
 	 */
 	@RequestMapping(value = "/syrkGl", method = RequestMethod.GET)
 	public ModelAndView syrkGl(String messageid ) {
-		SysMessage sysmessage = new SysMessage();
-		try{
+		if(messageid != null && !"".equals(messageid)){
+			SysMessage sysmessage = new SysMessage();
 			sysmessage.setId(Long.valueOf(messageid));
 			sysMessageDao.upadate(sysmessage);
-			}
-			catch(Exception e){
-				e.printStackTrace();
-			}
+		}
+		
 		ModelAndView mv = new ModelAndView("syrkgl/syrkGl");
 		return mv;
 	}
@@ -118,17 +113,16 @@ public class SyrkGlController extends BaseController {
 			SyrkSyrkxxzb entity, SessionBean sessionBean) {
 		page.setPagePara(rows);
 		sessionBean = getSessionBean(sessionBean);
-		if (null != sessionBean) {
-			OrgOrganization userOrg = orgOrganizationService
-					.queryById(sessionBean.getUserOrgId());
-			String orglevel = userOrg.getOrglevel();
-			if (("21").equals(orglevel)) {
-				entity.setGxfjdm((String) sessionBean.getUserOrgCode());
-			} else if ("32".equals(orglevel)) {
-				entity.setGxpcsdm((String) sessionBean.getUserOrgCode());
-			} else if ("50".equals(orglevel)) {
-				entity.setGxzrqdm((String) sessionBean.getUserOrgCode());
+		//当前登陆人为内保支队或大队
+		if("12".equals(sessionBean.getUserOrgBiztype())){
+			//内保支队
+			if("20".equals(sessionBean.getUserOrgLevel())){
+				entity.setGxfjdm(sessionBean.getUserOrgCode());
+			}else {//内保大队
+				entity.setGxpcsdm(sessionBean.getUserOrgCode());
 			}
+		}else{//当前登陆人为辖区民警
+			entity.setGxzrqdm(sessionBean.getUserOrgCode());
 		}
 		return syrkSyrkxxzbService.queryList(entity, page);
 	}
@@ -184,12 +178,10 @@ public class SyrkGlController extends BaseController {
 	public ModelAndView add(String cyzjdm, String zjhm, String mainTabID,
 			String invokeJSMethod, SessionBean sessionBean, String messageid) {
 		// 这里修改兼容通过message打开
-		try {
+		if(messageid != null && !"".equals(messageid)){
 			SysMessage sysmessage = new SysMessage();
 			sysmessage.setId(Long.valueOf(messageid));
 			sysMessageDao.upadate(sysmessage);
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 
 		ModelAndView mv = new ModelAndView("syrkgl/syrkGlAdd");
@@ -406,6 +398,40 @@ public class SyrkGlController extends BaseController {
 				exceptionStr = "居住地_坐标Y必填";
 			else if (StringUtils.isBlank(syrkAddVO.getWlrk().getWlhyydm()))
 				exceptionStr = "未落户原因代码必填";
+		}
+		if (!StringUtils.isBlank(exceptionStr)) {
+			throw new RestException(exceptionStr);
+		}
+	}
+
+	private void vilidateCancelSyrkLx(SyrkAddVO syrkAddVO) throws RestException {
+		String syrklx = syrkAddVO.getSyrkywlxdm();
+		String exceptionStr = "";
+		if ("1".equals(syrklx)) {
+			if (syrkAddVO.getCzrk() == null)
+				exceptionStr = "实有人口类型和对象类型传递错误";
+			else if (StringUtils.isBlank(syrkAddVO.getCzrk().getId()))
+				exceptionStr = "常住人口ID必填";
+		} else if ("2".equals(syrklx)) {
+			if (syrkAddVO.getJzrk() == null)
+				exceptionStr = "实有人口类型和对象类型传递错误";
+			else if (StringUtils.isBlank(syrkAddVO.getJzrk().getId()))
+				exceptionStr = "寄住人口ID必填";
+		} else if ("3".equals(syrklx)) {
+			if (syrkAddVO.getLdrk() == null)
+				exceptionStr = "实有人口类型和对象类型传递错误";
+			else if (StringUtils.isBlank(syrkAddVO.getLdrk().getId()))
+				exceptionStr = "流动人口必填";
+		} else if ("4".equals(syrklx)) {
+			if (syrkAddVO.getJwry() == null)
+				exceptionStr = "实有人口类型和对象类型传递错误";
+			else if (StringUtils.isBlank(syrkAddVO.getJwry().getId()))
+				exceptionStr = "境外人员必填";
+		} else if ("5".equals(syrklx)) {
+			if (syrkAddVO.getWlrk() == null)
+				exceptionStr = "实有人口类型和对象类型传递错误";
+			else if (StringUtils.isBlank(syrkAddVO.getWlrk().getId()))
+				exceptionStr = "未落户人口必填";
 		}
 		if (!StringUtils.isBlank(exceptionStr)) {
 			throw new RestException(exceptionStr);

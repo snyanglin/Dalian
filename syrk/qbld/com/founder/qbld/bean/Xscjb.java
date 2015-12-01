@@ -25,11 +25,6 @@ public class Xscjb extends BaseEntity implements Serializable {
 	private String bssjB;
 	private String bssjE;
 	
-	@FieldDesc("接口发送状态， ‘0’发送成功；‘1’发送失败")
-	private String fszt;
-	@FieldDesc("接口调用状态码")
-	private String code;
-	private String xbyjlbt;
 	@FieldDesc("记录编号")
 	private String jlid;
 	@FieldDesc("报送时间")
@@ -101,24 +96,6 @@ public class Xscjb extends BaseEntity implements Serializable {
 	@FieldDesc("信息正文")
 	private String xxzw;
 	
-	public String getFszt() {
-		return fszt;
-	}
-	public void setFszt(String fszt) {
-		this.fszt = fszt;
-	}
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-	public String getXbyjlbt() {
-		return xbyjlbt;
-	}
-	public void setXbyjlbt(String xbyjlbt) {
-		this.xbyjlbt = xbyjlbt;
-	}
 	public String getBssjB() {
 		return bssjB;
 	}

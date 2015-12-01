@@ -15,24 +15,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	var jjrbh = "${userSession.userId}";
 	var jjrdwbh = "${userSession.userOrgCode}";
+	
+	$("#cache_orgCode").val(jjrdwbh);
+	
 	//var ywjgdm = "${userSession.userOrgCode}";
 	//var jqssdddm = "${UserSession.userOrgProperty}";
 	SysConfig.USERID = jjrbh;// 存储登录用户名
 	$(document).ready(function() {
         LeftLayout.init({id:"zhdd_load_lf"},function() {			
-			var param = {menu: [
+			var param = {menu: [                      //|base|index
+                                {name: '辖区概况', url: '/syrk/common/components/resource/xqgk.jsp',lfwidth:275},
+                                {name: '群防群治', url: '/syrk/common/components/resource/qfqz.jsp',lfwidth:275},
 								{name: '警力监控', url: '/syrk/common/components/resource/gps.jsp',lfwidth:275},
-								{name: '警力态势', url: 'http://10.80.8.179:9080/Componentnew',openNew:'true'}
+								{name: '警力态势', url: 'http://10.80.8.179:9080/Componentnew',openNew:'true'},
 					    		//{name: '辖区概况', url: 'xqgk',lfwidth:560}
+								{name: '基础资源', url: '/syrk/common/components/resource/jcxx.jsp',lfwidth:275}
 					    		], idx: 0, expand: false};
 			LeftLayout.addlftabmenu(param, function(){ 
 				SysTool.setContentHeight();
 			});
 		});
-		setTimeout(function(){
+		//setTimeout(function(){
 			// 隐藏左侧基础资源
 			//展开右侧（临时处理方式）
-		}, 800);
+		//}, 800);
 	//	setJqztTimer(jqssdddm,jjrbh);
 						
 	});
@@ -46,9 +52,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var bodwidth=$("body").width();
 	};
 	
+	
+	
 </script>
 </head>
 <body>
+	<input type="hidden" id="cache_orgCode" value=""/>
 	<div id="zhdd_load_lf" style="position:relative;"></div><!-- 容器-lf -->
 	<div id="zhdd_load_rt"></div><!-- 容器-rt -->
 </body>

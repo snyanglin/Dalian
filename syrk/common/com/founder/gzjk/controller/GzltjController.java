@@ -126,6 +126,43 @@ public class GzltjController extends BaseController {
 	}
 	
 	/**
+	 * 单独统计某个责任区的工作量  从startDate 统计到endDate
+	 * @Title: bcgzltjsj
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param @param startDate
+	 * @param @param endDate
+	 * @param @param orgCode
+	 * @param @return    设定文件
+	 * @return Map<String,String>    返回类型
+	 * @throws
+	 */
+	@RequestMapping(value = "/bcgzltjsjByOrg", method = RequestMethod.GET)
+	public @ResponseBody Map<String,String> bcgzltjsj(String startDate, String endDate,String orgCode){
+
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		 Map<String,String> resMap=new HashMap<String, String>();
+		try {
+			Date endTime=sdf.parse(endDate);
+			String nowSting = sdf.format(new Date());			
+			Date nowTime=sdf.parse(nowSting);
+			//校验endTime不能大于当前日期
+			if(endTime.after(nowTime)||endTime.equals(nowTime)){
+				throw new BussinessException("截止日期不能超过系统当前日期！");
+ 
+			}
+			this.gzltjService.bcgzltjsjByZrq(startDate, endDate, orgCode);
+			
+			resMap.put("result","success");
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+			resMap.put("result", "error");
+		}
+		return resMap;
+	}
+	
+	
+	/**
 	 * excel导出功能
 	 * @Title: gzltjb_export
 	 * @Description: TODO(这里用一句话描述这个方法的作用)

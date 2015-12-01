@@ -20,16 +20,15 @@
     <link rel="stylesheet" type="text/css" href="<%=contextPath%>/css/qbld/yjxx.css" />
     <link rel="stylesheet" type="text/css" href="<%=contextPath%>/css/qbld/xscj.css" />
     <script type="text/javascript" src="<%=contextPath%>/js/qbld/main.js" ></script>
-    <script type="text/javascript" src="<%=contextPath%>/js/qbld/yjxx.js" ></script>
     <script type="text/javascript" src="<%=contextPath%>/js/qbld/xscj.js" ></script>
     <script type="text/javascript">
     	var userOrgName = "<%=userOrgName%>";
    		var userName = "<%=userName%>";
     	bodyHeight=0;
     	$(function(){
-    		$('#win').window('close');
     		Xscj.initQueryHtml();
     		Xscj.queryXscjList();
+    		
     		bodyHeight = $(document).height();
     		$(window).resize();
  		});
@@ -102,7 +101,7 @@
 								<td>
 									<table class='infoBodyTable'>
 										<tr><td class='infoName  red'>标题</td><td class='infoValue' colspan=3><input id="xscj_bt"  name="bt" maxlength=200 placeholder="最多填写200个文字"></td></tr>
-										<tr><td class='infoName  red'>紧急程度</td>
+										<tr><td class='infoName  red'>紧急程度<input id="xscj_jjcd" name="jjcd" value="1" class="notNull" style="display:none"></td>
 											<td class='infoValue' id="jjcd_td"></td>
 											<td class='infoName  red'>是否发生<input id="xscj_sfyfs" name="sfyfs" value="0" class="notNull" style="display:none"></td>
 											<td class='infoValue' id="sfyfs_td"></td></tr>
@@ -110,14 +109,15 @@
 											<td class='infoName  red'>是否续报<input id="xscj_sfxb" name="sfxb" value="0"  class="notNull" style="display:none"></td>
 											<td class='infoValue' id="sfxb_td"></td></tr>
 										<tr id="sbxx_tr" style="display:none">
-											<td class='infoName  red'>续报线索</td><td class='infoValue' colspan=3><input id="xscj_xbyjlbt" name="xbyjlbt" class="notNull" onclick="$('#win').window('open');">
-																										<input id="xscj_xbyjlid" name="xbyjlid" style="display:none" ></td>
+											<td class='infoName  red'>首报编号</td><td class='infoValue'><input id="xscj_xbyjlid" name="xbyjlid" class="notNull"></td>
+											<td class='infoName  red'>首报标题</td><td class='infoValue'><input id="xscj_bt" name="bt" class="notNull" placeholder="自动填写" disabled="disabled"></td></tr>
 										<tr id="fssj_tr" style="display:none">
 											<td class='infoName  red'>开始时间</td><td class='infoValue'><input id="xscj_b_assj_ks" name="b_assj_ks"  class="notNull" placeholder="点击请选择日期" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyyMMddHHmmss'})"></td>
 											<td class='infoName'>结束时间</td><td class='infoValue'><input id="xscj_b_assj_js" name="b_assj_js"  placeholder="点击请选择日期" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyyMMddHHmmss'})"></td></tr>
-										<tr><td class='infoName  red'>正文</td><td class='infoValue' colspan=3><textarea id='xscj_xxzw' name="xxzw" class="notNull" maxlength=2000 placeholder="最多填写2000个文字"></textarea></td></tr>
+										<tr><td class='infoName  red'>正文</td><td class='infoValue' colspan=3><textarea id='xscj_xxzw' name="xxzw"  maxlength=2000 placeholder="最多填写2000个文字"></textarea></td></tr>
 										<tr><td class='infoName'>采集人</td><td class='infoValue'><input id="xscj_cjr" name="cjr" value="<%=userName%>"></td>
 											<td class='infoName'>采集单位</td><td class='infoValue'><input id="xscj_cjdwmc" name="cjdwmc" value="<%=userOrgName%>"></td></tr>
+										<tr><td class='infoName'>联系电话</td><td class='infoValue' colspan=3><input id="xscj_"  name="" value="无字段"></td></tr>
 									</table>
 								</td>
 							</tr>
@@ -133,41 +133,5 @@
   				</td>
   			</tr>
   		</table>
-  		<div id="win" class="easyui-window" title="续报线索查询" style="top:10px;width:550px;height:400px"   
-        data-options="iconCls:'icon-query',modal:true,collapsible:false,
-	    minimizable:false">   
-	    <div class="easyui-layout" data-options="fit:true">   
-	        <div data-options="region:'north',split:true" style="height:50px" align="center">
-	        	<form id="queryForm" >
-		        	<table style="width:500">
-		        		<tr><td>标题：<input id="where_bt1" name="bt1"  style="width:350"/>
-		        		<a href="#"  class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="Xscj.queryXbxs();" >查询</a></td></tr>
-		        			
-		        	</table>
-	        	</form>
-	        </div>   
-	        <div data-options="region:'center'">   
-	            <table id="infoGrid" class="easyui-datagrid" style="width:500px;height:250px"   
-			        data-options="fit:true,
-			        		url:'<%=contextPath%>/xs/queryXsList',
-			        		queryParams:{},
-							fitColumns : true,
-							pagination : true,
-							singleSelect : true,
-							showFooter:true,
-							striped:true,
-							rownumbers:true,
-							pageSize:10,
-							onClickRow:function(index,row){Xscj.seletSbxsxx(row);$('#win').window('close');}">   
-				    <thead>   
-				        <tr>   
-				            <th data-options="field:'bt',width:300,align:'center'">标题</th>   
-				            <th data-options="field:'bssj',width:100,align:'center'">报送时间</th>   
-				        </tr>   
-				    </thead>   
-				</table> 
-	        </div>   
-	    </div>   
-	</div>
   </body>
 </html>

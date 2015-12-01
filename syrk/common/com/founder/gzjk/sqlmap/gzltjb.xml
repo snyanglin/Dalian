@@ -26,7 +26,7 @@
 		<![CDATA[
        select GXZRQDM,GXPCSDM,GXFJDM,
           nvl(sum(case
-                 when xt_zxbz = '0' and xt_zhxgsj = xt_lrsj then
+                 when xt_zxbz = '0' and  substr(xt_zhxgsj,1,10) = substr(xt_lrsj,1,10) then
                   1
                  else
                   0
@@ -56,7 +56,7 @@
 		<![CDATA[
        select b.GXZRQDM,b.GXPCSDM,b.GXFJDM,
           nvl(sum(case
-                 when a.xt_zxbz = '0' and a.xt_zhxgsj =a.xt_lrsj then
+                 when a.xt_zxbz = '0' and substr(a.xt_zhxgsj,1,10) =substr(a.xt_lrsj,1,10) then
                   1
                  else
                   0
@@ -86,7 +86,7 @@
 	<![CDATA[
 	select ss4jbmdm gxzrqdm ,ss3jbmdm  gxpcsdm,ss2jbmdm gxfjdm,
        nvl(sum(case
-                 when xt_zxbz = '0' and xt_zhxgsj = xt_lrsj then
+                 when xt_zxbz = '0' and substr(xt_zhxgsj,1,10) = substr(xt_lrsj,1,10) then
                   1
                  else
                   0
@@ -117,7 +117,7 @@
 		<![CDATA[
        select c.ss4jbmdm gxzrqdm ,c.ss3jbmdm  gxpcsdm,c.ss2jbmdm gxfjdm,
        nvl(sum(case
-                 when a.xt_zxbz = '0' and a.xt_zhxgsj = a.xt_lrsj then
+                 when a.xt_zxbz = '0' and substr(a.xt_zhxgsj,1,10) =substr(a.xt_lrsj,1,10) then
                   1
                  else
                   0
@@ -150,7 +150,7 @@
 	<![CDATA[
 	select GLBMID gxzrqdm ,GLPCSID  gxpcsdm,GLFXJID  gxfjdm,
        nvl(sum(case
-                 when xt_zxbz = '0' and xt_zhxgsj = xt_lrsj then
+                 when xt_zxbz = '0' and substr(xt_zhxgsj,1,10) = substr(xt_lrsj,1,10) then
                   1
                  else
                   0
@@ -181,7 +181,7 @@
 	<![CDATA[
 	select b.GLBMID gxzrqdm ,b.GLPCSID  gxpcsdm,b.GLFXJID  gxfjdm,
        nvl(sum(case
-                 when a.xt_zxbz = '0' and a.xt_zhxgsj = a.xt_lrsj then
+                 when a.xt_zxbz = '0' and substr(a.xt_zhxgsj,1,10) =substr(a.xt_lrsj,1,10) then
                   1
                  else
                   0

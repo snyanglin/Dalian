@@ -295,12 +295,19 @@ public class DmController extends BaseController {
 	@RestfulAnnotation(serverId = "3")
 	@RequestMapping(value = "/queryDictDm", method = { RequestMethod.GET,RequestMethod.POST })
 	public @ResponseBody
-	List<ComboBox> queryDictDm(SessionBean sessionBean) {
+	List<ComboBox> queryDictDm(SessionBean sessionBean,@RequestParam String xzqhdm) {
 		sessionBean = getSessionBean(sessionBean);
 		List<ComboBox> comboxlist = new ArrayList<ComboBox>();
 		if (null != sessionBean) {
-			String pcsdm = (String) sessionBean.getExtendMap().get("ssPcsCode");
-			comboxlist = dmService.queryDictDm(pcsdm);
+			Map<String,String> map = new HashMap<String, String>();
+			map.put("xzqhdm", xzqhdm);
+			String orgBiztype = sessionBean.getUserOrgBiztype();
+			if(!"12".equals(orgBiztype)){
+				//不是内保登陆，需要关联派出所查询
+				String pcsdm = (String) sessionBean.getExtendMap().get("ssPcsCode");
+				map.put("pcsdm", pcsdm);
+			}
+			comboxlist = dmService.queryDictDm(map);
 		}
 		return comboxlist;
 	}
@@ -321,8 +328,13 @@ public class DmController extends BaseController {
 		sessionBean = getSessionBean(sessionBean);
 		List<ComboBox> comboxlist = new ArrayList<ComboBox>();
 		if (null != sessionBean) {
-			String pcsdm = (String) sessionBean.getExtendMap().get("ssPcsCode");
-			comboxlist = dmService.queryDictSq(pcsdm);
+			String orgBiztype = sessionBean.getUserOrgBiztype();
+			if("12".equals(orgBiztype)){//内保不需要查责任区，之前获取全部
+				comboxlist = dmService.queryDictSq("");
+			}else{
+				String pcsdm = (String) sessionBean.getExtendMap().get("ssPcsCode");
+				comboxlist = dmService.queryDictSq(pcsdm);
+			}
 		}
 		return comboxlist;
 	}

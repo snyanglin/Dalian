@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Jz">
+	<typeAlias alias="jqChart" type="com.founder.jzym.bean.JqChart" />
+	<typeAlias alias="sfOrg" type="com.founder.jzym.vo.Sf_Organization" />
+	<!-- 警情表查询 -->
+	<select id="queryJq" parameterClass="Map" resultClass="com.founder.jzym.bean.Jz_jqxxb">
+		<![CDATA[select * from 
+					(select  rownum r,m.*
+				          from (SELECT *
+								  FROM jcj.jcj_jjxxb A
+								 WHERE 1=1
+								   ]]>
+		<isNotEmpty prepend="and" property="jqxxb.jqlbdm">
+				     <![CDATA[ A.jqlbdm = #jqxxb.jqlbdm# ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jqxxb.fqsj">
+				     <![CDATA[ substr(A.bj_sj, 0, 10) >= #jqxxb.fqsj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jqxxb.jssj">
+				     <![CDATA[ substr(A.bj_sj, 0, 10) <= #jqxxb.jssj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jqxxb.jqdzxz">
+				     <![CDATA[ A.jqdzxz like  '%' || #jqxxb.jqdzxz# || '%']]>
+		</isNotEmpty>
+		<isEqual property="flag" compareValue="PCS" prepend="AND">
+			<![CDATA[ 
+				substr(a.GXDWDM, 0, 8) = substr('$jqxxb.gxdwdm$', 0, 8)
+			]]>
+		</isEqual>
+		<isEqual property="flag" compareValue="ZRQ" prepend="AND">
+			a.GXDWDM = '$jqxxb.gxdwdm$'
+		</isEqual>
+		<isNotEmpty property="sort">
+					<![CDATA[ order by $sort$ $order$]]>
+		</isNotEmpty>
+			
+		<![CDATA[) m  
+			where rownum <= #end# ) 
+				where  r > #begin#  
+		]]>
+	</select>
+
+	<!-- 警情无Pt表查询统计 -->
+	<select id="queryCountJq" parameterClass="Map" resultClass="Integer">
+				<![CDATA[
+						SELECT count(1)
+				                  FROM jcj.jcj_jjxxb A
+				                 WHERE 
+				                  1=1
+				                    ]]>
+		<isNotEmpty prepend="and" property="jqxxb.jqlbdm">
+				     <![CDATA[ A.jqlbdm = #jqxxb.jqlbdm# ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jqxxb.fqsj">
+				     <![CDATA[ substr(A.bj_sj, 0, 10) >= #jqxxb.fqsj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jqxxb.jssj">
+				     <![CDATA[ substr(A.bj_sj, 0, 10) <= #jqxxb.jssj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jqxxb.jqdzms">
+				     <![CDATA[ A.jqdzms like  '%' || #jqxxb.jqdzms# || '%']]>
+		</isNotEmpty>
+		<isEqual property="flag" compareValue="PCS" prepend="AND">
+			<![CDATA[ 
+				substr(a.GXDWDM, 0, 8) = substr('$jqxxb.gxdwdm$', 0, 8)
+			]]>
+		</isEqual>
+		<isEqual property="flag" compareValue="ZRQ" prepend="AND">
+			a.GXDWDM = '$jqxxb.gxdwdm$'
+		</isEqual>
+		<isNotEmpty property="sort">
+					<![CDATA[ order by $sort$ $order$]]>
+		</isNotEmpty>
+	</select>
+
+	<!-- 全市统计 and  substr( t.GXDWDM, 11, 12) != '00'-->
+	<select id="jqShiChart" parameterClass="Map" resultClass="jqChart">
+		<![CDATA[ 
+			SELECT LX, LXMC, count(1) SL FROM v_jz_jqtj_lb T
+			WHERE 1=1
+		]]>
+		<isEqual property="flag" compareValue="PCS" prepend="AND">
+			<![CDATA[ 
+				t.GXDWDM like substr('$jqxxb.gxdwdm$', 0, 6) || '%' 
+			]]>
+		</isEqual>
+		<isEqual property="flag" compareValue="ZRQ" prepend="AND">
+			<![CDATA[ 
+				t.GXDWDM like substr('$jqxxb.gxdwdm$', 0, 6) || '%' 
+				
+			]]>
+		</isEqual>
+		<isNotEmpty prepend="and" property="jqxxb.jqlbdm">
+				     <![CDATA[ t.lx = #jqxxb.jqlbdm# ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jqxxb.fqsj">
+				     <![CDATA[ substr(t.bj_sj, 0, 10) >= #jqxxb.fqsj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jqxxb.jssj">
+				     <![CDATA[ substr(t.bj_sj, 0, 10) <= #jqxxb.jssj#]]>
+		</isNotEmpty>
+		GROUP BY LX, LXMC 
+	</select>
+	<!-- and  substr( t.GXDWDM, 11, 12) != '00' -->
+	<select id="jqShiCharts" parameterClass="Map" resultClass="jqChart">
+		SELECT LX, (select b.orgname from org_organization b where  b.orgcode = t.GXDWDM) LXMC, count(1) SL, gxdwdm orgcode
+		 FROM v_jz_jqtj_lb T
+		WHERE 1=1
+		<isEqual property="flag" compareValue="PCS" prepend="AND">
+			<![CDATA[ 
+				t.GXDWDM like substr('$jqxxb.gxdwdm$', 0, 6) || '%' 
+			]]>
+		</isEqual>
+		<isEqual property="flag" compareValue="ZRQ" prepend="AND">
+			<![CDATA[
+			t.GXDWDM like substr('$jqxxb.gxdwdm$', 0, 6) || '%' 
+			
+			]]>
+		</isEqual>
+		<isNotEmpty prepend="and" property="jqxxb.jqlbdm">
+				     <![CDATA[ t.lx = #jqxxb.jqlbdm# ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jqxxb.fqsj">
+				     <![CDATA[ substr(t.bj_sj, 0, 10) >= #jqxxb.fqsj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jqxxb.jssj">
+				     <![CDATA[ substr(t.bj_sj, 0, 10) <= #jqxxb.jssj#]]>
+		</isNotEmpty>
+		GROUP BY LX, gxdwdm 
+	</select>
+	
+
+	<!-- 获取派出所组织机构 -->
+	<select id="querySsyj" parameterClass="java.util.List"
+		resultClass="com.founder.xjpt.vo.ZzjgVo">
+		SELECT T.ORGCODE ZZJGDM, T.ORGNAME ZZJGMC, T.BJZBZ BJZBZ
+		FROM ORG_ORGANIZATION T
+		WHERE T.ORGCODE in
+		<iterate conjunction="," open="(" close=")">
+			#list[].id#
+		</iterate>
+	</select>
+
+	<select id="queryTree" parameterClass="Map" resultClass="sfOrg">
+		<isEmpty prepend="" property="line">
+	  <![CDATA[
+		select * from (select t.*,rownum as ROWNO from (    select ID,PARENTID,ORGCODE,ORGNAME,ORGTYPE,ORGNAMEPY,ORGLEVEL,ORGBIZTYPE, BJZBZ       
+			from ORG_ORGANIZATION a where XT_ZXBZ = '0'     and     ORGTYPE = '01'            
+			connect by prior ID = PARENTID start with id= (select dd.id from org_organization dd where dd.orgcode=#orgcode# )
+			order siblings by ORGTYPE,ORDERNO) t) ORG 
+		]]>
+			<isEqual property="flag" compareValue="FJ">
+				where ORG.ID in (select ID from ORG_ORGANIZATION connect by ID = prior
+				PARENTID start with ORGLEVEL in ('21')) order by ROWNO
+			</isEqual>
+			<isEqual property="flag" compareValue="PCS">
+				where ORG.ID in (select ID from ORG_ORGANIZATION connect by ID = prior
+				PARENTID start with ORGLEVEL in ('32') and ORGBIZTYPE in
+				('01','04')) order by ROWNO
+			</isEqual>
+			<isEqual property="flag" compareValue="ZRQ">
+				where ORG.ID in (select ID from ORG_ORGANIZATION connect by ID = prior
+				PARENTID start with ORGLEVEL = '50' and ORGBIZTYPE = '04') order by
+				ROWNO
+			</isEqual>
+		</isEmpty>
+		<isNotEmpty prepend="" property="line">
+			<![CDATA[
+			select * from (select t.*,rownum as ROWNO from ( select a.ID, a.PARENTID, a.ORGCODE, 
+				decode(subStr(a.orgcode, 9, length(a.orgcode)), '0000',  a.orgname, c.linename) as ORGNAME,
+				a.ORGTYPE, a.ORGNAMEPY, a.ORGLEVEL, a.ORGBIZTYPE, a.BJZBZ       
+				from ORG_ORGANIZATION a  left join jwm.dept b 
+				on a.orgcode = b.deptid 
+				left join jwm.LINE c on (c.patrolareaid = b.DeptID or c.policestationid = b.deptid or c.securitybureauid = b.deptid)
+				where a.XT_ZXBZ = '0'     and     a.ORGTYPE = '01'            
+				connect by prior a.ID = PARENTID start with a.id= (select dd.id from org_organization dd where dd.orgcode=#orgcode# )
+				order siblings by a.ORGTYPE, a.ORDERNO) t) ORG 
+			]]>
+			<isEqual property="flag" compareValue="FJ">
+				where ORG.ID in (select ID from ORG_ORGANIZATION connect by ID = prior
+				PARENTID start with ORGLEVEL in ('21')) and org.orgname is not null
+				order by ROWNO
+			</isEqual>
+			<isEqual property="flag" compareValue="PCS">
+				where ORG.ID in (select ID from ORG_ORGANIZATION connect by ID = prior
+				PARENTID start with ORGLEVEL in ('32') and ORGBIZTYPE in
+				('01','04')) and org.orgname is not null order by ROWNO
+			</isEqual>
+			<isEqual property="flag" compareValue="ZRQ">
+				where ORG.ID in (select ID from ORG_ORGANIZATION connect by ID = prior
+				PARENTID start with ORGLEVEL in ('50') and ORGBIZTYPE in
+				('01','04')) and org.orgname is not null order by ROWNO
+			</isEqual>
+		</isNotEmpty>
+	</select>
+
+	<!-- 获取派出所组织机构 -->
+	<select id="queryXjZzjgxj" parameterClass="java.util.List"
+		resultClass="sfOrg">
+		SELECT T.ORGCODE ZZJGDM, T.ORGNAME ZZJGMC, T.BJZBZ BJZBZ
+		FROM ORG_ORGANIZATION T
+		WHERE T.ORGCODE in
+		<iterate conjunction="," open="(" close=")">
+			#list[].id#
+		</iterate>
+	</select>
+
+	<select id="querySf1" parameterClass="Map" resultClass="sfOrg">
+		<![CDATA[
+			select count(1) count from jcj.jcj_jjxxb a
+			where 
+			substr(a.bj_sj, 0, 7) = #sf.time1# || '-' || #sf.time2#
+		]]>
+	</select>
+
+	<select id="querySf" parameterClass="Map" resultClass="sfOrg">
+		<![CDATA[
+			select 
+				count(a.id) count,
+				 b.orgcode,
+				(b.cl - b.fdz) min,
+				(b.cl + b.fdz) max,
+				b.cl cl,
+				(case when count(a.id) <= (b.cl - b.fdz) then 'green'
+				    when count(a.id) > (b.cl - b.fdz) and count(a.id) <= b.cl  then 'yellow'
+				    when count(a.id) > b.cl and count(a.id) <= (b.cl + b.fdz)   then 'orange'
+				    when count(a.id) > (b.cl + b.fdz)  then 'red' end) color
+				from jcj.jcj_jjxxb a, ssyj_sf b
+				where a.GXDWDM = b.orgcode
+				and substr(a.bj_sj, 0, 7) = substr(b.zqz, 0, 7)
+		]]>
+		<isNotEmpty prepend="and" property="sf.zzjgdm">
+			 b.orgcode in ($sf.zzjgdm$)
+		</isNotEmpty>
+		
+		<isNotEmpty prepend="and" property="sf.chestr">
+			 b.zqlb = #sf.chestr#
+		</isNotEmpty>
+		
+		<isEqual property="sf.chestr" compareValue="1">
+			<isNotEmpty prepend="and" property="sf.time1">
+				 substr(a.bj_sj, 0, 7) = #sf.time1# || '-' || #sf.time2#
+			</isNotEmpty>
+		</isEqual>
+		<isEqual property="sf.chestr" compareValue="2">
+			<isEqual property="sf.time2" compareValue="1">
+				<![CDATA[
+				and substr(a.bj_sj, 0, 7) >= #sf.time1# || '-01'
+				 and substr(a.bj_sj, 0, 7) <= #sf.time1# || '-03'
+				 ]]>
+			</isEqual>
+			<isEqual property="sf.time2" compareValue="2">
+				<![CDATA[
+				and substr(a.bj_sj, 0, 7) >= #sf.time1# || '-04'
+				 and substr(a.bj_sj, 0, 7) <= #sf.time1# || '-06'
+				 ]]>
+			</isEqual>
+			<isEqual property="sf.time2" compareValue="3">
+				<![CDATA[
+				and substr(a.bj_sj, 0, 7) >= #sf.time1# || '-07'
+				 and substr(a.bj_sj, 0, 7) <= #sf.time1# || '-09'
+				 ]]>
+			</isEqual>
+			<isEqual property="sf.time2" compareValue="4">
+				<![CDATA[
+				and substr(a.bj_sj, 0, 7) >= #sf.time1# || '-10'
+				 and substr(a.bj_sj, 0, 7) <= #sf.time1# || '-12'
+				 ]]>
+			</isEqual>
+		</isEqual>
+		
+		<![CDATA[
+			group by b.orgcode, (b.cl - b.fdz), (b.cl + b.fdz), b.cl
+		]]>
+	</select>
+
+	<select id="jqSsyjChart" parameterClass="Map" resultClass="jqChart">
+		<![CDATA[
+		select 
+		count(a.id) sl,
+		a.jqlxdm lx,
+		(b.cl - b.fdz) min,
+		(b.cl + b.fdz) max,
+		b.cl cl, 
+		(case
+	         when count(a.id) <= (b.cl - b.fdz) then
+	          'green'
+	         when count(a.id) > (b.cl - b.fdz) and count(a.id) <= b.cl then
+	          'yellow'
+	         when count(a.id) > b.cl and count(a.id) <= (b.cl + b.fdz) then
+	          'orange'
+	         when count(a.id) > (b.cl + b.fdz) then
+	          'red'
+	       end) color,
+		substr(b.zqz, 6, 5) lxmc
+		from jcj.jcj_jjxxb a left join ssyj_sf b on a.GXDWDM = b.orgcode
+		 and substr(a.bj_sj, 0, 7) = substr(b.zqz, 0, 7)
+		where 1=1
+		 ]]>
+		 <isEqual property="sf.chestr" compareValue="1">
+			<isNotEmpty prepend="and" property="sf.time1">
+				 substr(a.bj_sj, 0, 7) = #sf.time1# || '-' || #sf.time2#
+			</isNotEmpty>
+		</isEqual>
+		 <isEqual property="sf.chestr" compareValue="2">
+			<isEqual property="sf.time2" compareValue="1">
+				<![CDATA[
+				 and substr(a.bj_sj, 0, 7) >= #sf.time1# || '-01'
+				 and substr(a.bj_sj, 0, 7) <= #sf.time1# || '-03'
+				 ]]>
+			</isEqual>
+			<isEqual property="sf.time2" compareValue="2">
+				<![CDATA[
+				 and substr(a.bj_sj, 0, 7) >= #sf.time1# || '-04'
+				 and substr(a.bj_sj, 0, 7) <= #sf.time1# || '-06'
+				 ]]>
+			</isEqual>
+			<isEqual property="sf.time2" compareValue="3">
+				<![CDATA[
+				 and substr(a.bj_sj, 0, 7) >= #sf.time1# || '-07'
+				 and substr(a.bj_sj, 0, 7) <= #sf.time1# || '-09'
+				 ]]>
+			</isEqual>
+			<isEqual property="sf.time2" compareValue="4">
+				<![CDATA[
+				 and substr(a.bj_sj, 0, 7) >= #sf.time1# || '-10'
+				 and substr(a.bj_sj, 0, 7) <= #sf.time1# || '-12'
+				 ]]>
+			</isEqual>
+		</isEqual>
+		 <isNotEmpty prepend="and" property="sf.chestr">
+			 b.zqlb = #sf.chestr#
+		 </isNotEmpty>
+		 <isNotEmpty prepend="and" property="sf.orgcode">
+			  a.GXDWDM = #sf.orgcode#
+		</isNotEmpty>
+		 group by substr(b.zqz, 6, 5), a.jqlxdm, (b.cl + b.fdz), (b.cl - b.fdz), b.cl 
+	</select>
+	
+	<select id="jqSsyjCharts" parameterClass="Map" resultClass="jqChart">
+		<![CDATA[
+		select 
+		count(a.id) sl,
+		a.jqlxdm lx,
+		(b.cl - b.fdz) min,
+		(b.cl + b.fdz) max,
+		b.cl cl, 
+		(case
+	         when count(a.id) <= (b.cl - b.fdz) then
+	          'green'
+	         when count(a.id) > (b.cl - b.fdz) and count(a.id) <= b.cl then
+	          'yellow'
+	         when count(a.id) > b.cl and count(a.id) <= (b.cl + b.fdz) then
+	          'orange'
+	         when count(a.id) > (b.cl + b.fdz) then
+	          'red'
+	       end) color,
+		(select b.orgname from org_organization b where  b.orgcode = a.GXDWDM) LXMC
+		from jcj.jcj_jjxxb a left join ssyj_sf b on a.GXDWDM = b.orgcode
+		 and to_char(a.bj_sj, 'yyyy-mm-dd') = substr(b.zqz, 0, 10)
+		where 1=1
+		 ]]>
+			<isNotEmpty prepend="and" property="sf.time1">
+				 to_char(a.bj_sj, 'yyyy-mm-dd') = #sf.time1# || '-' || #sf.time2#
+			</isNotEmpty>
+			 <isNotEmpty prepend="and" property="sf.chestr">
+				 b.zqlb = #sf.chestr#
+			 </isNotEmpty>
+			 <isNotEmpty prepend="and" property="sf.orgcode">
+				  a.GXDWDM = #sf.orgcode#
+			</isNotEmpty>
+		 group by substr(b.zqz, 6, 5), a.jqlxdm, (b.cl + b.fdz), (b.cl - b.fdz), b.cl, a.GXDWDM 
+	</select>
+
+	<!-- 全市统计 -->
+	<!-- and  substr( t.GXDWDM, 11, 12) != '00' -->
+	<select id="jqShidbChart" parameterClass="Map" resultClass="jqChart">
+		SELECT lx, LXMC, TO_CHAR(WMSYS.WM_CONCAT(bjsj)) bjsj, TO_CHAR(WMSYS.WM_CONCAT(SL)) SL
+  		from
+  		( 
+			select lx, lxmc, count(1) sl, substr(t.bj_sj, 0, 4) bjsj from v_jz_jqtj_lb t
+			WHERE 1=1
+		<isNotEmpty prepend="and" property="jqxxb.jqlbdm">
+		     <![CDATA[ t.lx = #jqxxb.jqlbdm# ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jqxxb.fqsj">
+		     <![CDATA[ 
+		     substr(t.bj_sj, 0, 4) >= #jqxxb.fqsj#
+		     ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="jqxxb.jssj">
+	    	<![CDATA[ substr(t.bj_sj, 0, 4) <= #jqxxb.jssj#]]>
+		</isNotEmpty>
+		<isEqual property="flag" compareValue="PCS" prepend="AND">
+			<![CDATA[ 
+				t.GXDWDM like substr('$jqxxb.gxdwdm$', 0, 6) || '%' 
+			]]>
+		</isEqual>
+		<isEqual property="flag" compareValue="ZRQ" prepend="AND">
+			t.GXDWDM like substr('$jqxxb.gxdwdm$', 0, 6) || '%' 
+		</isEqual>
+		GROUP BY  LXMC, lx, substr(t.bj_sj, 0, 4)
+		) 
+		 GROUP BY LXMC, lx
+	</select>
+</sqlMap>
+
+

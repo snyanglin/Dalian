@@ -38,23 +38,7 @@ public class CkyjzlQsb extends BaseEntity implements Serializable {
 	private String qsdw_dm;
 	@FieldDesc("是否上报省厅(0：否 1：是)")
 	private String sfsbst;
-	@FieldDesc("接口发送状态， ‘0’发送成功；‘1’发送失败")
-	private String fszt;
-	@FieldDesc("接口调用状态码")
-	private String code;
 	
-	public String getFszt() {
-		return fszt;
-	}
-	public void setFszt(String fszt) {
-		this.fszt = fszt;
-	}
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
 	public String getId() {
 		return id;
 	}

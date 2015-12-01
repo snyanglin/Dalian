@@ -115,6 +115,7 @@ function queryMsg(bs){
 				<tr>
 					<td class="modTd" colspan="4" id="tdmapid">
 						<div id="mapDiv"></div>
+						<div id="toolDiv" style="position: absolute;filter: alpha(opacity=90);"></div>
 					</td>
 				</tr>
   			</table>

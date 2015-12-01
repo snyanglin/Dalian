@@ -89,7 +89,7 @@
 			    		<input type='hidden' name='dz_jtzzmlpxz' id="jtzz_jtzzmlpxz" value="${entity.dz_jtzzmlpxz}"/>
 		    		</td>
 					<td width="30%" class="dialogTd">
-						<input class="easyui-combobox" id="jtzz2" style="width:200px;" value="${fn:replace(entity.dz_jtzzxz, entity.dz_jtzzmlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+						<input class="easyui-combobox" id="jtzz2" style="width:200px;" value='${fn:replace(entity.dz_jtzzxz, entity.dz_jtzzmlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 				    	<input type='hidden' name='dz_jtzzdm' id='jtzz_jtzzdm' value="${entity.dz_jtzzdm}" />
 				    	<input type='hidden' name='dz_jtzzssxdm' id='jtzz_jtzzssxdm' value="${entity.dz_jtzzssxdm}" />
 				    	<input type='hidden' name='dz_jtzzxz' id='jtzz_jtzzxz' value="${entity.dz_jtzzxz}" /> 
@@ -128,7 +128,7 @@ function afterSubmit(arr) {
 }
 
 
-/**根据证件种类 设置证件号码验证 与人员基本信息只读状态*/
+/**根据证件类型 设置证件号码验证 与人员基本信息只读状态*/
 function setPassPort(newVal,oldVal){
 	if(newVal==""){
 		$("#zjhm").validatebox({validType:null});
@@ -183,7 +183,7 @@ function check(){
 	var ifExist = false;
 	$.ajax({
 		type:"POST",
-		url:"<%= basePath%>sydwgl/checkIfExistByCol",
+		url:"<%= basePath%>sydwgl_dl/checkIfExistByCol",
 		async:false,
 		dataType:"json",
 		data:{colMap:'{\'tableName\':\'zaff_sqwyhcyb\',\'colList\':[{\'colName\':\'sqid\',\'colValue\':\''+$('#sqid').val()+'\'},{\'colName\':\'zjhm\',\'colValue\':\''+$('#zjhm').val()+'\'},{\'colName\':\'xt_zxbz\',\'colValue\':\'0\'}]}'},

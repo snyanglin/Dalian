@@ -49,7 +49,7 @@ function initDg(){
 			  {field:'xbdm',title:"性别",	width:5,align:'center',halign:'center',sortable:true,
 		    	formatter:dictFormatter,dictName:contextPath+'/common/dict/D_BZ_XB.js' },
 		    	
-			  {field:'cyzjdm',title:"证件种类",width:10,align:'center',	halign:'center',sortable:true,
+			  {field:'cyzjdm',title:"证件类型",width:10,align:'center',	halign:'center',sortable:true,
 		    		formatter:dictFormatter,dictName:contextPath+'/common/dict/D_BZ_CYZJ.js'},
 		    		
 			  {field:'zjhm',title:"证件号码"	,width:15,align:'center',sortable:true,halign:'center'},		  

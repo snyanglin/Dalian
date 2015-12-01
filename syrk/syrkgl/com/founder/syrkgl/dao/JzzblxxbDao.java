@@ -1,8 +1,4 @@
 package com.founder.syrkgl.dao;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +6,6 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
-import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
 import com.founder.syrkgl.bean.Jzzblxxb;
@@ -46,9 +41,8 @@ public class JzzblxxbDao extends BaseDaoImpl {
 	 * @return List<Jzzblxxb>    返回类型
 	 * @throws
 	 */
-	public List<Jzzblxxb> queryJzzblxxList(String ryid) {
-		List<Jzzblxxb> list=queryForList("Jzzblxxb.queryJzzblxxList", ryid);
-		return list;
+	public List<Jzzblxxb> queryJzzblxxList(String syrkid) {
+		return queryForList("Jzzblxxb.queryJzzblxxList", syrkid);
 	}
 	/**
 	 * 
@@ -61,6 +55,10 @@ public class JzzblxxbDao extends BaseDaoImpl {
 	 */
 	public Jzzblxxb queryJzzblxxb(String  id) {
 		return(Jzzblxxb) super.queryForObject("Jzzblxxb.queryJzzblxxb",id);
+	}
+	
+	public Jzzblxxb queryJzzblxxbIgnoreXt_zxbz(String id) {
+		return(Jzzblxxb) super.queryForObject("Jzzblxxb.queryJzzblxxbIgnoreXt_zxbz",id);
 	}
 	
 	
@@ -86,6 +84,9 @@ public class JzzblxxbDao extends BaseDaoImpl {
 		}
 		map.put("sort", sort);
 		map.put("order", order);
+		if(StringUtils.isBlank(entity.getXt_zxbz())){//防止其他列表页面出错
+			entity.setXt_zxbz("0");
+		}
 		map.put("jzzblxxb", entity);
 		page.setTotal((Integer) queryForObject("Jzzblxxb.queryZzCount", map));
 		List<Jzzblxxb> list =queryForList("Jzzblxxb.queryZzList", map);
@@ -94,6 +95,27 @@ public class JzzblxxbDao extends BaseDaoImpl {
 	}
 	
 	
+	public List<Jzzblxxb> queryJzzblList(Jzzblxxb entity) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(StringUtils.isBlank(entity.getXt_zxbz())){//防止其他列表页面出错
+			entity.setXt_zxbz("0");
+		}
+		map.put("jzzblxxb", entity);
+		List<Jzzblxxb> list =(List<Jzzblxxb>)queryForList("Jzzblxxb.queryList", map);
+		return list;
+	}
+	
+	
+	
+	/**
+	 * 查询最新已办理居住证信息
+	 * @param ryid
+	 * @return
+	 */
+	public Jzzblxxb queryLastYblJzzblxxByRyid(String ryid){
+		return (Jzzblxxb)queryForObject("Jzzblxxb.queryLastYblJzzblxxByRyid", ryid);
+	}
 	
 	/**
 	 * 
@@ -180,7 +202,12 @@ public class JzzblxxbDao extends BaseDaoImpl {
 		return (Jzzblxxb)queryForObject("Jzzblxxb.queryJzzblxxbByryidAndDate", ryid);
 	}
 	
-	
+	public Jzzblxxb queryJzzblxxbByJzd_dzxzAndSyrkid(String jzd_dzxz,String syrkid){
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("jzd_dzxz", jzd_dzxz);
+		map.put("syrkid", syrkid);
+		return (Jzzblxxb)queryForObject("Jzzblxxb.queryJzzblxxbByJzd_dzxzAndSyrkid", map);
+	}
 
 	/***
 	 * 

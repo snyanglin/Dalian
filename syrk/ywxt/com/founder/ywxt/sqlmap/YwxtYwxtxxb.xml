@@ -21,7 +21,6 @@
 	<update id="update" parameterClass="ywxtYwxtxxb">
 		<![CDATA[ update YWXT_YWXTXXB ]]>
 		<dynamic prepend="set">
-			<isNotNull prepend="," property="id"><![CDATA[ ID=#id# ]]></isNotNull>
 			<isNotNull prepend="," property="ywnr"><![CDATA[ YWNR=#ywnr# ]]></isNotNull>
 			<isNotNull prepend="," property="ywlx"><![CDATA[ YWLX=#ywlx# ]]></isNotNull>
 			<isNotNull prepend="," property="datajson"><![CDATA[ DATAJSON=#datajson# ]]></isNotNull>

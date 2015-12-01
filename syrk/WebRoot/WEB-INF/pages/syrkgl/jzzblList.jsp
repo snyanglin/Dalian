@@ -7,6 +7,7 @@
     String userOrgCode = "";
     String orglevel ="";
     String fxjdm ="";
+    String orgBizType="";
     Boolean panduan=true;
     if(userInfo!=null){
         userOrgCode = userInfo.getUserOrgCode();
@@ -20,6 +21,7 @@
         	fxjdm =userInfo.getExtendValue("ssFsxCode");
         	panduan=false;
         }
+        orgBizType=userInfo.getUserOrgBiztype();
     }
 %>
 
@@ -73,7 +75,7 @@
 					<form id="queryForm">
 						<table cellspacing="0" cellpadding="0" border="0" width="1000">
 							<tbody>
-							<tr>    
+								<tr>    
 								    <td class="toolbarTd" style="width:250px" align="right">
 										办理分局：<input type="text" name="orgList21" id="orgList21"  class="easyui-combobox" style="width:160px;" 
 													data-options="url: contextPath + '/orgPublicSelect/queryComboBoxList?orgLevel=21',equired:true,method:'get',
@@ -127,19 +129,34 @@
 										style="width:130px"  />
 									</td>
 									<td class="toolbarTd" style="width:250px" align="right">
+										注销标志：<input type="text" name="xt_zxbz" id="xt_zxbz"  class="easyui-combobox" style="width:160px;" 
+													data-options="valueField:'id',textField:'text',selectOnNavigation:false,isTopLoad:false,
+													onChange:changeZx,
+													data:[{
+														id:'0',
+														text:'未注销',
+														selected:true
+													},{
+													id:'1',
+													text:'已注销'}]">
+									</td>
+								</tr>
+								<tr>
+									<td class="toolbarTd" style="width:250px" align="right">
 										<a class="easyui-linkbutton" iconCls="icon-search" onclick="queryButton();">查询</a>
 										&nbsp;&nbsp;
 									    <a class="easyui-linkbutton" iconCls="icon-reload" onclick="clearCase();">重置</a>
 									</td>
 									<td class="toolbarTd" style="width:250px" align="left">
 									    &nbsp;&nbsp;
-									    <a class="easyui-linkbutton" iconCls="icon-add" onclick="piliangdayin();">批量打印</a>
+									    <a class="easyui-linkbutton" id = "buttonPiliang" iconCls="icon-add" onclick="piliangdayin();">批量打印</a>
 									    &nbsp;&nbsp;
-									    <!-- 
-									    <a class="easyui-linkbutton" iconCls="" onclick="downLoad();">批量下载</a>
-									     -->
-									     <a class="easyui-linkbutton" iconCls="icon-add" onclick="resultdayin();">全部打印</a>
-									</td>
+									     <a class="easyui-linkbutton" id="buttonQuanbu" iconCls="icon-add" onclick="resultdayin();">全部打印</a>
+								    </td>
+									<td class="toolbarTd" style="width:250px" align="left">
+									    <a class="easyui-linkbutton" id = "buttonPiliang" iconCls="icon-excel" onclick="exportExcel();">导出Excel</a>
+									  
+								</td>
 								</tr>
 							</tbody>
 						</table>
@@ -179,15 +196,42 @@ function downLoad(){
 }
 </script>	
 <script type="text/javascript">
+
+function changeZx(n,o){
+	if(n == 0 || n == "0"){
+		$('#buttonPiliang').show();
+		$('#buttonQuanbu').show();
+	}else{
+		$('#buttonPiliang').hide();
+		$('#buttonQuanbu').hide();
+	}
+}
+
 //操作列
-function datagridProcessFormater(val, row, index) { // 自定义操作生成
+function datagridProcessFormater(val, row, index) { 
+	// 自定义操作生成
+	if(row.xt_zxbz == "1"){
+		return "-";
+	}
     return '<a class="link" href="javascript:javascript:void(0)" onclick="doEdit(this,'+index+')">详情</a>&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="yulan(this,'+index+')">预览</a>';
 }
 var orglevel = "<%=orglevel%>";  
 function clearCase(){
 	  $("#queryForm").form("reset");
+	  $("#xt_zxbz").combobox(
+	  {
+	  	data:[{id:'0',
+			text:'未注销',
+			selected:true
+		},
+		{
+			id:'1',
+			text:'已注销'}]
+		});
 	  if(orglevel !="30"){
-			$("#orgList21").combobox("setValue","<%=fxjdm%>");
+	  		if(<%=orgBizType%>!="12"){
+	  			$("#orgList21").combobox("setValue","<%=fxjdm%>");
+	  		}
 			setInputReadonly('orgList21', true);
 	  }
 }
@@ -225,10 +269,20 @@ function onOrgSelected(orgCodeInputID) {
 
 $(document).ready(function() { // 初始化部门名称
 	if(orglevel !="30"){
-		$("#orgList21").combobox("setValue","<%=fxjdm%>");
+		if(<%=orgBizType%>!="12"){
+			$("#orgList21").combobox("setValue","<%=fxjdm%>");
+		}
+		
 		setInputReadonly('orgList21', true);
 	}
-	
+	//如果是内保的人办理居住证，查询条件不允许选择分县局、派出所、责任区
+	if(<%=orgBizType%>=="12"){
+		setInputReadonly("orgList21", true);
+		setInputReadonly("orgList22", true);
+		setInputReadonly("orgList23", true);
+
+
+    }
 	
 	
 	public_getOrgName('orgcode', 'orgname');
@@ -284,6 +338,7 @@ function queryButton() {
 		var jzz_lqfsdm = $("#jzz_lqfsdm").val();
 		var xm = $("#xm").val();
 		var zjhm=$("#zjhm").val();
+		var xt_zxbz = $("#xt_zxbz").val();
 		$('#dg').datagrid('reload', {
 			'bl_fjdm' : bl_fjdm,
 			'bl_pcsdm' : bl_pcsdm,
@@ -294,7 +349,8 @@ function queryButton() {
 			'jzz_yxqdm' : jzz_yxqdm,
 			'jzz_lqfsdm' : jzz_lqfsdm,
 			'xm' : xm,
-			'zjhm':zjhm
+			'zjhm':zjhm,
+			'xt_zxbz':xt_zxbz
 		});
 	}else{
 		alert("无此功能权限！");
@@ -347,7 +403,21 @@ function resultdayin(){
 	});
 	
 }
+function exportExcel(){
 
+	var bl_fjdm = $("#orgList21").val();
+	var bl_pcsdm = $("#orgList22").val();
+	var bl_zrqdm = $("#orgList23").val();
+	var jzzblrq = $("#jzzblrq").val();
+	var jzzbljsrq = $("#jzzbljsrq").val();
+	var jzz_yxqdm = $("#jzz_yxqdm").val();
+	var xm = $("#xm").val();
+	var zjhm=$("#zjhm").val();
+	
+	
+	exportUrl =basePath+'jzzblxxb/export?bl_fjdm='+bl_fjdm+'&bl_pcsdm='+bl_pcsdm+'&bl_zrqdm='+bl_zrqdm+'&jzzblrq='+jzzblrq+'&jzzbljsrq='+jzzbljsrq+'&jzz_yxqdm='+jzz_yxqdm+'&xm='+xm+'&zjhm='+zjhm;
+	location.href=exportUrl;
+}
 //批量打印
 function piliangdayin(){
 	var  getSelections = $("#dg").datagrid("getSelections");

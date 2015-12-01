@@ -113,6 +113,29 @@ public class ZakhJbxxCjController extends BaseController {
 	}
 	
 	/**
+	 * 补充某个组织的考核分数统计
+	 * @Title: bckhfstj
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param @param weekStartDate
+	 * @param @param orgCode
+	 * @param @return    设定文件
+	 * @return Map<String,String>    返回类型
+	 * @throws
+	 */
+	@RequestMapping(value = "/bckhfstjByOrgCode" ,method = RequestMethod.GET)
+	public @ResponseBody Map<String,String> bckhfstj(String weekStartDate,String orgCode){
+		Map<String,String> map=new HashMap<String, String>();
+        try{
+    		this.jbxxcjservice.bckhfstjByOrgCode(weekStartDate,orgCode);
+    		map.put("result", "success");
+        }catch(Exception ex){
+        	map.put("result", "failed");
+        	ex.printStackTrace();
+        }
+        return map;
+	}
+	
+	/**
 	 * 
 	 * @Title: kh
 	 * @Description: 根据周进行考核统计

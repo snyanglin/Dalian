@@ -50,7 +50,7 @@ public class RyRyxnsfxxb extends BaseEntity implements Serializable {
 	private String zhyxrq;
 	@FieldDesc("账户注册人")
 	private String zhzcr;
-	@FieldDesc("是否实名")
+	@FieldDesc("是否实名代码")
 	private String sfsmdm;
 	@FieldDesc("备注")
 	private String bz;

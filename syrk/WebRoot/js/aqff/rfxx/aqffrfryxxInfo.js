@@ -32,7 +32,7 @@ $(function(){
         }  
     });   
 });
-//证件种类验证绑定
+//证件类型验证绑定
 function validateZjhm(param){
 	$('#zjhm').val("");
 	if(param.id=='111'){
@@ -44,7 +44,7 @@ function validateZjhm(param){
 		cancelJzhmCtr();
 	}
 }
-//根据证件种类与号码 ，进行人员比对，复用
+//根据证件类型与号码 ，进行人员比对，复用
 function checkZjhm(){
 	if ($('#zjhm').validatebox("isValid")){
 		var zjhm = $('#zjhm').val();

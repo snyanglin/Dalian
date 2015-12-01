@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="jzdwxxb">
+
+<typeAlias alias="jzdwxxb" type="com.founder.sydw_dl.bean.Jzdwxxb"/>
+
+	<!-- 添加旅馆信息表记录 -->
+	<insert id="save" parameterClass="jzdwxxb">
+		<![CDATA[
+		insert into DW_JZDWXXB
+  			(ID,DWID,SJLRRYXM,SJLRRYDH,YWL,YWLDW,PSFW, ]]> <include refid="insertXtzd"/> <![CDATA[ )
+		values
+  			(#id#,#dwid#,#sjlrryxm#,#sjlrrydh#,#ywl#,#ywldw#,#psfw#,]]> <include refid="insertXtzdVal"/> <![CDATA[ )
+  		]]>
+	</insert>
+	
+	<!-- 查询旅馆信息表记录 -->
+	<select id="queryById" parameterClass="String" resultClass="jzdwxxb">
+		<![CDATA[ select * from DW_JZDWXXB where id = #id# ]]>
+	</select>
+	
+	<!-- 修改旅馆信息表记录 -->
+	<update id="update" parameterClass="jzdwxxb">
+		 <![CDATA[ update DW_JZDWXXB ]]>	
+		<dynamic prepend="set">
+		 <isNotNull prepend="," property="id"><![CDATA[ ID=#id# ]]></isNotNull>
+		 <isNotNull prepend="," property="dwid"><![CDATA[ DWID=#dwid# ]]></isNotNull>
+		 <isNotNull prepend="," property="sjlrryxm"><![CDATA[ SJLRRYXM=#sjlrryxm# ]]></isNotNull>
+		 <isNotNull prepend="," property="sjlrrydh"><![CDATA[ SJLRRYDH=#sjlrrydh# ]]></isNotNull>
+		 <isNotNull prepend="," property="ywl"><![CDATA[ YWL=#ywl# ]]></isNotNull>
+		 <isNotNull prepend="," property="ywldw"><![CDATA[ YWLDW=#ywldw# ]]></isNotNull>
+	     <isNotNull prepend="," property="psfw"><![CDATA[ PSFW=#psfw# ]]></isNotNull>
+
+			,
+			<include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>	
+	</update>
+	
+	<!-- 查询列表 -->
+	<select id="jzdwxxb_query" parameterClass="Map" resultClass="jzdwxxb">
+		<![CDATA[ 
+				SELECT * FROM DW_JZDWXXB WHERE dwid=#dwid# AND XT_ZXBZ='0' ]]>
+				
+	</select>
+
+</sqlMap>

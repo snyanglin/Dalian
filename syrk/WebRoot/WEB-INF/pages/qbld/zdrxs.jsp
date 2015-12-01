@@ -58,7 +58,7 @@
   								证件号码
   							</td>
   							<td>
-  								<input  class="whereInput" id="where_sfzh" />
+  								<input  class="whereInput" id="where_zjhm" />
   							</td>
   						</tr>
   						<tr class="whereTr"> 
@@ -111,7 +111,7 @@
 										<tr><td class="infoValue" colspan=5 ><div id="zdrySxxx" style="display:none">
 											<a href="#" class="easyui-linkbutton" iconCls="icon-attach" plain="true" onclick="Zdrxs.showZdrxsLsList();">历史写实</a>
 										 	<a href="#" class="easyui-linkbutton" iconCls="icon-attach" plain="true" onclick="Zdrxs.openShgxrTab();">社会关系人</a>
-										 	<a href="#" class="easyui-linkbutton" iconCls="icon-attach" plain="true" onclick="Zdrxs.openSaTab();">涉案关系信息</a>
+										 	<a href="#" class="easyui-linkbutton" iconCls="icon-attach" plain="true" onclick="Zdrxs.openSaTab();">涉案信息</a>
 											<a href="#" class="easyui-linkbutton" iconCls="icon-attach" plain="true" onclick="Zdrxs.openClxxTab();">车辆信息</a></div>
 										 	</td></tr>
 									</table>

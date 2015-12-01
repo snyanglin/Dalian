@@ -98,6 +98,52 @@
 					xt_lrrbmid = #rfxxb.zrq#
 				</isNotEmpty>	
 	</select>
+	
+	<!-- 查询人防信息 -->
+	<select id="queryRfxx" parameterClass="Map" resultClass="rfxxb">
+		<![CDATA[ select  b.*
+		  from (select rownum r, m.*
+		          from (select *
+		                  from AQFF_RF_JBXXB t
+		                 where t.xt_zxbz = '0'
+		                 and t.xt_lrrbmid in (]]>
+		<![CDATA[ select ORGCODE from (select ID,ORGCODE,ORGNAME,ORGTYPE,ORGLEVEL,ORGBIZTYPE,ORDERNO,PARENTID,PARENTTREEPATH,ORGNAMEPY,ORGNAMEWB,ORGJC,ORGQC,
+			ADDRESS,LINKTEL,LINKMAN,LINKMANTEL,WEBURL,EMAIL,XZQH,BZ from ORG_ORGANIZATION where XT_ZXBZ = '0' connect by prior ID = PARENTID
+      		start with PARENTID = #parentid# order siblings by ORGTYPE,ORDERNO) where 1 = 1 ]]> 
+			<isNotEmpty prepend="and" property="orgtype">
+				ORGTYPE = #orgtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="orgParameterCondition">
+				$orgParameterCondition$
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="customCondition">
+				$customCondition$
+			</isNotEmpty>
+		<![CDATA[     )order by t.xt_lrsj desc) m
+				         where rownum <= #end#) b
+				 where r > #begin# 
+		]]>
+	</select>
+	<select id="queryCountRfxx" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(1) from AQFF_RF_JBXXB t
+		where t.xt_zxbz = '0'
+		                 and t.xt_lrrbmid in (]]>
+		
+		<![CDATA[ select ORGCODE from (select ID,ORGCODE,ORGNAME,ORGTYPE,ORGLEVEL,ORGBIZTYPE,ORDERNO,PARENTID,PARENTTREEPATH,ORGNAMEPY,ORGNAMEWB,ORGJC,ORGQC,
+			ADDRESS,LINKTEL,LINKMAN,LINKMANTEL,WEBURL,EMAIL,XZQH,BZ from ORG_ORGANIZATION where XT_ZXBZ = '0' connect by prior ID = PARENTID
+      		start with PARENTID = #parentid# order siblings by ORGTYPE,ORDERNO) where 1 = 1 ]]> 
+			<isNotEmpty prepend="and" property="orgtype">
+				ORGTYPE = #orgtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="orgParameterCondition">
+				$orgParameterCondition$
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="customCondition">
+				$customCondition$
+			</isNotEmpty>
+			<![CDATA[     )]]>
+	</select>
+	
 		<!-- 模糊查询人防信息 -->
 	<select id ="queryMHRfxx" parameterClass="Map" resultClass="rfxxb">
 		<![CDATA[

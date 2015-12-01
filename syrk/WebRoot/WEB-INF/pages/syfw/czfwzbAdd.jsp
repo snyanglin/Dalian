@@ -108,7 +108,7 @@
 				<tr class="dialogTr">
 					<td width="20%" class="dialogTd" align="right">是否注销：</td>
 					<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="xt_zxbz" name="xt_zxbz" style="width:200px;" value="${entity.xt_zxbz}"
-						data-options="url:contextPath +'/common/dict/D_GG_SF.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'left',
+						data-options="url:contextPath +'/common/dict/BD_D_SF.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'left',
 						onSelect:function(record){
 							if(record.id==0){
 								if($('#pk').val() != ''){

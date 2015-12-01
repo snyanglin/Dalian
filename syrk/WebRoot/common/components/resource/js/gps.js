@@ -1,3 +1,4 @@
+
 /**
  * GPS警力
  * znjg - v1.0.0 (2014-10-17 11:06)
@@ -77,14 +78,21 @@ function Gps() {
 			Dictionary.beforeCreateDictTree({createCount: 1, zdbh: "T_GPS_ZZJG", treeData: data_T_GPS_ZZJG, dictDataDivId: "ssjl_gpszzjg_data_Div"});
 			Dictionary.createDictTree({dictObject: T_GPS_ZZJG, treeData: data_T_GPS_ZZJG_1, isLeaf: false, dictHiddenId: "ssjl_gpszzjg_dm", dictShowId: "ssjl_gpszzjg_mc",initVal: zzjgdm,"dictContainerReferenceObjectId": "ssjl_zzjg"});
 		});*/
+		
+		
+		var cacheOrgCode = $("#cache_orgCode").val();
+		if(!cacheOrgCode){
+			cacheOrgCode = zzjgdm;
+		}
+		
 		//初始组织机构字典（树）
-		Dictionary.initDictTree({url: "/syrk/dictionary/getOrganizationDictTreeJSON", zdbh: "T_GPS_ZZJG", zdmc: "组织机构", zzjgdm: zzjgdm, dictDataDivId: "ssjl_gpszzjg_data_Div"}, function() {
+		Dictionary.initDictTree({url: "/syrk/dictionary/getLocalOrganizationDictTreeJSON", zdbh: "T_GPS_ZZJG", zdmc: "组织机构", zzjgdm: zzjgdm, dictDataDivId: "ssjl_gpszzjg_data_Div"}, function() {
 			Dictionary.beforeCreateDictTree({createCount: 1, zdbh: "T_GPS_ZZJG", treeData: data_T_GPS_ZZJG, dictDataDivId: "ssjl_gpszzjg_data_Div"});
-			Dictionary.createDictTree({dictObject: T_GPS_ZZJG, treeData: data_T_GPS_ZZJG_1, isLeaf: false, dictHiddenId: "ssjl_gpszzjg_dm", dictShowId: "ssjl_gpszzjg_mc",initVal: zzjgdm, "dictContainerReferenceObjectId": "ssjl_zzjg"});
+			Dictionary.createDictTree({dictObject: T_GPS_ZZJG, treeData: data_T_GPS_ZZJG_1, isLeaf: false, dictHiddenId: "ssjl_gpszzjg_dm", dictShowId: "ssjl_gpszzjg_mc",initVal: cacheOrgCode, "dictContainerReferenceObjectId": "ssjl_zzjg"});
 		});
 		
 		//实时统计
-		startCount(zzjgdm);
+		startCount(cacheOrgCode);
 		
 		//从交通态势管理路段周边警力查询
 		//if("yes"== isLoad ){
@@ -225,16 +233,38 @@ function Gps() {
 	this.clear = function() {
 		try{
 			stopGps();
+		}catch(e){}
+		
+		try{
 			stopGpsZjk();
+		}catch(e){}
+		
+		try{
 			clearGpsXlqy();
+		}catch(e){}
+		
+		try{
 			clearGpsLsgj();
+		}catch(e){}
+		
+		try{
 			clearGpsMarker();
+		}catch(e){}
+		
+		try{
 			MapBubble.closeBubble();
+		}catch(e){}
+		
+		try{
 			_MapApp.removeOverlay(pOverlay);
 		}catch(e){}
 	};
 	
 	this.startCount = function(zzjgdm) {
+		
+		//维护页面的组织机构区域码缓存
+		$("#cache_orgCode").val(zzjgdm);
+		
 		//开启实时统计
 		startCount(zzjgdm);
 	};
@@ -242,75 +272,84 @@ function Gps() {
 	this.gpsCount = function(zzjgdm) {
 		gpsCount(zzjgdm);
 	};
+	
 	this.backto=function (){
+		gps.stopExcuteJlTimer();
 		$("#resultdiv").css("display","none");
 		$("#reason").css("display","block");
 	};
+	
+	var jlResasultCache = null;
 	this.doJlReasult = function (aa) {
-//		if($("#jl_tj dd").children().hasClass('a_on')){//点击统计数字进入
-//			Ssjl.oldids=Ssjl.selectedIds();
-//		}
-//		var oldids=Ssjl.oldids;
+		
+		var data = {
+			'zzjgdm' : $('#ssjl_gpszzjg_dm').val(),
+			gpsTableName : realtimeInfoTableName ,
+			'gpstype':$(aa).parent("div").find("span").text()
+		};
+		jlResasultCache = data;
+		gps.excuteJlReasult(data);
+	};
+	
+	
+	this.excuteJlReasult = function (data) {
+		
+		if(!data){
+			return;
+		}
+		
 		gps.clear();
+		
 		SysTool.ajax({
 			url : '/syrk/gps/getGpsOnlineList',
-			data : {
-				'zzjgdm' : $('#ssjl_gpszzjg_dm').val(),
-				gpsTableName : realtimeInfoTableName ,
-				'gpstype':$(aa).parent("div").find("span").text()
-			}
+			data : data
 		}, function(resultSet) {
-			 
 		
-		
-		$("#reason").css("display", "none");
-		$("#resultdiv").css("display", "block");
-		$("#results").html("");
-		$("#result_count").html("");
-		if (resultSet.length == 0) {
-			$("#result_count").append("<span>共有<span class='spancolor' id='ssjl_result_count'>0</span>条</span>");
-			return false;
-		}else{
-			$("#result_count").append("<span>共有<span class='spancolor' id='ssjl_result_count'>"+resultSet.length+"</span>条</span>");
-		}
-		var addGpsList=[];
-		
-		//警力上图
-		var returnMarkerArray=[];
-		returnMarkerArray = createMarker(resultSet, function(){
+			$("#reason").css("display", "none");
+			$("#resultdiv").css("display", "block");
+			$("#results").html("");
+			$("#result_count").html("");
+			if (resultSet.length == 0) {
+				$("#result_count").append("<span>共有<span class='spancolor' id='ssjl_result_count'>0</span>条</span>");
+				return false;
+			}else{
+				$("#result_count").append("<span>共有<span class='spancolor' id='ssjl_result_count'>"+resultSet.length+"</span>条</span>");
+			}
+			var addGpsList=[];
 			
+			//警力上图
+			var returnMarkerArray=[];
+			
+			returnMarkerArray = createMarker(resultSet, function(){});
+			
+			jk_objArray=[];
+			for ( var j = 0; j < resultSet.length; j++) {
+	//			//警力列表
+				var jk_obj={};
+				jk_obj["SBID"]=resultSet[j].SBID;//监控对象gpsid
+				$("#results").append(
+						"<a  href='javascript:gps.clickFunc(\""+resultSet[j].SBID+"\")' id='"+resultSet[j].SBID+"'>" + "<span class='span1'>" + (resultSet[j].JYXM||"空") + "</span>"
+								+ "<span class='span2'>" + (resultSet[j].SBGHH||"空") + "</span>"
+								+ "<span class='span3'>"+(resultSet[j].JYZZJGMC||"空") + "</span></a>");
+					jk_obj["marker"] = returnMarkerArray[resultSet[j].SBID];
+					jk_objArray.push(jk_obj);
+			}
 		});
-		jk_objArray=[];
-		for ( var j = 0; j < resultSet.length; j++) {
-				 
-//			addGpsList.push(resultSet[j]);
-//			ssjlRequestGpsid.push(resultSet[j].SBID);
-//			
-//			//警力列表
-			var jk_obj={};
-			jk_obj["SBID"]=resultSet[j].SBID;//监控对象gpsid
-			//jk_obj["ztid"]=resultSet[j].STATUSID;
-			$("#results").append(
-					"<a  href='javascript:gps.clickFunc(\""+resultSet[j].SBID+"\")' id='"+resultSet[j].SBID+"'>" + "<span class='span1'>" + (resultSet[j].JYXM||"空") + "</span>"
-							+ "<span class='span2'>" + (resultSet[j].SBGHH||"空") + "</span>"
-							+ "<span class='span3'>"+(resultSet[j].JYZZJGMC||"空") + "</span></a>");
-//			if(addGpsList.length==0){
-				jk_obj["marker"] = returnMarkerArray[resultSet[j].SBID];
-				jk_objArray.push(jk_obj);
-//				ssjlGpsobjArray.push(jk_obj);
-//			}else{
-//				for(var n=0;n<addGpsList.length;n++){//添加的gpsmarker
-//					if(addGpsList[n]["SBID"]==resultSet[j].SBID){
-//						jk_obj["marker"]=returnMarkerArray[n];//监控对象marker
-//						jk_objArray.push(jk_obj);
-//						ssjlGpsobjArray.push(jk_obj);
-//						break;
-//					}
-//				};
-//			}
+		
+		if(!ProtectedTimer.excuteJlTimer){
+			ProtectedTimer.excuteJlTimer = setInterval(function(){
+				gps.excuteJlReasult(jlResasultCache);
+			},5000);
 		}
-		});
 	};
+	
+	this.stopExcuteJlTimer = function(){
+		if(ProtectedTimer.excuteJlTimer){
+			SysTimer.clearTimer(ProtectedTimer.excuteJlTimer);
+			jlResasultCache = null;
+			ProtectedTimer.excuteJlTimer = null;
+		}
+	}
 	
 	this.clickFunc = function(id){
 		if($("#"+id).hasClass("result_on")){
@@ -379,7 +418,7 @@ function Gps() {
 	};
 	
 	this.showAreas = function(dm,mc,zbz,col){
-		var ObjMap = new Polygon(zbz, "red", 3, 0.2,col);
+		var ObjMap = new Polygon(zbz, "blue", 3, 0.5,"#ccffcc");
 		var pMbr = ObjMap.getMBR();
 		var cPoint = pMbr.centerPoint();
 		var _pTitle = new Title(mc,12,7,"宋体","#000000","#FFFFFF","#FFFFFF","2");
@@ -764,15 +803,6 @@ function Gps() {
 					&& json != "") {
 				var ywlxid = json["YWLXID"];
 				var jtfsid = json["JTFSID"];
-				/*var carno=json["SBCPH"];
-				var plcname=json["JYXM"];
-				var title = "";
-				if(typeof (carno) != "undefined" && carno != "" && carno != null) {
-					title += " "+carno;
-				}
-				if(typeof (plcname) != "undefined" && plcname != "" && plcname != null) {
-					title += " "+plcname;
-				}*/
 				var icon = "";
 				try{
 					icon = gps_img[jtfsid][ywlxid];
@@ -805,7 +835,7 @@ function Gps() {
 		var returnMarkerJson = MapBubble.addMarkerToMap(markerParam);
 		callback();
 		currMapGpsMarkerJson = returnMarkerJson;//赋值
-		startGps();//开启实时信号更新
+		//startGps();//开启实时信号更新
 		currgpsids = getMapGpsIds(currMapGpsMarkerJson);
 		return returnMarkerJson;
 	}
@@ -834,7 +864,7 @@ function Gps() {
 		msg += "<div class='tipsjili' style='width:380px;display:none'>同班人员：<span style='color:#000' id='qwbbtbry'></span></div>";
 		msg += "<div class='tipsjili' style='width:380px;display:none'>关联装备：<span style='color:#000' id='qwbbtxdzb'></span></div>";
 		msg += "<div class='bubllebtn'><a id='gpsbubble_xlqy' href='javascript:void(0);' class='btn_tipsdw' style='display:none'>巡逻区域</a>";
-		msg += "<a id='gpsbubble_zjk' href='javascript:void(0);' class='btn_tipsdw'>主监控</a>";
+		//msg += "<a id='gpsbubble_zjk' href='javascript:void(0);' class='btn_tipsdw'>主监控</a>";
 		msg += "<a class='btn_tipsdw_s' id='gpsbubble_lsgj' href='javascript:void(0);'>轨迹</a>";
 		msg += "<a class='btn_tipsdw_s btn_tipsdwnot_s' id='gpsbubble_hj' style='display:none'>呼叫</a>";
 		msg += "<a class='btn_tipsdw_s' id='gpsbubble_pj' href='javascript:gps.bubblePjFunc(0)'  style='display:none;'>派警</a>";
@@ -1238,6 +1268,7 @@ function Gps() {
 	 * 处理实时信号更新
 	 */
 	function ssxxUpdate() {
+		
 		SysTool.ajax({
 			url : '/syrk/gps/getRealTimeGpsInfo',
 			data : {
@@ -1294,6 +1325,7 @@ function Gps() {
 	 * @param zzjgdm
 	 */
 	function gpsTypeCount(zzjgdm) {
+		
 		SysTool.ajax({
 			url : '/syrk/gps/getGpsTypeNumberCount',
 			data : {

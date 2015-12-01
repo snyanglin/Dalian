@@ -1,128 +1,88 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page contentType="text/html; charset=utf-8" language="java" errorPage="/errorPage.jsp"%>
+<%@page import="com.founder.framework.config.SystemConfig" %>
 <%
 String contextPath = request.getContextPath();
 String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + contextPath + "/";
-String errorMsg = (String)request.getAttribute("errorMessage");
-String focus = (String)request.getAttribute("focus");
-if (errorMsg == null) {
-   errorMsg = "";
-}
-if (focus == null) {
-   focus = "";
-}
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<script type="text/javascript" src="<%=contextPath%>/common/jeasyui/jquery1.11.min.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/common/jeasyui/jquery.cookie.js"></script>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<title>四川省公安局警务信息综合应用平台</title>
-<script src="<%=contextPath%>/js/jquery-1.10.1.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="<%=contextPath%>/common/jeasyui/jquery.cookie.js"></script>
-<style type="text/css">
-body{
-	margin: 0;
+<title><%=SystemConfig.getString("systemOrganization")%>－<%=SystemConfig.getString("systemName")%></title>
+<link href="<%=contextPath%>/common/skin/login.css" rel="stylesheet" />
+<script type="text/javascript">
+ function setTab(name,cursel,n){
+ for(i=1;i<=n;i++){
+  var menu=document.getElementById(name+i);
+  var con=document.getElementById("con_"+name+"_"+i);
+  menu.className=i==cursel?"hover":"";
+  con.style.display=i==cursel?"block":"none";
+ }
 }
+</script>
+</head>
 
-.head{
-	background-color: white;
-	height: 100px;
-}
-.content{
-	background-image: url("../images/tkbg.jpg");
-	height: 571px;
-}
-.content_bg{
-	background-image: url("../images/tklogin.jpg");
-	background-repeat:no-repeat;
-	background-position:center;
-	text-align:center;
-	margin:0 auto;
-	height: 571px;
-	width: 1024px;
-}
-.formDiv{
-	position: relative;
-	left: 580px;
-	top: 270px;
-}
-.formDiv .user_img{
-	background-image: url("../images/user.png") ;
-	height: 42px;
-	width: 44px;
+<body bgcolor="#F3FAFF" onload="body_onload();" style="overflow: auto;">
 
-}
-.formDiv .pwd_img{
-	background-image: url("../images/password.png");
-	height: 42px;
-	width: 44px;
-	margin-top: 5px;
-}
-
-.inputon{
-	height: 38px;
-	line-height: 38px;
-	width: 200px;
-	margin:0 0 0 48px;
-	border: 1px solid #c9c9c9;
-}
-.inputerro{
-	height: 38px;
-	line-height: 38px;
-	width: 200px;
-	margin:0 0 0 48px;
-	border:solid 1px #f00;
-}
-.login_btn1 {
-	margin-bottom: 16px;
-	margin-left:-740px;
-	margin-top:10px;
-	cursor: pointer;
-	width:75px;
-	height:25px;
-}
-.erroword{
-	width:90px;
-	color: #f00;
-	height:22px;
-	float:left;
-	margin-left:50px;
-	margin-top:10px;
-}
-.foot{
-	height: 60px;
-	margin-top:15px;
-}
-.copyright{
-	margin:0 auto;
-	vertical-align: middle;
-	width: 200px;
-}
-.copyright span{
-	margin:0 auto;
-	font-size: 8pt;
-}
-</style>
-</head> 
-<body onload="body_onload()">
-<div class="head"></div>
-<div class="content">
-<div class="content_bg">
-	<div class="formDiv">
-		<form name="dataform" action="<%=basePath%>LoginPage/login"  checkType="blur" target="_self" method="post">
-			<input type="hidden" name="action" id="action" value="login">
-			<div class="user_img"><input class="inputon" maxlength="30" name="userid" id="userId" type="text" onfocus="this.select();" onKeyPress="userIdOnkeyPress()" class="text1"/></div>
-			<div class="pwd_img"><input class="inputon" type="password" maxlength="30" name="password" id="password" onfocus="this.select();"  onKeyPress="passwordOnkeyPress()" class="text2"/></div>
-			<div class="erroword" id="erroword"></div>
-			<img src="../images/login_btn.png" class="login_btn1"  onclick="login();"/>
-		</form>
-	</div>
+<div class="login_nr">
+<div class="header">
+<form>
+<ul>
+<li><input value="用户名" type="text" onclick="setUser(this)" id="userId1" class="input2" /></li>
+<li><input value="密码" type="text" id="password1" onclick="setPsd(this)" class="input2" /></li>
+<li><input type="button" onclick="login1();" class="login_btn3" value="" /></li>
+<li><input type="button" class="login_btn4" value="" /></li>
+<li><img src="<%=contextPath%>/common/skin/images/hf2.png" width="14" height="14" class="hf img1" /></li>
+</ul>
+</form>
 </div>
-</div>
-<div class="foot">
-	<div class="copyright"><span>Copyright©2015  四川省公安厅 版权所有 </span></div>
+  <div class="tabbox">
+    <div class="menu5">
+      <ul>
+        <li id="one1" onClick="setTab('one',1,2)" class="hover">普通登录</li>
+        <li id="one2" onClick="setTab('one',2,2)">数字证书登录</li>
+      </ul>
+    </div>
+    <div class="con_t1" id="con_one_1">
+      <table width="584" border="0" cellpadding="0" cellspacing="0" align="center">
+       <form name="dataform" action="<%=basePath%>LoginPage/login"  checkType="blur" target="_self" method="post">
+         <input type="hidden" name="action" id="action" value="login">
+        <tr>
+          <td align="center"><div class="erroword" id="erroword"></div></td>
+        </tr>
+        <tr>
+          <td align="center"><input class="inputon" maxlength="30" name="userid" id="userId" type="text" onfocus="this.select();" onKeyPress="userIdOnkeyPress()" class="text1"/></td>
+        </tr>
+        <tr>
+          <td align="center"><input class="inputon" type="password" maxlength="30" name="password" id="password" onfocus="this.select();"  onKeyPress="passwordOnkeyPress()" class="text2"/></td>
+        </tr>
+        <tr>
+          <td align="center" ><img src="<%=contextPath%>/common/skin/images/login_btn.png" width="391" height="44" class="login_btn1"  onclick="login();"/></td>
+        </tr>
+        <tr>
+          <td align="center"><img src="<%=contextPath%>/common/skin/images/qx_btn.png" width="391" height="44" class="login_btn1"  /></td>
+        </tr>
+        </from>
+      </table>
+    </div>
+    <div class="con_t1" id="con_one_2" style="display:none">
+      <table width="584" border="0">
+       <tr>
+          <td align="center"><img src="<%=contextPath%>/common/skin/images/zs_text.png" width="65" height="69" class="img1 zs_login" /></td>
+        </tr>
+        <tr>
+            <td align="center"><img src="<%=contextPath%>/common/skin/images/login_btn.png" width="391" height="44" class="login_btn2" /></td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+
 </div>
 </body>
+
 <script language="JavaScript" >
 try {
    if (window != top) { // 在顶层窗口打开登陆页面
@@ -159,6 +119,7 @@ function login(){
     var userIdValue = document.getElementById("userId").value;
     userIdValue = userIdValue.trim(); 
     if(null == userIdValue || "" == userIdValue ){
+      //alert("请输入用户名！");
       document.getElementById("erroword").innerHTML="请输入用户名！";
       document.getElementById("userId").focus();
       document.getElementById("userId").className="inputerro";
@@ -166,6 +127,22 @@ function login(){
     }
     $.cookie("lastUser",userIdValue,{expires:365});
     document.getElementById("userId").value = userIdValue;
+    document.forms["dataform"].submit();
+}
+
+function login1(){
+    var userIdValue = document.getElementById("userId1").value;
+    var password1Value = document.getElementById("password1").value;
+    userIdValue = userIdValue.trim(); 
+    if(null == userIdValue || "" == userIdValue ){
+      //alert("请输入用户名！");
+      document.getElementById("erroword").innerHTML="请输入用户名！";
+      document.getElementById("userId").focus();
+      document.getElementById("userId").className="inputerro";
+      return;
+    }
+    document.getElementById("userId").value = userIdValue;
+    document.getElementById("password").value = password1Value;
     document.forms["dataform"].submit();
 }
 
@@ -182,6 +159,7 @@ function errMsg(){
    var errors = "${errors}";
    var focus = "${focus}";
    if (errors != "") {
+      //alert(errors);
       document.getElementById("erroword").innerHTML=errors;
    }
 }
@@ -196,4 +174,6 @@ $(document).ready(function(){
 	$("#userId").val($.cookie("lastUser"));
 });
 </script>
+
+</body>
 </html>

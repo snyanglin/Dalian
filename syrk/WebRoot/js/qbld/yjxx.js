@@ -64,16 +64,6 @@ Yjxx.ShowDyjCount = function(rsJson){
 	$("#lkyj_dfk").html("待反馈<br>"+(rsJson.lkyjDf>0?"<font color='red' >"+rsJson.lkyjDf+"</font>":0));
 	$("#lkzl_dqs").html("待签收<br>"+(rsJson.lkyjzlDq>0?"<font color='red' >"+rsJson.lkyjzlDq+"</font>":0));
 	$("#lkzl_dfk").html("待反馈<br>"+(rsJson.lkyjzlDf>0?"<font color='red' >"+rsJson.lkyjzlDf+"</font>":0));
-	var msg  = "常控预警：待签收"+rsJson.ckyjDq+"条，待反馈"+rsJson.ckyjDf+"条<br>"
-	+"常控指令：待签收"+rsJson.yjzlDq+"条，待反馈"+rsJson.yjzlDf+"条<br>"
-	+"临空预警：待签收"+rsJson.lkyjDf+"条，待反馈"+rsJson.lkyjzlDq+"条<br>"
-	+"临空指令：待签收"+rsJson.lkyjzlDf+"条，待反馈"+rsJson.lkyjzlDf+"条<br>"
-	$.messager.show({
-		title:"提示信息",
-		msg:msg,
-		timeout:8000,
-		showType:'slide'
-	})
 }
 /**
  * @title:changeListColor
@@ -252,7 +242,7 @@ Yjxx.fyFun_end = function (fyCounts,fyNum,fyCountPage,fun){
 Yjxx.fyFun_go = function (fyCounts,fyNum,fyCountPage,fun){
 	var goPage = $("#nowPage").val();
 	if(goPage<1||goPage>fyCountPage){
-		$.messager.alert("提示","跳转页数超出范围");
+		alert("跳转页数超出范围");
 		$("#nowPage").val(goPage);
 		return;
 	}
@@ -367,25 +357,23 @@ Yjxx.countTime = function(time){
 /**
  * @method:openMapWindow
  * @package:syrk/js/qbld	
- * @description:显示地图位置
+ * @description:TODO
  * @param x
  * @param y
  * @author:Li_Zhenzhong
  * @date:2015-6-15下午4:24:02
  */
-Yjxx.openMapWindow = function(x, y, dwmc){
+Yjxx.openMapWindow = function(x,y){
 	$('#bigMapDiv').show();
-	$('#bigMapframe').attr("src",contextPath+"/forward/qbld|map?zbx="+x+"&zby="+y + "&dwmc=" + dwmc)
+	$('#bigMapDiv').attr("scr",contextPath+"/forword/qbld|map?zbx="+x+"&zby="+y)
 	$('#bigMapDiv').window({   
 		title:'地图定位',
-		top:10,
-	    width:650,    
-	    height:550, 
+	    width:810,    
+	    height:410, 
 	    collapsible:false,
 	    minimizable:false,
-	    maximizable:true,
+	    maximizable:false,
 	    resizable:false,
 	    modal:true   
-	});
-	
+	});  
 }

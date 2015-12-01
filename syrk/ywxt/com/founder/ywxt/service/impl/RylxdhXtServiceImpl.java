@@ -68,6 +68,8 @@ public class RylxdhXtServiceImpl extends AbstractXtTask {
 		Ywxtcyryxxb fqrxxb = null;
 		YwxtYwxtxxb ywxtYwxtxxb = new YwxtYwxtxxb();
 		ywxtYwxtxxb.setDatajson(jsonStr);
+		ywxtYwxtxxb.setXt_cjsj(DateUtils.getSystemDateTimeString());
+		ywxtYwxtxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		ywxtYwxtxxb.setYwlx(XTLX);
 		ywxtYwxtxxbDao.save(ywxtYwxtxxb);
 		for (int i = 0; i < listCyr.size(); i++) {
@@ -95,9 +97,9 @@ public class RylxdhXtServiceImpl extends AbstractXtTask {
 			if ("接收".equals(ywxtcyryxxb.getXtdz())) {
 				orgCode = ywxtcyryxxb.getSszrq();
 			}
-
 		}
 		ywxtYwxtxxb.setYwnr(messageContent);
+		ywxtYwxtxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		ywxtYwxtxxbDao.update(ywxtYwxtxxb);
 		// 发起协同任务通过message功能组件
 		String url = "/ywxt/creatRyxt?xtId=" + ywxtYwxtxxb.getId()
@@ -111,15 +113,22 @@ public class RylxdhXtServiceImpl extends AbstractXtTask {
 		String xtjg = (String) map.get("xtjg");
 		super.updateXtjgByCyr(map, approvalLevel, sessionBean, XTLX);
 		if ("1".equals(xtjg)) {
+			//接受方接受了协同
 			doBusinessOpration((String) map.get("xtId"), sessionBean);
 		} else if ("4".equals(xtjg)) {
+			//都错误
 			doBusinessOpration((String) map.get("xtId"), sessionBean);
 			doBusinessRefuse((String) map.get("xtId"), sessionBean);
 		} else if ("0".equals(xtjg)&&approvalLevel==2) {
+			//拒绝协同
 			doBusinessRefuse((String) map.get("xtId"), sessionBean);
 		}
+		
+		//清理协同业务数据
+		super.receiveXtywxx(map, approvalLevel, sessionBean, XTLX);
+		
 	}
-
+	
 	/***
 	 * 
 	 * @Title: doBusinessOpration

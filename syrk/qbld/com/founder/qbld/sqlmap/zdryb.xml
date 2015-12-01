@@ -39,7 +39,7 @@
 				   gxdwjgdm like '$zdryb.gxdwjgdm$%'
 			  </isNotEmpty>
 			  <isNotEmpty prepend="and" property="zdryb.zdryxl">
-				  (zdryxl like'$zdryb.zdryxl$%' or zdryxl like',$zdryb.zdryxl$%')
+				   zdryxl = #zdryb.zdryxl#
 			  </isNotEmpty>
 			  <isNotEmpty prepend="and" property="zdryb.createdateB">
 				   <![CDATA[ createdate >= #zdryb.createdateB#  ]]> 
@@ -78,7 +78,7 @@
 				   gxdwjgdm like '$zdryb.gxdwjgdm$%'
 			  </isNotEmpty>
 			  <isNotEmpty prepend="and" property="zdryb.zdryxl">
-				   (zdryxl like'$zdryb.zdryxl$%' or zdryxl like',$zdryb.zdryxl$%')
+				   zdryxl = #zdryb.zdryxl#
 			  </isNotEmpty>
 			  <isNotEmpty prepend="and" property="zdryb.createdateB">
 				   <![CDATA[ createdate >= #zdryb.createdateB#  ]]> 
@@ -229,7 +229,7 @@
 			#xb#
 		</isNotEmpty>
         <isNotEmpty prepend="," property="csrq">
-			to_date(#csrq#, 'yyyy-mm-dd')
+			#csrq#
 		</isNotEmpty>
         <isNotEmpty prepend="," property="gj">
 			#gj#
@@ -326,7 +326,7 @@
 				<![CDATA[ xssj = #xssj# ]]>
 			</isNotNull>			
 		</dynamic>
-       where sfzh = #sfzh#
+       where zjhm = #zjhm#
     </update>
     
     <!-- 在逃 -->
@@ -1827,7 +1827,7 @@
 			#zjxy#
 		</isNotEmpty>
         <isNotEmpty prepend="," property="csrq">
-			to_date(#csrq#, 'yyyy-mm-dd')
+			#csrq#
 		</isNotEmpty>
         <isNotEmpty prepend="," property="hyzk">
 			#hyzk#

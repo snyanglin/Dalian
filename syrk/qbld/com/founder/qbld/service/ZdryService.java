@@ -45,7 +45,7 @@ public interface ZdryService {
 	public EasyUIPage queryZdryList(EasyUIPage page, Zdryb entity);
 	
 	/**
-	 * @Title: queryZdryb
+	 * @Title: queryCkyj
 	 * @Description: TODO(重点人员详情查询服务)
 	 * @param @param entity
 	 * @param @return    设定文件
@@ -55,7 +55,7 @@ public interface ZdryService {
 	public Zdryb queryZdryb(Zdryb entity);
 	
 	/**
-	 * @Title: saveZdryb
+	 * @Title: saveLkyjxxb
 	 * @Description: TODO(重点人员 - 保存重点人员表)
 	 * @param @param entity
 	 * @param @return    设定文件
@@ -65,7 +65,7 @@ public interface ZdryService {
 	public String saveZdryb(Zdryb entity);
 	
 	/**
-	 * @Title: updateZdryxxb
+	 * @Title: updateCkyjxxb
 	 * @Description: TODO(更新重点人员)
 	 * @param @param qsfkzt
 	 * @param @param entity
@@ -200,7 +200,7 @@ public interface ZdryService {
 	public String saveZdryZdxsfzqk(ZdryZdxsfzqk entity);
 	
 	/**
-	 * @Title: queryZdrySfList
+	 * @Title: queryZdryZdxsfzqkList
 	 * @Description: TODO(涉访查询)
 	 * @param @param page
 	 * @param @param entity
@@ -221,7 +221,7 @@ public interface ZdryService {
 	public ZdrySf queryZdrySf(ZdrySf entity);
 	
 	/**
-	 * @Title: saveZdrySf
+	 * @Title: saveZdrySfb
 	 * @Description: TODO(重点人员 - 保存涉访)
 	 * @param @param entity
 	 * @param @return    设定文件
@@ -231,7 +231,7 @@ public interface ZdryService {
 	public String saveZdrySf(ZdrySf entity);
 	
 	/**
-	 * @Title: queryZdrySdFdList
+	 * @Title: queryZdryZdxsfzqkList
 	 * @Description: TODO(贩毒查询)
 	 * @param @param page
 	 * @param @param entity
@@ -252,7 +252,7 @@ public interface ZdryService {
 	public ZdrySdFd queryZdrySdFd(ZdrySdFd entity);
 	
 	/**
-	 * @Title: saveZdrySdFd
+	 * @Title: saveZdrySdFdb
 	 * @Description: TODO(重点人员 - 保存贩毒)
 	 * @param @param entity
 	 * @param @return    设定文件
@@ -262,7 +262,7 @@ public interface ZdryService {
 	public String saveZdrySdFd(ZdrySdFd entity);
 	
 	/**
-	 * @Title: queryZdrySdXdList
+	 * @Title: queryZdryZdxsfzqkList
 	 * @Description: TODO(吸毒查询)
 	 * @param @param page
 	 * @param @param entity
@@ -273,7 +273,7 @@ public interface ZdryService {
 	public EasyUIPage queryZdrySdXdList(EasyUIPage page, ZdrySdXd entity);
 	
 	/**
-	 * @Title: queryZdrySdXd
+	 * @Title: queryZdrySdXdb
 	 * @Description: TODO(制毒情查询服务)
 	 * @param @param entity
 	 * @param @return    设定文件
@@ -304,7 +304,7 @@ public interface ZdryService {
 	public EasyUIPage queryZdrySdZdList(EasyUIPage page, ZdrySdZd entity);
 	
 	/**
-	 * @Title: queryZdrySdZd
+	 * @Title: queryZdrySdZdb
 	 * @Description: TODO(制毒情查询服务)
 	 * @param @param entity
 	 * @param @return    设定文件
@@ -314,7 +314,7 @@ public interface ZdryService {
 	public ZdrySdZd queryZdrySdZd(ZdrySdZd entity);
 	
 	/**
-	 * @Title: saveZdrySdZd
+	 * @Title: saveZdrySdZdb
 	 * @Description: TODO(重点人员 - 保存制毒)
 	 * @param @param entity
 	 * @param @return    设定文件
@@ -324,7 +324,7 @@ public interface ZdryService {
 	public String saveZdrySdZd(ZdrySdZd entity);
 	
 	/**
-	 * @Title: queryShgxrList
+	 * @Title: queryZdryZdxsfzqkList
 	 * @Description: TODO(社会关系人查询)
 	 * @param @param page
 	 * @param @param entity
@@ -335,7 +335,7 @@ public interface ZdryService {
 	public EasyUIPage queryShgxrList(EasyUIPage page, Shgxrb entity);
 	
 	/**
-	 * @Title: queryShgxr
+	 * @Title: queryShgxrb
 	 * @Description: TODO(社会关系人情查询服务)
 	 * @param @param entity
 	 * @param @return    设定文件
@@ -345,7 +345,7 @@ public interface ZdryService {
 	public Shgxrb queryShgxr(Shgxrb entity);
 	
 	/**
-	 * @Title: saveShgxr
+	 * @Title: saveShgxrb
 	 * @Description: TODO(重点人员 - 保存社会关系人)
 	 * @param @param entity
 	 * @param @return    设定文件
@@ -355,7 +355,7 @@ public interface ZdryService {
 	public String saveShgxr(Shgxrb entity);
 	
 	/**
-	 * @Title: querySaxxList
+	 * @Title: queryZdryZdxsfzqkList
 	 * @Description: TODO(涉案查询)
 	 * @param @param page
 	 * @param @param entity
@@ -366,7 +366,7 @@ public interface ZdryService {
 	public EasyUIPage querySaxxList(EasyUIPage page, Saxxb entity);
 	
 	/**
-	 * @Title: querySaxx
+	 * @Title: querySaxxb
 	 * @Description: TODO(涉案情查询服务)
 	 * @param @param entity
 	 * @param @return    设定文件
@@ -376,7 +376,7 @@ public interface ZdryService {
 	public Saxxb querySaxx(Saxxb entity);
 	
 	/**
-	 * @Title: saveSaxx
+	 * @Title: saveSaxxb
 	 * @Description: TODO(重点人员 - 保存涉案)
 	 * @param @param entity
 	 * @param @return    设定文件
@@ -386,7 +386,7 @@ public interface ZdryService {
 	public String saveSaxx(Saxxb entity);
 	
 	/**
-	 * @Title: queryClxxList
+	 * @Title: queryZdryZdxsfzqkList
 	 * @Description: TODO(车辆查询)
 	 * @param @param page
 	 * @param @param entity
@@ -397,7 +397,7 @@ public interface ZdryService {
 	public EasyUIPage queryClxxList(EasyUIPage page, Clxxb entity);
 	
 	/**
-	 * @Title: queryClxx
+	 * @Title: queryClxxb
 	 * @Description: TODO(车辆查询服务)
 	 * @param @param entity
 	 * @param @return    设定文件
@@ -407,7 +407,7 @@ public interface ZdryService {
 	public Clxxb queryClxx(Clxxb entity);
 	
 	/**
-	 * @Title: saveClxx
+	 * @Title: saveClxxb
 	 * @Description: TODO(重点人员 - 保存车辆)
 	 * @param @param entity
 	 * @param @return    设定文件
@@ -417,7 +417,7 @@ public interface ZdryService {
 	public String saveClxx(Clxxb entity);
 	
 	/**
-	 * @Title: queryZdjlList
+	 * @Title: queryZdryZdxsfzqkList
 	 * @Description: TODO(诊断查询)
 	 * @param @param page
 	 * @param @param entity
@@ -428,7 +428,7 @@ public interface ZdryService {
 	public EasyUIPage queryZdjlList(EasyUIPage page, Zdjlb entity);
 	
 	/**
-	 * @Title: queryZdjl
+	 * @Title: queryZdjlb
 	 * @Description: TODO(诊断情查询服务)
 	 * @param @param entity
 	 * @param @return    设定文件
@@ -448,7 +448,7 @@ public interface ZdryService {
 	public String saveZdjl(Zdjlb entity);
 	
 	/**
-	 * @Title: queryZsjlList
+	 * @Title: queryZdryZdxsfzqkList
 	 * @Description: TODO(肇事肇祸查询)
 	 * @param @param page
 	 * @param @param entity
@@ -459,7 +459,7 @@ public interface ZdryService {
 	public EasyUIPage queryZsjlList(EasyUIPage page, Zsjlb entity);
 	
 	/**
-	 * @Title: queryZsjl
+	 * @Title: queryZsjlb
 	 * @Description: TODO(肇事肇祸查询服务)
 	 * @param @param entity
 	 * @param @return    设定文件
@@ -469,7 +469,7 @@ public interface ZdryService {
 	public Zsjlb queryZsjl(Zsjlb entity);
 	
 	/**
-	 * @Title: saveZsjl
+	 * @Title: saveZsjlb
 	 * @Description: TODO(重点人员 - 保存肇事肇祸)
 	 * @param @param entity
 	 * @param @return    设定文件

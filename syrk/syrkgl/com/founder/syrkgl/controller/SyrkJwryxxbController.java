@@ -1,28 +1,31 @@
 package com.founder.syrkgl.controller;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.founder.bzdz.vo.DzXxbVO;
 import com.founder.framework.annotation.RestfulAnnotation;
 import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
-import org.apache.commons.lang.StringUtils;
 import com.founder.framework.message.bean.SysMessage;
 import com.founder.framework.message.dao.SysMessageDao;
+import com.founder.framework.utils.StringUtils;
 import com.founder.syrkgl.bean.SyrkJwryxxb;
-import com.founder.syrkgl.service.RyRyjbxxbService;
 import com.founder.syrkgl.service.SyrkJwryxxbService;
-import com.founder.syrkgl.vo.SyrkZtxx;
+
 import com.google.gson.Gson;
+
 /******************************************************************************
  * @Package: [com.founder.syrkgl.controller.SyrkJwryxxbController.java]
  * @ClassName: [SyrkJwryxxbController]
@@ -42,10 +45,6 @@ public class SyrkJwryxxbController extends BaseController {
 
 	@Resource(name = "syrkJwryxxbService")
 	private SyrkJwryxxbService syrkJwryxxbService;
-
-	@Resource(name = "ryRyjbxxbService")
-	private RyRyjbxxbService ryRyjbxxbService;
-
 	@Resource(name = "sysMessageDao")
 	private SysMessageDao sysMessageDao;
 
@@ -62,8 +61,7 @@ public class SyrkJwryxxbController extends BaseController {
 	@RestfulAnnotation(serverId = "3")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ModelAndView edit(@PathVariable(value = "id") String id,
-			SessionBean sessionBean, String messageid)
-			throws BussinessException {
+			SessionBean sessionBean, String messageid) throws BussinessException {
 		// 这里修改兼容通过message打开
 		if(!StringUtils.isBlank(messageid)){
 			SysMessage sysmessage = new SysMessage();
@@ -124,30 +122,4 @@ public class SyrkJwryxxbController extends BaseController {
 		return mv;
 	}
 
-	/**
-	 * @Title: dataApply
-	 * @描述: 境外人员基本信息复用
-	 * @作者: zhang_guoliang@founder.com
-	 * @参数: gjdm【国籍代码】、cyzjdm【常用证件代码】、zjhm【证件号码】
-	 * @日期： 2015-5-29 下午2:23:16
-	 * @返回值: Map 返回类型
-	 * @throws
-	 */
-	@RestfulAnnotation(valiField = "gjdm,cyzjdm,zjhm", serverId = "3")
-	@RequestMapping(value = "/dataApply", method = RequestMethod.POST)
-	public @ResponseBody
-	Map<String, Object> dataApply(String gjdm, String cyzjdm, String zjhm) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		SyrkJwryxxb jwRyjbxxb = syrkJwryxxbService
-				.dataApply(gjdm, cyzjdm, zjhm);
-		if (jwRyjbxxb == null) {
-			jwRyjbxxb = new SyrkJwryxxb();
-		}
-		SyrkZtxx ztxx = ryRyjbxxbService.getZtxx(zjhm);
-		if (StringUtils.isNotBlank(ztxx.getZtrysfzh())) {
-			map.put("ztxx", ztxx);
-		}
-		map.put("jwRyjbxxb", jwRyjbxxb);
-		return map;
-	}
 }

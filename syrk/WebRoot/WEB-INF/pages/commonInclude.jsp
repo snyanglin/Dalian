@@ -34,7 +34,6 @@
 <script type="text/javascript" src="<%=contextPath%>/common/jeasyui/plugins/jquery.tooltip.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/common/jeasyui/plugins/jquery.messager.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/common/jeasyui/locale/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="<%=contextPath%>/common/jeasyui/messenger.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/common/jeasyui/jquery.easyui.extend.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/common/jeasyui/jquery.easyui.extend.validatebox.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/common/jeasyui/mainFrame.js"></script>
@@ -51,6 +50,3 @@
 <link rel="stylesheet" type="text/css" href="<%=contextPath%>/common/jeasyui/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="<%=contextPath%>/common/jeasyui/themes/custom.css">
 <link rel="stylesheet" type="text/css" href="<%=contextPath%>/css/syrk.css"></link>
-
-
-

@@ -1,5 +1,4 @@
 package com.founder.sqjw.controller;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +23,6 @@ import com.founder.sqjw.bean.Xjtjemployee;
 import com.founder.sqjw.service.HomePageService;
 import com.founder.sqjw.vo.ZzjgVo;
 import com.founder.tzgg.bean.Org_Organization;
-import com.founder.zakh.tools.Dateutil;
 
 
 /**
@@ -370,24 +368,6 @@ public class HomePageController extends BaseController {
 		param.put("zzjgdm", zzjgdm);
 		return homePageService.queryPcsTj(param);
 	}
-	
-	/**
-	 * @Title: queryPcsTj
-	 * @描述:派出所统计
-	 * @作者: zhang_guoliang@founder.com
-	 * @参数: 传入参数定义
-	 * @日期： 2014-10-25 下午4:43:03
-	 * @返回值: List<ZzjgVo> 返回类型
-	 * @throws
-	 */
-	@RequestMapping(value = "/countXX" ,method = RequestMethod.POST)
-	public @ResponseBody Map<String,Object> khxx(){
-		Map<String,Object> paramMap=new HashMap<String, Object>();
-		String orgid = getSessionBean().getUserOrgCode();
-	    paramMap.put("orgCode", orgid);
-	    Map<String,Object> resMap = homePageService.queryzrqtj(paramMap);
-		return resMap;
-	}
 
 	/**
 	 * @Title: queryZrqUser
@@ -564,6 +544,12 @@ public class HomePageController extends BaseController {
 		public @ResponseBody
 		List<ZzjgVo> queryXjZzjgxj(String zzjgdm) {
 			return homePageService.queryXjZzjgxj(zzjgdm);
+		}
+
+		@RequestMapping(value = "/jsonTree", method = RequestMethod.GET)
+		public @ResponseBody
+		List  jsonTree(String id, String orgcode, @RequestParam(value="flag", required=false) String flag) {
+			return homePageService.jsonTree(id, orgcode, flag);
 		}
 		
 		@RequestMapping(value = "/downMap", method = RequestMethod.POST)

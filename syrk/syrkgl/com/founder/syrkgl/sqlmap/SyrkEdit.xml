@@ -7,7 +7,7 @@
 	<typeAlias alias="syrkgnvo" type="com.founder.syrkgl.vo.SyrkgnVo" />
 	
 	<select id="queryYwglgn" parameterClass="Map" resultClass="syrkgnvo">
-		SELECT A.ID,A.SYRKLX,A.SyrkLX,A.PX,A.GNID,B.GNBH,B.GNMC,B.GNANMC,B.GNANURL,B.GNLXDM,B.GNDYBM,B.BCTSXX,B.DKFS
+		SELECT A.ID,A.SYRKLX,A.SyrkLX,A.PX,A.GNID,B.GNBH,B.GNMC,B.GNANMC,B.GNANURL,B.GNLXDM,B.GNDYBM,B.BCTSXX
 		       FROM SYS_SYRKGLGNPZB A,SYS_GNB B WHERE A.GNID=B.ID(+) AND  B.GNLXDM = #gnlxdm# AND A.SYRKLX=#syrklx#
 		 and A.XT_ZXBZ='0' and B.XT_ZXBZ='0' ORDER BY A.PX 
 	</select>

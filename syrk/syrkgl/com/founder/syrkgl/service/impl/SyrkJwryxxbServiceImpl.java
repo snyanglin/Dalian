@@ -74,19 +74,5 @@ public class SyrkJwryxxbServiceImpl extends BaseService implements
 		syrkJwryxxbDao.delete(entity);
 		syrkxxzbService.synchronizeCrossoutSyrkxxzb(entity);
 	}
-    /**
-     * @Title: dataApply 
-     * @描述: 境外人员基本信息复用
-     * @作者: zhang_guoliang@founder.com 
-     * @参数: gjdm【国籍代码】、cyzjdm【常用证件代码】、zjhm【证件号码】 
-     * @日期： 2015-5-29 下午2:37:01 
-     * @throws
-     */
-	public SyrkJwryxxb dataApply(String gjdm, String cyzjdm, String zjhm) {
-		SyrkJwryxxb jwRyjbxxb = new SyrkJwryxxb();
-		if(!StringUtils.isBlank(cyzjdm)&&!StringUtils.isBlank(zjhm)){
-			jwRyjbxxb = syrkJwryxxbDao.dataApply(gjdm, cyzjdm, zjhm);
-		}
-		return jwRyjbxxb;
-	}
+
 }

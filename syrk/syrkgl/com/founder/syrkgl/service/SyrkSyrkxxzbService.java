@@ -39,6 +39,13 @@ public interface SyrkSyrkxxzbService {
 	 * @throws
 	 */
 	public List<SyrkSyrkxxzb> queryListByRyid(String ryid);
+	
+	/**
+	 * 根据条件查询所有实有人口总表数据
+	 * @param entity
+	 * @return
+	 */
+	public List<SyrkSyrkxxzb> queryList(SyrkSyrkxxzb entity);
 
 	/**
 	 * @Title: queryListByRyidYwlx

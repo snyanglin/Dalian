@@ -284,6 +284,8 @@ public interface HomePageService {
 	 */
 	public List<ZzjgVo> queryXjZzjgxj(String zzjgdm);
 	
+	public List jsonTree(String id, String orgcode, String flag);
+	
 	public List<Org_Organization> downMap(String orgcode);
 	
 	 /**
@@ -381,14 +383,5 @@ public interface HomePageService {
      */
 	public Map<String, Object> syfwChart(String zzjgdm);
 	//jz end
-	/**
-     * @Title: queryzrqtj
-     * @描述: 责任区统计
-     * @参数: 传入参数定义 
-     * @日期： 2014-7-9 下午9:02:19 
-     * @返回值: Map<String,Object>    返回类型 
-     * @throws
-     */
-	public Map<String, Object> queryzrqtj(Map<String, Object> paramMap);
 	
 }

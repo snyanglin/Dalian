@@ -1,22 +1,23 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ page import="com.founder.framework.config.SystemConfig"%>
+<%@ page language="java" contentType="text/html;charset=UTF-8" %>
 <%
-	String contextPath = request.getContextPath();
+String contextPath = request.getContextPath();
+String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + contextPath + "/";
 %>
-<html>
-<head>
- 	<title><%=SystemConfig.getString("systemOrganization")%>－<%=SystemConfig.getString("systemName")%></title>
-</head>
-<frameset id="main_system" rows="50,*,0" border="0" frameborder="0">
-   <frame id="main_top" src="<%=contextPath%>/forward/newmain|main_top" noresize scrolling="no">
-     <frameset id="kernel" cols="240,6,*">
-     <frame id="main_left" src="<%=contextPath%>/newmain/getaccord" noresize scrolling="no">
-     <frame id="leftScroll" src="<%=contextPath%>/forward/newmain|main_leftScroll" noresize scrolling="no">
-     <frame id="main_center" src="<%=contextPath%>/forward/newmain|main_center" noresize scrolling="no">
-  </frameset>
+<HTML>
+<HEAD>
+<TITLE></TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</HEAD>
+
+<frameset id="main_system" rows="69,*" border="0" frameborder="0">
+   <frame id="main_top" src="<%=contextPath%>/ztTheme/topZtTheme" noresize scrolling="no" style="position: absolute; z-index: 100;">
+   <frame id="main_center" src="<%=contextPath%>/forward/main|main_center" noresize scrolling="auto" style="position: absolute; z-index: -1;">
   <noframes>
     <body>
      <p>此网页使用了框架，但您的浏览器不支持框架。</p>
     </body>
   </noframes>
 </frameset>
+ 
+
+

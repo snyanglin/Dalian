@@ -54,7 +54,6 @@
         from KH_KHFSTJB            
         where weekStartDate between '$weekStartDate$' and '$weekEndDate$'
         and   weekEndDate between '$weekStartDate$' and '$weekEndDate$' 
-        and rowNum<=1
         ]]>
 		<isNotEmpty prepend="AND" property="week">			
 			week=#week#	   

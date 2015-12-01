@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZdrySjzdlcg">
+	<typeAlias alias="zdryZdryzb" type="com.founder.zdry.bean.ZdryZdryzb" />
+	
+
+	
+	<!-- 查询列管重点人员指定列表count -->
+	<select id="queryLgZdryzdlbCount" parameterClass="Map" resultClass="Integer">
+      	<![CDATA[
+			select count(1) from rk_ryjbxxb t
+			 where t.xt_zxbz = '0'
+			 and t.syrkbz = '1'
+		 ]]>
+		<isNotEmpty prepend="and" property="entity.xm">
+			t.xm = #entity.xm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.cyzjdm">
+			t.cyzjdm = #entity.cyzjdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.zjhm">
+			t.zjhm = #entity.zjhm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.xbdm">
+			t.xbdm = #entity.xbdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.mzdm">
+			t.mzdm = #entity.mzdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.gjdm">
+			t.gjdm = #entity.gjdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.dz_hjdzxz">
+			t.dz_hjdzxz like '%' || #entity.dz_hjdzxz# || '%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.hjdpcsdm">
+			t.hjdpcsdm = #entity.hjdpcsdm#
+		</isNotEmpty>
+	</select>
+	
+	<!-- subList -->
+	<select id="querySubList" parameterClass="zdryZdryzb" resultClass="zdryZdryzb">
+		<![CDATA[
+			select a.id,
+				   a.ryid,
+				   a.zdrygllxdm,
+			       a.dz_jzdzxz,
+			       a.dz_jzdzdm dz_jzdzdm,
+			       a.zdlgbmmc,
+			       a.xt_zhxgsj,
+			       a.xt_zhxgrxm
+			  from ZDRY_ZDRYZB a
+			 where a.glzt in ('2','3')
+			   and a.xt_zxbz = '0'
+			   and a.zdrygllxdm <> '6'
+			   and a.ryid = #ryid#
+		 ]]>
+	</select>
+	
+	
+	<!-- 指定列管   查询人员户籍地址 -->
+	<select id="queryHjdzByRyid" parameterClass="String" resultClass="java.util.HashMap">
+		<![CDATA[
+		select t1.*, t2.pcsdm, t2.zrqdm, t3.orgname pcs, t4.orgname zrq
+	      from (select a.DZ_HJDMLPDM dzdm, a.dz_hjdzxz dzxz, b.id jzdzzbid
+	              from rk_ryjbxxb a, rk_ryjzdzzb b
+			         where b.xt_zxbz = '0' and a.id = b.ryid and b.syrkgllbdm = '01' and a.dz_hjdzdm is not null and a.dz_hjdzdm = b.dz_jzdzdm and length(b.dz_jzdzdm) > 4
+	               	   and a.id = #ryid#
+	             ) t1
+			  left join BZDZ_ADD_MLDZDXB t2
+			    on t1.dzdm = t2.CHDZID
+			  left join org_organization t3
+			    on t2.pcsdm = t3.orgcode
+			  left join org_organization t4
+			    on t2.zrqdm = t4.orgcode
+		]]>
+	</select>
+	
+	<!-- 指定列管   查询人员居住地址 -->
+	<select id="queryJzdzByRyid" parameterClass="String" resultClass="java.util.HashMap">
+		<![CDATA[
+		select t1.*, t2.pcsdm, t2.zrqdm, t3.orgname pcs, t4.orgname zrq
+	      from (select b.DZ_JZDMLPDM dzdm, b.dz_jzdzxz dzxz, b.id jzdzzbid
+	              from rk_ryjbxxb a, rk_ryjzdzzb b
+			     where b.xt_zxbz = '0' and a.id = b.ryid and length(b.dz_jzdzdm) > 4
+	               and a.id = #ryid#
+	             ) t1
+			  left join BZDZ_ADD_MLDZDXB t2
+			    on t1.dzdm = t2.CHDZID
+			  left join org_organization t3
+			    on t2.pcsdm = t3.orgcode
+			  left join org_organization t4
+			    on t2.zrqdm = t4.orgcode
+		]]>
+	</select>
+	
+	<!-- 获取已列管重点人员类别 -->
+	<select id="queryZdrylbLg" parameterClass="String" resultClass="String">
+		<![CDATA[
+		select wmsys.wm_concat(ct) zdrylx
+          from (select distinct a.zdrygllxdm, a.ryid, b.ct
+                  from ZDRY_ZDRYZB a,
+                       sys_dict2 b
+                 where a.zdrygllxdm = b.dm
+                   and a.xt_zxbz = '0'
+                   and a.zdrygllxdm <> '6'
+                   and a.glzt in ('2','3')
+                   and b.zdbh = 'BD_D_ZDRYLBDM')
+         where ryid = #ryid#
+         group by ryid
+         ]]>
+	</select>
+	
+	
+	<!-- 查询撤管重点人员指定列表
+	<select id="queryCgZdryzdlb" parameterClass="Map" resultClass="sjzdlcg">
+      <![CDATA[
+			SELECT * FROM ( 
+				SELECT ROWNUM r ,m.* FROM (
+					select t.id ryid,
+					       t.xm,
+					       t.gmsfhm,
+					       t.xbdm,
+					       t.mzdm,
+					       t.csrq,
+					       t.hyzkdm,
+					       t.zzmmdm
+					  from rk_ryjbxxb t
+					 inner join (select c.ryid
+					               from RK_LCGXXB a, RK_ZDRYJBXXB b, rk_ryjzdzzb c
+					              where a.zdryid = b.id
+					                and b.syrkid = c.id
+					                and a.xt_zxbz = '0'
+					                and c.xt_zxbz = '0'
+					                and a.LG_SPJG = '1'
+					                and (a.ZDBMDM is not null and a.LG_SJBMSPJG = '1')
+					                and ((a.ZDBMDM is null and
+					                    (a.CG_SPJG <> '1' or a.CG_SPJG is null)) or
+					                    (a.ZDBMDM is not null and
+					                    (a.CG_SJBMSPJG <> '1' or a.CG_SJBMSPJG is null)))
+					                and a.zdrylxdm <> '6'
+					                and a.zdbmdm = #entity.zdbmdm#
+					                ]]>
+                                    <isNotEmpty prepend="and" property="entity.xm">
+										b.xm = #entity.xm#
+									</isNotEmpty>
+									<isNotEmpty prepend="and" property="entity.gmsfhm">
+										b.gmsfhm = #entity.gmsfhm#
+									</isNotEmpty>
+									<![CDATA[
+					              group by ryid) t2
+					    on t.id = t2.ryid
+		 								]]>
+		<isNotEmpty  property="sort">								
+			<![CDATA[ order by $sort$ $order$ ]]>
+		</isNotEmpty>
+		<![CDATA[) m  
+		where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+	-->
+	
+	<!-- 查询撤管重点人员指定列表 -->
+	<select id="queryCgZdryzdlb" parameterClass="Map" resultClass="zdryZdryzb">
+      <![CDATA[
+			SELECT * FROM ( 
+				SELECT ROWNUM r ,m.* FROM (
+								select a.id,
+								       a.ryid,
+								       a.syrkid,
+								       a.zdrygllxdm,
+								       b.orgname ssfxjdm,
+								       c.orgname sspcsdm,
+								       a.xm,
+								       a.cyzjdm,
+								       a.zjhm,
+								       a.xbdm,
+								       a.dz_jzdzxz,
+								       a.dz_jzdzdm dz_jzdzdm,
+								       a.zdlgbmmc,
+								       a.xt_zhxgsj,
+								       a.xt_zhxgrxm
+								  from ZDRY_ZDRYZB a, org_organization b, org_organization c
+								 where a.ssfxjdm = b.orgcode
+								   and a.sspcsdm = c.orgcode
+								   and a.glzt in ('2', '3')
+								   and a.xt_zxbz = '0'
+								   and a.zdrygllxdm <> '6'
+					               and a.zdlgbmid = #entity.zdlgbmid#
+					                ]]>
+                                    <isNotEmpty prepend="and" property="entity.zdrygllxdm">
+										a.zdrygllxdm = #entity.zdrygllxdm#
+									</isNotEmpty>
+									<isNotEmpty prepend="and" property="entity.ssfxjdm">
+										a.ssfxjdm = #entity.ssfxjdm#
+									</isNotEmpty>
+									<isNotEmpty prepend="and" property="entity.sspcsdm">
+										a.sspcsdm = #entity.sspcsdm#
+									</isNotEmpty>
+									<isNotEmpty prepend="and" property="entity.xm">
+										a.xm = #entity.xm#
+									</isNotEmpty>
+									<isNotEmpty prepend="and" property="entity.cyzjdm">
+										a.cyzjdm = #entity.cyzjdm#
+									</isNotEmpty>
+									<isNotEmpty prepend="and" property="entity.zjhm">
+										a.zjhm = #entity.zjhm#
+									</isNotEmpty>
+									<isNotEmpty prepend="and" property="entity.dz_jzdzxz">
+										a.dz_jzdzxz like '%' || #entity.dz_jzdzxz# || '%'
+									</isNotEmpty>
+		<isNotEmpty  property="sort">								
+			<![CDATA[ order by $sort$ $order$ ]]>
+		</isNotEmpty>
+		<![CDATA[) m  
+		where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+	
+	<!-- 查询撤管重点人员指定列表count
+	<select id="queryCgZdryzdlbCount" parameterClass="Map" resultClass="Integer">
+      	<![CDATA[
+			select count(1)
+			  from (select t.id ryid,
+					       t.xm,
+					       t.gmsfhm,
+					       t.xbdm,
+					       t.mzdm,
+					       t.csrq,
+					       t.hyzkdm,
+					       t.zzmmdm
+					  from rk_ryjbxxb t
+					 inner join (select c.ryid
+					               from RK_LCGXXB a, RK_ZDRYJBXXB b, rk_ryjzdzzb c
+					              where a.zdryid = b.id
+					                and b.syrkid = c.id
+					                and a.xt_zxbz = '0'
+					                and c.xt_zxbz = '0'
+					                and a.LG_SPJG = '1'
+					                and (a.ZDBMDM is not null and a.LG_SJBMSPJG = '1')
+					                and ((a.ZDBMDM is null and
+					                    (a.CG_SPJG <> '1' or a.CG_SPJG is null)) or
+					                    (a.ZDBMDM is not null and
+					                    (a.CG_SJBMSPJG <> '1' or a.CG_SJBMSPJG is null)))
+					                and a.zdrylxdm <> '6'
+					                and a.zdbmdm = #entity.zdbmdm#
+					                ]]>
+                                    <isNotEmpty prepend="and" property="entity.xm">
+										b.xm = #entity.xm#
+									</isNotEmpty>
+									<isNotEmpty prepend="and" property="entity.gmsfhm">
+										b.gmsfhm = #entity.gmsfhm#
+									</isNotEmpty>
+									<![CDATA[
+					              group by ryid) t2
+					    on t.id = t2.ryid
+		 								]]>)
+	</select>
+	-->
+	
+	<!-- 查询撤管重点人员指定列表count -->
+	<select id="queryCgZdryzdlbCount" parameterClass="Map" resultClass="Integer">
+      	<![CDATA[
+			 	select count(1)
+				  from ZDRY_ZDRYZB a
+				 where a.glzt in ('2','3')
+				   and a.xt_zxbz = '0'
+				   and a.zdrygllxdm <> '6'
+	               and a.zdlgbmid = #entity.zdlgbmid#
+	                ]]>
+	                               <isNotEmpty prepend="and" property="entity.zdrygllxdm">
+						a.zdrygllxdm = #entity.zdrygllxdm#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="entity.ssfxjdm">
+						a.ssfxjdm = #entity.ssfxjdm#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="entity.sspcsdm">
+						a.sspcsdm = #entity.sspcsdm#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="entity.xm">
+						a.xm = #entity.xm#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="entity.cyzjdm">
+						a.cyzjdm = #entity.cyzjdm#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="entity.zjhm">
+						a.zjhm = #entity.zjhm#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="entity.dz_jzdzxz">
+						a.dz_jzdzxz like '%' || #entity.dz_jzdzxz# || '%'
+					</isNotEmpty>
+	</select>
+	
+	<!-- 指定撤管   查询人员居住地址 -->
+	<select id="queryCgDzBySyrkid" parameterClass="String" resultClass="java.util.HashMap">
+		<![CDATA[
+		select t1.*, t2.pcsdm, t2.zrqdm, t3.orgname pcs, t4.orgname zrq
+	      from (select b.dz_jzdzdm dzdm, b.dz_jzdzxz dzxz, b.id jzdzzbid
+	              from rk_ryjzdzzb b
+			     where b.xt_zxbz = '0' and length(b.dz_jzdzdm) > 4
+	               and b.id = #syrkid#
+	             ) t1
+			  left join bzdz_bzdzxxb t2
+			    on t1.dzdm = t2.id
+			  left join org_organization t3
+			    on t2.pcsdm = t3.orgcode
+			  left join org_organization t4
+			    on t2.zrqdm = t4.orgcode
+		]]>
+	</select>
+	
+	<!-- 指定撤管   查询人员户籍地址+居住地址+列撤管ID 
+	<select id="queryCgDzByRyid" parameterClass="sjzdlcg" resultClass="sjzdlcg">
+		<![CDATA[
+			select t.id, t.zdrylbdm, t.dzdm, t.dzxz, t2.pcsdm, t2.zrqdm, t3.orgname pcs, t4.orgname zrq
+	        from (select a.id, c.id jzdzzbid, a.zdrylbdm, c.dz_jzdzdm dzdm, c.dz_jzdzxz dzxz
+	                from RK_LCGXXB a, RK_ZDRYJBXXB b, rk_ryjzdzzb c
+	               where a.zdryid = b.id
+	                 and b.syrkid = c.id
+	                 and a.xt_zxbz = '0'
+	                 and c.xt_zxbz = '0'
+	                 and a.LG_SPJG = '1'
+	                 and (a.ZDBMDM is not null and a.LG_SJBMSPJG = '1')
+	                 and ( (a.ZDBMDM is null and (a.CG_SPJG <>'1' or a.CG_SPJG is null)) or (a.ZDBMDM is not null and (a.CG_SJBMSPJG <>'1' or a.CG_SJBMSPJG is null)))
+	                 and a.zdrylxdm <> '6'
+	                 and a.zdrylbdm = #zdrylbdm#
+	                 and a.zdbmdm = #zdbmdm#
+	                 and c.dz_jzdzdm = #dzdm#
+	                 ) t
+	        left join bzdz_bzdzxxb t2
+	          on t.dzdm = t2.id
+	        left join org_organization t3
+	          on t2.pcsdm = t3.orgcode
+	        left join org_organization t4
+	          on t2.zrqdm = t4.orgcode
+		]]>
+	</select>
+	-->
+	<!-- 根据[地址]+[重点人员类别]获取该条列管记录的[列撤管id] 
+	<select id="queryLcgidForCg" parameterClass="sjzdlcg" resultClass="String">
+		<![CDATA[
+			select distinct a.id
+	          from RK_LCGXXB a, RK_ZDRYJBXXB b, rk_ryjzdzzb c
+	         where a.zdryid = b.id
+	           and b.syrkid = c.id
+	           and a.xt_zxbz = '0'
+	           and c.xt_zxbz = '0'
+	           and a.LG_SPJG = '1'
+	           and ((a.ZDBMDM is not null and a.LG_SJBMSPJG = '1') or
+	               (a.ZDBMDM is null and a.LG_SJBMSPJG is null))
+	           and ( (a.ZDBMDM is null and (a.CG_SPJG <>'1' or a.CG_SPJG is null)) or (a.ZDBMDM is not null and (a.CG_SJBMSPJG <>'1' or a.CG_SJBMSPJG is null)))
+	           and a.zdrylxdm <> '6'
+	           and a.zdrylbdm = #zdrylbdm#
+	           and a.zdbmdm = #zdbmdm#
+	           and b.syrkid = #jzdzzbid#
+	     ]]>
+	</select>
+	-->
+	<!-- 根据[重点人员类别]获取[重点人员类型](指定撤管) 
+	<select id="queryZdrylxdmByZdrylbdm" parameterClass="String" resultClass="String">
+		<![CDATA[
+			select distinct zdrylxdm from rk_zdrylxylbdyb where zdrylbdm = #zdrylbdm#
+	     ]]>
+	</select>
+	-->
+	
+</sqlMap>

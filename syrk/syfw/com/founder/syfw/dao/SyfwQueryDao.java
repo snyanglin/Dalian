@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.founder.framework.base.dao.BaseDaoImpl;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
+import com.founder.syfw.bean.Fwjbxxb;
 import com.founder.syfw.vo.SyfwListVo;
 
 @Repository("syfwQueryDao")
@@ -50,6 +51,10 @@ public class SyfwQueryDao extends BaseDaoImpl {
 		page.setTotal((Integer) queryForObject("SyfwQuery.queryCountFw", map));
 		page.setRows(queryForList("SyfwQuery.queryFw", map));
 		return page;
+	}
+	
+	public Fwjbxxb queryByDzid(String dzid){
+		return (Fwjbxxb)queryForObject("SyfwQuery.querySyfwByDzid", dzid);
 	}
 	
 	/**

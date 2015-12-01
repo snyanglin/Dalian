@@ -56,7 +56,7 @@ public class ServiceLkxxBean implements java.io.Serializable {
 	private String mzdm;
 
 	/**
-	 * 证件种类
+	 * 证件类型
 	 */
 	private String zjlxdm;
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZdryEdit">
+	
+	<typeAlias alias="zdryxxzsvo" type="com.founder.zdry.vo.ZdryxxzsVO" />
+	<typeAlias alias="zdrygnVO" type="com.founder.zdry.vo.ZdrygnVO" />
+	
+	<select id="queryYwglgn" parameterClass="String" resultClass="zdrygnVO">
+		SELECT A.ID,A.SYRKLX,A.ZDRYLX,A.PX,A.GNID,B.GNBH,B.GNMC,B.GNANMC,B.GNANURL,B.GNLXDM,B.GNDYBM,B.BCTSXX
+		       FROM SYS_ZDRKGNPZB A,SYS_GNB B WHERE A.GNID=B.ID(+) AND  B.GNLXDM = #gnlxdm#
+		 and A.XT_ZXBZ='0' and B.XT_ZXBZ='0' ORDER BY A.PX
+	</select>
+	
+	<select id="querySyrkYwglry" parameterClass="Map" resultClass="HashMap">
+		select A.ID,A.RYID,A.RYGXDM,A.GXRRYID,A.LYID,A.LYBM,A.XT_CJSJ,B.XM from RK_RYGXB A,RK_RYJBXXB B WHERE A.RYID = B.ID(+) AND A.XT_ZXBZ='0' AND A.RYID=#ryid# ORDER BY A.XT_CJSJ DESC
+	</select>
+	
+	<select id="queryXxzsByZdrylx" parameterClass="Map" resultClass="zdryxxzsvo">
+		SELECT  a.px as px , a.cshzk cshzk, b.xxdxlxdm xxdxlxdm , b.xxbh xxbh ,b.xxbtmc  xxbtmc, b.gnlxdm  gnlxdm, b.xxurl xxurl , b.xxzsjlzds  xxzsjlzds , b.ys icon , b.sfdt sfdt,
+		#zdryid# zdryid,#isEdit# isEdit,#gxzrq# gxzrq
+		FROM SYS_ZDRKXXZSPZB A,SYS_XXZSNRB B WHERE A.XXID=B.ID  
+		<isNotEmpty prepend="and" property="zdrylx">
+				 A.ZDRYLX= #zdrylx#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="dlbh">
+			 b.xxbh like '%$dlbh$__'
+		</isNotEmpty>
+		and xxdxlxdm=#xxdxlxdm#  and a.xt_zxbz='0' and B.XT_ZXBZ='0' order by a.px 
+	</select>
+	
+	<!-- 查询表名 -->
+	<select  id="queryxxzsnrbByxxdybm" parameterClass="String" resultClass="String">
+		 <![CDATA[select xxdybm  from sys_xxzsnrb where xxurl=#value# and XT_ZXBZ = '0' ]]>
+	</select>
+	<update  id="updateTableByxxdybm" parameterClass="Map">
+		 <![CDATA[ update $tablename$ set xt_zxbz ='1' , xt_zxyy = #xt_zxyy#,xt_zhxgrxm=#xt_zhxgrxm#,xt_zhxgrid=#xt_zhxgrid#,xt_zhxgrbm=#xt_zhxgrbm#,xt_zhxgip=#xt_zhxgip#,
+		 	xt_zhxgrbmid=#xt_zhxgrbmid#,xt_zhxgsj=#xt_zhxgsj#
+		 ]]>	
+			 <![CDATA[ where id = #id#]]>		
+	</update>
+</sqlMap>

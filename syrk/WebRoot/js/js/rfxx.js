@@ -407,7 +407,7 @@ function queryDwByDzDm(marker,dz_dwdzdm){
 	$.ajax({
 		type:"GET",
 		sync:true,
-		url:contextPath+"/sydwcx/queryDwByDzDm",
+		url:contextPath+"/sydwcx_dl/queryDwByDzDm",
 		data:{dz_dwdzdm:dz_dwdzdm},
 		dataType:'json',
 		success:function(json){
@@ -452,7 +452,7 @@ function openCh(dz_jzdzdm){
 
 function openDwView(id){
 	if(null!==id&&""!=id){
-		var hsUrl = "/sydwgl/view?id="+id+"&menuName=实有单位编辑";
+		var hsUrl = "/sydwgl_dl/view?id="+id+"&menuName=实有单位编辑";
 		 menu_open("实有单位编辑",hsUrl);
 	}else{
 	      $.messager.alert("提示","暂无单位信息","info");

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Spjkxt">
+	
+	<typeAlias alias="spjkxt" type="com.founder.spsxt.bean.Spjkxt" />
+	<!-- 根据主键(xh)查询 -->
+	<select id="queryByXh" parameterClass="int" resultClass="spjkxt">
+		<![CDATA[select * from JF_SPXTJBXX t where xh= #xh# ]]>
+	</select>
+	<select id="queryLwsxByXh" parameterClass="String" resultClass="HashMap">
+		<![CDATA[select xh jkxt,xtmc,lwsx from JF_SPXTJBXX t where xh= #xh# ]]>
+	</select>
+	<!-- 根据主键(xh)删除  -->
+	<delete id="deleteSpjkxtByXh" parameterClass="String">
+		<![CDATA[ delete from JF_SPXTJBXX where xh= #dwbm# ]]>
+	</delete>
+
+	<!-- 根据外键(dwbm)删除匹配的所有记录  -->
+	<delete id="deleteSpjkxtByDwbm" parameterClass="String">
+		<![CDATA[ delete from JF_SPXTJBXX where dwbm= #dwbm# ]]>
+	</delete>	
+
+	
+	<!-- 查询列表 -->
+	<select id="checkSameName" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ 
+			select count(*) from JF_SPXTJBXX    where dwbm=#dwbm# and xtmc=#xtmc# and xt_lrrid=#xt_lrrid#
+		]]>
+
+	</select>	
+	
+	<!-- 查询列表 -->
+	<select id="querySpjkxtCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ 
+			select count(*) from JF_SPXTJBXX    where xt_zhxgrbmid=#pcsbm# and xt_zhxgrid=#policeId#
+		]]>
+
+	</select>
+	<select id="querySpjkxtList" parameterClass="Map" resultClass="spjkxt">
+		<![CDATA[ 
+			select * from ( 
+						select rownum r, t.* from ( 
+							select * from JF_SPXTJBXX where xt_zhxgrbmid=#pcsbm# and xt_zhxgrid=#policeId#  order by $sort$ $order$ ) t
+			where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+
+	<insert id="insertSpjkxt" parameterClass="spjkxt">
+		<selectKey keyProperty="xh" resultClass="String">
+  			select seq_JF_SPXTJBXX.nextval from dual
+ 		</selectKey>
+ 
+		 INSERT INTO JF_SPXTJBXX
+		 	(xh	
+				<isNotEmpty prepend="," property="ccip"> <![CDATA[ ccip ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="ccsc"> <![CDATA[ ccsc ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="copyfs"> <![CDATA[ copyfs ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="cswl"> <![CDATA[ cswl ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="dwbm"> <![CDATA[ dwbm ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="gjsj"> <![CDATA[ gjsj ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="idbm"> <![CDATA[ idbm ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="ipdz"> <![CDATA[ ipdz ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="jsryphone"> <![CDATA[ jsryphone ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="jsrysfzh"> <![CDATA[ jsrysfzh ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="jsryxm"> <![CDATA[ jsryxm ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="jsryzj"> <![CDATA[ jsryzj ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="jssj"> <![CDATA[ jssj ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="kjsj"> <![CDATA[ kjsj ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="lwsx"> <![CDATA[ lwsx ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="ptcs"> <![CDATA[ ptcs ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="sbcs"> <![CDATA[ sbcs ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="xtmc"> <![CDATA[ xtmc ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="xtmm"> <![CDATA[ xtmm ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="xtyhm"> <![CDATA[ xtyhm ]]> </isNotEmpty>
+		
+			,<include refid="insertXtzd"/>
+			)
+	    	 values 
+	    	 (
+	    	 	<![CDATA[ #xh# ]]>
+	    	 	
+				<isNotEmpty prepend="," property="ccip"> <![CDATA[ #ccip# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="ccsc"> <![CDATA[ #ccsc# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="copyfs"> <![CDATA[ #copyfs# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="cswl"> <![CDATA[ #cswl# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="dwbm"> <![CDATA[ #dwbm# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="gjsj"> <![CDATA[ #gjsj# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="idbm"> <![CDATA[ #idbm# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="ipdz"> <![CDATA[ #ipdz# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="jsryphone"> <![CDATA[ #jsryphone# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="jsrysfzh"> <![CDATA[ #jsrysfzh# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="jsryxm"> <![CDATA[ #jsryxm# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="jsryzj"> <![CDATA[ #jsryzj# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="jssj"> <![CDATA[ #jssj# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="kjsj"> <![CDATA[ #kjsj# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="lwsx"> <![CDATA[ #lwsx# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="ptcs"> <![CDATA[ #ptcs# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="sbcs"> <![CDATA[ #sbcs# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="xtmc"> <![CDATA[ #xtmc# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="xtmm"> <![CDATA[ #xtmm# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="xtyhm"> <![CDATA[ #xtyhm# ]]> </isNotEmpty>
+			,
+			<include refid="insertXtzdVal"/>									
+	    	  )	    	
+	</insert>
+	<update  id="updateSpjkxt" parameterClass="spjkxt">
+	 	<![CDATA[ update JF_SPXTJBXX ]]>
+	 		
+		<dynamic prepend="set">
+			<isNotEmpty prepend="," property="ccip"> <![CDATA[ ccip=#ccip# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="ccsc"> <![CDATA[ ccsc=#ccsc# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="copyfs"> <![CDATA[ copyfs=#copyfs# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="cswl"> <![CDATA[ cswl=#cswl# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="dwbm"> <![CDATA[ dwbm=#dwbm# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="gjsj"> <![CDATA[ gjsj=#gjsj# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="idbm"> <![CDATA[ idbm=#idbm# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="ipdz"> <![CDATA[ ipdz=#ipdz# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="jsryphone"> <![CDATA[ jsryphone=#jsryphone# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="jsrysfzh"> <![CDATA[ jsrysfzh=#jsrysfzh# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="jsryxm"> <![CDATA[ jsryxm=#jsryxm# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="jsryzj"> <![CDATA[ jsryzj=#jsryzj# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="jssj"> <![CDATA[ jssj=#jssj# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="kjsj"> <![CDATA[ kjsj=#kjsj# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="lwsx"> <![CDATA[ lwsx=#lwsx# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="ptcs"> <![CDATA[ ptcs=#ptcs# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="sbcs"> <![CDATA[ sbcs=#sbcs# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="xtmc"> <![CDATA[ xtmc=#xtmc# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="xtmm"> <![CDATA[ xtmm=#xtmm# ]]> </isNotEmpty>
+			<isNotEmpty prepend="," property="xtyhm"> <![CDATA[ xtyhm=#xtyhm# ]]> </isNotEmpty>
+	    	,
+	    	<include refid="updateXtzd"/>	    	
+	    					
+		</dynamic>
+		<![CDATA[ where xh = #xh# ]]>
+	 	
+	</update>
+	
+</sqlMap>

@@ -131,6 +131,7 @@ public class CkyjController extends BaseController {
 			ckyjService.updateCkyjxxb(QbldUtil.QS, entity);
 			//新增预警签收数据
 			ckyjService.saveCkyjqs(bean, sessionBean);
+			//TODO 推送数据给情报平台
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -159,6 +160,7 @@ public class CkyjController extends BaseController {
 			ckyjService.updateCkyjxxb(QbldUtil.FK, entity);
 			//新增预警反馈数据
 			ckyjService.saveCkyjfk(bean, sessionBean);
+			//TODO 推送数据给情报平台
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -197,8 +199,8 @@ public class CkyjController extends BaseController {
 			String fileName = new String(("常控预警信息表").getBytes(), "ISO8859-1");
 			response.setHeader("Content-disposition", "attachment;filename=" + fileName
 					+ DateUtils.getSystemDateString() + ".xlsx");
-			String[] titleArray = {"预警信息编号","预警级别","重点人姓名", "身份证号","签收反馈状态"};
-			String[] keyArray = {"yjxxbh","yjjb","zdryxm", "sfzh","qsfkzt"};
+			String[] titleArray = {"预警信息编号","预警级别","身份证号","签收反馈状态"};
+			String[] keyArray = {"yjxxbh","yjjb","sfzh","qsfkzt"};
 			List<Map<String, String>> list = ckyjService.cyryxxb_query_export(entity);
 			QbldUtil.exportExcel(fileName, titleArray, keyArray, list, outputStream);
 		} catch (Exception e) {
@@ -251,7 +253,7 @@ public class CkyjController extends BaseController {
 	}
 	
 	/**
-	 * @Title: queryQbldZpSingle.jpg
+	 * @Title: queryQbldZpSingle
 	 * @Description: TODO(取得人口照片-photo表查不到则查询全国库并入photo库)
 	 * @param @param entity
 	 * @param @return    设定文件

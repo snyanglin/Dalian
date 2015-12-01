@@ -27,6 +27,8 @@ public interface ZpfjPtryzpService {
 	 * @return
 	 */
 	public ZpfjPtryzpxxb queryPtryzpSingle(ZpfjPtryzpglb entity);
+	
+	
 
 	/**
 	 * 查询人员查询人员的多张照片<br>

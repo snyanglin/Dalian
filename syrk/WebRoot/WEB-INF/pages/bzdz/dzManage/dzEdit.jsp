@@ -6,11 +6,15 @@
     SessionBean userInfo = (SessionBean)session.getAttribute("userSession");
     String userOrgCode = "";
     String userOrgName = "";
+    String orgBizType = "";
     String bjzbz = "";
     String xzqhdm = "";
+    String userLevel = "";
     if(userInfo!=null){
         userOrgCode = userInfo.getUserOrgCode();
         userOrgName = userInfo.getUserOrgName();
+        userLevel = userInfo.getUserOrgLevel();
+        orgBizType = userInfo.getUserOrgBiztype();
         bjzbz = userInfo.getBjzbz();
         if(!"".equals(userOrgCode)&&userOrgCode!=null){
         	xzqhdm = userOrgCode.substring(0,6);
@@ -37,6 +41,7 @@
        var type = "${type}";
        var dzChb = "${dzChb}";
        var chType = "${chType}";
+       var orgBizType = "<%=orgBizType%>";
        var title = "";
  	   if(type=="0"){
  		  title = "地址维护";
@@ -114,11 +119,19 @@
 				                 <tr class="dialogTr" id="dzBmTr2${status.index}">
 				                     <td width="30%" class="dialogTd" align="right">地址别名：</td>
 				                     <td width="70%" class="dialogTd">
-				                         <input class="easyui-validatebox" type="text" id="dzbm_${status.index}" name="dzBmArray[${status.index}].dzbm" style="width:215px;" value="${dzbmb.dzbm}"/>
-				                         <c:choose>
-			                              	<c:when test="${status.index == 0}"><a class="addLine_btn" href="javascript:void(0);" title="增加一个地址别名" onclick="DzEdit.addDzBm();"></a></c:when>
-			                              	<c:otherwise><a class="delLine_btn" href="javascript:void(0);" title="注销当前地址别名" onclick="DzEdit.delDzBm('${status.index}')"></a></c:otherwise>
-			                             </c:choose>
+				                     	<c:if test="${type == 0}">
+					                     	<input class="easyui-validatebox" type="text" id="dzbm_${status.index}" name="dzBmArray[${status.index}].dzbm" style="width:215px;" value="${dzbmb.dzbm}"/>
+					                        <c:choose>
+				                              	<c:when test="${status.index == 0}"><a class="addLine_btn" href="javascript:void(0);" title="增加一个地址别名" onclick="DzEdit.addDzBm();"></a></c:when>
+				                              	<c:otherwise><a class="delLine_btn" href="javascript:void(0);" title="注销当前地址别名" onclick="DzEdit.delDzBm('${status.index}')"></a></c:otherwise>
+				                            </c:choose>
+				                     	</c:if>
+				                     	
+				                     	<c:if test="${type == 1}">
+				                     		<input class="easyui-validatebox InputReadonly" type="text" id="dzbm_${status.index}" name="dzBmArray[${status.index}].dzbm" 
+				                     			style="width:215px;" value="${dzbmb.dzbm}" disabled="disabled" />
+				                     	</c:if>
+				                         
 				                     </td>
 				                 </tr>
                        	    </c:forEach>

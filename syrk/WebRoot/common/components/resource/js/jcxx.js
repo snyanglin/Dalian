@@ -1,4 +1,6 @@
 
+var currXzqh = null ;//当前辖区
+
 var Jcxx = {
 	/**
 	 * 所选图层名称
@@ -28,17 +30,28 @@ var Jcxx = {
 	 */
 	queryType:"",
 	xqCoords:"",
+	
+	/**
+	 *基础资源类型
+	 */
+	jczyType:"tw",
+	
 	/**
 	 * 初始化
 	 */
-	init:function(isLoad,roadid) { 
-//		this.name=[];
-//		this.field=[];
-//		this.where=[];
-		Jcxx.getDataPrivilege();//查询权限
-		Dictionary.initDictionaryList({url: "dictionary/getDictionaryListJSON.f", data: {"zdbh": "D_ZBJL"}, dictShowId: "jcxx_distance", initVal: "1","dictContainerReferenceObjectId": "jcxx_all"}, function() {
+	init:function(isLoad,roadid,dwbh) { 
 
-    	});
+		var cacheOrgCode = $("#cache_orgCode").val();
+		if(!cacheOrgCode){
+			cacheOrgCode = zzjgdm;
+		}
+		
+		//初始组织机构字典（树）
+		Dictionary.initDictTree({url: "/syrk/dictionary/getLocalOrganizationDictTreeJSON", zdbh: "T_GPS_ZZJG", zdmc: "组织机构", zzjgdm: dwbh, dictDataDivId: "ssjl_jczyzzjg_data_Div"}, function() {
+			Dictionary.beforeCreateDictTree({createCount: 1, zdbh: "T_GPS_ZZJG", treeData: data_T_GPS_ZZJG, dictDataDivId: "ssjl_jczyzzjg_data_Div"});
+			Dictionary.createDictTree({dictObject: T_GPS_ZZJG, treeData: data_T_GPS_ZZJG_1, isLeaf: false, dictHiddenId: "ssjl_jczyzzjg_dm", dictShowId: "ssjl_jczyzzjg_mc",initVal: cacheOrgCode, "dictContainerReferenceObjectId": "ssjl_zzjg"});
+		});
+		this.showJcxx(cacheOrgCode);
 		Jcxx.initKeywordInput("jcxx_search");  
 		//从交通态势管理路段周边资源查询
 		if("yes"== isLoad ){
@@ -66,6 +79,56 @@ var Jcxx = {
 		SysTool.changeIputStyle();
 	
 	},
+	
+	showJcxx:function(zzjgdm){
+		Jcxx.showOrgArea(zzjgdm);
+	},
+	
+	showOrgArea:function(pnodes){
+		if(currXzqh)
+			_MapApp.removeOverlay(currXzqh);
+		if(pnodes!='' &&  pnodes.substr(pnodes.length-8,pnodes.length)!="00000000"){
+			//修改全局变量
+			$("#cache_orgCode").val(pnodes)
+			SysTool.ajax({
+				url : '/syrk/homePage/queryXjZzjgxj',
+				data : {
+					'zzjgdm' : pnodes 
+				}
+			}, function(json) {
+				if(json!=null&&json.length>0){
+					//区域范围显示则四色预警清除
+//							XjMap.bjJson = json;
+					var countZrq = json.length;
+					var colors = new Array("#F1E740","#FFB543","#FF7A7B","#008080","#AA4400","#0000FF","#0066CC","#00CCCC","#6600CC","#FF99FF","#CCFFFF","#85D021","#4DC2ED","#EE431B","#E96A3B","#EE9539","#FDBE63","#FFFF66","#CC3333","#9966FF","#99CCFF","#FF00FF","#FF66CC","#996666","#00CC00","#330000","#336600","#666600","#990000","#996600","#99CC00","#CC0000","#CC6600","#CCCC00");
+					//辖区面
+						var i = 0;
+						json.MMM = setInterval(function(){
+							if(i < countZrq){
+					        	if(undefined != json[i].bjzbz && null!=json[i].bjzbz && json[i].bjzbz!=""){
+					        		var col = colors[i];
+					        		var ObjMap = new Polygon(json[i].bjzbz, "blue", 3, 0.5,"#ccffcc");
+					        		var pMbr = ObjMap.getMBR();
+					        		var cPoint = pMbr.centerPoint();
+					        		var _pTitle = new Title(json[i].zzjgmc,12,7,"宋体","#000000","#FFFFFF","#FFFFFF","2");
+					        		_pTitle.setPoint(cPoint);
+					        		_MapApp.addOverlay(ObjMap);
+					        		currXzqh = ObjMap;
+					        		_MapApp.centerAtMBR(pMbr);
+					        	}
+					        	
+							} else {
+								clearInterval(json.MMM);
+							}
+					        	
+					        	i++;
+						}, 130);
+				}
+			})
+		}
+	},
+	
+	
 	/**
 	 * 生成图层选择栏
 	 * @param title 图层中文名
@@ -78,82 +141,17 @@ var Jcxx = {
 				"<span style='background:url("+bgurl+") 0 0 no-repeat'>"+title+"</span></a>";
 		$("#layer_data_content").append(data);
 	},
-	/**
-	 * 获取专题权限
-	 */
-	getDataPrivilege:function(){
-		GeoQuery.dataPrivilege_info=[];//清空
-		var userid=SysConfig.USERID;
-        var systemName=SysConfig.SYSTEM_NAME;
-       var moduleName="辅助系统";
-       var functionName="基础信息";
-       var spatialcode=SysConfig.SPATIAL_CODE;
-         var ezmanager=new ezbuilderAPI.Ezmanager();
-         ezmanager.getThemePrivilegeByFunction(userid,systemName,moduleName,functionName,spatialcode,function(json){//查询权限
-        	 var objs = eval("("+json.resultJson+")");
-        	 if(objs.length!=0){
-        		 for(var i=0;i<objs.length;i++){
- 					var themeTree=objs[i]["themeTree"];
- 					if(themeTree!="undefined"&&themeTree.length>0){
- 						Jcxx.parseTree(themeTree);
- 					}
- 					
-               }
-         	 if(Jcxx.dataPrivilege_info.length>0){//解析权限图层后的结果
-         		 var dpi=Jcxx.dataPrivilege_info;
-         		 for(var i=0;i<SysConfig.GIS_LAYER_ICONS.length;i++){
-         			 var tablename=SysConfig.GIS_LAYER_ICONS[i]["id"].toUpperCase();
-         			 var order=SysConfig.GIS_LAYER_ICONS[i]["order"];
-         			 if(order==(i+1)){
-         				 for(var j=0;j<dpi.length;j++){
-             				 if(dpi[j].tableName.toUpperCase()==tablename){//创建已有图层
-             					 Jcxx.createLayerData(dpi[j].cname, dpi[j].tableName, dpi[j].field,SysConfig.GIS_LAYER_ICONS[i]["bg_url"]);
-             					 break;
-             				 }
-             			 }
-         				 continue;
-         			 }
-         			 
-         		 }
-         	 }
-         	 Jcxx.bindFunction();//生成图层列表后开始绑定事件
-         	 Jcxx.syxqClickBind();
-         	Jcxx.jqxxFastQueryMode();
-//         	$(".btnzy").each(function(i){
-//				var that=this;
-//				for(var j=0;j<Jcxx.name.length;j++){
-//					if(Jcxx.name[j].toUpperCase()==that.value.toUpperCase()){
-//						$(that).addClass("btnzyon");
-//					}
-//				};//判断切换基础信息后，原有的查询
-//				switch(Jcxx.queryType){
-//				case ""#fast_"+"
-//				}
-//			});
-        	 }else{//权限图层为空
-        		 $("#no_data").show();
-        	 }
-         });
+	
+	tianwang:function(){
+		this.jczyType="tw";
+		$("#tw").attr("class","btnClick");
+		$("#kk").attr("class","btnzy");
 
 	},
-	/**
-	 * 解析专题权限树
-	 * @param treeobj
-	 */
-	parseTree:function(treeobj){
-			
-			for(var i=0;i<treeobj.length;i++){
-				var jsonobj={};
-				if(treeobj[i]["themeTree"]!="undefined"&&treeobj[i]["themeTree"].length>0){
-					Jcxx.parseTree(treeobj[i]["themeTree"]);
-				}else{
-					 jsonobj["tableName"]=treeobj[i]["tableName"];//图层名
-					 jsonobj["field"]=treeobj[i]["queryFieldName"];//关键字段
-					 jsonobj["cname"]=treeobj[i]["aliasName"];//中文名
-					 Jcxx.dataPrivilege_info.push(jsonobj);//存储图层名以及关键字
-				}
-			}
-
+	kakou:function(){
+		this.jczyType="kk";
+		$("#kk").attr("class","btnClick");
+		$("#tw").attr("class","btnzy");
 	},
 	bindFunction : function() { 
 		$(".btnzy").bind("click", function(e) {  
@@ -244,6 +242,7 @@ var Jcxx = {
 
 		});
 	},
+	
 	/**
 	 * 属性查询
 	 * 
@@ -477,112 +476,23 @@ var Jcxx = {
 	
 	
 	
-	/**
-	 * 根据roadid获取路段坐标，并进行周边警力查询（从交通态势管理系统跳转专用）
-	 * @param roadid
-	 */
-	getroadzbzy : function(roadid) {
-		var aQuery = new QueryObject();
-//		removeLastOverlay();
-		aQuery.featurelimit = 10000;
-		aQuery.queryType = 6;
-		aQuery.dispField = 'objectid,lddm,ldmc';
-		aQuery.addSubFields('objectid,lddm,ldmc');
-		aQuery.tableName = SysConfig.GIS_DB_USERNAME + '.' + SysConfig.JT_ROADSEGITEM_PL;
-		var where = "";
-		var lddm = roadid;
-     	if(lddm != "" && lddm != null) {
-			where += " lddm in ("+lddm+")";
-		} else {
-			where += " lddm = 'noshow'";
-		}
-		aQuery.where = where;
-	   _MapApp.query(aQuery, function(vBIsOK, vRequestObj) {
-			try {
-				var features = new Array();
-				var dwLayers = _MapApp.getQueryResult(vRequestObj); 
-				var areastr = '';
-				for ( var j = 0; j < dwLayers.length; j++) {
-					if (dwLayers[j].tableName.toUpperCase() == aQuery.tableName
-							.toUpperCase()) {
-						features = dwLayers[j].features;
-					}
-				}
-				var ilength = features.length;
-				if (ilength > 0) {
-					for ( var i = 0; i < ilength; i++) {
-						dwftrObj = features[i];
-					    areastr = dwftrObj.linestr;
-					    $("#dataInputx").val(areastr);
-					    Jcxx.callback1("drawPolyline",Jcxx.name,Jcxx.field);
-		     	}
-				}
-					
-		} catch (e) {
-		}
-		});
-	},
 	
-	
-	/**
-	 * 关键字查询
-	 */
-	mysearch : function() {
-		this.kjcxType="";
-		Jcxx.where = [];
-		var value = $("#jcxx_search").val();
-		if (Jcxx.name.length == 0) {
-			SysTool.alert("请选择需要查询的基础信息");
-			return false;
-		} else if (Jcxx.name.length >= 1) {
-			if(value==this.gjz){
-				$("#jcxx_search").focus();
-				return false;
-			}
-			for ( var i = 0; i < Jcxx.name.length; i++) {
-				Jcxx.where.push(Jcxx.field[i] + " like '%" + value + "%'");
-			}
-			this.clearCustomListener();
-			Jcxx.allQuery(Jcxx.name, Jcxx.field, Jcxx.where);
-		}
-	},
-	syxqClickBind:function(){
-		$("#visionSearch").click(function(){
-			if($("#visionSearch").hasClass("bnt_syn_on")){
-				$("#visionSearch").removeClass("bnt_syn_on");
-				Jcxx.clearJcxxAllOverlays();
-				Jcxx.clearCustomListener();
-				return false;
-			}else{
-				Jcxx.visionSearch();
-			}
-		});
-		$("#xqSearch").click(function(){
-			if($("#xqSearch").hasClass("bnt_xqn_on")){
-				$("#xqSearch").removeClass("bnt_xqn_on");
-				Jcxx.clearJcxxAllOverlays();
-				Jcxx.clearCustomListener();
-				return false;
-			}else{
-				Jcxx.xqSearch();
-				
-				
-			}
-			
-		});
-	},
+
 	/**
 	 * 视野内查询
 	 */
 	visionSearch:function(name,field){
 		this.queryType="visionSearch";
 		this.kjcxType="";
-		this.clearStyle("xqSearch","bnt_xqn_on");
+		//this.clearStyle("xqSearch","bnt_xqn_on");
+		$("#xqSearch").attr("class","btnfs bnt_xqn")
+		$("#visionSearch").attr("class","btnfs bnt_syn_on")
+
 		$("#fast_query_mode a").removeClass("btnab_onb");
-		if(Jcxx.name.length==0){
+		/*if(Jcxx.name.length==0){
 			SysTool.alert("请选择需要查询的基础信息");
 			return false;
-		}
+		}*/
 		$("#visionSearch").addClass("bnt_syn_on");
 		var nname=name||Jcxx.name;
 		var nfield=field||Jcxx.field;
@@ -639,14 +549,18 @@ var Jcxx = {
 	 * 警情辖区内查询
 	 */
 	xqSearch:function(name,field){
+
 		this.kjcxType="";
 		this.queryType="xqSearch";
-		this.clearStyle("visionSearch","bnt_syn_on");
+		//this.clearStyle("visionSearch","bnt_syn_on");
+		$("#visionSearch").attr("class","btnfs bnt_syn")
+		$("#xqSearch").attr("class","btnfs bnt_xqn_on")
+		
 		$("#fast_query_mode a").removeClass("btnab_onb");
-		if(Jcxx.name.length==0){
+		/*if(Jcxx.name.length==0){
 			SysTool.alert("请选择需要查询的基础信息");
 			return false;
-		}
+		}*/
 		$("#xqSearch").addClass("bnt_xqn_on");
 		var nname=name||Jcxx.name;
 		var nfield=field||Jcxx.field;
@@ -950,76 +864,7 @@ var Jcxx = {
 			}
 		}
 		MapBubble.closeBubble();
-	},
-	/**
-	 * 显示与警情相关的功能
-	 */
-	showJqfunc:function(){
-		var jqxx = Jqxx.currentPointObject[1];
-		if(!$.isEmptyObject(jqxx)){
-			$("#xqSearch").removeAttr("disabled");//清除辖区内禁用样式
-			$("#xqSearch").removeClass("bnt_xqn_disabled");
-			$("#fast_query_mode").children("a").each(function(){//清空快速周边禁用样式
-				$(this).removeAttr("disabled");
-				$(this).removeClass("btnab_disabled");
-			});
-		}
-	},
-	/**
-	 * 禁用于警情相关的功能
-	 */
-	disableFunc:function(){
-		$("#xqSearch").attr("disabled","");
-		$("#xqSearch").addClass("bnt_xqn_disabled");
-		$("#fast_query_mode").children("a").each(function(){//添加快速周边禁用样式
-			$(this).attr("disabled","");
-			$(this).addClass("btnab_disabled");
-		});
-		this.clear();
-	},
-	/**
-	 * 过往车辆查询
-	 */
-	kkclcx : function(){
-		var kkid = "";
-		var kkmc = "";
-		$.each(GeoQuery.marker_info,function(key,value){
-			if ("ID" == GeoQuery.marker_info[key].fieldName)
-			{
-				kkid = GeoQuery.marker_info[key].fieldValue;
-			}
-			else if ("名称" == GeoQuery.marker_info[key].fieldName)
-			{
-				kkmc = GeoQuery.marker_info[key].fieldValue;
-			}
-		});
-		SysTool.window.open({
-			width : 600,
-			height: 480,
-			title : kkmc,
-			url : 'project/busiapp/kkcl/kkcl.jsp?id="'+kkid
-		});
-	},
-	
-	/**
-	 * 播放视频
-	 * @param objectId
-	 */
-	playVideo: function(objectId) {
-		var videoBh = "";
-		$.each(GeoQuery.marker_info, function(key, value) {
-			if (SysConfig.VIDEO_TD_FIELD == GeoQuery.marker_info[key].fieldName) {
-				videoBh = GeoQuery.marker_info[key].fieldValue;
-				return false;
-			}
-		});
-		var width = 850;   
-		var height = 480;
-		var sFeatures = "width=" + width + ",height=" + height + ",left=" + ((screen.availWidth - width) / 2) + ",top=" + ((screen.availHeight - height) / 2)
-				        + ",location=no,menubar=no,resizable=yes,scrollbars=no,status=no,titlebar=no,toolbar=no";
-		var url = "common/components/video/playVideo.jsp?multiVideoInfo=" + videoBh;  
-		window.open(url, "openWin", sFeatures);
 	}
-	
+
 };
 

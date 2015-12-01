@@ -18,11 +18,15 @@ import com.founder.syfw.bean.Czfwxxb;
 import com.founder.syfw.bean.FwCzqkdjxxb;
 import com.founder.syfw.bean.Fwjbxxb;
 import com.founder.syfw.dao.SyfwEditDao;
+import com.founder.syfw.dao.SyfwQueryDao;
 import com.founder.syfw.service.SyfwEditService;
+import com.founder.syfw.service.SyfwQueryService;
 import com.founder.syfw.vo.SyfwgnVO;
 import com.founder.syfw.vo.SyfwxxzsVO;
+import com.founder.syrkgl.bean.RyRyjbxxb;
 import com.founder.syrkgl.bean.SyrkSyrkxxzb;
 import com.founder.syrkgl.dao.SyrkSyrkxxzbDao;
+import com.founder.syrkgl.service.RyRyjbxxbService;
 
 @Service("syfwEditService")
 @Transactional
@@ -33,17 +37,15 @@ public class SyfwEditServiceImpl extends BaseService implements SyfwEditService 
 	
 	@Resource(name="syrkSyrkxxzbDao")
 	private SyrkSyrkxxzbDao syrkSyrkxxzbDao;
-	
+	@Resource
+	private RyRyjbxxbService ryRyjbxxbService;
+	@Resource
+	private SyfwQueryDao syfwQueryDao;
 	@Override
 	public Fwjbxxb queryFwjbxxbById(String id) {
 		return syfwEditdao.queryFwjbxxbById(id);
 	}
 
-	//gem
-	public Fwjbxxb queryFwxx(String fwdz_dzid){
-		return syfwEditdao.queryFwxx(fwdz_dzid);
-	}
-	
 	@Override
 	public List<SyfwxxzsVO> queryFwzsxx(Map<String, Object> map) {
 		map.put("xxdxlxdm","1");
@@ -226,6 +228,17 @@ public class SyfwEditServiceImpl extends BaseService implements SyfwEditService 
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public boolean checkFzIsChzr(String ryid, String fw_dzid) {
+		RyRyjbxxb ry=this.ryRyjbxxbService.queryById(ryid);
+		Fwjbxxb fw=syfwQueryDao.queryByDzid(fw_dzid);
+		if(fw.getFz_cyzjdm().equals(ry.getCyzjdm()) && fw.getFz_zjhm().equals(ry.getZjhm())){
+			return true;
+		}
+		return false;
+		
 	}
 	
 }

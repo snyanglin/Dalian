@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.utils.StringUtils;
@@ -286,10 +287,10 @@ public class SyrkEditServiceImpl extends BaseService implements SyrkEditService 
 
 	@Override
 	public List<Jzzblxxb> jzzblxxb_query(Map<String, Object> map) {
-		String ryid = (String) map.get("ryid");
+		String syrkid = (String) map.get("syrkid");
 		List<Jzzblxxb> list =null;
-		if(!StringUtils.isBlank(ryid)){
-			list = jzzblxxbDao.queryJzzblxxList(ryid);
+		if(!StringUtils.isBlank(syrkid)){
+			list = jzzblxxbDao.queryJzzblxxList(syrkid);
 		}
 		return list;
 	}

@@ -22,38 +22,6 @@ public class Ckyjxxb extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String dzms_zbx;
-	private String dzms_zby;
-	
-	public String getDzms_zbx() {
-		return dzms_zbx;
-	}
-	public void setDzms_zbx(String dzms_zbx) {
-		this.dzms_zbx = dzms_zbx;
-	}
-	public String getDzms_zby() {
-		return dzms_zby;
-	}
-	public void setDzms_zby(String dzms_zby) {
-		this.dzms_zby = dzms_zby;
-	}
-	//数据来源
-	private String sjly;
-	//列管单位
-	private String lgdw;
-	
-	public String getSjly() {
-		return sjly;
-	}
-	public void setSjly(String sjly) {
-		this.sjly = sjly;
-	}
-	public String getLgdw() {
-		return lgdw;
-	}
-	public void setLgdw(String lgdw) {
-		this.lgdw = lgdw;
-	}
 	//查询条件
 	private String yjfbsjB;
 	private String yjfbsjE;

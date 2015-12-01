@@ -30,13 +30,16 @@
 	<script type="text/javascript" src="<%=basePath%>framework/jquery-1.8.1.min.js"></script>
 	<!-- easyUI类库 -->
 	<script type="text/javascript" src="<%=basePath%>framework/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="<%=basePath%>framework/easyui/jquery.easyui.extend.js"></script>
+	<script type="text/javascript" src="<%=basePath%>framework/easyui/mainFrame.js"></script>
+	
 	<!-- 系统全局配置类 -->
 	<script type="text/javascript" src="<%=basePath%>common/config/SysConfig.js"></script>
 	<script type="text/javascript">
 		var path = "<%=basePath%>";
 		path = path.substring(0, path.length-1);
 		//设置EzBuilder客户端地址
-		SysConfig.EZBUILDER_CLIENT_URL = "http://10.80.8.178:9080/POService";
+		SysConfig.EZBUILDER_CLIENT_URL = "http://10.80.8.178:7001/POService40";
 	</script>
 	<!-- 系统公共工具类 -->
 	<script type="text/javascript" src="<%=basePath%>common/tools/SysTool.js"></script>
@@ -73,6 +76,8 @@
 	<script type="text/javascript" src="<%=basePath%>common/components/scrollBarTool/js/scrollBarTool.js"></script>
 	<!-- 消息提醒 -->
 	<script type="text/javascript" src="<%=basePath%>project/base/js/xxtx.js"></script>
+	<!-- 警情信息 -->
+	<script type='text/javascript' src="<%=basePath%>project/zhdd/js/jqxx.js"></script>
 	<!-- 车辆布控 
 	<script type="text/javascript" src="<%=basePath%>project/busiapp/jkd/js/clbk.js"></script>-->
 	<!-- 多色预警配置 
@@ -108,14 +113,13 @@
 	  		//初始始化地图
 			SysTool.initMap({mapContainerId:"mapContainer",zzjgdm:zzjgdm}, function(MapApp){
 				//初始化缩放组件
-				ZoomMap.init({mapApp: MapApp, mapContainerId: "mapContainer"});
+				ZoomMap.init({mapApp: MapApp, mapContainerId: "mapContainer",zoomMinLevel:10});
 				//初始化工具组件
 				MapTool.init({mapApp: MapApp, mapContainerId: "mapContainer"});
 				//初始化气泡框组件
-				//MapBalloon.init({mapApp: MapApp, mapContainerId: "mapContainer"});
 				MapBubble.init({mapApp: MapApp, mapContainerId: "mapContainer"});
 				
-				_MapApp.centerAndZoom(new Point("121.59619","38.90576"),5);
+				_MapApp.centerAndZoom(new Point("121.59619","38.90576"),12);
 			});
 			//初始化页面
 			//$(".load_div").load("project/zhdd/zhdd.jsp");

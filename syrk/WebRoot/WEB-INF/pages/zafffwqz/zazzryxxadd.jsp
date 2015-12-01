@@ -18,7 +18,7 @@
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 			<input type="hidden" id="pk" name="id" value="${entity.id}" />
 			 <tr class="dialogTr">
-				<td width="20%" class="dialogTd" align="right">常用证件种类：</td>
+				<td width="20%" class="dialogTd" align="right">常用证件类型：</td>
 				<td width="30%" class="dialogTd"><input  type='text' id='cyzjdm' name='cyzjdm' class="easyui-combobox" style="width:200px;" value="${entity.cyzjdm}"
 				 data-options="required:true,tipPosition:'right',url: contextPath + '/common/dict/D_BZ_CYZJ.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',onChange:setPassPort"  /></td>
 				<td width="20%" class="dialogTd" align="right">证件号码：</td>
@@ -82,7 +82,7 @@ $(document).ready(function(){
 	}
 	
 });
-/**根据证件种类 设置证件号码验证 与人员基本信息只读状态*/
+/**根据证件类型 设置证件号码验证 与人员基本信息只读状态*/
 function setPassPort(newVal,oldVal){
 	if(newVal==""){
 		$("#zjhm").validatebox({validType:null});
@@ -101,7 +101,7 @@ function setPassPort(newVal,oldVal){
 	}
 }
 /**
- * 根据证件种类与号码 ，进行人员比对，复用
+ * 根据证件类型与号码 ，进行人员比对，复用
  */
 function check(){
 	if(!$("#zjhm").validatebox("isValid")){

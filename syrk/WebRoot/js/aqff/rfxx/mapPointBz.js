@@ -100,6 +100,13 @@
 					}
         	 });
          };
+         
+         function deletemappoint(){
+        	 ezMap._MapApp.clear();
+        	 moveMapToBjzbz();
+			 parent.document.getElementById("xldx").value = '';
+			 parent.document.getElementById("xldy").value = ''; 
+         }
          /**
 	       * @title:moveMapToDrawPoint_back
 	       * @description:标点_回调函数
@@ -145,7 +152,7 @@
 	       */
          function queryButton(){
         	 var html = "<div style='position:absolute;right:8px;top:80px;width:40px;'>" +
-	                    "<img id='img2' onclick='moveMapToDrawPoint()' style='cursor:hand;' title='点编辑模式' src='../images/map/icons/icon_ellip_select01.png'>&nbsp;&nbsp;" +
+	                    "<img id='img2' onclick='deletemappoint()' style='cursor:hand;' title='点编辑模式' src='../images/map/icons/icon_ellip_select01.png'>&nbsp;&nbsp;" +
 	                    "</div>";
 			 $("#mapDiv").append(html);
          };

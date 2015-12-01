@@ -16,7 +16,7 @@
 		
 		<table border="0" cellpadding="0" cellspacing="10" width="846" align="left">
 		    <tr class="dialogTr">
-		    	<td width="20%" class="dialogTd" align="right">证件种类：</td>
+		    	<td width="20%" class="dialogTd" align="right">证件类型：</td>
 		    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="cyzjdm" name="cyzjdm" style="width:200px;" value="${entity.cyzjdm }"
 					data-options="url: contextPath + '/common/dict/D_BZ_CYZJ.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'right',onChange:zjhmCheck" />
 		    	</td>
@@ -62,7 +62,7 @@
 				<input type='hidden' name='jzd_mlpxz' id="jzd_mlpxz" value="${entity.jzd_mlpxz}"/>
 				</td>
 				<td width="30%" class="dialogTd" >
-					<input class="easyui-combobox" id="jzd2" style="width:200px;" value="${fn:replace(entity.jzd_dzxz, entity.jzd_mlpxz, '')}" data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					<input class="easyui-combobox" id="jzd2" style="width:200px;" value='${fn:replace(entity.jzd_dzxz, entity.jzd_mlpxz, "")}' data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 				    <input type='hidden' name='jzd_dzid' id='jzd_dzid' value="${entity.jzd_dzid}" />
 				    <input type='hidden' name='jzd_xzqhdm' id='jzd_xzqhdm' value="${entity.jzd_xzqhdm}" />
 				    <input type='hidden' name='jzd_dzxz' id='jzd_dzxz' value="${entity.jzd_dzxz}" /> 
@@ -232,7 +232,7 @@ function clearRyjbxx(){
 	setInputReadonly("jzd2", false);
 }
 
-//根据证件种类与号码 ，进行人员复用
+//根据证件类型与号码 ，进行人员复用
 function jbxx_zjhm_onblur() {
 	if (!$("#cyzjdm").combo("isValid")){
 		return;

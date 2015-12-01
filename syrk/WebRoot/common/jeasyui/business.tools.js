@@ -995,8 +995,7 @@ function public_multiSelectOrgUser(rootOrgCode, orgType, orgLevel, orgBizType, u
 // parentWindow       调用页面的window对象
 // onOkMethod         对话中点击确认后执行原页面中的方法（如：“orgPosSelect_onOk”）
 // dialogTitle        对话框的标题
-// posInputID         虚拟岗位ID 输入框ID（不需要返回该参数时为''或null）
-function public_singleSelectOrgPos(rootOrgCode, orgType, orgLevel, orgBizType, posids, initFocusOrgCode, posIDInputID, posNameInputID, orgCodeInputID, orgNameInputID, orgIDInputID, isCache, windowID, parentWindow, onOkMethod, dialogTitle,posInputID) {
+function public_singleSelectOrgPos(rootOrgCode, orgType, orgLevel, orgBizType, posids, initFocusOrgCode, posIDInputID, posNameInputID, orgCodeInputID, orgNameInputID, orgIDInputID, isCache, windowID, parentWindow, onOkMethod, dialogTitle) {
 	if (isCache) {
 		if (windowID == null || windowID == "") {
 			$.messager.alert('页面错误','组织机构岗位选择public_singleSelectOrgPos()方法：<br><br>参数 windowID 不能为空！','error');
@@ -1046,8 +1045,6 @@ function public_singleSelectOrgPos(rootOrgCode, orgType, orgLevel, orgBizType, p
 	paramArray['orgNameInputID'] = orgNameInputID;
 	paramArray['orgIDInputID'] = orgIDInputID;
 	paramArray['onOkMethod'] = onOkMethod;
-	//特别定制，用来返回org_position表的posid
-	paramArray['dialogTitle'] = dialogTitle;
 	var dataOptions = {
 		title: '&nbsp;' + dialogTitle,
 		width: 800,   
@@ -1240,6 +1237,375 @@ function public_multiSelectOrgPos(rootOrgCode, orgType, orgLevel, orgBizType, po
 		}
 	];
 	openWindow(isCache, windowID, openURL, paramArray, dataOptions);
+}
+
+//内保支队、内保大队用
+//初始化二段地址选择（门楼牌号、门楼牌号详址）选择输入框
+//mlphComboID 门楼牌号下拉框ID
+//filterData 地址过滤参数，如：{fxjdm:'XXXX'}，如果地址过滤参数为动态的值，则传入的动态值的id（{pcsdm:'#pcsdm'}，注意id前面加“#”），其中：
+//			pcsdm   =派出所代码
+//			zrqdm   =责任区代码
+//			xzqh    =行政区划代码
+//			jlxdm   =街路巷代码
+//mlphID 门楼牌号地址表ID隐藏框ID
+//mlphmcID 门楼牌号名称隐藏框ID
+//mlphXzComboID 门楼牌号详址下拉框ID
+//returnFieldData 选择地址时回填的字段ID，如：{id:'mlphid',text:'mlphmc',dzdm:'mlphdm'}，其中：
+//			text    =地址全称
+//			dzfxjdm =地址分县局代码
+//			dzpcsdm =地址派出所代码
+//			dzzrqdm =地址责任区代码
+//			dzxzqh  =地址行政区划代码
+//			dzjlxdm =地址街路巷代码
+//			dzjlxmc =地址街路巷代名称
+//			dzzbx   =地址坐标X
+//			dzzby   =地址坐标Y
+//onSelectAfterMplh 选择有效门楼牌号后执行的方法，方法传入的参数为mlphComboID
+//onSelectAfterMplhXz 选择有效门楼牌号详址后执行的方法，方法传入的参数为mlphXzComboID
+function initNbAddressSearch(mlphComboID, filterData, mlphID, mlphmcID, mlphXzComboID, returnFieldData, onSelectAfterMplh, onSelectAfterMplhXz) {
+	if (mlphXzComboID) {
+		$('#' + mlphXzComboID).combobox({
+			validEnter: false,
+			delay: 600,
+			unValidClear: false,
+			url: contextPath + '/dzContextSearch/searchNbAddressMlphXz',
+			loader: function(param, success, error) {
+				var opts = $(this).combobox('options');
+				if (!opts.url) return false;
+				if ($('#' + mlphID).val() == "") {
+					var data = [];
+					success(data);
+					return;
+				}
+				if ("undefined" == typeof param.q) {
+					var data = [];
+					success(data);
+					var comboObject = $.data(this, "combo");
+					comboObject.previousValue = null;
+					return;
+				}
+				else {
+					opts.validEnter = true;
+					param.q = param.q.replace(/(^[\s|　]*)|([\s|　]*$)/g, "");
+					if (param.q == "") {
+						var data = [];
+						success(data);
+						return;
+					}
+				}
+				var submitParam = {};
+				submitParam['id'] = $('#' + mlphID).val();
+				submitParam['searchKey'] = param.q;
+				$.ajax({
+					type: opts.method,
+					url: opts.url,
+					data: submitParam,
+					dataType: 'json',
+					success: function(data) {
+						opts.loaded = true;
+						success(data);
+					},
+					error: function() {
+					}
+				});
+			},
+			onLoadSuccess: function() {
+			},
+			filter: function(q, row) {
+				return true;
+			},
+			formatter: function(row) {
+				var opts = $(this).combobox('options');
+				if (opts.maxValueLength == 0) { // 自动调整宽度与高度
+					var data = $(this).combobox('getData');
+					var optionTextMaxLen = 0; // text的最大长度
+					for (var i = 0; i < data.length; i++){
+						var tempRow = data[i];
+						var sLen = getGBLength(tempRow[opts.textField]);
+						if (sLen > optionTextMaxLen) {
+							optionTextMaxLen = sLen;
+						}
+					}
+					opts.maxValueLength = 1;
+					autoPanelWidth = (optionTextMaxLen + 8) * 6;
+					autoPanelWidth = autoPanelWidth < opts.width ? opts.width : autoPanelWidth;
+					var autoPanelHeight = data.length;
+					if (data.length > opts.panelOptionsNumber) {
+						autoPanelHeight = opts.panelOptionsNumber;
+					}
+					else if (autoPanelHeight < 2) {
+						autoPanelHeight = 2;
+					}
+					var itemHeight = 20;
+					if (IE && IE_VERSION <= 9) {
+						itemHeight = 18;
+					}
+					$(this).combo('panel').panel('resize',{width:autoPanelWidth ,height: autoPanelHeight * itemHeight + 2});	
+				}
+				return row[opts.textField];
+			},
+			loadFilter: function(data) {
+				return data;
+			},
+			onSelect: function(record) {
+				for (var item in returnFieldData) {
+					if (record[item]) {
+						if (item == "text") {
+							$('#' + returnFieldData[item]).val($('#' + mlphmcID).val() + record[item]);
+						}
+						else {
+							$('#' + returnFieldData[item]).val(record[item]);
+						}
+					}
+				}
+				try {
+					if (onSelectAfterMplhXz && typeof(eval(onSelectAfterMplhXz)) == 'function') {
+						eval(onSelectAfterMplhXz + "(mlphXzComboID)");
+					}
+				}
+				catch (err) {
+					$.messager.alert('页面错误', "执行事件 "+ onSelectAfterMplhXz + " 有错误发生：<br/><br/>错误名称: " + err.name + "<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;错误行号:" + (err.number & 0xFFFF ) + "<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;错误信息:" + err.message, 'error'); 
+				}
+			},
+			onHidePanel: function() {
+				var opts = $(this).combobox('options');
+				if (!opts.validEnter) {
+					var comboText = $('#' + mlphXzComboID).next(".combo").children(".combo-text");
+					if (comboText.val() == "") {
+						$(this).combobox('clear');
+						for (var item in returnFieldData) {
+							if (item == "id") {
+								$('#' + returnFieldData[item]).val($('#' + mlphID).val());
+							}
+							else if (item == "text") {
+								$('#' + returnFieldData[item]).val($('#' + mlphmcID).val());
+							}
+						}
+					}
+					return;
+				}
+				else {
+					var clearData = false;
+					var data = $(this).combobox('getData');
+					if (data.length == 0) {
+						clearData = true;
+					}
+					else {
+						var panel = $(this).combo('panel');
+						var itemSelected = panel.find('div.combobox-item-selected');
+						if (itemSelected.length == 0) {
+							clearData = true;
+						}
+					}
+					var comboText = $('#' + mlphXzComboID).next(".combo").children(".combo-text");
+					if (comboText.val() == "") {
+						clearData = true;
+					}
+					if (clearData) {
+						$(this).combobox('clear');
+						for (var item in returnFieldData) {
+							if (item == "id") {
+								$('#' + returnFieldData[item]).val($('#' + mlphID).val());
+							}
+							else if (item == "text") {
+								$('#' + returnFieldData[item]).val($('#' + mlphmcID).val());
+							}
+						}
+					}
+				}
+			}
+		});
+	}
+
+	$('#' + mlphComboID).combobox({
+		delay: 600,
+		unValidClear: false,
+		url: contextPath + '/dzContextSearch/searchNbAddressMlph',
+		loader: function(param, success, error) {
+			var opts = $(this).combobox('options');
+			if (!opts.url) return false;
+			if ("undefined" == typeof param.q) {
+				var data = [];
+				success(data);
+				return;
+			}
+			else {
+				param.q = param.q.replace(/(^[\s|　]*)|([\s|　]*$)/g, "");
+				if (param.q == "") {
+					var data = [];
+					success(data);
+					// 清空
+					if (mlphID) {
+						$('#' + mlphID).val("");
+					}
+					if (mlphmcID) {
+						$('#' + mlphmcID).val(param.q);
+					}
+					if (mlphXzComboID) {
+						$('#' + mlphXzComboID).combobox('loadData',[]);
+						$('#' + mlphXzComboID).combobox('clear');
+					}
+					if (returnFieldData) {
+						for (var item in returnFieldData) {
+							if (item == "text") {
+								$('#' + returnFieldData[item]).val(param.q);
+							}
+							else {
+								$('#' + returnFieldData[item]).val("");
+							}
+						}
+					}
+					return;
+				}
+			}
+			// 清空
+			if (mlphID) {
+				$('#' + mlphID).val("");
+			}
+			if (mlphmcID) {
+				$('#' + mlphmcID).val(param.q);
+			}
+			if (mlphXzComboID) {
+				$('#' + mlphXzComboID).combobox('loadData',[]);
+				$('#' + mlphXzComboID).combobox('clear');
+			}
+			if (returnFieldData) {
+				for (var item in returnFieldData) {
+					if (item == "text") {
+						$('#' + returnFieldData[item]).val(param.q);
+					}
+					else {
+						$('#' + returnFieldData[item]).val("");
+					}
+				}
+			}
+			var submitParam = {};
+			for (var item in filterData) {
+				submitParam[item] = filterData[item];
+			}
+			for (var item in submitParam) {
+				var submitValue = submitParam[item];
+				if (submitValue && submitValue.indexOf("#") == 0) { // 动态值
+					if ($(submitValue).val()) {
+						submitParam[item] = $(submitValue).val();
+					}
+					else {
+						submitParam[item] = "";
+					}
+				}
+			}
+			submitParam['searchKey'] = param.q;
+			$.ajax({
+				type: opts.method,
+				url: opts.url,
+				data: submitParam,
+				dataType: 'json',
+				success: function(data) {
+					opts.loaded = true;
+					success(data);
+				},
+				error: function() {
+				}
+			});
+		},
+		onLoadSuccess: function() {
+		},
+		filter: function(q, row) {
+			return true;
+		},
+		formatter: function(row) {
+			var opts = $(this).combobox('options');
+			if (opts.maxValueLength == 0) { // 自动调整宽度与高度
+				var data = $(this).combobox('getData');
+				var optionTextMaxLen = 0; // text的最大长度
+				for (var i = 0; i < data.length; i++){
+					var tempRow = data[i];
+					var sLen = getGBLength(tempRow[opts.textField]);
+					if (sLen > optionTextMaxLen) {
+						optionTextMaxLen = sLen;
+					}
+				}
+				opts.maxValueLength = 1;
+				autoPanelWidth = (optionTextMaxLen + 8) * 6;
+				autoPanelWidth = autoPanelWidth < opts.width ? opts.width : autoPanelWidth;
+				var autoPanelHeight = data.length;
+				if (data.length > opts.panelOptionsNumber) {
+					autoPanelHeight = opts.panelOptionsNumber;
+				}
+				else if (autoPanelHeight < 2) {
+					autoPanelHeight = 2;
+				}
+				var itemHeight = 20;
+				if (IE && IE_VERSION <= 9) {
+					itemHeight = 18;
+				}
+				$(this).combo('panel').panel('resize',{width:autoPanelWidth ,height: autoPanelHeight * itemHeight + 2});	
+			}
+			return row[opts.textField];
+		},
+		loadFilter: function(data) {
+			return data;
+		},
+		onSelect: function(record) {
+			var opts = $(this).combobox('options');
+			opts.mlphdm = record['mlphdm'];
+			if (mlphID) {
+				if ($('#' + mlphID).val() != record['mlphdm']) {
+					$('#' + mlphID).val(record['id']);
+					if (mlphXzComboID) {
+						$('#' + mlphXzComboID).combobox('clear');
+					}
+					if (returnFieldData) {
+						for (var item in returnFieldData) {
+							$('#' + returnFieldData[item]).val("");
+						}
+					}
+					if (mlphXzComboID) {
+						$('#' + mlphXzComboID).combobox('reload');
+					}
+				}
+				for (var item in returnFieldData) {
+					if (record[item]) {
+						$('#' + returnFieldData[item]).val(record[item]);
+					}
+				}
+			}
+			if (mlphmcID) {
+				$('#' + mlphmcID).val(record['text']);
+			}
+			try {
+				if (onSelectAfterMplh && typeof(eval(onSelectAfterMplh)) == 'function') {
+					eval(onSelectAfterMplh + "(mlphComboID)");
+				}
+			}
+			catch (err) {
+				$.messager.alert('页面错误', "执行事件 "+ onSelectAfterMplh + " 有错误发生：<br/><br/>错误名称: " + err.name + "<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;错误行号:" + (err.number & 0xFFFF ) + "<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;错误信息:" + err.message, 'error'); 
+			}
+		},
+		onHidePanel: function() {
+		}
+	});
+	
+	if (mlphXzComboID) { // 门楼牌号名称为空但地址详址不为空时，门楼牌号的值为地址详址，门楼牌号详址为空
+		$(document).ready(function() {
+			var comboText1 = $('#' + mlphComboID).next(".combo").children(".combo-text");
+			var comboText2 = $('#' + mlphXzComboID).next(".combo").children(".combo-text");
+			comboText1.attr('maxlength', 80); // 设置门楼牌号选择输入框只能输入80个汉字
+			comboText2.attr('maxlength', 80); // 设置门门楼牌号详址选择输入框只能输入80个汉字
+			if (comboText1.val() == "" && comboText2.val() != "") {
+				var tempValue = comboText2.val();
+				$('#' + mlphComboID).combobox("setValue", tempValue);
+				$('#' + mlphmcID).val(tempValue);
+				$('#' + mlphXzComboID).combobox("setValue", "");
+			}
+		});
+	}
+	else {
+		$(document).ready(function() {
+			var comboText1 = $('#' + mlphComboID).next(".combo").children(".combo-text");
+			comboText1.attr('maxlength', 80); // 设置门楼牌号选择输入框只能输入80个汉字
+		});
+	}
 }
 
 // 初始化二段地址选择（门楼牌号、门楼牌号详址）选择输入框

@@ -15,7 +15,7 @@
     	
 	    <div data-options="region:'center', split:true" style="width:500px; border-width: 0px;">
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
-			<td width="20%" class="dialogTd" align="right">经历类型：</td>
+			<td width="20%" class="dialogTd" align="right">经历类型代码：</td>
 		    <td width="30%" class="dialogTd">
 		    	<input class="easyui-combobox" type="text"  id="jllxdm" name="jllxdm"   style="width:200px;" value="${entity.jllxdm}"
 					data-options="url: contextPath +  '/common/dict/BD_D_JLLXDM.js',

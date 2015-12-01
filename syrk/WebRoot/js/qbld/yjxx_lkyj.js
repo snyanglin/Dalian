@@ -9,12 +9,12 @@ if(typeof Yjxx =="undefined" || !Yjxx){
  */
 Yjxx.initLkyjQueryHtml = function(type){
 	Yjxx.type = type;
-	var jbhtml = "<div class='jbdiv1'><input type='checkbox' name='zljb' value='1' onclick='Yjxx.queryLkyjList();'  checked/>一级</div>"+
-	"<div class='jbdiv2'><input type='checkbox' name='zljb' value='2' onclick='Yjxx.queryLkyjList();' checked/>二级</div>"+
-	"<div class='jbdiv3'><input type='checkbox' name='zljb' value='3' onclick='Yjxx.queryLkyjList();'' checked/>三级</div>";
+	var jbhtml = "<input type='checkbox' name='zljb' value='1' onclick='Yjxx.queryLkyjList();'  checked/>一级"+
+	"<input type='checkbox' name='zljb' value='2' onclick='Yjxx.queryLkyjList();' checked/>二级"+
+	"<input type='checkbox' name='zljb' value='3' onclick='Yjxx.queryLkyjList();'' checked/>三级"
 	$(".yjjbCheckBox").html(jbhtml);
 	Yjxx.initLkyjSimpleQuery();
-};
+}
 /**
  * @title:initLkyjSimpleQuery
  * @description:初始化加载临控预警级别简单查询
@@ -30,13 +30,13 @@ Yjxx.initLkyjSimpleQuery = function(){
 	$("#queryDiv").html(queryhtml);
 	$("#simpleQueryButton").linkbutton({
 			iconCls:"icon-search"
-	} ) ;
+	} ) 
 	$("#toggleButton").linkbutton({
 		plain:true
-	} ) ;
+	} ) 
 	$(window).resize();
 	Yjxx.queryLkyjList();
-};
+}
 /**
  * @title:initLkyjAdvancedQuery
  * @description:初始化加载临控预警级别简单查询
@@ -49,7 +49,7 @@ Yjxx.initLkyjAdvancedQuery = function(){
 	'<tr><td colspan=2 class="queryType"><a href="#" class="easyui-linkbutton" id="toggleButton" onclick="Yjxx.initLkyjSimpleQuery()" >模糊查询</a></td></tr>'+
 	'<tr><td class="whereName">指令类型</td><td><input class="whereInput" id="where_lkzllx"></td></tr>'+
 	'<tr><td class="whereName">申请单位</td><td><input id="where_sqdwjgdm" style="display:none"><input class="whereInput" id="where_sqdwjg" onclick="public_singleSelectOrg(\'\', \'01\', \'\', \'03,04\', \'where_sqdwjgdm\', \'where_sqdwjg\', \'\', false, false, \'\', window, \'\', \'\')"></td></tr>'+
-	'<tr><td class="whereName">指令发布时间</td><td><input class="whereInput" id="where_zlfbsjB" onclick="WdatePicker({skin:\'whyGreen\',dateFmt:\'yyyyMMddHHmmss\'})" ><br>-'+
+	'<tr><td class="whereName">指令发布时间</td><td><input class="whereInput" id="where_zlfbsjB" onclick="WdatePicker({skin:\'whyGreen\',dateFmt:\'yyyyMMddHHmmss\'})" >-'+
 	'	<input class="whereInput" id="where_zlfbsjE" onclick="WdatePicker({skin:\'whyGreen\',dateFmt:\'yyyyMMddHHmmss\'})"></td></tr>'+
 	'<tr><td colspan=2 class="queryButton"><a href="#" id="advancedQueryButton" class="easyui-linkbutton" onclick="Yjxx.queryLkyjList();" >查询</a>'+
 	'										<a href="#" id="clearAdvancedQueryButton" class="easyui-linkbutton" onclick="Yjxx.clearLkyjAdvancedQueryValue();" >重置</a></td></tr>'+
@@ -57,13 +57,13 @@ Yjxx.initLkyjAdvancedQuery = function(){
 	$("#queryDiv").html(queryhtml);
 	$("#advancedQueryButton").linkbutton({
 		iconCls:"icon-search"
-	} ) ;
+	} ) 
 	$("#clearAdvancedQueryButton").linkbutton({
 		iconCls:"icon-reload"
-	} ) ;
+	} ) 
 	$("#toggleButton").linkbutton({
 		plain:true
-	} ) ;
+	} ) 
 	$("#where_lkzllx").combobox({
 		url: contextPath + '/common/dict/D_QBLD_ZDRYLSBKZLLX.js',
 		dataFilter:'.{2}',
@@ -73,10 +73,10 @@ Yjxx.initLkyjAdvancedQuery = function(){
 		method:'get',
 		tipPosition:'left',
 		width:'200'
-	});
+	})
 	
 	$(window).resize();
-};
+}
 
 /**
  * @method:clearLkyjAdvancedQueryValue
@@ -91,7 +91,7 @@ Yjxx.clearLkyjAdvancedQueryValue = function(){
 	$("#where_lkzllx").combobox("setValue","");
 	$("#where_zlfbsjB").val("");
 	$("#where_zlfbsjE").val("");
-};
+}
 /**
  * @method:queryLkyjList
  * @package:syrk/js/qbld
@@ -104,31 +104,26 @@ Yjxx.clearLkyjAdvancedQueryValue = function(){
  * @date:2015-5-8下午5:10:06
  */
 Yjxx.queryLkyjList = function(total,begin,end,page){
-	/**
-	 * 获取预警类型复选框勾选状态
-	 */
 	var checkObj = $(":checkBox");
-	var num = checkObj.length;
+	var num = checkObj.length
 	var yjjb = ""; 
 	for(var i = 0;i<num;i++){
 		if(checkObj[i].checked)
 		yjjb+=checkObj[i].value+",";
 	}
 	var param = "";
-	/**
-	 * 查询类型为模糊查询时，判断根据条件内容为数字和字母组合的放入身份证条件，否则放入姓名条件
-	 */
 	if(document.getElementById("where_all")){
 		var value = $("#where_all").val();
 		var reg = new RegExp("^[0-9a-zA-Z]*$");
 		var xm ="";
 		var sfzh = "";
 		if(reg.test(value)){
-			sfzh = value;
+			sfzh = value
 		}else{
 			xm = value;
 		}
-		param = {"lkzljb":yjjb.substring(0, yjjb.length-1),
+		param = {"zljsdw":userOrgCode,
+				"lkzljb":yjjb.substring(0, yjjb.length-1),
 				"qsfkzt":Yjxx.type,
 				"bbkrxm":xm,
 				"bbkrzjhm":sfzh,
@@ -136,9 +131,10 @@ Yjxx.queryLkyjList = function(total,begin,end,page){
 				"rownum":10,
 				"begin":begin,
 				"end":end,
-				"page":page};
+				"page":page}
 	 }else{
-		 param = {"lkzljb":yjjb.substring(0, yjjb.length-1),
+		 param = {"zljsdw":userOrgCode,
+					"lkzljb":yjjb.substring(0, yjjb.length-1),
 					"qsfkzt":Yjxx.type,
 					"sqdwjgdm":$("#where_sqdwjgdm").val(),
 					"zlfbsjB":$("#where_zlfbsjB").val(),
@@ -147,12 +143,11 @@ Yjxx.queryLkyjList = function(total,begin,end,page){
 					"rownum":10,
 					"begin":begin,
 					"end":end,
-					"page":page};
+					"page":page}
 	 }
 	var url = contextPath+'/lkyj/queryLkyjList';
 	var fajax = new FrameTools.Ajax(url,Yjxx.queryLkyjList_back);
 	fajax.send(param);
-	$(document.body).mask("努力加载中...");
 };
 
 /**
@@ -164,13 +159,12 @@ Yjxx.queryLkyjList = function(total,begin,end,page){
  * @date:2015-5-8下午5:35:05
  */
 Yjxx.queryLkyjList_back = function(json){
-	$(document.body).unmask();
 	var  rsHtml = "<table class='listTable'>";
 		rsHtml+="<tr class='countInfo'>" +
-		"<td colspan=4 >共有<font color='#17a9ff'>"+json.total+"</font>条预警信息<a href='#' id='exportButton' class='easyui-linkbutton' onclick='Yjxx.exportLkyjList();' >导出</a></td>"+
+		"<td colspan=4 >共有<font color='#17a9ff'>"+json.total+"</font>条预警信息</td>"+
 		"</tr>";
 	var rows = json.rows;
-		num = rows.length;
+		num = rows.length
 		for(var  i = 0;i<num;i++){
 			var row = rows[i];
 		rsHtml+="<tr class='infoOne_tr' onclick='Yjxx.clickListToChangeColor(this);Yjxx.initOtherDivShow();Yjxx.queryOneLkyjInfo(\""+row.lkzlbh+"\")'>";
@@ -180,7 +174,8 @@ Yjxx.queryLkyjList_back = function(json){
 		switch(parseInt(row.lkzljb)){//根据级别显示不同颜色
 			case 1: rsHtml += "<td class='color1'></td>";break;
 			case 2: rsHtml += "<td class='color2'></td>";break;
-			case 3: rsHtml += "<td class='color3'></td>";break;
+			case 4: rsHtml += "<td class='color3'></td>";break;
+			case 5: rsHtml += "<td class='color4'></td>";break;
 			default:rsHtml += "<td class='color0'></td>";break;
 		}
 		rsHtml+= "<td class='infoBody' onclick=''>"+"姓名:"+ row.bbkrxm+"  <br> " +
@@ -200,10 +195,6 @@ Yjxx.queryLkyjList_back = function(json){
 		rsHtml += "<tr class='fyTr'><td colspan=4 >"+Yjxx.showfy(json.total,json.rownum,json.page,"Yjxx.queryCkyjList")+"</td></tr>";
 		rsHtml+="</table>";
 	$("#InfoList").html(rsHtml);
-	$("#exportButton").linkbutton({
-		iconCls:"icon-xls",
-			plain:true
-	} ) 
 	Yjxx.initChangeListColor();
 };
 
@@ -220,8 +211,7 @@ Yjxx.queryOneLkyjInfo = function(lkzlbh){
 	var url = contextPath+'/lkyj/queryLkyj';
 	var fajax = new FrameTools.Ajax(url,Yjxx.showOneLkyjInfo);
 	fajax.send({"lkzlbh":lkzlbh});
-	$(document.body).mask("努力加载中...");
-};
+}
 
 /**
  * @method:showOneLkyjInfo
@@ -232,15 +222,8 @@ Yjxx.queryOneLkyjInfo = function(lkzlbh){
  * @date:2015-5-8下午5:44:34
  */
 Yjxx.showOneLkyjInfo = function(json){
-	$(document.body).unmask();
-	/**
-	 * 传入显示对象为空时，显示当前显示对象
-	 */
 	if(json==null)
 		json = Yjxx.indexInfoObj;
-	/**
-	 * 当前显示对象为空时，赋值传入的对象
-	 */
 	if(Yjxx.indexInfoObj==null)
 		Yjxx.indexInfoObj = json;
 	else if(Yjxx.indexInfoObj != json ){
@@ -249,13 +232,10 @@ Yjxx.showOneLkyjInfo = function(json){
 		$("#backButtonTd").html("");
 	}
 	$("#infoTitle").html("姓名："+json.bbkrxm);
-	$("#asInfoButton").html("")
-	$("#opButtonTd").html("<a href='#' id='qsfkButton'></a>");
+	$("#opButtonTd").html("<a href='#' id='qsfkButton'></a>")
 	$("#oneInfoDiv").height($(".infoTr").height()-5);
 	$("#oneInfoDiv").html(Yjxx.buildLkyjInfoHtml(json));
-	/**
-   	 * 预警级别为红色时显示操作按钮，不等于0则显示反馈，否则显示签收
-   	 */
+	
     if(Yjxx.indexInfoObj == json ){
  	   	if(json.qsfkzt!=0){
 	 	   	$("#qsfkButton").linkbutton({
@@ -266,10 +246,10 @@ Yjxx.showOneLkyjInfo = function(json){
 	   		$("#qsfkButton").linkbutton({
 				text:'签收'
 			} );
-	    	$("#qsfkButton").click(function(){Yjxx.lkyjQs();});
+	    	$("#qsfkButton").click(function(){Yjxx.lkyjQs();})
    		}
     }
-};
+}
 /**
  * @method:buildLkyjInfoHtml
  * @package:syrk/js/qbld	
@@ -285,7 +265,7 @@ Yjxx.buildLkyjInfoHtml = function(json){
 			"	<td>" +
 			"		<table class='infoBodyTable'>" +
 			"			<tr><td class='infoName'>性别</td><td class='infoValue'>"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZDRYXBDM.js', json.bbkrxb)+"</td><td class='infoName'>出生日期</td><td class='infoValue'>"+json.bbkrcsrq+"</td><td id='imgTd' rowspan=6><img style='width:150px;height:185px;' src='"+contextPath + "/ckyj/queryQbldZpSingle.jpg?sfzh="+json.bbkrzjhm + "'></img></td></tr>" +
-			"			<tr><td class='infoName'>证件种类</td><td class='infoValue'>"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZDRYZJLX.js', json.bbkrzjlx)+"</td><td class='infoName'>证件号码</td><td class='infoValue'> "+json.bbkrzjhm+"</td></tr>" +
+			"			<tr><td class='infoName'>证件类型</td><td class='infoValue'>"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZDRYZJLX.js', json.bbkrzjlx)+"</td><td class='infoName'>证件号码</td><td class='infoValue'> "+json.bbkrzjhm+"</td></tr>" +
 			"			<tr><td class='infoName'>临控指令编号</td><td class='infoValue' colspan=3>"+json.lkzlbh+"</td></tr>" +
 			"			<tr><td class='infoName'>临控指令类型</td><td class='infoValue' colspan=3>"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZDRYLSBKZLLX.js', json.lkzllx)+"</td></tr>" +
 			"			<tr><td class='infoName'>指令接收单位</td><td class='infoValue' colspan=3>"+json.zljsdw+"</td></tr>" +
@@ -303,27 +283,20 @@ Yjxx.buildLkyjInfoHtml = function(json){
 			"<tr><td class='infoTypeTd'>活<br>动<br>信<br>息</td>" +
 			"	<td>" +
 			"		<table class='infoBodyTable'>" +
-			"			<tr><td class='infoName'>登记姓名</td><td class='infoValue'>"+json.djxm+"</td><td id='mapTd' colspan=2 rowspan=8><iframe id='mapDiv' src='qbld|map?zbx=" + json.dzms_zbx + "&zby=" + json.dzms_zby + "&dwmc=" + json.hdfsddssshcs + "' ></iframe></td></tr>" +
+			"			<tr><td class='infoName'>登记姓名</td><td class='infoValue'>"+json.djxm+"</td><td id='mapTd' colspan=2 rowspan=8><iframe id='mapDiv' src='qbld|map'></iframe></td></tr>" +
 			"			<tr><td class='infoName'>登记性别</td><td class='infoValue'>"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZDRYXBDM.js', json.djxb)+"</td></tr>" +
 			"			<tr><td class='infoName'>登记证件号码</td><td class='infoValue'>"+json.djzjhm+"</td></tr>" +
 			"			<tr><td class='infoName'>登记出生日期</td><td class='infoValue'>"+json.djcsrq+"</td></tr>" +
-			"			<tr><td class='infoName'>临控预警级别</td><td class='infoValue'>"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZDRYLKZLJB.js', json.lkzljb)+"</td></tr>" +
+			"			<tr><td class='infoName'>预警指令级别</td><td class='infoValue'>"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZDRYLKZLJB.js', json.lkzljb)+"</td></tr>" +
 			"			<tr><td class='infoName'>活动发生时间</td><td class='infoValue'>"+json.hdfssj.substring(0,4)+"/"+json.hdfssj.substring(4,6)+"/"+json.hdfssj.substring(6,8)+" "+json.hdfssj.substring(8,10)+":"+json.hdfssj.substring(10,12)+":"+json.hdfssj.substring(12,14)+"</td></tr>" +
-			"			<tr><td class='infoName'>活动发生地社会场所</td><td class='infoValue' ><a href='#' onclick='Yjxx.openMapWindow(\""+json.dzms_zbx+"\",\""+json.dzms_zby+"\", \"" + json.hdfsddssshcs + "\");'>"+json.hdfsddssshcs+"</a></td></tr>" +
+			"			<tr><td class='infoName'>活动发生地社会场所</td><td class='infoValue' ><a href='#' onclick='Yjxx.openMapWindow(\""+json.zbx+"\",\""+json.zby+"\");'>"+json.hdfsddssshcsdm+"</a></td></tr>" +
 			"			<tr><td class='infoName'>活动发生地祥址</td><td class='infoValue'>"+json.hdfsddxz+"</td></tr>" +
 			"			<tr><td class='infoName'>发生地公安机关</td><td class='infoValue'>"+json.hdfsddssgajg+"</td><td class='infoName'>动态信息提供单位</td><td class='infoValue'>"+json.dtxxtgdw+"</td></tr>" +
 			"			<tr><td class='infoName'>信息比对时间</td><td class='infoValue'>"+json.xxbdsj+"</td><td class='infoName'>信息比对单位</td><td class='infoValue'>"+json.xxbddw+"</td></tr>" +
-			"			<tr><td class='infoName'>活动相关信息</td><td class='infoValue' colspan=3>"+json.hdxgxx+"</td></tr>" ;
-			
-			/**
-			 * 判断是否显示签收人信息
-			 */
-			if(json.qsrxm){
-				html += 	"			<tr><td class='infoName'>签收人</td><td class='infoValue'>"+json.qsrxm+
-					"				</td><td class='infoName'>签收时间</td><td class='infoValue'>"+json.qssj+"</td></tr>" +
-					"			<tr><td class='infoName'>签收单位</td><td class='infoValue' colspan=3>"+json.qsdw+"</td></tr>";
-			}	
-			html += "		</table>" +
+			"			<tr><td class='infoName'>活动相关信息</td><td class='infoValue' colspan=3>"+json.hdxgxx+"</td></tr>" +
+			"			<tr><td class='infoName'>签收人</td><td class='infoValue'>需要关联签收表</td><td class='infoName'>签收时间</td><td class='infoValue'>需要关联签收表</td></tr>" +
+			"			<tr><td class='infoName'>签收单位</td><td class='infoValue' colspan=3>需要关联签收表</td></tr>" +
+			"		</table>" +
 			"	</td>" +
 			"</tr>"+
 			"</table>";
@@ -341,7 +314,6 @@ Yjxx.lkyjQs = function(){
 	var url = contextPath+'/lkyj/updateLkyjxxbAndSaveQsb';
 	var fajax = new FrameTools.Ajax(url,Yjxx.lkyjQs_back);
 	fajax.send({"lkzlbh":Yjxx.indexInfoObj.lkzlbh});
-	$(document.body).mask("努力加载中...");
 };
 /**
  * @method:lkyjQs_back
@@ -352,20 +324,19 @@ Yjxx.lkyjQs = function(){
  * @date:2015-5-8下午6:42:07
  */
 Yjxx.lkyjQs_back = function(qsRs){
-	$(document.body).unmask();
 	if(qsRs.status=="success"){
 		$.messager.show({
 			title:"提示信息",
 			msg:"签收成功",
 			time:3000,
 			showType:'slide'
-		});
+		})
 		$("#qsfkButton").unbind("click");
 		$("#qsfkButton").linkbutton({text:"反馈"});
 		$("#qsfkButton").click(Yjxx.showLkyjFkFrom);
 		Yjxx.QueryDyjCount();
 	}
-};
+}
 /**
  * @title:showCkyjFkFrom
  * @description:显示反馈表单
@@ -396,16 +367,14 @@ Yjxx.showLkyjFkFrom = function(){
 	"			<tr class='yfxTr'><td class='infoName red'>采取处置措施</td><td  class='yfxTr' class='infoValue'><input id='czfk_cqczcs' ></td>" +
 	"							<td class='infoName red'>处置结果/细类</td><td class='infoValue'><input id='czfk_czjg' ><input id='czfk_czcsxl' style='display:none'></td></tr>" +
 	
-	/* gem修改
-	"			<tr class='yfxTr'><td class='infoName'>吸毒查获尿检信息</td><td class='infoValue' colspan=3>毒品种类：<input id='czfk_nj_dpzl' style='width:150px'>尿检结果：<input id='czfk_nj_njjg' style='width:150px'><a href='#' id='add_njxx' onclick='Yjxx.addCkyj_njxx();'>添加</a>" +
+	"			<tr class='yfxTr'><td class='infoName'>尿检信息</td><td class='infoValue' colspan=3>毒品种类：<input id='czfk_nj_dpzl' style='width:150px'>尿检结果：<input id='czfk_nj_njjg' style='width:150px'><a href='#' id='add_njxx' onclick='Yjxx.addCkyj_njxx();'>添加</a>" +
 	"								<table id='czfk_xdchnjxxDiv'><tr><td class='dpInfoName'>毒品种类</td><td class='dpInfoName'>尿检结果</td></tr></table>" +
 	"								<input id='czfk_xdchnjxx' style='display:none'>" +
 	"								</td></tr>" +
-	"			<tr class='yfxTr'><td class='infoName'>现场查获物品信息</td><td class='infoValue' colspan=3>毒品种类：<input id='czfk_wp_dpzl' style='width:150px'>缴获数量（克）：<input id='czfk_wp_jhsl' style='width:150px'><a href='#' id='add_wpxx' onclick='Yjxx.addCkyj_wpxx();'>添加</a>" +
+	"			<tr class='yfxTr'><td class='infoName'>物品信息</td><td class='infoValue' colspan=3>毒品种类：<input id='czfk_wp_dpzl' style='width:150px'>缴获数量（克）：<input id='czfk_wp_jhsl' style='width:150px'><a href='#' id='add_wpxx' onclick='Yjxx.addCkyj_wpxx();'>添加</a>" +
 	"								<table id='czfk_xcchwpxxDiv'><tr><td class='dpInfoName'>毒品种类</td><td class='dpInfoName'>缴获数量（克）</td></tr></table>" +
 	"								<input id='czfk_xcchwpxx' style='display:none'>" +
 	"								</td></tr>" +
-	*/
 	"			<tr><td class='infoName red'>处置经过描述</td><td class='infoValue' colspan=3><textarea id='czfk_czjgms' maxlength=200 placeholder='最多填写200个文字'></textarea></td></tr>" +
 	"			<tr><td class='opButtonTd' colspan=4><a href='#' id='addCzfkButton' onclick='Yjxx.addLkyjCzfk();'>提交</a><a href='#' id='refButton'>清空</a></td></tr>" +
 	"</table>";
@@ -436,7 +405,8 @@ Yjxx.showLkyjFkFrom = function(){
 			}
 			$("#czfk_mbcszylx").combobox('disable');
 		}
-	};
+		
+	}
 	$("#czfk_mbcszylx").combobox({
 		url: contextPath + '/common/dict/D_QBLD_ZDRYCSZYLX.js',
 		valueField:'id',
@@ -445,7 +415,7 @@ Yjxx.showLkyjFkFrom = function(){
 		method:'get',
 		tipPosition:'left',
 		width:250
-	});
+	})
 	$("#czfk_lxzcgzpg").combobox({
 		url: contextPath + '/common/dict/D_QBLD_CKYJLXZCGZDM.js',
 		valueField:'id',
@@ -462,14 +432,18 @@ Yjxx.showLkyjFkFrom = function(){
 		url:contextPath + '/common/dict/D_BZ_XZQH_MUNICIPAL.js',
 		onlyLeaf:true,
 		multiple:false,
+		required:true,
 		panelWidth:320,
 		method:'get',
 		editable:true,
 		lines:true,
 		onSelect:function(obj){
-			$("#czfk_czddxz").val(obj.text);
-		}
-	});
+			$("#czfk_czddxz").val(obj.text)
+			}
+	})
+	
+	
+	
 	$("#czfk_nj_dpzl").combobox({
 		url: contextPath + '/common/dict/D_QBLD_ZDRYCSZYLX.js',
 		valueField:'id',
@@ -478,7 +452,7 @@ Yjxx.showLkyjFkFrom = function(){
 		method:'get',
 		tipPosition:'left',
 		width:200
-	});
+	})
 	$("#czfk_nj_dpzl").combobox({
 		url: contextPath + '/common/dict/D_QBLD_DPZL.js',
 		valueField:'id',
@@ -487,7 +461,7 @@ Yjxx.showLkyjFkFrom = function(){
 		method:'get',
 		tipPosition:'left',
 		width:200
-	});
+	})
 	$("#czfk_wp_dpzl").combobox({
 		url: contextPath + '/common/dict/D_QBLD_DPZL.js',
 		valueField:'id',
@@ -496,7 +470,7 @@ Yjxx.showLkyjFkFrom = function(){
 		method:'get',
 		tipPosition:'left',
 		width:200
-	});
+	})
 	$("#czfk_nj_njjg").combobox({
 		url: contextPath + '/common/dict/D_QBLD_ZDRYXDNJJGDM.js',
 		valueField:'id',
@@ -505,7 +479,7 @@ Yjxx.showLkyjFkFrom = function(){
 		method:'get',
 		tipPosition:'left',
 		width:200
-	});
+	})
 	
 	/**
 	 * 初始化处置结果下拉框
@@ -521,9 +495,6 @@ Yjxx.showLkyjFkFrom = function(){
 			tipPosition:'left',
 			width:100,
 			onChange:function(val){
-				/**
-				 * 判断处置类型为未抓获时显示未抓获原因和现场采集属性
-				 */
 				if(val==11){
 					$("#wzhyyTr").show();
 				}
@@ -533,16 +504,14 @@ Yjxx.showLkyjFkFrom = function(){
 				}
 			}
 		});
-		/**
-		 * 处置场所细类
-		 */
 		if(val==2){
 			$("#czfk_czcsxl").next('.combo').show();
 			
 		}else{
 			$("#czfk_czcsxl").next('.combo').hide();
 		}
-	};
+		
+	}
 	$("#czfk_cqczcs").combobox({
 		url: contextPath + '/common/dict/D_QBLD_ZDRYCZCSLX.js',
 		valueField:'id',
@@ -552,7 +521,7 @@ Yjxx.showLkyjFkFrom = function(){
 		tipPosition:'left',
 		width:250,
 		onChange:initCzjgSelect
-	});
+	})
 	$("#czfk_czcsxl").combobox({
 				url: contextPath + '/common/dict/D_QBLD_ZDRYGKCSLX.js',
 				dataFilter:'.{3}',
@@ -571,17 +540,17 @@ Yjxx.showLkyjFkFrom = function(){
 	
    $("#add_njxx").linkbutton({
 	   iconCls:'icon-add'
-   } ) ;
+   } ) 
     $("#add_wpxx").linkbutton({
 	   iconCls:'icon-add'
-   } ) ;
+   } ) 
    
    $("#addCzfkButton").linkbutton({
 	   iconCls:'icon-save'
-   } ) ;
+   } ) 
    $("#refButton").linkbutton({
 	iconCls:'icon-reload'
-   } );
+   } )
    
    
    $("#fxzt_wfx").click();
@@ -600,7 +569,7 @@ Yjxx.addLkyjCzfk = function(){
 	/**
 	 * 获取表单内容,并拼成JSON对象
 	 */
-	var inputObjs = $(".addCzfkTable input");
+	var inputObjs = $(".addCzfkTable input")
 	var length = inputObjs.length;
 	var param = "({";
 	for(var i = 0; i < length ; i++){
@@ -609,7 +578,7 @@ Yjxx.addLkyjCzfk = function(){
 			param +="'"+obj.id.replace("czfk_","")+"':'"+ $(obj).val()+"',";
 		}
 	}
-	var textObjs = $(".addCzfkTable textarea");
+	var textObjs = $(".addCzfkTable textarea")
 	length = textObjs.length;
 	for(var i = 0; i < length ; i++){
 		var obj = textObjs[i];
@@ -621,7 +590,6 @@ Yjxx.addLkyjCzfk = function(){
 	var url = contextPath+'/lkyj/updateLkyjxxbAndSaveFkb';
 	var fajax = new FrameTools.Ajax(url,Yjxx.addLkyjCzfk_back);
 	fajax.send(param);
-	$(document.body).mask("努力加载中...");
 };
 /**
  * @method:addLkyjCzfk_back
@@ -632,14 +600,13 @@ Yjxx.addLkyjCzfk = function(){
  * @date:2015-5-17下午6:19:23
  */
 Yjxx.addLkyjCzfk_back = function(fkRs){
-	$(document.body).unmask();
 	if(fkRs.status=="success"){
 		$.messager.show({
 			title:"提示信息",
 			msg:"反馈提交成功",
 			time:3000,
 			showType:'slide'
-		});
+		})
 		$("#fxzt_wfx").click();
 		$('#fkjlListDiv').datagrid('reload');
 		Yjxx.QueryDyjCount();
@@ -676,15 +643,7 @@ Yjxx.queryLkyjFkList = function(){
  			Yjxx.showMoreLkFkInfo(row);
 		}
 	});
-};
-/**
- * @method:showMoreLkFkInfo
- * @package:syrk/js/qbld	
- * @description:显示更多临控反馈记录
- * @param obj
- * @author:Li_Zhenzhong
- * @date:2015-7-3下午5:13:02
- */
+}
 Yjxx.showMoreLkFkInfo = function(obj){
 	var fkHtml = "<table class='addCzfkTable'>" +
 	"			<tr><td class='infoName'>目标发现状态</td><td class='infoValue' colspan=3>"+window.top.getDictName(contextPath + '/common/dict/D_QBLD_ZDRYMBFXZT.js', obj.mbfxzt)+"</td></tr>" ;
@@ -716,7 +675,7 @@ Yjxx.showMoreLkFkInfo = function(obj){
 			 options:{
 				 content:fkHtml
 			 }
-		 });
+		 })
 		  $("#otherInfoListDiv").tabs('select','历史反馈');
 	}
 	else{
@@ -727,50 +686,4 @@ Yjxx.showMoreLkFkInfo = function(obj){
 			content:fkHtml
 		});
 	}
-};
-/**
- * @method:exportLkyjList
- * @package:syrk/js/qbld	
- * @description:导出记录
- * @author:Li_Zhenzhong
- * @date:2015-7-7下午5:26:04
- */
-Yjxx.exportLkyjList = function(){
-	/**
-	 * 获取预警类型复选框勾选状态
-	 */
-	var checkObj = $(":checkBox");
-	var num = checkObj.length;
-	var yjjb = ""; 
-	for(var i = 0;i<num;i++){
-		if(checkObj[i].checked)
-		yjjb+=checkObj[i].value+",";
-	}
-	var param = "";
-	/**
-	 * 查询类型为模糊查询时，判断根据条件内容为数字和字母组合的放入身份证条件，否则放入姓名条件
-	 */
-	if(document.getElementById("where_all")){
-		var value = $("#where_all").val();
-		var reg = new RegExp("^[0-9a-zA-Z]*$");
-		var xm ="";
-		var sfzh = "";
-		if(reg.test(value)){
-			sfzh = value;
-		}else{
-			xm = value;
-		}
-		param = "lkzljb="+yjjb.substring(0, yjjb.length-1)+
-				"&qsfkzt="+Yjxx.type+
-				"&bbkrxm="+xm+
-				"&bbkrzjhm="+sfzh;
-	 }else{
-		 param = "lkzljb="+yjjb.substring(0, yjjb.length-1)+
-					"&qsfkzt="+Yjxx.type+
-					"&sqdwjgdm="+$("#where_sqdwjgdm").val()+
-					"&zlfbsjB="+$("#where_zlfbsjB").val()+
-					"&zlfbsjE="+$("#where_zlfbsjE").val();
-	 }
-	var url=contextPath +"/lkyj/lkyjxxb_export?"+param;
-	window.open(url);
-};
+}

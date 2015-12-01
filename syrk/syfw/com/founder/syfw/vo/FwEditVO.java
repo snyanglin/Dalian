@@ -8,6 +8,19 @@ public class FwEditVO {
 	private Fwjbxxb fwjbxxb = new Fwjbxxb();;
 	
 	private Czfwxxb czfwxxb = new Czfwxxb();
+	
+	private String housesId;
+	
+	
+	
+
+	public String getHousesId() {
+		return housesId;
+	}
+
+	public void setHousesId(String housesId) {
+		this.housesId = housesId;
+	}
 
 	public Fwjbxxb getFwjbxxb() {
 		return fwjbxxb;

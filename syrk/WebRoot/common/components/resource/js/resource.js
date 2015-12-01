@@ -6,6 +6,8 @@
 SysTool.loadComponentsFile("resource", "resource",".css");
 SysTool.loadComponentsFile("", "ssjl",".js");
 SysTool.loadComponentsFile("", "gps",".js");
+SysTool.loadComponentsFile("", "xqgk",".js");
+SysTool.loadComponentsFile("", "qfqz",".js");
 SysTool.loadComponentsFile("", "jcxx",".js");
 var Resource={
 	id : '',

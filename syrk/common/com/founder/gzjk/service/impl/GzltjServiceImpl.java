@@ -759,4 +759,228 @@ public class GzltjServiceImpl implements GzltjService {
 		
 	}
 
+	@Override
+	public void bcgzltjsjByZrq(String startDate, String endDate, String zrqCode) {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		try {
+			Date startTime = sdf.parse(startDate);
+			Date endTime = sdf.parse(endDate);
+			List<String> dates = new ArrayList<String>();
+
+			Calendar calStart = Calendar.getInstance();
+			calStart.setTime(startTime);
+			Calendar calEnd = Calendar.getInstance();
+			calEnd.setTime(endTime);
+
+			dates.add(startDate);
+			while (calEnd.after(calStart)) {
+				calStart.add(Calendar.DAY_OF_MONTH, 1);
+				dates.add(sdf.format(calStart.getTime()));
+			}
+
+			OrgOrganization organization = this.orgOrganizationService.queryByOrgcode(zrqCode);
+
+			
+
+			// 每个责任区每天一条统计数据
+			List<Gzltjb> list = new ArrayList<Gzltjb>();
+			// 循环补充数据
+				OrgOrganization pcs = orgOrganizationService
+						.queryParentOrgByOrgcode(organization.getOrgcode());
+				String pcsName = pcs.getOrgname();
+				String pcsCode = pcs.getOrgcode();
+				OrgOrganization fxj = orgOrganizationService
+						.queryParentOrgByOrgcode(pcsCode);
+				String fxjName = fxj.getOrgname();
+				String fxjCode = fxj.getOrgcode();
+				for (String tjrq : dates) {
+
+					Map<String, String> dateMap = new HashMap<String, String>();
+					dateMap.put("tjrq", tjrq);
+		
+					Gzltjb gzltj = new Gzltjb();
+					gzltj.setGxzrqdm(organization.getOrgcode());
+					gzltj.setGxzrqname(organization.getOrgname());
+					gzltj.setGxpcsdm(pcsCode);
+					gzltj.setGxpcsname(pcsName);
+					gzltj.setGxfjdm(fxjCode);
+					gzltj.setGxfjname(fxjName);
+					gzltj.setTjrq(tjrq);
+					
+					Map<String, String> map1 = new HashMap<String, String>();
+					map1.put("sfrhyzdm", "1");
+					map1.put("date", tjrq);
+					map1.put("gxzrqdm", zrqCode);
+					GzltjVo vo1 = gzltjbDao.czrkTjByZrq(map1);	
+					if(vo1!=null){
+						gzltj.setRhyz_add(vo1.getXz());
+						gzltj.setRhyz_update(vo1.getXg());
+						gzltj.setRhyz_delete(vo1.getZx());
+						
+					}
+					
+					Map<String, String> map2 = new HashMap<String, String>();
+					map2.put("sfrhyzdm", "0");
+					map2.put("date", tjrq);
+					map2.put("gxzrqdm", zrqCode);
+					GzltjVo vo2 = gzltjbDao.czrkTjByZrq(map2);			
+	                if(vo2!=null){
+	                	gzltj.setRhfl_add(vo2.getXz());
+						gzltj.setRhfl_update(vo2.getXg());
+						gzltj.setRhfl_delete(vo2.getZx());
+						
+					}
+				
+					Map<String, String> map3 = new HashMap<String, String>();
+					map3.put("syrkywlxdm", "2");
+					map3.put("date", tjrq);
+					map3.put("gxzrqdm", zrqCode);
+					GzltjVo vo3 = gzltjbDao.syrkTjByZrq(map3);	
+	                if(vo3!=null){
+	                	gzltj.setJzrk_add(vo3.getXz());
+						gzltj.setJzrk_update(vo3.getXg());
+						gzltj.setJzrk_delete(vo3.getZx());
+
+							
+					}
+					
+					
+					Map<String, String> map4 = new HashMap<String, String>();
+					map4.put("syrkywlxdm", "3");
+					map4.put("date", tjrq);
+					map4.put("gxzrqdm", zrqCode);
+					GzltjVo vo4 = gzltjbDao.syrkTjByZrq(map4);
+	                if(vo4!=null){
+	                	gzltj.setLdrk_add(vo4.getXz());
+						gzltj.setLdrk_update(vo4.getXg());
+						gzltj.setLdrk_delete(vo4.getZx());
+
+					}
+					
+					
+					Map<String, String> map5 = new HashMap<String, String>();
+					map5.put("syrkywlxdm", "4");
+					map5.put("date", tjrq);
+					map5.put("gxzrqdm", zrqCode);
+					GzltjVo vo5 = gzltjbDao.syrkTjByZrq(map5);		
+	                if(vo5!=null){
+	                	gzltj.setJwry_add(vo5.getXz());
+						gzltj.setJwry_update(vo5.getXg());
+						gzltj.setJwry_delete(vo5.getZx());
+					}
+					
+
+					
+					Map<String, String> map6 = new HashMap<String, String>();
+					map6.put("syrkywlxdm", "4");
+					map6.put("date", tjrq);
+					map6.put("gxzrqdm", zrqCode);
+					GzltjVo vo6 = gzltjbDao.syrkTjByZrq(map6);
+	                if(vo6!=null){
+	                	gzltj.setJwry_add(vo6.getXz());
+						gzltj.setJwry_update(vo6.getXg());
+						gzltj.setJwry_delete(vo6.getZx());
+					}
+				
+
+					Map<String, String> map7 = new HashMap<String, String>();
+					map7.put("syrkywlxdm", "5");
+					map7.put("date", tjrq);
+					map7.put("gxzrqdm", zrqCode);
+                	GzltjVo vo7 = gzltjbDao.syrkTjByZrq(map7);				
+	                if(vo7!=null){
+						gzltj.setWlhry_add(vo7.getXz());
+						gzltj.setWlhry_update(vo7.getXg());
+						gzltj.setWlhry_delete(vo7.getZx());
+
+					}
+					
+					
+					Map<String, String> map8 = new HashMap<String, String>();
+					map8.put("syrkywlxdm", "5");
+					map8.put("date", tjrq);
+					map8.put("gxzrqdm", zrqCode);
+					GzltjVo vo8 = gzltjbDao.czfwTjByZrq(map8);
+	                if(vo8!=null){
+	                	gzltj.setCzfw_add(vo8.getXz());
+						gzltj.setCzfw_update(vo8.getXg());
+						gzltj.setCzfw_delete(vo8.getZx());
+
+					}
+					
+					
+					Map<String, String> map9 = new HashMap<String, String>();
+					map9.put("syrkywlxdm", "5");
+					map9.put("date", tjrq);
+					map9.put("gxzrqdm", zrqCode);
+					GzltjVo vo9 = gzltjbDao.czfwTjByZrq(map9);
+	                if(vo9!=null){
+	                	gzltj.setCzfw_add(vo9.getXz());
+						gzltj.setCzfw_update(vo9.getXg());
+						gzltj.setCzfw_delete(vo9.getZx());
+						
+					}
+				
+					Map<String, String> map10 = new HashMap<String, String>();
+					map10.put("date", tjrq);
+					map10.put("gxzrqdm", zrqCode);
+					GzltjVo vo10 = gzltjbDao.czrTjByZrq(map10);		
+	                if(vo10!=null){
+	                	gzltj.setCzr_add(vo10.getXz());
+						gzltj.setCzr_update(vo10.getXg());
+						gzltj.setCzr_delete(vo10.getZx());
+					}
+					
+					
+					Map<String, String> map11 = new HashMap<String, String>();
+					map11.put("date", tjrq);
+					map11.put("gxzrqdm", zrqCode);
+					GzltjVo vo11 = gzltjbDao.sydwTjByZrq(map11);	
+	                if(vo11!=null){
+	                	gzltj.setDw_add(vo11.getXz());
+						gzltj.setDw_update(vo11.getXg());
+						gzltj.setDw_delete(vo11.getZx());
+					}
+							
+					
+					Map<String, String> map12 = new HashMap<String, String>();
+					map12.put("date", tjrq);
+					map12.put("gxzrqdm", zrqCode);
+					GzltjVo vo12 = gzltjbDao.cyryTjByZrq(map12);
+	                if(vo12!=null){
+	                	gzltj.setCyry_add(vo12.getXz());
+						gzltj.setCyry_update(vo12.getXg());
+						gzltj.setCyry_delete(vo12.getZx());
+					}
+					
+
+					list.add(gzltj);
+
+					
+				}
+
+			
+			for (Gzltjb entity : list) {
+				entity.setId(UUID.create());
+
+				this.gzltjbDao.save(entity);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+	
+		
+	}
+
+
+	
+
+
+	
+
+	
+	
 }

@@ -301,21 +301,30 @@
         SELECT COUNT(T.MLDZID) FROM BZDZ_ADD_MLDZDXB T WHERE T.XT_ZXBZ = '0' AND T.DMDM = #dmdm#
     </select>
     <!-- 获取地名下拉框字典 -->
-    <select id="queryDictDm" parameterClass="String" resultClass="combox">
+    <select id="queryDictDm" parameterClass="Map" resultClass="combox">
         SELECT T.DMDM AS ID, T.DMMC AS TEXT,T.DMPY AS PY
-		  FROM BZDZ_ADD_DMXXB T, BZDZ_ADD_DMZZJGB Z
+		  FROM BZDZ_ADD_DMXXB T, BZDZ_ADD_DMZZJGB Z ,BZDZ_ADD_DMXZQHB X
 		 WHERE T.XT_ZXBZ = '0'
 		   AND Z.XT_ZXBZ = '0'
 		   AND T.DMDM = Z.DMDM
-		   AND Z.PCSDM = #pcsdm#
+		   AND T.DMDM = X.DMDM
+		   <isNotEmpty prepend="AND" property="xzqhdm">
+				X.XZQHDM = #xzqhdm#
+			</isNotEmpty>
+		   <isNotEmpty prepend="AND" property="pcsdm">
+				Z.PCSDM = #pcsdm#
+			</isNotEmpty>
     </select>
+    
     <!-- 获取社区下拉框字典 -->
-    <select id="queryDictSq" parameterClass="String" resultClass="combox">
+    <select id="queryDictSq" parameterClass="Map" resultClass="combox">
         SELECT T.ORGCODE AS ID, T.ORGNAME AS TEXT, T.ORGNAMEPY AS PY
 		  FROM ORG_ORGANIZATION T
 		 WHERE T.XT_ZXBZ = '0'
 		   AND T.ORGLEVEL = '50'
 		   AND T.ORGBIZTYPE = '10'
-		   AND T.ORGCODE LIKE SUBSTR(#pcsdm#, 1, 8) || '%'
+		   <isNotEmpty prepend="AND" property="pcsdm">
+				T.ORGCODE LIKE SUBSTR(#pcsdm#, 1, 8) || '%'
+			</isNotEmpty>
     </select>
 </sqlMap>

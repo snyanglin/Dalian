@@ -36,8 +36,8 @@
 	    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="jzrk_mzdm" name="mzdm" value="${jzrk.mzdm}" style="width:200px;" 
 				data-options="url: contextPath + '/common/dict/GB_D_MZDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right'"/></td> 
 	    	<td width="20%" class="dialogTd" align="right">联系电话：</td>
-    		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jzrk_lxdh" name="lxdh" value="${jzrk.lxdh}" style="width:200px;" maxlength="18"
-				data-options="validType:['phone'],charSet:'half',tipPosition:'left'" onblur="checkLxdh('jzrk_lxdh','ryid')"/></td>
+    		<td width="30%" class="dialogTd"><input class="easyui-validatebox" type="text" id="jzrk_lxdh" name="lxdh" value="${jzrk.lxdh}" style="width:200px;" maxlength="11"
+				data-options="validType:['mobile'],charSet:'half',tipPosition:'left'" onblur="checkLxdh('jzrk_lxdh','ryid')"/></td>
       	</tr>
       	<tr class="dialogTr">
 	    	<td width="20%" class="dialogTd" align="right">户籍地址：</td>
@@ -67,7 +67,7 @@
 					    	<input type="hidden" id="jzrk_jzd_mlpxz" name="jzd_mlpxz" value="${jzrk.jzd_mlpxz}"/>
 				    	</td>
 				    	<td width="30%" class="dialogTd" align="left">
-					    	<input class="easyui-combobox" id="jzrk_jzd2" style="width:200px;" value="${fn:replace(jzrk.jzd_dzxz, jzrk.jzd_mlpxz, '')}" data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+					    	<input class="easyui-combobox" id="jzrk_jzd2" style="width:200px;" value='${fn:replace(jzrk.jzd_dzxz, jzrk.jzd_mlpxz, "")}' data-options="required:true,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 					    	<input type="hidden" id="jzrk_jzd_dzid" name="jzd_dzid" value="${jzrk.jzd_dzid}"/>
 					    	<input type="hidden" id="jzrk_jzd_xzqhdm" name="jzd_xzqhdm" value="${jzrk.jzd_xzqhdm}"/>
 					    	<input type="hidden" id="jzrk_jzd_dzxz" name="jzd_dzxz" value="${jzrk.jzd_dzxz}"/>
@@ -134,7 +134,7 @@
 		    	<input type="hidden" id="jzrk_fz_jzd_mlpxz" name="fz_jzd_mlpxz" value="${jzrk.fz_jzd_mlpxz}"/>
 	    	</td>
 	    	<td width="30%" class="dialogTd" align="left">
-		    	<input class="easyui-combobox" id="jzrk_fz_jzd2" style="width:200px;" value="${fn:replace(jzrk.fz_jzd_dzxz, jzrk.fz_jzd_mlpxz, '')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+		    	<input class="easyui-combobox" id="jzrk_fz_jzd2" style="width:200px;" value='${fn:replace(jzrk.fz_jzd_dzxz, jzrk.fz_jzd_mlpxz, "")}' data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 		    	<input type="hidden" id="jzrk_fz_jzd_dzid" name="fz_jzd_dzid" value="${jzrk.fz_jzd_dzid}"/>
 		    	<input type="hidden" id="jzrk_fz_jzd_xzqhdm" name="fz_jzd_xzqhdm" value="${jzrk.fz_jzd_xzqhdm}"/>
 		    	<input type="hidden" id="jzrk_fz_jzd_dzxz" name="fz_jzd_dzxz" value="${jzrk.fz_jzd_dzxz}"/>

@@ -57,7 +57,7 @@
 				   </table>
 				</tr>
 				<tr>
-				   <div id="xjzryzpDiv">
+				   <div id="xjzryzpDiv" style="height: 140;overflow:auto">
 					 <ul id="xjzryzp"></ul>
 				   </div>
 				</tr>
@@ -65,8 +65,8 @@
 		</div>
 		<div title="单位信息" style="height: 535px;">
           <table id="dg" class="easyui-datagrid" 
-           	data-options="url:'<%=basePath %>sydwcx/queryDw?flag=jsq',
-	           		delayCountUrl:'<%=basePath %>sydwcx/queryCountDw?flag=jsq',
+           	data-options="url:'<%=basePath %>sydwcx_dl/queryDw?flag=jsq',
+	           		delayCountUrl:'<%=basePath %>sydwcx_dl/queryCountDw?flag=jsq',
 	           		queryParams: {dz_dwdzdm:'${chdzid}'},   		
 	           		selectOnCheck:true,
 	        		checkOnSelect:true,

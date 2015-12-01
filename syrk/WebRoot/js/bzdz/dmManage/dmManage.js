@@ -204,10 +204,18 @@ DmManage.onSelectRow_back = function(json){
  * @date:2015-02-09 18:54:23
  */	
 DmManage.onloadReadonly = function(){
-	//行政区划【只读】
-	setInputReadonly('xzqh', true);
-	//管辖分(县)局【只读】
-	setInputReadonly('gxsxj', true);
+	var xzqh = document.getElementById("xzqh").value;
+	var gxsxj = document.getElementById("gxsxj").value;
+	if(xzqh!=null&&xzqh!=""){
+		//行政区划【只读】
+		setInputReadonly('xzqh', true);
+	}
+	if(gxsxj!=null&&gxsxj!=""){
+		//管辖分(县)局【只读】
+		setInputReadonly('gxsxj', true);
+		var url = basePath +'gzjk/queryOrgLower?orgCode='+userOrgCode;
+		$('#gxpcs').combobox('reload', url);
+	}
 };
 /**
  * @title:cancelButton

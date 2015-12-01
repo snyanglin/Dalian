@@ -52,7 +52,7 @@ Lksq.initQueryHtml = function(){
 		width:'100%'
 	});
 	$("#lksq_bbkrxb").combobox({
-		url: contextPath + '/common/dict/GB_D_XBDM.js',
+		url: contextPath + '/common/dict/D_QBLD_ZDRYXBDM.js',
 		valueField:'id',
 		textField:'text',
 		selectOnNavigation:false,
@@ -71,9 +71,6 @@ Lksq.initQueryHtml = function(){
 	});
 	var inputObjs = $(".infoOneTable :input")
 	var num = inputObjs.length
-	/**
-	 * 将所有收入框设置为不可编辑状态
-	 */
 	for(var i = 0;i<num;i++){
 			$(inputObjs[i]).attr("disabled",true);
 	}
@@ -91,9 +88,6 @@ Lksq.initQueryHtml = function(){
  * @date:2015-5-11上午10:57:26
  */
 Lksq.queryLksqList = function(total,begin,end,page){
-	/**
-	 * 获取复选框候选信息
-	 */
 	var checkObj = $("#queryFrom :checkBox");
 	var num = checkObj.length
 	var gklx = ""; 
@@ -116,7 +110,6 @@ Lksq.queryLksqList = function(total,begin,end,page){
 	var url = contextPath+'/lksq/queryLksqList';
 	var fajax = new FrameTools.Ajax(url,Lksq.queryLksqList_back);
 	fajax.send(param);
-	$(document.body).mask("努力加载中...");
 };
 /**
  * @method:queryLksqList_back
@@ -127,16 +120,12 @@ Lksq.queryLksqList = function(total,begin,end,page){
  * @date:2015-5-11上午10:57:52
  */
 Lksq.queryLksqList_back = function(json){
-	$(document.body).unmask();
 	Lksq.listObj = json.rows;
 	var num = Lksq.listObj.length;
 	var  rsHtml = "<table class='listTable'>"+
 		"<tr class='countInfo'>" +
 		"<td colspan=4 >共有<font color='#17a9ff'>"+json.total+"</font>条临控申请</td>"+
 		"</tr>";
-	/**
-	 * 循环生成结果列表
-	 */
 	for(var  i = 0;i<num;i++){
 		var row = Lksq.listObj[i];
 		rsHtml+="<tr class='infoOne_tr' onclick='Main.clickListToChangeColor(this);Lksq.queryOneLksqInfo("+i+")'>"+
@@ -162,9 +151,6 @@ Lksq.queryOneLksqInfo = function(index){
 	for(key in obj){
 		var val = obj[key];
 		if(val!=""&&val!=null){
-			/**
-			 * 将字典进行翻译显示
-			 */
 			switch(key){
 			case 'bbkrzjlx':$("#lksq_bbkrzjlx").combobox('setValue', val);break;
 			case 'bc_bkjb':$("#lksq_bc_bkjb").combobox('setValue', val);break;
@@ -173,9 +159,6 @@ Lksq.queryOneLksqInfo = function(index){
 			case 'bc_gklx':$("#lksq_bc_gklx").combobox('setValue', val);break;
 			default:break;
 			}
-			/**
-			 * 将14位时间格式转化为易读的标准格式
-			 */
 			if('bkqssj,bkjzsj,bc_sqsj,bc_fbsj,'.indexOf(key)!=-1){
 				val = val.substring(0,4)+"/"+val.substring(4,6)+"/"+val.substring(6,8)+" "+val.substring(8,10)+":"+val.substring(10,12)+":"+val.substring(12,14) ;
 			}
@@ -186,9 +169,6 @@ Lksq.queryOneLksqInfo = function(index){
 	
 	var inputObjs = $(".infoOneTable :input")
 	var num = inputObjs.length
-	/**
-	 * 将所有文本框设置为只读模式，并隐藏操作行
-	 */
 	for(var i = 0;i<num;i++){
 			$(inputObjs[i]).attr("disabled",true);
 			$("#opTr").hide();
@@ -203,7 +183,6 @@ Lksq.queryOneLksqInfo = function(index){
  */
 Lksq.initAddLksqHtml = function(){
 	document.forms['infoFrom'].reset();
-	$("#lksq_zp").attr("src","");
 	var inputObjs = $(".infoOneTable :input")
 	var num = inputObjs.length
 	for(var i = 0;i<num;i++){
@@ -215,7 +194,8 @@ Lksq.initAddLksqHtml = function(){
 	$("#lksq_yjdwmc").val(userOrgName);
 	$("#lksq_yjrmc").val(userName);
 	$("#lksq_bc_fbsj").val(Lksq.show_cur_times());
-};
+	
+}
 /**
  * @method:addLksqInfo
  * @package:syrk/js/qbld	
@@ -228,7 +208,7 @@ Lksq.addLksqInfo = function(){
 	var num = inputObjs.length
 	for(var i = 0;i<num;i++){
 		if($(inputObjs[i]).val()==""){
-			$.messager.alert("提示","红色标题信息必须填写！");
+			alert("红色标题信息必须填写！");
 			return;
 		}
 	}

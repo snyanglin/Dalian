@@ -38,9 +38,9 @@ public class Lksqb extends BaseEntity implements Serializable {
 	}
 	@FieldDesc("服务方ID+16位序号，由服务方产生")
 	private String xxbkzxbh;
-	@FieldDesc("被布控人证件种类，采用GA/Z 02 D2008")
+	@FieldDesc("被布控人证件类型，采用GA/Z 02 D2008")
 	private String bbkrzjlx;
-	@FieldDesc("被布控人证件号码，证件种类为公民身份证时，可填15或18位身份证号，采用GA/Z 02 D1000")
+	@FieldDesc("被布控人证件号码，证件类型为公民身份证时，可填15或18位身份证号，采用GA/Z 02 D1000")
 	private String bbkrzjhm;
 	@FieldDesc("被布控人姓名，采用GA/Z 02 D1001，不少于2个汉字，少数民族姓名间隔符用'?' (GB 13000编码为00B7)表示，未编码冷僻字用'?'(GB 13000编码为2580)表示")
 	private String bbkrxm;

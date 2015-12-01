@@ -15,9 +15,10 @@ import com.founder.framework.organization.assign.vo.OrgUserInfo;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.utils.DateUtils;
-import com.founder.framework.utils.StringUtils;
 import com.founder.ywxt.bean.YwxtYwxtCdxxb;
 import com.founder.ywxt.bean.Ywxtcyryxxb;
+import com.founder.ywxt.dao.YwxtStoreDao;
+import com.founder.ywxt.dao.YwxtYwxtCdxxbDao;
 import com.founder.ywxt.dao.YwxtcyryxxbDao;
 
 /***
@@ -41,8 +42,13 @@ public abstract class AbstractXtTask implements XtTaskService {
 	protected final int APPROVALLEVEL = 2;
 	@Resource(name = "ywxtcyryxxbDao")
 	private YwxtcyryxxbDao ywxtcyryxxbDao;
-	private final String RIGHT = "1";
-	private final String ERROR = "0";
+	@Resource(name = "ywxtYwxtCdxxbDao")
+	private YwxtYwxtCdxxbDao ywxtYwxtCdxxbDao;
+	@Resource(name = "ywxtStoreDao")
+	private YwxtStoreDao ywxtStoreDao;
+	
+	public static final String RIGHT = "1";
+	public static final String ERROR = "0";
 
 	@Override
 	public void sendMessage(String messageContent, String xxbt,
@@ -77,11 +83,6 @@ public abstract class AbstractXtTask implements XtTaskService {
 			}
 		String xtjg = (String)map.get("xtjg");
 		
-		// 这里approvalLevel为2的时候是领导裁定，需要存储裁定信息
-		YwxtYwxtCdxxb ywxtYwxtCdxxb = new YwxtYwxtCdxxb();
-		ywxtYwxtCdxxb.setSpbmid(sessionBean.getUserOrgCode());
-		ywxtYwxtCdxxb.setSpr(sessionBean.getUserName());
-		ywxtYwxtCdxxb.setSprid(sessionBean.getUserId());
 		// 这里解析协同结果，断言转换成每个成员的结果，多选折时，前台直接传递正确选项，不用转换
 		List<Ywxtcyryxxb> list = ywxtcyryxxbDao.queryByXtid((String)map.get("xtId"));
 		// 这里适用大连情况，取得发起和接收人
@@ -95,16 +96,7 @@ public abstract class AbstractXtTask implements XtTaskService {
 				jsCyr = ywxtcyryxxb;
 			}
 		}
-		//储存处理人信息
-		jsCyr.setCyrxm(sessionBean.getUserName());
-		jsCyr.setCyrid(sessionBean.getUserId());
-		if ("1".equals(xtjg)) {//接收协同，
-			fqCyr.setXtjg(RIGHT);
-			jsCyr.setXtjg(ERROR);
-		}else{
-			fqCyr.setXtjg(ERROR);
-			jsCyr.setXtjg(RIGHT);
-		}
+		
 		if ("0".equals(xtjg)&&approvalLevel<APPROVALLEVEL) {//如果当前等级小于配置等级,找寻共同上级,进行裁定
 			sysmessage=sysMessageDao.query(sysmessage);
 			String url="/ywxt/creatRyxt?xtId="+(String)map.get("xtId")+"&approvalLevel="+(approvalLevel+1)+"&xtType="+xtType;
@@ -136,15 +128,107 @@ public abstract class AbstractXtTask implements XtTaskService {
 				sysMessageDao.saveMessageByOrg(sysmessage, orgOrganization.getOrgcode(), false, false);
 			}
 		}
-		BaseService.setUpdateProperties(fqCyr, sessionBean);
+		
+		//维护协同裁定结果
+		if ("1".equals(xtjg)) {
+			//同意修改 或 发起方正确
+			fqCyr.setXtjg(RIGHT);
+			jsCyr.setXtjg(ERROR);
+		}else if("0".equals(xtjg)){
+			//拒绝修改 或 接收方正确
+			fqCyr.setXtjg(ERROR);
+			jsCyr.setXtjg(RIGHT);
+		}else if("2".equals(xtjg)){
+			//领导裁定：都正确
+			fqCyr.setXtjg(RIGHT);
+			jsCyr.setXtjg(RIGHT);
+		}else if("4".equals(xtjg)){
+			//领导裁定：都错误
+			fqCyr.setXtjg(ERROR);
+			jsCyr.setXtjg(ERROR);
+		}
+		
+		//BaseService.setUpdateProperties(fqCyr, sessionBean);
+		fqCyr.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		ywxtcyryxxbDao.update(fqCyr);
-		BaseService.setUpdateProperties(jsCyr, sessionBean);
+		//BaseService.setUpdateProperties(jsCyr, sessionBean);
+		jsCyr.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		ywxtcyryxxbDao.update(jsCyr);
 	}
 	
 	@Override
 	public void doBusinessOpration(String xtid, SessionBean sessionBean) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
+	 * 回收协同业务数据
+	 * @param approvalLevel
+	 * @param xtjg
+	 * @param xtId
+	 */
+	protected void receiveXtywxx(Map<String, Object> map, int approvalLevel,
+			SessionBean sessionBean,String xtType){
+		
+		String xtjg = (String)map.get("xtjg");
+		String xtId = (String)map.get("xtId");
+		
+		//如果不是领导拒绝，而是底层拒绝，那么证明不能清除协同数据
+		if(approvalLevel < APPROVALLEVEL && xtjg.equals("0")){
+			System.out.println("协同任务未结束");
+			return;
+		}
+		
+		List<Ywxtcyryxxb> list = ywxtcyryxxbDao.queryByXtid(xtId);
+		if(list == null || list.isEmpty()){
+			return;
+		}
+		
+		//回收数据
+		for( Ywxtcyryxxb xxb : list ){
+			//维护最后的更新状态
+			BaseService.setUpdateProperties(xxb, sessionBean);
+			ywxtcyryxxbDao.update(xxb);
+			
+			//备份数据
+			ywxtStoreDao.storeCyryxxb(xxb.getId());
+			//删除原数据
+			ywxtStoreDao.physicalDeleteCyryxxb(xxb.getId());
+		}
+		//备份数据
+		ywxtStoreDao.storeYwxtxxb(xtId);
+		//删除原数据
+		ywxtStoreDao.physicalDeleteYwxtxxb(xtId);
+		
+		//如果是领导裁定，需要存储裁定信息
+		if(approvalLevel == APPROVALLEVEL){
+			String spjg = "";
+			//维护协同裁定结果
+			if ("1".equals(xtjg)) {
+				//发起方正确
+				spjg = "发起方正确";
+			}else if("0".equals(xtjg)){
+				//接收方正确
+				spjg = "接收方正确";
+			}else if("2".equals(xtjg)){
+				//领导裁定：都正确
+				spjg = "都正确";
+			}else if("4".equals(xtjg)){
+				//领导裁定：都错误
+				spjg = "都错误";
+			}
+			
+			YwxtYwxtCdxxb ywxtYwxtCdxxb = new YwxtYwxtCdxxb();
+			ywxtYwxtCdxxb.setSpbmid(sessionBean.getUserOrgCode());
+			ywxtYwxtCdxxb.setSpr(sessionBean.getUserName());
+			ywxtYwxtCdxxb.setSprid(sessionBean.getUserId());
+			ywxtYwxtCdxxb.setXtywid(xtId);
+			ywxtYwxtCdxxb.setSpjg(spjg);
+			BaseService.setSaveProperties(ywxtYwxtCdxxb, sessionBean);
+			//BaseService.setUpdateProperties(ywxtYwxtCdxxb, sessionBean);
+			ywxtYwxtCdxxbDao.save(ywxtYwxtCdxxb);
+		}
 		
 	}
 }

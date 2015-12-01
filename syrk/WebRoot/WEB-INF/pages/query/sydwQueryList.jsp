@@ -40,8 +40,8 @@
     	<div class="easyui-layout" data-options="fit:true,border:false">   
             <div data-options="region:'center',split:true,title:'',border:false" style="height:auto">
             	<table id="dg" class="easyui-datagrid" 
-            	data-options="url:'<%=basePath %>sydwcx/queryDw?flag=jsq',
-            	delayCountUrl:'<%=basePath %>sydwcx/queryCountDw?flag=jsq',
+            	data-options="url:'<%=basePath %>sydwcx_dl/queryDw?flag=jsq',
+            	delayCountUrl:'<%=basePath %>sydwcx_dl/queryCountDw?flag=jsq',
             	toolbar:'#datagridToolbar',
             		idField:'id',
             		sortOrder:'desc',
@@ -157,7 +157,7 @@ function queryButton(){
 	//var gxxzqh =  $("#gxxzqh").val(); //管辖行政区划
 	var gxsxjs = gxsxj=='210200000000' ? '' : gxsxj;
 	// 新增查询条件 end
-	var reloadUrl = contextPath + '/sydwcx/queryDw?flag=jsq';
+	var reloadUrl = contextPath + '/sydwcx_dl/queryDw?flag=jsq';
 	var opt = $('#dg').datagrid('options');
 	opt.url = reloadUrl;
 	
@@ -186,7 +186,7 @@ function datagridProcessFormater(val, row, index) { // 自定义操作生成
 function inFo(linkObject, index){
 	var rows = $('#dg').datagrid('getData');
 	var rowData = rows.rows[index];
-	var editUrl = "/sydwgl/view?id="+rowData.id+"&mode=view";
+	var editUrl = "/sydwgl_dl/view?id="+rowData.id+"&mode=view";
 	menu_open("实有单位信息--"+rowData.dwmc,editUrl);
 }
 //----精确查询框方法---------
@@ -237,7 +237,7 @@ function reloadGrid(){
 	var mapRadius = document.getElementById("mapRadius").value;
 	
 	
-	var reloadUrl = contextPath + '/sydwcx/queryDwDzOnPT';
+	var reloadUrl = contextPath + '/sydwcx_dl/queryDwDzOnPT';
 	var opt = $('#dg').datagrid('options');
 	opt.url = reloadUrl;
 	$('#dg').datagrid(
@@ -293,7 +293,7 @@ function mapPoint(mapWindow) {
 			$.ajax({
 				type:"GET",
 				sync:true,
-				url:contextPath+"/sydwcx/queryZbByDzId",
+				url:contextPath+"/sydwcx_dl/queryZbByDzId",
 				data:{dwids:dwidsArray.join(",")},
 				dataType:'json',
 				success:function(json){

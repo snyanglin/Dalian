@@ -104,8 +104,9 @@ public class YwxtController  extends BaseController {
 	public ModelAndView updateXtjg(
 			@RequestParam(value = "xtId", required = true) String xtId,
 			@RequestParam(value = "messageid", required = true) String messageid,
-			@RequestParam(value = "xtjg", required = true) String xtjg,String xtType, SessionBean sessionBean,
+			@RequestParam(value = "xtjg", required = true) String xtjg,String xtType, 
 			@RequestParam(value = "approvalLevel", required = true) int approvalLevel) throws BussinessException {
+		SessionBean sessionBean = getSessionBean();
 		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
 		Map<String, Object> model = new HashMap<String, Object>();
 		Map<String,Object> paramMap = new HashMap<String,Object>();

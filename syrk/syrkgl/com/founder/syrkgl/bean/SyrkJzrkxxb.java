@@ -50,6 +50,8 @@ public class SyrkJzrkxxb extends BaseEntity implements Serializable {
 	private String hjd_dzid;
 	@FieldDesc("户籍地_地址详址")
 	private String hjd_dzxz;
+	@FieldDesc("户籍地_地址描述")
+	private String hjd_dzms;
 	@FieldDesc("居住地_行政区划代码")
 	private String jzd_xzqhdm;
 	@FieldDesc("居住地_门楼牌代码")
@@ -551,6 +553,14 @@ public class SyrkJzrkxxb extends BaseEntity implements Serializable {
 
 	public void setQwd_dzxz(String qwd_dzxz) {
 		this.qwd_dzxz = qwd_dzxz;
+	}
+
+	public String getHjd_dzms() {
+		return hjd_dzms;
+	}
+
+	public void setHjd_dzms(String hjd_dzms) {
+		this.hjd_dzms = hjd_dzms;
 	}
 
 }

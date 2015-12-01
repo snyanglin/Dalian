@@ -69,6 +69,8 @@ public class CyrySyrkXtServiceImpl extends AbstractXtTask {
 		YwxtYwxtxxb ywxtYwxtxxb = new YwxtYwxtxxb();
 		ywxtYwxtxxb.setDatajson(jsonStr);
 		ywxtYwxtxxb.setYwlx(XTLX);
+		ywxtYwxtxxb.setXt_cjsj(DateUtils.getSystemDateTimeString());
+		ywxtYwxtxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		ywxtYwxtxxbDao.save(ywxtYwxtxxb);
 		for (int i = 0; i < listCyr.size(); i++) {
 			Ywxtcyryxxb ywxtcyryxxb = listCyr.get(i);
@@ -92,6 +94,7 @@ public class CyrySyrkXtServiceImpl extends AbstractXtTask {
 
 		}
 		ywxtYwxtxxb.setYwnr(messageContent);
+		ywxtYwxtxxb.setXt_zhxgsj(DateUtils.getSystemDateTimeString());
 		ywxtYwxtxxbDao.update(ywxtYwxtxxb);
 
 		// 发起协同任务通过message功能组件
@@ -110,6 +113,8 @@ public class CyrySyrkXtServiceImpl extends AbstractXtTask {
 		} else if ("0".equals(xtjg)&&approvalLevel==2) {
 			doBusinessRefuse((String) map.get("xtId"), sessionBean);
 		}
+		//清理协同业务数据
+		super.receiveXtywxx(map, approvalLevel, sessionBean, XTLX);
 	}
 
 	/***
@@ -185,7 +190,7 @@ public class CyrySyrkXtServiceImpl extends AbstractXtTask {
 		message.setXxnr("请修改从业人员" + fqMap.get("xm") + "的居住地址。");
 		message.setXxbt("从业人员待办");
 		message.setXxlb("6");
-		message.setYwurl("/sydwgl/view?id=" + fqMap.get("gzdwid"));
+		message.setYwurl("/sydwgl_dl/view?id=" + fqMap.get("gzdwid"));
 		message.setFsr(sessionBean.getUserName());
 		message.setFsrdm(sessionBean.getUserId());
 		message.setFssj(DateUtils.getSystemDateTimeString());
