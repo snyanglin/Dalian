@@ -77,26 +77,23 @@ public class ZdryZdController extends BaseController {
 	@Resource(name = "orgPositionService")
 	private OrgPositionService orgPositionService;
 	
-	/***
+	/**
 	 * 
-	 * @Title: createLg
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
-	 * @param @param syrkid
-	 * @param @param ryid
-	 * @param @param ywlx
-	 * @param @return 设定文件
-	 * @return ModelAndView 返回类型
+	 * @Title: createZd
+	 * @Description: (打开转递页面)
+	 * @param @param id
+	 * @param @return    设定文件
+	 * @return ModelAndView    返回类型
 	 * @throws
 	 */
 	@RequestMapping(value = "/createZd", method = RequestMethod.GET)
 	public ModelAndView createZd(String id) {
-	//	SessionBean sessionBean = getSessionBean();
 		ModelAndView mv = new ModelAndView("zdrygl/zdryZd");
 		
-		ZdryZb zdryZb=(ZdryZb) zdryQueryService.queryById(id);
+		ZdryZb zdryZb = (ZdryZb) zdryQueryService.queryById(id);
 		
 		//验证状态是否正确
-		if(!zdryConstant.YLG.equals(zdryZb.getGlzt())){
+		if(!ZdryConstant.YLG.equals(zdryZb.getGlzt())){
 			throw new BussinessException("该重点人员正在【"+zdryConstant.getGlztStr(zdryZb.getGlzt())+"】，不能办理其他业务");
 		}
 		ZdryVO vo = new ZdryVO();
@@ -186,7 +183,6 @@ public class ZdryZdController extends BaseController {
 			model.put(AppConst.MESSAGES, "转递发起成功");
 			
 		} catch (Exception e) {
-			e.printStackTrace();
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
 			model.put(AppConst.MESSAGES, getAddFail());

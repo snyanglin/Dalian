@@ -8,7 +8,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
-import com.founder.bzdz.service.DzService;
 import com.founder.framework.annotation.MethodAnnotation;
 import com.founder.framework.annotation.MethodAnnotation.logType;
 import com.founder.framework.annotation.ParaAnnotation;
@@ -16,7 +15,6 @@ import com.founder.framework.annotation.TypeAnnotation;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
 import com.founder.framework.config.SystemConfig;
-import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.UUID;
 import com.founder.syrkgl.bean.RyRyjbxxb;
 import com.founder.syrkgl.service.RyRyjbxxbService;
@@ -59,10 +57,10 @@ public class ZdryzbService implements ZdryService {
 	
 	@Resource(name = "ryRyjbxxbService")
 	private RyRyjbxxbService ryRyjbxxbService;
-
+/*
 	@Resource(name = "dzService")
 	private DzService dzService;
-
+*/
 	@MethodAnnotation(value = "列管", type = logType.insert)
 	@Override
 	public void lg(SessionBean sessionBean) {
@@ -183,7 +181,7 @@ public class ZdryzbService implements ZdryService {
 		if(zdryGzb!=null && "1".equals(zdryGzb.getSfslg())){//双列管，查询户籍地管理部门
 			RyRyjbxxb ryjbxxb=ryRyjbxxbService.queryById(zdryzb.getRyid());//人员基本信息	
 			if(ryjbxxb!=null && ryjbxxb.getHjd_mlpdm()!= null){
-				String zdry_hjd_zrqdm = dzService.queryMldzDx(ryjbxxb.getHjd_mlpdm()).getZrqdm();
+//				String zdry_hjd_zrqdm = dzService.queryMldzDx(ryjbxxb.getHjd_mlpdm()).getZrqdm();
 				String gxbm=zdryZdryZbDao.queryHjdZrqdm(ryjbxxb.getHjd_mlpdm());
 				if(gxbm!=null && gxbm.length()>0)
 					zdryzb.setGxbm(gxbm);

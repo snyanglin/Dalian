@@ -177,9 +177,8 @@ public class ZdryZdryzbControl extends BaseController {
 	 * @throws
 	 */
 	@RequestMapping(value = "/queryZdryChildLbList", method = RequestMethod.GET)
-	public @ResponseBody List queryZdryChildLbList(String lbdm_p) {
-		List list = zdryQueryService.getChildList(lbdm_p);
-		return list;
+	public @ResponseBody List<?> queryZdryChildLbList(String lbdm_p) {
+		return zdryQueryService.getChildList(lbdm_p);
 	}
 
 	/**
@@ -276,7 +275,7 @@ public class ZdryZdryzbControl extends BaseController {
 		} else {
 			zdryZb.setId(id);
 		}
-		List zdryList = zdryQueryService.queryListByEntity(zdryZb);
+		List<?> zdryList = zdryQueryService.queryListByEntity(zdryZb);
 		if (zdryList.isEmpty())
 			throw new BussinessException("Zdry not Exist");
 
@@ -338,7 +337,7 @@ public class ZdryZdryzbControl extends BaseController {
 		if (ryid == null || syrkid == null)
 			return "";
 
-		List zdryList = zdryQueryService.queryListByRyid(ryid);
+		List<?> zdryList = zdryQueryService.queryListByRyid(ryid);
 
 		if (zdryList.isEmpty())
 			return "";

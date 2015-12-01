@@ -2,7 +2,6 @@ package com.founder.zdrygl.base.service;
 
 import javax.annotation.Resource;
 
-import com.founder.framework.annotation.ParaAnnotation;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
 import com.founder.zdrygl.base.dao.ZdryShbzdryxxbDao;

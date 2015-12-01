@@ -77,14 +77,29 @@ public class ZdryConstant {
 			zdryServiceMap.putAll(zdryInitializeDao.queryZdrylxMap(SystemConfig.getString(AppConst.XZQH)==""?"210000":SystemConfig.getString(AppConst.XZQH)));
 		return zdryServiceMap.get(zdrylxdm);
 	}
-	
+	/**
+	 * 
+	 * @Title: zdryDict
+	 * @Description: (获取当前区域重点人员MAP)
+	 * @param @return    设定文件
+	 * @return Map<String,String>    返回类型
+	 * @throws
+	 */
 	public Map<String,String> zdryDict(){
-		
 		if(zdryDict.isEmpty())
 			zdryDict.putAll(zdryInitializeDao.queryZdryDict(SystemConfig.getString(AppConst.XZQH)==""?"210000":SystemConfig.getString(AppConst.XZQH)));
 		return zdryDict;
 	}
 	
+	/**
+	 * 
+	 * @Title: getValueOfZdryDict
+	 * @Description: (根据zdrylxdm,获取当前区域重点人员名称)
+	 * @param @param zdrylxdm
+	 * @param @return    设定文件
+	 * @return String    返回类型
+	 * @throws
+	 */
 	public String getValueOfZdryDict(String zdrylxdm){
 		if(zdryDict.isEmpty())
 			zdryDict.putAll(zdryInitializeDao.queryZdryDict(SystemConfig.getString(AppConst.XZQH)==""?"210000":SystemConfig.getString(AppConst.XZQH)));
