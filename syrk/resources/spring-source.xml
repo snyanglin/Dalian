@@ -108,4 +108,19 @@
 	</bean>
 	<bean id="syrkInterceptor" class="com.founder.ywxt.interceptor.SyrkModelInterceptor"></bean>
 	<bean id="sydwInterceptor" class="com.founder.ywxt.interceptor.SydwModelInterceptor"></bean>
+	
+	<!-- 规则引擎  连接池配置-->
+	<bean id="droolsRequest" class="com.founder.drools.core.request.DroolsRequest">
+		<property name="serverIp" value="192.168.1.161"></property>
+		<property name="serverPort" value="9080"></property>
+		<property name="connectTimeout" value="3000"></property>
+		<property name="connectionRequestTimeout" value="3000"></property>
+		<property name="socketTimeout" value="3000" />
+		
+		<property name="maxCon" value="20" />
+		<property name="minCon" value="10" />
+		<property name="releaseTime" value="60000" /><!-- 每分钟 -->
+		<property name="releaseTimeOut" value="10000" /><!-- 清楚超过10秒的连接 -->
+		<property name="useConPool" value="0" /><!-- 使用连接池 -->
+	</bean>
 </beans>

@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.founder.drools.core.inteface.RuleService;
+import com.founder.drools.base.zdry.service.ZdryRuleService;
 import com.founder.framework.exception.BussinessException;
 import com.founder.zdrygl.core.inteface.SysMessageInfoService;
 import com.founder.zdrygl.core.model.SysMessage;
@@ -26,49 +26,27 @@ import com.founder.zdrygl.core.model.SysMessage;
  */
 @Service("sysMessageInfoService")
 public class SysMessageInfoRuleServiceImpl implements SysMessageInfoService {
+	@Autowired	
+	private ZdryRuleService zdryRuleService;
 	
-	@Autowired
-	private RuleService ruleService;
-		
 	@Override
 	public SysMessage initSysMessage(String xxlx, Object param) {
-		//处理消息类型，格式:MESSAGE_模块（ZDRYGL）_消息类型
-		String[] xxlxAry=xxlx.split("_");
-		if(xxlxAry.length<3){
-			throw new BussinessException("Message type must be like 'MESSAGE_ZDRYGL_LGSQ'");
-		}
 		
-		//规则模块名
-		String ruleName =xxlxAry[0]+"_"+xxlxAry[1];		
-		SysMessage sysMessage=new SysMessage();
-		sysMessage.setXxlb(xxlx);		
-		if(param instanceof Map){
-			Map paraMap=(Map) param;
-			Map globalParam = (Map) paraMap.get("globalParam");//公共参数
-			Object paramObj=paraMap.get("paramObj");//私有参数
+		try{
+			Map resMap=zdryRuleService.getZdryMessage(xxlx, param);
+			String msgTitle=(String) resMap.get("msgTitle");
+			String msgContent=(String) resMap.get("msgContent");
 			
-			//参数处理，至少要传个SysMessage，成功构建消息后，sysMessage.status=0，默认为1。
-			if(paramObj!=null){
-				if(paramObj instanceof List){//多个私有参数		
-					List list=(List)paramObj;
-					list.add(sysMessage);
-					//执行规则
-					ruleService.executeRule(ruleName, list, globalParam);
-				}else{//单个私有参数
-					List list=new ArrayList(2);
-					list.add(paramObj);
-					list.add(sysMessage);
-					ruleService.executeRule(ruleName, list, globalParam);
-				}
-				
-			}else{//没有私有参数
-				//执行规则
-				ruleService.executeRule(ruleName, sysMessage, globalParam);
-			}
 			
-			return sysMessage;
-		}else{
-			throw new BussinessException("param object must be java.util.Map");
+			SysMessage sysMessage=new SysMessage();
+			sysMessage.setXxbt(msgTitle);//信息标题
+			sysMessage.setXxnr(msgContent);//信息内容
+			
+			//还需要添加信息其他内容
+			
+			return sysMessage;			
+		}catch(Exception e){
+			throw new BussinessException(e.toString());
 		}
 		
 	}
