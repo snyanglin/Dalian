@@ -743,7 +743,7 @@ function addGzjsUploadEvent(){
      </table>
      
     
-     
+</BODY>     
 </HTML>
 <SCRIPT language=JavaScript>
 

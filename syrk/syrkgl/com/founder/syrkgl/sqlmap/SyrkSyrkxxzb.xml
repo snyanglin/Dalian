@@ -10,7 +10,11 @@
 		<![CDATA[ select * from SYRK_SYRKXXZB t where ID = #id# and XT_ZXBZ = '0' and rownum = 1 ]]>
 	</select>
 
-
+	<!-- 查询单条（根据证件类型和证件号码查询） -->
+	<select id="queryByZJ" parameterClass="syrkSyrkxxzb" resultClass="syrkSyrkxxzb">
+		<![CDATA[ select * from SYRK_SYRKXXZB t where cyzjdm=#cyzjdm# and zjhm=#zjhm# and XT_ZXBZ = '0' and rownum = 1 ]]>
+	</select>
+	
    	<select id="queryList" parameterClass="syrkSyrkxxzb" resultClass="syrkSyrkxxzb">
 		<![CDATA[ select * from SYRK_SYRKXXZB t where XT_ZXBZ = '0' ]]>
 		<isNotEmpty prepend="AND" property="zjhm">

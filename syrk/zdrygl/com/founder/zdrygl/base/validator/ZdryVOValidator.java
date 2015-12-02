@@ -7,10 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 
 import com.founder.drools.base.zdry.service.ZdryRuleService;
-import com.founder.drools.core.model.HttpRequestBean;
 import com.founder.drools.core.model.RuleBean;
 import com.founder.framework.base.validator.BaseValidator;
-import com.founder.framework.config.SystemConfig;
 import com.founder.zdrygl.base.vo.ZdryVO;
 
 @Component

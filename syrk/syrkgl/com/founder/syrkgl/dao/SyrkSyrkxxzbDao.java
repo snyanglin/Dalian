@@ -324,4 +324,21 @@ public class SyrkSyrkxxzbDao extends BaseDaoImpl {
 	public List<SyrkSyrkxxzb> queryList(SyrkSyrkxxzb entity){
 		return (List<SyrkSyrkxxzb>)queryForList("SyrkSyrkxxzb.queryList", entity);
 	}
+	
+	/**
+	 * 
+	 * @Title: querySyrkByZj
+	 * @Description: TODO(根据证件查实有人口，信息复用接口使用)
+	 * @param @param cyzjdm 证件类型
+	 * @param @param zjhm 证件号码
+	 * @param @return    设定文件
+	 * @return SyrkSyrkxxzb    返回类型
+	 * @throw
+	 */
+	public SyrkSyrkxxzb querySyrkByZj(String cyzjdm,String zjhm) {
+		SyrkSyrkxxzb entity = new SyrkSyrkxxzb();
+		entity.setCyzjdm(cyzjdm);
+		entity.setZjhm(zjhm);		
+		return (SyrkSyrkxxzb) queryForObject("SyrkSyrkxxzb.queryByZJ",entity);		
+	}
 }
