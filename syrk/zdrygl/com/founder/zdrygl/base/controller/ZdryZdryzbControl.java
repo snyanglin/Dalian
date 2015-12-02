@@ -373,11 +373,18 @@ public class ZdryZdryzbControl extends BaseController {
 	 */
 	@RequestMapping(value = "/queryklglx", method = RequestMethod.POST)
 	public @ResponseBody String queryklglx(String ylglxStr) {
-		String klgStr = zdryRuleService.getKlglx(ylglxStr);
-		if ("".equals(klgStr)) {// 没有可列管的类型，不能返回“”，此时应该没有匹配的选项
-			klgStr = "999999";
+		String klgStr;
+		try {
+			klgStr = zdryRuleService.getKlglx(ylglxStr);
+			if ("".equals(klgStr)) {// 没有可列管的类型，不能返回“”，此时应该没有匹配的选项
+				klgStr = "999999";
+			}
+			return klgStr;
+		} catch (Exception e) {			
+			e.printStackTrace();
 		}
-		return klgStr;
+		
+		return "999999";
 	}
 
 	/**
@@ -399,7 +406,13 @@ public class ZdryZdryzbControl extends BaseController {
 		String zdrygllxdm = ((ZdryZb) zdry).getZdrygllxdm();
 		String zdrygllxmc = zdryConstant.zdryDict().get(zdrygllxdm);
 		// 可撤管类型
-		String kcgStr = zdryRuleService.getKcglx(zdrygllxdm);
+		String kcgStr = null;
+		try {
+			kcgStr = zdryRuleService.getKcglx(zdrygllxdm);
+			
+		} catch (Exception e) {			
+			e.printStackTrace();			
+		}
 		if (kcgStr == null || kcgStr.length() == 0)
 			kcgStr = "999999";
 
