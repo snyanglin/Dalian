@@ -10,7 +10,7 @@ import com.founder.framework.base.entity.BaseEntity;
  * 
  * @Package: [com.founder.zdry.bean.Jgdxqxjdjb.java]
  * @ClassName: [Jgdxqxjdjb]
- * @Description: [一句话描述该类的功能]
+ * @Description: [监管对象请销假]
  * @Author: [wu_chunhui@founder.com.cn]
  * @CreateDate: [2015-3-11 下午6:18:11]
  * @UpdateUser: [Administrator(如多次修改保留历史记录，增加修改记录)]

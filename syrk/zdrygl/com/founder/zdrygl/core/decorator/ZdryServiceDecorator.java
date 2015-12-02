@@ -3,8 +3,6 @@ package com.founder.zdrygl.core.decorator;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -13,12 +11,9 @@ import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.exception.BussinessException;
 import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.workflow.service.inteface.JProcessDefinitionService;
-import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 import com.founder.zdrygl.base.message.MessageDict;
-import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.inteface.JwzhMessageService;
-import com.founder.zdrygl.core.inteface.SendMessageService;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
@@ -45,7 +40,6 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	 */
 	private StartProcessInstance processInstance;
 		
-	
     @Autowired
 	private JProcessDefinitionService processDefinitionService;
     @Autowired
@@ -54,16 +48,6 @@ public abstract class ZdryServiceDecorator implements ZdryService{
     @Autowired
 	private ZdryConstant zdryConstant;
 
-
-    /**
-	 * 消息发送接口
-	 */
-	@Resource
-	private SendMessageService sendMessageService;
-	
-	@Autowired
-	private ZdryZdryZbDao zdryZdryZbDao;
-	
 	public ZdryServiceDecorator(ZdryService zdryService){
 		this.zdryService = zdryService;
 	}
@@ -73,7 +57,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		zdryService.lg(sessionBean);
 		lg_(sessionBean);
 		
-		Object paraObj = getMessageParam(MessageDict.ZDRYGL.LGSQ,sessionBean);//获取消息的参数
+		Object paraObj = getMessageParam(sessionBean);//获取消息的参数
 		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.LGSQ,paraObj);
 		
 		//put zdryId & name to variables
@@ -179,7 +163,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	/**
 	 * 
 	 * @Title: update
-	 * @Description: TODO(修改)
+	 * @Description: (修改，重点人员编辑页面用)
 	 * @param @param sessionBean    设定文件
 	 * @return void    返回类型
 	 * @throw
@@ -238,30 +222,29 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	/**
 	 * 
 	 * @Title: getMessageParam
-	 * @Description: TODO(获取消息生产需要的参数)
-	 * @param @param xxlx
+	 * @Description: (获取消息生产需要的参数)
 	 * @param @param paraObj
 	 * @param @return    设定文件
 	 * @return Object    返回类型
 	 * @throw
 	 */
-	protected Object getMessageParam(String xxlx,SessionBean sessionBean){
+	protected Object getMessageParam(SessionBean sessionBean){
 		Map<String,Object> paramMap = new HashMap<String,Object>();
-		//公共参数处理
-//        Map<String,Object> globalParam = new HashMap<String,Object>();
-//        globalParam.put("zdryZdryzbDao", zdryZdryZbDao);
-//        paramMap.put("globalParam", globalParam);
         
         //私有参数处理
         Map<String,Object> paramObj = new HashMap<String,Object>();
         paramObj.put("fsrName", sessionBean.getUserName());//发送人姓名
         paramObj.put("fsrUserCode", sessionBean.getUserId());//发送人代码	
         paramObj.put("fsrOrgName", sessionBean.getUserOrgName());//发送人机构名
-        paramObj.put("zdrylxName",zdryConstant.getValueOfZdryDict(((ZdryZb)this.getZdry()).getZdrygllxdm()));
-        paramObj.put("zdryName",((ZdryZb)this.getZdry()).getXm());
+        paramObj.putAll(getZdryXmAndZdrylxName());
         paramMap.put("paramObj", paramObj);
         
         return paramMap;
+	}
+	
+	@Override
+	public final  Map<String,String> getZdryXmAndZdrylxName(){
+		return zdryService.getZdryXmAndZdrylxName();
 	}
 
 	private boolean checkWorkFlow(){

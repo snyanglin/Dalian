@@ -1,5 +1,6 @@
 package com.founder.zdrygl.base.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -55,12 +56,12 @@ public class ZdryzbService implements ZdryService {
 	@Autowired
 	private ZdryZdryZbDao zdryZdryZbDao;	
 	
+	@Autowired
+	private ZdryConstant zdryConstant;
+	
 	@Resource(name = "ryRyjbxxbService")
 	private RyRyjbxxbService ryRyjbxxbService;
-/*
-	@Resource(name = "dzService")
-	private DzService dzService;
-*/
+ 
 	@MethodAnnotation(value = "列管", type = logType.insert)
 	@Override
 	public void lg(SessionBean sessionBean) {
@@ -270,7 +271,7 @@ public class ZdryzbService implements ZdryService {
 	/**
 	 * 
 	 * @Title: update
-	 * @Description: TODO(修改)
+	 * @Description: TODO (修改)
 	 * @param @param sessionBean    设定文件
 	 * @return void    返回类型
 	 * @throw
@@ -331,7 +332,6 @@ public class ZdryzbService implements ZdryService {
 	@Override
 	@Deprecated  
 	public void setStartProcessInstance(String processKey, String applyUserId, Map<String, Object> variables) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -347,5 +347,13 @@ public class ZdryzbService implements ZdryService {
 	@Override
 	public void queryZdryAllInfo(String zdryid,ZdryVO zdryVO) {
 		zdryVO.setZdryZdryzb((ZdryZb)zdryZdryZbDao.queryById(zdryid));
+	}
+
+	@Override
+	public Map<String, String> getZdryXmAndZdrylxName() {
+		Map<String, String> map = new HashMap<String,String>();
+		map.put("zdryName", zdryzb.getXm());
+		map.put("zdrylxName", zdryConstant.getValueOfZdryDict(zdryzb.getZdrygllxdm()));
+		return map;
 	}
 }

@@ -11,7 +11,7 @@ import com.founder.zdrygl.core.model.Zdry;
  * 
  * @Package: [com.founder.zdrygl.bean.Jgdxxxb.java]
  * @ClassName: [Jgdxxxb]
- * @Description: [一句话描述该类的功能]
+ * @Description: [监管对象]
  * @Author: [wu_chunhui@founder.com.cn]
  * @CreateDate: [2015-3-11 下午5:53:41]
  * @UpdateUser: [Administrator(如多次修改保留历史记录，增加修改记录)]

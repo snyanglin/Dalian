@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
 import com.founder.zdrygl.base.model.ZdrySgafzdryxxb;
-import com.founder.zdrygl.base.model.ZdrySqjzryxxb;
 import com.founder.zdrygl.core.inteface.ZdryGllxEntityDaoService;
 import com.founder.zdrygl.core.model.Zdry;
 

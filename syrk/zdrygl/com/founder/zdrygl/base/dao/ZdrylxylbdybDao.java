@@ -30,7 +30,7 @@ public class ZdrylxylbdybDao extends BaseDaoImpl {
 	/**
 	 * 
 	 * @Title: query
-	 * @Description: TODO(查询具体的类型对象)
+	 * @Description: (查询具体的类型对象)
 	 * @param @param entity
 	 * @param @return    设定文件
 	 * @return Zdrylxylbdyb    返回类型
@@ -64,7 +64,7 @@ public class ZdrylxylbdybDao extends BaseDaoImpl {
 	/**
 	 * 
 	 * @Title: queryChildByQydm
-	 * @Description: 查询当前区域下的子类型列表
+	 * @Description: TODO 查询当前区域下的子类型列表
 	 * @param @param qydm
 	 * @param @return    设定文件
 	 * @return List    返回类型

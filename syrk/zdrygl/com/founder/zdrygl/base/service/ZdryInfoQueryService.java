@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.founder.framework.config.SystemConfig;
 import com.founder.framework.utils.EasyUIPage;
@@ -15,6 +16,18 @@ import com.founder.zdrygl.core.inteface.ZdryQueryService;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 
+/**
+ * ****************************************************************************
+ * @Package:      [com.founder.zdrygl.base.service.ZdryInfoQueryService.java]  
+ * @ClassName:    [ZdryInfoQueryService]   
+ * @Description:  [重点人员信息查询服务]   
+ * @Author:       [wei.wen@founder.com.cn]  
+ * @CreateDate:   [2015年12月2日 下午5:37:21]   
+ * @UpdateUser:   [wei.wen@founder.com.cn(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年12月2日 下午5:37:21，(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
+ * @Version:      [v1.0]
+ */
 @Service("zdryQueryService")
 public class ZdryInfoQueryService extends ZdryQueryService {
 	
@@ -78,7 +91,7 @@ public class ZdryInfoQueryService extends ZdryQueryService {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<?> getChildList(String lbdm_p) {		
 		String  qydm = SystemConfig.getString("systemXzqh");		
-		if(org.springframework.util.StringUtils.isEmpty(qydm)) qydm="210000";
+		if(StringUtils.isEmpty(qydm)) qydm="210000";
 		List<?> list = zdryConstant.queryChildByQydm(lbdm_p,qydm);
 		Map<String,Object> map;
 		List<?> childList;
