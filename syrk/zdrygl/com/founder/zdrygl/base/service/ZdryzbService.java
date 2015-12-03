@@ -23,7 +23,6 @@ import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 import com.founder.zdrygl.base.model.ZdryGzb;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrycg;
-import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
@@ -340,14 +339,15 @@ public class ZdryzbService implements ZdryService {
 	 * @Title: queryZdryAllInfo
 	 * @Description: (查询重点人员总表和子表)
 	 * @param @param zdryid
-	 * @param @param zdryVO    设定文件
 	 * @return void    返回类型
 	 * @throw
 	 */
-	@Override
-	public void queryZdryAllInfo(String zdryid,ZdryVO zdryVO) {
-		zdryVO.setZdryZdryzb((ZdryZb)zdryZdryZbDao.queryById(zdryid));
-	}
+//	@Override
+//	public Zdry[] queryZdryAllInfo(String zdryid) {
+//		Zdry[] zdry = new Zdry[1];
+//		zdry[0] = zdryZdryZbDao.queryById(zdryid);
+//		return zdry;
+//	}
 
 	@Override
 	public Map<String, String> getZdryXmAndZdrylxName() {

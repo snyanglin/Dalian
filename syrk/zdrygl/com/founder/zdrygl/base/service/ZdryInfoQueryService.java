@@ -4,13 +4,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.founder.framework.config.SystemConfig;
 import com.founder.framework.utils.EasyUIPage;
+import com.founder.zdrygl.base.dao.ZdryFzcsfryxxbDao;
+import com.founder.zdrygl.base.dao.ZdrySgafzdryxxbDao;
+import com.founder.zdrygl.base.dao.ZdryShbzdryxxbDao;
+import com.founder.zdrygl.base.dao.ZdrySqjzryxxbDao;
+import com.founder.zdrygl.base.dao.ZdrySqsbzdryxxbDao;
+import com.founder.zdrygl.base.dao.ZdryZdrkxxbDao;
 import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
+import com.founder.zdrygl.base.dao.ZdryZszhjsbrxxbDao;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.inteface.ZdryQueryService;
 import com.founder.zdrygl.core.model.Zdry;
@@ -33,6 +42,21 @@ public class ZdryInfoQueryService extends ZdryQueryService {
 	
 	@Autowired
 	private ZdryZdryZbDao zdryZdryZbDao;
+	
+	@Resource(name="zdrySqjzryxxbDao")
+	private ZdrySqjzryxxbDao zdrySqjzryxxbDao;	
+	@Resource(name="zdrySgafzdryxxbDao")
+	private ZdrySgafzdryxxbDao zdrySgafzdryxxbDao;	
+	@Resource(name="zdryShbzdryxxbDao")
+	private ZdryShbzdryxxbDao zdryShbzdryxxbDao;
+	@Resource(name="zdrySqsbzdryxxbDao")
+	private ZdrySqsbzdryxxbDao zdrySqsbzdryxxbDao;
+	@Resource(name="zdryZszhjsbrxxbDao")
+	private ZdryZszhjsbrxxbDao zdryZszhjsbrxxbDao;
+	@Resource(name="zdryFzcsfryxxbDao")
+	private ZdryFzcsfryxxbDao zdryFzcsfryxxbDao;
+	@Autowired
+	private ZdryZdrkxxbDao zdryZdrkxxbDao;
 	
 	@Autowired
 	private ZdryConstant zdryConstant;
@@ -64,7 +88,7 @@ public class ZdryInfoQueryService extends ZdryQueryService {
 	/**
 	 * 
 	 * @Title: queryListByEntity
-	 * @Description: TODO(通过重点人员总表对象查询List)
+	 * @Description: (通过重点人员总表对象查询List)
 	 * @param @param zdryZb
 	 * @param @return    设定文件
 	 * @return List    返回类型
@@ -82,7 +106,7 @@ public class ZdryInfoQueryService extends ZdryQueryService {
 	/**
 	 * 
 	 * @Title: getChildList
-	 * @Description: TODO(查询重点人员类型下的子类列表，递归可以避免树级别不确定时写死的树层数不符合要求 )
+	 * @Description: (查询重点人员类型下的子类列表，递归可以避免树级别不确定时写死的树层数不符合要求 )
 	 * @param @param lbdm_p 上级类型
 	 * @param @return    设定文件
 	 * @return List    返回类型
@@ -112,6 +136,27 @@ public class ZdryInfoQueryService extends ZdryQueryService {
 			}
 		}	
 		return list;
+	}
+
+	@Override
+	public Zdry queryZdryzbById(final String zdryId,final String zdrygllxdm) {
+		if("01".equals(zdrygllxdm))//社区矫正人员
+			return zdrySqjzryxxbDao.queryById(zdryId);
+		if("02".equals(zdrygllxdm))//重点人口
+			return zdryZdrkxxbDao.queryById(zdryId);
+		if("03".equals(zdrygllxdm))//肇事肇祸精神病人
+			return zdryZszhjsbrxxbDao.queryById(zdryId);
+		if("04".equals(zdrygllxdm))//非正常上访重点人员
+			return zdryFzcsfryxxbDao.queryById(zdryId);
+		if("05".equals(zdrygllxdm))//涉公安访重点人员
+			return zdrySgafzdryxxbDao.queryById(zdryId);
+		//if("06".equals(zdrygllxdm))//其他关注对象
+		//	return this.
+		if("07".equals(zdrygllxdm))//涉环保重点人员
+			return zdryShbzdryxxbDao.queryById(zdryId);
+		if("08".equals(zdrygllxdm))//涉枪涉爆重点人员
+			return zdrySqsbzdryxxbDao.queryById(zdryId);
+		return null;
 	}
 
 }

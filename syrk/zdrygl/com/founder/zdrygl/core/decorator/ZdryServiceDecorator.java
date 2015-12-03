@@ -12,7 +12,6 @@ import com.founder.framework.exception.BussinessException;
 import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.workflow.service.inteface.JProcessDefinitionService;
 import com.founder.zdrygl.base.message.MessageDict;
-import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.inteface.JwzhMessageService;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.Zdry;
@@ -179,15 +178,15 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	 * @Title: queryZdryAllInfo
 	 * @Description: TODO(查询重点人员总表和子表)
 	 * @param @param zdryid
-	 * @param @param zdryVO    设定文件
 	 * @return void    返回类型
 	 * @throw
 	 */
-	@Override
-	public void queryZdryAllInfo(String zdryid,ZdryVO zdryVO) {
-		zdryService.queryZdryAllInfo(zdryid,zdryVO);
-		queryZdryAllInfo_(zdryid,zdryVO);
-	}
+//	@Override
+//	public final Zdry[] queryZdryAllInfo(String zdryid) {
+//		Zdry[] zdryArray = zdryService.queryZdryAllInfo(zdryid);
+//		zdryArray[1] = queryZdryInfo_(zdryid);
+//		return zdryArray;
+//	}
 	
 	@Override
 	public Zdry getZdry() {
@@ -217,7 +216,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	
 	protected abstract void update_(SessionBean sessionBean);
 	
-	protected abstract void queryZdryAllInfo_(String zdryid,ZdryVO zdryVO);
+//	protected abstract Zdry queryZdryInfo_(String zdryid);
 	
 	/**
 	 * 
