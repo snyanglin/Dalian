@@ -241,6 +241,15 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 			return (ZdryGzb) queryForObject("ZdryGzb.queryLglxByZdrylx", map);
 		}
 
+		/**
+		 * 
+		 * @Title: queryCount
+		 * @Description: TODO(这里用一句话描述这个方法的作用)
+		 * @param @param syrkId 实有人口ID
+		 * @param @return    返回实有人口ID
+		 * @return Integer    返回类型
+		 * @throws
+		 */
 		public Integer queryCount(String syrkId) {
 		
 				return (Integer) queryForObject("ZdryZdryzb.queryCountBySyrk", syrkId);

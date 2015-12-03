@@ -103,10 +103,6 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 	@Resource(name = "gisService")
 	private GisService gisService;
 	
-	/*@Resource(name="zdryZdryzbService")
-	private ZdryZdryzbService zdryZdryzbService;*/
-
-	//使用重点人口管理中的新方法代替zdry原来的方法（方法内容是一样的）
 	@Resource(name = "zdryQueryService")
 	private ZdryInfoQueryService zdryQueryService;
 	
