@@ -37,7 +37,7 @@ function info_sqjz_(){
 	sb.append("<li><span class='spantitle'>犯罪性质：</span><span name='fzxzdm' dict='/common/dict/DL_D_FZXZDM' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>违法嫌疑人处理结果：</span><span name='wfxyrcljgdm' dict='/common/dict/XZ_D_WFXYRCLJGDM' class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>判决机关名称：</span><span name='pjjgmc' class='edit_word input_w2'></span></li>");
-	/* 杨林修改过的代码
+	/* 大连整合后不显示的地方
 	sb.append("<li><span class='spantitle'>考验截止日期：</span><span name='ky_jzrq' class='edit_word input_w1'></span></li>");
 	*/
 	sb.append("<input type='hidden' name='id' /><input type='hidden' name='method' value='sqjz' /><input type='hidden' name='openUrl' value='/zdryEdit/zdryUpdatePre' />");
