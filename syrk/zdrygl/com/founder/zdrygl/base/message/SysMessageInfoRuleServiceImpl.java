@@ -1,16 +1,14 @@
 package com.founder.zdrygl.base.message;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.founder.drools.base.zdry.service.ZdryRuleService;
 import com.founder.framework.exception.BussinessException;
 import com.founder.zdrygl.core.inteface.SysMessageInfoService;
-import com.founder.zdrygl.core.model.SysMessage;
 
 /**
  * ****************************************************************************
@@ -26,17 +24,21 @@ import com.founder.zdrygl.core.model.SysMessage;
  */
 @Service("sysMessageInfoService")
 public class SysMessageInfoRuleServiceImpl implements SysMessageInfoService {
+	
+	private static Logger logger = Logger.getLogger(SysMessageInfoRuleServiceImpl.class);
+	
 	@Autowired	
 	private ZdryRuleService zdryRuleService;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public SysMessage initSysMessage(String xxlx, Object param) {
 		
 		try{
-			Map resMap=zdryRuleService.getZdryMessage(xxlx, param);
+			Map<String,String> resMap = zdryRuleService.getZdryMessage(xxlx, param);
+		
 			String msgTitle=(String) resMap.get("msgTitle");
 			String msgContent=(String) resMap.get("msgContent");
-			
 			
 			SysMessage sysMessage=new SysMessage();
 			sysMessage.setXxbt(msgTitle);//信息标题
@@ -46,6 +48,7 @@ public class SysMessageInfoRuleServiceImpl implements SysMessageInfoService {
 			
 			return sysMessage;			
 		}catch(Exception e){
+			logger.error("消息规则调用出错", e);
 			throw new BussinessException(e.toString());
 		}
 		

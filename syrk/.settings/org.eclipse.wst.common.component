@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="syrk">
         <wb-resource deploy-path="/" source-path="/WebRoot"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/bzdz"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/sqjw"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/syrk"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/syfw"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/zafffwqz"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/task"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/zdrw"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/yjjb"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/common"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/jcj"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/syrkgl"/>
-		<wb-resource deploy-path="/WEB-INF/classes" source-path="/zakh"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/aqff"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ldym"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ywxt"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/qbld"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/zdrygl"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/drools"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/xjpt"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/sydw_dl"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/jzym"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/jfxt"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/zykc"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/shhxxcj"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ldym"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/common"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/zafffwqz"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/syfw"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/bzdz"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/sqjw"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/zdrw"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/task"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/yjjb"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/jcj"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/syrkgl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/zakh"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/aqff"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ywxt"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/qbld"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/zdrygl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/drools"/>
         <property name="java-output-path" value="/syrk/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="/syrk"/>
     </wb-module>

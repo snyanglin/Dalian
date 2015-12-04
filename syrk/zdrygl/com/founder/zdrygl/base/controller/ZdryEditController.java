@@ -215,9 +215,11 @@ public class ZdryEditController extends BaseController {
 			
 			ZdryZb zdryZb = (ZdryZb)zdryQueryService.queryById(zdryid);
 			
-			ZdryVO zdryVO =new ZdryVO();			
-			ZdryService zdryService = zdryFactory.createZdryService(zdryZb.getZdrygllxdm(), null, null);
-			zdryService.queryZdryAllInfo(zdryid, zdryVO);
+			ZdryVO zdryVO = new ZdryVO();			
+			zdryVO.setZdryZdryzb(zdryZb);
+			zdryVO.setZdryZb(zdryZb.getZdrygllxdm(),zdryQueryService.queryZdryzbById(zdryid,zdryZb.getZdrygllxdm()));
+//			ZdryService zdryService = zdryFactory.createZdryService(zdryZb.getZdrygllxdm(), null, null);
+//			zdryService.queryZdryAllInfo(zdryid);
 			mv.addObject("zdryVO", zdryVO);
 			return mv;
 	}

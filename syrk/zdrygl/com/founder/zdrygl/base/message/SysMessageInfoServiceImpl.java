@@ -10,7 +10,6 @@ import com.founder.framework.organization.department.service.OrgOrganizationServ
 import com.founder.framework.organization.user.bean.OrgUser;
 import com.founder.framework.organization.user.service.OrgUserService;
 import com.founder.zdrygl.core.inteface.SysMessageInfoService;
-import com.founder.zdrygl.core.model.SysMessage;
 
 /**
  * ****************************************************************************

@@ -41,9 +41,8 @@ public class ZdryVO implements Serializable {
 	ZdrySqjzryxxb zdrySqjzryxxb;//社区矫正
 	ZdrySgafzdryxxb zdrySgafzdryxxb;//涉公安访
 	
-	String cglxdm;
-	String zdryHsbId;
-	String ywsqyy;
+	String cglxdm;//撤管类型代码
+	String ywsqyy;//业务申请原因（流程用）
 	String xm;
 	String zjhm;
 	ZdryZdryzbVO zdryZdryzbVO;
@@ -137,12 +136,6 @@ public class ZdryVO implements Serializable {
 	public void setCglxdm(String cglxdm) {
 		this.cglxdm = cglxdm;
 	}
-	public String getZdryHsbId() {
-		return zdryHsbId;
-	}
-	public void setZdryHsbId(String zdryHsbId) {
-		this.zdryHsbId = zdryHsbId;
-	}
 	public String getYwsqyy() {
 		return ywsqyy;
 	}
@@ -172,7 +165,35 @@ public class ZdryVO implements Serializable {
 	}
 	public void setZdrylbStr(String zdrylbStr) {
 		this.zdrylbStr = zdrylbStr;
+	}
+	/**
+	 * 
+	 * @Title: setZdryZb
+	 * @Description: (根据重点人员类别代码设置子表对象)
+	 * @param @param zdrygllxdm
+	 * @param @param zdry    设定文件
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public void setZdryZb(String zdrygllxdm , Zdry zdry) {
+		if("01".equals(zdrygllxdm))//社区矫正人员
+			this.zdrySqjzryxxb = (ZdrySqjzryxxb) zdry;
+		if("02".equals(zdrygllxdm))//重点人口
+			this.zdryZdrk = (ZdryZdrkxxb) zdry;
+		if("03".equals(zdrygllxdm))//肇事肇祸精神病人
+			this.zdryZszhjsbrxxb = (ZdryZszhjsbrxxb) zdry;
+		if("04".equals(zdrygllxdm))//非正常上访重点人员
+			this.zdryFzcsfryxxb = (ZdryFzcsfryxxb) zdry;
+		if("05".equals(zdrygllxdm))//涉公安访重点人员
+			this.zdrySgafzdryxxb = (ZdrySgafzdryxxb) zdry;
+		//if("06".equals(zdrygllxdm))//其他关注对象
+		//	return this.
+		if("07".equals(zdrygllxdm))//涉环保重点人员
+			this.zdryShbzdryxxb = (ZdryShbzdryxxb) zdry;
+		if("08".equals(zdrygllxdm))//涉枪涉爆重点人员
+			this.zdrySqsbzdryxxb = (ZdrySqsbzdryxxb) zdry;
+		
 	}	
 	
-			
+	
 }

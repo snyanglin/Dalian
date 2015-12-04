@@ -34,9 +34,9 @@ public class MessageDictZdrygl {
 
 	
 	/**
-	 * 消息_重点人员_转递申请
+	 * 消息_重点人员_转递审批结果
 	 */
-	public String ZDSQ="MESSAGE_ZDRYGL_ZDSQ";
+	public String ZDSPJG="MESSAGE_ZDRYGL_ZDSPJG";
 	
 	/**
 	 * 消息_重点人员_接收转递

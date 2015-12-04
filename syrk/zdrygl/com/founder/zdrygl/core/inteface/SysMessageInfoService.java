@@ -1,6 +1,6 @@
 package com.founder.zdrygl.core.inteface;
 
-import com.founder.zdrygl.core.model.SysMessage;
+import com.founder.zdrygl.base.message.SysMessage;
 
 public interface SysMessageInfoService {
 

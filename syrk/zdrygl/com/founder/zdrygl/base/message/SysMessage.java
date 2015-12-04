@@ -1,4 +1,4 @@
-package com.founder.zdrygl.core.model;
+package com.founder.zdrygl.base.message;
 
 import java.io.Serializable;
 
@@ -83,6 +83,11 @@ public class SysMessage implements Serializable {
 	 * 消息状态，0：成功，1失败
 	 */
 	private int status=1;
+	
+	/**
+	 * 打开方式
+	 */
+	private String dkfs;
 	
 	private String errorMessage = "message init error";
 
@@ -237,6 +242,13 @@ public class SysMessage implements Serializable {
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
 	}
-	
+
+	public String getDkfs() {
+		return dkfs;
+	}
+
+	public void setDkfs(String dkfs) {
+		this.dkfs = dkfs;
+	}
 	
 }

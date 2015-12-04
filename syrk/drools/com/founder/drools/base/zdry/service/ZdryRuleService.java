@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.founder.drools.core.request.DroolsRequest;
 import com.founder.drools.core.request.RuleBean;
 import com.founder.framework.config.SystemConfig;
-import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 
 /**
  * ****************************************************************************
@@ -28,13 +27,6 @@ import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
  */
 @Service
 public class ZdryRuleService {
-	
-	public static String LGSQ="LGSQ";//列管申请
-	public static String CGSQ="CGSQ";//撤管申请
-	public static String LGSPJG="LGSPJG";//列管审批结果	
-	
-	@Autowired
-	private ZdryZdryZbDao zdryZdryZbDao;		
 	
 	@Resource(name = "droolsRequest")
 	private DroolsRequest droolsRequest;

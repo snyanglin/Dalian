@@ -2,8 +2,11 @@ package com.founder.zdrygl.core.inteface;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.zdrygl.core.model.Zdry;
+import com.founder.zdrygl.core.utils.ZdryConstant;
 
 /**
  * ****************************************************************************
@@ -18,7 +21,8 @@ import com.founder.zdrygl.core.model.Zdry;
  * @Version:      [v1.0]
  */
 public abstract class ZdryQueryService {
-	
+	  @Autowired
+		private ZdryConstant zdryConstant;
 	/**
 	 * 
 	 * @Title: queryList
@@ -48,6 +52,17 @@ public abstract class ZdryQueryService {
 	public abstract List<?> queryListBySyrkId(String syrkId);
 	
 	public abstract Zdry queryById(String zdryzbId);	
+	
+	/**
+	 * 
+	 * @Title: queryZdryzbById
+	 * @Description: (根据重点人员id查询子表信息)
+	 * @param @param zdryId
+	 * @param @return    设定文件
+	 * @return Zdry    返回类型
+	 * @throws
+	 */
+	public abstract Zdry queryZdryzbById(String zdryId , String zdrygllxdm);
 	
 	public abstract Integer queryForCount(String syrkId);
 	

@@ -45,7 +45,7 @@ public class ZdryFactory implements ZdryAbstractFactory {
 		String className = zdryConstant.zdryServiceMap().get(zdrylx);
 		if(!StringUtils.isEmpty(className)){
 			String beanName = getBeanName(className) ;  
-			registerBeanDefinition(beanName,className,zdryzbService,false,zdrylbdx); 
+			registerBeanDefinition(beanName,className,zdryzbService,zdrylbdx); 
 			ZdryService zdryService= (ZdryService) getBean(beanName);
 			zdryService.setZdry(zdrylbdx);
 			return zdryService;  
@@ -57,7 +57,7 @@ public class ZdryFactory implements ZdryAbstractFactory {
 	}
 	
 	private ZdryService createZdryzbService(String beanName){
-		registerBeanDefinition(beanName,getZdryzbDm(),null,false,null); 
+		registerBeanDefinition(beanName,getZdryzbDm(),null,null); 
 		return (ZdryService)  getBean(beanName);
 	}
 	
@@ -65,8 +65,19 @@ public class ZdryFactory implements ZdryAbstractFactory {
 		return beanFactory.getBean(beanName); 
 	}
 
-	private void registerBeanDefinition(String beanName,String className,Object constructorArgValue,boolean reRegister,Zdry zdry){
-		if (!beanFactory.containsBean(beanName)||reRegister ) {  
+	/**
+	 * 
+	 * @Title: registerBeanDefinition
+	 * @Description: (注册重点人员类别BEAN)
+	 * @param @param beanName 注册springBean 名称
+	 * @param @param className 注册全路径类名
+	 * @param @param constructorArgValue 构造方法对象注册
+	 * @param @param zdry   注册重点人员成员变量 
+	 * @return void    返回类型
+	 * @throws
+	 */
+	private void registerBeanDefinition(String beanName,String className,Object constructorArgValue,Zdry zdry){
+		if (!beanFactory.containsBean(beanName) ) {  
 			BeanDefinitionBuilder bdb = BeanDefinitionBuilder.rootBeanDefinition(className);  
 //			bdb.setScope("prototype"); 
 			if(constructorArgValue != null)
