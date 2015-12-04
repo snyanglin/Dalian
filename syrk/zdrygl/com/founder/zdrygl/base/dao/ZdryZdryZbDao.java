@@ -240,4 +240,10 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 			map.put("zdrylx", zdrylx);
 			return (ZdryGzb) queryForObject("ZdryGzb.queryLglxByZdrylx", map);
 		}
+
+		public Integer queryCount(String syrkId) {
+		
+				return (Integer) queryForObject("ZdryZdryzb.queryCountBySyrk", syrkId);
+			
+		}
 }

@@ -99,4 +99,8 @@ public interface ZdryZdryzbDaoService {
 	 */
 	public EasyUIPage getQueryList(Map<String,Object> map, EasyUIPage page);				
 		
+	/**
+	 * 
+	 */
+	public Integer  queryCount(String syrkId);
 }

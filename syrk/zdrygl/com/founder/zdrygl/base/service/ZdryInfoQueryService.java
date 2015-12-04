@@ -103,6 +103,10 @@ public class ZdryInfoQueryService extends ZdryQueryService {
 		return zdryZdryZbDao.queryById(zdryzbId);
 	}
 	
+	@Override
+	public Integer queryForCount(String syrkId) {
+		return zdryZdryZbDao.queryCount(syrkId);
+	}
 	/**
 	 * 
 	 * @Title: getChildList

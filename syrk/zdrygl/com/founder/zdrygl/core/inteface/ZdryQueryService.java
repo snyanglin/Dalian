@@ -64,4 +64,6 @@ public abstract class ZdryQueryService {
 	 */
 	public abstract Zdry queryZdryzbById(String zdryId , String zdrygllxdm);
 	
+	public abstract Integer queryForCount(String syrkId);
+	
 }
