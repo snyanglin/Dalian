@@ -39,49 +39,59 @@ public class ZdFail implements JavaDelegate{
 	public ZdryAbstractFactory zdryFactory;
 	@Override
 	public void execute(DelegateExecution arg0) throws Exception {
-		// TODO Auto-generated method stub
-		String zdrylx = (String) arg0.getVariable("zdrylx");
-		ZdryZb zdryzb = (ZdryZb) arg0.getVariable("zdryzb");
-		Zdry zdrylbdx = (Zdry) arg0.getVariable("zdrylbdx");
-		ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
 		
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
 
-		String yjzd_dzid = (String)  arg0.getVariable("yjzd_dzid");
-		String yjzd_dzxz = (String)  arg0.getVariable("yjzd_dzxz");
-		String yjzd_mlpdm = (String)  arg0.getVariable("yjzd_mlpdm");
-		String yjzd_mlpxz = (String)  arg0.getVariable("yjzd_mlpxz");
-		String yjzd_xzqhdm = (String)  arg0.getVariable("yjzd_xzqhdm");
-		String yjzd_zbx = (String)  arg0.getVariable("yjzd_zbx");
-		String yjzd_zby = (String)  arg0.getVariable("yjzd_zby");
-		String yglbm = (String)  arg0.getVariable("yglbm");
-		String ryid = (String)  arg0.getVariable("ryid");
-		sessionBean.getExtendMap().put("yglbm", yglbm);		
-		sessionBean.getExtendMap().put("yjzd_dzid", yjzd_dzid);
-		sessionBean.getExtendMap().put("yjzd_dzxz", yjzd_dzxz);		
-		sessionBean.getExtendMap().put("yjzd_mlpdm", yjzd_mlpdm);
-		sessionBean.getExtendMap().put("yjzd_mlpxz", yjzd_mlpxz);	
-		sessionBean.getExtendMap().put("yjzd_xzqhdm", yjzd_xzqhdm);		
-		sessionBean.getExtendMap().put("yjzd_zbx", yjzd_zbx);	
-		sessionBean.getExtendMap().put("yjzd_zby", yjzd_zby);
-		sessionBean.getExtendMap().put("ryid", ryid);
-		sessionBean.getExtendMap().put("xgxpcsdm", (String)  arg0.getVariable("xgxpcsdm"));
-		sessionBean.getExtendMap().put("ygxpcsdm", (String)  arg0.getVariable("ygxpcsdm"));
-		String yzrqdm = (String)  arg0.getVariable("yzrqdm");//原责任区代码
-		sessionBean.getExtendMap().put("yzrqdm", yzrqdm);
+		String zdrylx = (String) arg0.getVariable("zdrylx");
+		ZdryZb zdryzb = (ZdryZb) arg0.getVariable("zdryzb");
+		Zdry zdrylbdx = (Zdry) arg0.getVariable("zdrylbdx");
 		
-		/*String zdryid=(String) arg0.getVariable("zdryid");
-		String zdryxm=(String) arg0.getVariable("xm");
+
+		String yjzd_dzid 	= (String)  arg0.getVariable("yjzd_dzid");
+		String yjzd_dzxz 	= (String)  arg0.getVariable("yjzd_dzxz");
+		String yjzd_mlpdm 	= (String)  arg0.getVariable("yjzd_mlpdm");
+		String yjzd_mlpxz 	= (String)  arg0.getVariable("yjzd_mlpxz");
+		String yjzd_xzqhdm 	= (String)  arg0.getVariable("yjzd_xzqhdm");
+		String yjzd_zbx 	= (String)  arg0.getVariable("yjzd_zbx");
+		String yjzd_zby 	= (String)  arg0.getVariable("yjzd_zby");
+		String yglbm 		= (String)  arg0.getVariable("yglbm");
+		String ryid 		= (String)  arg0.getVariable("ryid");
+		String ygxpcsdm		= (String)  arg0.getVariable("ygxpcsdm");
+		String yzrqdm 		= (String)  arg0.getVariable("yzrqdm");//原责任区代码
 		
-		String ywsqrId=(String) arg0.getVariable("applyUserId");
-		String ywsqr=(String) arg0.getVariable("sqrName");
-		String sfcj=(String) arg0.getVariable("sfcj");
-		String yglbm=(String) arg0.getVariable("ygxzrqdm");
-		String xglbm=(String) arg0.getVariable("sszrqdm");
-		
-		String spr=sessionBean.getUserId();
-		String spbm=sessionBean.getUserOrgCode();*/
+		if(yjzd_dzid != null){
+			zdryzb.setJzd_dzid(yjzd_dzid);
+		}
+		if(yjzd_dzxz != null){
+			zdryzb.setJzd_dzxz(yjzd_dzxz);
+		}
+		if(yjzd_mlpdm != null){
+			zdryzb.setJzd_mlpdm(yjzd_mlpdm);
+		}
+		if(yjzd_mlpxz != null){
+			zdryzb.setJzd_mlpxz(yjzd_mlpxz);
+		}
+		if(yjzd_xzqhdm != null){
+			zdryzb.setJzd_xzqhdm(yjzd_xzqhdm);
+		}
+		if(yjzd_zbx != null){
+			zdryzb.setJzd_zbx(yjzd_zbx);
+		}
+		if(yjzd_zby != null){
+			zdryzb.setJzd_zby(yjzd_zby);
+		}
+		if(yglbm != null){
+			zdryzb.setGlbm(yglbm);
+		}
+		if(ygxpcsdm != null){
+			zdryzb.setGxpcsdm(ygxpcsdm);
+		}
+		if(yzrqdm != null ){
+			zdryzb.setGxzrqdm(yzrqdm);
+		}
+
+		ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
 		zdryService.zdFail(sessionBean);
 	}
 	
