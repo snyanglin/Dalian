@@ -56,25 +56,19 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		zdryService.lg(sessionBean);
 		lg_(sessionBean);
 		
-		Object paraObj = getMessageParam(sessionBean);//获取消息的参数
-		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.LGSQ,paraObj);
-		
 		//put zdryId & name to variables
 		processInstance.setBusinessKey(zdryService.getZdryId());
 		processInstance.getVariables().put("zdryId", zdryService.getZdryId());
 		
-		if(checkWorkFlow()) {
-			if(processInstance != null && StringUtils.isEmpty(processInstance.getProcessKey())){
-				throw new BussinessException("缺少流程启动参数！");
-			}else{
-				processDefinitionService.startProcessInstance(processInstance.getApplyUserId(),processInstance.getProcessKey(), processInstance.getBusinessKey(), processInstance.getVariables());
-			}
-		}
+		if(checkWorkFlow())
+			startProcessInstance();
 	}
 
 	@Override
 	public final void lgSuccess(SessionBean sessionBean) {
-		zdryService.lgSuccess(sessionBean);		
+		zdryService.lgSuccess(sessionBean);	
+		Object paraObj = getMessageParam(sessionBean);//获取消息的参数
+		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.LGSQ,paraObj);
 	}
 
 	@Override
@@ -90,13 +84,8 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		processInstance.setBusinessKey(zdryService.getZdryId());
 		processInstance.getVariables().put("zdryId", zdryService.getZdryId());
 		
-		if(checkWorkFlow()) {
-			if(processInstance != null && StringUtils.isEmpty(processInstance.getProcessKey())){
-				throw new BussinessException("缺少流程启动参数！");
-			}else{
-				processDefinitionService.startProcessInstance(processInstance.getApplyUserId(),processInstance.getProcessKey(), processInstance.getBusinessKey(), processInstance.getVariables());
-			}
-		}
+		if(checkWorkFlow())
+			startProcessInstance();
 	}
 
 	@Override
@@ -113,13 +102,8 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	public final void zl(SessionBean sessionBean) {
 		//转类（小类）不涉及子表的修改
 		zdryService.zl(sessionBean);//新加，改变状态
-		if(checkWorkFlow()) {
-			if(processInstance != null && StringUtils.isEmpty(processInstance.getProcessKey())){
-				throw new BussinessException("缺少流程启动参数！");
-			}else{
-				processDefinitionService.startProcessInstance(processInstance.getApplyUserId(),processInstance.getProcessKey(), processInstance.getBusinessKey(), processInstance.getVariables());
-			}
-		}
+		if(checkWorkFlow())
+			startProcessInstance();
 	}
 
 	@Override
@@ -138,13 +122,8 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	public final void zd(SessionBean sessionBean) {
 		//转递不涉及子表的修改
 		zdryService.zd(sessionBean);//新加，改变状态
-		if(checkWorkFlow()) {
-			if(processInstance != null && StringUtils.isEmpty(processInstance.getProcessKey())){
-				throw new BussinessException("缺少流程启动参数！");
-			}else{
-				processDefinitionService.startProcessInstance(processInstance.getApplyUserId(),processInstance.getProcessKey(), processInstance.getBusinessKey(), processInstance.getVariables());
-			}
-		}
+		if(checkWorkFlow())
+			startProcessInstance();
 	}
 
 	@Override
@@ -173,21 +152,6 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		update_(sessionBean);//子表修改		
 	}
 	
-	/**
-	 * 
-	 * @Title: queryZdryAllInfo
-	 * @Description: TODO(查询重点人员总表和子表)
-	 * @param @param zdryid
-	 * @return void    返回类型
-	 * @throw
-	 */
-//	@Override
-//	public final Zdry[] queryZdryAllInfo(String zdryid) {
-//		Zdry[] zdryArray = zdryService.queryZdryAllInfo(zdryid);
-//		zdryArray[1] = queryZdryInfo_(zdryid);
-//		return zdryArray;
-//	}
-	
 	@Override
 	public Zdry getZdry() {
 		return zdryService.getZdry();
@@ -201,9 +165,8 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	
 	@Override
 	public final void setStartProcessInstance(String processKey, String applyUserId, Map<String,Object> variables){
-		if(processInstance == null){
+		if(processInstance == null) 
 			processInstance = new StartProcessInstance();
-		}
 		processInstance.setProcessKey(processKey);
 		processInstance.setApplyUserId(applyUserId);
 		processInstance.setVariables(variables);
@@ -216,7 +179,6 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	
 	protected abstract void update_(SessionBean sessionBean);
 	
-//	protected abstract Zdry queryZdryInfo_(String zdryid);
 	
 	/**
 	 * 
@@ -248,5 +210,13 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 
 	private boolean checkWorkFlow(){
 		return processDefinitionService != null;
+	}
+	
+	private void startProcessInstance(){
+		if(processInstance != null && StringUtils.isEmpty(processInstance.getProcessKey())){
+			throw new BussinessException("缺少流程启动参数！");
+		}else{
+			processDefinitionService.startProcessInstance(processInstance.getApplyUserId(),processInstance.getProcessKey(), processInstance.getBusinessKey(), processInstance.getVariables());
+		}
 	}
 }
