@@ -29,6 +29,7 @@ public class WorkFlowParametersInitialService {
 			OrgPositionService orgPositionService,
 			ZdryQueryService zdryQueryService) {
 		super();
+		this.zdryConstant = zdryConstant;
 		this.orgOrganizationService = orgOrganizationService;
 		this.orgPositionService = orgPositionService;
 		this.zdryQueryService = zdryQueryService;
@@ -84,7 +85,6 @@ public class WorkFlowParametersInitialService {
 	private void prepareZl(StartProcessInstance spi, SessionBean sessionBean,
 			ZdryVO zdryVO, Map<String, Object> variables) {
 		// TODO Auto-generated method stub
-		String zdrylb=zdryVO.getZdryZdryzb().getZdrylb();
 		String  lrrzrq= sessionBean.getUserOrgCode();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String createTime=formatter.format(new Date());//申请时间
@@ -182,8 +182,6 @@ public class WorkFlowParametersInitialService {
 		} else // 治安
 
 		if (zdryZdryzb.getZdrygllxdm().equals("01")) {
-			ZdryZb zdryZb = (ZdryZb) zdryQueryService.queryById(zdryZdryzb
-					.getId());
 			// if ("0104".equals(zdryZb.getZdrylb())) {
 
 			variables.put("sqlx", "社区矫正人员撤管");// 申请类型
@@ -278,8 +276,6 @@ public class WorkFlowParametersInitialService {
 		} else // 治安
 
 		if (zdryZdryzb.getZdrygllxdm().equals("01")) {
-			ZdryZb zdryZb = (ZdryZb) zdryQueryService.queryById(zdryZdryzb
-					.getId());
 			// if ("0104".equals(zdryZb.getZdrylb())) {
 
 			variables.put("sqlx", "社区矫正人员列管");// 申请类型

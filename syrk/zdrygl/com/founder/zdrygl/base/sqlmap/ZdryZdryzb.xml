@@ -330,4 +330,10 @@
 		<![CDATA[ select ZRQDM from BZDZ_ADD_MLDZDXB where MLDZID=#MLDZID#]]>
 		
 	</select>
+	
+			<!-- 根据查询可以注销的实有人口 是不是重口 -->
+	<select id="queryCountBySyrk" parameterClass="String" resultClass="Integer">
+		<![CDATA[ select count(1) from ZDRY_ZDRYZB_NEW t where t.XT_ZXBZ = '0' and t.SYRKID = #syrkId# and t.GLZT != '4']]>
+		
+	</select>
 </sqlMap>

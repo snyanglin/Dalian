@@ -3,7 +3,6 @@ package com.founder.zdrygl.core.inteface;
 import java.util.Map;
 
 import com.founder.framework.base.entity.SessionBean;
-import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.model.Zdry;
 
 /**
@@ -115,13 +114,13 @@ public interface ZdryService {
 	/**
 	 * 
 	 * @Title: queryZdryAllInfo
-	 * @Description: TODO(查询重点人员总表和各个子表的的信息)
+	 * @Description: (查询重点人员总表和各个子表的的信息)
 	 * @param @param zdryid
-	 * @param @param zdryVO    设定文件
-	 * @return void    返回类型
-	 * @throw
+	 * @param @return    设定文件
+	 * @return Zdry[]    返回类型 [0]重点人员总表，[1]重点人员字表
+	 * @throws
 	 */
-	public void queryZdryAllInfo(String zdryid, ZdryVO zdryVO);
+//	public Zdry[] queryZdryAllInfo(String zdryid);
 	
 	/**
 	 * 

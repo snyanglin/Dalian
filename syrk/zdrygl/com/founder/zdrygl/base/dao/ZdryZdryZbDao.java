@@ -18,17 +18,16 @@ import com.founder.framework.organization.user.bean.OrgUser;
 import com.founder.framework.organization.user.service.OrgUserService;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
-import com.founder.zdrygl.base.model.ZdryGzb;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.inteface.ZdryZdryzbDaoService;
 import com.founder.zdrygl.core.model.Zdry;
 
 @Repository("ZdryZdryZbDao")
 public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
-	
+
 	@Resource(name = "orgUserService")
 	private OrgUserService orgUserService;
-	
+
 	@Resource(name = "orgOrganizationService")
 	private OrgOrganizationService orgOrganizationService;
 
@@ -79,7 +78,7 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 		map.put("zdryZdryzb", zdryZb);
 		return (Zdry)queryForObject("ZdryZdryzb.queryByMap", map);
 	}
-	
+
 	/**
 	 * 查询包括已撤管的重点人员
 	 */
@@ -88,10 +87,10 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 	public List<Zdry> queryListByEntity(Zdry zdryZdryzb, String andCondition) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("andCondition", andCondition);
-		
+
 		ZdryZb zdryZb = (ZdryZb)zdryZdryzb;
 		map.put("zdryZdryzb", zdryZb);
-		
+
 		return (List<Zdry>) super.queryForList("ZdryZdryzb.queryListByMap", map);
 	}
 
@@ -110,7 +109,7 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 		}
 		map.put("sort", sort);
 		map.put("order", order);	
-		
+
 		page.setTotal((Integer) queryForObject("ZdryZdryzb.queryPageCount", map));
 		page.setRows(queryForList("ZdryZdryzb.queryPage", map));
 		return page;
@@ -132,12 +131,12 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 		//entity.setSrid(getSrid());
 		map.put("sort", sort);
 		map.put("order", order);		
-		
+
 		page.setTotal((Integer) queryForObject("ZdryZdryzb.getQeryListCount", map));
 		page.setRows(queryForList("ZdryZdryzb.getQeryList", map));
 		return page;
 	}		
-	
+
 	/**
 	 * 
 	 * @Title: getOrganizationNameByOrgCode
@@ -154,7 +153,7 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 		}
 		return null;
 	}
-	
+
 	public OrgOrganization getOrganizationByOrgCode(String orgCode) {
 		return orgOrganizationService.queryByOrgcode(orgCode);
 	}
@@ -169,14 +168,14 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 	 * @throw
 	 */
 	public String getOrgUserNameByUserId(String userId) {
-		
+
 		OrgUser fsr = this.getOrgUserByUserId(userId);
 		if(fsr != null){
 			return fsr.getUsername();
 		}
 		return null;
 	}
-	
+
 	public OrgUser getOrgUserByUserId(String userId) {
 		return orgUserService.queryByUserid(userId);
 	}
@@ -191,59 +190,40 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 	public String queryHjdZrqdm(String MLDZID){
 		return (String) queryForObject("ZdryZdryzb.queryHjdZrqdm", MLDZID);
 	}			
-		
-		public String getZdrygllxdm(String zdryzbId){
-			
-			if("05".equals(zdryzbId)){
-				return "在规则引擎中查询远程数据有希望了！！！！！！！！";
-			}else{
-				return "测试的不太成功啊!";
+
+	/**
+	 * 查询上级部门对应岗位的人员userCode
+	 * 
+	 * @param orgCode 组织OrgCode
+	 * @param pos 岗位编码
+	 * @return List[String] (userid)
+	 */
+	public List<String> getParentOrgUserCodeByOrgCodeAndPos(String orgCode,String pos){
+		OrgOrganization org = orgOrganizationService.queryParentOrgByOrgcode(orgCode);
+		OrgAssignPublic orgAssignPublic = new OrgAssignPublic();
+		List<OrgUserInfo> orgUsers = orgAssignPublic.queryUserByOrgAndPos(org.getOrgcode(), pos);
+
+		List<String> userCodes = new ArrayList<String>();
+
+		if(orgUsers != null){
+			for(OrgUserInfo userInfo : orgUsers){
+				userCodes.add(userInfo.getUserid());
 			}
-			
-		}
-		
-		/**
-		 * 查询上级部门对应岗位的人员userCode
-		 * 
-		 * @param orgCode 组织OrgCode
-		 * @param pos 岗位编码
-		 * @return List[String] (userid)
-		 */
-		public List<String> getParentOrgUserCodeByOrgCodeAndPos(String orgCode,String pos){
-			 OrgOrganization org = orgOrganizationService.queryParentOrgByOrgcode(orgCode);
-			 OrgAssignPublic orgAssignPublic = new OrgAssignPublic();
-			 List<OrgUserInfo> orgUsers = orgAssignPublic.queryUserByOrgAndPos(org.getOrgcode(), pos);
-			 
-			 List<String> userCodes = new ArrayList<String>();
-			 
-			 if(orgUsers != null){
-				for(OrgUserInfo userInfo : orgUsers){
-					userCodes.add(userInfo.getUserid());
-				}
-			 }
-			 
-			 return userCodes;
-		}
-		/**
-		 * 
-		 * @Title: queryByZdrylx
-		 * @Description: TODO(这里用一句话描述这个方法的作用)
-		 * @param @param zdrylx 重点人员类型
-		 * @param @param qydm  区域代码
-		 * @param @return    设定文件
-		 * @return ZdryGzb    返回类型
-		 * @throws
-		 */
-		public ZdryGzb queryByZdrylx(String zdrylx, String qydm) {
-			Map<String,String> map=new HashMap<String,String>();
-			map.put("qydm", qydm);
-			map.put("zdrylx", zdrylx);
-			return (ZdryGzb) queryForObject("ZdryGzb.queryLglxByZdrylx", map);
 		}
 
-		public Integer queryCount(String syrkId) {
-		
-				return (Integer) queryForObject("ZdryZdryzb.queryCountBySyrk", syrkId);
-			
-		}
+		return userCodes;
+	}
+
+	/**
+	 * 
+	 * @Title: queryCount
+	 * @Description: (统计是syrk是否是重点人员)
+	 * @param @param syrkId 实有人口ID
+	 * @param @return    返回实有人口ID
+	 * @return Integer    返回类型
+	 * @throws
+	 */
+	public Integer queryCount(String syrkId) {
+		return (Integer) queryForObject("ZdryZdryzb.queryCountBySyrk", syrkId);
+	}
 }

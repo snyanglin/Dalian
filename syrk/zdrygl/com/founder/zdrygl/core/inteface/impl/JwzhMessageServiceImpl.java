@@ -5,10 +5,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.founder.framework.exception.BussinessException;
+import com.founder.zdrygl.base.message.SysMessage;
 import com.founder.zdrygl.core.inteface.JwzhMessageService;
 import com.founder.zdrygl.core.inteface.SendMessageService;
 import com.founder.zdrygl.core.inteface.SysMessageInfoService;
-import com.founder.zdrygl.core.model.SysMessage;
 
 /**
  * ****************************************************************************
@@ -49,7 +49,7 @@ public class JwzhMessageServiceImpl implements JwzhMessageService {
 		if(sysMessage.getStatus()!=0){
 			throw new BussinessException(sysMessage.getErrorMessage());
 		}
-//		sendMessageService.sendMessage(sysMessage,jslx,jsdx);
+		sendMessageService.sendMessage(sysMessage,sysMessage.getJslx(),sysMessage.getJsr());
 	}
 	
 

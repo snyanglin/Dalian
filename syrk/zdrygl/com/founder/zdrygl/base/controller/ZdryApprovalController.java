@@ -7,9 +7,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.activiti.engine.FormService;
-import org.activiti.engine.form.FormProperty;
-import org.activiti.engine.form.TaskFormData;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +33,7 @@ import com.founder.syrkgl.service.SyrkSyrkxxzbService;
 import com.founder.workflow.bean.JExecution;
 import com.founder.workflow.bean.JHistoricTaskInstance;
 import com.founder.workflow.bean.JTask;
+import com.founder.workflow.service.inteface.JFormService;
 import com.founder.workflow.service.inteface.JHistoryService;
 import com.founder.workflow.service.inteface.JProcessDefinitionService;
 import com.founder.workflow.service.inteface.JProcessManageService;
@@ -99,7 +97,7 @@ public class ZdryApprovalController extends BaseController {
 	@Autowired
 	protected JHistoryService historyService;
 	@Autowired
-	protected FormService formService;
+	protected JFormService formService;
 
 	/**
 	 * 
@@ -117,15 +115,12 @@ public class ZdryApprovalController extends BaseController {
 		ModelAndView mv = new ModelAndView("zdrygl/zdryApproval");
 		
 		JTask task = taskService.findJTaskbyTaskId(workflowId);
-		TaskFormData formData = formService.getTaskFormData(workflowId);
-		Map<String, Object>  taskProps = transform(formData.getFormProperties());
-		//Map<String, Object>  variables = processDefinitionService.getVariables(executionId);
+		Map<String, Object>  taskProps = formService.getTaskFormProperties(workflowId);
 		//获取审批类型和审批岗位
 		if(taskProps.size() > 0){
 			Object splxObj = taskProps.get("splx");
 			if(splxObj != null){
-				FormProperty splxFp = (FormProperty)splxObj;
-				String splx = splxFp == null?null:splxFp.getValue();
+				String splx = splxObj == null?null:splxObj.toString();
 				mv.addObject("splx", splx);
 			}else{
 				//用来触发界面form上岗位及人员选择的元素的隐藏
@@ -133,8 +128,7 @@ public class ZdryApprovalController extends BaseController {
 			}
 			Object spgwObj = taskProps.get("spgw");
 			if(spgwObj != null){
-				FormProperty spgwFp = (FormProperty)spgwObj;
-				String posCode = spgwFp==null?null:spgwFp.getValue();//== posId
+				String posCode = spgwObj==null?null:spgwObj.toString();
 				OrgPosition  position = orgPositionService.queryByPosid(posCode);
 				mv.addObject("position", position);
 			}
@@ -146,7 +140,7 @@ public class ZdryApprovalController extends BaseController {
 		mv.addObject("approvalMethod", approvalMethod);
 		mv.addObject("varMap",processDefinitionService.getVariables(executionId));
 		//1, 表示只显示岗位；2，表示还需显示人员列表 
-		//mv.addObject("sqlxdm", sqlxdm);
+		//mv.addObject("sqlxdm", sqlxdm); 
 		Object renderedTaskForm = formService.getRenderedTaskForm(workflowId);
 		String pdKey = processDefinitionService.getProcessDefinitionKey(task.getProcessDefinitionId());
 		mv.addObject("procDefKey",pdKey);
@@ -154,26 +148,7 @@ public class ZdryApprovalController extends BaseController {
 		mv.addObject("renderedTaskForm", (String) renderedTaskForm);
 		return mv;
 	}
-	/**
-	 * 
-	 * @Title: transform
-	 * @Description: translate List to map
-	 * @param @param formProperties
-	 * @param @return    设定文件
-	 * @return Map<String,Object>    返回类型
-	 * @throws
-	 */
-	private Map<String, Object> transform(List<FormProperty> formProperties) {
-		Map<String, Object> resMap = new HashMap<String,Object>();
-		if(formProperties == null || formProperties.size() == 0){
-			return resMap;
-		}else{
-			for(FormProperty fp: formProperties){
-				resMap.put(fp.getId(), fp);
-			}
-		}
-		return resMap;
-	}
+	
 
 	/**
 	 * 

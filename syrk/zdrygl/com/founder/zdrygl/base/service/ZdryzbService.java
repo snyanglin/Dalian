@@ -15,15 +15,12 @@ import com.founder.framework.annotation.ParaAnnotation;
 import com.founder.framework.annotation.TypeAnnotation;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
-import com.founder.framework.config.SystemConfig;
 import com.founder.framework.utils.UUID;
 import com.founder.syrkgl.bean.RyRyjbxxb;
 import com.founder.syrkgl.service.RyRyjbxxbService;
 import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
-import com.founder.zdrygl.base.model.ZdryGzb;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrycg;
-import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
@@ -162,33 +159,18 @@ public class ZdryzbService implements ZdryService {
 
 	@Override
 	public void zdSuccess(SessionBean sessionBean) {
-		if(sessionBean.getExtendMap().get("xglbm")!=null){
-			zdryzb.setGlbm(sessionBean.getExtendMap().get("xglbm"));
-			zdryzb.setGxbm(sessionBean.getExtendMap().get("xglbm"));
-		}
-		if(sessionBean.getExtendMap().get("ryid")!=null){
-			zdryzb.setRyid(sessionBean.getExtendMap().get("ryid"));
-		}
-		if(sessionBean.getExtendMap().get("sszrqdm")!=null){
-			zdryzb.setGxzrqdm(sessionBean.getExtendMap().get("sszrqdm"));
-		}
-
-		String xgxpcsdm = sessionBean.getExtendMap().remove("xgxpcsdm");
-		if(xgxpcsdm != null){
-			zdryzb.setGxpcsdm(xgxpcsdm);
-		}
+		
 		//先把管辖部门和管理部门设置相同，如果是双列管，再设置为户籍地管理部门
-		ZdryGzb zdryGzb=zdryZdryZbDao.queryByZdrylx(zdryzb.getZdrygllxdm(),SystemConfig.getString("zdryQY"));
-		if(zdryGzb!=null && "1".equals(zdryGzb.getSfslg())){//双列管，查询户籍地管理部门
-			RyRyjbxxb ryjbxxb=ryRyjbxxbService.queryById(zdryzb.getRyid());//人员基本信息	
-			if(ryjbxxb!=null && ryjbxxb.getHjd_mlpdm()!= null){
-//				String zdry_hjd_zrqdm = dzService.queryMldzDx(ryjbxxb.getHjd_mlpdm()).getZrqdm();
-				String gxbm=zdryZdryZbDao.queryHjdZrqdm(ryjbxxb.getHjd_mlpdm());
-				if(gxbm!=null && gxbm.length()>0)
-					zdryzb.setGxbm(gxbm);
-			}
+		//ZdryGzb zdryGzb=zdryZdryZbDao.queryByZdrylx(zdryzb.getZdrygllxdm(),SystemConfig.getString("zdryQY"));
+		//if(zdryGzb!=null && "1".equals(zdryGzb.getSfslg())){//双列管，查询户籍地管理部门
+		RyRyjbxxb ryjbxxb=ryRyjbxxbService.queryById(zdryzb.getRyid());//人员基本信息	
+		if(ryjbxxb!=null && ryjbxxb.getHjd_mlpdm()!= null){
+			//String zdry_hjd_zrqdm = dzService.queryMldzDx(ryjbxxb.getHjd_mlpdm()).getZrqdm();
+			String gxbm=zdryZdryZbDao.queryHjdZrqdm(ryjbxxb.getHjd_mlpdm());
+			if(gxbm!=null && gxbm.length()>0)
+				zdryzb.setGxbm(gxbm);
 		}
-		removeTempAttributes(sessionBean);
+		//}
 		zdryzb.setGlzt(ZdryConstant.YLG);
 		
 		//deleteZdry(sessionBean,zdryzb);
@@ -197,75 +179,9 @@ public class ZdryzbService implements ZdryService {
 
 	@Override
 	public void zdFail(SessionBean sessionBean) {
-		String yjzd_dzid = sessionBean.getExtendMap().get("yjzd_dzid");
-		String yjzd_dzxz = sessionBean.getExtendMap().get("yjzd_dzxz");
-		String yjzd_mlpdm = sessionBean.getExtendMap().get("yjzd_mlpdm");
-		String yjzd_mlpxz = sessionBean.getExtendMap().get("yjzd_mlpxz");
-		String yjzd_xzqhdm = sessionBean.getExtendMap().get("yjzd_xzqhdm");
-		String yjzd_zbx = sessionBean.getExtendMap().get("yjzd_zbx");
-		String yjzd_zby = sessionBean.getExtendMap().get("yjzd_zby");
-		String yglbm = sessionBean.getExtendMap().get("yglbm");
-
-		String ygxpcsdm = sessionBean.getExtendMap().remove("ygxpcsdm");
-		if(yjzd_dzid != null){
-			zdryzb.setJzd_dzid(yjzd_dzid);
-		}
-		if(yjzd_dzxz != null){
-			zdryzb.setJzd_dzxz(yjzd_dzxz);
-		}
-		if(yjzd_mlpdm != null){
-			zdryzb.setJzd_mlpdm(yjzd_mlpdm);
-		}
-		if(yjzd_mlpxz != null){
-			zdryzb.setJzd_mlpxz(yjzd_mlpxz);
-		}
-		if(yjzd_xzqhdm != null){
-			zdryzb.setJzd_xzqhdm(yjzd_xzqhdm);
-		}
-		if(yjzd_zbx != null){
-			zdryzb.setJzd_zbx(yjzd_zbx);
-		}
-		if(yjzd_zby != null){
-			zdryzb.setJzd_zby(yjzd_zby);
-		}
-		if(yglbm != null){
-			zdryzb.setGlbm(yglbm);
-		}
-		if(ygxpcsdm != null){
-			zdryzb.setGxpcsdm(ygxpcsdm);
-		}
-		if(sessionBean.getExtendMap().get("ryid")!=null){
-			zdryzb.setRyid(sessionBean.getExtendMap().get("ryid"));
-		}
-		removeTempAttributes(sessionBean);
 		zdryzb.setGlzt(ZdryConstant.YLG);
 		zdryzb.setXt_zxbz("0");
 		updateZdry(sessionBean,zdryzb);
-	}
-	/**
-	 * 
-	 * @Title: removeTempAttributes
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
-	 * @param @param sessionBean    设定文件
-	 * @return void    返回类型
-	 * @throws
-	 */
-	private void removeTempAttributes(SessionBean sessionBean) {
-		sessionBean.getExtendMap().remove("yjzd_dzid");
-		sessionBean.getExtendMap().remove("yjzd_dzxz");
-		sessionBean.getExtendMap().remove("yjzd_mlpdm");
-		sessionBean.getExtendMap().remove("yjzd_mlpxz");
-		sessionBean.getExtendMap().remove("yjzd_xzqhdm");
-		sessionBean.getExtendMap().remove("yjzd_zbx");
-		sessionBean.getExtendMap().remove("yjzd_zby");
-		sessionBean.getExtendMap().remove("yglbm");
-		sessionBean.getExtendMap().remove("ryid");
-		//zdsuccess
-		sessionBean.getExtendMap().remove("xglbm");
-		sessionBean.getExtendMap().remove("sszrqdm");
-		sessionBean.getExtendMap().remove("sspcsdm");
-		sessionBean.getExtendMap().remove("xgxpcsdm");
-		sessionBean.getExtendMap().remove("ygxpcsdm");
 	}
 
 	/**
@@ -340,14 +256,15 @@ public class ZdryzbService implements ZdryService {
 	 * @Title: queryZdryAllInfo
 	 * @Description: (查询重点人员总表和子表)
 	 * @param @param zdryid
-	 * @param @param zdryVO    设定文件
 	 * @return void    返回类型
 	 * @throw
 	 */
-	@Override
-	public void queryZdryAllInfo(String zdryid,ZdryVO zdryVO) {
-		zdryVO.setZdryZdryzb((ZdryZb)zdryZdryZbDao.queryById(zdryid));
-	}
+//	@Override
+//	public Zdry[] queryZdryAllInfo(String zdryid) {
+//		Zdry[] zdry = new Zdry[1];
+//		zdry[0] = zdryZdryZbDao.queryById(zdryid);
+//		return zdry;
+//	}
 
 	@Override
 	public Map<String, String> getZdryXmAndZdrylxName() {

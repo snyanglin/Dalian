@@ -3,14 +3,32 @@ package com.founder.zdrygl.base.message;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import com.founder.framework.exception.BussinessException;
 import com.founder.zdrygl.core.inteface.SendMessageService;
-import com.founder.zdrygl.core.model.SysMessage;
 
+/**
+ * ****************************************************************************
+ * @Package:      [com.founder.zdrygl.base.message.SendMessageServiceImpl.java]  
+ * @ClassName:    [SendMessageServiceImpl]   
+ * @Description:  [消息发送服务实现]   
+ * @Author:       [wei.wen@founder.com.cn]  
+ * @CreateDate:   [2015年12月4日 下午2:12:47]   
+ * @UpdateUser:   [wei.wen@founder.com.cn(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年12月4日 下午2:12:47，(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
+ * @Version:      [v1.0]
+ */
 @Service
 public class SendMessageServiceImpl implements SendMessageService {
+	
+	@Resource(name = "sysMessageDao2")
+	private SysMessageDao sysMessageDao;
+	
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void sendMessage(SysMessage sysMessage, String jslx,Object jsdx) {
@@ -119,8 +137,7 @@ public class SendMessageServiceImpl implements SendMessageService {
 	 */
 	private void sendMessageToUser(SysMessage sysMessage, String userCode) {
 		sysMessage.setJslx("0");//0 按人  1 按部门
-		System.out.println("发送给个人:"+userCode);
-		System.out.println(sysMessage.getXxnr());
+		sysMessageDao.saveMessage(sysMessage);
 	}
 
 	/**
