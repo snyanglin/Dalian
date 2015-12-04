@@ -12,6 +12,18 @@ import com.founder.framework.organization.user.service.OrgUserService;
 import com.founder.zdrygl.core.inteface.SysMessageInfoService;
 import com.founder.zdrygl.core.model.SysMessage;
 
+/**
+ * ****************************************************************************
+ * @Package:      [com.founder.zdrygl.base.message.SysMessageInfoServiceImpl.java]  
+ * @ClassName:    [SysMessageInfoServiceImpl]   
+ * @Description:  [用规则消息实现代替]   
+ * @Author:       [wei.wen@founder.com.cn]  
+ * @CreateDate:   [2015年12月2日 下午5:35:41]   
+ * @UpdateUser:   [wei.wen@founder.com.cn(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年12月2日 下午5:35:41，(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
+ * @Version:      [v1.0]
+ */
 public class SysMessageInfoServiceImpl implements SysMessageInfoService {
 	
 	@Resource(name = "orgOrganizationService")
@@ -111,7 +123,7 @@ public class SysMessageInfoServiceImpl implements SysMessageInfoService {
 	 * @return String    返回类型
 	 * @throw
 	 */
-	private String getXxInfo(String xxlx,Map paraMap){
+	private String getXxInfo(String xxlx,Map<String,String> paraMap){
 		String xxinfo = "";
 //		ZdryZb zdryZb =(ZdryZb) paraMap.get("zdryZb");
 //		if (MessageDict.XXLX_LGSQ.equals(xxlx)) {

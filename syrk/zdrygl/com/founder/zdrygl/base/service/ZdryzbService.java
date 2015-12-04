@@ -20,12 +20,10 @@ import com.founder.framework.utils.UUID;
 import com.founder.syrkgl.bean.RyRyjbxxb;
 import com.founder.syrkgl.service.RyRyjbxxbService;
 import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
-import com.founder.zdrygl.base.message.MessageDict;
 import com.founder.zdrygl.base.model.ZdryGzb;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrycg;
 import com.founder.zdrygl.base.vo.ZdryVO;
-import com.founder.zdrygl.core.inteface.JwzhMessageService;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
@@ -58,16 +56,12 @@ public class ZdryzbService implements ZdryService {
 	@Autowired
 	private ZdryZdryZbDao zdryZdryZbDao;	
 	
+	@Autowired
+	private ZdryConstant zdryConstant;
+	
 	@Resource(name = "ryRyjbxxbService")
 	private RyRyjbxxbService ryRyjbxxbService;
-	
-	 @Autowired
-	 private JwzhMessageService jwzhMessageService;
-	
-/*
-	@Resource(name = "dzService")
-	private DzService dzService;
-*/
+ 
 	@MethodAnnotation(value = "列管", type = logType.insert)
 	@Override
 	public void lg(SessionBean sessionBean) {
@@ -82,18 +76,11 @@ public class ZdryzbService implements ZdryService {
 	public void lgSuccess(SessionBean sessionBean) {
 		zdryzb.setGlzt(ZdryConstant.YLG);
 		updateZdry(sessionBean,zdryzb);
-		
-		Map paraObj = getMessageParam(sessionBean);//获取消息的参数
-		paraObj.put("result", "lgSuccess");
-		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.LGSPJG,paraObj);
 	}
 
 	@Override
 	public void lgFail(SessionBean sessionBean) {
 		deleteZdry(sessionBean,zdryzb);
-		Map paraObj = getMessageParam(sessionBean);//获取消息的参数
-		paraObj.put("result", "lgFail");
-		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.LGSPJG,paraObj);
 	}
 
 	@MethodAnnotation(value = "撤管", type = logType.update)
@@ -118,10 +105,6 @@ public class ZdryzbService implements ZdryService {
 			zdryzb.setGlzt(ZdryConstant.YLG);
 			updateZdry(sessionBean,zdryzb);
 		}
-		
-		Map paraObj = getMessageParam(sessionBean);//获取消息的参数
-		paraObj.put("result", "cgSuccess");
-		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.CGSPJG,paraObj);
 	}
 
 	@Override
@@ -134,10 +117,6 @@ public class ZdryzbService implements ZdryService {
 		if(!isDelete()){
 			deleteZdry(sessionBean,zdryzb);
 		}
-		
-		Map paraObj = getMessageParam(sessionBean);//获取消息的参数
-		paraObj.put("result", "cgFail");
-		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.CGSPJG,paraObj);
 	}
 
 	@MethodAnnotation(value = "转类", type = logType.update)
@@ -214,10 +193,6 @@ public class ZdryzbService implements ZdryService {
 		
 		//deleteZdry(sessionBean,zdryzb);
 		zdryZdryZbDao.update(zdryzb);
-		
-		
-		Map paraObj = getMessageParam(sessionBean);//获取消息的参数		
-		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDSPJG,paraObj);
 	}
 
 	@Override
@@ -266,7 +241,6 @@ public class ZdryzbService implements ZdryService {
 		zdryzb.setGlzt(ZdryConstant.YLG);
 		zdryzb.setXt_zxbz("0");
 		updateZdry(sessionBean,zdryzb);
-		
 	}
 	/**
 	 * 
@@ -297,7 +271,7 @@ public class ZdryzbService implements ZdryService {
 	/**
 	 * 
 	 * @Title: update
-	 * @Description: TODO(修改)
+	 * @Description: TODO (修改)
 	 * @param @param sessionBean    设定文件
 	 * @return void    返回类型
 	 * @throw
@@ -358,7 +332,6 @@ public class ZdryzbService implements ZdryService {
 	@Override
 	@Deprecated  
 	public void setStartProcessInstance(String processKey, String applyUserId, Map<String, Object> variables) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -375,24 +348,12 @@ public class ZdryzbService implements ZdryService {
 	public void queryZdryAllInfo(String zdryid,ZdryVO zdryVO) {
 		zdryVO.setZdryZdryzb((ZdryZb)zdryZdryZbDao.queryById(zdryid));
 	}
-	
-	/**
-	 * 
-	 * @Title: getMessageParam
-	 * @Description: TODO(获取消息生产需要的参数)
-	 * @param @param paraObj
-	 * @param @return    设定文件
-	 * @return Object    返回类型
-	 * @throw
-	 */
-	protected Map getMessageParam(SessionBean sessionBean){
-        Map<String,Object> paramObj = new HashMap<String,Object>();
-        paramObj.put("fsrName", sessionBean.getUserName());//发送人姓名
-        paramObj.put("fsrUserCode", sessionBean.getUserId());//发送人代码	
-        paramObj.put("fsrOrgName", sessionBean.getUserOrgName());//发送人机构名
-        paramObj.put("fsrOrgCode", sessionBean.getUserOrgCode());//发送人机构代码
-        paramObj.put("zdryGllxdm",((ZdryZb)this.getZdry()).getZdrygllxdm());
-        paramObj.put("zdryName",((ZdryZb)this.getZdry()).getXm());        
-        return paramObj;
+
+	@Override
+	public Map<String, String> getZdryXmAndZdrylxName() {
+		Map<String, String> map = new HashMap<String,String>();
+		map.put("zdryName", zdryzb.getXm());
+		map.put("zdrylxName", zdryConstant.getValueOfZdryDict(zdryzb.getZdrygllxdm()));
+		return map;
 	}
 }

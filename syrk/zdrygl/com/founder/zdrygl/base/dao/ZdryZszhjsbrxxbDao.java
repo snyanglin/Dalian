@@ -5,7 +5,6 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
-import com.founder.zdrygl.base.model.ZdryJgdxxxb;
 import com.founder.zdrygl.base.model.ZdryZszhjsbrxxb;
 import com.founder.zdrygl.core.inteface.ZdryGllxEntityDaoService;
 import com.founder.zdrygl.core.model.Zdry;

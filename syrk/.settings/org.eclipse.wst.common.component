@@ -27,7 +27,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/jfxt"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/zykc"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/shhxxcj"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/zdry"/>
         <property name="java-output-path" value="/syrk/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="/syrk"/>
     </wb-module>

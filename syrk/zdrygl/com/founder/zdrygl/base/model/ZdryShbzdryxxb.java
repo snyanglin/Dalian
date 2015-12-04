@@ -13,7 +13,7 @@ import com.founder.zdrygl.core.model.Zdry;
  * ****************************************************************************
  * @Package:      [com.founder.zdrygl.bean.ZdryShbzdryxxb.java]  
  * @ClassName:    [ZdryShbzdryxxb]   
- * @Description:  [一句话描述该类的功能]   
+ * @Description:  [涉环保重点人员]   
  * @Author:       [wu_chunhui@founder.com.cn]  
  * @CreateDate:   [2015年8月3日 下午2:33:04]   
  * @UpdateUser:   [Administrator(如多次修改保留历史记录，增加修改记录)]   
@@ -110,11 +110,11 @@ public class ZdryShbzdryxxb extends BaseEntity  implements Serializable,Zdry{
 	@FieldDesc("备注")
 	private String bz;
 	
-	private String ryid;
+/** TODO 不确定有用没
+ * 	private String ryid;
 	
 	private String qx;//view和edit
-	
-	
+
 	
 	public String getQx() {
 		return qx;
@@ -122,18 +122,20 @@ public class ZdryShbzdryxxb extends BaseEntity  implements Serializable,Zdry{
 	public void setQx(String qx) {
 		this.qx = qx;
 	}
+	public String getRyid() {
+		return ryid;
+	}
+	public void setRyid(String ryid) {
+		this.ryid = ryid;
+	}*/	
+	
 	public String getZywtjxsbx() {
 		return zywtjxsbx;
 	}
 	public void setZywtjxsbx(String zywtjxsbx) {
 		this.zywtjxsbx = zywtjxsbx;
 	}
-	public String getRyid() {
-		return ryid;
-	}
-	public void setRyid(String ryid) {
-		this.ryid = ryid;
-	}
+	
 	public String getId() {
 		return id;
 	}

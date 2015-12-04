@@ -23,7 +23,7 @@ public interface ZdryService {
 	/**
 	 * 
 	 * @Title: lg
-	 * @Description: TODO(重点人员列管)
+	 * @Description: (重点人员列管)
 	 * @param @param sessionBean    设定文件
 	 * @return void    返回类型
 	 * @throw
@@ -37,7 +37,7 @@ public interface ZdryService {
 	/**
 	 * 
 	 * @Title: cg
-	 * @Description: TODO(重点人员撤管)
+	 * @Description: (重点人员撤管)
 	 * @param @param sessionBean    设定文件
 	 * @return void    返回类型
 	 * @throw
@@ -51,7 +51,7 @@ public interface ZdryService {
 	/**
 	 * 
 	 * @Title: zl
-	 * @Description: TODO(重点人员转类)
+	 * @Description: (重点人员转类)
 	 * @param @param sessionBean    设定文件
 	 * @return void    返回类型
 	 * @throw
@@ -65,7 +65,7 @@ public interface ZdryService {
 	/**
 	 * 
 	 * @Title: zd
-	 * @Description: TODO(重点人员转递)
+	 * @Description: (重点人员转递)
 	 * @param @param sessionBean    设定文件
 	 * @return void    返回类型
 	 * @throw
@@ -79,7 +79,7 @@ public interface ZdryService {
 	/**
 	 * 
 	 * @Title: update
-	 * @Description: TODO(重点人员修改)
+	 * @Description: (重点人员修改)
 	 * @param @param sessionBean    设定文件
 	 * @return void    返回类型
 	 * @throw
@@ -105,7 +105,7 @@ public interface ZdryService {
 	/**
 	 * 
 	 * @Title: getZdryId
-	 * @Description: TODO(获取重点人员总表的ID)
+	 * @Description: (获取重点人员总表的ID)
 	 * @param @return    设定文件
 	 * @return String    返回类型
 	 * @throw
@@ -122,6 +122,16 @@ public interface ZdryService {
 	 * @throw
 	 */
 	public void queryZdryAllInfo(String zdryid, ZdryVO zdryVO);
+	
+	/**
+	 * 
+	 * @Title: getZdryXmAndZdrylxName
+	 * @Description: (返回重点人员姓名与类别中文 MAP， 消息用)
+	 * @param @return    设定文件
+	 * @return Map<String,String>    返回类型
+	 * @throws
+	 */
+	public Map<String,String> getZdryXmAndZdrylxName();
 
 	
 }

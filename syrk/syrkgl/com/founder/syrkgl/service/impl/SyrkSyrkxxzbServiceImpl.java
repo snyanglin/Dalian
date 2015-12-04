@@ -43,7 +43,9 @@ import com.founder.syrkgl.service.RyRylxfsxxbService;
 import com.founder.syrkgl.service.RyRyzjxxbService;
 import com.founder.syrkgl.service.SyrkSyrkxxzbService;
 import com.founder.syrkgl.vo.SyrkAddVO;
-import com.founder.zdry.service.ZdryZdryzbService;
+import com.founder.zdrygl.base.service.ZdryInfoQueryService;
+
+
 
 /**
  * ****************************************************************************
@@ -100,9 +102,10 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 
 	@Resource(name = "gisService")
 	private GisService gisService;
-	@Resource(name="zdryZdryzbService")
-	private ZdryZdryzbService zdryZdryzbService;
-
+	
+	@Resource(name = "zdryQueryService")
+	private ZdryInfoQueryService zdryQueryService;
+	
 	@Resource(name = "orgOrganizationService")
 	private OrgOrganizationService orgOrganizationService;
 	
@@ -644,7 +647,7 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 		String errorMessage="";
 		if ("1".equals(entity.getSyrkywlxdm())) {
 			//判断是否为重点人口
-			int zdrkCount = zdryZdryzbService.queryForCount(entity.getCzrk().getId());
+			int zdrkCount = zdryQueryService.queryForCount(entity.getCzrk().getId());
             if(zdrkCount>0){
             	errorMessage="此实有人口是重点人口，不能注销";
             	return errorMessage;
@@ -660,7 +663,7 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 			syrk.setXt_zxbz(entity.getCzrk().getXt_zxbz());
 		} else if ("2".equals(entity.getSyrkywlxdm())) {
 			//判断是否为重点人口
-			int zdrkCount = zdryZdryzbService.queryForCount(entity.getJzrk().getId());
+			int zdrkCount = zdryQueryService.queryForCount(entity.getJzrk().getId());
             if(zdrkCount>0){
             	errorMessage="此实有人口是重点人口，不能注销";
             	return errorMessage;
@@ -675,7 +678,7 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 			syrk.setXt_zxbz(entity.getJzrk().getXt_zxbz());
 		} else if ("3".equals(entity.getSyrkywlxdm())) {
 			//判断是否为重点人口
-			int zdrkCount = zdryZdryzbService.queryForCount(entity.getLdrk().getId());
+			int zdrkCount = zdryQueryService.queryForCount(entity.getLdrk().getId());
             if(zdrkCount>0){
             	errorMessage="此实有人口是重点人口，不能注销";
             	return errorMessage;
@@ -690,7 +693,7 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 			syrk.setXt_zxbz(entity.getLdrk().getXt_zxbz());
 		} else if ("4".equals(entity.getSyrkywlxdm())) {
 			//判断是否为重点人口
-			int zdrkCount = zdryZdryzbService.queryForCount(entity.getJwry().getId());
+			int zdrkCount = zdryQueryService.queryForCount(entity.getJwry().getId());
             if(zdrkCount>0){
             	errorMessage="此实有人口是重点人口，不能注销";
             	return errorMessage;
@@ -705,7 +708,7 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 			syrk.setXt_zxbz(entity.getJwry().getXt_zxbz());
 		} else if ("5".equals(entity.getSyrkywlxdm())) {
 			//判断是否为重点人口
-			int zdrkCount = zdryZdryzbService.queryForCount(entity.getWlrk().getId());
+			int zdrkCount = zdryQueryService.queryForCount(entity.getWlrk().getId());
             if(zdrkCount>0){
             	errorMessage="此实有人口是重点人口，不能注销";
             	return errorMessage;

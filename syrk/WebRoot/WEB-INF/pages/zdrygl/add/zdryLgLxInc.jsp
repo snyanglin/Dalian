@@ -90,7 +90,7 @@
 	    	</table>
 	    	
 	    	
-	    	<!-- 非正常访人员 -->
+	    	<!-- 非正常上访人员 -->
 	    	<table id="fzcfryDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;display:none">
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">交控部门：</td>
@@ -171,6 +171,7 @@
 		    	<td width="80%" class="dialogTd"><input type="text" name="zdrySqjzryxxb.pjjgmc" id="sqjzrypjjgmc" class="easyui-validatebox" style="width: 595px;" maxlength="50"  value="${zdryVO.zdrySqjzryxxb.pjjgmc}"
 		    	data-options="validType:['maxLength[50]'],tipPosition:'right',required:false" /></td>
 	    	</tr>
+	    	<!-- 杨林修改过的代码
 	    	<tr>
 	    		<td width="20%" class="dialogTd" align="right">考验截止日期：</td>
 		    	<td width="80%" class="dialogTd"><input type="text" name="zdrySqjzryxxb.ky_jzrq" id="sqjzryky_jzrq" class="easyui-validatebox" style="width: 200px;" value="${zdryVO.zdrySqjzryxxb.ky_jzrq}"
@@ -184,7 +185,7 @@
 		    	</td>
 	    	</tr> 
 			</table>
-			
+			 -->
 			
 	    	  <!-- 涉枪涉爆重点人员 -->
 		    <table id="sqsbzdryDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;display:none">
