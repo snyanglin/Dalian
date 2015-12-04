@@ -1,23 +1,20 @@
 package com.founder.zdrygl.workflow;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
-import org.activiti.engine.delegate.DelegateExecution;
-import org.activiti.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
 
-import com.founder.bzdz.service.DzService;
-import com.founder.bzdz.vo.BzdzxxbVO;
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.position.bean.OrgPosition;
 import com.founder.framework.organization.position.service.OrgPositionService;
-import com.founder.syrkgl.bean.RyRyjbxxb;
-import com.founder.syrkgl.bean.SyrkSyrkxxzb;
 import com.founder.syrkgl.service.RyRyjbxxbService;
 import com.founder.syrkgl.service.SyrkSyrkxxzbService;
-import com.founder.zdrygl.base.model.ZdryZb;
+import com.founder.workflow.bean.BaseWorkFlowBean;
+import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 
 /**
@@ -35,16 +32,13 @@ import com.founder.zdrygl.base.service.ZdryInfoQueryService;
  */
 
 @Component
-public class Zdywjs implements JavaDelegate {
+public class Zdywjs extends WorkflowDelegate {
 
 	@Resource(name = "orgOrganizationService")
 	private OrgOrganizationService orgOrganizationService;
 
 	@Resource(name = "orgPositionService")
 	private OrgPositionService orgPositionService;
-
-	@Resource(name = "dzService")
-	private DzService dzService;
 
 	@Resource(name = "zdryQueryService")
 	private ZdryInfoQueryService zdryQueryService;
@@ -65,17 +59,18 @@ public class Zdywjs implements JavaDelegate {
 	 *
 	 */
 	@Override
-	public void execute(DelegateExecution arg0) throws BussinessException {
+	public void doBusiness(BaseWorkFlowBean arg0) {
+		Map<String,Object> variables = arg0.getProcessVariables();
 		String nextTaskOwner = null;
 		try {
-			String zdrygllxdm = (String) arg0.getVariable("zdrylx");
-			String zdryId = (String) arg0.getVariable("zdryId");
-			String zdryName = (String) arg0.getVariable("zdryName");
-			String lrrzrq = (String) arg0.getVariable("lrrzrq");
-			String cyzjdm =  (String) arg0.getVariable("cyzjdm");
-			String zjhm =  (String) arg0.getVariable("zjhm");
-			String sszrqdm = (String) arg0.getVariable("sszrqdm");//ygxzrqdm
-			String ygxzrqdm = (String) arg0.getVariable("ygxzrqdm");//ygxzrqdm
+			String zdrygllxdm = (String) variables.get("zdrylx");
+			//String zdryId = (String) variables.get("zdryId");
+			String zdryName = (String) variables.get("zdryName");
+			//String lrrzrq = (String) variables.get("lrrzrq");
+			//String cyzjdm =  (String) variables.get("cyzjdm");
+			//String zjhm =  (String) variables.get("zjhm");
+			String sszrqdm = (String) variables.get("sszrqdm");//ygxzrqdm
+			String ygxzrqdm = (String) variables.get("ygxzrqdm");//ygxzrqdm
 			
 			OrgOrganization orgOrganization = new OrgOrganization();
 			/*ZdryZb zdryZb = (ZdryZb) zdryQueryService.queryById(zdryId);
@@ -89,9 +84,9 @@ public class Zdywjs implements JavaDelegate {
 			OrgOrganization targetOrgOrganization = orgOrganizationService.queryByOrgcode(sszrqdm);
 			String taskParameter = targetOrgOrganization.getOrgcode() + "_"
 					+ orgPositionService.queryByPosid("ZRQMJ").getId().toString(); // 责任区部门code+民警岗位ID
-			arg0.setVariableLocal("spmj", taskParameter);
-			arg0.setVariable("xglbm", targetOrgOrganization.getOrgcode());
-			arg0.setVariable("yglbm",orgOrganizationService.queryByOrgcode(ygxzrqdm).getOrgcode());
+			setLocalVariable("spmj", taskParameter);
+			setVariable("xglbm", targetOrgOrganization.getOrgcode());
+			setVariable("yglbm",orgOrganizationService.queryByOrgcode(ygxzrqdm).getOrgcode());
 
 			//设定共同领导
 			//部门相同，不同责任区
@@ -112,20 +107,19 @@ public class Zdywjs implements JavaDelegate {
 				System.out.println("sameParentOrg--> " + sameParentOrg.getOrgcode() );
 				nextTaskOwner = buildTaskOwner(sameParentOrg,newOrgOrganization,zdrygllxdm);
 			}
-			arg0.setVariable("gtld", nextTaskOwner);
+			setVariable("gtld", nextTaskOwner);
 			// set Other parameters
-			arg0.setVariable("zdryName", zdryName);
-			arg0.setVariableLocal("businessType", "0");
-			arg0.setVariableLocal("approvalMethod", "zdmjApproval");
-			arg0.setVariableLocal("org", targetOrgOrganization);
-			arg0.setVariableLocal("isZdryLg", "0");//TODO:测试用，默认为非上级指定列管人员
-			arg0.setVariable("xgxpcsdm", newOrgOrganization.getOrgcode());
-			arg0.setVariable("ygxpcsdm", orgOrganization.getOrgcode());
+			setVariable("zdryName", zdryName);
+			setLocalVariable("businessType", "0");
+			setLocalVariable("approvalMethod", "zdmjApproval");
+			setLocalVariable("org", targetOrgOrganization);
+			setLocalVariable("isZdryLg", "0");//TODO:测试用，默认为非上级指定列管人员
+			setVariable("xgxpcsdm", newOrgOrganization.getOrgcode());
+			setVariable("ygxpcsdm", orgOrganization.getOrgcode());
 		} catch (BussinessException aa) {
 
 			throw new BussinessException("未找到该重点人员户籍地址信息，请补充");// 抛出异常
 		}
-
 	}
 	/**
 	 * 
@@ -272,4 +266,5 @@ public class Zdywjs implements JavaDelegate {
 		System.out.println("### 通知原辖区社区民警");
 		
 	}
+	
 }

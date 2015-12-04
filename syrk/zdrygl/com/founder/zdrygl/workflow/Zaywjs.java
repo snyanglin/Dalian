@@ -1,9 +1,9 @@
 package com.founder.zdrygl.workflow;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
-import org.activiti.engine.delegate.DelegateExecution;
-import org.activiti.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
 
 import com.founder.bzdz.service.DzService;
@@ -11,12 +11,13 @@ import com.founder.bzdz.vo.BzdzxxbVO;
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
-import com.founder.framework.organization.position.bean.OrgPosition;
 import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.syrkgl.bean.RyRyjbxxb;
 import com.founder.syrkgl.bean.SyrkSyrkxxzb;
 import com.founder.syrkgl.service.RyRyjbxxbService;
 import com.founder.syrkgl.service.SyrkSyrkxxzbService;
+import com.founder.workflow.bean.BaseWorkFlowBean;
+import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 
@@ -35,7 +36,7 @@ import com.founder.zdrygl.base.service.ZdryInfoQueryService;
  */
 
 @Component
-public class Zaywjs implements JavaDelegate {
+public class Zaywjs extends WorkflowDelegate{
 
 	@Resource(name = "orgOrganizationService")
 	private OrgOrganizationService orgOrganizationService;
@@ -56,15 +57,16 @@ public class Zaywjs implements JavaDelegate {
 	private RyRyjbxxbService ryRyjbxxbService;
 
 	@Override
-	public void execute(DelegateExecution arg0) throws BussinessException {
+	public void doBusiness(BaseWorkFlowBean arg0) {
+		Map<String,Object> variables = arg0.getProcessVariables();
 		String zdry_jzd_mlpdm = null;
 		String zdry_hjd_mlpdm = null;
 		try {
-			String zdrygllxdm = (String) arg0.getVariable("zdrylx");
-			String zdryId = (String) arg0.getVariable("zdryId");
-			String lrrzrq = (String) arg0.getVariable("lrrzrq");
-			String cyzjdm =  (String) arg0.getVariable("cyzjdm");
-			String zjhm =  (String) arg0.getVariable("zjhm");
+			String zdrygllxdm = (String) variables.get("zdrylx");
+			String zdryId = (String) variables.get("zdryId");
+			String lrrzrq = (String) variables.get("lrrzrq");
+			String cyzjdm =  (String) variables.get("cyzjdm");
+			String zjhm =  (String) variables.get("zjhm");
 			
 			OrgOrganization orgOrganization = new OrgOrganization();
 			ZdryZb zdryZb = (ZdryZb) zdryQueryService.queryById(zdryId);
@@ -87,9 +89,9 @@ public class Zaywjs implements JavaDelegate {
 						+ "_"
 						+ orgPositionService.queryByPosid("SZ").getId()
 								.toString(); // 部门code+所长岗位ID
-				arg0.setVariableLocal("sz", taskParameter);
-				arg0.setVariableLocal("businessType", "1");
-				arg0.setVariableLocal("approvalMethod", "szApproval");
+				setLocalVariable("sz", taskParameter);
+				setLocalVariable("businessType", "1");
+				setLocalVariable("approvalMethod", "szApproval");
 			}
 
 			else {
@@ -107,9 +109,9 @@ public class Zaywjs implements JavaDelegate {
 							+ "_"
 							+ orgPositionService.queryByPosid("SZ").getId()
 									.toString(); // 部门code+所长岗位ID
-					arg0.setVariableLocal("sz", taskParameter);
-					arg0.setVariableLocal("businessType", "1");
-					arg0.setVariableLocal("approvalMethod", "szApproval");
+					setLocalVariable("sz", taskParameter);
+					setLocalVariable("businessType", "1");
+					setLocalVariable("approvalMethod", "szApproval");
 					// throw new BussinessException("未找到该重点人员户籍地址信息，请补充");//抛出异常
 				} else {
 
@@ -124,9 +126,9 @@ public class Zaywjs implements JavaDelegate {
 								+ "_"
 								+ orgPositionService.queryByPosid("SZ").getId()
 										.toString(); // 部门code+所长岗位ID
-						arg0.setVariableLocal("sz", taskParameter);
-						arg0.setVariableLocal("businessType", "1");
-						arg0.setVariableLocal("approvalMethod", "szApproval");
+						setLocalVariable("sz", taskParameter);
+						setLocalVariable("businessType", "1");
+						setLocalVariable("approvalMethod", "szApproval");
 					} else {
 
 						orgOrganization = orgOrganizationService
@@ -135,15 +137,15 @@ public class Zaywjs implements JavaDelegate {
 								+ "_"
 								+ orgPositionService.queryByPosid("ZRQMJ")
 										.getId().toString(); // 责任区部门code+民警岗位ID
-						arg0.setVariableLocal("hjdmj", taskParameter);
-						arg0.setVariableLocal("businessType", "0");
-						arg0.setVariableLocal("approvalMethod", "mjApproval");
+						setLocalVariable("hjdmj", taskParameter);
+						setLocalVariable("businessType", "0");
+						setLocalVariable("approvalMethod", "mjApproval");
 
 					}
 
 				}
 
-				arg0.setVariableLocal("org", orgOrganization);
+				setLocalVariable("org", orgOrganization);
 			}
 
 		} catch (BussinessException aa) {
@@ -151,6 +153,7 @@ public class Zaywjs implements JavaDelegate {
 			throw new BussinessException("未找到该重点人员户籍地址信息，请补充");// 抛出异常
 		}
 
+		
 	}
 
 }

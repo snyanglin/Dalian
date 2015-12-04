@@ -1,17 +1,18 @@
 package com.founder.zdrygl.workflow;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
-import org.activiti.engine.delegate.DelegateExecution;
-import org.activiti.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
 
-import com.founder.bzdz.service.DzService;
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.position.service.OrgPositionService;
-import com.founder.syrkgl.service.SyrkSyrkxxzbService;
+
+import com.founder.workflow.bean.BaseWorkFlowBean;
+import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 
 
 
@@ -29,50 +30,29 @@ import com.founder.syrkgl.service.SyrkSyrkxxzbService;
  */
 
 @Component
-public class Zlywjs implements JavaDelegate{
-
-
-	
+public class Zlywjs extends WorkflowDelegate{
 	@Resource(name = "orgOrganizationService")
 	private OrgOrganizationService orgOrganizationService;
 	
 	@Resource(name = "orgPositionService")
 	private OrgPositionService orgPositionService;
-	
 
-	@Resource(name = "dzService")
-	private DzService dzService;
-	
-
-//	@Resource(name = "zdryZdryzbService")
-//	private ZdryZdryzbService zdryZdryzbService;
-	 
-	@Resource(name = "syrkSyrkxxzbService")
-	private SyrkSyrkxxzbService syrkSyrkxxzbService;
-	
 	@Override
-	public void execute(DelegateExecution arg0) throws BussinessException {
-				
-		
+	public void doBusiness(BaseWorkFlowBean arg0) {
+		Map<String,Object> variables = arg0.getProcessVariables();
 		try {
-		
-			String lrrzrq=(String) arg0.getVariable("lrrzrq");
+			String lrrzrq=(String) variables.get("lrrzrq");
 			OrgOrganization orgOrganization =new OrgOrganization();	
 			orgOrganization =orgOrganizationService.queryUpOrgByLevel(lrrzrq,"32");	
 			String fsxOrgCode =orgOrganization.getOrgcode();//  得到本名等级为三级，派出所部门code
 			String taskParameter=fsxOrgCode+"_"+orgPositionService.queryByPosid("SZ").getId().toString();   //部门code+所长岗位ID
-			arg0.setVariableLocal("sz", taskParameter);
-			arg0.setVariableLocal("approvalMethod", "szzlApproval");
+			setLocalVariable("sz", taskParameter);
+			setLocalVariable("approvalMethod", "szzlApproval");
 		
 		} catch(BussinessException aa){
-			
 			 throw  new BussinessException("重点人员转类出错");//抛出异常  
 		}
 
-		
-		
-		
-		
 	}
 	
 	

@@ -1,5 +1,7 @@
 package com.founder.zdrygl.workflow;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.activiti.engine.delegate.DelegateExecution;
@@ -12,6 +14,8 @@ import org.springframework.web.util.WebUtils;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
+import com.founder.workflow.bean.BaseWorkFlowBean;
+import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
@@ -33,41 +37,54 @@ import com.founder.zdrygl.core.model.Zdry;
  */
 
 @Component
-public class ZdSuccess implements JavaDelegate{
+public class ZdSuccess extends WorkflowDelegate{
 
 
 	@Autowired
 	public ZdryAbstractFactory zdryFactory;
 	@Override
-	public void execute(DelegateExecution arg0) throws Exception {
-		String zdrylx = (String) arg0.getVariable("zdrylx");
-		ZdryZb zdryzb = (ZdryZb) arg0.getVariable("zdryzb");
-		Zdry zdrylbdx = (Zdry) arg0.getVariable("zdrylbdx");
-		ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
-		
+	public void doBusiness(BaseWorkFlowBean arg0) {
+		Map<String,Object> variables = arg0.getProcessVariables();
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
-
-		String zdryid=(String) arg0.getVariable("zdryid");
-		String zdryxm=(String) arg0.getVariable("xm");
 		
-		String ywsqrId=(String) arg0.getVariable("applyUserId");
-		String ywsqr=(String) arg0.getVariable("sqrName");
-		//String sfcj=(String) arg0.getVariable("sfcj");
-		String xglbm=(String) arg0.getVariable("xglbm");
-		sessionBean.getExtendMap().put("xglbm", xglbm);
-		String sszrqdm = (String)  arg0.getVariable("sszrqdm");
-		String yglbm = (String)  arg0.getVariable("yglbm");
-		String ryid = (String)  arg0.getVariable("ryid");
+		String zdrylx = (String) variables.get("zdrylx");
+		ZdryZb zdryzb = (ZdryZb) variables.get("zdryzb");
+		Zdry zdrylbdx = (Zdry) variables.get("zdrylbdx");
+		//sessionBean.getExtendMap().put("xglbm", xglbm);
+		String sszrqdm = (String)  variables.get("sszrqdm");
+		//String yglbm = (String)  variables.get("yglbm");
 		if(sszrqdm != null){
-			sessionBean.getExtendMap().put("sszrqdm", sszrqdm);
+			zdryzb.setGxzrqdm(sszrqdm);
 		}
-		sessionBean.getExtendMap().put("xgxpcsdm", (String)  arg0.getVariable("xgxpcsdm"));
-		sessionBean.getExtendMap().put("ygxpcsdm", (String)  arg0.getVariable("ygxpcsdm"));
-		sessionBean.getExtendMap().put("yglbm", yglbm);
-		sessionBean.getExtendMap().put("ryid", ryid);
-		zdryService.zdSuccess(sessionBean);
 		
+		String xglbm=(String) variables.get("xglbm");
+		if(xglbm!=null){
+			zdryzb.setGlbm(xglbm);
+			zdryzb.setGxbm(xglbm);
+		}
+
+		String xgxpcsdm = (String)  variables.get("xgxpcsdm");
+		if(xgxpcsdm != null){
+			zdryzb.setGxpcsdm(xgxpcsdm);
+		}
+		
+		ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
+		
+		
+		/*
+		String zdryid=(String) variables.get("zdryid");
+		String zdryxm=(String) variables.get("xm");
+		
+		String ywsqrId=(String) variables.get("applyUserId");
+		String ywsqr=(String) variables.get("sqrName");*/
+		//String sfcj=(String) variables.get("sfcj");
+		
+		
+		/*sessionBean.getExtendMap().put("xgxpcsdm", (String)  variables.get("xgxpcsdm"));
+		sessionBean.getExtendMap().put("ygxpcsdm", (String)  variables.get("ygxpcsdm"));
+		sessionBean.getExtendMap().put("yglbm", yglbm);*/
+		zdryService.zdSuccess(sessionBean);
 	}
 	
 	
