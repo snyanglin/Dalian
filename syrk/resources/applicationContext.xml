@@ -70,7 +70,8 @@
 		<property name="cronExpression"><value>0 0 23 * * ?</value></property>
 	</bean> -->
 	
-	<!-- 治安考核 采集信息周统计 -->
+	<!-- 杨林修改过的代码    下面一段代码被我注释-->
+	<!-- 治安考核 采集信息周统计 
 	<bean id="zakhJbxxCjJob" class="com.founder.zakh.quartzjob.ZakhJbxxCjJob" />
 	<bean id="zakhJbxxCjJobFactory" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject"><ref bean="zakhJbxxCjJob" /></property>
@@ -81,7 +82,7 @@
 		<property name="jobDetail"><ref bean="zakhJbxxCjJobFactory" /></property>
 		<property name="cronExpression"><value>* * 3 ? * mon</value></property>
 	</bean>
-	
+	-->
 		<!-- 治安考核分数统计job -->
 	<bean id="zakhFstjJob" class="com.founder.zakh.quartzjob.ZakhFstjJob" />
 	<bean id="zakhFstjJobFactory" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">

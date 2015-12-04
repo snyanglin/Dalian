@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.beanutils.MethodUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,11 +33,9 @@ import com.founder.syrkgl.service.SyrkEditService;
 import com.founder.syrkgl.service.SyrkSyrkxxzbService;
 import com.founder.syrkgl.vo.SyrkgnVo;
 import com.founder.syrkgl.vo.SyrkxxzsVo;
-import com.founder.zdry.service.ZdryZdryzbService;
-import com.founder.zdry.vo.ZdryZdryzbVO;
+import com.founder.zdrygl.base.vo.ZdryZdryzbVO;
 
 import com.google.gson.Gson;
-import org.apache.commons.beanutils.MethodUtils;
 
 /***
  * ****************************************************************************
@@ -59,8 +58,12 @@ public class SyrkEditController extends BaseController {
 	private SyrkEditService syrkEditService;
 	@Resource(name = "syrkSyrkxxzbService")
 	private SyrkSyrkxxzbService syrkSyrkxxzbService;
+	
+	/*
 	@Resource(name = "zdryZdryzbService")
 	private ZdryZdryzbService zdryZdryzbService;
+	*/
+	
 	@Resource(name = "ryRyjbxxbService")
 	private RyRyjbxxbService ryRyjbxxbService;
 	@Resource(name = "ryRylxfsxxbService")
@@ -103,7 +106,8 @@ public class SyrkEditController extends BaseController {
 		}
 		String lxdh =ryRylxfsxxbService.queryLastLxfs(ryid);
 		//查询本辖区重口信息,等待需求确认
-		List<ZdryZdryzbVO> zdryList = zdryZdryzbService.queryZdryBySyrkid(syrkid);
+	//	List<ZdryZdryzbVO> zdryList = zdryZdryzbService.queryZdryBySyrkid(syrkid);
+		List<ZdryZdryzbVO> zdryList=null;
 		if(!zdryList.isEmpty()){
 			ZdryZdryzbVO temp; 
 			for (int i = 0; i < zdryList.size(); i++) {
