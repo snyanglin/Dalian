@@ -106,7 +106,7 @@ public class ZdryConstant {
 		return zdryDict.get(zdrylxdm);
 	}
 	
-	public List<?> queryChildByQydm(String qydm,String lbdm_p){
+	public List<?> queryChildByQydm(String lbdm_p,String qydm){
 		return zdryInitializeDao.getChildList(lbdm_p,qydm);
 	}
 	

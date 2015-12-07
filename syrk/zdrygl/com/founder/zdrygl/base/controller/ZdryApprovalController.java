@@ -144,7 +144,7 @@ public class ZdryApprovalController extends BaseController {
 		Object renderedTaskForm = formService.getRenderedTaskForm(workflowId);
 		String pdKey = processDefinitionService.getProcessDefinitionKey(task.getProcessDefinitionId());
 		mv.addObject("procDefKey",pdKey);
-		mv.addObject("xzqh",SystemConfig.getString("zdryQY"));
+		mv.addObject("xzqh",SystemConfig.getString("systemXzqh"));
 		mv.addObject("renderedTaskForm", (String) renderedTaskForm);
 		return mv;
 	}

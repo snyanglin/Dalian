@@ -33,8 +33,8 @@ import com.founder.syrkgl.service.SyrkEditService;
 import com.founder.syrkgl.service.SyrkSyrkxxzbService;
 import com.founder.syrkgl.vo.SyrkgnVo;
 import com.founder.syrkgl.vo.SyrkxxzsVo;
-import com.founder.zdrygl.base.vo.ZdryZdryzbVO;
-
+import com.founder.zdrygl.base.service.ZdryInfoQueryService;
+import com.founder.zdrygl.base.model.ZdryZb;
 import com.google.gson.Gson;
 
 /***
@@ -59,10 +59,8 @@ public class SyrkEditController extends BaseController {
 	@Resource(name = "syrkSyrkxxzbService")
 	private SyrkSyrkxxzbService syrkSyrkxxzbService;
 	
-	/*
-	@Resource(name = "zdryZdryzbService")
-	private ZdryZdryzbService zdryZdryzbService;
-	*/
+	@Resource(name = "zdryQueryService")
+	private ZdryInfoQueryService zdryQueryService;
 	
 	@Resource(name = "ryRyjbxxbService")
 	private RyRyjbxxbService ryRyjbxxbService;
@@ -105,13 +103,13 @@ public class SyrkEditController extends BaseController {
 			throw new BussinessException("SyrkSyrkxxzbList.notExist，该人不存在");
 		}
 		String lxdh =ryRylxfsxxbService.queryLastLxfs(ryid);
-		//查询本辖区重口信息,等待需求确认
-	//	List<ZdryZdryzbVO> zdryList = zdryZdryzbService.queryZdryBySyrkid(syrkid);
-		List<ZdryZdryzbVO> zdryList=null;
+		
+		List<?> zdryList = zdryQueryService.queryListBySyrkId(syrkid);		
+		
 		if(!zdryList.isEmpty()){
-			ZdryZdryzbVO temp; 
+			ZdryZb temp; 
 			for (int i = 0; i < zdryList.size(); i++) {
-				temp = zdryList.get(i);
+				temp = (ZdryZb)zdryList.get(i);
 				if("1".equals(temp.getGlzt())){
 					zdryList.remove(i);
 					i--;
@@ -149,7 +147,7 @@ public class SyrkEditController extends BaseController {
 		
 		String zdry = "" ;
 		for (int i = 0; i < zdryList.size(); i++) {
-			zdry += zdryList.get(i).getZdrygllxdm()+",";
+			zdry += ((ZdryZb)zdryList.get(i)).getZdrygllxdm()+",";
 		}
 		zdry = zdry.lastIndexOf(",") == zdry.length() ?zdry.substring(0, zdry.length()-1):zdry;
 		mv.addObject("zdry", zdry);

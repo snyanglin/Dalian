@@ -171,7 +171,7 @@
 		    	<td width="80%" class="dialogTd"><input type="text" name="zdrySqjzryxxb.pjjgmc" id="sqjzrypjjgmc" class="easyui-validatebox" style="width: 595px;" maxlength="50"  value="${zdryVO.zdrySqjzryxxb.pjjgmc}"
 		    	data-options="validType:['maxLength[50]'],tipPosition:'right',required:false" /></td>
 	    	</tr>
-	    	<!-- 杨林修改过的代码
+	    	<!-- 整合后，大连不显示的地方
 	    	<tr>
 	    		<td width="20%" class="dialogTd" align="right">考验截止日期：</td>
 		    	<td width="80%" class="dialogTd"><input type="text" name="zdrySqjzryxxb.ky_jzrq" id="sqjzryky_jzrq" class="easyui-validatebox" style="width: 200px;" value="${zdryVO.zdrySqjzryxxb.ky_jzrq}"
