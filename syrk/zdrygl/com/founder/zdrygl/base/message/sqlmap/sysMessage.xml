@@ -3,16 +3,16 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="SysMessage">
 	
-	<typeAlias alias="sysMessage" type="com.founder.zdrygl.base.message.SysMessage" />
+	<typeAlias alias="sysMessage_new" type="com.founder.zdrygl.base.message.SysMessage" />
 
 	<!-- 新增 -->
-	<insert id="save" parameterClass="sysMessage">
+	<insert id="save" parameterClass="sysMessage_new">
 		<![CDATA[ insert into SYS_MESSAGE (ID,XXNR,XXLB,YWURL,FSR,FSRDM,FSSJ,FSRSSDW,FSRSSDWDM,JSLX,JSR,JSRDM,JSRSSDW,JSRSSDWDM,SFCK,CKSJ,XXBT,DKFS) 
 		values(#id#,#xxnr#,#xxlb#,#ywurl#,#fsr#,#fsrdm#,#fssj#,#fsrssdw#,#fsrssdwdm#,#jslx#,#jsr#,#jsrdm#,#jsrssdw#,#jsrssdwdm#,#sfck#,#cksj#,#xxbt#,#dkfs#)]]>
 	</insert>
 
 	<!-- 修改 -->
-	<update id="update" parameterClass="sysMessage">
+	<update id="update" parameterClass="sysMessage_new">
 		<![CDATA[ update sys_message set sfck='1', cksj=#cksj#]]> <![CDATA[where ID = #id# ]]>	
 	</update>
 

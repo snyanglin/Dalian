@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.founder.framework.exception.BussinessException;
+import com.founder.framework.utils.DateUtils;
 import com.founder.zdrygl.core.inteface.SendMessageService;
 
 /**
@@ -43,8 +44,8 @@ public class SendMessageServiceImpl implements SendMessageService {
 			throw new BussinessException("jsdx Object must not be null");
 		}
 		
-		
-		if(MessageDict.JSLX_TO_USER.equals(jslx)){//发送给个人
+		sysMessage.setFssj(DateUtils.getSystemDateTimeString());
+		if("0".equals(jslx)){//发送给个人
 			if(jsdx instanceof String){
 				this.sendMessageToUser(sysMessage,jsdx.toString());
 			}else{
@@ -136,7 +137,6 @@ public class SendMessageServiceImpl implements SendMessageService {
 	 * @throw
 	 */
 	private void sendMessageToUser(SysMessage sysMessage, String userCode) {
-		sysMessage.setJslx("0");//0 按人  1 按部门
 		sysMessageDao.saveMessage(sysMessage);
 	}
 

@@ -40,7 +40,7 @@ import com.founder.service.attachment.service.ZpfjFjxxbService;
 import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.workflow.service.inteface.JProcessDefinitionService;
 import com.founder.zdrygl.base.model.ZdryZb;
-import com.founder.zdrygl.base.model.Zdrycg;
+import com.founder.zdrygl.base.model.Zdrycx;
 import com.founder.zdrygl.base.service.WorkFlowParametersInitialService;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.base.validator.ZdryVOValidator;
@@ -455,7 +455,7 @@ public class ZdryZdryzbControl extends BaseController {
 						+ "】，不能办理其他业务");
 			}
 
-			Zdrycg zdrycg = new Zdrycg();
+			Zdrycx zdrycg = new Zdrycx();
 			BeanUtils.copyProperties(zb_old, zdrycg);
 
 			zdrycg.setZdryid_old(zb_old.getId());

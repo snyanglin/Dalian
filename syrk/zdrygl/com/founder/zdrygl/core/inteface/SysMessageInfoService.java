@@ -1,5 +1,7 @@
 package com.founder.zdrygl.core.inteface;
 
+import java.util.Map;
+
 import com.founder.zdrygl.base.message.SysMessage;
 
 public interface SysMessageInfoService {
@@ -14,6 +16,6 @@ public interface SysMessageInfoService {
 	 * @return SysMessage    返回类型
 	 * @throw
 	 */
-	public SysMessage initSysMessage(String xxlx,Object param);
+	public SysMessage initSysMessage(String xxlx,Map<String,Object> param);
 	
 }

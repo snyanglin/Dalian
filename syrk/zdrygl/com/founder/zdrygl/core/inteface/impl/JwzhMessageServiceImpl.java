@@ -1,5 +1,7 @@
 package com.founder.zdrygl.core.inteface.impl;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -38,13 +40,13 @@ public class JwzhMessageServiceImpl implements JwzhMessageService {
 	private SysMessageInfoService sysMessageInfoService;
 	
 	@Override
-	public void sendMessage(String xxlx, Object source, String jslx, Object jsdx) {		
+	public void sendMessage(String xxlx, Map<String,Object> source, String jslx, Object jsdx) {		
 		SysMessage sysMessage = sysMessageInfoService.initSysMessage(xxlx, source);
 		sendMessageService.sendMessage(sysMessage,jslx,jsdx);
 	}
 
 	@Override
-	public void sendMessage(String xxlx, Object source) {
+	public void sendMessage(String xxlx, Map<String,Object> source) {
 		SysMessage sysMessage = sysMessageInfoService.initSysMessage(xxlx, source);
 		if(sysMessage.getStatus()!=0){
 			throw new BussinessException(sysMessage.getErrorMessage());

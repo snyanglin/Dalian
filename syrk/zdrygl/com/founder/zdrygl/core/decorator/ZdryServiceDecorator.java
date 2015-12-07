@@ -67,13 +67,17 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	@Override
 	public final void lgSuccess(SessionBean sessionBean) {
 		zdryService.lgSuccess(sessionBean);	
-		Object paraObj = getMessageParam(sessionBean);//获取消息的参数
-		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.LGSQ,paraObj);
+		Map<String,Object> paraObj = getMessageParam(sessionBean);//获取消息的参数
+		paraObj.put("result", "lgSuccess");
+		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.LGSPJG,paraObj);
 	}
 
 	@Override
 	public final void lgFail(SessionBean sessionBean) {
 		zdryService.lgFail(sessionBean);
+		Map<String,Object> paraObj = getMessageParam(sessionBean);//获取消息的参数
+		paraObj.put("result", "lgFail");
+		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.LGSPJG,paraObj);
 	}
 
 	@Override
@@ -91,11 +95,17 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	@Override
 	public final void cgSuccess(SessionBean sessionBean) {
 		zdryService.cgSuccess(sessionBean);
+		Map<String,Object> paraObj = getMessageParam(sessionBean);//获取消息的参数
+		paraObj.put("result", "cgSuccess");
+		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.CGSPJG,paraObj);
 	}
 
 	@Override
 	public final void cgFail(SessionBean sessionBean) {
 		zdryService.cgFail(sessionBean);
+		Map<String,Object> paraObj = getMessageParam(sessionBean);//获取消息的参数
+		paraObj.put("result", "cgFail");
+		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.CGSPJG,paraObj);
 	}
 
 	@Override
@@ -130,12 +140,18 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	public final void zdSuccess(SessionBean sessionBean) {
 		//转递不涉及子表的修改
 		zdryService.zdSuccess(sessionBean);
+		Map<String,Object> paraObj = getMessageParam(sessionBean);//获取消息的参数
+		paraObj.put("result", "zdSuccess");
+		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDSPJG,paraObj);
 	}
 
 	@Override
 	public final void zdFail(SessionBean sessionBean) {
 		//转递不涉及子表的修改
 		zdryService.zdFail(sessionBean);
+		Map<String,Object> paraObj = getMessageParam(sessionBean);//获取消息的参数
+		paraObj.put("result", "zdFail");
+		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDSPJG,paraObj);
 	}
 	
 	/**
@@ -189,22 +205,20 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	 * @return Object    返回类型
 	 * @throw
 	 */
-	protected Object getMessageParam(SessionBean sessionBean){
-		Map<String,Object> paramMap = new HashMap<String,Object>();
-        
+	protected Map<String,Object> getMessageParam(SessionBean sessionBean){
         //私有参数处理
         Map<String,Object> paramObj = new HashMap<String,Object>();
         paramObj.put("fsrName", sessionBean.getUserName());//发送人姓名
         paramObj.put("fsrUserCode", sessionBean.getUserId());//发送人代码	
         paramObj.put("fsrOrgName", sessionBean.getUserOrgName());//发送人机构名
+        paramObj.put("zdryId",getZdryId());
         paramObj.putAll(getZdryXmAndZdrylxName());
-        paramMap.put("paramObj", paramObj);
         
-        return paramMap;
+        return paramObj;
 	}
 	
 	@Override
-	public final  Map<String,String> getZdryXmAndZdrylxName(){
+	public final Map<String,String> getZdryXmAndZdrylxName(){
 		return zdryService.getZdryXmAndZdrylxName();
 	}
 

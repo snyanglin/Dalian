@@ -20,7 +20,7 @@ import com.founder.syrkgl.bean.RyRyjbxxb;
 import com.founder.syrkgl.service.RyRyjbxxbService;
 import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 import com.founder.zdrygl.base.model.ZdryZb;
-import com.founder.zdrygl.base.model.Zdrycg;
+import com.founder.zdrygl.base.model.Zdrycx;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
@@ -48,7 +48,7 @@ public class ZdryzbService implements ZdryService {
 	/**
 	 * 撤管对象
 	 */
-	private Zdrycg zdrycg;
+	private Zdrycx zdrycx;
 	
 	@Autowired
 	private ZdryZdryZbDao zdryZdryZbDao;	
@@ -84,7 +84,7 @@ public class ZdryzbService implements ZdryService {
 	@Override
 	public void cg(SessionBean sessionBean) {
 		ZdryZb entity = new ZdryZb();
-		entity.setId(zdrycg.getZdryid_old());
+		entity.setId(zdrycx.getZdryid_old());
 		entity.setGlzt(ZdryConstant.CGSQ);
 		updateZdry(sessionBean,entity);				
 		if(!isDelete()){
@@ -95,7 +95,7 @@ public class ZdryzbService implements ZdryService {
 	@Override
 	public void cgSuccess(SessionBean sessionBean) {
 		ZdryZb entity = new ZdryZb();
-		entity.setId(zdrycg.getZdryid_old());
+		entity.setId(zdrycx.getZdryid_old());
 		entity.setGlzt(ZdryConstant.YCG);
 		deleteZdry(sessionBean,entity);
 		if(!isDelete()){
@@ -107,7 +107,7 @@ public class ZdryzbService implements ZdryService {
 	@Override
 	public void cgFail(SessionBean sessionBean) {
 		ZdryZb entity = new ZdryZb();
-		entity.setId(zdrycg.getZdryid_old());
+		entity.setId(zdrycx.getZdryid_old());
 		entity.setGlzt(ZdryConstant.YLG);
 		entity.setXt_zxbz("0");//设定数据为未注销状态
 		updateZdry(sessionBean,entity);
@@ -143,7 +143,13 @@ public class ZdryzbService implements ZdryService {
 	@MethodAnnotation(value = "转递", type = logType.update)
 	@Override
 	public void zd(SessionBean sessionBean) {
-		ZdryZb entity = new ZdryZb();
+		zdryzb.setId(UUID.create());
+		zdryzb.setGlzt(ZdryConstant.ZDSQ);
+		zdryzb.setGlbm(sessionBean.getUserOrgCode());//管理部门
+		BaseService.setSaveProperties(zdryzb, sessionBean);		
+		zdryZdryZbDao.insert(zdryzb);
+		
+	/* 2015-12-8 改为新增 总表ZdryZb entity = new ZdryZb();
 		entity.setId(zdryzb.getId());
 		entity.setGlzt(ZdryConstant.ZDSQ);
 		entity.setGlbm(zdryzb.getGlbm());	
@@ -154,7 +160,7 @@ public class ZdryzbService implements ZdryService {
 		entity.setJzd_xzqhdm(zdryzb.getJzd_xzqhdm());
 		entity.setJzd_zbx(zdryzb.getJzd_zbx());
 		entity.setJzd_zby(zdryzb.getJzd_zby());
-		updateZdry(sessionBean,entity);
+		updateZdry(sessionBean,entity);*/
 	}
 
 	@Override
@@ -173,8 +179,17 @@ public class ZdryzbService implements ZdryService {
 		//}
 		zdryzb.setGlzt(ZdryConstant.YLG);
 		
-		//deleteZdry(sessionBean,zdryzb);
+//		deleteZdry(sessionBean,zdryzb);
 		zdryZdryZbDao.update(zdryzb);
+		
+		ZdryZb entity = new ZdryZb();
+		entity.setId(zdrycx.getZdryid_old());
+		entity.setGlzt(ZdryConstant.YLG);
+		entity.setXt_zxbz("0");//设定数据为未注销状态
+		updateZdry(sessionBean,entity);
+		if(!isDelete()){
+			deleteZdry(sessionBean,zdryzb);
+		}
 	}
 
 	@Override
@@ -216,7 +231,7 @@ public class ZdryzbService implements ZdryService {
 	 * @throws
 	 */
 	private boolean isDelete(){
-		if(zdrycg != null && !StringUtils.isEmpty(zdrycg.getZdrygllxdm())){
+		if(zdrycx != null && !StringUtils.isEmpty(zdrycx.getZdrygllxdm())){
 			return false;
 		}
 		return true;
@@ -225,10 +240,10 @@ public class ZdryzbService implements ZdryService {
 	@Override
 	public void setZdry(Zdry entity) {
 		if(entity!=null){
-			if(entity.getClass().getName().equals(Zdrycg.class.getName())){
-				this.zdrycg = (Zdrycg) entity;
+			if(entity.getClass().getName().equals(Zdrycx.class.getName())){
+				this.zdrycx = (Zdrycx) entity;
 				this.zdryzb = new ZdryZb();
-				BeanUtils.copyProperties(zdrycg, zdryzb);
+				BeanUtils.copyProperties(zdrycx, zdryzb);
 			}else{
 				this.zdryzb = (ZdryZb) entity;
 			}
@@ -250,21 +265,6 @@ public class ZdryzbService implements ZdryService {
 	public void setStartProcessInstance(String processKey, String applyUserId, Map<String, Object> variables) {
 		
 	}
-
-	/**
-	 * 
-	 * @Title: queryZdryAllInfo
-	 * @Description: (查询重点人员总表和子表)
-	 * @param @param zdryid
-	 * @return void    返回类型
-	 * @throw
-	 */
-//	@Override
-//	public Zdry[] queryZdryAllInfo(String zdryid) {
-//		Zdry[] zdry = new Zdry[1];
-//		zdry[0] = zdryZdryZbDao.queryById(zdryid);
-//		return zdry;
-//	}
 
 	@Override
 	public Map<String, String> getZdryXmAndZdrylxName() {

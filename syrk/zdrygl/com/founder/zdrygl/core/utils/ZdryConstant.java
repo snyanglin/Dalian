@@ -47,6 +47,7 @@ public class ZdryConstant {
 	public static final String ZDSQ = "5";
 	public static final String XF = "6";
 	public static final String ZLSQ = "7";
+	public static final String YZD = "8";
 		
 	/**
 	 * 动态读取数据库配置数据
@@ -106,7 +107,7 @@ public class ZdryConstant {
 		return zdryDict.get(zdrylxdm);
 	}
 	
-	public List<?> queryChildByQydm(String qydm,String lbdm_p){
+	public List<?> queryChildByQydm(String lbdm_p,String qydm){
 		return zdryInitializeDao.getChildList(lbdm_p,qydm);
 	}
 	
