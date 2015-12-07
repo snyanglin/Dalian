@@ -56,8 +56,10 @@ public class Zaywjs extends WorkflowDelegate{
 	@Resource(name = "ryRyjbxxbService")
 	private RyRyjbxxbService ryRyjbxxbService;
 
+	Object service = null;
 	@Override
 	public void doBusiness(BaseWorkFlowBean arg0) {
+		service = new String("test");
 		Map<String,Object> variables = arg0.getProcessVariables();
 		String zdry_jzd_mlpdm = null;
 		String zdry_hjd_mlpdm = null;
@@ -155,5 +157,86 @@ public class Zaywjs extends WorkflowDelegate{
 
 		
 	}
+	/**
+	 * 消息标题：重点人员列管审批
+消息内容：[社区民警辖区]民警[社区民警姓名]提交[重点人员管理类型][重点人员姓名]的列管申请，请审批。
 
+	 * @Title: notifySzSign
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param     设定文件
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public void notifySzSign(){
+		
+	}
+	/**
+	 * 
+	 * @Title: notifyAllPersons
+	 * @Description: TODO(通知双方民警及所长)
+	 * @param     设定文件
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public void notifyAllPersons(){
+		System.out.println("### 通知双方民警及所长:" + service.toString());
+	}
+	/**
+	 * 
+	 * @Title: notifyCsxfbm
+	 * @Description: TODO(通知初始下发部门)
+	 * @param     设定文件
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public void notifyCsxfbm(){
+		System.out.println("### 通知初始下发部门:" + service.toString());
+		
+	}
+	/**
+	 * 
+	 * @Title: notifyYxqsqmj
+	 * @Description: TODO(通知原辖区社区民警)
+	 * @param     设定文件
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public void notifyYxqsqmj(){
+		System.out.println("### 通知原辖区社区民警:" + service.toString());
+		
+	}
+	/**
+	 * 
+	 * @Title: notifySz
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param     设定文件
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public void notifySz(){
+		System.out.println("### 通知所长 :" + service.toString());
+	}
+	/**
+	 * 
+	 * @Title: notifyZazd
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param     设定文件
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public void notifyZazd(){
+		System.out.println("### 通知治安支队:" + service.toString());
+	}
+	/**
+	 * 
+	 * @Title: notifyJzdxq
+	 * @Description: 通知实有人口其他居住地辖区
+	 * @param     设定文件
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public void notifyOtherJzdxq(){
+		System.out.println("### 通知实有人口其他居住地辖区:" + service.toString());
+	}
+	
 }
