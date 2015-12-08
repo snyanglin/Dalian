@@ -53,7 +53,7 @@ public class ZdryRuleService {
 			if(i>0){//已查询有可列管的类型
 				if(klgMap.size()==0)//已不能再列管其他类型
 					break;
-				
+				//下面是调用规则
 				ruleBean=droolsRequest.requestDroolsServer(SystemConfig.getString("systemXzqh")+"_ZDRY_KTSLGLX", ylglxAry[i], null);
 				if(ruleBean.getResStatus()==1){
 					throw new RuntimeException("Drools Exception:"+ruleBean.getResponse());			
