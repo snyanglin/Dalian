@@ -36,6 +36,7 @@ import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.framework.organization.user.service.OrgUserService;
 import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.EasyUIPage;
+import com.founder.ldym.util.SystemConfig;
 import com.founder.service.attachment.service.ZpfjFjxxbService;
 import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.workflow.service.inteface.JProcessDefinitionService;
@@ -120,6 +121,7 @@ public class ZdryZdryzbControl extends BaseController {
 	 */
 	@RequestMapping(value = "/manager", method = RequestMethod.GET)
 	public String manage() {
+		SystemConfig.add(AppConst.XZQH,"210200");//TODO for test
 		zdryConstant.createTreeJS();
 		return "zdrygl/zdryManage";
 	}
