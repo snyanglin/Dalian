@@ -1,14 +1,19 @@
 package com.founder.drools.base.controller;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.founder.framework.annotation.RestfulAnnotation;
 import com.founder.framework.base.controller.BaseController;
+import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.core.utils.ZdryConstant;
+import com.founder.zdrygl.core.model.Zdry;
 
 /**
  * ****************************************************************************
@@ -26,20 +31,33 @@ import com.founder.zdrygl.core.utils.ZdryConstant;
 @RequestMapping("zdrySys")
 public class RuleController extends BaseController {					
 	
-	//@Resource
-	//private SysMessageInfoService sysMessageInfoService;
-	
 	@Autowired
 	private ZdryConstant zdryConstant;
+	
+	@Resource(name = "zdryQueryService")
+	private ZdryInfoQueryService zdryQueryService;
 
+	/**
+	 * 
+	 * @Title: getZdrylx
+	 * @Description: TODO(获取重点人员类型中文)
+	 * @param @param zdrygllx
+	 * @param @return    设定文件
+	 * @return String    返回类型
+	 * @throw
+	 */
 	@RestfulAnnotation(valiField = "zdrygllx", serverId = "3")
-	@RequestMapping(value = "/getZdrylx", method = {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value = "/getZdrylx", method = {RequestMethod.GET})
 	public @ResponseBody String getZdrylx(String zdrygllx){
 		
 		return zdryConstant.getValueOfZdryDict(zdrygllx);
 	}
 
-	
+	@RestfulAnnotation(valiField = "zdryId", serverId = "3")
+	@RequestMapping(value = "/{zdryId}", method = {RequestMethod.GET})
+	public @ResponseBody Zdry getZdryInfo(@PathVariable String zdryId){
+		return zdryQueryService.queryById(zdryId);		
+	}
 	
 	
 }
