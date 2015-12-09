@@ -1,4 +1,4 @@
-package com.founder.zdrygl.base.service;
+package com.founder.zdrygl.base.service.wf;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -6,46 +6,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.founder.framework.base.entity.SessionBean;
-import com.founder.framework.organization.department.service.OrgOrganizationService;
-import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrylxylbdyb;
+import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.base.vo.ZdryZdryzbVO;
-import com.founder.zdrygl.core.inteface.ZdryQueryService;
-import com.founder.zdrygl.core.utils.LcgFlagEnum;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 
-public class WorkFlowParametersInitialService {
+public class LnParamsInitializer implements IfParamInitializer {
 	ZdryConstant zdryConstant;
-	OrgOrganizationService orgOrganizationService;
-	OrgPositionService orgPositionService;
-	ZdryQueryService zdryQueryService;
+	ZdryInfoQueryService zdryQueryService;
 	
-	public WorkFlowParametersInitialService(
-			ZdryConstant zdryConstant, OrgOrganizationService orgOrganizationService,
-			OrgPositionService orgPositionService,
-			ZdryQueryService zdryQueryService) {
-		super();
+	public LnParamsInitializer( ZdryConstant zdryConstant,ZdryInfoQueryService zdryQueryService) {
 		this.zdryConstant = zdryConstant;
-		this.orgOrganizationService = orgOrganizationService;
-		this.orgPositionService = orgPositionService;
 		this.zdryQueryService = zdryQueryService;
 	}
-
-	/**
-	 * 
-	 * @Title: startLgProcess
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
-	 * @param @param sessionBean
-	 * @param @param zdryVO 设定文件
-	 * @return void 返回类型
-	 * @throws
-	 */
-	public StartProcessInstance initialProcessInstance(
-			SessionBean sessionBean, ZdryVO zdryVO, LcgFlagEnum lcgFlag) {
-		// StartProcessInstance initializes
+	@Override
+	public StartProcessInstance initialProcessInstance(SessionBean sessionBean, ZdryVO zdryVO,
+			LcgFlagEnum lcgFlag) {
+		// TODO Auto-generated method stub
 		Map<String, Object> variables = new HashMap<String, Object>();
 		StartProcessInstance spi = new StartProcessInstance();
 		spi.setApplyUserId(sessionBean.getUserId());
@@ -76,7 +56,6 @@ public class WorkFlowParametersInitialService {
 			prepareZl(spi,sessionBean,zdryVO,variables);
 		}else{
 		}
-
 		return spi;
 	}
 
@@ -133,14 +112,14 @@ public class WorkFlowParametersInitialService {
 		variables.put("sqyj", zdryVO.getYwsqyy());// 申请意见
 		variables.put("zdryName", zdryxm);// 申请意见
 		/**
-		 * 01	监管对象
-		 * 02	重点人口
-		 * 03	其他重点管理对象
-		 * 04	肇事肇祸精神病人
-		 * 05	轻微滋事精神病人
-		 * 06	非正常上访重点人员
-		 * 07	纳入视线对象（无流程）
-		 * 08	一般关注对象
+		 * 01	监管对象(sqjz)
+		 * 02	重点人口(zdrk)
+		 * 03	其他重点管理对象(zdrk)
+		 * 04	肇事肇祸精神病人(zszh)
+		 * 05	轻微滋事精神病人(zszh)
+		 * 06	非正常上访重点人员(sgaf)
+		 * 07	纳入视线对象（无流程）(nrsx)
+		 * 08	一般关注对象(不持久 化 )
 		 */
 		if (!zdryZdryzb.getZdrygllxdm().equals("07") ) {
 			variables.put("sqlx", zdrylxmc +"撤管");

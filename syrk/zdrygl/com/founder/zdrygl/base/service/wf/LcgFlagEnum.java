@@ -1,4 +1,4 @@
-package com.founder.zdrygl.core.utils;
+package com.founder.zdrygl.base.service.wf;
 
 public enum LcgFlagEnum {
 	 LG("列管", "01"),  

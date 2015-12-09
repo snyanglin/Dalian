@@ -42,14 +42,14 @@ import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.workflow.service.inteface.JProcessDefinitionService;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrycg;
-import com.founder.zdrygl.base.service.WorkFlowParametersInitialService;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
+import com.founder.zdrygl.base.service.wf.LcgFlagEnum;
+import com.founder.zdrygl.base.service.wf.WorkFlowParametersInitialService;
 import com.founder.zdrygl.base.validator.ZdryVOValidator;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.Zdry;
-import com.founder.zdrygl.core.utils.LcgFlagEnum;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 import com.google.gson.Gson;
 
@@ -217,9 +217,9 @@ public class ZdryZdryzbControl extends BaseController {
 	public ModelAndView saveLg(@Valid ZdryVO zdryVO,BindingResult result, SessionBean sessionBean) throws RestException {
 		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
 		
-		if(!super.validateResult(mv, result)){
+		/*if(!super.validateResult(mv, result)){
 			return mv;
-		}
+		}*/
 		
 		Map<String, Object> model = new HashMap<String, Object>();
 		sessionBean = getSessionBean(sessionBean);
@@ -228,7 +228,7 @@ public class ZdryZdryzbControl extends BaseController {
 			ZdryService zdryService = zdryFactory.createZdryService(zdrygllxdm,
 					zdryVO.getZdryZdryzb(), zdryVO.getZdrylbdx());
 			// start process
-			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdryConstant,orgOrganizationService,orgPositionService,zdryQueryService);
+			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdryConstant,zdryQueryService);
 			StartProcessInstance spi = wfpis.initialProcessInstance(sessionBean,zdryVO,LcgFlagEnum.LG);
 			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(),spi.getVariables());
 			zdryService.lg(sessionBean);
@@ -468,7 +468,7 @@ public class ZdryZdryzbControl extends BaseController {
 			ZdryService zdryService = zdryFactory.createZdryService(
 					zb_new.getZdrygllxdm(), zdrycg, zdryVO.getZdrylbdx());
 			// start process
-			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdryConstant,orgOrganizationService,orgPositionService,zdryQueryService);
+			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdryConstant,zdryQueryService);
 			StartProcessInstance spi = wfpis.initialProcessInstance(sessionBean, zdryVO,LcgFlagEnum.CG);
 			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(), spi.getVariables());
 			zdryService.cg(sessionBean);

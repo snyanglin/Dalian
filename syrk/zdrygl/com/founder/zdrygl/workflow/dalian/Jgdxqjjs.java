@@ -1,4 +1,4 @@
-package com.founder.zdrygl.workflow;
+package com.founder.zdrygl.workflow.dalian;
 
 import java.util.Map;
 
@@ -11,7 +11,7 @@ import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
  * ****************************************************************************
  * @Package:      [com.founder.activiti.demo.workflow.dalian.Jgdxqjjs.java]  
  * @ClassName:    [Jgdxqjjs]   
- * @Description:  大连列撤管
+ * @Description:  [一句话描述该类的功能]   
  * @Author:       [huang_jifei@founder.com.cn]  
  * @CreateDate:   [2015年12月7日 下午4:14:13]   
  * @UpdateUser:   [huangjifei(如多次修改保留历史记录，增加修改记录)]   

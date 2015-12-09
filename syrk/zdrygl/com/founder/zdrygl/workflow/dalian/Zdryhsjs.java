@@ -1,4 +1,4 @@
-package com.founder.zdrygl.workflow;
+package com.founder.zdrygl.workflow.dalian;
 
 import java.util.Map;
 
@@ -7,20 +7,24 @@ import org.springframework.stereotype.Component;
 import com.founder.framework.exception.BussinessException;
 import com.founder.workflow.bean.BaseWorkFlowBean;
 import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
+
+
+
 /**
  * ****************************************************************************
- * @Package:      [com.founder.activiti.demo.workflow.dalian.Jgdxqjjs.java]  
- * @ClassName:    [Jgdxqjjs]   
- * @Description:  大连列撤管
+ * @Package:      [com.founder.activiti.demo.workflow.dalian.Zdryhsjs.java]  
+ * @ClassName:    [Zdryhsjs]   
+ * @Description:  [一句话描述该类的功能]   
  * @Author:       [huang_jifei@founder.com.cn]  
- * @CreateDate:   [2015年12月7日 下午4:14:13]   
+ * @CreateDate:   [2015年12月7日 下午2:29:27]   
  * @UpdateUser:   [huangjifei(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateDate:   [2015年12月7日 下午4:14:13，(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年12月7日 下午2:29:27，(如多次修改保留历史记录，增加修改记录)]   
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
+
 @Component
-public class Jgdxqjjs extends WorkflowDelegate{
+public class Zdryhsjs extends WorkflowDelegate{
 
 	@Override
 	public void doBusiness(BaseWorkFlowBean arg0) {
@@ -94,24 +98,24 @@ public class Jgdxqjjs extends WorkflowDelegate{
 	}
 	/**
 	 * 
-	 * @Title: qjSuccess
+	 * @Title: hsSucess
 	 * @Description: TODO(这里用一句话描述这个方法的作用)
 	 * @param     设定文件
 	 * @return void    返回类型
 	 * @throws
 	 */
-	public void qjSuccess(){
+	public void hsSuccess(){
 		System.out.println("### 核实成功");
 	}
 	/**
 	 * 
-	 * @Title: qjFail
+	 * @Title: hsFail
 	 * @Description: TODO(这里用一句话描述这个方法的作用)
 	 * @param     设定文件
 	 * @return void    返回类型
 	 * @throws
 	 */
-	public void qjFail(){
+	public void hsFail(){
 		System.out.println("### 核实失败");
 	}
 	
