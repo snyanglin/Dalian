@@ -4,35 +4,38 @@ import javax.annotation.Resource;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
-import com.founder.zdrygl.base.dao.ZdrySqsbzdryxxbDao;
-import com.founder.zdrygl.base.model.ZdrySqsbzdryxxb;
+import com.founder.zdrygl.base.dao.ZdryNrsxdxxxbDao;
+import com.founder.zdrygl.base.model.ZdryNrsxdxxxb;
 import com.founder.zdrygl.core.decorator.ZdryServiceDecorator;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.Zdry;
 
 /**
  * ****************************************************************************
- * @Package:      [com.founder.zdrygl.base.service.ZdrySqsbService.java]  
- * @ClassName:    [ZdrySqsbService]   
- * @Description:  [涉枪涉爆人业务服务]   
- * @Author:       [cong_rihong@founder.com.cn] 
- * @CreateDate:   [2015年9月21日 下午7:16:11]   
- * @UpdateUser:   [cong_rihong@founder.com.cn(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateDate:   [2015年9月28日 下午14:16:11，(如多次修改保留历史记录，增加修改记录)]   
+ * @Package:      [com.founder.zdrygl.base.service.ZdryNrsxService.java]  
+ * @ClassName:    [ZdryNrsxService]   
+ * @Description:  [纳入视线对象服务]   
+ * @Author:       [zhang.hai@founder.com.cn]  
+ * @CreateDate:   [2015年12月9日 下午4:33:55]   
+ * @UpdateUser:   [ZhangHai(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年12月9日 下午4:33:55，(如多次修改保留历史记录，增加修改记录)]   
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
-public class ZdryQtgzdxService  extends ZdryServiceDecorator{
+public class ZdryNrsxService  extends ZdryServiceDecorator{
 
+	private ZdryNrsxdxxxb zdry;
+	
+	@Resource(name="zdryNrsxdxxxbDao")
+	private ZdryNrsxdxxxbDao  zdryNrsxdxxxbDao;
 
-
-	public ZdryQtgzdxService(ZdryService zdryService) {
+	public ZdryNrsxService(ZdryService zdryService) {
 		super(zdryService);
 	}
 
 	@Override
 	public void setZdry(Zdry entity) {
-		
+		this.zdry = (ZdryNrsxdxxxb) entity;
 	}
 
 	/**
@@ -40,12 +43,19 @@ public class ZdryQtgzdxService  extends ZdryServiceDecorator{
 	 */
 	@Override
 	protected void lg_(SessionBean sessionBean) {
-		
+		BaseService.setSaveProperties(zdry, sessionBean);	
+		zdry.setId(this.getZdryId());
+		zdryNrsxdxxxbDao.insert(zdry);
 	}
 
 	@Override
 	protected void cg_(SessionBean sessionBean) {
-			
+		if(zdry != null){
+			BaseService.setSaveProperties(zdry, sessionBean);
+			zdry.setId(this.getZdryId());
+			zdryNrsxdxxxbDao.insert(zdry);
+		}
+		
 	}
 	
 	/**
@@ -58,7 +68,9 @@ public class ZdryQtgzdxService  extends ZdryServiceDecorator{
 	 */
 	@Override
 	protected void update_(SessionBean sessionBean) {
-		
+		BaseService.setUpdateProperties(zdry, sessionBean);
+		zdry.setId(this.getZdryId());
+		zdryNrsxdxxxbDao.update(zdry);
 	}
 	
 	/**
@@ -71,7 +83,7 @@ public class ZdryQtgzdxService  extends ZdryServiceDecorator{
 	 */
 //	@Override
 	public Zdry queryZdryInfo_(String zdryid) {
-		return null;
+		return zdryNrsxdxxxbDao.queryById(zdryid);
 	}
 
 }
