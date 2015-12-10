@@ -147,6 +147,7 @@
 	    	<!-- 社区矫正人员 -->
 	    	 <table id="sqjzryDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;display:none">
 		
+    		<input type="hidden" id="zdryNrsxdxxxb.id" name="zdryNrsxdxxxb.id" value="" />
 		    <tr class="dialogTr">
 	    		<td width="20%" class="dialogTd" align="right">监管单位机构名称：</td>
 		    	<td width="80%" class="dialogTd"><input type="text" name="zdrySqjzryxxb.jgdw_gajgmc" id="jgdw_gajgmc" class="easyui-validatebox" style="width: 595px;" maxlength="50"  value="${zdryVO.zdrySqjzryxxb.jgdw_gajgmc}"
@@ -183,9 +184,9 @@
 		    	<td width="80%" class="dialogTd">	    	
                 	<input type="file" name="uploadFile" id="upload1" style="width:560px;" class="easyui-validatebox" data-options="tipPosition:'left',invalidMessage:'请选择要上传的判决书'" />
 		    	</td>
-	    	</tr> 
+	    	</tr> 			 -->
 			</table>
-			 -->
+	    	
 			
 	    	  <!-- 涉枪涉爆重点人员 -->
 		    <table id="sqsbzdryDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;display:none">

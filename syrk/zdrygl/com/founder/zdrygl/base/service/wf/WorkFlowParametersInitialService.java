@@ -51,9 +51,11 @@ public class WorkFlowParametersInitialService {
 	 * @throws
 	 */
 	private IfParamInitializer createInstanceByClassName(String processClassName) {
-		Object obj = null;
+		IfParamInitializer obj = null;
 		try {
-			obj = Class.forName(processClassName).newInstance();
+			obj = (IfParamInitializer) Class.forName(processClassName).newInstance();
+			obj.setZdryConstant(zdryConstant);
+			obj.setZdryQueryService(zdryQueryService);
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -62,4 +64,5 @@ public class WorkFlowParametersInitialService {
 		return (IfParamInitializer) obj;
 	}
 
+	
 }

@@ -1,5 +1,6 @@
 package com.founder.zdrygl.workflow.dalian;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -14,6 +15,7 @@ import com.founder.framework.exception.BussinessException;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.position.service.OrgPositionService;
+import com.founder.ldym.util.SystemConfig;
 import com.founder.syrkgl.bean.RyRyjbxxb;
 import com.founder.syrkgl.bean.SyrkSyrkxxzb;
 import com.founder.syrkgl.service.RyRyjbxxbService;
@@ -22,6 +24,7 @@ import com.founder.workflow.bean.BaseWorkFlowBean;
 import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
+import com.founder.zdrygl.workflow.exception.BaseWorkflowException;
 
 /**
  * ****************************************************************************
@@ -95,23 +98,57 @@ public class Dlaywjs extends WorkflowDelegate{
 			if (zdrygllxdm.equals("04") || zdrygllxdm.equals("05")
 					|| zdrygllxdm.equals("06")) {
 				variableKey = "zazd";
-				taskOwner = camTaskOwner(syrkSyrkxxzb, zdry_jzd_zrqdm, "30", "DDZ");
+				taskOwner = camZazdTaskOwner("30", "DDZ");
+				setLocalVariable("isSz",false);
 			} else {
-				taskOwner = camTaskOwner(syrkSyrkxxzb, zdry_jzd_zrqdm, "32", "SZ");
+				taskOwner = camSzTaskOwner(syrkSyrkxxzb, zdry_jzd_zrqdm, "32", "SZ");
+				setLocalVariable("isSz",true);
+			}
+			if(taskOwner == null){
+				throw new BaseWorkflowException("没有对应的组织或岗位。");
 			}
 			setLocalVariable(variableKey, taskOwner);
 			setLocalVariable("businessType", "1");
 			setLocalVariable("org", orgOrganization);
+			setLocalVariable("approvalMethod", "szApproval");
 
 		} catch (BussinessException aa) {
 
 			throw new BussinessException("未找到该重点人员户籍地址信息，请补充");// 抛出异常
+		} catch (BaseWorkflowException e) {
+			e.printStackTrace();
 		}
 
 	}
 	/**
+	 * @throws BaseWorkflowException 
 	 * 
-	 * @Title: camTaskOwner
+	 * @Title: camZazdTaskOwner
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param @param syrkSyrkxxzb
+	 * @param @param zdry_jzd_zrqdm
+	 * @param @param orgLevel
+	 * @param @param posId
+	 * @param @return    设定文件
+	 * @return String    返回类型
+	 * @throws
+	 */
+	private String camZazdTaskOwner(String orgLevel, String posId) throws BaseWorkflowException {
+		String taskParameter = null;
+		String orgName = "治安管理支队派出所工作大队";
+		String systemXzqh = SystemConfig.getString("systemXzqh")==null?"210000":SystemConfig.getString("systemXzqh");
+		List<OrgOrganization>  orgLst = orgOrganizationService.queryList(orgName,orgLevel,systemXzqh);
+		if(orgLst.size() > 0 && orgLst.size()==1){
+			taskParameter = orgLst.get(0).getOrgcode() + "_"
+					+ orgPositionService.queryByPosid(posId).getId().toString();
+		}else{
+			throw new BaseWorkflowException("未定义" + orgName);
+		}
+		return taskParameter;
+	}
+	/**
+	 * 
+	 * @Title: camSzTaskOwner
 	 * @Description: 設置task owner
 	 * @param @param syrkSyrkxxzb
 	 * @param @param zdry_jzd_zrqdm
@@ -121,7 +158,7 @@ public class Dlaywjs extends WorkflowDelegate{
 	 * @return void    返回类型
 	 * @throws
 	 */
-	private String camTaskOwner(SyrkSyrkxxzb syrkSyrkxxzb,
+	private String camSzTaskOwner(SyrkSyrkxxzb syrkSyrkxxzb,
 			String zdry_jzd_zrqdm, String orgLevel, String posId) {
 		String zdry_hjd_mlpdm = null;
 		OrgOrganization orgOrganization = null;
@@ -146,6 +183,7 @@ public class Dlaywjs extends WorkflowDelegate{
 			taskParameter = fsxOrgCode + "_"
 					+ orgPositionService.queryByPosid(posId).getId().toString(); // 部门code+所长岗位ID
 		}
+		
 		return taskParameter;
 	}
 	/**
@@ -170,7 +208,7 @@ public class Dlaywjs extends WorkflowDelegate{
 	 * @throws
 	 */
 	public void notifyAllPersons(){
-		System.out.println("### 通知双方民警及所长:" + service.toString());
+		System.out.println("### 通知双方民警及所长:" );
 	}
 	/**
 	 * 
@@ -181,7 +219,7 @@ public class Dlaywjs extends WorkflowDelegate{
 	 * @throws
 	 */
 	public void notifyCsxfbm(){
-		System.out.println("### 通知初始下发部门:" + service.toString());
+		System.out.println("### 通知初始下发部门:" );
 		
 	}
 	/**
@@ -193,7 +231,7 @@ public class Dlaywjs extends WorkflowDelegate{
 	 * @throws
 	 */
 	public void notifyYxqsqmj(){
-		System.out.println("### 通知原辖区社区民警:" + service.toString());
+		System.out.println("### 通知原辖区社区民警:" );
 		
 	}
 	/**
@@ -205,7 +243,7 @@ public class Dlaywjs extends WorkflowDelegate{
 	 * @throws
 	 */
 	public void notifySz(){
-		System.out.println("### 通知所长 :" + service.toString());
+		System.out.println("### 通知所长 :" );
 	}
 	/**
 	 * 
@@ -216,7 +254,7 @@ public class Dlaywjs extends WorkflowDelegate{
 	 * @throws
 	 */
 	public void notifyZazd(){
-		System.out.println("### 通知治安支队:" + service.toString());
+		System.out.println("### 通知治安支队:" );
 	}
 	/**
 	 * 
@@ -227,7 +265,7 @@ public class Dlaywjs extends WorkflowDelegate{
 	 * @throws
 	 */
 	public void notifyOtherJzdxq(){
-		System.out.println("### 通知实有人口其他居住地辖区:" + service.toString());
+		System.out.println("### 通知实有人口其他居住地辖区:" );
 	}
 	
 	

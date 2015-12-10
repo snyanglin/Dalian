@@ -18,8 +18,19 @@ public class LnParamsInitializer implements IfParamInitializer {
 	ZdryConstant zdryConstant;
 	ZdryInfoQueryService zdryQueryService;
 	
+	public LnParamsInitializer() {
+		super();
+	}
 	public LnParamsInitializer( ZdryConstant zdryConstant,ZdryInfoQueryService zdryQueryService) {
 		this.zdryConstant = zdryConstant;
+		this.zdryQueryService = zdryQueryService;
+	}
+	@Override
+	public void setZdryConstant(ZdryConstant zdryConstant) {
+		this.zdryConstant = zdryConstant;
+	}
+	@Override
+	public void setZdryQueryService(ZdryInfoQueryService zdryQueryService) {
 		this.zdryQueryService = zdryQueryService;
 	}
 	@Override
@@ -61,7 +72,6 @@ public class LnParamsInitializer implements IfParamInitializer {
 
 	private void prepareZl(StartProcessInstance spi, SessionBean sessionBean,
 			ZdryVO zdryVO, Map<String, Object> variables) {
-		// TODO Auto-generated method stub
 		String  lrrzrq= sessionBean.getUserOrgCode();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String createTime=formatter.format(new Date());//申请时间
@@ -90,7 +100,6 @@ public class LnParamsInitializer implements IfParamInitializer {
 		spi.setBusinessKey(zdryVO.getZdryZdryzb().getId());
 		spi.setVariables(variables);
 	}
-
 	private void prepareCg(StartProcessInstance spi, SessionBean sessionBean, ZdryVO zdryVO, Map<String, Object> variables) {
 		String zdryxm = zdryVO.getZdryZdryzb().getXm();
 		Zdrylxylbdyb zdrylxylbdyb = new Zdrylxylbdyb();
@@ -111,32 +120,57 @@ public class LnParamsInitializer implements IfParamInitializer {
 		// variables.put("splx", "重点人口列管");//审批类型
 		variables.put("sqyj", zdryVO.getYwsqyy());// 申请意见
 		variables.put("zdryName", zdryxm);// 申请意见
-		/**
-		 * 01	监管对象(sqjz)
-		 * 02	重点人口(zdrk)
-		 * 03	其他重点管理对象(zdrk)
-		 * 04	肇事肇祸精神病人(zszh)
-		 * 05	轻微滋事精神病人(zszh)
-		 * 06	非正常上访重点人员(sgaf)
-		 * 07	纳入视线对象（无流程）(nrsx)
-		 * 08	一般关注对象(不持久 化 )
-		 */
-		if (!zdryZdryzb.getZdrygllxdm().equals("07") ) {
-			variables.put("sqlx", zdrylxmc +"撤管");
+		
+		if (zdryZdryzb.getZdrygllxdm().equals("07")) {// 环保
+			variables.put("sqlx", "纳入视线撤管");
 			variables.put("splevel", "1");// 设置审批级别，一级审批
+			variables.put("approvalMethod", "shbApproval");
 			variables.put("zdryId", zdryZdryzb.getId());
 			variables.put("sqyj", "申请将" + zdryxm	+ "撤管");
 			variables.put("xm", zdryxm);// 被列管人员姓名
 			variables.put("zjhm", zdryVO.getZdryZdryzb().getZjhm());// 证件号码
 
 			// set parameters of processinstance
-			spi.setProcessKey("dl_zalcg");
+			spi.setProcessKey("shb_lcg");
 			spi.setBusinessKey(zdryZdryzb.getId());
 			spi.setVariables(variables);
-		}  else {
-			//07	纳入视线对象（无流程）
+		} else if (zdryZdryzb.getZdrygllxdm().equals("06")) {// 其他关注对象 改为也要 所长
+																// 审批
+			variables.put("sqlx", "其他关注对象撤管");// 申请类型
+
+			// set parameters of processinstance
+			spi.setProcessKey("szsp");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
+		} else if (zdryZdryzb.getZdrygllxdm().equals("05")) {// 涉公安访
+			variables.put("sqlx", "涉公安访撤管");
+			variables.put("sqrOrgCode", sessionBean.getUserOrgCode());
+			variables.put("sqrUpOrgCode", sessionBean.getUserManageOrgCode());
+			// set parameters of processinstance
+			spi.setProcessKey("sgaj_lcg");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
+		} else // 治安
+
+		if (zdryZdryzb.getZdrygllxdm().equals("01")) {
+
+			variables.put("sqlx", "社区矫正人员撤管");// 申请类型
+			// set parameters of processinstance
+			spi.setProcessKey("sqjz");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
+
+		} else {
+			if (zdryZdryzb.getZdrygllxdm().equals("04")) {
+				variables.put("sqlx", "非正常上访重点人员撤管");// 申请类型
+			}else{
+				variables.put("sqlx", "治安撤管");// 申请类型
+			}
+			// set parameters of processinstance
+			spi.setProcessKey("zalcg");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
 		}
-		
 	}
 
 	private void prepareLg(StartProcessInstance spi, SessionBean sessionBean, ZdryVO zdryVO, Map<String, Object> variables) {
@@ -159,40 +193,62 @@ public class LnParamsInitializer implements IfParamInitializer {
 		// variables.put("splx", "重点人口列管");//审批类型
 		variables.put("sqyj", zdryVO.getYwsqyy());// 申请意见
 		variables.put("zdryName", zdryxm);// 申请意见
-		/**
-		 * 01	监管对象
-		 * 02	重点人口
-		 * 03	其他重点管理对象
-		 * 04	肇事肇祸精神病人
-		 * 05	轻微滋事精神病人
-		 * 06	非正常上访重点人员
-		 * 07	纳入视线对象（无流程）
-		 * 08	一般关注对象
-		 */
-		if (!zdryZdryzb.getZdrygllxdm().equals("07") ) {
-			variables.put("sqlx", zdrylxmc);
+		
+		if (zdryZdryzb.getZdrygllxdm().equals("07")) {// 环保
+			variables.put("sqlx", "涉环保");
 			variables.put("splevel", "1");// 设置审批级别，一级审批
 			variables.put("approvalMethod", "shbApproval");
 			variables.put("zdryId", zdryZdryzb.getId());
-			variables.put("sqyj", "申请将" + zdryxm	+ "列管为"+zdrylxmc);
+			variables.put("sqyj", "申请将" + zdryxm	+ "列管为涉环保重点人员");
 			variables.put("xm", zdryxm);// 被列管人员姓名
 			variables.put("zjhm", zdryVO.getZdryZdryzb().getZjhm());// 证件号码
 
 			// set parameters of processinstance
-			spi.setProcessKey("dl_zalcg");
+			spi.setProcessKey("shb_lcg");
 			spi.setBusinessKey(zdryZdryzb.getId());
 			spi.setVariables(variables);
-		}  else {
-			//07	纳入视线对象（无流程）
+		} else if (zdryZdryzb.getZdrygllxdm().equals("06")) {// 其他关注对象 改为也要 所长
+																// 审批
+			variables.put("sqlx", "其他关注对象");// 申请类型
+
+			// set parameters of processinstance
+			spi.setProcessKey("szsp");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
+		} else if (zdryZdryzb.getZdrygllxdm().equals("05")) {// 涉公安访
+			variables.put("sqlx", "涉公安访列管");
+			variables.put("sqrOrgCode", sessionBean.getUserOrgCode());
+			variables.put("sqrUpOrgCode", sessionBean.getUserManageOrgCode());
+			// set parameters of processinstance
+			spi.setProcessKey("sgaj_lcg");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
+		} else // 治安
+
+		if (zdryZdryzb.getZdrygllxdm().equals("01")) {
+			variables.put("sqlx", "社区矫正人员列管");// 申请类型
+			// set parameters of processinstance
+			spi.setProcessKey("sqjz");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
+
+		} else {
+			if (zdryZdryzb.getZdrygllxdm().equals("04")) {
+				variables.put("sqlx", "非正常上访重点人员列管");// 申请类型
+			}else{
+				variables.put("sqlx", "治安列管");// 申请类型
+			}
+
+			// set parameters of processinstance
+			spi.setProcessKey("zalcg");
+			spi.setBusinessKey(zdryZdryzb.getId());
+			spi.setVariables(variables);
 		}
 	}
-
 	private void prepareZd(StartProcessInstance spi, SessionBean sessionBean,
 			ZdryVO zdryVO, Map<String, Object> variables) {
-		// TODO Auto-generated method stub
 		ZdryZdryzbVO zdryZdryVo= zdryVO.getZdryZdryzbVO();
 		ZdryZb zb = zdryVO.getZdryZdryzb();
-		//zdryVO.getZdryZdryzb();
 		ZdryZb yzb = (ZdryZb) zdryQueryService.queryById(zdryVO.getZdryZdryzb().getId());
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		variables.put("sqsj",formatter.format(new Date())); //申请时间

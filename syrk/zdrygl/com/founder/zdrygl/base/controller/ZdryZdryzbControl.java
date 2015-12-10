@@ -216,7 +216,7 @@ public class ZdryZdryzbControl extends BaseController {
 	@RequestMapping(value = "/saveLg", method = RequestMethod.POST)
 	public ModelAndView saveLg(@Valid ZdryVO zdryVO,BindingResult result, SessionBean sessionBean) throws RestException {
 		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
-		
+		ZdryService zdryService = null;
 		/*if(!super.validateResult(mv, result)){
 			return mv;
 		}*/
@@ -224,13 +224,15 @@ public class ZdryZdryzbControl extends BaseController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		sessionBean = getSessionBean(sessionBean);
 		try {
-			String zdrygllxdm = zdryVO.getZdryZdryzb().getZdrygllxdm();// 重点人员类型
-			ZdryService zdryService = zdryFactory.createZdryService(zdrygllxdm,
-					zdryVO.getZdryZdryzb(), zdryVO.getZdrylbdx());
 			// start process
 			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdryConstant,zdryQueryService);
 			StartProcessInstance spi = wfpis.initialProcessInstance(sessionBean,zdryVO,LcgFlagEnum.LG);
-			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(),spi.getVariables());
+			
+			String zdrygllxdm = zdryVO.getZdryZdryzb().getZdrygllxdm();// 重点人员类型
+			zdryService = zdryFactory.createZdryService(zdrygllxdm,zdryVO.getZdryZdryzb(), zdryVO.getZdrylbdx());
+			if(spi.isHasWorkflow()){
+				zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(),spi.getVariables());
+			}
 			zdryService.lg(sessionBean);
 
 			model.put(AppConst.STATUS, AppConst.SUCCESS);

@@ -460,28 +460,17 @@ public class ZdryApprovalController extends BaseController {
 						+ zdryWorkflowVO.getNextSpposId());
 			}
 
-			String Key = taskService.findJTaskbyTaskId(
-					zdryWorkflowVO.getWorkflowId()).getTaskDefinitionKey();
-			// variables.put(taskService.findJTaskbyTaskId(zdryWorkflowVO.getWorkflowId()).getTaskDefinitionKey()+"ApprovedType",
-			// zdryWorkflowVO.getSpjg());
 
 			variables.put("sz" + "ApprovedType", zdryWorkflowVO.getSpjg());
-
-			// variables.put(orgPositionService.queryByPosid(sessionBean.getUserPositionId()).getId()+"ApprovedType",
-			// zdryWorkflowVO.getSpjg());
-
-			ZdryZb zdryZdryzb = (ZdryZb) zdryInfoQueryService
-					.queryById((String) zdryWorkflowVO.getZdryId());
-			variables.put("listenerAgree", "");
-			variables.put("listenerDisgree", "");
 			variables.put("spyj", zdryWorkflowVO.getSpyj());
 
 			// set next task's owner
-			if (zdryWorkflowVO.getNextSppos() != null)
+			if (zdryWorkflowVO.getNextSppos() != null){
 				variables.put("posid", zdryWorkflowVO.getNextSppos());// 对应数据库表org_position中的posid
-			variables.put("sporgcode", zdryWorkflowVO.getNextSpOrgCode());//
-			variables.put("orgposid", zdryWorkflowVO.getNextSpposId());// 对应org_org_pos表中的id
-			variables.put("nextSpUserId", zdryWorkflowVO.getNextSpUserId());
+				variables.put("sporgcode", zdryWorkflowVO.getNextSpOrgCode());//
+				variables.put("orgposid", zdryWorkflowVO.getNextSpposId());// 对应org_org_pos表中的id
+				variables.put("nextSpUserId", zdryWorkflowVO.getNextSpUserId());
+			}
 
 			taskService.completeTask(zdryWorkflowVO.getWorkflowId(), variables); // 执行任务
 
