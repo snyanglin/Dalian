@@ -466,13 +466,18 @@ public class ZdryZdryzbControl extends BaseController {
 			zdrycg.setZdrygllxdm(zb_new.getZdrygllxdm());
 			zdrycg.setZdrylb(zb_new.getZdrylb());
 			// 撤管重点人员
-			ZdryService zdryService = zdryFactory.createZdryService(
-					zb_new.getZdrygllxdm(), zdrycg, zdryVO.getZdrylbdx());
+//			ZdryService zdryService = zdryFactory.createZdryService(
+//					zb_new.getZdrygllxdm(), zdrycg, zdryVO.getZdrylbdx());
+			
+			ZdryService zdryService = zdryFactory.createZdryService(zb_new.getZdrygllxdm());
 			// start process
 			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdryConstant,orgOrganizationService,orgPositionService,zdryQueryService);
 			StartProcessInstance spi = wfpis.initialProcessInstance(sessionBean, zdryVO,LcgFlagEnum.CG);
-			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(), spi.getVariables());
-			zdryService.cg(sessionBean);
+//			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(), spi.getVariables());
+			ZOBean entity = new ZOBean(zb_new, zdryVO.getZdrylbdx());
+			entity.setZdrycx(zdrycg);
+			entity.setStartProcessInstance(spi);
+			zdryService.cg(sessionBean,entity);
 
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
 			model.put(AppConst.MESSAGES, getAddSuccess());

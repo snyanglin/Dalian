@@ -2,14 +2,17 @@ package com.founder.zdrygl.base.vo;
 
 import java.io.Serializable;
 
+import com.founder.framework.components.AppConst;
+import com.founder.framework.config.SystemConfig;
 import com.founder.zdrygl.base.model.ZdryFzcsfryxxb;
 import com.founder.zdrygl.base.model.ZdryJgdxxxb;
+import com.founder.zdrygl.base.model.ZdryNrsxdxxxb;
 import com.founder.zdrygl.base.model.ZdrySgafzdryxxb;
 import com.founder.zdrygl.base.model.ZdryShbzdryxxb;
 import com.founder.zdrygl.base.model.ZdrySqjzryxxb;
 import com.founder.zdrygl.base.model.ZdrySqsbzdryxxb;
-import com.founder.zdrygl.base.model.ZdryZdrkxxb;
 import com.founder.zdrygl.base.model.ZdryZb;
+import com.founder.zdrygl.base.model.ZdryZdrkxxb;
 import com.founder.zdrygl.base.model.ZdryZszhjsbrxxb;
 import com.founder.zdrygl.core.model.Zdry;
 
@@ -40,6 +43,7 @@ public class ZdryVO implements Serializable {
 	ZdrySqsbzdryxxb zdrySqsbzdryxxb;//涉枪涉暴
 	ZdrySqjzryxxb zdrySqjzryxxb;//社区矫正
 	ZdrySgafzdryxxb zdrySgafzdryxxb;//涉公安访
+	ZdryNrsxdxxxb zdryNrsxdxxxb;//纳入视线对象
 	
 	String cglxdm;//撤管类型代码
 	String ywsqyy;//业务申请原因（流程用）
@@ -102,6 +106,13 @@ public class ZdryVO implements Serializable {
 	public void setZdrySgafzdryxxb(ZdrySgafzdryxxb zdrySgafzdryxxb) {
 		this.zdrySgafzdryxxb = zdrySgafzdryxxb;
 	}
+	
+	public ZdryNrsxdxxxb getZdryNrsxdxxxb() {
+		return zdryNrsxdxxxb;
+	}
+	public void setZdryNrsxdxxxb(ZdryNrsxdxxxb zdryNrsxdxxxb) {
+		this.zdryNrsxdxxxb = zdryNrsxdxxxb;
+	}
 	/**
 	 * 
 	 * @Title: getZdrylbdx
@@ -112,22 +123,49 @@ public class ZdryVO implements Serializable {
 	 */
 	public Zdry getZdrylbdx(){
 		if(zdryZdryzb==null || zdryZdryzb.getZdrygllxdm()==null) return null;
-		if("01".equals(zdryZdryzb.getZdrygllxdm()))//社区矫正人员
-			return this.zdrySqjzryxxb;
-		if("02".equals(zdryZdryzb.getZdrygllxdm()))//重点人口
-			return zdryZdrk;
-		if("03".equals(zdryZdryzb.getZdrygllxdm()))//肇事肇祸精神病人
-			return this.zdryZszhjsbrxxb;
-		if("04".equals(zdryZdryzb.getZdrygllxdm()))//非正常上访重点人员
-			return this.zdryFzcsfryxxb;
-		if("05".equals(zdryZdryzb.getZdrygllxdm()))//涉公安访重点人员
-			return this.zdrySgafzdryxxb;
-		//if("06".equals(zdryZdryzb.getZdrygllxdm()))//其他关注对象
-		//	return this.
-		if("07".equals(zdryZdryzb.getZdrygllxdm()))//涉环保重点人员
-			return this.zdryShbzdryxxb;
-		if("08".equals(zdryZdryzb.getZdrygllxdm()))//涉枪涉爆重点人员
-			return this.zdrySqsbzdryxxb;
+		if("210000".equals(SystemConfig.getString(AppConst.XZQH))){//辽宁
+			if("01".equals(zdryZdryzb.getZdrygllxdm()))//社区矫正人员
+				return this.zdrySqjzryxxb;
+			if("02".equals(zdryZdryzb.getZdrygllxdm()))//重点人口
+				return zdryZdrk;
+			if("03".equals(zdryZdryzb.getZdrygllxdm()))//肇事肇祸精神病人
+				return this.zdryZszhjsbrxxb;
+			if("04".equals(zdryZdryzb.getZdrygllxdm()))//非正常上访重点人员
+				return this.zdryFzcsfryxxb;
+			if("05".equals(zdryZdryzb.getZdrygllxdm()))//涉公安访重点人员
+				return this.zdrySgafzdryxxb;
+			//if("06".equals(zdryZdryzb.getZdrygllxdm()))//其他关注对象
+			//	return this.
+			if("07".equals(zdryZdryzb.getZdrygllxdm()))//涉环保重点人员
+				return this.zdryShbzdryxxb;
+			if("08".equals(zdryZdryzb.getZdrygllxdm()))//涉枪涉爆重点人员
+				return this.zdrySqsbzdryxxb;
+		}else{
+			if("01".equals(zdryZdryzb.getZdrygllxdm())){//监管对象
+				return this.zdryJgdxxxb;
+			}
+			
+			if("02".equals(zdryZdryzb.getZdrygllxdm()))//重点人口
+				return zdryZdrk;
+			if("03".equals(zdryZdryzb.getZdrygllxdm())){//其它重点管理对象
+				return this.zdryZdrk;
+			}
+				
+			if("04".equals(zdryZdryzb.getZdrygllxdm())){//肇事肇祸精神病人
+				return this.zdryZszhjsbrxxb;
+			}
+				
+			if("05".equals(zdryZdryzb.getZdrygllxdm())){//肇事肇祸精神病人
+				return this.zdryZszhjsbrxxb;
+			}
+			if("06".equals(zdryZdryzb.getZdrygllxdm())){//非正常上访重点人员
+				return this.zdryFzcsfryxxb;
+			}
+			if("07".equals(zdryZdryzb.getZdrygllxdm())){//纳入实现对象
+				return this.zdryNrsxdxxxb;
+			}
+		}
+		
 		return null;
 	}
 	public String getCglxdm() {
@@ -176,22 +214,48 @@ public class ZdryVO implements Serializable {
 	 * @throws
 	 */
 	public void setZdryZb(String zdrygllxdm , Zdry zdry) {
-		if("01".equals(zdrygllxdm))//社区矫正人员
-			this.zdrySqjzryxxb = (ZdrySqjzryxxb) zdry;
-		if("02".equals(zdrygllxdm))//重点人口
-			this.zdryZdrk = (ZdryZdrkxxb) zdry;
-		if("03".equals(zdrygllxdm))//肇事肇祸精神病人
-			this.zdryZszhjsbrxxb = (ZdryZszhjsbrxxb) zdry;
-		if("04".equals(zdrygllxdm))//非正常上访重点人员
-			this.zdryFzcsfryxxb = (ZdryFzcsfryxxb) zdry;
-		if("05".equals(zdrygllxdm))//涉公安访重点人员
-			this.zdrySgafzdryxxb = (ZdrySgafzdryxxb) zdry;
-		//if("06".equals(zdrygllxdm))//其他关注对象
-		//	return this.
-		if("07".equals(zdrygllxdm))//涉环保重点人员
-			this.zdryShbzdryxxb = (ZdryShbzdryxxb) zdry;
-		if("08".equals(zdrygllxdm))//涉枪涉爆重点人员
-			this.zdrySqsbzdryxxb = (ZdrySqsbzdryxxb) zdry;
+		if("210000".equals(SystemConfig.getString(AppConst.XZQH))){//辽宁
+			if("01".equals(zdrygllxdm))//社区矫正人员
+				this.zdrySqjzryxxb = (ZdrySqjzryxxb) zdry;
+			if("02".equals(zdrygllxdm))//重点人口
+				this.zdryZdrk = (ZdryZdrkxxb) zdry;
+			if("03".equals(zdrygllxdm))//肇事肇祸精神病人
+				this.zdryZszhjsbrxxb = (ZdryZszhjsbrxxb) zdry;
+			if("04".equals(zdrygllxdm))//非正常上访重点人员
+				this.zdryFzcsfryxxb = (ZdryFzcsfryxxb) zdry;
+			if("05".equals(zdrygllxdm))//涉公安访重点人员
+				this.zdrySgafzdryxxb = (ZdrySgafzdryxxb) zdry;
+			//if("06".equals(zdrygllxdm))//其他关注对象
+			//	return this.
+			if("07".equals(zdrygllxdm))//涉环保重点人员
+				this.zdryShbzdryxxb = (ZdryShbzdryxxb) zdry;
+			if("08".equals(zdrygllxdm))//涉枪涉爆重点人员
+				this.zdrySqsbzdryxxb = (ZdrySqsbzdryxxb) zdry;
+		}else{
+			if("01".equals(zdrygllxdm)){//监管对象
+				this.zdryJgdxxxb = (ZdryJgdxxxb) zdry;
+			}
+			
+			if("02".equals(zdrygllxdm))//重点人口
+				this.zdryZdrk = (ZdryZdrkxxb) zdry;
+			if("03".equals(zdrygllxdm)){//其它重点管理对象
+				this.zdryZdrk = (ZdryZdrkxxb) zdry;
+			}
+				
+			if("04".equals(zdrygllxdm)){//肇事肇祸精神病人
+				this.zdryZszhjsbrxxb = (ZdryZszhjsbrxxb) zdry;
+			}
+				
+			if("05".equals(zdrygllxdm)){//肇事肇祸精神病人
+				this.zdryZszhjsbrxxb = (ZdryZszhjsbrxxb) zdry;
+			}
+			if("06".equals(zdrygllxdm)){//非正常上访重点人员
+				this.zdryFzcsfryxxb = (ZdryFzcsfryxxb) zdry;
+			}
+			if("07".equals(zdrygllxdm)){//纳入实现对象
+				this.zdryNrsxdxxxb = (ZdryNrsxdxxxb) zdry;				
+			}
+		}
 		
 	}	
 	

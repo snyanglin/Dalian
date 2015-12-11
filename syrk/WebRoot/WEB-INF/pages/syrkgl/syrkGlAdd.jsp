@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="cn.mos.framework.base.entity.SessionBean"%>
+<%@ page import="com.founder.framework.base.entity.SessionBean"%>
 <%@include file="/WEB-INF/pages/commonInclude.jsp"%>
 <%
     SessionBean userInfo = (SessionBean)session.getAttribute("userSession");

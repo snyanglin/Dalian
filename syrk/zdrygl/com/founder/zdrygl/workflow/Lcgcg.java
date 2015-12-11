@@ -51,27 +51,25 @@ public class Lcgcg implements JavaDelegate {
 		ZdryZb zdryzb = (ZdryZb) execution.getVariable("zdryzb");
 		Zdry zdrylbdx = (Zdry) execution.getVariable("zdrylbdx");
 		
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
-				.getRequestAttributes()).getRequest();
-		SessionBean sessionBean = (SessionBean) WebUtils.getSessionAttribute(
-				request, AppConst.USER_SESSION);
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		SessionBean sessionBean = (SessionBean) WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
 		/*
 		 * String spr = sessionBean.getUserId(); String spbm =
 		 * sessionBean.getUserOrgCode();
 		 */
-
+		ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
+		ZOBean entity = new ZOBean(zdryzb, zdrylbdx);
 		if ("01".equals(sqlxdm)){
 //			ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
 //
 //			zdryService.lgSuccess(sessionBean);
-			ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
-			ZOBean entity = new ZOBean(zdryzb, zdrylbdx);
+			
 			zdryService.lgSuccess(sessionBean,entity);
 		}else if ("02".equals(sqlxdm)){
-			ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
-			zdryService.cgSuccess(sessionBean);
+//			ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
+			zdryService.cgSuccess(sessionBean,entity);
 		}else if ("04".equals(sqlxdm)) {// 请假
-			String qjId = (String) execution.getVariable("qjId");
+//			String qjId = (String) execution.getVariable("qjId");
 			// zdryService.qjSuccess(sessionBean);
 		}
 	}

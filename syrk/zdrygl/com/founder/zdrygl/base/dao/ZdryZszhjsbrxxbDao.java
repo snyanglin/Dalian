@@ -5,6 +5,8 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
+import com.founder.framework.components.AppConst;
+import com.founder.framework.config.SystemConfig;
 import com.founder.zdrygl.base.model.ZdryZszhjsbrxxb;
 import com.founder.zdrygl.core.inteface.ZdryGllxEntityDaoService;
 import com.founder.zdrygl.core.model.Zdry;
@@ -49,7 +51,11 @@ public class ZdryZszhjsbrxxbDao extends BaseDaoImpl implements ZdryGllxEntityDao
 
 	@Override
 	public Zdry queryViewByMap(Map<String, Object> queryMap) {
-		return (Zdry)super.queryForObject("ZdryZszhjsbrxxb.queryViewByMap", queryMap);
+		if("210000".equals(SystemConfig.getString(AppConst.XZQH))){//辽宁
+			return (Zdry)super.queryForObject("ZdryZszhjsbrxxb.queryViewByMap", queryMap);
+		}else{
+			return (Zdry)super.queryForObject("ZdryZszhjsbrxxb.queryViewByMap210200", queryMap);
+		}
 	}
 
 }

@@ -57,7 +57,7 @@ public class ZlSuccess implements JavaDelegate{
 //		zdryZdryzbService.update(zdryZdryzb, sessionBean);
 
 		
-		zdryService.zlSuccess(sessionBean);
+//		TODO zdryService.zlSuccess(sessionBean);
 		
 	}
 	

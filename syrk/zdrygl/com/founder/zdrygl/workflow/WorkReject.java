@@ -40,13 +40,12 @@ public class WorkReject implements JavaDelegate{
 	
 	@Override
 	public void execute(DelegateExecution arg0) throws Exception {
-		// TODO Auto-generated method stub
 				
 		String zdrylx = (String) arg0.getVariable("zdrylx");
 		ZdryZb zdryzb = (ZdryZb) arg0.getVariable("zdryzb");
 		Zdry zdrylbdx = (Zdry) arg0.getVariable("zdrylbdx");
-		ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
-		
+//		ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
+		ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
 		
@@ -60,10 +59,10 @@ public class WorkReject implements JavaDelegate{
 		String spbm=sessionBean.getUserOrgCode();*/
 		
 		if(sqlxdm.equals("01")){//列管
-			zdryService.lgFail(sessionBean ,new ZOBean(zdryzb, zdrylbdx));
+			zdryService.lgFail(sessionBean , new ZOBean(zdryzb, zdrylbdx));
 		}
 		if(sqlxdm.equals("02")){//撤管
-			zdryService.cgFail(sessionBean);
+			zdryService.cgFail(sessionBean , new ZOBean(zdryzb, zdrylbdx));
 		}
 		if(sqlxdm.equals("04")){//请假
 			//String qjId=(String) arg0.getVariable("qjId");			

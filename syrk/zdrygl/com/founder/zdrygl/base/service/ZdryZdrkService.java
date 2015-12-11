@@ -42,26 +42,26 @@ public class ZdryZdrkService  extends ZdryServiceDecorator{
 	 * 列管重点人口
 	 */
 	@Override
-	protected void lg_(SessionBean sessionBean , Zdry zdry) {
-		ZdryZdrkxxb zdryZdrkxxb = (ZdryZdrkxxb) zdry;
+	protected void lg_(SessionBean sessionBean , Zdry zdrylbdx) {
+		ZdryZdrkxxb zdryZdrkxxb = (ZdryZdrkxxb) zdrylbdx;
 		BaseService.setSaveProperties(zdryZdrkxxb, sessionBean);	
 		zdryZdrkxxbDao.insert(zdryZdrkxxb);
 	}
 	
 	@Override
 	protected void lgFail_(SessionBean sessionBean, Zdry zdrylbdx) {
-		// TODO Auto-generated method stub
-		
+		ZdryZdrkxxb zdryZdrkxxb = (ZdryZdrkxxb) zdrylbdx;
+		BaseService.setCrossoutProperties(zdryZdrkxxb, sessionBean);
+		zdryZdrkxxbDao.delete(zdryZdrkxxb);
 	}
 
 	@Override
-	protected void cg_(SessionBean sessionBean) {
-		if(zdry != null){
-			BaseService.setSaveProperties(zdry, sessionBean);
-			zdry.setId(this.getZdryId());
-			zdryZdrkxxbDao.insert(zdry);
+	protected void cg_(SessionBean sessionBean , Zdry zdrylbdx) {
+		if(zdrylbdx != null){
+			ZdryZdrkxxb zdryZdrkxxb = (ZdryZdrkxxb) zdrylbdx;
+			BaseService.setSaveProperties(zdryZdrkxxb, sessionBean);	
+			zdryZdrkxxbDao.insert(zdryZdrkxxb);
 		}
-		
 	}
 	
 	/**
