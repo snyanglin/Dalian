@@ -6,43 +6,43 @@ import com.founder.framework.annotation.DBInfoAnnotation;
 import com.founder.framework.annotation.FieldDesc;
 import com.founder.framework.base.entity.BaseEntity;
 import com.founder.zdrygl.core.model.Zdry;
-/***
+
+
+/**
  * ****************************************************************************
- * @Package:      [com.founder.zdrygl.bean.Fzcsfryxxb.java]  
- * @ClassName:    [Fzcsfryxxb]   
- * @Description:  [一句话描述该类的功能]   
- * @Author:       [wu_chunhui@founder.com.cn]  
- * @CreateDate:   [2015-3-11 下午6:08:02]   
- * @UpdateUser:   [Administrator(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateDate:   [2015-3-11 下午6:08:02，(如多次修改保留历史记录，增加修改记录)]   
+ * @Package:      [com.founder.zdrygl.base.model.ZdryNrsxdxxxb.java]  
+ * @ClassName:    [ZdryNrsxdxxxb]   
+ * @Description:  [重点人员 纳入视线对象]   
+ * @Author:       [zhang.hai@founder.com.cn]  
+ * @CreateDate:   [2015年12月9日 下午4:26:55]   
+ * @UpdateUser:   [ZhangHai(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年12月9日 下午4:26:55，(如多次修改保留历史记录，增加修改记录)]   
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
-@DBInfoAnnotation(tableName = "zdry_nrsxdxxxb", pk = "id")
+@DBInfoAnnotation(tableName = "ZDRY_NRSXDXXXB", pk = "id")
 public class ZdryNrsxdxxxb extends BaseEntity implements Serializable ,Zdry{
-	/**
-	 * @Fields serialVersionUID : 
-	 */
-	private static final long serialVersionUID = -54711830819070422L;
-	@FieldDesc("主要问题及现实表现")private String zywtjxsbx;
-	@FieldDesc("备注")private String bz;
-	@FieldDesc("采集时间")private String xt_cjsj;
-	@FieldDesc("录入时间")private String xt_lrsj;
-	@FieldDesc("录入人姓名")private String xt_lrrxm;
-	@FieldDesc("录入人ID")private String xt_lrrid;
-	@FieldDesc("录入人部门")private String xt_lrrbm;
-	@FieldDesc("录入人部门ID")private String xt_lrrbmid;
-	@FieldDesc("录入IP")private String xt_lrip;
-	@FieldDesc("最后修改时间")private String xt_zhxgsj;
-	@FieldDesc("最后修改人姓名")private String xt_zhxgrxm;
-	@FieldDesc("最后修改人ID")private String xt_zhxgrid;
-	@FieldDesc("最后修改人部门")private String xt_zhxgrbm;
-	@FieldDesc("最后修改人部门ID")private String xt_zhxgrbmid;
-	@FieldDesc("最后修改IP")private String xt_zhxgip;
-	@FieldDesc("注销标志")private String xt_zxbz;
-	@FieldDesc("注销原因")private String xt_zxyy;
+
+	private static final long serialVersionUID = 7737212711271365292L;
 	
-	@FieldDesc("重点人员ID")private String id;
+	@FieldDesc("重点人员ID") private String id;
+	@FieldDesc("主要问题及现实表现") private String zywtjxsbx;
+	@FieldDesc("备注") private String bz;
+	@FieldDesc("采集时间") private String xt_cjsj;
+	@FieldDesc("录入时间") private String xt_lrsj;
+	@FieldDesc("录入人姓名") private String xt_lrrxm;
+	@FieldDesc("录入人ID") private String xt_lrrid;
+	@FieldDesc("录入人部门") private String xt_lrrbm;
+	@FieldDesc("录入人部门ID") private String xt_lrrbmid;
+	@FieldDesc("录入IP") private String xt_lrip;
+	@FieldDesc("最后修改时间") private String xt_zhxgsj;
+	@FieldDesc("最后修改人姓名") private String xt_zhxgrxm;
+	@FieldDesc("最后修改人ID") private String xt_zhxgrid;
+	@FieldDesc("最后修改人部门") private String xt_zhxgrbm;
+	@FieldDesc("最后修改人部门ID") private String xt_zhxgrbmid;
+	@FieldDesc("最后修改IP") private String xt_zhxgip;
+	@FieldDesc("注销标志") private String xt_zxbz;
+	@FieldDesc("注销原因") private String xt_zxyy;
 	public String getId() {
 		return id;
 	}
@@ -151,5 +151,6 @@ public class ZdryNrsxdxxxb extends BaseEntity implements Serializable ,Zdry{
 	public void setXt_zxyy(String xt_zxyy) {
 		this.xt_zxyy = xt_zxyy;
 	}
+
 	
 }

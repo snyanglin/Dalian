@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.founder.framework.config.SystemConfig"%>
 		    
 		    <!-- 监管对象 -->
 		    <table id="jgdxDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;display:none">
@@ -6,7 +7,7 @@
 				<td width="20%" class="dialogTd" align="right">监管类别：</td>
 				<td width="30%" class="dialogTd">
 					<input class="easyui-combobox" type="text" id="jglbdm" name="zdryJgdxxxb.jglbdm" style="width:200px;" value="${zdryVO.zdryJgdxxxb.jglbdm }"
-					data-options="url: contextPath + '/common/dict/DL_D_JGLBDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'right'"/>
+					data-options="url: contextPath + '/common/dict/DL_D_JGLBDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'right',onChange:jglbChange"/>
 				</td>
 				<td width="20%" class="dialogTd" align="right"></td>
 				<td width="30%" class="dialogTd"></td>
@@ -27,7 +28,7 @@
 			</tr>
 			<tr class="dialogTr">
 				<td width="20%" class="dialogTd" align="right">处理结果：</td>
-				<td width="80%" class="dialogTd" colspan="3"><input class="easyui-combotree " type="text" name="zdryJgdxxxb.wfxyrcljgdm" id="wfxyrcljgdm" style="width:595px;" value="${zdryVO.zdryJgdxxxb.wfxyrcljgdm}"
+				<td width="80%" class="dialogTd" colspan="3"><input class="easyui-combotree " type="text" name="zdryJgdxxxb.wfxyrcljgdm" id="wfxyrcljgdm_jgdx" style="width:595px;" value="${zdryVO.zdryJgdxxxb.wfxyrcljgdm}"
 					data-options="url: contextPath + '/common/dict/XZ_D_WFXYRCLJG.js',onlyLeaf:false,multiple:false,method:'get',editable:true,lines:true"/>
 			</tr>
 			</table>
@@ -143,6 +144,15 @@
 					data-options="validType:['maxLength[1000]'],invalidMessage:'涉访处罚情况不能超过1000个汉字，请重新输入！',required:false,tipPosition:'left'">${zdryVO.zdryFzcsfryxxb.cfqk}</textarea></td>
 	    	</tr>
 	    	</table>
+	    		<!--纳入视线重点人员-->
+	    	 <table id="nrsxdxDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;">
+		 
+		    <tr class="dialogTr">
+		    	<td width="20%" class="dialogTd" align="right">主要问题及表现：</td>
+		    	<td width="80%" class="dialogTd" colspan="3"><textarea name="zdryNrsxdxxxb.zywtjxsbx" class="easyui-validatebox" style="width: 619px; height:48px;" value="${zdryVO.zdryNrsxdxxxb.zywtjxsbx}"
+					data-options="validType:['maxLength[500]'],invalidMessage:'主要问题及表现不能超过1000个汉字，请重新输入！',required:false,tipPosition:'left'">${zdryVO.zdryNrsxdxxxb.zywtjxsbx}</textarea></td>
+	    	</tr>
+	    	</table>
 	    	
 	    	<!-- 社区矫正人员 -->
 	    	 <table id="sqjzryDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;display:none">
@@ -239,6 +249,17 @@
 	    
 
 <script type="text/javascript" >
+//行政区划：大连用 还是省厅用
+var xzqh = "<%=SystemConfig.getString("systemXzqh")%>";
+
+function jglbChange(newVal,oldVal){
+	setInputReadonly("wfxyrcljgdm_jgdx", true);
+	if($("#jglbdm").combobox("getValue")){
+		$("#wfxyrcljgdm_jgdx").combobox("setValue",  $("#jglbdm").combobox("getValue"));
+	}
+	
+	
+}
 
 function zdrylxChange(newVal,oldVal){
 
@@ -259,7 +280,12 @@ function zdrylxChange(newVal,oldVal){
 				}else{				
 					$('#zdrylbStr').combotree('tree').tree('loadData', '');
 				}
-				showGroup(newVal);
+				if(xzqh=="210000"){//沈阳
+					showGroup(newVal);
+				}
+				if(xzqh=="210200"){//大连
+					showGroup2(newVal);
+				}
 			}
 		}); 
 			
@@ -268,25 +294,25 @@ function zdrylxChange(newVal,oldVal){
 				
 }
 
-//更新时要使用此方法，所以独立出来
+//沈阳重点人员类型字段显示
 function showGroup(group){
-	if(group == "JGDX") {//监管对象
-		$("#jgdxDiv").show();
+	if(group == "01"){//社区矫正人员
+		$("#jgdxDiv").hide();
 		$("#zdrkDiv").hide();
 		$("#zszhjsbrDiv").hide();
 		$("#fzcfryDiv").hide();
-		$("#sqjzryDiv").hide();
+		$("#sqjzryDiv").show();				
 		$("#sqsbzdryDiv").hide();
 		$("#sgafzdryDiv").hide();
 		
 		//监管类别
-		setComboRequired("jglbdm", true);
+		setComboRequired("jglbdm", false);
 		//判决机关
-		$("#pjjgmc").validatebox({required:true});
+		$("#pjjgmc").validatebox({required:false});
 		//监管单位
-		$("#jgdwmc").validatebox({required:true});
+		$("#jgdwmc").validatebox({required:false});
 		//犯罪性质
-		setComboRequired("fzxzdm", true);
+		setComboRequired("fzxzdm", false);
 		//重点人口管理方法
 		setComboRequired("glffdm", false);
 		//列管来源
@@ -294,20 +320,13 @@ function showGroup(group){
 		//精神病类别
 		setComboRequired("jsblbdm", false);
 		
-		$("#jgdw_gajgmc").validatebox({required:false});
-		$("#sqjzrypjjgmc").validatebox({required:false});				
-		$("#sqjzryky_jzrq").validatebox({required:false});
+		$("#jgdw_gajgmc").validatebox({required:true});
+		$("#sqjzrypjjgmc").validatebox({required:true});				
+		$("#sqjzryky_jzrq").validatebox({required:true});
 		setComboRequired("sqsbzdryglffdm",false);
 		setComboRequired("sqsbzdrylglydm",false);
 		
-		if ($("#fzxzdm").attr("delayParse") == "true") {	
-			$("#fzxzdm").find("input.easyui-combotree-delay").removeClass("easyui-combotree-delay").addClass("easyui-combotree");
-			$.parser.parse("#fzxzdm");
-			$("#fzxzdm").attr("delayParse", "false");
-			//$("#czrk_lbsqk_lzd_gjhdqdm").combobox("setValue", "156");
-		}
-		
-	} else if(group == "02") {//重点人口
+	}else if(group == "02") {//重点人口
 		$("#jgdxDiv").hide();
 		$("#zdrkDiv").show();
 		$("#zszhjsbrDiv").hide();
@@ -396,66 +415,6 @@ function showGroup(group){
 		$("#sqjzryky_jzrq").validatebox({required:false});
 		setComboRequired("sqsbzdryglffdm",false);
 		setComboRequired("sqsbzdrylglydm",false);
-	}else if(group == "01"){//社区矫正人员
-		$("#jgdxDiv").hide();
-		$("#zdrkDiv").hide();
-		$("#zszhjsbrDiv").hide();
-		$("#fzcfryDiv").hide();
-		$("#sqjzryDiv").show();				
-		$("#sqsbzdryDiv").hide();
-		$("#sgafzdryDiv").hide();
-		
-		//监管类别
-		setComboRequired("jglbdm", false);
-		//判决机关
-		$("#pjjgmc").validatebox({required:false});
-		//监管单位
-		$("#jgdwmc").validatebox({required:false});
-		//犯罪性质
-		setComboRequired("fzxzdm", false);
-		//重点人口管理方法
-		setComboRequired("glffdm", false);
-		//列管来源
-		setComboRequired("lglydm", false);
-		//精神病类别
-		setComboRequired("jsblbdm", false);
-		
-		$("#jgdw_gajgmc").validatebox({required:true});
-		$("#sqjzrypjjgmc").validatebox({required:true});				
-		$("#sqjzryky_jzrq").validatebox({required:true});
-		setComboRequired("sqsbzdryglffdm",false);
-		setComboRequired("sqsbzdrylglydm",false);
-		
-	}else if(group == "08"){//涉枪涉爆重点人员
-		$("#jgdxDiv").hide();
-		$("#zdrkDiv").hide();
-		$("#zszhjsbrDiv").hide();
-		$("#fzcfryDiv").hide();
-		$("#sqjzryDiv").hide();
-		$("#sqsbzdryDiv").show();
-		$("#sgafzdryDiv").hide();
-		
-		//监管类别
-		setComboRequired("jglbdm", false);
-		//判决机关
-		$("#pjjgmc").validatebox({required:false});
-		//监管单位
-		$("#jgdwmc").validatebox({required:false});
-		//犯罪性质
-		setComboRequired("fzxzdm", false);
-		//重点人口管理方法
-		setComboRequired("glffdm", false);
-		//列管来源
-		setComboRequired("lglydm", false);
-		//精神病类别
-		setComboRequired("jsblbdm", false);
-		
-		$("#jgdw_gajgmc").validatebox({required:false});
-		$("#sqjzrypjjgmc").validatebox({required:false});				
-		$("#sqjzryky_jzrq").validatebox({required:false});
-		setComboRequired("sqsbzdryglffdm",true);
-		setComboRequired("sqsbzdrylglydm",true);
-		
 	}else if(group == "05"){//涉公安访
 		$("#jgdxDiv").hide();
 		$("#zdrkDiv").hide();
@@ -486,6 +445,36 @@ function showGroup(group){
 		setComboRequired("sqsbzdryglffdm",false);
 		setComboRequired("sqsbzdrylglydm",false);
 		
+	}else  if(group == "08"){//涉枪涉爆重点人员
+		$("#jgdxDiv").hide();
+		$("#zdrkDiv").hide();
+		$("#zszhjsbrDiv").hide();
+		$("#fzcfryDiv").hide();
+		$("#sqjzryDiv").hide();
+		$("#sqsbzdryDiv").show();
+		$("#sgafzdryDiv").hide();
+		
+		//监管类别
+		setComboRequired("jglbdm", false);
+		//判决机关
+		$("#pjjgmc").validatebox({required:false});
+		//监管单位
+		$("#jgdwmc").validatebox({required:false});
+		//犯罪性质
+		setComboRequired("fzxzdm", false);
+		//重点人口管理方法
+		setComboRequired("glffdm", false);
+		//列管来源
+		setComboRequired("lglydm", false);
+		//精神病类别
+		setComboRequired("jsblbdm", false);
+		
+		$("#jgdw_gajgmc").validatebox({required:false});
+		$("#sqjzrypjjgmc").validatebox({required:false});				
+		$("#sqjzryky_jzrq").validatebox({required:false});
+		setComboRequired("sqsbzdryglffdm",true);
+		setComboRequired("sqsbzdrylglydm",true);
+		
 	}else {
 		$("#jgdxDiv").hide();
 		$("#zdrkDiv").hide();
@@ -496,6 +485,173 @@ function showGroup(group){
 		$("#sgafzdryDiv").hide();
 		//$("#ggDiv").hide();
 	}
+}
+
+//大连重点人员类型字段显示
+function showGroup2(newVal){
+	if(newVal == "01") {
+		$("#jgdxDiv").show();
+		$("#zdrkDiv").hide();
+		$("#zszhjsbrDiv").hide();
+		$("#fzcfryDiv").hide();
+		$("#ggDiv").show();
+		$("#nrsxdxDiv").hide();
+		//监管类别
+		setComboRequired("jglbdm", true);
+		//判决机关
+		$("#pjjgmc").validatebox({required:true});
+		//监管单位
+		$("#jgdwmc").validatebox({required:true});
+		//犯罪性质
+		setComboRequired("fzxzdm", true);
+		//重点人口管理方法
+		setComboRequired("glffdm", false);
+		//列管来源
+		setComboRequired("lglydm", false);
+		//精神病类别
+		setComboRequired("jsblbdm", false);
+		
+		if ($("#fzxzdm").attr("delayParse") == "true") {	
+			$("#fzxzdm").find("input.easyui-combotree-delay").removeClass("easyui-combotree-delay").addClass("easyui-combotree");
+			$.parser.parse("#fzxzdm");
+			$("#fzxzdm").attr("delayParse", "false");
+			//$("#czrk_lbsqk_lzd_gjhdqdm").combobox("setValue", "156");
+		}
+		
+	} else if(newVal == "02" ||newVal == "03" ) {
+		$("#jgdxDiv").hide();
+		$("#zdrkDiv").show();
+		$("#zszhjsbrDiv").hide();
+		$("#fzcfryDiv").hide();
+		$("#ggDiv").show();
+		$("#nrsxdxDiv").hide();
+		//监管类别
+		setComboRequired("jglbdm", false);
+		//判决机关
+		$("#pjjgmc").validatebox({required:false});
+		//监管单位
+		$("#jgdwmc").validatebox({required:false});
+		//犯罪性质
+		setComboRequired("fzxzdm", false);
+		//重点人口管理方法
+		setComboRequired("glffdm", true);
+		//列管来源
+		setComboRequired("lglydm", true);
+		//精神病类别
+		setComboRequired("jsblbdm", false);
+		
+	} else if(newVal == "04"||newVal == "05") {
+		$("#jgdxDiv").hide();
+		$("#zdrkDiv").hide();
+		$("#zszhjsbrDiv").show();
+		$("#fzcfryDiv").hide();
+		$("#ggDiv").show();
+		$("#nrsxdxDiv").hide();
+		//监管类别
+		setComboRequired("jglbdm", false);
+		//判决机关
+		$("#pjjgmc").validatebox({required:false});
+		//监管单位
+		$("#jgdwmc").validatebox({required:false});
+		//犯罪性质
+		setComboRequired("fzxzdm", false);
+		//重点人口管理方法
+		setComboRequired("glffdm", false);
+		//列管来源
+		setComboRequired("lglydm", false);
+		//精神病类别
+		setComboRequired("jsblbdm", true);
+
+		//默认是选择已肇事肇祸
+		$("#jsblbdm").combobox("setValue", "1");
+		setInputReadonly("jsblbdm", true);
+		
+	} else if(newVal == "06") {
+		$("#jgdxDiv").hide();
+		$("#zdrkDiv").hide();
+		$("#zszhjsbrDiv").hide();
+		$("#fzcfryDiv").show();
+		$("#ggDiv").show();
+		$("#nrsxdxDiv").hide();
+		//监管类别
+		setComboRequired("jglbdm", false);
+		//判决机关
+		$("#pjjgmc").validatebox({required:false});
+		//监管单位
+		$("#jgdwmc").validatebox({required:false});
+		//犯罪性质
+		setComboRequired("fzxzdm", false);
+		//重点人口管理方法
+		setComboRequired("glffdm", false);
+		//列管来源
+		setComboRequired("lglydm", false);
+		//精神病类别
+		setComboRequired("jsblbdm", false);
+	} else if(newVal == "07"){
+		$("#jgdxDiv").hide();
+		$("#zdrkDiv").hide();
+		$("#zszhjsbrDiv").hide();
+		$("#fzcfryDiv").hide();
+		$("#sqjzryDiv").hide();
+		$("#nrsxdxDiv").show();
+		$("#ggDiv").show();
+		
+	}else {
+		$("#jgdxDiv").hide();
+		$("#zdrkDiv").hide();
+		$("#zszhjsbrDiv").hide();
+		$("#fzcfryDiv").hide();
+		$("#sqjzryDiv").hide();
+		$("#nrsxdxDiv").hide();
+		$("#ggDiv").hide();
+	}
+
+	 if(newVal == "09"||newVal == "08"){
+			$("#jgdxDiv").hide();
+			$("#zdrkDiv").hide();
+			$("#zszhjsbrDiv").hide();
+			$("#fzcfryDiv").hide();
+			$("#sqjzryDiv").hide();
+			$("#ggDiv").show();
+			
+			//取消必填验证
+			//监管类别
+			setComboRequired("jglbdm", false);
+			//判决机关
+			$("#pjjgmc").validatebox({required:false});
+			//监管单位
+			$("#jgdwmc").validatebox({required:false});
+			//犯罪性质
+			setComboRequired("fzxzdm", false);
+			//重点人口管理方法
+			setComboRequired("glffdm", false);
+			//列管来源
+			setComboRequired("lglydm", false);
+			//精神病类别
+			setComboRequired("jsblbdm", false);
+			/* var name = $("#xm").val();
+			var cglb= window.top.getDictName(contextPath + '/common/dict/BD_D_ZDRYLBDM.js', $("#cglxdm").val());
+			var cghlb= window.top.getDictName(contextPath + '/common/dict/BD_D_ZDRYLBDM.js', newVal);
+			$("#ywfqyy").val( "申请将【"+name+"】的重点人员管理类别“"+cglb+"”撤管为“"+cghlb+"”管理。"); */
+		}
+
+
+//?????????????????这还没调试
+		/*
+		 if(${ displayStr != null && displayStr != ''}){
+				var name = $("#xm").val();
+				var cglb= window.top.getDictName(contextPath + '/common/dict/BD_D_ZDRYLBDM.js', $("#cglxdm").val());
+				var cghlb= window.top.getDictName(contextPath + '/common/dict/BD_D_ZDRYLBDM.js', newVal);
+				$("#ywfqyy").val( "申请将【"+name+"】的重点人员管理类别“"+cglb+"”撤管为“"+cghlb+"”管理。");
+		   }else{
+				var name = $("#xm").val();
+				var cglb= window.top.getDictName(contextPath + '/common/dict/BD_D_ZDRYLBDM.js', $("#cglxdm").val());
+				var cghlb= window.top.getDictName(contextPath + '/common/dict/BD_D_ZDRYLBDM.js', newVal);
+				$("#ywfqyy").val( "申请将【"+name+"】的重点人员列管为“"+cghlb+"”管理。");
+			
+
+	}
+	*/
 }
 
 //是否取得残疾证

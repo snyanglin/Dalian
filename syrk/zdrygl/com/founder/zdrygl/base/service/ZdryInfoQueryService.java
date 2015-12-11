@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.founder.framework.components.AppConst;
 import com.founder.framework.config.SystemConfig;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.zdrygl.base.dao.ZdryFzcsfryxxbDao;
+import com.founder.zdrygl.base.dao.ZdryNrsxdxxxbDao;
 import com.founder.zdrygl.base.dao.ZdrySgafzdryxxbDao;
 import com.founder.zdrygl.base.dao.ZdryShbzdryxxbDao;
 import com.founder.zdrygl.base.dao.ZdrySqjzryxxbDao;
@@ -20,6 +22,7 @@ import com.founder.zdrygl.base.dao.ZdrySqsbzdryxxbDao;
 import com.founder.zdrygl.base.dao.ZdryZdrkxxbDao;
 import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 import com.founder.zdrygl.base.dao.ZdryZszhjsbrxxbDao;
+import com.founder.zdrygl.base.dao.ZdryJgdxxxbDao;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.inteface.ZdryQueryService;
 import com.founder.zdrygl.core.model.Zdry;
@@ -57,6 +60,10 @@ public class ZdryInfoQueryService extends ZdryQueryService {
 	private ZdryFzcsfryxxbDao zdryFzcsfryxxbDao;
 	@Autowired
 	private ZdryZdrkxxbDao zdryZdrkxxbDao;
+	@Autowired
+	private ZdryJgdxxxbDao zdryJgdxxxbDao;
+	@Autowired
+	private ZdryNrsxdxxxbDao zdryNrsxdxxxbDao;
 	
 	@Autowired
 	private ZdryConstant zdryConstant;
@@ -144,22 +151,48 @@ public class ZdryInfoQueryService extends ZdryQueryService {
 
 	@Override
 	public Zdry queryZdryzbById(final String zdryId,final String zdrygllxdm) {
-		if("01".equals(zdrygllxdm))//社区矫正人员
-			return zdrySqjzryxxbDao.queryById(zdryId);
-		if("02".equals(zdrygllxdm))//重点人口
-			return zdryZdrkxxbDao.queryById(zdryId);
-		if("03".equals(zdrygllxdm))//肇事肇祸精神病人
-			return zdryZszhjsbrxxbDao.queryById(zdryId);
-		if("04".equals(zdrygllxdm))//非正常上访重点人员
-			return zdryFzcsfryxxbDao.queryById(zdryId);
-		if("05".equals(zdrygllxdm))//涉公安访重点人员
-			return zdrySgafzdryxxbDao.queryById(zdryId);
-		//if("06".equals(zdrygllxdm))//其他关注对象
-		//	return this.
-		if("07".equals(zdrygllxdm))//涉环保重点人员
-			return zdryShbzdryxxbDao.queryById(zdryId);
-		if("08".equals(zdrygllxdm))//涉枪涉爆重点人员
-			return zdrySqsbzdryxxbDao.queryById(zdryId);
+		if("210000".equals(SystemConfig.getString(AppConst.XZQH))){//辽宁
+			if("01".equals(zdrygllxdm))//社区矫正人员
+				return zdrySqjzryxxbDao.queryById(zdryId);
+			if("02".equals(zdrygllxdm))//重点人口
+				return zdryZdrkxxbDao.queryById(zdryId);
+			if("03".equals(zdrygllxdm))//肇事肇祸精神病人
+				return zdryZszhjsbrxxbDao.queryById(zdryId);
+			if("04".equals(zdrygllxdm))//非正常上访重点人员
+				return zdryFzcsfryxxbDao.queryById(zdryId);
+			if("05".equals(zdrygllxdm))//涉公安访重点人员
+				return zdrySgafzdryxxbDao.queryById(zdryId);
+			//if("06".equals(zdrygllxdm))//其他关注对象
+			//	return this.
+			if("07".equals(zdrygllxdm))//涉环保重点人员
+				return zdryShbzdryxxbDao.queryById(zdryId);
+			if("08".equals(zdrygllxdm))//涉枪涉爆重点人员
+				return zdrySqsbzdryxxbDao.queryById(zdryId);
+		}else{
+			if("01".equals(zdrygllxdm)){//监管对象
+				return zdryJgdxxxbDao.queryById(zdryId);
+			}
+			
+			if("02".equals(zdrygllxdm))//重点人口
+				return zdryZdrkxxbDao.queryById(zdryId);
+			if("03".equals(zdrygllxdm)){//其它重点管理对象
+				return zdryZdrkxxbDao.queryById(zdryId);
+			}
+				
+			if("04".equals(zdrygllxdm)){//肇事肇祸精神病人
+				return zdryZszhjsbrxxbDao.queryById(zdryId);
+			}
+				
+			if("05".equals(zdrygllxdm)){//肇事肇祸精神病人
+				return zdryZszhjsbrxxbDao.queryById(zdryId);
+			}
+			if("06".equals(zdrygllxdm)){//非正常上访重点人员
+				return zdryFzcsfryxxbDao.queryById(zdryId);
+			}
+			if("07".equals(zdrygllxdm)){//纳入实现对象
+				return zdryNrsxdxxxbDao.queryById(zdryId);			
+			}
+		}		
 		return null;
 	}
 

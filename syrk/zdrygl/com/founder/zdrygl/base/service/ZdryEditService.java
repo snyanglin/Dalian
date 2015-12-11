@@ -13,12 +13,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.founder.framework.base.service.BaseService;
+import com.founder.framework.components.AppConst;
+import com.founder.framework.config.SystemConfig;
 import com.founder.service.attachment.bean.ZpfjFjxxb;
 import com.founder.service.attachment.dao.ZpfjFjxxbDao;
 import com.founder.zdrygl.base.dao.ZdryEditDao;
 import com.founder.zdrygl.base.dao.ZdryFzcsfryxxbDao;
 import com.founder.zdrygl.base.dao.ZdryJgdxqxjdjbDao;
 import com.founder.zdrygl.base.dao.ZdryJkbjllxxbDao;
+import com.founder.zdrygl.base.dao.ZdryNrsxdxxxbDao;
 import com.founder.zdrygl.base.dao.ZdryPsjdbDao;
 import com.founder.zdrygl.base.dao.ZdrySgafzdryxxbDao;
 import com.founder.zdrygl.base.dao.ZdryShbzdryxxbDao;
@@ -26,9 +29,12 @@ import com.founder.zdrygl.base.dao.ZdrySqjzryxxbDao;
 import com.founder.zdrygl.base.dao.ZdrySqsbzdryxxbDao;
 import com.founder.zdrygl.base.dao.ZdryZdrkxxbDao;
 import com.founder.zdrygl.base.dao.ZdryZszhjsbrxxbDao;
+import com.founder.zdrygl.base.dao.ZdryJgdxxxbDao;
 import com.founder.zdrygl.base.model.ZdryFzcsfryxxb;
 import com.founder.zdrygl.base.model.ZdryJgdxqxjdjb;
+import com.founder.zdrygl.base.model.ZdryJgdxxxb;
 import com.founder.zdrygl.base.model.ZdryJkbjllxxb;
+import com.founder.zdrygl.base.model.ZdryNrsxdxxxb;
 import com.founder.zdrygl.base.model.ZdryPsjdb;
 import com.founder.zdrygl.base.model.ZdrySgafzdryxxb;
 import com.founder.zdrygl.base.model.ZdrySqjzryxxb;
@@ -87,6 +93,10 @@ public class ZdryEditService extends BaseService {
 	private ZdryJgdxqxjdjbDao zdryJgdxqxjdjbDao;
 	@Resource(name = "zdryPsjdbDao")
 	private ZdryPsjdbDao zdryPsjdbDao;
+	@Resource(name = "zdryNrsxdxxxbDao")
+	private ZdryNrsxdxxxbDao zdryNrsxdxxxbDao;
+	@Resource(name = "zdryJgdxxxbDao")
+	private ZdryJgdxxxbDao zdryJgdxxxbDao;
 	
 	/**
 	 * 
@@ -120,7 +130,7 @@ public class ZdryEditService extends BaseService {
 			map.remove("dlbh");
 			map.put("zdryid",zdrkMap.get("zdryid"));
 			map.put("isEdit",zdrkMap.get("isEdit"));
-			map.put("zdrylx",zdrkMap.get("zdrylx"));//由于各个区域的重点人员类型代码不一样，所以改用分组来区分用什么界面显示
+			map.put("zdrylx",SystemConfig.getString(AppConst.XZQH)+"_"+(String)zdrkMap.get("zdrylx"));//由于各个区域的重点人员类型代码不一样，所以用区域代码+重点人员管理类型代码 来区分
 			map.put("gxzrq",zdrkMap.get("GXZRQ"));			
 			map.put("xxdxlxdm","1");
 			
@@ -273,12 +283,13 @@ public class ZdryEditService extends BaseService {
 		return (ZdrySqsbzdryxxb)zdrySqsbzdryxxbDao.queryViewByMap(map);
 	}
 	
-	/*
+	
 	public ZdryJgdxxxb jgdxxxb_query(Map<String, Object> map) {
-		map.put("qydm", zdryUntil.querySYSConfig());
-		return zdryJgdxxxbDao.queryByMap(map);
+		ZdryJgdxxxb entity = (ZdryJgdxxxb)zdryJgdxxxbDao.queryViewByMap(map);
+		entity.setBz(zdryConstant.zdryDict().get(entity.getBz()));
+		return entity;
 	}
-	*/
+	
 	
 	/**
 	 * 
@@ -320,6 +331,12 @@ public class ZdryEditService extends BaseService {
 	public List<ZdryPsjdb> psjdb_query(Map<String, Object> map){
 		map.put("maxNum", "10");
 		return zdryPsjdbDao.queryViewList(map);
+	}
+	
+	public ZdryNrsxdxxxb nrsx_query(Map<String, Object> map){
+		ZdryNrsxdxxxb entity = (ZdryNrsxdxxxb)zdryNrsxdxxxbDao.queryViewByMap(map);
+		entity.setBz(zdryConstant.zdryDict().get(entity.getBz()));
+		return entity;
 	}
 				
 }

@@ -43,7 +43,7 @@ public class ZdryVO implements Serializable {
 	ZdrySqsbzdryxxb zdrySqsbzdryxxb;//涉枪涉暴
 	ZdrySqjzryxxb zdrySqjzryxxb;//社区矫正
 	ZdrySgafzdryxxb zdrySgafzdryxxb;//涉公安访
-	ZdryNrsxdxxxb zdryNrsxdxxxb;//纳入视线
+	ZdryNrsxdxxxb zdryNrsxdxxxb;//纳入视线对象
 	
 	String cglxdm;//撤管类型代码
 	String ywsqyy;//业务申请原因（流程用）
@@ -106,6 +106,13 @@ public class ZdryVO implements Serializable {
 	public void setZdrySgafzdryxxb(ZdrySgafzdryxxb zdrySgafzdryxxb) {
 		this.zdrySgafzdryxxb = zdrySgafzdryxxb;
 	}
+	
+	public ZdryNrsxdxxxb getZdryNrsxdxxxb() {
+		return zdryNrsxdxxxb;
+	}
+	public void setZdryNrsxdxxxb(ZdryNrsxdxxxb zdryNrsxdxxxb) {
+		this.zdryNrsxdxxxb = zdryNrsxdxxxb;
+	}
 	/**
 	 * 
 	 * @Title: getZdrylbdx
@@ -115,9 +122,8 @@ public class ZdryVO implements Serializable {
 	 * @throw
 	 */
 	public Zdry getZdrylbdx(){
-		String xzqh = SystemConfig.getString(AppConst.XZQH)==""?"210000":SystemConfig.getString(AppConst.XZQH);
-		if(xzqh.equals("210000")){
-			if(zdryZdryzb==null || zdryZdryzb.getZdrygllxdm()==null) return null;
+		if(zdryZdryzb==null || zdryZdryzb.getZdrygllxdm()==null) return null;
+		if("210000".equals(SystemConfig.getString(AppConst.XZQH))){//辽宁
 			if("01".equals(zdryZdryzb.getZdrygllxdm()))//社区矫正人员
 				return this.zdrySqjzryxxb;
 			if("02".equals(zdryZdryzb.getZdrygllxdm()))//重点人口
@@ -134,31 +140,32 @@ public class ZdryVO implements Serializable {
 				return this.zdryShbzdryxxb;
 			if("08".equals(zdryZdryzb.getZdrygllxdm()))//涉枪涉爆重点人员
 				return this.zdrySqsbzdryxxb;
-		}else if(xzqh.equals("210200")){
-			/* 01	监管对象(sqjz)
-			 * 02	重点人口(zdrk)
-			 * 03	其他重点管理对象(zdrk)
-			 * 04	肇事肇祸精神病人(zszh)
-			 * 05	轻微滋事精神病人(zszh)
-			 * 06	非正常上访重点人员(sgaf)
-			 * 07	纳入视线对象（无流程）(nrsx)
-			 * 08	一般关注对象(不持久 化 )*/
-			if(zdryZdryzb==null || zdryZdryzb.getZdrygllxdm()==null) return null;
-			if("01".equals(zdryZdryzb.getZdrygllxdm()))//社区矫正人员
-				return this.zdrySqjzryxxb;
-			if("02".equals(zdryZdryzb.getZdrygllxdm()) || "03".equals(zdryZdryzb.getZdrygllxdm()))//重点人口&其他重点管理对象
-				return zdryZdrk;
-			if("04".equals(zdryZdryzb.getZdrygllxdm()) || "05".equals(zdryZdryzb.getZdrygllxdm()))//肇事肇祸精神病人 & 轻微滋事精神病人
-				return this.zdryZszhjsbrxxb;
-			if("06".equals(zdryZdryzb.getZdrygllxdm()))//非正常上访重点人员
-					return this.zdryFzcsfryxxb;
-			if("07".equals(zdryZdryzb.getZdrygllxdm()))//纳入视线对象
-				return this.zdryNrsxdxxxb;
-			if("08".equals(zdryZdryzb.getZdrygllxdm()))//一般关注对象
-				return null;
 		}else{
+			if("01".equals(zdryZdryzb.getZdrygllxdm())){//监管对象
+				return this.zdryJgdxxxb;
+			}
 			
+			if("02".equals(zdryZdryzb.getZdrygllxdm()))//重点人口
+				return zdryZdrk;
+			if("03".equals(zdryZdryzb.getZdrygllxdm())){//其它重点管理对象
+				return this.zdryZdrk;
+			}
+				
+			if("04".equals(zdryZdryzb.getZdrygllxdm())){//肇事肇祸精神病人
+				return this.zdryZszhjsbrxxb;
+			}
+				
+			if("05".equals(zdryZdryzb.getZdrygllxdm())){//肇事肇祸精神病人
+				return this.zdryZszhjsbrxxb;
+			}
+			if("06".equals(zdryZdryzb.getZdrygllxdm())){//非正常上访重点人员
+				return this.zdryFzcsfryxxb;
+			}
+			if("07".equals(zdryZdryzb.getZdrygllxdm())){//纳入实现对象
+				return this.zdryNrsxdxxxb;
+			}
 		}
+		
 		return null;
 	}
 	public String getCglxdm() {
@@ -207,22 +214,48 @@ public class ZdryVO implements Serializable {
 	 * @throws
 	 */
 	public void setZdryZb(String zdrygllxdm , Zdry zdry) {
-		if("01".equals(zdrygllxdm))//社区矫正人员
-			this.zdrySqjzryxxb = (ZdrySqjzryxxb) zdry;
-		if("02".equals(zdrygllxdm))//重点人口
-			this.zdryZdrk = (ZdryZdrkxxb) zdry;
-		if("03".equals(zdrygllxdm))//肇事肇祸精神病人
-			this.zdryZszhjsbrxxb = (ZdryZszhjsbrxxb) zdry;
-		if("04".equals(zdrygllxdm))//非正常上访重点人员
-			this.zdryFzcsfryxxb = (ZdryFzcsfryxxb) zdry;
-		if("05".equals(zdrygllxdm))//涉公安访重点人员
-			this.zdrySgafzdryxxb = (ZdrySgafzdryxxb) zdry;
-		//if("06".equals(zdrygllxdm))//其他关注对象
-		//	return this.
-		if("07".equals(zdrygllxdm))//涉环保重点人员
-			this.zdryShbzdryxxb = (ZdryShbzdryxxb) zdry;
-		if("08".equals(zdrygllxdm))//涉枪涉爆重点人员
-			this.zdrySqsbzdryxxb = (ZdrySqsbzdryxxb) zdry;
+		if("210000".equals(SystemConfig.getString(AppConst.XZQH))){//辽宁
+			if("01".equals(zdrygllxdm))//社区矫正人员
+				this.zdrySqjzryxxb = (ZdrySqjzryxxb) zdry;
+			if("02".equals(zdrygllxdm))//重点人口
+				this.zdryZdrk = (ZdryZdrkxxb) zdry;
+			if("03".equals(zdrygllxdm))//肇事肇祸精神病人
+				this.zdryZszhjsbrxxb = (ZdryZszhjsbrxxb) zdry;
+			if("04".equals(zdrygllxdm))//非正常上访重点人员
+				this.zdryFzcsfryxxb = (ZdryFzcsfryxxb) zdry;
+			if("05".equals(zdrygllxdm))//涉公安访重点人员
+				this.zdrySgafzdryxxb = (ZdrySgafzdryxxb) zdry;
+			//if("06".equals(zdrygllxdm))//其他关注对象
+			//	return this.
+			if("07".equals(zdrygllxdm))//涉环保重点人员
+				this.zdryShbzdryxxb = (ZdryShbzdryxxb) zdry;
+			if("08".equals(zdrygllxdm))//涉枪涉爆重点人员
+				this.zdrySqsbzdryxxb = (ZdrySqsbzdryxxb) zdry;
+		}else{
+			if("01".equals(zdrygllxdm)){//监管对象
+				this.zdryJgdxxxb = (ZdryJgdxxxb) zdry;
+			}
+			
+			if("02".equals(zdrygllxdm))//重点人口
+				this.zdryZdrk = (ZdryZdrkxxb) zdry;
+			if("03".equals(zdrygllxdm)){//其它重点管理对象
+				this.zdryZdrk = (ZdryZdrkxxb) zdry;
+			}
+				
+			if("04".equals(zdrygllxdm)){//肇事肇祸精神病人
+				this.zdryZszhjsbrxxb = (ZdryZszhjsbrxxb) zdry;
+			}
+				
+			if("05".equals(zdrygllxdm)){//肇事肇祸精神病人
+				this.zdryZszhjsbrxxb = (ZdryZszhjsbrxxb) zdry;
+			}
+			if("06".equals(zdrygllxdm)){//非正常上访重点人员
+				this.zdryFzcsfryxxb = (ZdryFzcsfryxxb) zdry;
+			}
+			if("07".equals(zdrygllxdm)){//纳入实现对象
+				this.zdryNrsxdxxxb = (ZdryNrsxdxxxb) zdry;				
+			}
+		}
 		
 	}	
 	

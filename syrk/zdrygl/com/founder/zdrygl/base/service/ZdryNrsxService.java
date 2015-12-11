@@ -14,11 +14,12 @@ import com.founder.zdrygl.core.model.Zdry;
  * ****************************************************************************
  * @Package:      [com.founder.zdrygl.base.service.ZdryNrsxService.java]  
  * @ClassName:    [ZdryNrsxService]   
- * @Description:  [纳入视线业务逻辑]   
- * @Author:       [huang_jifei@founder.com.cn]  
- * @CreateDate:   [2015年12月10日 下午4:34:19]   
- * @UpdateUser:   [huangjifei(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateDate:   [2015年12月10日 下午4:34:19，(如多次修改保留历史记录，增加修改记录)]   
+
+ * @Description:  [纳入视线对象服务]   
+ * @Author:       [zhang.hai@founder.com.cn]  
+ * @CreateDate:   [2015年12月9日 下午4:33:55]   
+ * @UpdateUser:   [ZhangHai(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年12月9日 下午4:33:55，(如多次修改保留历史记录，增加修改记录)]   
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
@@ -32,8 +33,6 @@ public class ZdryNrsxService  extends ZdryServiceDecorator{
 	public ZdryNrsxService(ZdryService zdryService) {
 		super(zdryService);
 	}
-	
-	
 
 	@Override
 	public void setZdry(Zdry entity) {
