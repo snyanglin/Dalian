@@ -3,6 +3,7 @@ package com.founder.zdrygl.core.inteface;
 import java.util.Map;
 
 import com.founder.framework.base.entity.SessionBean;
+import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
 
 /**
@@ -27,11 +28,17 @@ public interface ZdryService {
 	 * @return void    返回类型
 	 * @throw
 	 */
-	public void lg(SessionBean sessionBean);
-
-	public void lgSuccess(SessionBean sessionBean);
+//	public void lg(SessionBean sessionBean);
 	
-	public void lgFail(SessionBean sessionBean);
+	public void lg(SessionBean sessionBean , ZOBean entity);
+
+//	public void lgSuccess(SessionBean sessionBean);
+	
+	public void lgSuccess(SessionBean sessionBean , ZOBean entity);
+	
+//	public void lgFail(SessionBean sessionBean);
+	
+	public void lgFail(SessionBean sessionBean , ZOBean entity);
 
 	/**
 	 * 
@@ -131,6 +138,8 @@ public interface ZdryService {
 	 * @throws
 	 */
 	public Map<String,String> getZdryXmAndZdrylxName();
+	
+	public Map<String,String> getZdryXmAndZdrylxName(Zdry zdry);
 
 	
 }

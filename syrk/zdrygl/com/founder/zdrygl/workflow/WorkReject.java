@@ -15,6 +15,7 @@ import com.founder.framework.components.AppConst;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
 
 
@@ -59,7 +60,7 @@ public class WorkReject implements JavaDelegate{
 		String spbm=sessionBean.getUserOrgCode();*/
 		
 		if(sqlxdm.equals("01")){//列管
-			zdryService.lgFail(sessionBean);
+			zdryService.lgFail(sessionBean ,new ZOBean(zdryzb, zdrylbdx));
 		}
 		if(sqlxdm.equals("02")){//撤管
 			zdryService.cgFail(sessionBean);

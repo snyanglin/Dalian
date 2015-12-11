@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ import com.founder.service.attachment.bean.ZpfjFjxxb;
 import com.founder.service.attachment.service.ZpfjFjxxbService;
 import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.zdrygl.base.model.ZdryZb;
+import com.founder.zdrygl.base.model.Zdrycx;
 import com.founder.zdrygl.base.service.WorkFlowParametersInitialService;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.base.vo.ZdryVO;
@@ -124,10 +126,28 @@ public class ZdryZdController extends BaseController {
 		try {
 			//转递重点人员
 			// 设置流程参数
+			//TODO
+			ZdryZb zb_new = zdryZb.getZdryZdryzb();
+
+			// 查询撤管前的重点人员信息
+			ZdryZb zb_old = (ZdryZb) zdryQueryService.queryById(zb_new.getId());
+			if (zb_old == null) {
+				throw new BussinessException("未查询到该重点人员的信息");
+			}
+
+			Zdrycx zdrycx = new Zdrycx();
+			BeanUtils.copyProperties(zb_old, zdrycx);
+
+			zdrycx.setZdryid_old(zb_old.getId());
+			zdrycx.setZdrygllxdm_old(zb_old.getZdrygllxdm());
+			zdrycx.setZdrygllxdm(zb_new.getZdrygllxdm());
+			zdrycx.setZdrylb(zb_new.getZdrylb());
+			
+			
 			String zdrygllxdm = zdryZb.getZdryZdryzb().getZdrygllxdm();// 重点人员类型
 			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdryConstant,orgOrganizationService,orgPositionService,zdryQueryService);
 			StartProcessInstance spi = wfpis.initialProcessInstance(sessionBean,zdryZb,LcgFlagEnum.ZD);
-			ZdryService zdryService = zdryFactory.createZdryService(zdrygllxdm, zdryZb.getZdryZdryzb(), zdryZb.getZdrylbdx());
+			ZdryService zdryService = zdryFactory.createZdryService(zdrygllxdm, zdrycx, zdryZb.getZdrylbdx());
 			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(),spi.getVariables());
 			zdryService.zd(sessionBean);
 			

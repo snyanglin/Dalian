@@ -36,18 +36,23 @@ public class ZdryFactory implements ZdryAbstractFactory {
 	private static DefaultListableBeanFactory beanFactory ;  
 
 	@Override
+	public ZdryService createZdryService(String zdrylx) {
+		// TODO Auto-generated method stub
+		return createZdryService(zdrylx,null,null);
+	}
+	
+	@Override
 	public ZdryService createZdryService(String zdrylx, Zdry zdryzb, Zdry zdrylbdx) {
 		applicationContext = getConfigurableApplicationContext();
 		beanFactory = getBeanFactory();  
 
 		ZdryService zdryzbService = createZdryzbService(getBeanName(getZdryzbDm()));
-		zdryzbService.setZdry(zdryzb);
+//		zdryzbService.setZdry(zdryzb);
 		String className = zdryConstant.zdryServiceMap().get(zdrylx);
 		if(!StringUtils.isEmpty(className)){
 			String beanName = getBeanName(className) ;  
-			registerBeanDefinition(beanName,className,zdryzbService,zdrylbdx); 
+			registerBeanDefinition(beanName,className,zdryzbService); 
 			ZdryService zdryService= (ZdryService) getBean(beanName);
-			zdryService.setZdry(zdrylbdx);
 			return zdryService;  
 		}else if(zdrylbdx==null){//撤管的时候，以及列管“其他关注对象”等没有子表的重点人员类型时，就获取不到子表对应的服务类
 			return zdryzbService;
@@ -57,7 +62,7 @@ public class ZdryFactory implements ZdryAbstractFactory {
 	}
 	
 	private ZdryService createZdryzbService(String beanName){
-		registerBeanDefinition(beanName,getZdryzbDm(),null,null); 
+		registerBeanDefinition(beanName,getZdryzbDm(),null); 
 		return (ZdryService)  getBean(beanName);
 	}
 	
@@ -76,14 +81,14 @@ public class ZdryFactory implements ZdryAbstractFactory {
 	 * @return void    返回类型
 	 * @throws
 	 */
-	private void registerBeanDefinition(String beanName,String className,Object constructorArgValue,Zdry zdry){
+	private void registerBeanDefinition(String beanName,String className,Object constructorArgValue){
 		if (!beanFactory.containsBean(beanName) ) {  
 			BeanDefinitionBuilder bdb = BeanDefinitionBuilder.rootBeanDefinition(className);  
 //			bdb.setScope("prototype"); 
 			if(constructorArgValue != null)
 				bdb.addConstructorArgValue(constructorArgValue);
-			if(zdry != null)
-				bdb.addPropertyValue("zdry", zdry);
+//			if(zdry != null)
+//				bdb.addPropertyValue("zdry", zdry);
 			beanFactory.registerBeanDefinition(beanName,bdb.getBeanDefinition());  
 		}  
 	}
@@ -116,6 +121,5 @@ public class ZdryFactory implements ZdryAbstractFactory {
 	private String getZdryzbDm(){
 		return StringUtils.isEmpty(ZDRYZB)?zdryConstant.zdryServiceMap().get("00"):ZDRYZB;
 	}
-
 
 }

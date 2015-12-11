@@ -15,6 +15,7 @@ import com.founder.framework.components.AppConst;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
 
 /**
@@ -49,8 +50,7 @@ public class Lcgcg implements JavaDelegate {
 		String zdrylx = (String) execution.getVariable("zdrylx");
 		ZdryZb zdryzb = (ZdryZb) execution.getVariable("zdryzb");
 		Zdry zdrylbdx = (Zdry) execution.getVariable("zdrylbdx");
-		ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
-
+		
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
 				.getRequestAttributes()).getRequest();
 		SessionBean sessionBean = (SessionBean) WebUtils.getSessionAttribute(
@@ -61,10 +61,16 @@ public class Lcgcg implements JavaDelegate {
 		 */
 
 		if ("01".equals(sqlxdm)){
-			zdryService.lgSuccess(sessionBean);
-		}else if ("02".equals(sqlxdm))
+//			ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
+//
+//			zdryService.lgSuccess(sessionBean);
+			ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
+			ZOBean entity = new ZOBean(zdryzb, zdrylbdx);
+			zdryService.lgSuccess(sessionBean,entity);
+		}else if ("02".equals(sqlxdm)){
+			ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
 			zdryService.cgSuccess(sessionBean);
-		else if ("04".equals(sqlxdm)) {// 请假
+		}else if ("04".equals(sqlxdm)) {// 请假
 			String qjId = (String) execution.getVariable("qjId");
 			// zdryService.qjSuccess(sessionBean);
 		}

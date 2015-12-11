@@ -22,6 +22,7 @@ import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrycx;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 /**
@@ -61,24 +62,47 @@ public class ZdryzbService implements ZdryService {
  
 	@MethodAnnotation(value = "列管", type = logType.insert)
 	@Override
-	public void lg(SessionBean sessionBean) {
+	public void lg(SessionBean sessionBean, ZOBean entity) {
+		ZdryZb zdryzb = (ZdryZb) entity.getZdryzb();
 		zdryzb.setId(UUID.create());
 		zdryzb.setGlzt(ZdryConstant.LGSQ);
 		zdryzb.setGlbm(sessionBean.getUserOrgCode());//管理部门
 		BaseService.setSaveProperties(zdryzb, sessionBean);		
 		zdryZdryZbDao.insert(zdryzb);
 	}
-
+	
+	/*@MethodAnnotation(value = "列管", type = logType.insert)
 	@Override
-	public void lgSuccess(SessionBean sessionBean) {
+	public void lg(SessionBean sessionBean) {
+		zdryzb.setId(UUID.create());
+		zdryzb.setGlzt(ZdryConstant.LGSQ);
+		zdryzb.setGlbm(sessionBean.getUserOrgCode());//管理部门
+		BaseService.setSaveProperties(zdryzb, sessionBean);		
+		zdryZdryZbDao.insert(zdryzb);
+	}*/
+	
+	@Override
+	public void lgSuccess(SessionBean sessionBean, ZOBean entity) {
+		ZdryZb zdryzb = (ZdryZb) entity.getZdryzb();
 		zdryzb.setGlzt(ZdryConstant.YLG);
 		updateZdry(sessionBean,zdryzb);
 	}
 
+/*	@Override
+	public void lgSuccess(SessionBean sessionBean) {
+		zdryzb.setGlzt(ZdryConstant.YLG);
+		updateZdry(sessionBean,zdryzb);
+	}
+*/
 	@Override
+	public void lgFail(SessionBean sessionBean, ZOBean entity) {
+		deleteZdry(sessionBean,(ZdryZb) entity.getZdryzb());
+	}
+	
+	/*@Override
 	public void lgFail(SessionBean sessionBean) {
 		deleteZdry(sessionBean,zdryzb);
-	}
+	}*/
 
 	@MethodAnnotation(value = "撤管", type = logType.update)
 	@Override
@@ -88,7 +112,7 @@ public class ZdryzbService implements ZdryService {
 		entity.setGlzt(ZdryConstant.CGSQ);
 		updateZdry(sessionBean,entity);				
 		if(!isDelete()){
-			this.lg(sessionBean);			
+//		TODO	this.lg(sessionBean);			
 		}
 	}
 
@@ -140,27 +164,16 @@ public class ZdryzbService implements ZdryService {
 		updateZdry(sessionBean,zdryzb);
 	}
 
-	@MethodAnnotation(value = "转递", type = logType.update)
+	@MethodAnnotation(value = "转递", type = logType.insert)
 	@Override
 	public void zd(SessionBean sessionBean) {
-		zdryzb.setId(UUID.create());
-		zdryzb.setGlzt(ZdryConstant.ZDSQ);
-		zdryzb.setGlbm(sessionBean.getUserOrgCode());//管理部门
-		BaseService.setSaveProperties(zdryzb, sessionBean);		
-		zdryZdryZbDao.insert(zdryzb);
-		
-	/* 2015-12-8 改为新增 总表ZdryZb entity = new ZdryZb();
-		entity.setId(zdryzb.getId());
+		ZdryZb entity = new ZdryZb();
+		entity.setId(zdrycx.getZdryid_old());
 		entity.setGlzt(ZdryConstant.ZDSQ);
-		entity.setGlbm(zdryzb.getGlbm());	
-		entity.setJzd_dzid(zdryzb.getJzd_dzid());
-		entity.setJzd_dzxz(zdryzb.getJzd_dzxz());
-		entity.setJzd_mlpdm(zdryzb.getJzd_mlpdm());
-		entity.setJzd_mlpxz(zdryzb.getJzd_mlpxz());
-		entity.setJzd_xzqhdm(zdryzb.getJzd_xzqhdm());
-		entity.setJzd_zbx(zdryzb.getJzd_zbx());
-		entity.setJzd_zby(zdryzb.getJzd_zby());
-		updateZdry(sessionBean,entity);*/
+		updateZdry(sessionBean,entity);				
+		if(!isDelete()){
+//		TODO	this.lg(sessionBean);			
+		}
 	}
 
 	@Override
@@ -169,7 +182,7 @@ public class ZdryzbService implements ZdryService {
 		//先把管辖部门和管理部门设置相同，如果是双列管，再设置为户籍地管理部门
 		//ZdryGzb zdryGzb=zdryZdryZbDao.queryByZdrylx(zdryzb.getZdrygllxdm(),SystemConfig.getString("zdryQY"));
 		//if(zdryGzb!=null && "1".equals(zdryGzb.getSfslg())){//双列管，查询户籍地管理部门
-		RyRyjbxxb ryjbxxb=ryRyjbxxbService.queryById(zdryzb.getRyid());//人员基本信息	
+		RyRyjbxxb ryjbxxb = ryRyjbxxbService.queryById(zdryzb.getRyid());//人员基本信息	
 		if(ryjbxxb!=null && ryjbxxb.getHjd_mlpdm()!= null){
 			//String zdry_hjd_zrqdm = dzService.queryMldzDx(ryjbxxb.getHjd_mlpdm()).getZrqdm();
 			String gxbm=zdryZdryZbDao.queryHjdZrqdm(ryjbxxb.getHjd_mlpdm());
@@ -177,11 +190,25 @@ public class ZdryzbService implements ZdryService {
 				zdryzb.setGxbm(gxbm);
 		}
 		//}
-		zdryzb.setGlzt(ZdryConstant.YLG);
+//		zdryzb.setGlzt(ZdryConstant.YLG);
 		
 //		deleteZdry(sessionBean,zdryzb);
-		zdryZdryZbDao.update(zdryzb);
+//		zdryZdryZbDao.update(zdryzb);
 		
+		//TODO 
+		
+		ZdryZb entity = new ZdryZb();
+		entity.setId(zdrycx.getZdryid_old());
+		entity.setGlzt(ZdryConstant.YZD);
+		deleteZdry(sessionBean,entity);
+		if(!isDelete()){
+			zdryzb.setGlzt(ZdryConstant.YLG);
+			updateZdry(sessionBean,zdryzb);
+		}
+	}
+
+	@Override
+	public void zdFail(SessionBean sessionBean) {
 		ZdryZb entity = new ZdryZb();
 		entity.setId(zdrycx.getZdryid_old());
 		entity.setGlzt(ZdryConstant.YLG);
@@ -190,13 +217,6 @@ public class ZdryzbService implements ZdryService {
 		if(!isDelete()){
 			deleteZdry(sessionBean,zdryzb);
 		}
-	}
-
-	@Override
-	public void zdFail(SessionBean sessionBean) {
-		zdryzb.setGlzt(ZdryConstant.YLG);
-		zdryzb.setXt_zxbz("0");
-		updateZdry(sessionBean,zdryzb);
 	}
 
 	/**
@@ -249,12 +269,13 @@ public class ZdryzbService implements ZdryService {
 			}
 		}
 	}
-
+	
+	@Deprecated  
 	@Override
 	public Zdry getZdry() {
 		return zdryzb;
 	}
-
+	@Deprecated  
 	@Override
 	public String getZdryId() {
 		return getZdry().getId();
@@ -265,7 +286,7 @@ public class ZdryzbService implements ZdryService {
 	public void setStartProcessInstance(String processKey, String applyUserId, Map<String, Object> variables) {
 		
 	}
-
+	@Deprecated  
 	@Override
 	public Map<String, String> getZdryXmAndZdrylxName() {
 		Map<String, String> map = new HashMap<String,String>();
@@ -273,4 +294,14 @@ public class ZdryzbService implements ZdryService {
 		map.put("zdrylxName", zdryConstant.getValueOfZdryDict(zdryzb.getZdrygllxdm()));
 		return map;
 	}
+	
+	@Override
+	public Map<String, String> getZdryXmAndZdrylxName(Zdry zdry) {
+		Map<String, String> map = new HashMap<String,String>();
+		ZdryZb zdryzb = (ZdryZb) zdry;
+		map.put("zdryName", zdryzb.getXm());
+		map.put("zdrylxName", zdryConstant.getValueOfZdryDict(zdryzb.getZdrygllxdm()));
+		return map;
+	}
+
 }

@@ -44,12 +44,18 @@ public class ZdryShbService  extends ZdryServiceDecorator{
 	 * 列管重点人口
 	 */
 	@Override
-	protected void lg_(SessionBean sessionBean) {
-		BaseService.setSaveProperties(zdry, sessionBean);	
-		zdry.setId(this.getZdryId());
-		zdryShbzdryxxbDao.insert(zdry);
+	protected void lg_(SessionBean sessionBean,Zdry zdry) {
+		ZdryShbzdryxxb shbzdryxxb = (ZdryShbzdryxxb) zdry;
+		BaseService.setSaveProperties(shbzdryxxb, sessionBean);	
+		zdryShbzdryxxbDao.insert(shbzdryxxb);
 	}
 
+	@Override
+	protected void lgFail_(SessionBean sessionBean, Zdry zdrylbdx) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	@Override
 	protected void cg_(SessionBean sessionBean) {
 		if(zdry != null){

@@ -47,6 +47,7 @@ import com.founder.zdrygl.base.validator.ZdryVOValidator;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.LcgFlagEnum;
 import com.founder.zdrygl.core.utils.ZdryConstant;
@@ -113,7 +114,7 @@ public class ZdryZdryzbControl extends BaseController {
 	/**
 	 * 
 	 * @Title: manage
-	 * @Description: TODO(打开重点人员管理列表)
+	 * @Description: (打开重点人员管理列表)
 	 * @param @return 设定文件
 	 * @return String 返回类型
 	 * @throws
@@ -127,7 +128,7 @@ public class ZdryZdryzbControl extends BaseController {
 	/**
 	 * 
 	 * @Title: getManageList
-	 * @Description: TODO(重点人员管理列表 查询)
+	 * @Description: (重点人员管理列表 查询)
 	 * @param @param page
 	 * @param @param rows
 	 * @param @param entity
@@ -149,7 +150,7 @@ public class ZdryZdryzbControl extends BaseController {
 	/**
 	 * 
 	 * @Title: queryZdryOnPT
-	 * @Description: TODO(重点人员查询 列表)
+	 * @Description: (重点人员查询 列表)
 	 * @param @param page
 	 * @param @param rows
 	 * @param @param entity
@@ -184,7 +185,7 @@ public class ZdryZdryzbControl extends BaseController {
 	/**
 	 * 
 	 * @Title: zdryAddPre
-	 * @Description: TODO(打开重点人员新增页面)
+	 * @Description: (打开重点人员新增页面)
 	 * @param @return 设定文件
 	 * @return String 返回类型
 	 * @throws
@@ -218,19 +219,21 @@ public class ZdryZdryzbControl extends BaseController {
 		if(!super.validateResult(mv, result)){
 			return mv;
 		}
-		
 		Map<String, Object> model = new HashMap<String, Object>();
 		sessionBean = getSessionBean(sessionBean);
 		try {
 			String zdrygllxdm = zdryVO.getZdryZdryzb().getZdrygllxdm();// 重点人员类型
-			ZdryService zdryService = zdryFactory.createZdryService(zdrygllxdm,
-					zdryVO.getZdryZdryzb(), zdryVO.getZdrylbdx());
+//			ZdryService zdryService = zdryFactory.createZdryService(zdrygllxdm,
+//					zdryVO.getZdryZdryzb(), zdryVO.getZdrylbdx());
+			ZdryService zdryService = zdryFactory.createZdryService(zdrygllxdm);
+			ZOBean entity = new ZOBean(zdryVO.getZdryZdryzb(),zdryVO.getZdrylbdx());
 			// start process
 			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdryConstant,orgOrganizationService,orgPositionService,zdryQueryService);
 			StartProcessInstance spi = wfpis.initialProcessInstance(sessionBean,zdryVO,LcgFlagEnum.LG);
-			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(),spi.getVariables());
-			zdryService.lg(sessionBean);
-
+			entity.setStartProcessInstance(spi);
+//			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(),spi.getVariables());
+//			zdryService.lg(sessionBean);
+			zdryService.lg(sessionBean, entity);
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
 			model.put(AppConst.MESSAGES, getAddSuccess());
 		} catch (BussinessException e) {

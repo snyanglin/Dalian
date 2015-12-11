@@ -42,10 +42,17 @@ public class ZdryFzcsfryService  extends ZdryServiceDecorator{
 	 * 列管重点人口
 	 */
 	@Override
-	protected void lg_(SessionBean sessionBean) {
-		BaseService.setSaveProperties(zdry, sessionBean);	
-		zdry.setId(this.getZdryId());
-		zdryFzcsfryxxbDao.insert(zdry);
+	protected void lg_(SessionBean sessionBean,Zdry zdry) {
+		ZdryFzcsfryxxb zdryFzcsfryxxb = (ZdryFzcsfryxxb) zdry;
+		BaseService.setSaveProperties(zdryFzcsfryxxb, sessionBean);	
+		zdryFzcsfryxxbDao.insert(zdryFzcsfryxxb);
+	}
+	
+	@Override
+	protected void lgFail_(SessionBean sessionBean, Zdry zdrylbdx) {
+		ZdryFzcsfryxxb zdryFzcsfryxxb = (ZdryFzcsfryxxb) zdry;
+		BaseService.setCrossoutProperties(zdryFzcsfryxxb, sessionBean);
+		zdryFzcsfryxxbDao.delete(zdryFzcsfryxxb);
 	}
 
 	@Override
