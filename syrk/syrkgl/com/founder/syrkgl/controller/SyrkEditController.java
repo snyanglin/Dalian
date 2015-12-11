@@ -150,7 +150,7 @@ public class SyrkEditController extends BaseController {
 			zdry += ((ZdryZb)zdryList.get(i)).getZdrygllxdm()+",";
 		}
 		zdry = zdry.lastIndexOf(",") == zdry.length() ?zdry.substring(0, zdry.length()-1):zdry;
-		mv.addObject("zdry", zdry);
+		mv.addObject("zdryList", zdryList);
 		return mv;
 	}
 	

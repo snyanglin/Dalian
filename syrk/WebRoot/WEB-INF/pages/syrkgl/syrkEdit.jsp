@@ -52,12 +52,13 @@
 									<tr>
 										<td colspan="4" align="left" valign="top" >
 											<strong><span id="jbxx_xm" style="padding-left: 56px;">${ry.xm }</span>
-											<c:if test="${zdry != ''}">
-											<span>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="openZdrk('${ry.xm }','${ry.id}','${syrkid}')">
-											
-											<script type="text/javascript">document.write(window.top.getDictName(contextPath + '/common/dict/BD_D_ZDRYLBDM.js', "${zdry}"));</script>
-											</a></span>
-											</c:if>
+											<span>
+											<c:forEach items="${zdryList}" var="item" varStatus="status">
+												<a href="javascript:void(0);" onclick="openZdrk('${item.xm }','${item.ryid}','${item.id}')">
+													<script type="text/javascript">document.write(window.top.getDictName(contextPath + '/common/dict/BD_D_ZDRYGLLX.js', "${item.zdrygllxdm}"));</script>
+												</a>
+											</c:forEach>
+											</span>
 											</strong>
 										</td>
 									 </tr>
@@ -342,8 +343,8 @@ function moreInfoMethod(){
 function refreshPhoto(){
 	location.reload();
 }
-function openZdrk(xm,ryid,syrkid){
-	var editUrl = "/zdry/"+ryid+"/"+syrkid+"/view";
+function openZdrk(xm,ryid,zdryid){
+	var editUrl = "/zdryzb/"+ryid+"/"+zdryid+"/view";
 	if($("#mode_").val()=="view"){
 		editUrl += "?mode=view";
 	}
