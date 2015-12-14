@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Czfwzb">
+	<typeAlias alias="czfwjcxxb" type="com.founder.syfw.bean.Czfwjcxxb" />
+	<typeAlias alias="fwCzqkdjxxb" type="com.founder.syfw.bean.FwCzqkdjxxb" />
+
+
+
+	<!-- *** 以下重构 **************************** -->
+
+
+
+	<!-- 通过主键查询单个检查信息 -->
+	<select id="queryByJcId" parameterClass="czfwjcxxb" resultClass="czfwjcxxb">
+		<![CDATA[ select * from SYFW_CZFWJCXXB where ID = #id# and xt_zxbz = '0' ]]>
+	</select>
+
+
+	<!-- 保存出租房屋检查信息 -->
+	<insert id="insertCzfwJcxxInfo" parameterClass="czfwjcxxb">
+		INSERT INTO SYFW_CZFWJCXXB
+		(
+		id
+		<isNotEmpty prepend="," property="czfwid">
+				<![CDATA[ CZFWID]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jcqk_jyqk">
+				<![CDATA[ JCQK_JYQK]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jcdw_gajgjgdm">
+				<![CDATA[ JCDW_GAJGJGDM]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jcdw_gajgmc">
+				<![CDATA[ JCDW_GAJGMC]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jcr_xm">
+				<![CDATA[ JCR_XM]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jcr_id">
+				<![CDATA[ JCR_ID]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jcrq">
+				<![CDATA[ JCRQ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bz">
+				<![CDATA[ BZ]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzd" />
+		)
+		values
+		(
+		#id#
+		<isNotEmpty prepend="," property="czfwid">
+				<![CDATA[ #czfwid#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jcqk_jyqk">
+				<![CDATA[ #jcqk_jyqk#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jcdw_gajgjgdm">
+				<![CDATA[ #jcdw_gajgjgdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jcdw_gajgmc">
+				<![CDATA[ #jcdw_gajgmc#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jcr_xm">
+				<![CDATA[ #jcr_xm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jcr_id">
+				<![CDATA[ #jcr_id#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="jcrq">
+				<![CDATA[ #jcrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="bz">
+				<![CDATA[ #bz#]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzdVal" />
+		)
+	</insert>
+
+
+	<!-- 修改出租房屋检查信息 -->
+	<update id="updateCzfwjcxx" parameterClass="czfwjcxxb">
+		 <![CDATA[ update syfw_czfwjcxxb ]]>
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="jcqk_jyqk">
+			<![CDATA[ jcqk_jyqk=#jcqk_jyqk#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="jcdw_gajgjgdm">
+			<![CDATA[ jcdw_gajgjgdm=#jcdw_gajgjgdm#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="jcdw_gajgmc">
+			<![CDATA[ jcdw_gajgmc=#jcdw_gajgmc#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="jcr_xm">
+				<![CDATA[ jcr_xm=#jcr_xm#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="jcr_id">
+			<![CDATA[ jcr_id=#jcr_id#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="jcrq">
+			<![CDATA[ jcrq=#jcrq#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="bz">
+			<![CDATA[ bz=#bz#]]>
+			</isNotNull>
+			,
+			<include refid="updateXtzd" />
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>
+	</update>
+
+
+	<!-- 查询出租房屋检查信息 -->
+	<select id="czfwjcxx_query" parameterClass="Map" resultClass="czfwjcxxb">
+		 <![CDATA[select * from syfw_czfwjcxxb t where t.czfwid =#czfwid# and t.xt_zxbz='0' order by xt_zhxgsj desc]]>
+	</select>
+
+
+	<!-- 查询承租情况登记信息 -->
+	<select id="queryByczId" parameterClass="fwCzqkdjxxb"
+		resultClass="fwCzqkdjxxb">
+		<![CDATA[ select * from syfw_czqkdjxxb where ID = #id# and xt_zxbz = '0' ]]>
+	</select>
+
+	<!-- 保存承租情况登记信息 -->
+	<insert id="insertCzqk" parameterClass="fwCzqkdjxxb">
+		INSERT INTO SYFW_CZQKDJXXB
+		(
+		id
+		<isNotEmpty prepend="," property="czfwid">
+				<![CDATA[ CZFWID]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_ryid">
+				<![CDATA[ CHZR_RYID]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_xm">
+				<![CDATA[ CHZR_XM]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_cyzjdm">
+				<![CDATA[ CHZR_CYZJDM]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_zjhm">
+				<![CDATA[ CHZR_ZJHM]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_wwx">
+				<![CDATA[ CHZR_WWX]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_wwm">
+				<![CDATA[ CHZR_WWM]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_xb">
+				<![CDATA[ CHZR_XB]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_mzdm">
+				<![CDATA[ CHZR_MZDM]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_csrq">
+				<![CDATA[ CHZR_CSRQ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_zy">
+				<![CDATA[ CHZR_ZY]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_zylbdm">
+				<![CDATA[ CHZR_ZYLBDM]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_fwcs">
+				<![CDATA[ CHZR_FWCS]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_lxdh">
+				<![CDATA[ CHZR_LXDH]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_yfzgx_rygxdm">
+				<![CDATA[ CHZR_YFZGX_RYGXDM]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_ytgrgx_rygxdm">
+				<![CDATA[ CHZR_YTGRGX_RYGXDM]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fwczqkdm">
+				<![CDATA[ FWCZQKDM]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qzrq">
+				<![CDATA[ QZRQ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="tzrq">
+				<![CDATA[ TZRQ]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzd" />
+		) values(
+		#id#
+		<isNotEmpty prepend="," property="czfwid">
+				<![CDATA[ #czfwid#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_ryid">
+				<![CDATA[ #chzr_ryid#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_xm">
+				<![CDATA[ #chzr_xm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_cyzjdm">
+				<![CDATA[ #chzr_cyzjdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_zjhm">
+				<![CDATA[ #chzr_zjhm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_wwx">
+				<![CDATA[ #chzr_wwx#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_wwm">
+				<![CDATA[ #chzr_wwm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_xb">
+				<![CDATA[ #chzr_xb#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_mzdm">
+				<![CDATA[ #chzr_mzdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_csrq">
+				<![CDATA[ #chzr_csrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_zy">
+				<![CDATA[ #chzr_zy#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_zylbdm">
+				<![CDATA[ #chzr_zylbdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_fwcs">
+				<![CDATA[ #chzr_fwcs#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_lxdh">
+				<![CDATA[ #chzr_lxdh#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_yfzgx_rygxdm">
+				<![CDATA[ #chzr_yfzgx_rygxdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="chzr_ytgrgx_rygxdm">
+				<![CDATA[ #chzr_ytgrgx_rygxdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="fwczqkdm">
+				<![CDATA[ #fwczqkdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="qzrq">
+				<![CDATA[ #qzrq#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="tzrq">
+				<![CDATA[ #tzrq#]]>
+		</isNotEmpty>
+		,
+		<include refid="insertXtzdVal" />
+		)
+	</insert>
+
+
+	<!-- 修改承租情况登记信息 -->
+	<update id="updateCzqkdjxx" parameterClass="fwCzqkdjxxb">
+		 <![CDATA[ update syfw_czqkdjxxb ]]>
+		<dynamic prepend="set">
+			
+			<isNotNull prepend="," property="chzr_ryid">
+				<![CDATA[ chzr_ryid=#chzr_ryid#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="chzr_xm">
+				<![CDATA[ chzr_xm=#chzr_xm#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="chzr_cyzjdm">
+				<![CDATA[ chzr_cyzjdm=#chzr_cyzjdm#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="chzr_zjhm">
+				<![CDATA[ chzr_zjhm=#chzr_zjhm#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="chzr_wwx">
+				<![CDATA[ chzr_wwx=#chzr_wwx#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="chzr_wwm">
+				<![CDATA[ chzr_wwm=#chzr_wwm#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="chzr_xb">
+				<![CDATA[ chzr_xb=#chzr_xb#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="chzr_mzdm">
+				<![CDATA[ chzr_mzdm=#chzr_mzdm#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="chzr_csrq">
+				<![CDATA[ chzr_csrq=#chzr_csrq#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="chzr_zy">
+				<![CDATA[ chzr_zy=#chzr_zy#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="chzr_zylbdm">
+				<![CDATA[ chzr_zylbdm=#chzr_zylbdm#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="chzr_fwcs">
+				<![CDATA[ chzr_fwcs=#chzr_fwcs#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="chzr_lxdh">
+				<![CDATA[ chzr_lxdh=#chzr_lxdh#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="chzr_yfzgx_rygxdm">
+				<![CDATA[ chzr_yfzgx_rygxdm=#chzr_yfzgx_rygxdm#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="chzr_ytgrgx_rygxdm">
+				<![CDATA[ chzr_ytgrgx_rygxdm=#chzr_ytgrgx_rygxdm#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="fwczqkdm">
+				<![CDATA[ fwczqkdm=#fwczqkdm#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="qzrq">
+				<![CDATA[ qzrq=#qzrq#]]>
+			</isNotNull>
+			<isNotNull prepend="," property="tzrq">
+				<![CDATA[ tzrq=#tzrq#]]>
+			</isNotNull>
+			,
+			<include refid="updateXtzd" />
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>
+	</update>
+
+
+	<!-- 查询出租房屋检查信息 -->
+	<select id="czqkdjxx_query" parameterClass="Map" resultClass="fwCzqkdjxxb">
+		 <![CDATA[select * from syfw_czqkdjxxb t where t.czfwid =#czfwid# and t.xt_zxbz='0' order by xt_zhxgsj desc]]>
+	</select>
+	
+	<!-- 根据出租房屋ID 注销房屋检查信息 -->
+	<update id="delCzfwjcxxbByCzfwid" parameterClass="czfwjcxxb">
+		<![CDATA[ update syfw_czfwjcxxb set ]]>	
+	 		<include refid="deleteXtzd"/>
+	 	<![CDATA[ where czfwid = #czfwid#]]>	
+	</update>
+	<!-- 根据出租房屋ID 注销承租情况登记信息 -->
+	<update id="delCzqkdjxxbByCzfwid" parameterClass="fwCzqkdjxxb">
+		<![CDATA[ update syfw_czqkdjxxb set ]]>	
+	 		<include refid="deleteXtzd"/>
+	 	<![CDATA[ where czfwid = #czfwid#]]>	
+	</update>
+
+
+</sqlMap>

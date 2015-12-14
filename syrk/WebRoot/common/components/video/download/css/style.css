@@ -1,0 +1,222 @@
+.menu_title{background-color:#F3ECEC; FILTER: dropshadow(color=#012F68, offx=1, offy=1, positive=1);}
+.menu_title2{background-color:#DFCCCC; }
+.menu_title1{background-color:#DFCCCC; }
+.menu_text{FILTER: dropshadow(color=#ffffff, offx=1, offy=1, positive=1);font-weight: 
+bold;color:#3B75B1; }
+.menu_border{border:1px solid #3B75B1;margin-top:10px; }
+
+/*主框架左边菜单样式边框begin*/
+.main_left_frame_border{border-left:1px solid #3B75B1;border-right:1px solid #3B75B1;}
+/*主框架左边菜单样式边框end*/
+/*右边菜单样式begin*/
+#divname {
+	position:absolute;
+	left:97%;
+	top:127px;
+	width:25px;
+	height:210px;
+	z-index:1;
+}
+.right_menu {color: #660000;line-height:16px;}
+/*右边菜单样式end*/
+.text_color {font-size: 12px; font-weight: bold; font-color: #4A7499; }
+A:hover {color:#ff5900; text-decoration: none}
+A:link {color: 081436;  text-decoration: none}
+A:visited {color: #081436;  text-decoration: none}
+/*二级菜单字体*/
+.button_text { FILTER: dropshadow(color=#012F68, offx=1, offy=1, positive=1); font-family: "宋体"; FONT-SIZE: 12px; color: #ffffff; text-decoration: none; text-align: center;}
+/*主窗体底部*/
+.d_text { FILTER: dropshadow(color=#ffffff, offx=1, offy=1, positive=1); font-family: "宋体"; FONT-SIZE: 12px; color: #814E4E; text-decoration: none; text-align: center;}
+/*表格主标题*/
+.main_title { FILTER: dropshadow(color=#5F3A3A, offx=1, offy=1, positive=1); font-family: "宋体"; FONT-SIZE: 12px; color: #ffffff; text-decoration: none; text-align: center;}
+/*表格标题-(字段名称)*/
+.td1{background-color:#92b5db; text-align: center;font-weight: bold;color:#ffffff;border-bottom:1px solid #D7BFBF;padding:0px 0px 0px 8px;
+}
+.th1{font-color:#F9FAFB;font-size:12px;}
+.td2{ text-align: center;font-weight:bold;color:#ffffff;}
+/*.td1{background-image:url(images/tt.gif); font-color: #FFFFFF}*/
+/*表格底部*/
+.tr_bottom{background-color:#DDE7F1; font-color: #FFFFFF;text-align: center;font-weight: bold;}
+
+/*显示数据-表格*/
+table.table1 {
+	width:100%;font-size: 12px;background-color:#ffffff;border-collapse:collapse;line-height: 22px;text-indent: 5px;
+}
+table.table1 td{
+border:1px solid #81a5cd;	font-size: 12px;line-height: 22px;text-indent: 5px;
+}
+table.table1 table.table1_table td{
+padding:3px 3px 3px 3px;
+}
+table.table1 table td{
+border:0px ;	font-size: 12px;line-height: 22px;text-indent: 5px;
+}
+
+/*头部表格底部背景.toptable_head {  font-family: "宋体"; font-size: 12px; color: #000000; height: 27px; background-image: url(images/sjs_67.gif)}*/
+.toptable_head {  border:1px solid #AC6668 color: #000000; height: 4px; background-color:#3B75B1;margin-top:5px; }
+/*复选框*/
+.inupt_selec {  text-align: center; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+/*二级菜单链接*/
+a.sub_menu_1:link {  font-family: "宋体"; font-size: 12px;  color: #000000;text-align: center; text-decoration: none; width:100%; filter: DropShadow(Color=#FFFFFF, OffX=1, OffY=1, Positive=1)}
+a.sub_menu_1:visited {  font-family: "宋体"; font-size: 12px;  color: #000000; text-align: center;text-decoration: none; width:100%; filter: DropShadow(Color=#FFFFFF, OffX=1, OffY=1, Positive=1)}
+a.sub_menu_1:hover {  font-family: "宋体"; font-size: 12px;  color: #ffffff; text-align: center;text-decoration: none; width:100%; filter: DropShadow(Color=#000000, OffX=1, OffY=1, Positive=1)}
+/*----------------------------------*/
+/*所有单元格*/
+td {
+	font-family: "宋体";
+	font-size: 12px;
+	text-decoration: none;
+	line-height: 18px;
+	
+}
+/*所有输入框*/
+input {  font-size: 12px; border: 1px #98AAB1 solid}
+/*图片按钮样式*/
+.icon_menu {  border: 0px }
+/*所有文本框
+.input1 {  font-size: 12px; border: 1px #ACB9D5 solid}*/
+textarea {  font-size: 12px; border: 1px #98AAB1 solid}
+select {  font-size: 12px;background-color:#ffffff;}
+
+/*红色的字*/
+.information {  FILTER: dropshadow(color=#efefef, offx=1, offy=1, positive=1); font-family: "宋体"; font-size: 12px; color: #FF6600; text-decoration: none ; font-weight: bold}
+/*标题文字*/
+.table_title {  FILTER: dropshadow(color=#FFFFFF, offx=1, offy=1, positive=1); letter-spacing: 3px;font-family: "宋体"; font-size: 12px; color: #000000; text-decoration: none ; color: #330066}
+/*版权区*/
+.copyright {  FILTER: dropshadow(color=#FFFFFF, offx=1, offy=1, positive=1); letter-spacing: 5px;font-family: "宋体"; font-size: 12px; color: #000000; text-decoration: none ; }
+/*主菜单链接*/
+a.menu_1:link {  font-family: "宋体"; font-size: 13px; font-weight: bold; color: #000000; text-decoration: none; width:100%; filter: DropShadow(Color=#FFFFFF, OffX=1, OffY=1, Positive=1)}
+a.menu_1:visited {  font-family: "宋体"; font-size: 13px; font-weight: bold; color: #000000; text-decoration: none; width:100%; filter: DropShadow(Color=#FFFFFF, OffX=1, OffY=1, Positive=1)}
+a.menu_1:hover {  font-family: "宋体"; font-size: 13px; font-weight: bold; color: #000000; text-decoration: none; width:100%; filter: DropShadow(Color=#FFFFFF, OffX=1, OffY=1, Positive=1)}
+
+
+/*表格*/
+.pt10black {
+	font-family: "宋体";
+	font-size: 10pt;
+	line-height: 160%;
+	color: #000000;
+}
+
+/*------------------------------------------------------------*/
+
+
+.menu_title {  font-size: 12px}
+.list {  font-family: "宋体"; font-size: 12px}
+
+.shuru {  font-family: "Verdana", "Arial", "Helvetica", "sans-serif"; font-size: 10px}
+
+
+.white_til {  font-family: "Arial", "Helvetica", "sans-serif"; font-size: 12px; color: #FFFFFF; text-decoration: none}
+.input_a {  font-size: 12px; text-decoration: none}
+.table_bg1 {  background-color: #CCCCCC; border-color: #FFFFFF #000000 #000000 #FFFFFF; border-style: double; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+.table_bg2 {  background-color: #eeeeee; border-color: #FFFFFF #000000 #000000 #FFFFFF; border-style: double; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+
+.btnLink1{
+FILTER: dropshadow(color=#FFFFFF, offx=1, offy=1, positive=1); FONT-FAMILY: "宋体"; FONT-SIZE: 9pt; width:100%; COLOR: #339900;}
+.btnLink2{
+FILTER: dropshadow(color=#FFFFFF, offx=1, offy=1, positive=1); FONT-FAMILY: "宋体"; FONT-SIZE: 9pt; width:100%; COLOR: #000000;}
+.WinTitle{
+FILTER: dropshadow(color=#FFFFFF, offx=1, offy=1, positive=1); FONT-FAMILY: "宋体"; FONT-SIZE: 9pt; width:100%; COLOR: #000000;}
+.disabledStyle{FILTER: Alpha(Opacity=25, FinishOpacity=50, Style=1, StartX=0, StartY=1, FinishX=200, FinishY=100)}
+.label_td { text-align:right; height:21}
+.date_table {  text-align:center ;padding-top: 3px; padding-bottom: 2px; padding-left: 4px; border: solid; border-width: 0px 1px 1px 1px; border-color: #FFFFFF #CFD7DA #CFD7DA #FFFFFF}
+.date_table1 { padding-top: 3px; padding-bottom: 2px; padding-left: 4px; border: solid; border-width: 0px 1px 1px 1px; border-color: #FFFFFF #98AAB1 #98AAB1 #FFFFFF}
+.date_table2 { padding-top: 3px; padding-bottom: 2px; padding-left: 4px; border: solid; border-width: 0px 0px 1px 1px; border-color: #FFFFFF #98AAB1 #98AAB1 #FFFFFF}
+
+.value_style0 {color:#660099}
+.value_style1 {color:#339900}
+.value_style2 {color:#FF6600}
+.value_style3 {color:#FF0000}
+.value_style4 {color:#990066}
+
+.input_hand {  cursor: hand}
+.table_bg {  background-color: #EFEFEF; width: 99%; padding-top: 3px; padding-bottom: 2px; padding-left: 4px}
+.bottom {  font-family: "宋体"; font-size: 12px; color: #000000; height: 19px}
+.date {  font-family: "宋体"; font-size: 12px; height: 18px; width: 100px}
+.item {  font-family: "宋体"; font-size: 12px; height: 18px; width: 100px}
+.input_hand {  cursor: hand}
+.table_one {  background-color: #487ED2; font-family: "宋体"; font-size: 13px; color: #FFFFFF; vertical-align: bottom}
+.table_bg {  background-color: #EFEFEF; width: 96%; padding-top: 3px; padding-bottom: 2px; padding-left: 4px}
+
+input.check {  font-size: 12px;border: 0px }
+
+.page_select1 {  font-size: 12px; text-decoration: none;height: 18px; color: #000000; background-color: #E6ECF5; width: 110px}
+.page_select2 {  font-size: 12px; text-decoration: none;height: 18px; color: #000000; background-color: #E6ECF5}
+.page_multisel{  font-size: 12px; text-decoration: none;color: #000000; background-color: #FFFFFF; width: 100%;}
+
+a.top_link:visited {  text-decoration: none; color: #000000}
+a.top_link:active {  text-decoration: none; color: #000000}
+a.top_link:hover {  text-decoration: none; color: #3E72A7}
+a.top_link:link {  text-decoration: none; color: #000000}
+.closewin {  color: #FFFFFF; text-decoration: none}
+a.closewin:link {  color: #FFFFFF; text-decoration: none}
+a.closewin:visited {  color: #FFFFFF; text-decoration: none}
+body {  font-size: 12px; line-height: 20px;}
+
+.white_til {  font-family: "Arial", "Helvetica", "sans-serif"; font-size: 12px; color: #FFFFFF; text-decoration: none}
+.table_bg2 {  background-color: #eeeeee; border-color: #FFFFFF #000000 #000000 #FFFFFF; border-style: double; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+.table100W {  width: 100%; background-color: #EEEEEE}
+.table100L {  width: 100%}
+
+
+.query_heading_l { background-color: #F5F0EC; border-color: #FFFFFF #CFD7DA #CFD7DA #FFFFFF; padding-top: 3px; padding-bottom: 2px; padding-left: 4px; font-weight: bold; padding-right: 4px; border-style: double; border-top-width: 1px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 1px;}
+.query_heading_r { background-color: #F5F0EC; border-color: #FFFFFF #CFD7DA #CFD7DA #FFFFFF; padding-top: 3px; padding-bottom: 2px; padding-left: 4px; font-weight: bold; text-align: right; padding-right: 4px; border-style: double; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 0px; height: 25px}
+
+
+.table_heading { background-color: #Ffffff; border-color: #FFFFFF #CFD7DA #CFD7DA #FFFFFF; padding-top: 3px; padding-bottom: 2px; padding-left: 4px; font-weight: bold; text-align: center; padding-right: 4px; border-style: double; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+
+.bor { background-color: #F5F0EC; border-color: #333333 #333333 #333333 #333333; padding-top: 3px; padding-bottom: 2px; padding-left: 4px; font-weight: bold; text-align: center; padding-right: 4px; border-style: double; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+
+.list_heading { font-weight: bold; text-align: center; background-color: #F2F2F2; border: solid; border-width: 0px 1px 1px 0px; border-color: #98AAB1 #98AAB1 #98AAB1 #98AAB1}
+.list_heading1 { padding-left: 3px; background-color: #E6EBF4; border-bottom:1px solid #98AAB1; border-right:1px solid #98AAB1}
+.list_heading2 { padding-left: 3px; font-weight: bold; background-color: #DEE3E7; border: solid; border-width: 0px 0px 1px 0px; border-color: #98AAB1 #98AAB1 #98AAB1 #98AAB1}
+.list_heading3 { padding-left: 3px; background-color: #F0F7FA; border: solid; border-width: 1px 0px 1px 0px; border-color: #98AAB1 #98AAB1 #98AAB1 #98AAB1}
+
+.list_table {  text-align: center; border: solid; border-width: 0px 1px 1px 0px; border-color: #98AAB1 #98AAB1 #98AAB1 #98AAB1}
+.list_table1 { padding-left: 3px; background-color: #F2F2F2;  border-bottom:1px solid #98AAB1}
+.list_table2 {padding-top: 1px; padding-bottom: 1px; padding-left: 3px; background-color: #F2F2F2;  border-bottom:0px solid #98AAB1}
+
+.listdiv {padding-top: 3px; padding-bottom: 1px; padding-left: 3px; cursor:hand}
+.listdivheading {font-weight:bold; padding-left: 1px; padding-top: 0px; padding-bottom: 0px; background-color: #F2F2F2; border-bottom:1px solid #98AAB1}
+.listExtDiv{font-weight:bold; padding-top: 3px; padding-bottom: 3px; padding-left: 3px; color: #003399}
+
+.listFieldHead{padding-left: 3px; padding-top: 2px; padding-bottom: 0px; border-bottom:0px solid #98AAB1}
+.listField{padding-left: 3px; padding-top: 2px; padding-bottom: 2px;}
+.extInfo{border-bottom:1px solid #98AAB1;}
+
+/*.table1 {  background-color: #FCFAF8; width: 100%; left: 0px; top: 0px; clip:  rect(0px 0px 0px 0px); border: 1px solid; border-color: #CFD7DA #FFFFFF #FFFFFF #CFD7DA}
+*/
+.table2 { left: 0px; top: 0px; clip:  rect(0px 0px 0px 0px); border: 1px double; border-color: #98AAB1 #98AAB1 #FFFFFF #F2F2F2}
+.table3 {  border: 1px #CFD7DA solid; padding-top: 3px; padding-right: 4px; padding-bottom: 2px; padding-left: 4px; clip:  rect(   ); width: 98%; background-color: #FCFAF8}
+
+.cortrol_table { background-color: #f2f2f2; vertical-align: bottom; padding-top: 3px; padding-bottom: 2px; padding-left: 4px; border: solid; border-width: 0px 1px 1px 0px; border-color: #FFFFFF #CFD7DA #CFD7DA #FFFFFF ; padding-right: 4px; font-weight:bold; color: #888888}
+.tabelend { background-color: #E5E5E5; border: solid; border-width: 0px 1px 1px 0px; border-color: #98AAB1 #98AAB1 #98AAB1 #98AAB1}
+.navigation {  font-family: "宋体"; font-size: 14px; color: #000000; text-decoration: none; font-weight: bold}
+
+.toplink {  font-family: "宋体"; font-size: 12px; color: #000000; text-decoration: none}
+
+.table1100 { width: 100%; left: 0px; top: 0px; clip: rect(0px 0px 0px 0px); border: 1px solid; border-color: #999999 #FFFFFF #FFFFFF #999999 }
+.topboder {  font-family: "宋体"; font-size: 12px; border-color: #3B75B1 #3B75B1 #3B75B1; border-style: solid; border-top-width: 1px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; background-color: #f2f2f2}.noborder {  font-family: "宋体"; border-style: none; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+.text {
+	FONT-SIZE: 11px; COLOR: #104159; LINE-HEIGHT: 18px; FONT-FAMILY: "Arial", "Helvetica", "??? "?s??? "Times New Roman", "sans-serif"
+}body {
+	margin: 0px;
+}
+/* 表格控件样式 */
+.datagrid{
+	background-color:#9CA0AC;
+}
+.datagrid th{
+  background-color:#92B6DA;
+  font-size: 12px; color: #FFFFFF;
+}
+.datagrid td{
+  background-color:#FFFFFF;
+}
+.datagrid .row{
+  background-color:#EAEAFF;
+}
+.datagrid .column{
+  background-color:#B9B9FF;
+}

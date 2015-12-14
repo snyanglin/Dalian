@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="DbrwDdbrwb">
+
+	<typeAlias alias="dbrwDdbrwb" type="com.founder.dbrw.bean.DbrwDdbrwb" />
+	<typeAlias alias="dbrwDdbrwsjmxb" type="com.founder.dbrw.bean.DbrwDdbrwsjmxb" />
+	<typeAlias alias="dbrwDbrwb" type="com.founder.dbrw.bean.DbrwDbrwb" />
+	<typeAlias alias="dbrwDbrwfkb" type="com.founder.dbrw.bean.DbrwDbrwfkb" />
+	
+	<!-- 查询单条待督办任务 -->
+	<select id="queryDdbrwb" parameterClass="String" resultClass="dbrwDdbrwb">
+		<![CDATA[ select * from DBRW_DDBRWB where ID = #id# and rownum = 1 ]]>
+	</select>
+
+	<!-- 查询待督办任务数据明细列表 -->
+	<select id="queryDdbrwSjmxbCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) from DBRW_DDBRWSJMXB where XT_ZXBZ = '0' and DDBRWID = #ddbrwid# ]]>
+			<isEqual property="ywfl" compareValue="1">
+				<isNotEmpty prepend="and" property="ddbsjx1">
+					DDBSJX1 = #ddbsjx1#
+				</isNotEmpty>
+			</isEqual>
+			<isNotEqual property="ywfl" compareValue="1">
+				<isNotEmpty prepend="and" property="ddbsjx1">
+					DDBSJX1 like '%$ddbsjx1$%'
+				</isNotEmpty>
+			</isNotEqual>
+			<isNotEmpty prepend="and" property="ddbsjx2">
+				DDBSJX2 like '%$ddbsjx2$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx3">
+				DDBSJX3 like '%$ddbsjx3$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx4">
+				DDBSJX4 like '%$ddbsjx4$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx5">
+				DDBSJX5 like '%$ddbsjx5$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx6">
+				DDBSJX6 like '%$ddbsjx6$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx7">
+				DDBSJX7 like '%$ddbsjx7$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx8">
+				DDBSJX8 like '%$ddbsjx8$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx9">
+				DDBSJX9 like '%$ddbsjx9$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sszrqdm">
+				SSZRQDM = #sszrqdm#
+			</isNotEmpty>
+	</select>
+	<select id="queryDdbrwSjmxbList" parameterClass="Map" resultClass="dbrwDdbrwsjmxb">
+		<![CDATA[ select a.*,(select b.ORGNAME from ORG_ORGANIZATION b where b.ORGCODE = a.SSZRQDM and b.XT_ZXBZ = '0' and rownum = 1) as SSZRQMC 
+			from ( select rownum r ,m.* from (select * from DBRW_DDBRWSJMXB where XT_ZXBZ = '0' and DDBRWID = #ddbrwid#]]>
+			<isEqual property="ywfl" compareValue="1">
+				<isNotEmpty prepend="and" property="ddbsjx1">
+					DDBSJX1 = #ddbsjx1#
+				</isNotEmpty>
+			</isEqual>
+			<isNotEqual property="ywfl" compareValue="1">
+				<isNotEmpty prepend="and" property="ddbsjx1">
+					DDBSJX1 like '%$ddbsjx1$%'
+				</isNotEmpty>
+			</isNotEqual>
+			<isNotEmpty prepend="and" property="ddbsjx2">
+				DDBSJX2 like '%$ddbsjx2$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx3">
+				DDBSJX3 like '%$ddbsjx3$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx4">
+				DDBSJX4 like '%$ddbsjx4$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx5">
+				DDBSJX5 like '%$ddbsjx5$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx6">
+				DDBSJX6 like '%$ddbsjx6$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx7">
+				DDBSJX7 like '%$ddbsjx7$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx8">
+				DDBSJX8 like '%$ddbsjx8$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx9">
+				DDBSJX9 like '%$ddbsjx9$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sszrqdm">
+				SSZRQDM = #sszrqdm#
+			</isNotEmpty>
+ 			<![CDATA[ order by $sort$ $order$) m where rownum <= #end# ) a where r > #begin# ]]>
+	</select>
+
+	<!-- 删除单条待督办任务数据明细 -->
+	<delete id="deleteDdbrwSjmxbById" parameterClass="String">
+		<![CDATA[ delete DBRW_DDBRWSJMXB where ID = #id# ]]>	
+	</delete>	
+
+	<!-- 新增待督办任务 -->
+	<insert id="insertDbrwb" parameterClass="dbrwDbrwb">
+		<![CDATA[ insert into DBRW_DBRWB (ID,DBMXID,DBRWJBDM,DBRWFQFXJDM,DBRWFQPCSDM,DBRWFQDWDM,RWFQSJ,RWKSSJ,
+			RWJSSJ,RWBT,RWSM,RWSJZL,RWWCQK,RWZT,WCSJ,BZ, ]]><include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#,#dbmxid#,#dbrwjbdm#,#dbrwfqfxjdm#,#dbrwfqpcsdm#,#dbrwfqdwdm#,#rwfqsj#,#rwkssj#,#rwjssj#,
+			#rwbt#,#rwsm#,#rwsjzl#,#rwwcqk#,#rwzt#,#wcsj#,#bz#, ]]>
+		<include refid="insertXtzdVal"/>)
+	</insert>
+
+
+	<!-- 将待督办数据明细转入督办数据明细表（选择满足条件的所有数据） -->
+	<insert id="insertDbsjmxb" parameterClass="Map">
+		<![CDATA[ insert into DBRW_DBRWSJMXB(ID,DBRWID,DBSJID,DBSJX1,DBSJX2,DBSJX3,DBSJX4,DBSJX5,DBSJX6,DBSJX7,DBSJX8,DBSJX9,DBSJX10,SSZRQDM,SSPCSDM,SSFXJDM,BZ,DATAURL, ]]><include refid="insertXtzd"/>) 
+		<![CDATA[ select ID,#dbrwid#,DDBSJID,DDBSJX1,DDBSJX2,DDBSJX3,DDBSJX4,DDBSJX5,DDBSJX6,DDBSJX7,DDBSJX8,DDBSJX9,DDBSJX10,SSZRQDM,SSPCSDM,SSFXJDM,BZ,DATAURL, ]]><include refid="insertXtzd"/>
+		<![CDATA[ from DBRW_DDBRWSJMXB where DDBRWID = #ddbrwid# ]]>
+			<isEqual property="ywfl" compareValue="1">
+				<isNotEmpty prepend="and" property="ddbsjx1">
+					DDBSJX1 = #ddbsjx1#
+				</isNotEmpty>
+			</isEqual>
+			<isNotEqual property="ywfl" compareValue="1">
+				<isNotEmpty prepend="and" property="ddbsjx1">
+					DDBSJX1 like '%$ddbsjx1$%'
+				</isNotEmpty>
+			</isNotEqual>
+			<isNotEmpty prepend="and" property="ddbsjx2">
+				DDBSJX2 like '%$ddbsjx2$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx3">
+				DDBSJX3 like '%$ddbsjx3$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx4">
+				DDBSJX4 like '%$ddbsjx4$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx5">
+				DDBSJX5 like '%$ddbsjx5$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx6">
+				DDBSJX6 like '%$ddbsjx6$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx7">
+				DDBSJX7 like '%$ddbsjx7$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx8">
+				DDBSJX8 like '%$ddbsjx8$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx9">
+				DDBSJX9 like '%$ddbsjx9$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sszrqdm">
+				SSZRQDM = #sszrqdm#
+			</isNotEmpty>
+	</insert>	
+
+	<!-- 将待督办数据明细转入督办数据明细表（手工选择的部分数据） -->
+	<insert id="insertDbsjmxbSelected" parameterClass="Map">
+		<![CDATA[ insert into DBRW_DBRWSJMXB(ID,DBRWID,DBSJID,DBSJX1,DBSJX2,DBSJX3,DBSJX4,DBSJX5,DBSJX6,DBSJX7,DBSJX8,DBSJX9,DBSJX10,SSZRQDM,SSPCSDM,SSFXJDM,BZ,DATAURL, ]]><include refid="insertXtzd"/>) 
+		<![CDATA[ select ID,#dbrwid#,DDBSJID,DDBSJX1,DDBSJX2,DDBSJX3,DDBSJX4,DDBSJX5,DDBSJX6,DDBSJX7,DDBSJX8,DDBSJX9,DDBSJX10,SSZRQDM,SSPCSDM,SSFXJDM,BZ,DATAURL, ]]><include refid="insertXtzd"/>
+		<![CDATA[ from DBRW_DDBRWSJMXB where DDBRWID = #ddbrwid# and ID in ($selectMxIds$) ]]>
+	</insert>	
+
+	<!-- 查询督办任务消息发送单位  -->
+	<select id="queryDbrwMessageOrg" parameterClass="Map" resultClass="String">
+		<![CDATA[ select SSZRQDM from DBRW_DDBRWSJMXB where DDBRWID = #ddbrwid# and SSZRQDM is not null ]]> 
+			<isEqual property="ywfl" compareValue="1">
+				<isNotEmpty prepend="and" property="ddbsjx1">
+					DDBSJX1 = #ddbsjx1#
+				</isNotEmpty>
+			</isEqual>
+			<isNotEqual property="ywfl" compareValue="1">
+				<isNotEmpty prepend="and" property="ddbsjx1">
+					DDBSJX1 like '%$ddbsjx1$%'
+				</isNotEmpty>
+			</isNotEqual>
+			<isNotEmpty prepend="and" property="ddbsjx2">
+				DDBSJX2 like '%$ddbsjx2$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx3">
+				DDBSJX3 like '%$ddbsjx3$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx4">
+				DDBSJX4 like '%$ddbsjx4$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx5">
+				DDBSJX5 like '%$ddbsjx5$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx6">
+				DDBSJX6 like '%$ddbsjx6$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx7">
+				DDBSJX7 like '%$ddbsjx7$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx8">
+				DDBSJX8 like '%$ddbsjx8$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx9">
+				DDBSJX9 like '%$ddbsjx9$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sszrqdm">
+				SSZRQDM = #sszrqdm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="selectMxIds">
+				ID in ($selectMxIds$)
+			</isNotEmpty>		
+			<![CDATA[ group by SSZRQDM ]]>
+	</select>
+
+	<!-- 查询是否存在待督办任务数据明细 -->
+	<select id="queryExistDdbrwSjmxbCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) from DBRW_DDBRWSJMXB where XT_ZXBZ = '0' and DDBRWID = #ddbrwid# ]]>
+	</select>
+
+	<!-- 删除单条待督办任务 -->
+	<delete id="deleteDdbrwb" parameterClass="Map">
+		<![CDATA[ delete DBRW_DDBRWB where ID = #ddbrwid# ]]>	
+	</delete>	
+
+	<!-- 删除待督办任务数据明细（选择满足条件的所有数据） -->
+	<delete id="deleteDdbrwSjmxb" parameterClass="Map">
+		<![CDATA[ delete DBRW_DDBRWSJMXB where DDBRWID = #ddbrwid# ]]>	
+			<isEqual property="ywfl" compareValue="1">
+				<isNotEmpty prepend="and" property="ddbsjx1">
+					DDBSJX1 = #ddbsjx1#
+				</isNotEmpty>
+			</isEqual>
+			<isNotEqual property="ywfl" compareValue="1">
+				<isNotEmpty prepend="and" property="ddbsjx1">
+					DDBSJX1 like '%$ddbsjx1$%'
+				</isNotEmpty>
+			</isNotEqual>
+			<isNotEmpty prepend="and" property="ddbsjx2">
+				DDBSJX2 like '%$ddbsjx2$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx3">
+				DDBSJX3 like '%$ddbsjx3$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx4">
+				DDBSJX4 like '%$ddbsjx4$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx5">
+				DDBSJX5 like '%$ddbsjx5$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx6">
+				DDBSJX6 like '%$ddbsjx6$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx7">
+				DDBSJX7 like '%$ddbsjx7$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx8">
+				DDBSJX8 like '%$ddbsjx8$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx9">
+				DDBSJX9 like '%$ddbsjx9$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sszrqdm">
+				SSZRQDM = #sszrqdm#
+			</isNotEmpty>
+	</delete>	
+
+	<!-- 删除待督办任务数据明细（手工选择的部分数据） -->
+	<delete id="deleteDdbrwSjmxbSelected" parameterClass="Map">
+		<![CDATA[ delete DBRW_DDBRWSJMXB where DDBRWID = #ddbrwid# ]]>	
+			<isEqual property="ywfl" compareValue="1">
+				<isNotEmpty prepend="and" property="ddbsjx1">
+					DDBSJX1 = #ddbsjx1#
+				</isNotEmpty>
+			</isEqual>
+			<isNotEqual property="ywfl" compareValue="1">
+				<isNotEmpty prepend="and" property="ddbsjx1">
+					DDBSJX1 like '%$ddbsjx1$%'
+				</isNotEmpty>
+			</isNotEqual>
+			<isNotEmpty prepend="and" property="ddbsjx2">
+				DDBSJX2 like '%$ddbsjx2$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx3">
+				DDBSJX3 like '%$ddbsjx3$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx4">
+				DDBSJX4 like '%$ddbsjx4$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx5">
+				DDBSJX5 like '%$ddbsjx5$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx6">
+				DDBSJX6 like '%$ddbsjx6$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx7">
+				DDBSJX7 like '%$ddbsjx7$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx8">
+				DDBSJX8 like '%$ddbsjx8$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx9">
+				DDBSJX9 like '%$ddbsjx9$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sszrqdm">
+				SSZRQDM = #sszrqdm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="selectMxIds">
+				ID in ($selectMxIds$)
+			</isNotEmpty>		
+	</delete>
+	
+	<!-- 查询督办任务反馈表任务总数量 -->
+	<select id="queryDbrwfkbRwzsl" parameterClass="Map" resultClass="Long">
+		<![CDATA[ select count(*) from DBRW_DDBRWSJMXB where XT_ZXBZ = '0' and DDBRWID = #ddbrwid# and SSZRQDM = #sszrqdm# ]]>
+			<isEqual property="ywfl" compareValue="1">
+				<isNotEmpty prepend="and" property="ddbsjx1">
+					DDBSJX1 = #ddbsjx1#
+				</isNotEmpty>
+			</isEqual>
+			<isNotEqual property="ywfl" compareValue="1">
+				<isNotEmpty prepend="and" property="ddbsjx1">
+					DDBSJX1 like '%$ddbsjx1$%'
+				</isNotEmpty>
+			</isNotEqual>
+			<isNotEmpty prepend="and" property="ddbsjx2">
+				DDBSJX2 like '%$ddbsjx2$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx3">
+				DDBSJX3 like '%$ddbsjx3$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx4">
+				DDBSJX4 like '%$ddbsjx4$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx5">
+				DDBSJX5 like '%$ddbsjx5$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx6">
+				DDBSJX6 like '%$ddbsjx6$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx7">
+				DDBSJX7 like '%$ddbsjx7$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx8">
+				DDBSJX8 like '%$ddbsjx8$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ddbsjx9">
+				DDBSJX9 like '%$ddbsjx9$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="selectMxIds">
+				ID in ($selectMxIds$)
+			</isNotEmpty>		
+	</select>		
+
+	<!-- 插入督办任务反馈表 -->
+	<insert id="insertDbrwDbrwfkb" parameterClass="dbrwDbrwfkb">
+		<![CDATA[ insert into DBRW_DBRWFKB (ID,DBRWID,FKBMDM,FKBMMC,DBFKNR,RWZSL,WCRWZSL,ZDHSSL,SDHSSL,XZYWSJL,ZXYWSJL,FKSJ,BZ, SFWC, ]]><include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#,#dbrwid#,#fkbmdm#,#fkbmmc#,#dbfknr#,#rwzsl#,#wcrwzsl#,#zdhssl#,#sdhssl#,#xzywsjl#,#zxywsjl#,#fksj#,#bz#, '0', ]]>
+		<include refid="insertXtzdVal"/>)
+	</insert>	
+
+</sqlMap>

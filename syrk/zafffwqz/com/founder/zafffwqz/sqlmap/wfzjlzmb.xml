@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Wfzjlzmb">
+
+<typeAlias alias="wfzjlzmb" type="com.founder.zafffwqz.bean.Wfzjlzmb"/>
+
+
+	<!-- 添加无犯罪记录证明 -->
+	<insert id="saveWfzjlzmb" parameterClass="wfzjlzmb">
+		<![CDATA[
+		insert into FWQZ_WFZJLZMB
+  			(id,zmjsdw,ryid,gmsfhm,xm,xbdm,csrq,dz_jzdzdm,dz_jzdzssxdm,dz_jzdzxz,dz_jzdzmlpdm,dz_jzdzmlpxz,dz_hjdzdm,dz_hjdzssxdm,dz_hjdzxz,dz_hjdzmlpdm,dz_hjdzmlpxz,kjrq,zmkjdwid,zmkjdw,zmkjrid,zmkjr,bz, ]]> <include refid="insertXtzd"/> <![CDATA[ )
+		values
+  			(#id#,#zmjsdw#,#ryid#,#gmsfhm#,#xm#,#xbdm#,#csrq#,#dz_jzdzdm#,#dz_jzdzssxdm#,#dz_jzdzxz#,#dz_jzdzmlpdm#,#dz_jzdzmlpxz#,#dz_hjdzdm#,#dz_hjdzssxdm#,#dz_hjdzxz#,#dz_hjdzmlpdm#,#dz_hjdzmlpxz#,#kjrq#,#zmkjdwid#,#zmkjdw#,#zmkjrid#,#zmkjr#,#bz#, ]]> <include refid="insertXtzdVal"/> <![CDATA[ )
+  		]]>
+	</insert>
+		<!-- 查询列表 -->
+	<select id="queryWfzjlzmbCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) from FWQZ_WFZJLZMB  where XT_LRRBMID=#xt_lrrbmid# AND XT_ZXBZ = '0' ]]>
+		<isNotEmpty prepend="and" property="gmsfhm">
+			gmsfhm = #gmsfhm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="xm">
+			xm = #xm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="xbdm">
+			xbdm = #xbdm#
+		</isNotEmpty>
+		<isNotNull prepend="and"   property="startime">
+			<isNotNull  property="endtime">
+				<![CDATA[ kjrq between #startime# and #endtime#]]>	
+			</isNotNull>
+			<isNull   property="endtime"> 
+			<![CDATA[ kjrq > #startime# ]]>	
+			</isNull>
+		</isNotNull >
+		<isNull prepend="and"   property="startime">
+			<isNotNull  property="endtime">
+				<![CDATA[ kjrq < #endtime# ]]>	
+			</isNotNull>
+		</isNull>
+	</select>
+	<!-- 查询无犯罪记录证明 集合 -->
+	<select id="queryWfzjlzmbList" parameterClass="Map" resultClass="wfzjlzmb">
+		<![CDATA[select * from ( 
+						select rownum r, t.* from ( 
+							select * from FWQZ_WFZJLZMB where XT_LRRBMID=#xt_lrrbmid# AND XT_ZXBZ='0']]>
+		<dynamic >
+		<isNotNull prepend="and" property="gmsfhm">
+				<![CDATA[ gmsfhm=#gmsfhm#]]>	
+		</isNotNull>
+		<isNotNull prepend="and" property="xm">
+				<![CDATA[ xm=#xm#]]>	
+		</isNotNull>
+		<isNotNull prepend="and" property="xbdm">
+				<![CDATA[ xbdm=#xbdm#]]>	
+		</isNotNull>
+		<isNotNull    property="startime">
+			<isNotNull prepend="and" property="endtime">
+				<![CDATA[ xt_lrsj between #startime# and #endtime#]]>	
+			</isNotNull>
+			<isNull prepend="and"  property="endtime"> 
+			<![CDATA[ xt_lrsj > #startime# ]]>	
+			</isNull>
+		</isNotNull >
+		<isNull prepend="and"   property="startime">
+			<isNotNull  property="endtime">
+				<![CDATA[ xt_lrsj < #endtime# ]]>	
+			</isNotNull>
+		</isNull>
+		</dynamic>
+		<![CDATA[ order by $sort$ $order$ ) t
+			where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+	<!-- 查询无犯罪记录证明单条 -->
+	<select id="queryWfzjlzmbById" parameterClass="wfzjlzmb" resultClass="wfzjlzmb">
+		<![CDATA[ select * from FWQZ_WFZJLZMB where id = #id# ]]>
+	</select>
+	<!-- 修改无犯罪记录证明  -->
+	<update id="updateWfzjlzmb" parameterClass="wfzjlzmb">
+	 <![CDATA[ update FWQZ_WFZJLZMB ]]>	
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="zmjsdw">
+				<![CDATA[ zmjsdw=#zmjsdw#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="ryid">
+				<![CDATA[ ryid=#ryid#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="gmsfhm">
+				<![CDATA[ gmsfhm=#gmsfhm#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="xm">
+				<![CDATA[ xm=#xm#]]>	
+			</isNotNull>
+	    	<isNotNull prepend="," property="xbdm">
+				<![CDATA[ xbdm=#xbdm#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="csrq">
+				<![CDATA[ csrq=#csrq#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="dz_jzdzdm">
+				<![CDATA[ dz_jzdzdm=#dz_jzdzdm#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="dz_jzdzssxdm">
+				<![CDATA[ dz_jzdzssxdm=#dz_jzdzssxdm#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="dz_jzdzxz">
+				<![CDATA[ dz_jzdzxz=#dz_jzdzxz#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="dz_jzdzmlpdm">
+				<![CDATA[ dz_jzdzmlpdm=#dz_jzdzmlpdm#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="dz_jzdzmlpxz">
+				<![CDATA[ dz_jzdzmlpxz=#dz_jzdzmlpxz#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="dz_hjdzdm">
+				<![CDATA[ dz_hjdzdm=#dz_hjdzdm#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="dz_hjdzssxdm">
+				<![CDATA[ dz_hjdzssxdm=#dz_hjdzssxdm#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="dz_hjdzxz">
+				<![CDATA[ dz_hjdzxz=#dz_hjdzxz#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="dz_hjdzmlpdm">
+				<![CDATA[ dz_hjdzmlpdm=#dz_hjdzmlpdm#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="dz_hjdzmlpxz">
+				<![CDATA[ dz_hjdzmlpxz=#dz_hjdzmlpxz#]]>	
+			</isNotNull>
+	    	<isNotNull prepend="," property="kjrq">
+				<![CDATA[ kjrq=#kjrq#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="zmkjdwid">
+				<![CDATA[ zmkjdwid=#zmkjdwid#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="zmkjdw">
+				<![CDATA[ zmkjdw=#zmkjdw#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="zmkjrid">
+				<![CDATA[ zmkjrid=#zmkjrid#]]>	
+			</isNotNull>
+	    	<isNotNull prepend="," property="zmkjr">
+				<![CDATA[ zmkjr=#zmkjr#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="bz">
+				<![CDATA[ bz=#bz#]]>	
+			</isNotNull>
+			,
+			<include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>	
+	</update>
+		<!-- 注销 -->
+	<update id="removeWfzjlzmb" parameterClass="wfzjlzmb">
+		<![CDATA[ update FWQZ_WFZJLZMB set ]]> <include refid="deleteXtzd" /> 
+		<![CDATA[where ID = #id# ]]>	
+	</update>
+	
+</sqlMap>

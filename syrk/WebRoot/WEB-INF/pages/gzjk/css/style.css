@@ -1,0 +1,68 @@
+@charset "utf-8";
+/* CSS Document */
+body{
+	margin:0px; padding:0px;
+	}
+.count_left{float:left;}
+.count_right{float:right;}	
+.c_wrap{
+	width:405px; height:auto; overflow:hidden;  float:left;
+	}
+.t_bg_wrap{
+	width:395px; height:147px; float:left; margin:10px 0 0 5px; background:url(../images/syrk_bg.png) no-repeat;
+	}
+.count_wrap{
+	width:300px; height:auto; overflow:hidden; float:left; margin:40px 0 0 35px; display:inline;
+	}
+.count_tr{
+	width:300px; height:32px; float:left; 
+	}
+.count_title{
+	width:70px; float:left; line-height:32px; color:#073d6b; text-align:left; height:32px; font-size:14px;
+	}
+.count_type{
+	width:185px; line-height:32px; float:left; height:32px; font-size:14px;
+	}
+.count_number{
+	float:left; width:18px; height:21px; border:1px solid #d1dae3; background-color:#f5f5f5; display:block; color:#6395c7;
+	line-height:21px; font-size:14px; text-align:center; font-weight:bold; font-family:Arial, Helvetica, sans-serif;
+	background:url(../images/number_bg.png) repeat-x; margin:4px 0 0 3px;
+	}
+.count_number_red{
+	float:left; width:18px; height:21px; border:1px solid #f5c074; background-color:#f5f5f5; display:block; color:#ea3f11;
+	line-height:21px; font-size:14px; text-align:center; font-weight:bold; font-family:Arial, Helvetica, sans-serif;
+	background:url(../images/number_bg_red.png) repeat-x; margin:4px 0 0 3px;
+	}
+.count_comma{
+	float:left; width:6px; height:21px;  display:block; color:#6395c7;margin:4px 0 0 3px;
+	line-height:21px; font-size:14px; text-align:center; font-weight:bold; font-family:Arial, Helvetica, sans-serif; 
+	}
+.count_comma_red{
+	float:left; width:6px; height:21px;  display:block; color:#ea3f11;margin:4px 0 0 3px;
+	line-height:21px; font-size:14px; text-align:center; font-weight:bold; font-family:Arial, Helvetica, sans-serif; 
+	}
+.count_tiao{
+	width:30px; float:left; margin-left:10px; font-size:14px; color:#073d6b; line-height:32px;
+	}
+.c_t_wrap{width:395px; height:auto; overflow:hidden; float:left; margin:10px 0 0 5px;}
+/*
+.c_table{width:100%; float:left;}
+.c_table tr{ line-height:28px; font-size:12px; color:#000;}
+.c_table tr th{ line-height:28px; font-size:12px; color:#393939; background:url(../images/tableTitle.png) repeat-x;
+   text-align:center; font-weight:bold;}
+.c_table tr td{ line-height:28px; font-size:12px; color:#000; background-color:#f4f4f4; text-align:center;}
+.c_table tr td.tdgray{ line-height:28px; font-size:12px; color:#032c4f; background-color:#dae6ef;}
+*/
+.c_table{width:100%; border:1px solid #e8e8e8; height:auto; overflow:hidden;}
+.c_table tr.trBg{background-color:#f3f3f3}
+.c_table tr{background-color:#f9fcfc;}
+.c_table th{line-height:30px; font-size:12px; color:#324f85;background:url(../images/tableTitle.png) repeat-x;font-weight:bold;}
+.c_table td{border-bottom:1px dashed #e8e8e8; line-height:30px; font-size:12px; color:#000; font-weight:normal;text-align:center;
+	 background-color:#ffffff;}
+.c_table td.redText{color:#F00; background-color:#ffffe7;}
+.c_table td.tdgray{border-bottom:1px dashed #eeeeee; line-height:30px; font-size:12px; color:#000; font-weight:normal;text-align:center;
+	 background-color:#f2f2f2;}
+.xxcx_wrap{ width:150px; height:32px; float:right; margin:10px 5px 0 0;}
+.btnBg{ background: url(../images/fdj_ico.png) no-repeat 10px center #007be3; color:#fff; font-weight:bold; line-height:32px; font-size:14px;  border:0px; width:150px; height:32px; cursor:pointer; text-indent:45px; }
+
+		 

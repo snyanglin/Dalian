@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="xszcspb">
+	
+	<typeAlias alias="xszcspb" type="com.founder.yjjb.bean.Xszcspb" />
+	
+	<!-- 添加 -->
+	<insert id="save" parameterClass="xszcspb">
+		<![CDATA[
+		INSERT INTO YJJB_XSZCSPB
+  			(ID,SQBH,XSBH,SQSJ,SQDW,SPDW,SPZT,SPHF,ZPSLDW,LYBH,BZ, ]]> <include refid="insertXtzd"/> <![CDATA[ )
+		VALUES
+  			(#id#,#sqbh#,#xsbh#,#xt_lrsj#,#sqdw#,#spdw#,#spzt#,#sphf#,#zpsldw#,#lybh#,#bz#,]]> <include refid="insertXtzdVal"/> <![CDATA[ )
+  		]]>
+	</insert>
+	
+	<!-- 查询-->
+	<select id="queryById" parameterClass="xszcspb" resultClass="xszcspb">
+		<![CDATA[ SELECT * FROM YJJB_XSZCSPB WHERE id = #id# ]]>
+	</select>
+	
+	<!-- 修改 -->
+	<update id="update" parameterClass="xszcspb">
+		 <![CDATA[ UPDATE YJJB_XSZCSPB ]]>	
+		<dynamic prepend="set">
+		<isNotNull prepend = "," property = "xsbh"> <![CDATA[xsbh = #xsbh#]]> </isNotNull>
+		<isNotNull prepend = "," property = "sqsj"> <![CDATA[sqsj = #sqsj#]]> </isNotNull>
+		<isNotNull prepend = "," property = "sqdw"> <![CDATA[sqdw = #sqdw#]]> </isNotNull>
+		<isNotNull prepend = "," property = "spdw"> <![CDATA[spdw = #spdw#]]> </isNotNull>
+		<isNotNull prepend = "," property = "spzt"> <![CDATA[spzt = #spzt#]]> </isNotNull>
+		<isNotNull prepend = "," property = "sphf"> <![CDATA[sphf = #sphf#]]> </isNotNull>
+		<isNotNull prepend = "," property = "zpsldw"> <![CDATA[zpsldw = #zpsldw#]]> </isNotNull>
+		<isNotNull prepend = "," property = "lybh"> <![CDATA[lybh = #lybh#]]> </isNotNull>
+		<isNotNull prepend = "," property = "bz"> <![CDATA[bz = #bz#]]> </isNotNull>
+			, <include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ WHERE id = #id#]]>
+	</update>
+	
+	<!-- 查询列表 -->
+	<select id="queryCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ SELECT COUNT(*) FROM YJJB_XSZCSPB  WHERE XT_ZXBZ = '0' and SPDW = #xszcspb.spdw# ]]>
+		<isNotEmpty prepend="and" property="xszcspb.starttime">	<![CDATA[SUBSTR(SQSJ,0,10) >= #xszcspb.starttime#]]>	</isNotEmpty>
+		<isNotEmpty prepend="and" property="xszcspb.endtime">	<![CDATA[SUBSTR(SQSJ,0,10) <= #xszcspb.endtime#]]>	</isNotEmpty>		
+		<isNotEmpty prepend="and" property="xszcspb.spzt">		<![CDATA[SPZT=#xszcspb.spzt#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="xszcspb.sqbh">		<![CDATA[SQBH=#xszcspb.sqbh#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="xszcspb.xsbh">		<![CDATA[XSBH=#xszcspb.xsbh#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="xszcspb.sqdw">		<![CDATA[SQDW=#xszcspb.sqdw#]]>			</isNotEmpty>
+	</select>
+	
+	<!-- 数据查询 -->
+	<select id="queryList" parameterClass="Map" resultClass="xszcspb">
+		<![CDATA[ SELECT * FROM ( SELECT ROWNUM r, t.* FROM ( SELECT * FROM YJJB_XSZCSPB WHERE XT_ZXBZ = '0' and SPDW = #xszcspb.spdw# ]]>
+		<isNotEmpty prepend="and" property="xszcspb.starttime">	<![CDATA[SUBSTR(SQSJ,0,10) >= #xszcspb.starttime#]]>	</isNotEmpty>
+		<isNotEmpty prepend="and" property="xszcspb.endtime">	<![CDATA[SUBSTR(SQSJ,0,10) <= #xszcspb.endtime#]]>	</isNotEmpty>		
+		<isNotEmpty prepend="and" property="xszcspb.spzt">		<![CDATA[SPZT=#xszcspb.spzt#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="xszcspb.sqbh">		<![CDATA[SQBH=#xszcspb.sqbh#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="xszcspb.xsbh">		<![CDATA[XSBH=#xszcspb.xsbh#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="xszcspb.sqdw">		<![CDATA[SQDW=#xszcspb.sqdw#]]>			</isNotEmpty>
+		<![CDATA[ ORDER BY $sort$ $order$ ) t WHERE rownum <= #end# ) WHERE r > #begin# ]]>
+	</select>
+
+	<!-- 注销-->
+	<update id="delete" parameterClass="xszcspb">
+		<![CDATA[UPDATE YJJB_XSZCSPB SET]]> <include refid="deleteXtzd"/>
+		<![CDATA[WHERE id = #id#]]>
+	</update>
+	
+	<!-- 数据查询 -->
+	<select id="queryListBySqid" parameterClass="String" resultClass="xszcspb">
+		<![CDATA[ SELECT t1.spzt as spztV ,case t1.spzt when '0' then '待处理' when '1' then '同意' when '2' then '拒绝' end as spzt,t2.ORGNAME as spdw,t3.ORGNAME as sqdw,
+			t1.sphf,t1.XT_LRSJ,t5.ORGNAME as spdwV,t4.XT_LRSJ as xt_lrsjV,t1.XT_ZHXGSJ,t6.ORGNAME as ZPSLDW
+			FROM YJJB_XSZCSPB t1
+			left join ORG_ORGANIZATION t2
+			ON t1.SPDW = t2.ORGCODE
+			left join ORG_ORGANIZATION t3
+			ON t1.SQDW = t3.ORGCODE
+		    left join YJJB_XSZCSPB t4
+		    ON t1.id = t4.lybh
+		    left join ORG_ORGANIZATION t5
+			ON t4.SPDW = t5.ORGCODE
+			left join ORG_ORGANIZATION t6
+			ON t1.ZPSLDW = t6.ORGCODE
+			WHERE t1.XT_ZXBZ = '0' and t1.SQBH = #sqid# ORDER BY t1.XT_LRSJ desc ]]>
+	</select>
+</sqlMap>

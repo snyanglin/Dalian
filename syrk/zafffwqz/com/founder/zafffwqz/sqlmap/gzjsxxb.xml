@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Gzjsxxb">
+
+<typeAlias alias="gzjsxxb" type="com.founder.zafffwqz.bean.Gzjsxxb"/>
+
+	<resultMap class="gzjsxxb" id="gzjsxxbResult">
+		<result property="id" column="id" javaType="String" jdbcType="VARCHAR"/>
+		<result property="sqid" column="sqid" javaType="String" jdbcType="VARCHAR"/>
+		<result property="sqjwsid" column="sqjwsid" javaType="String" jdbcType="VARCHAR"/>
+		<result property="gzjszldm" column="gzjszldm" javaType="String" jdbcType="VARCHAR"/>
+		<result property="gzjshbsj" column="gzjshbsj" javaType="String" jdbcType="VARCHAR"/>
+		<result property="gzjshbdd" column="gzjshbdd" javaType="String" jdbcType="VARCHAR"/>
+		<result property="gzjsnr" column="gzjsnr" javaType="String" jdbcType="CLOB" typeHandler="com.ibatis.sqlmap.engine.type.ClobTypeHandlerCallback"/>
+		<result property="bz" column="bz" javaType="String" jdbcType="VARCHAR"/>
+		<result property="gzjsjyms" column="gzjsjyms" javaType="String" jdbcType="VARCHAR"/>
+		
+		<result property="xt_cjsj" column="xt_cjsj" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_lrsj" column="xt_lrsj" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_lrrxm" column="xt_lrrxm" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_lrrid" column="xt_lrrid" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_lrrbm" column="xt_lrrbm" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_lrrbmid" column="xt_lrrbmid" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_lrip" column="xt_lrip" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_zhxgsj" column="xt_zhxgsj" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_zhxgrxm" column="xt_zhxgrxm" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_zhxgrid" column="xt_zhxgrid" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_zhxgrbm" column="xt_zhxgrbm" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_zhxgrbmid" column="xt_zhxgrbmid" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_zhxgip" column="xt_zhxgip" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_zxbz" column="xt_zxbz" javaType="String" jdbcType="VARCHAR"/>
+		<result property="xt_zxyy" column="xt_zxyy" javaType="String" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 查询单条 -->
+	<select id="queryGzjsxxb" parameterClass="gzjsxxb" resultMap="gzjsxxbResult">
+		<![CDATA[select * from ZAFF_GZJSXXB t where id= #id# ]]>
+	</select>
+	<!-- 添加工作纪实 -->
+	<insert id="insertGzjsxxb" parameterClass="gzjsxxb">
+		<![CDATA[
+		insert into ZAFF_GZJSXXB
+  			(id,sqid,sqjwsid,gzjszldm,gzjsjyms,gzjshbsj,gzjshbdd,gzjsnr,bz,]]> <include refid="insertXtzd"/> <![CDATA[ )
+		values
+  			(#id#,#sqid#,#sqjwsid#,#gzjszldm#,#gzjsjyms#,#gzjshbsj#,#gzjshbdd#,#gzjsnr#,#bz#,]]> <include refid="insertXtzdVal"/> <![CDATA[ )
+  		]]>
+	</insert>
+	
+	<update  id="updateGzjsxxb" parameterClass="gzjsxxb">
+	 <![CDATA[ update ZAFF_GZJSXXB]]>	
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="sqid"><![CDATA[ sqid=#sqid#]]></isNotNull>	
+			<isNotNull prepend="," property="sqjwsid"><![CDATA[ sqjwsid=#sqjwsid#]]></isNotNull>
+			<isNotNull prepend="," property="gzjszldm"><![CDATA[gzjszldm=#gzjszldm#]]></isNotNull>
+			<isNotNull prepend="," property="gzjsjyms"><![CDATA[gzjsjyms=#gzjsjyms#]]></isNotNull>
+			<isNotNull prepend="," property="gzjshbsj"><![CDATA[gzjshbsj=#gzjshbsj#]]></isNotNull>
+			<isNotNull prepend="," property="gzjshbdd"><![CDATA[gzjshbdd=#gzjshbdd#]]></isNotNull>
+			<isNotNull prepend="," property="gzjsnr"><![CDATA[gzjsnr=#gzjsnr#]]></isNotNull>
+	    	<isNotNull prepend="," property="bz"><![CDATA[ bz=#bz#]]></isNotNull>								
+			,<include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>	
+	</update>
+	
+	<update id="delete" parameterClass="gzjsxxb">
+		<![CDATA[ update ZAFF_GZJSXXB set ]]> <include refid="deleteXtzd" /> 
+		<![CDATA[where ID = #id# ]]>	
+	</update>
+	
+	
+	<!-- 查询列表 -->
+	<select id="queryGzjsxxbCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) from ZAFF_GZJSXXB  where XT_ZXBZ = '0' ]]>
+		<isNotEmpty prepend="and" property="gzjszldm">
+			gzjszldm = #gzjszldm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="gzjshbsj">
+			gzjshbsj = #gzjshbsj#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="gzjshbdd">
+			gzjshbdd = #gzjshbdd#
+		</isNotEmpty>
+	</select>
+	
+	<select id="queryList" parameterClass="Map" resultMap="gzjsxxbResult">
+		<![CDATA[ select * from ( 
+						select rownum r, t.* from ( 
+							select * from ZAFF_GZJSXXB where XT_ZXBZ = '0']]>
+		<isNotEmpty prepend="and" property="gzjszldm">
+			gzjszldm = #gzjszldm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="gzjshbsj">
+			gzjshbsj = #gzjshbsj#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="gzjshbdd">
+			gzjshbdd = #gzjshbdd#
+		</isNotEmpty>
+		<![CDATA[ order by $sort$ $order$ ) t
+			where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+	
+	<!-- 查询社区id， 警务室id -->
+	<select id="querySqidSqjwsid" parameterClass="String" resultClass="java.util.HashMap">
+		select t2.sqjwsid, t3.id sqid
+		  from org_organization t1, ZAFF_SQJWSZRQGLXXB t2, ZAFF_SQJBXXB t3
+		 where t1.orgcode = t2.zrqdm
+		   and t2.sqjwsid = t3.sqjwsid
+		   and t1.orgcode = #orgCode# 
+	</select>
+	
+</sqlMap>

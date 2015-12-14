@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="typecomment_context" deleted="false" description="Comment for created types" enabled="true" id="org.eclipse.wst.jsdt.ui.text.codetemplates.typecomment" name="typecomment">/**
+ * @author ${user}
+ *
+ * ${tags}
+ */</template><template autoinsert="false" context="typecomment_context" deleted="false" description="Comment for created types" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.typecomment" name="typecomment">/******************************************************************************
+ * @Package:      [${package_name}.${file_name}]  
+ * @ClassName:    [${type_name}]   
+ * @Description:  [一句话描述该类的功能]   
+ * @Author:       [wu_chunhui@founder.com.cn]  
+ * @CreateDate:   [${date} ${time}]   
+ * @UpdateUser:   [${user}(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [${date} ${time}，(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
+ * @Version:      [v1.0] 
+ * ${tags}
+ */
+</template><template autoinsert="true" context="gettercomment_context" deleted="false" description="Comment for getter method" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.gettercomment" name="gettercomment">/**
+ * @return the ${bare_field_name}
+ */</template><template autoinsert="true" context="gettercomment_context" deleted="false" description="Comment for getter function" enabled="true" id="org.eclipse.wst.jsdt.ui.text.codetemplates.gettercomment" name="gettercomment">/**
+ * @return the ${bare_field_name}
+ */</template><template autoinsert="false" context="fieldcomment_context" deleted="false" description="Comment for fields" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.fieldcomment" name="fieldcomment">/**
+ * @Fields ${field} : ${todo}(用一句话描述这个变量表示什么)
+ */</template><template autoinsert="true" context="delegatecomment_context" deleted="false" description="Comment for delegate functions" enabled="true" id="org.eclipse.wst.jsdt.ui.text.codetemplates.delegatecomment" name="delegatecomment">/**
+ * ${tags}
+ * ${see_to_target}
+ */</template><template autoinsert="false" context="filecomment_context" deleted="false" description="Comment for created Java files" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.filecomment" name="filecomment">/**********************************************************************   
+ * &lt;p&gt;文件名：${file_name} &lt;/p&gt;
+ * &lt;p&gt;文件描述：${todo}(描述该文件做什么) 
+ * @project_name：${project_name}
+ * @author wu_chunhui@founder.com.cn 
+ * @date ${date} ${time} 
+ * @history
+ * @department：研发部
+ *
+*/</template><template autoinsert="true" context="constructorcomment_context" deleted="false" description="Comment for created constructors" enabled="true" id="org.eclipse.wst.jsdt.ui.text.codetemplates.constructorcomment" name="constructorcomment">/**
+ * ${tags}
+ */</template><template autoinsert="true" context="fieldcomment_context" deleted="false" description="Comment for vars" enabled="true" id="org.eclipse.wst.jsdt.ui.text.codetemplates.fieldcomment" name="fieldcomment">/**
+ * 
+ */</template><template autoinsert="true" context="settercomment_context" deleted="false" description="Comment for setter function" enabled="true" id="org.eclipse.wst.jsdt.ui.text.codetemplates.settercomment" name="settercomment">/**
+ * @param ${param} the ${bare_field_name} to set
+ */</template><template autoinsert="false" context="overridecomment_context" deleted="false" description="Comment for overriding methods" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.overridecomment" name="overridecomment">/* (非 Javadoc)
+ * &lt;p&gt;Title: ${enclosing_method}&lt;/p&gt;
+ * &lt;p&gt;Description: &lt;/p&gt;
+ * ${tags}
+ * ${see_to_overridden}
+ */</template><template autoinsert="true" context="filecomment_context" deleted="false" description="Comment for created JavaScript files" enabled="true" id="org.eclipse.wst.jsdt.ui.text.codetemplates.filecomment" name="filecomment">/**
+ * 
+ */</template><template autoinsert="false" context="constructorcomment_context" deleted="false" description="Comment for created constructors" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.constructorcomment" name="constructorcomment">/**
+ * &lt;p&gt;Title: &lt;/p&gt;
+ * &lt;p&gt;Description: &lt;/p&gt;
+ * ${tags}
+ */</template><template autoinsert="true" context="settercomment_context" deleted="false" description="Comment for setter method" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.settercomment" name="settercomment">/**
+ * @param ${param} the ${bare_field_name} to set
+ */</template><template autoinsert="false" context="delegatecomment_context" deleted="false" description="Comment for delegate methods" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.delegatecomment" name="delegatecomment">/**
+ * ${tags}
+ * ${see_to_target}
+ */</template><template autoinsert="true" context="overridecomment_context" deleted="false" description="Comment for overriding functions" enabled="true" id="org.eclipse.wst.jsdt.ui.text.codetemplates.overridecomment" name="overridecomment">/* (non-JSDoc)
+ * ${see_to_overridden}
+ */</template><template autoinsert="false" context="methodcomment_context" deleted="false" description="Comment for non-overriding methods" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.methodcomment" name="methodcomment">/**
+ * @Title: ${enclosing_method}
+ * @Description: ${todo}(这里用一句话描述这个方法的作用)
+ * @param ${tags}    设定文件
+ * @return ${return_type}    返回类型
+ * @throws
+ */</template><template autoinsert="true" context="methodcomment_context" deleted="false" description="Comment for non-overriding function" enabled="true" id="org.eclipse.wst.jsdt.ui.text.codetemplates.methodcomment" name="methodcomment">/**
+ * ${tags}
+ */</template></templates>

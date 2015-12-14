@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="xqgk">
+<typeAlias alias="xqgkData" type="com.founder.ldym.vo.XqgkDataCountVo"/>
+<typeAlias alias="dwjbxxb" type="com.founder.sydw_dl.bean.Dwjbxxb"/>
+
+
+	<select id ="queryYxsjCount" parameterClass="String" resultClass="xqgkData">
+	select sum(cz) as czrkCount,sum(jz) as jzrkCount,sum(ld) as ldrkCount,sum(jw) as jwryCount,sum(wl) as wlhrkCount,sum(ml) as bzdzCount,
+	       sum(LDY) as ldyCount,sum(TZHY) as tzhyCount,sum(YLCS) as ylcsCount,sum(QT) as qthyCount, sum(syfw) as syfwTotal, sum(czfw) as czfwCount   
+      from TJBB_YXSJ
+      where UPORGCODE=#orgCode# 
+	</select>
+	
+
+	<select id ="querySydwList" parameterClass="Map" resultClass="dwjbxxb">
+	   select * from DW_DWJBXXB 
+	   where xt_zxbz='0'  
+	   <isNotEmpty prepend="AND" property="dwlbdm">
+			dwlbdm=#dwlbdm#
+		</isNotEmpty>
+	   and (glbmid in(select ORGCODE AS ORGID 
+					   from ORG_ORGANIZATION 
+					  where PARENTTREEPATH like '%$orgCode$%')
+		     or glbmid=#orgCode#)  
+	</select>
+	
+
+</sqlMap>

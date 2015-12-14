@@ -1,0 +1,146 @@
+@CHARSET "UTF-8";
+body{
+		BACKGROUND-COLOR:#eaeff3;
+	}
+	#homepageTable{
+		width:100%;
+		border-spacing: 0px;
+		min-width:900px;
+		min-height:600px;
+	}
+	.moduleTd td{
+		background:#FFF;
+		border:0px #dde2e6 solid;
+		margin:5px; 
+		
+	}
+	.countDiv{
+		text-align: center;
+		height:110px;
+		width:300px;
+		line-height:110px;
+	}
+	.moduleTd{
+		height:110px;
+	}
+	.moduleTable{
+		border-spacing: 0px;
+		border:0px ;
+	}
+	#mapDiv{
+		width:100%;
+		height:100%;
+		border:1px solid #d3d3d3;
+		position: relative;
+		min-height: 350px;
+	}
+	
+	
+	.classDiv{
+		height:110px;
+		float:left;
+		min-width:270px;
+		width:100%;
+		border:1px solid #45d0bf;
+	}
+	.InfoTd{
+		width:400px;
+		vertical-align: top;
+	}
+	#infoShowDiv{
+		text-align: center;
+	}
+	
+	ul{
+		list-style-type:none;
+		padding:0px; 
+	 	margin:0px;
+	}
+	.countUl li{ 
+		float:left;
+		height:100px;
+		cursor:pointer;
+		background:#FFF;
+		margin: 2px;
+		text-align: center;
+	}
+	.countUl li a{ 
+		color:#616679;
+	}
+	.countUl li:hover{
+		background:#45d0bf;
+	}
+	.countUl li span{ 
+		line-height:40px;
+	}
+	.infoUl li{
+		margin:5px;
+		padding:0px;
+		float:left;
+		width:90px;
+		height:90px;
+		text-align: center;
+		border:2px #FFF solid;
+		list-style-type:none;
+		background:#FFF;
+	}
+	.infoUl li h3{
+		color:#42bdf5;
+		line-height:20px;
+		margin: 0px;
+	}
+	.infoUl li h2{
+		color:#616679;
+		margin: 0px;
+		line-height:50px;
+	}
+	.infoUlGPS li{
+		margin:5px;
+		padding:0px;
+		float:left;
+		width:180px;
+		height:60px;
+		text-align: center;
+		border:2px #FFF solid;
+		list-style-type:none;
+		background:#FFF;
+	}
+	.infoUlGPS h3{
+		color:#42bdf5;
+		line-height:20px;
+		margin: 0px;
+	}
+	.infoUlGPS h2{
+		color:#616679;
+		margin: 0px;
+		line-height:30px;
+	}
+	.titleDiv{
+		width:25px;
+		float:left;
+		font:normal 15px "Microsoft YaHei";
+		background:#42bdf5;
+		text-align:center;
+		line-height:25px;
+		height:100%;
+		color:#FFF;
+		
+	}
+    .infoOrgTitle{
+    	wdith:100px;
+    	height:20px;
+    	border:1px #42bdf5 solid;
+    	line-height:20px;
+    	text-align:left;
+    	font:normal 15px "Microsoft YaHei";
+    	background:#FFF;
+    	padding-left:10px;
+    }
+    .infoOrgTitle span {
+   		font:normal 15px "Microsoft YaHei";
+    }
+    .infoOrgTitle_on{
+        cursor:pointer;
+   		font:normal 15px "Microsoft YaHei";
+   		color:#42bdf5;
+    }

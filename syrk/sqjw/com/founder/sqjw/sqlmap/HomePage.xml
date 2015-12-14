@@ -1,0 +1,1752 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="HomePage">
+    <typeAlias alias="tjgzjl" type="com.founder.sqjw.bean.Tjgzjl"/>
+    <typeAlias alias="logGzjltjb" type="com.founder.gzjk.vo.LogGzjltjb"/>
+    <!-- 首页实有人口统计 -->
+	<select id="syrkChart" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <isEqual property="type" compareValue="jzChart" prepend="">
+			<isEqual property="flag" compareValue="FJ" prepend="">
+				<![CDATA[ 
+				   SELECT T.LX, T.LXMC, SUM(T.SL) SL
+				      FROM TJ_SYRK T 
+				   GROUP BY LX, T.LXMC
+				   ORDER BY LX
+				]]>
+			</isEqual>
+			<isEqual property="flag" compareValue="PCS" prepend="">
+				<![CDATA[ 
+ 				   SELECT T.LX, T.LXMC, SUM(T.SL) SL
+				      FROM TJ_SYRK T 
+				   WHERE 
+					 T.PCSDM = #zzjgdm# 
+				   GROUP BY LX, T.LXMC
+				   ORDER BY LX 
+				]]>
+			</isEqual>
+			<isEqual property="flag" compareValue="ZRQ" prepend="">
+				<![CDATA[ 
+				   SELECT T.LX, T.LXMC, SUM(T.SL) SL
+				      FROM TJ_SYRK T 
+				   WHERE 
+					  T.SQDM = #zzjgdm# 
+				   GROUP BY LX, T.LXMC
+				   ORDER BY LX
+				]]>
+			</isEqual>
+		</isEqual>
+		<isNotEqual property="type" compareValue="jzChart" prepend="">
+			   SELECT T.LX, T.LXMC, SUM(T.SL) SL
+			      FROM TJ_SYRK T 
+			   WHERE 1=1
+				<isEqual property="lx" compareValue="14" prepend="AND">
+				     T.SQDM = #zzjgdm#
+				</isEqual>
+				<isEqual property="lx" compareValue="15" prepend="AND">
+				     T.ZRQDM = #zzjgdm#
+				</isEqual>
+			   GROUP BY LX, T.LXMC
+			   ORDER BY LX
+		</isNotEqual>
+	</select>
+	<!-- 首页工作对象统计 -->
+	<select id="gzdxChart" resultClass="com.founder.sqjw.bean.TjSyrk">
+		<isEqual property="type" compareValue="jzChart" prepend="">
+			<isEqual property="flag" compareValue="FJ" prepend="">
+				<![CDATA[ 
+					SELECT T.LX, T.LXMC, sum(T.SL) sl FROM TJ_GZDX T group by T.LX, T.LXMC
+				]]>
+			</isEqual>
+			<isEqual property="flag" compareValue="PCS" prepend="">
+				<![CDATA[ 
+					SELECT T.LX, T.LXMC, sum(T.SL) sl FROM TJ_GZDX T WHERE substr(T.ZRQDM, 0, 6) = substr('$zzjgdm$', 0, 6) group by T.LX, T.LXMC
+				]]>
+			</isEqual>
+		</isEqual>
+		<isNotEqual property="type" compareValue="jzChart" prepend="">
+			<![CDATA[ 
+				SELECT T.LX, T.LXMC, T.SL FROM TJ_GZDX T WHERE T.ZRQDM = #zzjgdm# ORDER BY LX
+			]]>
+		</isNotEqual>
+	</select>
+	<!-- 首页标准地址统计 -->
+	<select id="bzdzChart" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   SELECT T.LX, T.LXMC, T.SL FROM TJ_BZDZ T WHERE T.ZRQDM = #zzjgdm# ORDER BY LX
+	</select>
+	<!-- 首页流动人口来自地区统计 -->
+	<select id="ldrkChart" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+		<isEqual property="type" compareValue="jzChart" prepend="">
+			<isEqual property="flag" compareValue="FJ" prepend="">
+				<![CDATA[ 
+				   SELECT T.LX, T.LXMC, SUM(T.SL) SL
+				      FROM TJ_LDRK T 
+				   GROUP BY T.LX, T.LXMC
+				   ORDER BY SUM(T.SL) DESC
+				]]>
+			</isEqual>
+			<isEqual property="flag" compareValue="PCS" prepend="">
+				<![CDATA[ 
+				   SELECT T.LX, T.LXMC, SUM(T.SL) SL
+				      FROM TJ_LDRK T 
+				   WHERE 
+				   T.FJDM = #zzjgdm#
+				   GROUP BY T.LX, T.LXMC
+				   ORDER BY SUM(T.SL) DESC
+				]]>
+			</isEqual>
+		</isEqual>
+		<isNotEqual property="type" compareValue="jzChart" prepend="">
+			   SELECT T.LX, T.LXMC, SUM(T.SL) SL
+			      FROM TJ_LDRK T 
+			   WHERE 1=1
+				<isEqual property="lx" compareValue="14" prepend="AND">
+				     T.PCSDM = #zzjgdm#
+				</isEqual>
+				<isEqual property="lx" compareValue="15" prepend="AND">
+				     T.ZRQDM = #zzjgdm#
+				</isEqual>
+			   GROUP BY T.LX, T.LXMC
+			   ORDER BY SUM(T.SL) DESC
+		</isNotEqual>
+	</select>
+	<!-- 首页境外人口统计 -->
+	<select id="jwrkChart" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   SELECT T.LX, T.LXMC, T.SL FROM TJ_JWRY T WHERE T.ZRQDM = #zzjgdm# ORDER BY T.SL DESC
+	</select>
+	<!-- 首页年龄段统计 -->
+	<select id="nlChart" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <isEqual property="type" compareValue="jzChart" prepend="">
+			<isEqual property="flag" compareValue="FJ" prepend="">
+				<![CDATA[ 
+					SELECT T.LX, T.LXMC, sum(T.SL) sl FROM TJ_NL T group by T.LX, T.LXMC
+				]]>
+			</isEqual>
+			<isEqual property="flag" compareValue="PCS" prepend="">
+				<![CDATA[ 
+					SELECT T.LX, T.LXMC, sum(T.SL) sl FROM TJ_NL T WHERE substr(T.ZRQDM, 0, 6) = substr('$zzjgdm$', 0, 6) group by T.LX, T.LXMC
+				]]>
+			</isEqual>
+		</isEqual>
+		<isNotEqual property="type" compareValue="jzChart" prepend="">
+			<![CDATA[ 
+				SELECT T.LX, T.LXMC, T.SL FROM TJ_NL T WHERE T.ZRQDM = #zzjgdm# ORDER BY LX
+			]]>
+		</isNotEqual>
+	</select>
+	<!-- 首页文化程度统计 -->
+	<select id="whcdChart" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   SELECT '小学' AS LXMC, SUM(T.SL) AS SL
+		  FROM TJ_WHCD T
+		 WHERE T.ZRQDM = #zzjgdm#
+		   AND T.LX IN ('80', '81', '83')
+		UNION
+		SELECT '初中' AS LXMC, SUM(T.SL) AS SL
+		  FROM TJ_WHCD T
+		 WHERE T.ZRQDM = #zzjgdm#
+		   AND T.LX IN ('70', '71', '73')
+		UNION
+		SELECT '职业高中' AS LXMC, SUM(T.SL) AS SL
+		  FROM TJ_WHCD T
+		 WHERE T.ZRQDM = #zzjgdm#
+		   AND T.LX IN ('45', '46', '44', '47', '48', '49')
+		UNION
+		SELECT '普通高中' AS LXMC, SUM(T.SL) AS SL
+		  FROM TJ_WHCD T
+		 WHERE T.ZRQDM = #zzjgdm#
+		   AND T.LX IN ('60', '61', '62', '63')
+		UNION
+		SELECT '大学' AS LXMC, SUM(T.SL) AS SL
+		  FROM TJ_WHCD T
+		 WHERE T.ZRQDM = #zzjgdm#
+		   AND T.LX IN ('20', '21', '22', '23', '28')
+		UNION
+		SELECT '专科' AS LXMC, SUM(T.SL) AS SL
+		  FROM TJ_WHCD T
+		 WHERE T.ZRQDM = #zzjgdm#
+		   AND T.LX IN ('30', '31', '32', '33')
+		UNION
+		SELECT '研究生' AS LXMC, SUM(T.SL) AS SL
+		  FROM TJ_WHCD T
+		 WHERE T.ZRQDM = #zzjgdm#
+		   AND T.LX IN ('10', '17', '18', '19')
+		UNION
+		SELECT '博士' AS LXMC, SUM(T.SL) AS SL
+		  FROM TJ_WHCD T
+		 WHERE T.ZRQDM = #zzjgdm#
+		   AND T.LX IN ('11', '12', '13')
+		UNION
+		SELECT '硕士' AS LXMC, SUM(T.SL) AS SL
+		  FROM TJ_WHCD T
+		 WHERE T.ZRQDM = #zzjgdm#
+		   AND T.LX IN ('14', '15', '16')
+	</select>
+	<!-- 获取时间信息 -->
+	<select id="queryGzjlDate" resultClass="String">
+	  SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') DA
+         FROM DUAL
+      UNION ALL
+      SELECT TO_CHAR(SYSDATE, 'IW')
+         FROM DUAL
+      UNION ALL
+      SELECT TO_CHAR(SYSDATE - 365, 'YYYY-MM-DD') DA FROM DUAL
+	</select>
+	<!--  首页工作记录Grid -->
+	<select id="queryGzjlList" parameterClass="Map" resultClass="tjgzjl">
+	    SELECT T.DAY, T.WEEK, T.MONTH, T.YEAR, T.LX, T.LXMC, T.TODAY
+		  FROM TJ_GZJL T
+		WHERE T.TODAY = #ptime# 
+		  AND T.ZRQDM = #zzjgdm#
+		  ORDER BY LX
+	</select>
+	<select id="queryGzjlList2" parameterClass="Map" resultClass="java.util.HashMap">
+	  select ywid,
+              sum(decode(rq, to_char(sysdate,'yyyy-mm-dd'), xzsl, 0)) jrxz,
+              sum(decode(rq, to_char(sysdate,'yyyy-mm-dd'), zxsl, 0)) jrzx,
+              sum(decode(substr(rq, 1, 7), to_char(sysdate,'yyyy-mm'), xzsl, 0)) byxz,
+              sum(decode(substr(rq, 1, 7), to_char(sysdate,'yyyy-mm'), zxsl, 0)) byzx,
+              sum(decode(substr(rq, 1, 4), to_char(sysdate,'yyyy'), xzsl, 0)) bnxz,
+              sum(decode(substr(rq, 1, 4), to_char(sysdate,'yyyy'), zxsl, 0)) bnzx
+         from log_GZJLTJB
+        where bmid=#zzjgdm#
+        group by ywid
+	</select>
+	<!-- 工作记录详情列表 -->
+	<select id="queryGzjlInfo" parameterClass="Map" resultClass="com.founder.sqjw.bean.LogInfo">
+	 SELECT C.* FROM (SELECT B.*, ROWNUM RN FROM(
+           SELECT T.USER_NAME USERNAME,
+                   T.OPERATE_CONDITION OPERATECONDITION,
+                   TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'YYYY-MM-DD HH24:MI:SS') OPERATETIME
+              FROM LOG_INFO T
+             WHERE T.MODNAME IS NULL
+               AND T.FUNCNAME LIKE #code# || '%'
+               <isEqual property="type" compareValue="day" prepend="AND">
+                  TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'YYYY-MM-DD') = #day#
+               </isEqual>
+               <isEqual property="type" compareValue="week" prepend="AND">
+                  <![CDATA[TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'YYYY') = #year# 
+                  AND TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'IW') = #week# 
+                  AND TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'YYYY-MM-DD') <= #day#]]>
+               </isEqual>
+               <isEqual property="type" compareValue="month" prepend="AND">
+                  <![CDATA[TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'YYYY') = #year#
+                  AND TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'MM') = #month# 
+                  AND TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'YYYY-MM-DD') <= #day#]]>
+               </isEqual>
+               <isEqual property="type" compareValue="year" prepend="AND">
+                  <![CDATA[TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'YYYY') = #year# 
+                  AND TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'YYYY-MM-DD')  <= #day#]]>
+               </isEqual>
+               AND T.ORGANIZATION = #zzjgdm#
+               )B
+	 WHERE <![CDATA[ROWNUM<=#rows#*#page#]]>)C
+	      WHERE <![CDATA[C.RN>#rows#*(#page#-1)]]>
+	</select>
+	<!-- 工作记录详情列表总数 -->
+	<select id="queryGzjlInfoCount" parameterClass="Map" resultClass="Integer">
+           SELECT count(1)
+                FROM LOG_INFO T
+               WHERE T.MODNAME IS NULL
+                 AND T.FUNCNAME LIKE #code# || '%'
+                  <isEqual property="type" compareValue="day" prepend="AND">
+                     TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'YYYY-MM-DD') = #day#
+                  </isEqual>
+                  <isEqual property="type" compareValue="week" prepend="AND">
+                     <![CDATA[TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'YYYY') = #year# 
+                     AND TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'IW') = #week# 
+                     AND TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'YYYY-MM-DD') <= #day#]]>
+                  </isEqual>
+                  <isEqual property="type" compareValue="month" prepend="AND">
+                     <![CDATA[TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'YYYY') = #year#
+                     AND TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'MM') = #month# 
+                     AND TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'YYYY-MM-DD') <= #day#]]>
+                  </isEqual>
+                  <isEqual property="type" compareValue="year" prepend="AND">
+                     <![CDATA[TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'YYYY') = #year# 
+                     AND TO_CHAR(TO_DATE(T.OPERATE_TIME, 'YYYY-MM-DD HH24:MI:SS'),'YYYY-MM-DD')  <= #day#]]>
+                  </isEqual>
+                 AND T.ORGANIZATION = #zzjgdm#
+	</select>
+	<!-- 获取工作对象的坐标值 -->
+	<select id="queryGzdxList" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	     <isEqual property="lx" compareValue="1" prepend="">
+		     SELECT B.ZBX,B.ZBY,B.DMMC||B.MLPHMC MLPHQC,COUNT(T.ID) ZDSL,COUNT(J.ID) JGSL,COUNT(JS.ID) JSSL,COUNT(F.ID) FZSL,COUNT(Q.ID) QTSL
+			  FROM RK_ZDRYJBXXB T, BZDZ_BZDZXXB B
+			  LEFT JOIN RK_ZDRYJBXXB J
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '2'
+			  LEFT JOIN RK_ZDRYJBXXB JS
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '3'
+			  LEFT JOIN RK_ZDRYJBXXB F
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '4'
+			  LEFT JOIN RK_ZDRYJBXXB Q
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '5'
+			 WHERE T.DZ_JZDZDM = B.ID
+			   AND T.ZDRYLXDM = '1'
+			   AND B.ZBX IS NOT NULL
+			   AND B.ZBY IS NOT NULL
+			   AND B.ZRQDM = #zzjgdm#
+			 GROUP BY B.ZBX, B.ZBY, B.DMMC||B.MLPHMC 
+	     </isEqual>
+	     <isEqual property="lx" compareValue="2" prepend="">
+		     SELECT B.ZBX,B.ZBY,B.DMMC||B.MLPHMC MLPHQC,COUNT(T.ID) JGSL,COUNT(J.ID) ZDSL,COUNT(JS.ID) JSSL,COUNT(F.ID) FZSL,COUNT(Q.ID) QTSL
+			  FROM RK_ZDRYJBXXB T, BZDZ_BZDZXXB B
+			  LEFT JOIN RK_ZDRYJBXXB J
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '1'
+			  LEFT JOIN RK_ZDRYJBXXB JS
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '3'
+			  LEFT JOIN RK_ZDRYJBXXB F
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '4'
+			  LEFT JOIN RK_ZDRYJBXXB Q
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '5'
+			 WHERE T.DZ_JZDZDM = B.ID
+			   AND T.ZDRYLXDM = '2'
+			   AND B.ZBX IS NOT NULL
+			   AND B.ZBY IS NOT NULL
+			   AND B.ZRQDM = #zzjgdm#
+			 GROUP BY B.ZBX, B.ZBY, B.DMMC||B.MLPHMC
+	     </isEqual>
+	     <isEqual property="lx" compareValue="3" prepend="">
+		     SELECT B.ZBX,B.ZBY,B.DMMC||B.MLPHMC MLPHQC,COUNT(T.ID) JSSL,COUNT(J.ID) ZDSL,COUNT(JS.ID) JGSL,COUNT(F.ID) FZSL,COUNT(Q.ID) QTSL
+			  FROM RK_ZDRYJBXXB T, BZDZ_BZDZXXB B
+			  LEFT JOIN RK_ZDRYJBXXB J
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '1'
+			  LEFT JOIN RK_ZDRYJBXXB JS
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '2'
+			  LEFT JOIN RK_ZDRYJBXXB F
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '4'
+			  LEFT JOIN RK_ZDRYJBXXB Q
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '5'
+			 WHERE T.DZ_JZDZDM = B.ID
+			   AND T.ZDRYLXDM = '3'
+			   AND B.ZBX IS NOT NULL
+			   AND B.ZBY IS NOT NULL
+			   AND B.ZRQDM = #zzjgdm#
+			 GROUP BY B.ZBX, B.ZBY, B.DMMC||B.MLPHMC
+	     </isEqual>
+	     <isEqual property="lx" compareValue="4" prepend="">
+		     SELECT B.ZBX,B.ZBY,B.DMMC||B.MLPHMC MLPHQC,COUNT(T.ID) FZSL,COUNT(J.ID) ZDSL,COUNT(JS.ID) JGSL,COUNT(F.ID) JSSL,COUNT(Q.ID) QTSL
+			  FROM RK_ZDRYJBXXB T, BZDZ_BZDZXXB B
+			  LEFT JOIN RK_ZDRYJBXXB J
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '1'
+			  LEFT JOIN RK_ZDRYJBXXB JS
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '2'
+			  LEFT JOIN RK_ZDRYJBXXB F
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '3'
+			  LEFT JOIN RK_ZDRYJBXXB Q
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '5'
+			 WHERE T.DZ_JZDZDM = B.ID
+			   AND T.ZDRYLXDM = '4'
+			   AND B.ZBX IS NOT NULL
+			   AND B.ZBY IS NOT NULL
+			   AND B.ZRQDM = #zzjgdm#
+			 GROUP BY B.ZBX, B.ZBY, B.DMMC||B.MLPHMC
+	     </isEqual>
+	     <isEqual property="lx" compareValue="5" prepend="">
+		     SELECT B.ZBX,B.ZBY,B.DMMC||B.MLPHMC MLPHQC,COUNT(T.ID) QTSL,COUNT(J.ID) ZDSL,COUNT(JS.ID) JGSL,COUNT(F.ID) JSSL,COUNT(Q.ID) FZSL
+			  FROM RK_ZDRYJBXXB T, BZDZ_BZDZXXB B
+			  LEFT JOIN RK_ZDRYJBXXB J
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '1'
+			  LEFT JOIN RK_ZDRYJBXXB JS
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '2'
+			  LEFT JOIN RK_ZDRYJBXXB F
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '3'
+			  LEFT JOIN RK_ZDRYJBXXB Q
+			    ON J.DZ_JZDZDM = B.ID
+			   AND J.ZDRYLXDM = '4'
+			 WHERE T.DZ_JZDZDM = B.ID
+			   AND T.ZDRYLXDM = '5'
+			   AND B.ZBX IS NOT NULL
+			   AND B.ZBY IS NOT NULL
+			   AND B.ZRQDM = #zzjgdm#
+			 GROUP BY B.ZBX, B.ZBY, B.DMMC||B.MLPHMC
+	     </isEqual>
+	</select>
+	<!-- 流动人口统计坐标详情 -->
+	<select id="queryldrkList" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+		SELECT COUNT(T.ID) AS SL, B.ZBX, B.ZBY, B.DMMC||B.MLPHMC MLPHQC
+		  FROM RK_LDRKXXB T, BZDZ_BZDZXXB B
+		 WHERE T.DZ_JZDZDM = B.ID
+		   AND B.ZBX IS NOT NULL
+		   AND B.ZBY IS NOT NULL
+		   AND T.LZDQDM = #lx#
+		   AND B.ZRQDM = #zzjgdm#
+		 GROUP BY B.ZBX, B.ZBY, B.DMMC||B.MLPHMC 
+	</select>
+	<!-- 境外人口统计坐标详情 -->
+	<select id="queryjwrkList" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+		SELECT COUNT(T.ID) AS SL, B.ZBX, B.ZBY, B.DMMC||B.MLPHMC MLPHQC
+		  FROM RK_JWRYXXB T, BZDZ_BZDZXXB B
+		 WHERE T.DZ_JZDZDM = B.ID
+		   AND B.ZBX IS NOT NULL
+		   AND B.ZBY IS NOT NULL
+		   AND T.GJDM = #lx#
+		   AND B.ZRQDM = #zzjgdm#
+		 GROUP BY B.ZBX, B.ZBY, B.DMMC||B.MLPHMC 
+	</select>
+	<!-- 年龄段统计坐标详情 -->
+	<select id="querynlList" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+		SELECT COUNT(T.ID) AS SL, B.ZBX, B.ZBY, B.DMMC||B.MLPHMC MLPHQC
+		  FROM RK_CZRKXXB T, BZDZ_BZDZXXB B
+		 WHERE T.DZ_JZDZDM = B.ID
+		   AND B.ZBX IS NOT NULL
+		   AND B.ZBY IS NOT NULL
+		   <isEqual property="lx" compareValue="01" prepend="AND">
+		       <![CDATA[(EXTRACT(YEAR FROM SYSDATE) - SUBSTR(T.CSRQ, 0, 4)) < 18]]>
+		   </isEqual>
+		   <isEqual property="lx" compareValue="02" prepend="AND">
+		       <![CDATA[(EXTRACT(YEAR FROM SYSDATE) - SUBSTR(T.CSRQ, 0, 4)) >= 18
+                    AND (EXTRACT(YEAR FROM SYSDATE) - SUBSTR(T.CSRQ, 0, 4)) <= 59]]>
+		   </isEqual>
+		   <isEqual property="lx" compareValue="03" prepend="AND">
+		       <![CDATA[(EXTRACT(YEAR FROM SYSDATE) - SUBSTR(T.CSRQ, 0, 4)) > 59]]>
+		   </isEqual>
+		   AND B.ZRQDM = #zzjgdm#
+		 GROUP BY B.ZBX, B.ZBY, B.DMMC||B.MLPHMC
+	</select>
+	<!-- 获取派出所下级组织机构 -->
+	<select id="queryXjZzjg" parameterClass="String" resultClass="com.founder.sqjw.vo.ZzjgVo">
+		SELECT T.ORGCODE ZZJGDM, T.ORGNAME ZZJGMC, T.BJZBZ BJZBZ
+		  FROM ORG_ORGANIZATION T
+		 WHERE T.ORGCODE LIKE #zzjgdm# || '%'
+		   AND T.ORGLEVEL = '50'
+		   AND T.ORGBIZTYPE = '04'
+	</select>
+	<!-- 派出所统计 -->
+	<select id="queryPcsTj" parameterClass="Map" resultClass="com.founder.sqjw.vo.ZzjgVo">
+	    SELECT T.LX, T.LXMC, SUM(T.SL) SL
+		  FROM TJ_SYRK T
+		 WHERE 1=1
+		 <isEqual property="lx" compareValue="14" prepend="AND">
+		       T.SQDM = #zzjgdm#
+		 </isEqual>
+		 <isEqual property="lx" compareValue="15" prepend="AND">
+		       T.ZRQDM = #zzjgdm#
+		 </isEqual>
+		GROUP BY LX, T.LXMC
+		UNION ALL
+		SELECT T.LX, T.LXMC, SUM(T.SL) SL
+		  FROM TJ_GZDX T
+		 WHERE 1=1
+		 <isEqual property="lx" compareValue="14" prepend="AND">
+		       T.PCSDM = #zzjgdm#
+		 </isEqual>
+		 <isEqual property="lx" compareValue="15" prepend="AND">
+		       T.ZRQDM = #zzjgdm#
+		 </isEqual>
+		 GROUP BY LX, T.LXMC
+		 UNION ALL
+		 SELECT T.LX, T.LXMC, SUM(T.SL) SL
+		  FROM TJ_BZDZ T
+		 WHERE 1=1
+		 <isEqual property="lx" compareValue="14" prepend="AND">
+		       T.PCSDM = #zzjgdm#
+		 </isEqual>
+		 <isEqual property="lx" compareValue="15" prepend="AND">
+		       T.ZRQDM = #zzjgdm#
+		 </isEqual>
+		 GROUP BY LX, T.LXMC
+		 UNION ALL
+		 SELECT T.LX, T.LXMC, SUM(T.SL) SL
+		  FROM TJ_DWXX T
+		 WHERE 1=1
+		 <isEqual property="lx" compareValue="14" prepend="AND">
+		       T.PCSDM = #zzjgdm#
+		 </isEqual>
+		 <isEqual property="lx" compareValue="15" prepend="AND">
+		       T.ZRQDM = #zzjgdm#
+		 </isEqual>
+		 GROUP BY LX, T.LXMC
+		 UNION ALL
+		 SELECT T.LX, T.LXMC, SUM(T.SL) SL
+		  FROM TJ_SYFW T
+		 WHERE 1=1
+		 <isEqual property="lx" compareValue="14" prepend="AND">
+		       T.PCSDM = #zzjgdm#
+		 </isEqual>
+		 <isEqual property="lx" compareValue="15" prepend="AND">
+		       T.ZRQDM = #zzjgdm#
+		 </isEqual>
+		 GROUP BY LX, T.LXMC
+		 UNION ALL
+		 SELECT T.LX, T.LXMC, SUM(T.SL) SL
+		  FROM TJ_JQXX T
+		 WHERE 1=1
+		 <isEqual property="lx" compareValue="14" prepend="AND">
+		       T.PCSDM = #zzjgdm#
+		 </isEqual>
+		 <isEqual property="lx" compareValue="15" prepend="AND">
+		       T.ZRQDM = #zzjgdm#
+		 </isEqual>
+		 GROUP BY LX, T.LXMC
+		 UNION ALL
+		 SELECT T.LX, T.LXMC, SUM(T.SL) SL
+		  FROM TJ_AJXX T
+		 WHERE 1=1
+		 <isEqual property="lx" compareValue="14" prepend="AND">
+		       T.PCSDM = #zzjgdm#
+		 </isEqual>
+		 <isEqual property="lx" compareValue="15" prepend="AND">
+		       T.ZRQDM = #zzjgdm#
+		 </isEqual>
+		 GROUP BY LX, T.LXMC
+		 UNION ALL
+		 SELECT T.LX, T.LXMC, SUM(T.SL) SL
+		  FROM TJ_WHSTJ T
+		 WHERE T.PCSDM = #pcsdm#
+		 GROUP BY LX, T.LXMC
+	</select>
+	<!-- 责任区民警 -->
+	<select id="queryZrqUser" parameterClass="String" resultClass="com.founder.sqjw.vo.ZzjgVo">
+	   SELECT DISTINCT A.ID AS ORGID,
+                A.ORGCODE,
+                A.ORGNAME,
+                A.ORGTYPE,
+                C.ID,
+                C.USERID,
+                C.USERNAME,
+                B.ORDERNO,
+                C.TELEPHONE
+	   FROM ORG_ORGANIZATION A, ORG_ORG_USER B, ORG_USER C
+	  WHERE A.ORGCODE IN (#zzjgdm#)
+	    AND A.XT_ZXBZ = '0'
+	    AND A.ID = B.ORGID
+	    AND B.USERID = C.ID
+	    AND C.XT_ZXBZ = '0'
+	</select>
+	<!-- 天网视频撒点 -->
+	<select id="querytwspMap" parameterClass="String" resultClass="com.founder.sqjw.vo.ZzjgVo">
+	   SELECT T.MC, T.ZBX, T.ZBY, T.TDBMBH
+	     FROM ZHZY.VIDEO_PT T
+	   WHERE BMBH = #zzjgdm#
+	</select>
+	
+		
+	<!-- 实有单位撒点 -->
+	<select id="querySydwMap" parameterClass="Map" resultClass="com.founder.sqjw.vo.ZzjgVo">
+	     SELECT D.DWMC MC, B.ZBX, B.ZBY,D.ID
+		  FROM DW_DWJBXXB D, BZDZ_BZDZXXB B
+		 WHERE D.XT_ZXBZ = '0'
+		   AND B.XT_ZXBZ = '0'
+		   AND B.ZBX IS NOT NULL
+		   AND B.ZBY IS NOT NULL
+		   AND D.DZ_DWDZMLPDM = B.ID
+		   <isNotEmpty prepend="and" property="dwlx">
+			   D.DWLBDM = #dwlx#
+		   </isNotEmpty>
+		   <isEqual property="lx" compareValue="14" prepend="AND">
+		       B.PCSDM = #zzjgdm#
+		   </isEqual>
+		   <isEqual property="lx" compareValue="15" prepend="AND">
+		       B.ZRQDM = #zzjgdm#
+		   </isEqual>
+	</select>
+	<!-- 实有房屋撒点 -->
+	<select id="querySyfwMap" parameterClass="Map" resultClass="com.founder.sqjw.vo.ZzjgVo">
+		<isEqual property="fwlx" compareValue="1" prepend="">
+			SELECT DZQC MC, ZBX, ZBY,ID
+	 		 FROM BZDZ_BZDZXXB
+		    WHERE ZTBS = '02'
+		     AND DZJB = '10'
+		     AND XT_ZXBZ = '0'
+		     AND ZBX IS NOT NULL
+		     AND ZBY IS NOT NULL
+		     <isEqual property="lx" compareValue="14" prepend="AND">
+			    PCSDM = #zzjgdm#
+			 </isEqual>
+			 <isEqual property="lx" compareValue="15" prepend="AND">
+			    ZRQDM = #zzjgdm#
+			 </isEqual>
+		</isEqual>
+		<isEqual property="fwlx" compareValue="2" prepend="">
+			SELECT B.DZQC MC, B.ZBX, B.ZBY,B.ID
+			  FROM (SELECT DISTINCT DZ_FWDZID FROM FW_CZFWZB WHERE XT_ZXBZ = '0') A
+			  LEFT JOIN BZDZ_BZDZXXB B
+			    ON A.DZ_FWDZID = B.ID
+			WHERE B.ZTBS = '02'
+			   AND B.DZJB = 13
+			   AND B.XT_ZXBZ = 0
+			   AND B.ZBX IS NOT NULL
+			   AND B.ZBY IS NOT NULL
+			   <isEqual property="lx" compareValue="14" prepend="AND">
+			       B.PCSDM = #zzjgdm#
+			   </isEqual>
+			   <isEqual property="lx" compareValue="15" prepend="AND">
+			       B.ZRQDM = #zzjgdm#
+			   </isEqual>
+			   GROUP BY B.DZQC, B.ZBX, B.ZBY,B.ID
+		</isEqual>
+		<isEqual property="fwlx" compareValue="3" prepend="">
+		
+		</isEqual>
+	</select>
+	<!-- 重点人口撒点 -->
+	<select id="queryZdrkMap" parameterClass="Map" resultClass="com.founder.sqjw.vo.ZzjgVo">
+		<isEqual property="zdlx" compareValue="2" prepend="">
+		   SELECT T.XM MC, B.ZBX, B.ZBY,T.RYID,T.ID ZDRYID,T.DZ_JZDZDM JZDZDM
+		    FROM RK_ZDRYJBXXB T, BZDZ_BZDZXXB B, RK_RYJZDZZB J
+		   WHERE B.ZBX IS NOT NULL
+		     AND T.XT_ZXBZ = '0'
+		     AND B.XT_ZXBZ = '0'
+		     AND J.XT_ZXBZ = '0'
+		     AND B.ZBY IS NOT NULL
+		     AND J.DZ_JZDMLPDM = B.ID
+		     AND T.RYID = J.RYID
+		     <isEqual property="lx" compareValue="14" prepend="AND">
+		       B.PCSDM = #zzjgdm#
+		     </isEqual>
+		     <isEqual property="lx" compareValue="15" prepend="AND">
+		       B.ZRQDM = #zzjgdm#
+		     </isEqual>
+		</isEqual>
+	    <isEqual property="zdlx" compareValue="1" prepend="">
+	       SELECT T.XM MC, B.ZBX, B.ZBY,T.RYID,T.ID ZDRYID,T.DZ_JZDZDM JZDZDM
+		   FROM RK_ZDRYJBXXB T, BZDZ_BZDZXXB B, RK_ZDRYLBZB M, RK_RYJZDZZB J
+		  WHERE B.ZBX IS NOT NULL
+		    AND B.ZBY IS NOT NULL
+		    AND T.ID = M.ZDRYID
+		    AND J.DZ_JZDMLPDM = B.ID
+		    AND T.RYID = J.RYID
+		    AND T.XT_ZXBZ = '0'
+		    AND B.XT_ZXBZ = '0'
+		    AND M.XT_ZXBZ = '0'
+		    AND J.XT_ZXBZ = '0'
+		   AND M.ZDRYLBDM IN ($zdrylbdm$)
+		   <isEqual property="lx" compareValue="14" prepend="AND">
+		       B.PCSDM = #zzjgdm#
+		   </isEqual>
+		   <isEqual property="lx" compareValue="15" prepend="AND">
+		       B.ZRQDM = #zzjgdm#
+		   </isEqual>
+	    </isEqual>
+	    <isEqual property="zdlx" compareValue="3" prepend="">
+	       SELECT T.XM MC, B.ZBX, B.ZBY,T.RYID,T.ID ZDRYID,T.DZ_JZDZDM JZDZDM
+		   FROM RK_ZDRYJBXXB T, BZDZ_BZDZXXB B, RK_ZDRYLBZB M, RK_RYJZDZZB J
+		   WHERE B.ZBX IS NOT NULL
+		    AND B.ZBY IS NOT NULL
+		    AND T.ID = M.ZDRYID
+		    AND J.DZ_JZDMLPDM = B.ID
+		    AND T.RYID = J.RYID
+		    AND T.XT_ZXBZ = '0'
+		    AND B.XT_ZXBZ = '0'
+		    AND M.XT_ZXBZ = '0'
+		    AND J.XT_ZXBZ = '0'
+		   AND M.ZDRYLBDM LIKE '0108%'
+		   <isEqual property="lx" compareValue="14" prepend="AND">
+		       B.PCSDM = #zzjgdm#
+		   </isEqual>
+		   <isEqual property="lx" compareValue="15" prepend="AND">
+		       B.ZRQDM = #zzjgdm#
+		   </isEqual>
+	    </isEqual>
+	    <isEqual property="zdlx" compareValue="4" prepend="">
+	       SELECT T.XM MC, B.ZBX, B.ZBY,T.RYID,T.ID ZDRYID,T.DZ_JZDZDM JZDZDM
+		   FROM RK_ZDRYJBXXB T, BZDZ_BZDZXXB B, RK_ZDRYLBZB M, RK_RYJZDZZB J
+		 WHERE B.ZBX IS NOT NULL
+		    AND B.ZBY IS NOT NULL
+		    AND T.ID = M.ZDRYID
+		    AND J.DZ_JZDMLPDM = B.ID
+		    AND T.RYID = J.RYID
+		    AND T.XT_ZXBZ = '0'
+		    AND B.XT_ZXBZ = '0'
+		    AND M.XT_ZXBZ = '0'
+		    AND J.XT_ZXBZ = '0'
+		   AND M.ZDRYLBDM NOT IN('010103', '030601','010601', '010602', '010603', '010604', '010605', '101701', '101702','010501', '010502')
+		   AND M.ZDRYLBDM NOT LIKE '0108%'
+		   <isEqual property="lx" compareValue="14" prepend="AND">
+		       B.PCSDM = #zzjgdm#
+		   </isEqual>
+		   <isEqual property="lx" compareValue="15" prepend="AND">
+		       B.ZRQDM = #zzjgdm#
+		   </isEqual>
+	    </isEqual>
+	</select>
+	<select id="censusWeekChart" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <![CDATA[
+		    select 
+       			 count(decode(substr(a.xt_lrsj, 0, 10), #1#, 0)) as a,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #2#, 0)) as b,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #3#, 0)) as c,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #4#, 0)) as d,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #5#, 0)) as e,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #6#, 0)) as f,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #7#, 0)) as g,
+      			 a.flag,
+      			 a.xt_zxbz as isZx
+			 from tj_month A  where substr(a.xt_lrrbmid, 0, 8) = #pcsdm# OR A.xt_lrrbmid IS NULL  group by flag, a.xt_zxbz order by flag,iszx
+			 
+	   ]]>
+	</select>
+	
+	<select id="censusChart" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <![CDATA[
+		    select 
+       			 count(decode(substr(a.xt_lrsj, 0, 7), #1#, 0)) as a,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #2#, 0)) as b,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #3#, 0)) as c,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #4#, 0)) as d,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #5#, 0)) as e,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #6#, 0)) as f,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #7#, 0)) as g,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #8#, 0)) as h,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #9#, 0)) as i,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #10#, 0)) as j,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #11#, 0)) as k,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #12#, 0)) as l,
+      			 a.flag,
+      			 a.xt_zxbz as isZx
+			 from tj_month A where substr(a.xt_lrrbmid, 0, 8) = #pcsdm# OR A.xt_lrrbmid IS NULL group by flag, a.xt_zxbz order by flag,iszx
+			
+	   ]]>
+	</select>
+	
+	<select id="censusDayChart" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <![CDATA[
+		    select 
+       			 count(decode(substr(a.xt_lrsj, 0, 10), #1#, 0)) as a,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #2#, 0)) as b,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #3#, 0)) as c,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #4#, 0)) as d,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #5#, 0)) as e,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #6#, 0)) as f,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #7#, 0)) as g,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #8#, 0)) as h,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #9#, 0)) as i,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #10#, 0)) as j,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #11#, 0)) as k,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #12#, 0)) as l,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #13#, 0)) as m,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #14#, 0)) as n,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #15#, 0)) as o,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #16#, 0)) as p,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #17#, 0)) as q,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #18#, 0)) as r,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #19#, 0)) as s,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #20#, 0)) as t,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #21#, 0)) as u,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #22#, 0)) as v,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #23#, 0)) as w,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #24#, 0)) as x,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #25#, 0)) as y,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #26#, 0)) as z,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #27#, 0)) as aa,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #28#, 0)) as bb,]]>
+      			 <isNotNull property="29">
+      			 	count(decode(substr(a.xt_lrsj, 0, 10), #29#, 0)) as cc,
+      			 </isNotNull>
+      			 <isNotNull property="30">
+      			 	count(decode(substr(a.xt_lrsj, 0, 10), #30#, 0)) as dd,
+      			 </isNotNull>
+      			 <isNotNull property="31">
+      			 	count(decode(substr(a.xt_lrsj, 0, 10), #31#, 0)) as ee,
+      			 </isNotNull>
+      			 <![CDATA[
+      			  a.flag,
+      			 a.xt_zxbz as isZx
+			 from tj_month A where substr(a.xt_lrrbmid, 0, 8) = #pcsdm# OR A.xt_lrrbmid IS NULL group by flag, a.xt_zxbz order by flag,iszx
+	   ]]>
+	</select>
+	
+	<select id="censusChartSyrkWeek" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <![CDATA[
+	   		select
+		     count(decode(substr(a.xt_lrsj, 0, 10), #1#, 0)) as a,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #2#, 0)) as b,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #3#, 0)) as c,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #4#, 0)) as d,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #5#, 0)) as e,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #6#, 0)) as f,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #7#, 0)) as g,
+      			 a.flag,
+      			 a.xt_zxbz as isZx
+			 from tj_month A where a.flag = '实有人口' and substr(a.xt_lrrbmid, 0, 8) = #pcsdm#  OR (A.xt_lrrbmid IS NULL  and a.flag = '实有人口') 
+			 group by flag, a.xt_zxbz order by flag,iszx
+	   ]]>
+	</select>
+	
+	<select id="censusChartZdryWeek" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <![CDATA[
+		     select 
+       			 count(decode(substr(a.xt_lrsj, 0, 10), #1#, 0)) as a,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #2#, 0)) as b,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #3#, 0)) as c,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #4#, 0)) as d,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #5#, 0)) as e,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #6#, 0)) as f,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #7#, 0)) as g,
+      			  a.flag,
+      			 a.xt_zxbz as isZx
+			 from tj_month A where a.flag = '重点人员' and substr(a.xt_lrrbmid, 0, 8) = #pcsdm# OR (A.xt_lrrbmid IS NULL  and a.flag = '重点人员') 
+			 group by flag, a.xt_zxbz order by flag,iszx
+	   ]]>
+	</select>
+	
+	<select id="censusChartSydwWeek" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <![CDATA[
+		     select 
+       			 count(decode(substr(a.xt_lrsj, 0, 10), #1#, 0)) as a,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #2#, 0)) as b,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #3#, 0)) as c,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #4#, 0)) as d,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #5#, 0)) as e,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #6#, 0)) as f,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #7#, 0)) as g,
+      			  a.flag,
+      			 a.xt_zxbz as isZx
+			 from tj_month A where a.flag = '实有单位' and substr(a.xt_lrrbmid, 0, 8) = #pcsdm# OR (A.xt_lrrbmid IS NULL  and a.flag = '实有单位') 
+			  group by flag, a.xt_zxbz order by flag,iszx
+	   ]]>
+	</select>
+	
+	<select id="censusChartSyfwWeek" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <![CDATA[
+			 select 
+       			 count(decode(substr(a.xt_lrsj, 0, 10), #1#, 0)) as a,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #2#, 0)) as b,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #3#, 0)) as c,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #4#, 0)) as d,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #5#, 0)) as e,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #6#, 0)) as f,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #7#, 0)) as g,
+      			  a.flag,
+      			 a.xt_zxbz as isZx
+			 from tj_month A where a.flag = '实有房屋' and substr(a.xt_lrrbmid, 0, 8) = #pcsdm# OR (A.xt_lrrbmid IS NULL  and a.flag = '实有房屋') 
+			  group by flag, a.xt_zxbz order by flag,iszx
+	   ]]>
+	</select>
+	
+	<select id="censusChartBzdzWeek" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <![CDATA[
+			  select 
+       			 count(decode(substr(a.xt_lrsj, 0, 10), #1#, 0)) as a,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #2#, 0)) as b,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #3#, 0)) as c,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #4#, 0)) as d,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #5#, 0)) as e,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #6#, 0)) as f,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #7#, 0)) as g,
+      			  a.flag,
+      			 a.xt_zxbz as isZx
+			 from tj_month A where a.flag = '标准地址' and substr(a.xt_lrrbmid, 0, 8) = #pcsdm# OR (A.xt_lrrbmid IS NULL  and a.flag = '标准地址') 
+			  group by flag, a.xt_zxbz order by flag,iszx
+	   ]]>
+	</select>
+	
+<!--  -->
+
+	<select id="censusChartSyrk" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <![CDATA[
+		    select 
+       			 count(decode(substr(a.xt_lrsj, 0, 7), #1#, 0)) as a,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #2#, 0)) as b,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #3#, 0)) as c,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #4#, 0)) as d,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #5#, 0)) as e,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #6#, 0)) as f,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #7#, 0)) as g,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #8#, 0)) as h,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #9#, 0)) as i,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #10#, 0)) as j,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #11#, 0)) as k,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #12#, 0)) as l,
+      			  a.flag,
+      			 a.xt_zxbz as isZx
+			 from tj_month A where a.flag = '实有人口' and substr(a.xt_lrrbmid, 0, 8) = #pcsdm# OR (A.xt_lrrbmid IS NULL  and a.flag = '实有人口') 
+			  group by flag, a.xt_zxbz order by flag,iszx
+	   ]]>
+	</select>
+	
+	<select id="censusChartZdry" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <![CDATA[
+			 select 
+       			 count(decode(substr(a.xt_lrsj, 0, 7), #1#, 0)) as a,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #2#, 0)) as b,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #3#, 0)) as c,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #4#, 0)) as d,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #5#, 0)) as e,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #6#, 0)) as f,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #7#, 0)) as g,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #8#, 0)) as h,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #9#, 0)) as i,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #10#, 0)) as j,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #11#, 0)) as k,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #12#, 0)) as l,
+      			 a.flag,
+      			 a.xt_zxbz as isZx
+			 from tj_month A where a.flag = '重点人员' and substr(a.xt_lrrbmid, 0, 8) = #pcsdm# OR (A.xt_lrrbmid IS NULL  and a.flag = '重点人员') 
+			  group by flag, a.xt_zxbz order by flag,iszx
+	   ]]>
+	</select>
+	
+	<select id="censusChartSydw" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <![CDATA[
+			 select 
+       			 count(decode(substr(a.xt_lrsj, 0, 7), #1#, 0)) as a,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #2#, 0)) as b,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #3#, 0)) as c,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #4#, 0)) as d,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #5#, 0)) as e,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #6#, 0)) as f,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #7#, 0)) as g,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #8#, 0)) as h,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #9#, 0)) as i,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #10#, 0)) as j,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #11#, 0)) as k,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #12#, 0)) as l,
+      			  a.flag,
+      			 a.xt_zxbz as isZx
+			 from tj_month A where a.flag = '实有单位' and substr(a.xt_lrrbmid, 0, 8) = #pcsdm# OR (A.xt_lrrbmid IS NULL  and a.flag = '实有单位') 
+			  group by flag, a.xt_zxbz order by flag,iszx
+			
+	   ]]>
+	</select>
+	
+	<select id="censusChartSyfw" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <![CDATA[
+			 select 
+       			 count(decode(substr(a.xt_lrsj, 0, 7), #1#, 0)) as a,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #2#, 0)) as b,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #3#, 0)) as c,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #4#, 0)) as d,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #5#, 0)) as e,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #6#, 0)) as f,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #7#, 0)) as g,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #8#, 0)) as h,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #9#, 0)) as i,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #10#, 0)) as j,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #11#, 0)) as k,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #12#, 0)) as l,
+      			 a.flag,
+      			 a.xt_zxbz as isZx
+			 from tj_month A where a.flag = '实有房屋' and substr(a.xt_lrrbmid, 0, 8) = #pcsdm# OR (A.xt_lrrbmid IS NULL  and a.flag = '实有房屋') 
+			  group by flag, a.xt_zxbz order by flag,iszx
+			 
+	   ]]>
+	</select>
+	
+	<select id="censusChartBzdz" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <![CDATA[
+			 select 
+       			 count(decode(substr(a.xt_lrsj, 0, 7), #1#, 0)) as a,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #2#, 0)) as b,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #3#, 0)) as c,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #4#, 0)) as d,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #5#, 0)) as e,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #6#, 0)) as f,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #7#, 0)) as g,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #8#, 0)) as h,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #9#, 0)) as i,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #10#, 0)) as j,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #11#, 0)) as k,
+      			 count(decode(substr(a.xt_lrsj, 0, 7), #12#, 0)) as l,
+      			   a.flag,
+      			 a.xt_zxbz as isZx
+			 from tj_month A where a.flag = '标准地址' and substr(a.xt_lrrbmid, 0, 8) = #pcsdm# OR (A.xt_lrrbmid IS NULL  and a.flag = '标准地址') 
+			  group by flag, a.xt_zxbz order by flag,iszx
+	   ]]>
+	</select>
+	
+	<select id="censusDayChartSyrk" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <![CDATA[
+		    select 
+       			 count(decode(substr(a.xt_lrsj, 0, 10), #1#, 0)) as a,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #2#, 0)) as b,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #3#, 0)) as c,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #4#, 0)) as d,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #5#, 0)) as e,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #6#, 0)) as f,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #7#, 0)) as g,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #8#, 0)) as h,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #9#, 0)) as i,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #10#, 0)) as j,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #11#, 0)) as k,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #12#, 0)) as l,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #13#, 0)) as m,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #14#, 0)) as n,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #15#, 0)) as o,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #16#, 0)) as p,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #17#, 0)) as q,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #18#, 0)) as r,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #19#, 0)) as s,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #20#, 0)) as t,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #21#, 0)) as u,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #22#, 0)) as v,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #23#, 0)) as w,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #24#, 0)) as x,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #25#, 0)) as y,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #26#, 0)) as z,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #27#, 0)) as aa,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #28#, 0)) as bb, ]]>
+      			 <isNotNull property="29">
+      			 	count(decode(substr(a.xt_lrsj, 0, 10), #29#, 0)) as cc,
+      			 </isNotNull>
+      			 <isNotNull property="30">
+      			 	count(decode(substr(a.xt_lrsj, 0, 10), #30#, 0)) as dd,
+      			 </isNotNull>
+      			 <isNotNull property="31">
+      			 	count(decode(substr(a.xt_lrsj, 0, 10), #31#, 0)) as ee,
+      			 </isNotNull>
+      			 <![CDATA[  a.flag, a.xt_zxbz as isZx
+			 from tj_month A where a.flag = '实有人口' and substr(a.xt_lrrbmid, 0, 8) = #pcsdm# OR (A.xt_lrrbmid IS NULL  and a.flag = '实有人口') 
+			  group by flag, a.xt_zxbz order by flag,iszx
+	   ]]>
+	</select>
+	
+	<select id="censusDayChartZdry" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <![CDATA[
+			 select 
+       			count(decode(substr(a.xt_lrsj, 0, 10), #1#, 0)) as a,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #2#, 0)) as b,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #3#, 0)) as c,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #4#, 0)) as d,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #5#, 0)) as e,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #6#, 0)) as f,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #7#, 0)) as g,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #8#, 0)) as h,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #9#, 0)) as i,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #10#, 0)) as j,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #11#, 0)) as k,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #12#, 0)) as l,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #13#, 0)) as m,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #14#, 0)) as n,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #15#, 0)) as o,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #16#, 0)) as p,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #17#, 0)) as q,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #18#, 0)) as r,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #19#, 0)) as s,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #20#, 0)) as t,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #21#, 0)) as u,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #22#, 0)) as v,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #23#, 0)) as w,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #24#, 0)) as x,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #25#, 0)) as y,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #26#, 0)) as z,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #27#, 0)) as aa,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #28#, 0)) as bb,]]>
+      			 <isNotNull property="29">
+      			 	count(decode(substr(a.xt_lrsj, 0, 10), #29#, 0)) as cc,
+      			 </isNotNull>
+      			 <isNotNull property="30">
+      			 	count(decode(substr(a.xt_lrsj, 0, 10), #30#, 0)) as dd,
+      			 </isNotNull>
+      			 <isNotNull property="31">
+      			 	count(decode(substr(a.xt_lrsj, 0, 10), #31#, 0)) as ee,
+      			 </isNotNull>
+      			 <![CDATA[ a.flag,
+      			 a.xt_zxbz as isZx
+			 from tj_month A where a.flag = '重点人员' and substr(a.xt_lrrbmid, 0, 8) = #pcsdm# OR (A.xt_lrrbmid IS NULL  and a.flag = '重点人员') 
+			  group by flag, a.xt_zxbz order by flag,iszx
+	   ]]>
+	</select>
+	
+	<select id="censusDayChartSydw" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <![CDATA[
+			 select 
+       			 count(decode(substr(a.xt_lrsj, 0, 10), #1#, 0)) as a,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #2#, 0)) as b,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #3#, 0)) as c,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #4#, 0)) as d,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #5#, 0)) as e,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #6#, 0)) as f,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #7#, 0)) as g,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #8#, 0)) as h,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #9#, 0)) as i,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #10#, 0)) as j,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #11#, 0)) as k,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #12#, 0)) as l,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #13#, 0)) as m,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #14#, 0)) as n,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #15#, 0)) as o,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #16#, 0)) as p,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #17#, 0)) as q,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #18#, 0)) as r,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #19#, 0)) as s,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #20#, 0)) as t,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #21#, 0)) as u,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #22#, 0)) as v,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #23#, 0)) as w,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #24#, 0)) as x,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #25#, 0)) as y,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #26#, 0)) as z,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #27#, 0)) as aa,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #28#, 0)) as bb,]]>
+      			 <isNotNull property="29">
+      			 	count(decode(substr(a.xt_lrsj, 0, 10), #29#, 0)) as cc,
+      			 </isNotNull>
+      			 <isNotNull property="30">
+      			 	count(decode(substr(a.xt_lrsj, 0, 10), #30#, 0)) as dd,
+      			 </isNotNull>
+      			 <isNotNull property="31">
+      			 	count(decode(substr(a.xt_lrsj, 0, 10), #31#, 0)) as ee,
+      			 </isNotNull>
+      			 <![CDATA[
+      			  a.flag,
+      			 a.xt_zxbz as isZx
+			 from tj_month A where a.flag = '实有单位' and substr(a.xt_lrrbmid, 0, 8) = #pcsdm# OR (A.xt_lrrbmid IS NULL  and a.flag = '实有单位') 
+			  group by flag, a.xt_zxbz order by flag,iszx
+	   ]]>
+	</select>
+	
+	<select id="censusDayChartSyfw" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <![CDATA[
+			 select 
+       			 count(decode(substr(a.xt_lrsj, 0, 10), #1#, 0)) as a,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #2#, 0)) as b,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #3#, 0)) as c,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #4#, 0)) as d,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #5#, 0)) as e,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #6#, 0)) as f,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #7#, 0)) as g,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #8#, 0)) as h,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #9#, 0)) as i,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #10#, 0)) as j,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #11#, 0)) as k,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #12#, 0)) as l,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #13#, 0)) as m,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #14#, 0)) as n,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #15#, 0)) as o,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #16#, 0)) as p,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #17#, 0)) as q,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #18#, 0)) as r,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #19#, 0)) as s,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #20#, 0)) as t,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #21#, 0)) as u,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #22#, 0)) as v,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #23#, 0)) as w,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #24#, 0)) as x,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #25#, 0)) as y,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #26#, 0)) as z,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #27#, 0)) as aa,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #28#, 0)) as bb,]]>
+      			 <isNotNull property="29">
+      			 	count(decode(substr(a.xt_lrsj, 0, 10), #29#, 0)) as cc,
+      			 </isNotNull>
+      			 <isNotNull property="30">
+      			 	count(decode(substr(a.xt_lrsj, 0, 10), #30#, 0)) as dd,
+      			 </isNotNull>
+      			 <isNotNull property="31">
+      			 	count(decode(substr(a.xt_lrsj, 0, 10), #31#, 0)) as ee,
+      			 </isNotNull>
+      			 <![CDATA[
+      			  a.flag,
+      			 a.xt_zxbz as isZx
+			 from tj_month A where a.flag = '实有房屋' and substr(a.xt_lrrbmid, 0, 8) = #pcsdm# OR (A.xt_lrrbmid IS NULL  and a.flag = '实有房屋') 
+			  group by flag, a.xt_zxbz order by flag,iszx
+	   ]]>
+	</select>
+	
+	<select id="censusDayChartBzdz" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	   <![CDATA[
+			 select 
+       			count(decode(substr(a.xt_lrsj, 0, 10), #1#, 0)) as a,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #2#, 0)) as b,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #3#, 0)) as c,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #4#, 0)) as d,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #5#, 0)) as e,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #6#, 0)) as f,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #7#, 0)) as g,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #8#, 0)) as h,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #9#, 0)) as i,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #10#, 0)) as j,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #11#, 0)) as k,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #12#, 0)) as l,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #13#, 0)) as m,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #14#, 0)) as n,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #15#, 0)) as o,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #16#, 0)) as p,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #17#, 0)) as q,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #18#, 0)) as r,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #19#, 0)) as s,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #20#, 0)) as t,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #21#, 0)) as u,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #22#, 0)) as v,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #23#, 0)) as w,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #24#, 0)) as x,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #25#, 0)) as y,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #26#, 0)) as z,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #27#, 0)) as aa,
+      			 count(decode(substr(a.xt_lrsj, 0, 10), #28#, 0)) as bb,]]>
+      			 <isNotNull property="29">
+      			 	count(decode(substr(a.xt_lrsj, 0, 10), #29#, 0)) as cc,
+      			 </isNotNull>
+      			 <isNotNull property="30">
+      			 	count(decode(substr(a.xt_lrsj, 0, 10), #30#, 0)) as dd,
+      			 </isNotNull>
+      			 <isNotNull property="31">
+      			 	count(decode(substr(a.xt_lrsj, 0, 10), #31#, 0)) as ee,
+      			 </isNotNull>
+      			 <![CDATA[
+      			  a.flag,
+      			 a.xt_zxbz as isZx
+			 from tj_month A where a.flag = '标准地址' and substr(a.xt_lrrbmid, 0, 8) = #pcsdm# OR (A.xt_lrrbmid IS NULL  and a.flag = '标准地址') 
+			  group by flag, a.xt_zxbz order by flag,iszx
+	   ]]>
+	</select>
+	<!-- 查询所有派出所 -->
+	<select id="queryPcs" resultClass="com.founder.sqjw.vo.ZzjgVo">
+	  SELECT T.ORGCODE ZZJGDM, T.ORGNAME ZZJGMC
+		  FROM ORG_ORGANIZATION T
+		 WHERE T.XT_ZXBZ = '0'
+		   AND T.ORGLEVEL != '50'
+	</select>
+	
+	<!-- begin -->
+	<!-- 首页警情撒点 -->
+	<select id="jqPotin" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	     <![CDATA[
+		    SELECT 
+		   	DISTINCT T.ZBX, T.ZBY, T.JQLB LX, 'jq' FLAG 
+		    FROM XJ_JQXXB T 
+		    WHERE 1=1
+		   ]]>
+		<isEqual property="temp" compareValue="mon" prepend="AND">
+			SUBSTR(T.JJSJ, 0, 7) = #parm#
+		</isEqual>
+		<isEqual property="temp" compareValue="week" prepend="AND">
+			SUBSTR(T.JJSJ, 0, 10) &gt;= #begin# and SUBSTR(T.JJSJ, 0, 10) &lt;= #end#
+		</isEqual>
+		<isEqual property="temp" compareValue="hour" prepend="AND">
+			SUBSTR(T.JJSJ, 0, 10) = #parm#
+		</isEqual>
+		<isEqual property="temp" compareValue="custom" prepend="AND">
+			SUBSTR(T.JJSJ, 0, 7) = #parm#
+		</isEqual>
+		<isEqual property="flag" compareValue="PCS" prepend="AND">
+			T.JJDWBM like substr(#zzjgdm#, 0, 6) || '%'
+		</isEqual>
+		<isEqual property="flag" compareValue="ZRQ" prepend="AND">
+			T.JJDWBM = #zzjgdm#
+		</isEqual>
+		<isNotEqual property="lxs" compareValue="" prepend="AND">
+			T.JQLB = #lxs#
+		</isNotEqual>		
+		 <![CDATA[
+	   ]]>
+	   AND T.JQLB IN('1', '2', '3', '4', '6')
+	</select>
+	
+	<!-- 案件撒点 -->
+	<select id="ajPoint" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	     <![CDATA[
+		   SELECT 
+	       DISTINCT T.ZBX, T.ZBY, T.ZAB LX, 'aj' FLAG,
+	       DECODE(SUBSTR(T.AJBH, 0, 1), 'Z', '治安案件', DECODE(SUBSTR(T.AJBH, 0, 1), 'A', '刑事案件', '其他')) LXMC
+	       FROM XJ_AJXXB T WHERE 1=1 
+		]]>
+		<isEqual property="KFX" compareValue="1" prepend="AND">
+			T.SFKF = '1'
+		</isEqual>
+		<isEqual property="temp" compareValue="mon" prepend="AND">
+			SUBSTR(T.FASJ, 0, 7) = #parm#
+		</isEqual>
+		<isEqual property="temp" compareValue="week" prepend="AND">
+			SUBSTR(T.FASJ, 0, 10) &gt;= #begin# and SUBSTR(T.FASJ, 0, 10) &lt;= #end#
+		</isEqual>
+		<isEqual property="temp" compareValue="hour" prepend="AND">
+			SUBSTR(T.FASJ, 0, 10) = #parm#
+		</isEqual>
+		<isEqual property="temp" compareValue="custom" prepend="AND">
+			SUBSTR(T.FASJ, 0, 7) = #parm#
+		</isEqual>
+		<isEqual property="flag" compareValue="PCS" prepend="AND">
+			T.SLDWJGDM like substr(#zzjgdm#, 0, 6) || '%'
+		</isEqual>
+		<isEqual property="flag" compareValue="ZRQ" prepend="AND">
+			T.SLDWJGDM = #zzjgdm#
+		</isEqual>
+		<isNotEqual property="lxs" compareValue="" prepend="AND">
+			SUBSTR(T.AJBH, 0, 1) = #lxs#
+		</isNotEqual>
+		 <![CDATA[
+	   ]]>
+	</select>
+	
+	<!-- 获取派出所组织机构  -->
+	<select id="queryXjZzjgxj" parameterClass="java.util.List" resultClass="com.founder.sqjw.vo.ZzjgVo">
+		SELECT T.ORGCODE ZZJGDM, T.ORGNAME ZZJGMC, T.BJZBZ BJZBZ
+		  FROM ORG_ORGANIZATION T
+		 WHERE T.ORGCODE  in
+		<iterate conjunction=","  open="(" close=")">
+			#list[].id#
+		</iterate>
+	</select>
+	
+	<!-- org_organization -->
+	<!--start with PARENTID = '194113' 
+fenju-pcs:
+	select * from (select t.*,rownum as ROWNO from (    
+	 	select ID,PARENTID,ORGCODE,ORGNAME,ORGTYPE,ORGNAMEPY,ORGLEVEL,ORGBIZTYPE, BJZBZ    
+	 		from ORG_ORGANIZATION a where XT_ZXBZ = '0'     and     ORGTYPE = '01' connect by prior ID = PARENTID         
+	  		order siblings by ORGTYPE,ORDERNO) t) ORG where ORG.ID in    
+	 		(select ID from ORG_ORGANIZATION connect by ID = prior PARENTID start with ORGLEVEL in ('32') and ORGBIZTYPE in ('01','04')) order by ROWNO
+	 		
+fengju:
+	 		select * from (select t.*,rownum as ROWNO from (    select ID,PARENTID,ORGCODE,ORGNAME,ORGTYPE,ORGNAMEPY,ORGLEVEL,ORGBIZTYPE, BJZBZ   
+      from ORG_ORGANIZATION a where XT_ZXBZ = '0'     and     ORGTYPE = '01'         
+      connect by prior ID = PARENTID start with id = 194113 
+      order siblings by ORGTYPE,ORDERNO) t) ORG where ORG.ID in    
+        (select ID from ORG_ORGANIZATION connect by ID = prior PARENTID start with ORGLEVEL in ('21')) order by ROWNO
+pcs:
+	  		select * from (select t.*,rownum as ROWNO from (    select ID,PARENTID,ORGCODE,ORGNAME,ORGTYPE,ORGNAMEPY,ORGLEVEL,ORGBIZTYPE, BJZBZ    
+		from ORG_ORGANIZATION a where XT_ZXBZ = '0'     and     ORGTYPE = '01'         
+		connect by prior ID = PARENTID start with id = '194411'
+		order siblings by ORGTYPE,ORDERNO) t) ORG where ORG.ID in    
+		(select ID from ORG_ORGANIZATION connect by ID = prior PARENTID start with ORGLEVEL in ('32') and ORGBIZTYPE in ('01','04')) order by ROWNO
+zrq:		
+		select * from (select t.*,rownum as ROWNO from (    select ID,PARENTID,ORGCODE,ORGNAME,ORGTYPE,ORGNAMEPY,ORGLEVEL,ORGBIZTYPE, BJZBZ       
+			from ORG_ORGANIZATION a where XT_ZXBZ = '0'     and     ORGTYPE = '01'            
+			connect by prior ID = PARENTID start with id='194869'   
+			order siblings by ORGTYPE,ORDERNO) t) ORG where ORG.ID in       
+			(select ID from ORG_ORGANIZATION connect by ID = prior PARENTID start with ORGLEVEL in ('50') and ORGBIZTYPE in ('01','04')) order by ROWNO
+	 -->
+	<select id="queryTree"  parameterClass="Map" resultClass="com.founder.tzgg.bean.Org_Organization">
+	  <isEmpty prepend="" property="line">
+	  <![CDATA[
+		select * from (select t.*,rownum as ROWNO from (    select ID,PARENTID,ORGCODE,ORGNAME,ORGTYPE,ORGNAMEPY,ORGLEVEL,ORGBIZTYPE, BJZBZ       
+			from ORG_ORGANIZATION a where XT_ZXBZ = '0'     and     ORGTYPE = '01'            
+			connect by prior ID = PARENTID start with id= (select dd.id from org_organization dd where dd.orgcode=#orgcode# )
+			order siblings by ORGTYPE,ORDERNO) t) ORG 
+		]]>   
+			<isEqual property="flag" compareValue="FJ">   
+				where ORG.ID in (select ID from ORG_ORGANIZATION connect by ID = prior PARENTID start with ORGLEVEL in ('21')) order by ROWNO
+			</isEqual>
+			<isEqual property="flag" compareValue="PCS">   
+				where ORG.ID in (select ID from ORG_ORGANIZATION connect by ID = prior PARENTID start with ORGLEVEL in ('32') and ORGBIZTYPE in ('01','04')) order by ROWNO
+			</isEqual>
+			<isEqual property="flag" compareValue="ZRQ">   
+				where ORG.ID in (select ID from ORG_ORGANIZATION connect by ID = prior PARENTID start with ORGLEVEL = '50' and ORGBIZTYPE = '04') order by ROWNO
+			</isEqual> 
+		</isEmpty>	
+		<isNotEmpty prepend="" property="line">
+			<![CDATA[
+			select * from (select t.*,rownum as ROWNO from ( select a.ID, a.PARENTID, a.ORGCODE, 
+				decode(subStr(a.orgcode, 9, length(a.orgcode)), '0000',  a.orgname, c.linename) as ORGNAME,
+				a.ORGTYPE, a.ORGNAMEPY, a.ORGLEVEL, a.ORGBIZTYPE, a.BJZBZ       
+				from ORG_ORGANIZATION a  left join jwm.dept b 
+				on a.orgcode = b.deptid 
+				left join jwm.LINE c on (c.patrolareaid = b.DeptID or c.policestationid = b.deptid or c.securitybureauid = b.deptid)
+				where a.XT_ZXBZ = '0'     and     a.ORGTYPE = '01'            
+				connect by prior a.ID = PARENTID start with a.id= (select dd.id from org_organization dd where dd.orgcode=#orgcode# )
+				order siblings by a.ORGTYPE, a.ORDERNO) t) ORG 
+			]]>   
+			<isEqual property="flag" compareValue="FJ">   
+				where ORG.ID in (select ID from ORG_ORGANIZATION connect by ID = prior PARENTID start with ORGLEVEL in ('21'))  and org.orgname is not null order by ROWNO
+			</isEqual>
+			<isEqual property="flag" compareValue="PCS">   
+				where ORG.ID in (select ID from ORG_ORGANIZATION connect by ID = prior PARENTID start with ORGLEVEL in ('32') and ORGBIZTYPE in ('01','04'))  and org.orgname is not null order by ROWNO
+			</isEqual>
+			<isEqual property="flag" compareValue="ZRQ">   
+				where ORG.ID in (select ID from ORG_ORGANIZATION connect by ID = prior PARENTID start with ORGLEVEL in ('50') and ORGBIZTYPE in ('01','04'))  and org.orgname is not null order by ROWNO
+			</isEqual> 
+		</isNotEmpty>	
+	</select>
+	
+	<!-- 首页警情统计 -->
+	<select id="jqChart" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	     <![CDATA[
+		    SELECT 
+		   	T.JQLB LX, 
+		   	DECODE(T.JQLB, '1', '救助群众', DECODE(T.JQLB, '2', '调解纠纷', DECODE(T.JQLB, '3', '刑事案件', DECODE(T.JQLB, '4', '治安案件', '其他')))) LXMC, 
+		   	count(1) SL
+		   FROM XJ_JQXXB T 
+		   WHERE 1=1
+		   ]]>
+		<isEqual property="temp" compareValue="mon" prepend="AND">
+			SUBSTR(T.JJSJ, 0, 7) = #parm#
+		</isEqual>
+		<isEqual property="temp" compareValue="week" prepend="AND">
+			SUBSTR(T.JJSJ, 0, 10) &gt;= #begin# and SUBSTR(T.JJSJ, 0, 10) &lt;= #end#
+		</isEqual>
+		<isEqual property="temp" compareValue="hour" prepend="AND">
+			SUBSTR(T.JJSJ, 0, 10) = #parm#
+		</isEqual>
+		<isEqual property="temp" compareValue="custom" prepend="AND">
+			SUBSTR(T.JJSJ, 0, 7) = #parm#
+		</isEqual>
+		<isEqual property="flag" compareValue="PCS" prepend="AND">
+			T.JJDWBM like substr(#zzjgdm#, 0, 6) || '%'
+		</isEqual>
+		<isEqual property="flag" compareValue="ZRQ" prepend="AND">
+			T.JJDWBM = #zzjgdm#
+		</isEqual>			
+		 <![CDATA[
+	   ]]>
+	   AND T.JQLB IN('1', '2', '3', '4', '6')
+	   GROUP BY T.JQLB
+	   ORDER BY T.JQLB
+	</select>
+	
+	<!-- 首页案件统计 -->
+	<select id="ajChart" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+	     <![CDATA[
+		     SELECT 
+		     SUBSTR(T.AJBH, 0, 1) LX,
+	        DECODE(SUBSTR(T.AJBH, 0, 1), 'Z', '治安案件', DECODE(SUBSTR(T.AJBH, 0, 1), 'A', '刑事案件', '其他')) LXMC
+	       , count(1) SL
+	       FROM XJ_AJXXB T WHERE 1=1 
+		]]>
+		<isEqual property="KFX" compareValue="1" prepend="AND">
+			T.SFKF = '1'
+		</isEqual>
+		<isEqual property="temp" compareValue="mon" prepend="AND">
+			SUBSTR(T.FASJ, 0, 7) = #parm#
+		</isEqual>
+		<isEqual property="temp" compareValue="week" prepend="AND">
+			SUBSTR(T.FASJ, 0, 10) &gt;= #begin# and SUBSTR(T.FASJ, 0, 10) &lt;= #end#
+		</isEqual>
+		<isEqual property="temp" compareValue="hour" prepend="AND">
+			SUBSTR(T.FASJ, 0, 10) = #parm#
+		</isEqual>
+		<isEqual property="temp" compareValue="custom" prepend="AND">
+			SUBSTR(T.FASJ, 0, 7) = #parm#
+		</isEqual>
+		<isEqual property="flag" compareValue="PCS" prepend="AND">
+			T.SLDWJGDM like substr(#zzjgdm#, 0, 6) || '%'
+		</isEqual>
+		<isEqual property="flag" compareValue="ZRQ" prepend="AND">
+			T.SLDWJGDM = #zzjgdm#
+		</isEqual>
+		 <![CDATA[
+	   ]]>
+	   GROUP BY DECODE(SUBSTR(T.AJBH, 0, 1), 'Z', '治安案件', DECODE(SUBSTR(T.AJBH, 0, 1), 'A', '刑事案件', '其他')),
+	   SUBSTR(T.AJBH, 0, 1)
+	</select>
+	
+	
+	<select id="queryXly" parameterClass="Map" resultClass="com.founder.sqjw.bean.Xjtjemployee">
+	    SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+	    SELECT a.userid, a.USERNAME, evalDate, score, rankings3, rankings2, rankings1, d.orgcode
+	      FROM ORG_USER a
+	      join org_org_user c
+          on a.id = c.userid
+          join org_organization d
+          on d.id = c.orgid
+	      left join jwm.evaluation_employee b on a.userid = b.userid) M 
+	   WHERE 1=1
+		<isEqual property="qFlag" compareValue="PCS" prepend="AND">
+			<![CDATA[ m.orgcode like substr(#orgcode#, 0, 6) || '%' ]]>
+		</isEqual>
+		<isEqual property="qFlag" compareValue="ZRQ" prepend="AND">
+			m.orgcode = #orgcode#
+		</isEqual>		
+		<isEqual property="temp" compareValue="mon" prepend="AND">
+			substr(evalDate, 0, 7) = #parm#
+		</isEqual>
+		<isEqual property="temp" compareValue="week" prepend="AND">
+			evalDate &gt;= #begins# and evalDate &lt;= #ends#
+		</isEqual>
+		<isEqual property="temp" compareValue="custom" prepend="AND">
+			substr(evalDate, 0, 7) = #parm#
+		</isEqual>
+		<![CDATA[ 
+		  and ROWNUM <= #end# ) WHERE R > #begin# ]]>
+	   ORDER BY score
+	</select>
+	
+	<select id="queryXlyCount" parameterClass="Map" resultClass="Integer">
+	    SELECT count(*)
+	      FROM ORG_USER a
+	      join org_org_user c
+          on a.id = c.userid
+          join org_organization d
+          on d.id = c.orgid
+	      left join jwm.evaluation_employee b on a.userid = b.userid
+	   WHERE 1=1
+		<isEqual property="qFlag" compareValue="PCS" prepend="AND">
+			<![CDATA[ d.orgcode like substr(#orgcode#, 0, 6) || '%' ]]>
+		</isEqual>
+		<isEqual property="qFlag" compareValue="ZRQ" prepend="AND">
+			d.orgcode = #orgcode#
+		</isEqual>
+		<isEqual property="temp" compareValue="mon" prepend="AND">
+			substr(evalDate, 0, 7) = #parm#
+		</isEqual>
+		<isEqual property="temp" compareValue="week" prepend="AND">
+			evalDate &gt;= #begins# and evalDate &lt;= #ends#
+		</isEqual>
+		<isEqual property="temp" compareValue="custom" prepend="AND">
+			substr(evalDate, 0, 7) = #parm#
+		</isEqual>
+	   ORDER BY score
+	</select>
+	
+	<select id="queryCar" parameterClass="Map" resultClass="com.founder.sqjw.bean.Xjtjcar">
+	   SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+	   SELECT a.userid, b.LicensePlate USERNAME, evalDate, score, rankings3, rankings2, rankings1,  d.orgcode
+	      FROM ORG_USER e
+                  join org_org_user f
+                  on e.id = f.userid
+                  join org_organization d
+                  on d.id = f.orgid
+          left join jwm.EMPLOYEE a  on a.userid = e.userid left join jwm.POLICECAR b on a.carid = b.carid
+	      left join jwm.evaluation_car c on a.carid = c.carid ) M 
+	   WHERE 1=1
+		<isEqual property="qFlag" compareValue="PCS" prepend="AND">
+			<![CDATA[ m.orgcode like substr(#orgcode#, 0, 6) || '%' ]]>
+		</isEqual>
+		<isEqual property="qFlag" compareValue="ZRQ" prepend="AND">
+			m.orgcode = #orgcode#
+		</isEqual>
+		<isEqual property="temp" compareValue="mon" prepend="AND">
+			substr(evalDate, 0, 7) = #parm#
+		</isEqual>
+		<isEqual property="temp" compareValue="week" prepend="AND">
+			evalDate &gt;= #begins# and evalDate &lt;= #ends#
+		</isEqual>
+		<isEqual property="temp" compareValue="custom" prepend="AND">
+			substr(evalDate, 0, 7) = #parm#
+		</isEqual>
+		<![CDATA[ 
+		  and ROWNUM <= #end# ) WHERE R > #begin# ]]>
+	   ORDER BY score
+	</select>
+	
+	<select id="queryCarCount" parameterClass="Map" resultClass="Integer">
+	   SELECT count(*)
+	      FROM ORG_USER e
+                  join org_org_user f
+                  on e.id = f.userid
+                  join org_organization d
+                  on d.id = f.orgid
+          left join jwm.EMPLOYEE a  on a.userid = e.userid left join jwm.POLICECAR b on a.carid = b.carid
+	      left join jwm.evaluation_car c on a.carid = c.carid 
+	   WHERE 1=1
+		<isEqual property="qFlag" compareValue="PCS" prepend="AND">
+			<![CDATA[ d.orgcode like substr(#orgcode#, 0, 6) || '%' ]]>
+		</isEqual>
+		<isEqual property="qFlag" compareValue="ZRQ" prepend="AND">
+			d.orgcode = #orgcode#
+		</isEqual>
+		<isEqual property="temp" compareValue="mon" prepend="AND">
+			substr(evalDate, 0, 7) = #parm#
+		</isEqual>
+		<isEqual property="temp" compareValue="week" prepend="AND">
+			evalDate &gt;= #begins# and evalDate &lt;= #ends#
+		</isEqual>
+		<isEqual property="temp" compareValue="custom" prepend="AND">
+			substr(evalDate, 0, 7) = #parm#
+		</isEqual>
+	   ORDER BY score
+	</select>
+	
+	<select id="queryXq" parameterClass="Map" resultClass="com.founder.sqjw.bean.XjtjXq">
+	     SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+	     SELECT b.deptid as id, a.userid, b.DeptName USERNAME, evalDate, score, rankings3, rankings2, rankings1, d.orgcode
+	      FROM ORG_USER e
+                  join org_org_user f
+                  on e.id = f.userid
+                  join org_organization d
+                  on d.id = f.orgid
+                  left join jwm.EMPLOYEE a on a.userid = e.userid  left join jwm.dept b on (a.patrolareaid = b.DeptID or a.policestationid = b.deptid or a.securitybureauid = b.deptid)
+	     left join jwm.EVALUATION_DEPT c on (a.patrolareaid = c.DeptID or a.policestationid = c.deptid or a.securitybureauid = c.deptid)) M 
+	   WHERE 1=1
+		<isEqual property="qFlag" compareValue="PCS" prepend="AND">
+			<![CDATA[ m.orgcode like substr(#orgcode#, 0, 6) || '%' ]]>
+		</isEqual>
+		<isEqual property="qFlag" compareValue="ZRQ" prepend="AND">
+			m.orgcode = #orgcode#
+		</isEqual>
+		<isEqual property="temp" compareValue="mon" prepend="AND">
+			substr(evalDate, 0, 7) = #parm#
+		</isEqual>
+		<isEqual property="temp" compareValue="week" prepend="AND">
+			evalDate &gt;= #begins# and evalDate &lt;= #ends#
+		</isEqual>
+		<isEqual property="temp" compareValue="custom" prepend="AND">
+			substr(evalDate, 0, 7) = #parm#
+		</isEqual>
+		<![CDATA[ 
+		  and ROWNUM <= #end# ) WHERE R > #begin# ]]>
+	   ORDER BY score
+	</select>
+	
+	<select id="queryXqCount" parameterClass="Map" resultClass="Integer">
+	     SELECT count(*)
+	      FROM ORG_USER e
+                  join org_org_user f
+                  on e.id = f.userid
+                  join org_organization d
+                  on d.id = f.orgid
+                  left join jwm.EMPLOYEE a on a.userid = e.userid left join jwm.dept b on (a.patrolareaid = b.DeptID or a.policestationid = b.deptid or a.securitybureauid = b.deptid)
+	     left join jwm.EVALUATION_DEPT c on (a.patrolareaid = c.DeptID or a.policestationid = c.deptid or a.securitybureauid = c.deptid)
+	   WHERE 1=1
+		<isEqual property="qFlag" compareValue="PCS" prepend="AND">
+			<![CDATA[ d.orgcode like substr(#orgcode#, 0, 6) || '%' ]]>
+		</isEqual>
+		<isEqual property="qFlag" compareValue="ZRQ" prepend="AND">
+			d.orgcode = #orgcode#
+		</isEqual>
+		<isEqual property="temp" compareValue="mon" prepend="AND">
+			substr(evalDate, 0, 7) = #parm#
+		</isEqual>
+		<isEqual property="temp" compareValue="week" prepend="AND">
+			evalDate &gt;= #begins# and evalDate &lt;= #ends#
+		</isEqual>
+		<isEqual property="temp" compareValue="custom" prepend="AND">
+			substr(evalDate, 0, 7) = #parm#
+		</isEqual>
+	   ORDER BY score
+	</select>
+	
+	<select id="queryXllx" parameterClass="Map" resultClass="com.founder.sqjw.bean.Xjxlrw">
+	   SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+	   select  c.lineid, c.linename, '2' zao, '2' zheng, '2' ci, '2' lou,  
+	   		'2' zao2, '2' zheng2, '2' ci2, '2' lou2,  
+	   		'2' zao3, '2' zheng3, '2' ci3, '2' lou3,  
+	   		'2' zao4, '2' zheng4, '2' ci4, '2' lou4,  
+	   		'2' zao5, '2' zheng5, '2' ci5, '2' lou5,  
+	   		'2' zao6, '2' zheng6, '2' ci6, '2' lou6,  
+	   		'2' zao7, '2' zheng7, '2' ci7, '2' lou7
+			from jwm.site a left join jwm.line_site b on a.siteid = b.siteid
+			left join jwm.LINE c on c.lineid = b.lineid
+	  <![CDATA[ ) M 
+		WHERE ROWNUM <= #end# ) WHERE R > #begin# ]]>
+		
+	</select>
+	
+	<select id="queryXllxCount" parameterClass="Map" resultClass="Integer">
+	   SELECT count(*) FROM 
+	   jwm.site a left join jwm.line_site b on a.siteid = b.siteid
+			left join jwm.LINE c on c.lineid = b.lineid
+	</select>
+	
+	<select id="queryXllxs" parameterClass="Map" resultClass="com.founder.sqjw.bean.Xjxlrws">
+	   SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+	   select b.begintime || '~' ||  b.endtime dates, 
+	  	'v' z1, '' zh1, '' ch1, '' l1,
+	  	'v' z2, '' zh2, '' ch2, '' l2,
+	  	'v' z3, '' zh3, '' ch3, '' l3,
+	  	'v' z4, '' zh4, '' ch4, '' l4,
+	  	'v' z5, '' zh5, '' ch5, '' l5,
+	  	'v' z6, '' zh6, '' ch6, '' l6,
+	  	'v' z7, '' zh7, '' ch7, '' l7	  	
+		from jwm.PLAN a left join jwm.SCHEDULE b on a.planid = b.planid
+		left join jwm.SCHEDULE c on a.planid = c.planid
+	  <![CDATA[ ) M 
+		WHERE ROWNUM <= #end# ) WHERE R > #begin# ]]>
+		
+	</select>
+	
+	
+	<!-- 获取设置 -->
+	<select id="querySZ" resultClass="com.founder.sqjw.bean.XJSZ">
+	  SELECT A.PRO, A.SFXZ FROM XJ_OPTION A WHERE A.USERID = #userid#
+	</select>
+	
+	<update id="uptSZ" parameterClass="java.util.Map">
+		<![CDATA[ update XJ_OPTION set sfxz = '1' where 1=1]]>	
+		<isEqual property="size" compareValue="ok" prepend="AND">
+		 	pro in
+			<iterate property="list" conjunction=","  open="(" close=")">
+				 #list[]#
+			</iterate>
+		</isEqual>
+		 <![CDATA[ and userid = #userid#]]>	
+		 <![CDATA[ and type = #type#]]>	
+	</update>
+	
+	<update id="uptSZs" parameterClass="java.util.Map">
+		<![CDATA[ update XJ_OPTION set sfxz = '0' where 1=1]]>	
+		<isEqual property="size" compareValue="ok" prepend="AND">
+		 	pro not in
+			<iterate property="list" conjunction=","  open="(" close=")">
+				 #list[]#
+			</iterate>
+		</isEqual>
+	    <![CDATA[ and userid = #userid#]]>	
+	    <![CDATA[ and type = #type#]]>	
+	</update>
+	
+	<insert id="addSZ" parameterClass="java.util.List">
+		insert all
+		<iterate conjunction=" ">
+		<![CDATA[ into XJ_OPTION (id, pro, userid, sfxz, type) values]]>
+			<![CDATA[ (#list[].id#, #list[].pro#,#list[].userid#,#list[].sfxz#,#list[].type#) ]]>
+		</iterate>
+		select * from dual
+	</insert>
+	
+	<!-- end -->
+	
+	<!-- jz begin  -->
+	<select id="syfwChart" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+     <isEqual property="flag" compareValue="FJ" prepend="">
+			<![CDATA[ 
+			   SELECT T.LX, T.LXMC, SUM(T.SL) SL
+			      FROM TJ_SYFW T 
+			   GROUP BY LX, T.LXMC
+			   ORDER BY LX
+			]]>
+		</isEqual>
+		<isEqual property="flag" compareValue="PCS" prepend="">
+			<![CDATA[ 
+			   SELECT T.LX, T.LXMC, SUM(T.SL) SL
+			      FROM TJ_SYFW T 
+			   WHERE 
+				 T.FJDM = #zzjgdm#
+			   GROUP BY LX, T.LXMC
+			   ORDER BY LX
+			]]>
+		</isEqual>
+		<isEqual property="flag" compareValue="ZRQ" prepend="">
+			<![CDATA[ 
+			   SELECT T.LX, T.LXMC, SUM(T.SL) SL
+			      FROM TJ_SYFW T 
+			   WHERE 
+				 T.PCSDM = #zzjgdm#
+			   GROUP BY LX, T.LXMC
+			   ORDER BY LX
+			]]>
+		</isEqual>
+	</select>
+	
+	<select id="sydwChart" parameterClass="Map" resultClass="com.founder.sqjw.bean.TjSyrk">
+     <isEqual property="flag" compareValue="FJ" prepend="">
+			<![CDATA[ 
+			   SELECT T.LX, T.LXMC, SUM(T.SL) SL
+			      FROM TJ_DWXX T 
+			   GROUP BY LX, T.LXMC
+			   ORDER BY LX
+			]]>
+		</isEqual>
+		<isEqual property="flag" compareValue="PCS" prepend="">
+			<![CDATA[ 
+			   SELECT T.LX, T.LXMC, SUM(T.SL) SL
+			      FROM TJ_DWXX T 
+			   WHERE 
+				 T.FJDM = #zzjgdm#
+			   GROUP BY LX, T.LXMC
+			   ORDER BY LX
+			]]>
+		</isEqual>
+		<isEqual property="flag" compareValue="ZRQ" prepend="">
+			<![CDATA[ 
+			   SELECT T.LX, T.LXMC, SUM(T.SL) SL
+			      FROM TJ_DWXX T 
+			   WHERE 
+				 T.PCSDM = #zzjgdm#
+			   GROUP BY LX, T.LXMC
+			   ORDER BY LX
+			]]>
+		</isEqual>
+	</select>
+	<!-- end -->
+</sqlMap>	

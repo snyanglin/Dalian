@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>tips.html</title>
+	
+  </head>
+  
+  <body>
+    
+<!--弹出框-->
+<div class="tips_top"><div class="tips_title"><a href="javascript:;" class="tips_collect"></a><strong>20140320141200001234</strong><span><a href="javascript:;">发布</a>  <a href="javascript:;">舆情</a>  <a href="javascript:;">布控</a>  <a href="javascript:;">关联</a>  <a href="javascript:;">跟踪</a>  <a href="javascript:;">周边</a></span><!-- <a href="javascript:;" title="关闭" class="tips_close"></a> --></div></div>
+<div class="tips_ct">
+<!-- 框内容 -->
+    <div class="tips_show_1">
+        <dl class="tips_showdl">
+            <dt><span>接警</span></dt>
+            <dd>
+                <label>人员：<input name="" class="inputtext" type="text" style="min-width:65px" value="这里是名字" /></label><label>台服：<input name="" class="inputtext" type="text" value="12345678912" style="min-width:78px" /></label><label>时间：<input name="" class="inputtext" style="min-width:117px" value="2014-02-08 12:11:20"  type="text" /></label>
+            </dd>
+        </dl>
+        <dl class="tips_showdl">
+            <dt><span>报警</span></dt>
+            <dd>
+                <label>人员：<input name="" class="inputtext" type="text" style="min-width:65px" /></label><label>电话：<input name="" class="inputtext"  style="min-width:78px" type="text" /></label><label>时间：<input name="" class="inputtext" style="min-width:117px"  type="text" /></label>
+            </dd>
+        </dl>
+        <dl class="tips_showdl">
+            <dt><span>警情</span></dt>
+            <dd>
+                <label>类别：<input name="" type="text" class="tips_slect" />
+                    <ul class="selct_ul">
+                    <li>选择一</li>
+                    <li>选择二</li>
+                    <li>选择三</li>
+                    <li>选择4</li>
+                    </ul>
+                </label>
+                <label><input name="" type="text" class="tips_slect tips_slectb" />
+                    <ul class="selct_ul">
+                    <li>选择一</li>
+                    <li>选择二</li>
+                    <li>选择三</li>
+                    <li>选择4</li>
+                    </ul>
+                </label><br/>
+                <label>地址：<textarea name="" cols="" rows=""></textarea></label>
+                <label>信息：<textarea name="" cols="" rows=""></textarea></label><br/>
+                <label>路段：<input name="" type="text" class="tips_slect"  />
+                    <ul class="selct_ul">
+                    <li>选择一</li>
+                    <li>选择二</li>
+                    <li>选择三</li>
+                    <li>选择4</li>
+                    </ul>
+                </label>
+                <label><input name="" class="tips_slect tips_slectc"  type="text" />
+                    <ul class="selct_ul">
+                    <li>选择一</li>
+                    <li>选择二</li>
+                    <li>选择三</li>
+                    <li>选择4</li>
+                    </ul>
+                 </label><a  href="javascript:;" class="btn_tipsdw">路段定位</a>
+            </dd>
+        </dl>
+        <div class="tips_check">
+            <a href="javascript:;"><input name="" type="checkbox" value="" />有无逃逸</a><a href="javascript:;"><input name="" type="checkbox" value="" />是否事故当事人</a><a href="javascript:;"><input name="" type="checkbox" value="" />有无人员伤亡</a><a href="javascript:;"><input name="" type="checkbox" value="" />是否危化车辆</a>
+        </div>
+        <a href="javascript:;" class="btn_tipssave">保&nbsp;&nbsp;&nbsp;&nbsp;存</a>
+        <div class="clear"></div>
+    </div>
+    
+    <div class="tips_show_2">
+        <dl class="tips_showdl">
+            <dt><span>报警</span></dt>
+            <dd>
+                <label>类别：<input name="" type="text" class="tips_slect" />
+                    <ul class="selct_ul">
+                    <li>选择一</li>
+                    <li>选择二</li>
+                    <li>选择三</li>
+                    <li>选择4</li>
+                    </ul>
+                </label>
+                <label><input name="" type="text" class="tips_slect tips_slectb" />
+                    <ul class="selct_ul">
+                    <li>选择一</li>
+                    <li>选择二</li>
+                    <li>选择三</li>
+                    <li>选择4</li>
+                    </ul>
+                </label><br/>
+                <label>地址：<textarea name="" cols="" rows=""></textarea></label><label>信息：<textarea name="" cols="" rows=""></textarea></label><br/>
+                <label>路段：<input name="" type="text" class="tips_slect"  />
+                    <ul class="selct_ul">
+                    <li>选择一</li>
+                    <li>选择二</li>
+                    <li>选择三</li>
+                    <li>选择4</li>
+                    </ul>
+                </label>
+                <label><input name="" class="tips_slect tips_slectc"  type="text" />
+                    <ul class="selct_ul">
+                    <li>选择一</li>
+                    <li>选择二</li>
+                    <li>选择三</li>
+                    <li>选择4</li>
+                    </ul>
+                </label><a  href="javascript:;" class="btn_tipsdw">路段定位</a><br/>
+            </dd>
+        </dl>
+        <div class="clear"></div>
+    </div>
+    
+	<a href="javascript:;" class="tips_slide_up" onclick="$(this).toggleClass('tips_slide_dw');$('.tips_paijin').toggle();$('.tips_show_1').toggle();$('.tips_show_2').toggle();"></a>
+
+    <dl class="tips_dl dl_paijin">
+        <dt>
+            <div class="lf menu_paijin"><a href="javascript:;" class="dtaon">派警</a>  <a href="javascript:;">重大</a>  <a href="javascript:;">督办</a>  <a href="javascript:;">移交</a>  <a href="javascript:;">二级</a></div><div class="rt"><a href="javascript:;">定位</a>  <a href="javascript:;">呼叫</a>  <a href="javascript:;">互动</a></div>
+        </dt>
+        <!--派警内容-->
+        <dd class="tips_paijin" style="display:none">
+            <dl class="tips_showdl">
+                <dd>
+                <label>所属大队：<input name="" type="text" style="width:128px" /></label><label>先期处置：<input name="" type="text" style="width:128px" /></label><br/>
+                <label>所属中队：<input name="" type="text" style="width:128px" /></label><label>出警民警：<input name="" type="text" style="width:128px" /></label><br/>
+                </dd>
+            </dl>
+            <dl class="tips_showdl">
+                <dt><span>通知民警</span></dt>
+                <dd>
+                    <div class="tips_checkb"><a href="javascript:;"><input name="" type="checkbox" value=""/>短信</a><a href="javascript:;"><input name="" type="checkbox" value="" />350M</a><a href="javascript:;"><input name="" type="checkbox" value="" />终端</a></div>
+                    <div class="lf"><textarea name="" cols="" rows="" style="width:200px; height:54px;"></textarea></div>
+                    <div class="rt"><a href="javascript:;" class="btn_tipssave btn_tipssaveb">发&nbsp;&nbsp;&nbsp;&nbsp;送</a><a href="javascript:;" class="btn_tipssave btn_tipssaveb">呼&nbsp;&nbsp;&nbsp;&nbsp;叫</a></div>
+                </dd>
+            </dl>
+        </dd>
+        <!--/派警内容-->
+        <!--重大-->
+        <dd class="tips_zhongda" style="display:none">
+            <dl class="tips_showdl">
+                <dt><span>通知民警</span></dt>
+                <dd>
+                    <div><a href="javascript:;"><input name="" type="checkbox" value=""/>一级重大（涉外）</a><a href="javascript:;"><input name="" type="checkbox" value="" />二级重大（涉学生）</a><br/><a href="javascript:;"><input name="" type="checkbox" value="" />三级重大（危化）</a><a href="javascript:;"><input name="" type="checkbox" value="" />三级重大（死亡10人以上）</a></div>
+                    <div class="lf">
+                        <label>上报支队领导：<input name="" type="text" class="tips_slect" />
+                            <ul class="selct_ul">
+                            <li>选择一</li>
+                            <li>选择二</li>
+                            <li>选择三</li>
+                            <li>选择4</li>
+                            </ul>
+                        </label>&nbsp;&nbsp;<a  href="javascript:;" class="btn_tipsdw">完成</a><br/>
+                        <label>&nbsp;&nbsp;&nbsp;&nbsp;上报局领导：<input name="" type="text" class="tips_slect" />
+                            <ul class="selct_ul">
+                            <li>选择一</li>
+                            <li>选择二</li>
+                            <li>选择三</li>
+                            <li>选择4</li>
+                            </ul>
+                        </label>&nbsp;&nbsp;<a  href="javascript:;" class="btn_tipsdw">完成</a><br/>
+                        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通知市120：<input name="" type="text" class="tips_slect" />
+                            <ul class="selct_ul">
+                            <li>选择一</li>
+                            <li>选择二</li>
+                            <li>选择三</li>
+                            <li>选择4</li>
+                            </ul>
+                        </label>&nbsp;&nbsp;<a  href="javascript:;" class="btn_tipsdw">完成</a>
+                    </div>
+                </dd>
+            </dl>
+        </dd>
+    	<!--/重大-->
+    </dl>
+    
+<!-- /框内容 -->
+</div>
+<!--/弹出框-->
+  </body>
+<script language="javascript">
+$(".tips_slect").click(function(){
+	var obj=$(this).next("ul");
+		obj.show();
+		obj.find("li").click(function(){
+			obj.prev(".tips_slect").val($(this).text());
+		});
+});
+$(".tips_slect").next("ul").mouseout(function(){
+		$(this).hide();
+});
+
+$(".menu_paijin > a").click(function(){
+	var ind=$(this).index();
+	$(".dl_paijin > dd").hide();
+	$(".dl_paijin > dd:eq("+ind+")").show();
+	$(".menu_paijin > a").removeClass("dtaon");
+	$(this).addClass("dtaon");
+});
+
+</script>
+</html>

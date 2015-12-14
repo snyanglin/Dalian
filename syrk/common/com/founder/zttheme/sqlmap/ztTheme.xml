@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZtTheme">
+	
+	<typeAlias alias="ztTheme" type="com.founder.zttheme.bean.ZtTheme" />
+	<typeAlias alias="ztys" type="com.founder.zttheme.vo.ZtysVo" />
+	<typeAlias alias="orgUser" type="com.founder.framework.organization.user.bean.OrgUser" />
+	<typeAlias alias="orgMenu" type="com.founder.framework.organization.menu.bean.OrgMenu" />
+	<typeAlias alias="orgUserMenu" type="com.founder.zttheme.bean.OrgUserMenuBean" />
+	
+	
+	
+	
+	<!-- 主题图标 -->
+	<select id="queryByZtZj" parameterClass="Map" resultClass="ztys">
+		 <![CDATA[select y.iconurl,h.menuurl,h.menuname from (select m.* from zt_icon m where m.id in(select t.iconid from zt_icon_theme t  where t.themeid = #themeid#) and m.icontype= #icontype#) y,org_menu h where y.menuid = h.id and h.xt_zxbz='0' and h.systemid = #systemid#]]>
+	</select>
+	
+	<!-- 导航菜单 -->
+	<select id="queryByDh" parameterClass="Map" resultClass="ztys">
+		 <![CDATA[select y.iconurl,h.menuurl,h.menuname,h.id from (select m.* from zt_icon m where  m.icontype= #icontype#) y,org_menu h where y.menuid = h.id and h.xt_zxbz='0' and h.systemid = #systemid#]]>
+	</select>
+	
+	
+	<!-- 导航菜单右边排除已选的菜单 -->
+	<select id="queryByDhLeft" parameterClass="Map" resultClass="ztys">
+		 <![CDATA[select y.iconurl,h.menuurl,h.menuname,h.id from (select m.* from zt_icon m where  m.icontype= #icontype#) y,org_menu h where y.menuid = h.id and h.xt_zxbz='0' and h.systemid = #systemid# and h.id not in(select menuid from ORG_USER_MENU a where a.userid=#id#)]]>
+	</select>
+	
+	<!--个人所有菜单-->
+	<select id="queryByMenu" parameterClass="Map" resultClass="ztys">
+		 <![CDATA[select t.menuname,t.id from org_menu t where t.xt_zxbz = '0' and t.systemid ='100']]>
+	</select>
+	
+	
+	
+	<!--排序菜单-->
+	<select id="queryByGrMenu" parameterClass="Map" resultClass="ztys">
+		 <![CDATA[select y.iconurl,h.menuurl,h.menuname from (select m.* from zt_icon m where  m.icontype= #icontype#) y,org_menu h where y.menuid = h.id and h.systemid = #systemid#]]>
+	</select>
+	
+	<!-- 新增配置菜单 -->
+	<insert id="insertMunePz" parameterClass="orgUserMenu">
+		 <![CDATA[ INSERT INTO ORG_USER_MENU (id,USERID, MENUID, ORDERNO, XT_ZHXGSJ)
+	    	 values (SEQ_PK.NEXTVAL, #userid#,#menuid#, #orderno#, #xt_zhxgsj#)]]>
+	</insert>
+	
+	<!-- 删除配置菜单 -->
+	<delete id="deleteMunePz" parameterClass="Long">
+		 <![CDATA[ delete from ORG_USER_MENU  where userid = #userid#]]>	
+	</delete>
+	
+	
+	<!-- 查询个人权限菜单 -->
+   <select id="selectMenuPz" parameterClass="orgUser" resultClass="orgMenu">
+	<![CDATA[ select id,menuname from org_menu t where t.xt_zxbz='0' and t.id 
+	           not in(select menuid from ORG_USER_MENU a where a.userid=#id#) ]]>
+	</select>
+	
+	
+	<!-- 导航菜单已分配的菜单 -->
+	<select id="queryByDhYf" parameterClass="Map" resultClass="ztys">
+		 <![CDATA[select t.menuname,t.id,t.menutype,t.menulevel,t.menuurl,t.menuopenmode,t.parentid,t.bigiconimg1,t.bigicontext1,t.bigiconimg2,t.bigicontext2,t.bigiconimg3,t.bigicontext3,t.bigiconimg4,t.bigicontext4 from org_menu t,org_user_menu m where t.id = m.menuid and t.systemid=#systemid# and m.userid = #userid# and t.xt_zxbz='0' and t.parentid is not null and t.menutype=2 order by m.orderno]]>
+	</select>
+	
+	<!-- 管理员菜单 -->
+	<select id="queryByDhGLY" parameterClass="Map" resultClass="ztys">
+		 <![CDATA[select t.menuname,t.menutype,t.menulevel,t.menuurl,t.menuopenmode,t.parentid,t.bigiconimg1,t.bigicontext1,t.bigiconimg2,t.bigicontext2,t.bigiconimg3,t.bigicontext3,t.bigiconimg4,t.bigicontext4 from org_menu t where  t.systemid=#systemid# and t.xt_zxbz='0' and t.parentid is not null and t.menutype=2]]>
+	</select>
+	
+	
+		<!-- 查询个人权限菜单 -->
+   <select id="selectMenu" parameterClass="orgUser" resultClass="orgMenu">
+	<![CDATA[ select id,menuname from org_menu t where t.menutype='2' and t.xt_zxbz='0' and t.id 
+	           not in(select menuid from ORG_USER_MENU a where a.userid=#id#) ]]>
+	</select>
+	
+	<!-- 查询个人配置菜单 -->
+    <select id="selectUserMenu" parameterClass="orgUser" resultClass="orgMenu">
+	<![CDATA[ select a.id,a.menuname from ORG_USER_MENU t,org_menu a where t.menuid=a.id and a.xt_zxbz='0' and t.userid=#id# order by t.orderno ]]>
+	</select>
+	
+	<!-- 新增配置菜单 -->
+	<insert id="insertMuneConfig" parameterClass="orgUserMenu">
+		 <![CDATA[ INSERT INTO ORG_USER_MENU (id,USERID, MENUID, ORDERNO, XT_ZHXGSJ)
+	    	 values (SEQ_PK.NEXTVAL, #userid#,#menuid#, #orderno#, #xt_zhxgsj#)]]>
+	</insert>
+	
+	<!-- 删除配置菜单 -->
+	<delete id="deleteMuneConfig" parameterClass="Long">
+		 <![CDATA[ delete from ORG_USER_MENU  where userid = #userid#]]>	
+	</delete>
+	
+	
+	
+	<!-- 顶部图标 -->
+	
+	<!-- 导航菜单已分配的菜单 -->
+	<select id="queryByDhYfTop" parameterClass="Map" resultClass="ztys">
+		 <![CDATA[select t.menuname,t.id,t.menutype,t.menulevel,t.menuurl,t.menuopenmode,t.parentid,t.bigiconimg1,t.bigicontext1,t.bigiconimg2,t.bigicontext2,t.bigiconimg3,t.bigicontext3,t.bigiconimg4,t.bigicontext4 from org_menu t,org_user_menu m where t.id = m.menuid and t.systemid=#systemid# and m.userid = #userid#  and t.parentid is not null and t.xt_zxbz='0' and t.menutype=2  order by m.orderno]]>
+	</select>
+	
+	<!-- 管理员菜单 -->
+	<select id="queryByDhGLYTop" parameterClass="Map" resultClass="ztys">
+		 <![CDATA[select t.menuname,t.menutype,t.menulevel,t.menuurl,t.menuopenmode,t.parentid,t.bigiconimg1,t.bigicontext1,t.bigiconimg2,t.bigicontext2,t.bigiconimg3,t.bigicontext3,t.bigiconimg4,t.bigicontext4 from org_menu t where  t.systemid=#systemid# and t.xt_zxbz='0' and t.parentid is not null and t.menutype=2 ]]>
+	</select>
+	
+</sqlMap>

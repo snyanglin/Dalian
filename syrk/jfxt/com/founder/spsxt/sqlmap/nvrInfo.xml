@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="NvrInfo">
+	
+	<typeAlias alias="nvrInfo" type="com.founder.spsxt.bean.NvrInfo" />
+	<!-- 声明结果集映射 
+	<resultMap id="partFieldResult" class="java.util.HashMap">
+		<result property="dwbm" column="dwbm" />
+		<result property="dwmc" column="dwmc" />
+		<result property="sfgazj" column="sfgazj" />
+	</resultMap>
+	
+	<resultMap id="partFieldGazj" class="java.util.HashMap">
+		<result property="gazj" column="gazj" />
+	</resultMap>
+	-->
+	<resultMap id="partNVRResult" class="java.util.HashMap">
+		<result property="id" column="id" />
+		<result property="sbmc" column="sbmc" />
+	</resultMap>
+
+	<!-- 根据主键(id)查询 -->
+	<select id="queryNvrInfoById" parameterClass="String" resultClass="nvrInfo">
+		<![CDATA[ select * from JF_NVRJBXX t where id= #id# ]]>
+	</select>
+	<!-- 根据平台id删除 -->
+	<delete id="deleteNvrInfoByPtId" parameterClass="String">
+		<![CDATA[ delete from JF_NVRJBXX where pt_id= #pt_id#  ]]>
+	</delete>
+	<!-- 根据主键(id)删除  -->
+	<delete id="deleteNvrInfoById" parameterClass="String">
+		<![CDATA[ delete from JF_NVRJBXX where id= #id#  ]]>
+	</delete>
+
+
+	<insert id="insertNvrInfo" parameterClass="nvrInfo">
+		<selectKey keyProperty="id" resultClass="String">
+  			select to_char(seq_JF_NVRJBXX.nextval,'FM0000000000') from dual
+ 		</selectKey>
+		 INSERT INTO JF_NVRJBXX
+		 	(id	
+				<isNotEmpty prepend="," property="sbMc"> <![CDATA[ sbMc ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="sbIp"> <![CDATA[ sbIp ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="ccsc"> <![CDATA[ ccsc ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="pt_id"> <![CDATA[ pt_id ]]> </isNotEmpty>
+		
+			,<include refid="insertXtzd"/>
+			)
+	    	 values 
+	    	 (
+				 #id#
+				<isNotEmpty prepend="," property="sbMc"> <![CDATA[ #sbMc# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="sbIp"> <![CDATA[ #sbIp# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="ccsc"> <![CDATA[ #ccsc# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="pt_id"> <![CDATA[ #pt_id# ]]> </isNotEmpty>
+
+			,
+			<include refid="insertXtzdVal"/>									
+	    	  )	    	
+	</insert>
+
+	<update  id="updateNvrInfo" parameterClass="nvrInfo">
+		<![CDATA[ update JF_NVRJBXX ]]>	 		
+		<dynamic prepend="set">
+				<isNotEmpty prepend="," property="sbMc"> <![CDATA[ sbMc=#sbMc# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="sbIp"> <![CDATA[ sbIp=#sbIp# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="ccsc"> <![CDATA[ ccsc=#ccsc# ]]> </isNotEmpty>
+				<isNotEmpty prepend="," property="pt_id"> <![CDATA[ pt_id=#pt_id# ]]> </isNotEmpty>
+	    	,
+	    	<include refid="updateXtzd"/>	    	
+	    					
+		</dynamic>
+	 	<![CDATA[ where id=#id# ]]>
+	</update>
+
+    <!-- 动态条件分页查询(可以复用) -->
+     <sql id="sql_where"> 
+          from JF_NVRJBXX 
+          <dynamic prepend="where">
+	 		<isNotEmpty prepend="and" property="bmid">
+				<![CDATA[ xt_zhxgrbmid like '$bmid$%'  ]]>
+			</isNotEmpty>
+         </dynamic> 
+     </sql> 
+
+
+	<!-- 根据条件获得记录数 -->
+	<select id="getNvrInfoCountByCondition" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) ]]>
+		<include refid="sql_where"/>
+	</select>
+	<!-- 根据条件获得记录列表 -->
+	<select id="getNvrInfoListByCondition" parameterClass="Map" resultClass="nvrInfo">
+		<![CDATA[ 
+			select * from ( 
+						select rownum r, t.* from ( 
+							select *  ]]>
+							<include refid="sql_where"/>
+		 <![CDATA[ 	order by $sort$ $order$ ) t
+			where rownum <= #end# ) where r > #begin#    ]]>
+	</select>
+	
+	<select id="getNVRByPt" parameterClass="Map" resultMap="partNVRResult">
+		 <![CDATA[select id,sbmc  from  JF_NVRJBXX where pt_id=#dwbm# order by id]]>
+	</select>
+	<!-- 检查同一平台下设备名称(NVR)是否唯一  -->
+	<select id="isUniqueForPlatformName" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ 
+		select count(*) from jf_nvrjbxx
+			where pt_id=#pt_id# and sbmc=#sbMc#
+		]]>
+	</select>
+	
+	
+
+
+	
+</sqlMap>

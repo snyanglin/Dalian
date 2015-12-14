@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<report version="5.0">
+	<head>
+		<property name="type">0</property>
+		<name><![CDATA[DWJBXXB]]></name>
+		<dataSets>
+			<dataSet name="jbxx_js" type="DB_SQL" >
+				<property name="dataSource">DWJBXXB</property>
+				<property name="desc"><![CDATA[最后日期即时统计]]></property>
+				<property name="query"><![CDATA[="select 
+					       sum(case when b.xt_zxbz='2' and b.xt_lrbz=1 then 1 else 0 end) as dhs,
+					       sum(case when b.xt_zxbz='0' and b.xt_lrbz=1 then 1 else 0 end) as yhs,
+					       sum(case when b.xt_zxbz='0' then 1 else 0 end) as yx,
+						(select orgname from jwzh.org_organization o where o.orgcode="+case(@ORG_FJ='0' and @ORG_PCS='0'," b.glfxjid",@ORG_FJ!='0' and @ORG_PCS='0'," b.glpcsid",@ORG_FJ!='0' and @ORG_PCS!='0'," b.glbmid")+") as orgname,
+					       "+case(@ORG_FJ='0' and @ORG_PCS='0'," b.glfxjid",@ORG_FJ!='0' and @ORG_PCS='0'," b.glpcsid",@ORG_FJ!='0' and @ORG_PCS!='0'," b.glbmid")+" as orgcode
+					       from dw_dwjbxxb b where 1=1 and xt_zhxgrxm is not null "+case(@ORG_FJ!='0' and @ORG_PCS='0',"and b.glfxjid='"+@ORG_FJ+"'",@ORG_FJ!='0' and @ORG_PCS!='0',"and b.glpcsid='"+@ORG_PCS+"'")+" group by "+case(@ORG_FJ='0' and @ORG_PCS='0'," b.glfxjid",@ORG_FJ!='0' and @ORG_PCS='0'," b.glpcsid",@ORG_FJ!='0' and @ORG_PCS!='0'," b.glbmid")+" order by YHS desc"]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+			<dataSet name="bmmc" type="DB_SQL" >
+				<property name="dataSource">DWJBXXB</property>
+				<property name="desc"><![CDATA[]]></property>
+				<property name="query"><![CDATA[="select orgname from org_organization o where o.orgcode='"+case(@ORG_FJ='0' and @ORG_PCS='0',"210200000000",@ORG_FJ!='0' and @ORG_PCS='0',@ORG_FJ,@ORG_FJ!='0' and @ORG_PCS!='0',@ORG_PCS)+"'"]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+			<dataSet name="jbxx_zq" type="DB_SQL" >
+				<property name="dataSource">DWJBXXB</property>
+				<property name="desc"><![CDATA[]]></property>
+				<property name="query"><![CDATA[="select 
+					       sum(case when b.xt_zxbz='0' and b.xt_lrbz=1 then 1 else 0 end) as yhs,
+					       sum(case when b.xt_zxbz='0' and b.xt_lrbz=0 then 1 else 0 end) as xz,
+					       sum(case when b.xt_lrsj <> b.xt_zhxgsj then 1 else 0 end) as xg,
+					       sum(case when b.xt_zxbz='1' then 1 else 0 end) as zx,
+						(select orgname from jwzh.org_organization o where o.orgcode="+case(@ORG_FJ='0' and @ORG_PCS='0'," b.glfxjid",@ORG_FJ!='0' and @ORG_PCS='0'," b.glpcsid",@ORG_FJ!='0' and @ORG_PCS!='0'," b.glbmid")+") as orgname,
+					       "+case(@ORG_FJ='0' and @ORG_PCS='0'," b.glfxjid",@ORG_FJ!='0' and @ORG_PCS='0'," b.glpcsid",@ORG_FJ!='0' and @ORG_PCS!='0'," b.glbmid")+" as orgcode
+					       from dw_dwjbxxb b where 1=1 and xt_zhxgrxm is not null "+case(@ORG_FJ!='0' and @ORG_PCS='0',"and b.glfxjid='"+@ORG_FJ+"'",@ORG_FJ!='0' and @ORG_PCS!='0',"and b.glpcsid='"+@ORG_PCS+"'")+" and substr(xt_zhxgsj,1,10) >= '"+tostr(@ZQ_KS,"yyyy-MM-dd")+"' and substr(xt_zhxgsj,1,10) <= '"+tostr(@ZQ_JS,"yyyy-MM-dd")+"' group by "+case(@ORG_FJ='0' and @ORG_PCS='0'," b.glfxjid",@ORG_FJ!='0' and @ORG_PCS='0'," b.glpcsid",@ORG_FJ!='0' and @ORG_PCS!='0'," b.glbmid")+" order by YHS desc"]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+		</dataSets>
+		<parameters>
+			<parameter name="ORG_FJ" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">分局代码</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ORG_PCS" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">派出所代码</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ZQ_KS" type="2">
+				<property name="dateFormat">yyyy-MM-dd</property>
+				<property name="default"></property>
+				<property name="desc">开始时间</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ZQ_JS" type="2">
+				<property name="dateFormat">yyyy-MM-dd</property>
+				<property name="default"></property>
+				<property name="desc">结束时间</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="dw" type="6">
+				<property name="dateFormat"></property>
+				<property name="default"></property>
+				<property name="desc">单位</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="zzjglx" type="17">
+				<property name="dateFormat"></property>
+				<property name="default">11</property>
+				<property name="desc">组织结构类型</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+		</parameters>
+		<variables/>
+	</head>
+	<body>
+		<sheet id="sheet1">
+			<page>
+				<property name="paginateType">3</property>
+			</page>
+			<grid row="9" col="9">
+				<properties>
+				</properties>
+				<rows>
+					<row id="1">
+						<property name="type">1</property>
+						<property name="height">60</property>
+					</row>
+					<row id="2">
+						<property name="type">2</property>
+					</row>
+					<row id="3">
+					</row>
+					<row id="4">
+					</row>
+					<row id="5">
+						<property name="type">4</property>
+						<property name="height">40</property>
+					</row>
+					<row id="6">
+						<property name="type">4</property>
+						<property name="height">350</property>
+					</row>
+					<row id="7">
+						<property name="type">4</property>
+						<property name="height">40</property>
+					</row>
+					<row id="8">
+						<property name="type">4</property>
+						<property name="height">350</property>
+					</row>
+					<row id="9">
+						<property name="type">4</property>
+						<property name="visible"><![CDATA[1]]></property>
+					</row>
+				</rows>
+				<columns>
+					<column id="1">
+						<property name="width">160</property>
+					</column>
+					<column id="2">
+						<property name="width">90</property>
+					</column>
+					<column id="3">
+						<property name="width">90</property>
+					</column>
+					<column id="4">
+						<property name="width">90</property>
+					</column>
+					<column id="5">
+						<property name="width">90</property>
+					</column>
+					<column id="6">
+						<property name="width">90</property>
+					</column>
+					<column id="7">
+						<property name="width">90</property>
+					</column>
+					<column id="8">
+					</column>
+					<column id="9">
+						<property name="visible"><![CDATA[1]]></property>
+					</column>
+				</columns>
+				<cells>
+					<cell id="1,1" type="0" colspan="7" >
+						<property name="value"><![CDATA[=bmmc.select(ORGNAME)+"实有单位统计报表"]]></property>
+						<property name="font-size">20</property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1</border>
+					</cell>
+					<cell id="1,8" type="0" >
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+					<cell id="1,9" type="0" >
+					</cell>
+					<cell id="2,1" type="0" >
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,2" type="0" >
+						<property name="value"><![CDATA[全部待核实]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,3" type="0" >
+						<property name="value"><![CDATA[全部已核实]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,4" type="0" >
+						<property name="value"><![CDATA[全部有效单位]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,5" type="0" >
+						<property name="value"><![CDATA[核实]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,6" type="0" >
+						<property name="value"><![CDATA[新增]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,7" type="0" >
+						<property name="value"><![CDATA[修改]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,8" type="0" >
+						<property name="value"><![CDATA[注销]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,9" type="0" >
+						<property name="value"><![CDATA[i]]></property>
+					</cell>
+					<cell id="3,1" type="0" >
+						<property name="value"><![CDATA[=if(@zzjglx+1<14,"<u><span style='cursor:hand'>&nbsp;","")+jbxx_js.select(ORGNAME)+if(@zzjglx+1<14,"</span></u>","")]]></property>
+						<property name="ext-direction">3</property>
+						<property name="font-color"><![CDATA[=if(@zzjglx+1<14,'0,0,255','0,0,0')]]></property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<property name="web-event"><![CDATA[onclick:="window.location.href='"+if(@zzjglx+1<14,"ReportEmitter?rpt=DWJBXXB.brt&params=ORG_FJ=" +if(@ORG_FJ="0",I3{},@ORG_FJ)+";ORG_PCS="+if(@ORG_PCS="0",if(@ORG_FJ="0",'0',I3{}),@ORG_PCS)+";ZQ_KS="+tostr(@ZQ_KS)+";ZQ_JS="+tostr(@ZQ_JS)+";zzjglx="+(@zzjglx+1)+";dw="+I3+"';window.parent.window.mask();","#'")]]></property>
+						<property name="web-html">0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,2" type="0" >
+						<property name="value"><![CDATA[=jbxx_js.select(DHS)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,3" type="0" >
+						<property name="value"><![CDATA[=jbxx_js.select(YHS)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,4" type="0" >
+						<property name="value"><![CDATA[=jbxx_js.select(yx)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="web-url"><![CDATA[=if(@zzjglx+1<14,"ReportEmitter?rpt=SYDWXQ.brt&params=ORG_FJ="  +if(@ORG_FJ="0",I3{},@ORG_FJ)+";ORG_PCS="+if(@ORG_PCS="0",if(@ORG_FJ="0",'0',I3{}),@ORG_PCS)+";ZQ_KS="+tostr(@ZQ_KS)+";zzjglx="+(@zzjglx+1)+";ZQ_JS="+tostr(@ZQ_JS)+";dw="+I3,"")]]></property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<property name="web-event"><![CDATA[onclick:"window.location.href='"+if(@zzjglx+1<14,"ReportEmitter?rpt=SYDWXQ.brt&params=ORG_FJ="  +if(@ORG_FJ="0",I3{},@ORG_FJ)+";ORG_PCS="+if(@ORG_PCS="0",if(@ORG_FJ="0",'0',I3{}),@ORG_PCS)+";ZQ_KS="+tostr(@ZQ_KS)+";zzjglx="+(@zzjglx+1)+";ZQ_JS="+tostr(@ZQ_JS)+";dw="+I3+"';window.parent.window.mask();","#")]]></property>
+						<property name="web-html">0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,5" type="0" >
+						<property name="value"><![CDATA[=jbxx_zq.select(yhs)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,6" type="0" >
+						<property name="value"><![CDATA[=jbxx_zq.select(xz)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,7" type="0" >
+						<property name="value"><![CDATA[=jbxx_zq.select(xg)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,8" type="0" >
+						<property name="value"><![CDATA[=jbxx_zq.select(zx)]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,9" type="0" >
+						<property name="value"><![CDATA[=jbxx_js.select(ORGCODE)]]></property>
+					</cell>
+					<cell id="4,1" type="0" >
+						<property name="value"><![CDATA[合计]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,2" type="0" >
+						<property name="value"><![CDATA[=sum(B3{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,3" type="0" >
+						<property name="value"><![CDATA[=sum(C3{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,4" type="0" >
+						<property name="value"><![CDATA[=sum(D3{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,5" type="0" >
+						<property name="value"><![CDATA[=sum(E3{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,6" type="0" >
+						<property name="value"><![CDATA[=sum(F3{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,7" type="0" >
+						<property name="value"><![CDATA[=sum(G3{})]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,8" type="0" >
+						<property name="value"><![CDATA[=sum(H3{})]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,9" type="0" >
+					</cell>
+					<cell id="5,1" type="0" colspan="7" >
+					</cell>
+					<cell id="5,8" type="0" >
+					</cell>
+					<cell id="5,9" type="0" >
+					</cell>
+					<cell id="6,1" type="1" colspan="7" >
+						<property name="value"><![CDATA[<chart><mark value=''/><param name="seriescount" value="2" /><param name="legendon" value="true" /><param name="3ddepth" value="18" /><param name="titlefont" value="宋体,plain,14" /><param name="valuelineson" value="true" /><param name="webtarget_1" value="_blank" /><param name="webtarget_0" value="_blank" /><param name="pielabelson" value="true" /><param name="samplelabels" value="=A4" /><param name="rangedecimalcount" value="auto" /><param name="pointinglabelfont" value="宋体,plain,11" /><param name="yvalues_0" value=" " /><param name="valuelabelfont" value="宋体,plain,11" /><param name="yvalues_1" value=" " /><param name="percentlabelstyle" value="inside" /><param name="sampleaxislabelfont" value="宋体,plain,11" /><param name="rangelabelfont" value="宋体,plain,11" /><param name="startangle" value="90" /><param name="3dmodeon" value="true" /><param name="serieslabelson" value="false" /><param name="pielabelfont" value="宋体,plain,11" /><param name="zvalues_0" value=" " /><param name="endangle" value="270" /><param name="zvalues_1" value=" " /><param name="samplelabelfont" value="宋体,plain,11" /><param name="serieslabels" value="已核实,待核实" /><param name="serieslabels_1" value="待核实" /><param name="legendfont" value="宋体,plain,11" /><param name="serieslabels_0" value="已核实" /><param name="rangelabelson" value="true" /><param name="valuelabelstyle" value="outside" /><param name="rangeaxislabelfont" value="宋体,plain,11" /><param name="insidelabelfont" value="宋体,plain,11" /><param name="autolabelspacingon" value="true" /><param name="outsidelabelfont" value="宋体,plain,11" /><param name="samplevalues_0" value="=C4{}" /><param name="baroutlineoff" value="true" /><param name="samplevalues_1" value="=B4{}" /><param name="background" value="255,255,255" /><param name="chart" value="pie" /></chart>]]></property>
+					</cell>
+					<cell id="6,8" type="0" >
+					</cell>
+					<cell id="6,9" type="0" >
+					</cell>
+					<cell id="7,1" type="0" colspan="7" >
+					</cell>
+					<cell id="7,8" type="0" >
+					</cell>
+					<cell id="7,9" type="0" >
+					</cell>
+					<cell id="8,1" type="1" colspan="7" >
+						<property name="value"><![CDATA[<chart><mark value=''/><param name="webtarget_2" value="_blank" /><param name="seriescount" value="3" /><param name="legendon" value="true" /><param name="3ddepth" value="18" /><param name="titlefont" value="宋体,plain,14" /><param name="bartype" value="side" /><param name="valuelineson" value="true" /><param name="webtarget_1" value="_blank" /><param name="webtarget_0" value="_blank" /><param name="rangedecimalcount" value="auto" /><param name="yvalues_0" value=" " /><param name="valuelabelfont" value="宋体,plain,11" /><param name="yvalues_1" value=" " /><param name="yvalues_2" value=" " /><param name="percentlabelstyle" value="inside" /><param name="datalimit" value="8" /><param name="sampleaxislabelfont" value="宋体,plain,11" /><param name="rangelabelfont" value="宋体,plain,11" /><param name="barlabels" value="=A3{}" /><param name="startangle" value="90" /><param name="3dmodeon" value="true" /><param name="zvalues_0" value=" " /><param name="endangle" value="270" /><param name="zvalues_2" value=" " /><param name="zvalues_1" value=" " /><param name="samplelabelfont" value="宋体,plain,11" /><param name="serieslabels" value="已核实,待核实,已注销" /><param name="barlabelfont" value="宋体,plain,11" /><param name="serieslabels_2" value="已注销" /><param name="serieslabels_1" value="待核实" /><param name="legendfont" value="宋体,plain,11" /><param name="serieslabels_0" value="已核实" /><param name="rangelabelson" value="true" /><param name="valuelabelstyle" value="outside" /><param name="barlabelson" value="true" /><param name="rangeaxislabelfont" value="宋体,plain,11" /><param name="autolabelspacingon" value="true" /><param name="samplevalues_0" value="=B3{}" /><param name="baroutlineoff" value="true" /><param name="samplevalues_2" value="=E3{}" /><param name="samplevalues_1" value=" =D3{}" /><param name="background" value="255,255,255" /><param name="chart" value="bar" /></chart>]]></property>
+					</cell>
+					<cell id="8,8" type="0" >
+					</cell>
+					<cell id="8,9" type="0" >
+					</cell>
+					<cell id="9,1" type="0" colspan="7" >
+					</cell>
+					<cell id="9,8" type="0" >
+					</cell>
+					<cell id="9,9" type="0" >
+					</cell>
+				</cells>
+			</grid>
+		</sheet>
+	</body>
+</report>

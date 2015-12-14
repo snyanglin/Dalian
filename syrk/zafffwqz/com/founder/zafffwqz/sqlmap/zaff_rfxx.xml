@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Zaff_rfxx">
+
+<typeAlias alias="rfxx" type="com.founder.zafffwqz.bean.ZaffRfxxb"/>
+<typeAlias alias="rfcyxx" type="com.founder.zafffwqz.bean.ZaffRfcyxxb"/>
+	<!-- 查询人防信息 -->
+	<select id ="queryRfxx" parameterClass="Map" resultClass="rfxx">
+		<![CDATA[
+				SELECT * FROM ( 
+					SELECT ROWNUM R ,M.* FROM (
+						SELECT ID,FFZZXSDM,fffzrid,FFZRRXM,FFZRRCYZJDM,FFZRRZJHM,DZ_FFZRRJZDZXZ,FFZZID,FFZZMC,FFZZLB,
+							DZ_FFZZDZDM,DZ_FFZZDZXZ,xt_lrrbmid	
+									FROM ZAFF_RFXXB
+									WHERE XT_ZXBZ='0'
+					]]>
+				<isNotEmpty prepend="and" property="rfxx.xt_zhxgrbmid">
+					xt_zhxgrbmid = #rfxx.xt_zhxgrbmid#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="rfxx.xt_lrrbmid">
+					xt_lrrbmid = #rfxx.xt_lrrbmid#
+				</isNotEmpty>				
+				<isNotEmpty prepend="and" property="rfxx.ffzzxsdm">
+					ffzzxsdm = #rfxx.ffzzxsdm#
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="rfxx.ffzrrxm">
+					ffzrrxm like '%$rfxx.ffzrrxm$%'
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="rfxx.ffzrrcyzjdm">
+					ffzrrcyzjdm = #rfxx.ffzrrcyzjdm#
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="rfxx.ffzrrzjhm">
+					ffzrrzjhm = #rfxx.ffzrrzjhm#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="rfxx.dz_ffzrrjzdzxz">
+					dz_ffzrrjzdzxz like '%$rfxx.dz_ffzrrjzdzxz$%'
+				</isNotEmpty>			
+				<isNotEmpty prepend="and" property="rfxx.ffzzmc">
+					ffzzmc like '%$rfxx.ffzzmc$%'
+				</isNotEmpty>				
+				<isNotEmpty prepend="and" property="rfxx.ffzzlb">
+					ffzzlb = #rfxx.ffzzlb#
+				</isNotEmpty>				
+				<isNotEmpty prepend="and" property="rfxx.dz_ffzzdzxz">
+					dz_ffzzdzxz like '%$rfxx.dz_ffzzdzxz$%'
+				</isNotEmpty>
+				
+				<![CDATA[ order by $sort$ $order$) m  
+			where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+	<select id="queryCountRfxx" parameterClass="Map" resultClass="Integer">
+		<![CDATA[
+				SELECT COUNT(1) 
+					FROM ZAFF_RFXXB
+					WHERE XT_ZXBZ='0'
+			]]>
+				<isNotEmpty prepend="and" property="rfxx.xt_zhxgrbmid">
+					xt_zhxgrbmid = #rfxx.xt_zhxgrbmid#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="rfxx.xt_lrrbmid">
+					xt_lrrbmid = #rfxx.xt_lrrbmid#
+				</isNotEmpty>				
+				<isNotEmpty prepend="and" property="rfxx.ffzzxsdm">
+					ffzzxsdm = #rfxx.ffzzxsdm#
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="rfxx.ffzrrxm">
+					ffzrrxm like '%$rfxx.ffzrrxm$%'
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="rfxx.ffzrrcyzjdm">
+					ffzrrcyzjdm = #rfxx.ffzrrcyzjdm#
+				</isNotEmpty>	
+				<isNotEmpty prepend="and" property="rfxx.ffzrrzjhm">
+					ffzrrzjhm = #rfxx.ffzrrzjhm#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="rfxx.dz_ffzrrjzdzxz">
+					dz_ffzrrjzdzxz like '%$rfxx.dz_ffzrrjzdzxz$%'
+				</isNotEmpty>			
+				<isNotEmpty prepend="and" property="rfxx.ffzzmc">
+					ffzzmc like '%$rfxx.ffzzmc$%'
+				</isNotEmpty>				
+				<isNotEmpty prepend="and" property="rfxx.ffzzlb">
+					ffzzlb = #rfxx.ffzzlb#
+				</isNotEmpty>				
+				<isNotEmpty prepend="and" property="rfxx.dz_ffzzdzxz">
+					dz_ffzzdzxz like '%$rfxx.dz_ffzzdzxz$%'
+				</isNotEmpty>			
+	</select>
+	<!--  新增人防信息-->
+	<insert id="save" parameterClass="rfxx">
+		<![CDATA[ insert Into ZAFF_RFXXB ( 
+				ID,FFZZXSDM,fffzrid,FFZRRCYZJDM,FFZRRZJHM,FFZRRXM
+					,FFZRRLXDH,FFZRRCZHM,DZ_FFZRRJZDZDM,DZ_FFZRRJZDZSSXDM,DZ_FFZRRJZDZXZ,DZ_FFZRRJZDZMLPDM,DZ_FFZRRJZDZMLPXZ
+					,FFFZRSSDWID,fffzrssdwmc
+					,DZ_FFZRRSSDWDZDM,DZ_FFZRRSSDWDZSSXDM,DZ_FFZRRSSDWDZXZ,DZ_FFZRRSSDWDZMLPDM,DZ_FFZRRSSDWDZMLPXZ,FFZZID
+					,FFZZMC,FFZZLB
+					,DZ_FFZZDZDM,DZ_FFZZDZSSXDM,DZ_FFZZDZXZ,DZ_FFZZDZMLPDM,DZ_FFZZDZMLPXZ
+					,FFZZLXDH,FFZZCZHM,SFDSXLDM,FFFSDM
+					,FFBW,XDSB,XLLXDM,XLLX,SFZACBDM,ZJRQ,ZRFW,ZBPZQK,DYLBDM,LSGXDM,JFLY,ZYQK,BZ,SYDWID,SQJWSID,
+				 ]]>
+				<include refid="insertXtzd"/><![CDATA[ ) ]]>
+				<![CDATA[
+			VALUES
+			(   
+				#id#,#ffzzxsdm#,#fffzrid#,#ffzrrcyzjdm#,#ffzrrzjhm#,#ffzrrxm#,#ffzrrlxdh#,#ffzrrczhm#,#dz_ffzrrjzdzdm#,#dz_ffzrrjzdzssxdm#,#dz_ffzrrjzdzxz#,
+				#dz_ffzrrjzdzmlpdm#,#dz_ffzrrjzdzmlpxz#,
+				#fffzrssdwid#,#fffzrssdwmc#,
+				#dz_ffzrrssdwdzdm#,#dz_ffzrrssdwdzssxdm#,#dz_ffzrrssdwdzxz#,#dz_ffzrrssdwdzmlpdm#,
+				#dz_ffzrrssdwdzmlpxz#,#ffzzid#,#ffzzmc#,#ffzzlb#,
+				
+				#dz_ffzzdzdm#,#dz_ffzzdzssxdm#,#dz_ffzzdzxz#,#dz_ffzzdzmlpdm#,#dz_ffzzdzmlpxz#,
+				#ffzzlxdh#,#ffzzczhm#,#sfdsxldm#,#fffsdm#,#ffbw#,#xdsb#,#xllxdm#,#xllx#,#sfzacbdm#,#zjrq#,#zrfw#,#zbpzqk#,#dylbdm#,#lsgxdm#,#jfly#,#zyqk#,#bz#,
+				#sydwid#,#sqjwsid#,
+			 ]]>
+			 <include refid="insertXtzdVal"/><![CDATA[ )]]>
+		
+	</insert>
+	<!-- 查询 -->
+	<select id="queryRfxxById" parameterClass="rfxx" resultClass="rfxx">
+		<![CDATA[ select * from ZAFF_RFXXB where id = #id# ]]>
+	</select>
+	<!-- 修改 -->
+	<update id="update" parameterClass="rfxx">
+		 <![CDATA[ update ZAFF_RFXXB ]]>	
+		<dynamic prepend="set">
+		<isNotEmpty  prepend="," property="id" > id=#id#</isNotEmpty>
+		<isNotEmpty prepend="," property="ffzzxsdm" > <![CDATA[ffzzxsdm=#ffzzxsdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="fffzrid" > <![CDATA[fffzrid=#fffzrid# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="ffzrrcyzjdm" > <![CDATA[ffzrrcyzjdm=#ffzrrcyzjdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="ffzrrzjhm" > <![CDATA[ffzrrzjhm=#ffzrrzjhm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="ffzrrxm" > <![CDATA[ffzrrxm=#ffzrrxm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="ffzrrlxdh" > <![CDATA[ffzrrlxdh=#ffzrrlxdh# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="ffzrrczhm" > <![CDATA[ffzrrczhm=#ffzrrczhm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_ffzrrjzdzdm" > <![CDATA[dz_ffzrrjzdzdm=#dz_ffzrrjzdzdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_ffzrrjzdzssxdm" > <![CDATA[dz_ffzrrjzdzssxdm=#dz_ffzrrjzdzssxdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_ffzrrjzdzxz" > <![CDATA[dz_ffzrrjzdzxz=#dz_ffzrrjzdzxz# ]]></isNotEmpty>		
+		<isNotEmpty prepend="," property="dz_ffzrrjzdzmlpdm" > <![CDATA[dz_ffzrrjzdzmlpdm=#dz_ffzrrjzdzmlpdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_ffzrrjzdzmlpxz" > <![CDATA[dz_ffzrrjzdzmlpxz=#dz_ffzrrjzdzmlpxz# ]]></isNotEmpty>
+		
+		<isNotEmpty prepend="," property="fffzrssdwid" > <![CDATA[fffzrssdwid=#fffzrssdwid# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="fffzrssdwmc" > <![CDATA[fffzrssdwmc=#fffzrssdwmc# ]]></isNotEmpty>
+		
+		<isNotEmpty prepend="," property="dz_ffzrrssdwdzdm" > <![CDATA[dz_ffzrrssdwdzdm=#dz_ffzrrssdwdzdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_ffzrrssdwdzssxdm" > <![CDATA[dz_ffzrrssdwdzssxdm=#dz_ffzrrssdwdzssxdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_ffzrrssdwdzxz" > <![CDATA[dz_ffzrrssdwdzxz=#dz_ffzrrssdwdzxz# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_ffzrrssdwdzmlpdm" > <![CDATA[dz_ffzrrssdwdzmlpdm=#dz_ffzrrssdwdzmlpdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_ffzrrssdwdzmlpxz" > <![CDATA[dz_ffzrrssdwdzmlpxz=#dz_ffzrrssdwdzmlpxz# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="ffzzid" > <![CDATA[ffzzid=#ffzzid# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="ffzzmc" > <![CDATA[ffzzmc=#ffzzmc# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="ffzzlb" > <![CDATA[ffzzlb=#ffzzlb# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="fffsdm" > <![CDATA[fffsdm=#fffsdm# ]]></isNotEmpty>
+		
+		<isNotEmpty prepend="," property="dz_ffzzdzdm" > <![CDATA[dz_ffzzdzdm=#dz_ffzzdzdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_ffzzdzssxdm" > <![CDATA[dz_ffzzdzssxdm=#dz_ffzzdzssxdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_ffzzdzxz" > <![CDATA[dz_ffzzdzxz=#dz_ffzzdzxz# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_ffzzdzmlpdm" > <![CDATA[dz_ffzzdzmlpdm=#dz_ffzzdzmlpdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_ffzzdzmlpxz" > <![CDATA[dz_ffzzdzmlpxz=#dz_ffzzdzmlpxz# ]]></isNotEmpty>
+		
+		<isNotEmpty prepend="," property="ffzzlxdh" > <![CDATA[ffzzlxdh=#ffzzlxdh# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="ffzzczhm" > <![CDATA[ffzzczhm=#ffzzczhm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="sfdsxldm" > <![CDATA[sfdsxldm=#sfdsxldm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="ffbw" > <![CDATA[ffbw=#ffbw# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xdsb" > <![CDATA[xdsb=#xdsb# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xllxdm" > <![CDATA[xllxdm=#xllxdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xllx" > <![CDATA[xllx=#xllx# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="sfzacbdm" > <![CDATA[sfzacbdm=#sfzacbdm# ]]></isNotEmpty>		
+		<isNotEmpty prepend="," property="zjrq" > <![CDATA[zjrq=#zjrq# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zrfw" > <![CDATA[zrfw=#zrfw# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zbpzqk" > <![CDATA[zbpzqk=#zbpzqk# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dylbdm" > <![CDATA[dylbdm=#dylbdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="lsgxdm" > <![CDATA[lsgxdm=#lsgxdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jfly" > <![CDATA[jfly=#jfly# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zyqk" > <![CDATA[zyqk=#zyqk# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="bz" > <![CDATA[bz=#bz# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="sydwid" > <![CDATA[sydwid=#sydwid# ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="sqjwsid" > <![CDATA[sqjwsid=#sqjwsid# ]]></isNotEmpty>
+		</dynamic>
+		,
+		<include refid="updateXtzd"/>
+		<![CDATA[ where id = #id#]]>	
+	</update>
+	<!-- 注销 -->
+	<update id="delete" parameterClass="rfxx" >
+		<![CDATA[ update ZAFF_RFXXB set ]]>	<include refid="deleteXtzd"/>
+		<![CDATA[ where id = #id#]]>
+	</update>
+	
+	<!-- 新增人防成员 -->
+	<insert id="saveRfcyxx" parameterClass="rfcyxx">
+			<![CDATA[ insert Into ZAFF_RFCYXXZB (ID,RYID,cyzjdm,zjhm,xm,CSRQ,XBDM,
+			DZ_JZDZDM,DZ_JZDZSSXDM,DZ_JZDZXZ,DZ_JZDZMLPDM,DZ_JZDZMLPXZ,BZ,rfid,]]>
+			<include refid="insertXtzd"/><![CDATA[ ) ]]>
+			<![CDATA[ values( 
+				#id#,#ryid#,#cyzjdm#,#zjhm#,#xm#,#csrq#,#xbdm#,
+				#dz_jzdzdm#,#dz_jzdzssxdm#,#dz_jzdzxz#,#dz_jzdzmlpdm#,#dz_jzdzmlpxz#,#bz#,#rfid#,
+			]]>
+			<include refid="insertXtzdVal"/><![CDATA[ )]]>
+	</insert>
+	<!-- 更新人防成员信息 -->
+	<update id="updateRfcyxx" parameterClass="rfcyxx" >
+		<![CDATA[ update ZAFF_RFCYXXZB set ]]>	
+			<dynamic prepend="set">
+				<isNotEmpty  prepend="," property="id" > id=#id#</isNotEmpty>
+				<isNotEmpty prepend="," property="ryid" > <![CDATA[ryid=#ryid# ]]></isNotEmpty>
+				
+				<isNotEmpty prepend="," property="cyzjdm" > <![CDATA[cyzjdm=#cyzjdm# ]]></isNotEmpty>
+				<isNotEmpty prepend="," property="zjhm" > <![CDATA[zjhm=#zjhm# ]]></isNotEmpty>
+				<isNotEmpty prepend="," property="xm" > <![CDATA[xm=#xm# ]]></isNotEmpty>
+				
+				<isNotEmpty prepend="," property="csrq" > <![CDATA[csrq=#csrq# ]]></isNotEmpty>
+				<isNotEmpty prepend="," property="xbdm" > <![CDATA[xbdm=#xbdm# ]]></isNotEmpty>
+				<isNotEmpty prepend="," property="dz_jzdzdm" > <![CDATA[dz_jzdzdm=#dz_jzdzdm# ]]></isNotEmpty>
+				<isNotEmpty prepend="," property="dz_jzdzssxdm" > <![CDATA[dz_jzdzssxdm=#dz_jzdzssxdm# ]]></isNotEmpty>
+				<isNotEmpty prepend="," property="dz_jzdzxz" > <![CDATA[dz_jzdzxz=#dz_jzdzxz# ]]></isNotEmpty>
+				<isNotEmpty prepend="," property="dz_jzdzmlpdm" > <![CDATA[dz_jzdzmlpdm=#dz_jzdzmlpdm# ]]></isNotEmpty>
+				<isNotEmpty prepend="," property="dz_jzdzmlpxz" > <![CDATA[dz_jzdzmlpxz=#dz_jzdzmlpxz# ]]></isNotEmpty>
+				<isNotEmpty prepend="," property="bz" > <![CDATA[bz=#bz# ]]></isNotEmpty>
+				<isNotEmpty prepend="," property="rfid" > <![CDATA[rfid=#rfid# ]]></isNotEmpty>
+			</dynamic>
+			,
+		<include refid="updateXtzd"/>
+		<![CDATA[ where id = #id#]]>
+	</update>
+	<!-- 注销 -->
+	<update id="deleteRfcyxx" parameterClass="rfcyxx" >
+		<![CDATA[ update ZAFF_RFCYXXZB set ]]>	<include refid="deleteXtzd"/>
+		<![CDATA[ where id = #id#]]>
+	</update>
+		<!-- 查询 -->
+	<select id="queryRfcyxxById" parameterClass="rfcyxx" resultClass="rfcyxx">
+		<![CDATA[ select * from ZAFF_RFCYXXZB where id = #id# ]]>
+	</select>
+	
+	<!-- 成员列表 -->
+	<select id="queryRfcyxx" parameterClass="Map" resultClass="rfcyxx">
+			<![CDATA[
+				SELECT * FROM ( 
+					SELECT ROWNUM R ,M.* FROM (
+						SELECT ID,RYID,CYZJDM,ZJHM,XM,CSRQ,XBDM,DZ_JZDZDM,DZ_JZDZSSXDM,DZ_JZDZXZ,DZ_JZDZMLPDM,DZ_JZDZMLPXZ,BZ
+									FROM ZAFF_RFCYXXZB
+									WHERE XT_ZXBZ='0'
+					]]>
+				<isNotEmpty prepend="and" property="rfcyxx.rfid"> rfid = #rfcyxx.rfid#</isNotEmpty>
+		<![CDATA[ order by $sort$ $order$) m  
+			where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+	<select id="queryCountRfcyxx" parameterClass="Map" resultClass="Integer">
+				<![CDATA[
+						SELECT count(1)
+									FROM ZAFF_RFCYXXZB
+									WHERE XT_ZXBZ='0'
+					]]>
+				<isNotEmpty prepend="and" property="rfcyxx.rfid"> rfid = #rfcyxx.rfid#</isNotEmpty>
+	</select>
+	
+	<select id="rfxxb_query" parameterClass="Map" resultClass="rfxx">
+		 <![CDATA[ select * from ( select rownum r ,m.* from (
+				SELECT * FROM ZAFF_RFXXB WHERE sydwid=#dwid# AND XT_ZXBZ='0' ORDER BY XT_CJSJ desc ]]>
+				<![CDATA[ ) m  where rownum <= #maxNum# ) where r > 0 ]]>
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Xscjb">
+
+	<typeAlias alias="xscjb" type="com.founder.qbld.bean.Xscjb" />
+	
+	<!-- 线索列表信息 -->
+	<select id="queryXsList" parameterClass="Map" resultClass="xscjb">
+      select * from ( select rownum R ,m.* from (
+	       select * from qbld_xs_cjb
+		   where 1=1
+			  <isNotEmpty prepend="and" property="xscjb.bt">
+				   bt like '%$xscjb.bt$%' 
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="xscjb.cjdwdm">
+				   cjdwdm like '%$xscjb.cjdwdm$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="xscjb.jjcd">
+				   jjcd in($xscjb.jjcd$)
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="xscjb.xsly">
+				  xsly = #xscjb.xsly#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="xscjb.bssjB">
+				   <![CDATA[ bssj >= #xscjb.bssjB#  ]]> 
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="xscjb.bssjE">
+				    <![CDATA[ bssj <= #xscjb.bssjE# ]]> 
+			  </isNotEmpty>
+			   <![CDATA[ 
+			  	order by $sort$ $order$
+			     ) m
+			  ]]>
+      <![CDATA[where rownum <= #end# ) where R > #begin#]]> 
+    </select>
+    
+    <!-- 线索列表总数 -->
+    <select id="queryXsCount" parameterClass="Map" resultClass="Integer">
+         select count(1)
+			from qbld_xs_cjb
+		  where 1=1
+			  <isNotEmpty prepend="and" property="xscjb.bt">
+				   bt like '%$xscjb.bt$%' 
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="xscjb.cjdwdm">
+				  cjdwdm like '%$xscjb.cjdwdm$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="xscjb.jjcd">
+				   jjcd in($xscjb.jjcd$)
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="xscjb.xsly">
+				  xsly = #xscjb.xsly#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="xscjb.bssjB">
+				   <![CDATA[ bssj >= #xscjb.bssjB#  ]]> 
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="xscjb.bssjE">
+				    <![CDATA[ bssj <= #xscjb.bssjE# ]]> 
+			  </isNotEmpty>
+    </select>
+    
+	<!-- 线索详情-->
+    <select id="queryXs" parameterClass="Map" resultClass="xscjb">
+         select *
+			from qbld_xs_cjb
+		  where 1=1
+		      <isNotEmpty prepend="and" property="xscjb.jlid">
+				   jlid = #xscjb.jlid#
+			  </isNotEmpty>
+    </select>
+    
+    <!-- 插入线索表 -->
+    <insert id="saveXscjb" parameterClass="xscjb">
+       insert into qbld_xs_cjb
+       (
+			jlid
+        <isNotEmpty prepend="," property="bssj">
+			bssj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="jjcd">
+			jjcd
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sfyfs">
+			sfyfs
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sfxb">
+			sfxb
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xsly">
+			xsly
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bt">
+			bt
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gjc">
+			gjc
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="cjdwdm">
+			cjdwdm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="cjdwmc">
+			cjdwmc
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="cjr">
+			cjr
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tbdwdm">
+			tbdwdm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tbdwmc">
+			tbdwmc
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tbr">
+			tbr
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="shr">
+			shr
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sszt">
+			sszt
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sslbdl">
+			sslbdl
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sslb">
+			sslb
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sjmgsd">
+			sjmgsd
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sjzdhd">
+			sjzdhd
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sjrs">
+			sjrs
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sjss">
+			sjss
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="ssyy">
+			ssyy
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bxxs">
+			bxxs
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="assj">
+			assj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="asddlb">
+			asddlb
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="ssggqk">
+			ssggqk
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xbyjlid">
+			xbyjlid
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sfsc">
+			sfsc
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="scyy">
+			scyy
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="scsj">
+			scsj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="b_assj_ks">
+			b_assj_ks
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="b_assj_js">
+			b_assj_js
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="b_ssztdm">
+			b_ssztdm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xxzw">
+			xxzw
+		</isNotEmpty>
+       )VALUES(
+			#jlid#
+        <isNotEmpty prepend="," property="bssj">
+			#bssj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="jjcd">
+			#jjcd#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sfyfs">
+			#sfyfs#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sfxb">
+			#sfxb#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xsly">
+			#xsly#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bt">
+			#bt#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="gjc">
+			#gjc#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="cjdwdm">
+			#cjdwdm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="cjdwmc">
+			#cjdwmc#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="cjr">
+			#cjr#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tbdwdm">
+			#tbdwdm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tbdwmc">
+			#tbdwmc#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="tbr">
+			#tbr#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="shr">
+			#shr#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sszt">
+			#sszt#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sslbdl">
+			#sslbdl#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sslb">
+			#sslb#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sjmgsd">
+			#sjmgsd#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sjzdhd">
+			#sjzdhd#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sjrs">
+			#sjrs#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sjss">
+			#sjss#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="ssyy">
+			#ssyy#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bxxs">
+			#bxxs#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="assj">
+			#assj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="asddlb">
+			#asddlb#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="ssggqk">
+			#ssggqk#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xbyjlid">
+			#xbyjlid#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sfsc">
+			#sfsc#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="scyy">
+			#scyy#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="scsj">
+			#scsj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="b_assj_ks">
+			#b_assj_ks#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="b_assj_js">
+			#b_assj_js#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="b_ssztdm">
+			#b_ssztdm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="xxzw">
+			#xxzw#
+		</isNotEmpty>
+       )
+    </insert>
+    
+</sqlMap>

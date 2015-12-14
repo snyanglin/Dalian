@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="activitytrace">
+	
+	<typeAlias alias="rkRyhdgjb" type="com.founder.service.activitytrace.bean.RkRyhdgjb" />
+	
+	<!-- 查询人员轨迹（返回最新10条数据） -->
+	<select id="queryRkRyhdgjb" parameterClass="String" resultClass="rkRyhdgjb">
+		<![CDATA[ select * from (select * from RK_RYHDGJB t where t.XT_ZXBZ = '0' 
+					and t.ZJHM = #zjhm# order by GJKSSJ desc) where rownum <= 10 ]]> 
+	</select>
+	
+	<!-- 查询人员轨迹（返回所有数据） -->
+	<select id="queryRkRyhdgjbAll" parameterClass="String" resultClass="rkRyhdgjb">
+		<![CDATA[ select * from (select * from RK_RYHDGJB t where t.XT_ZXBZ = '0' 
+					and t.ZJHM = #zjhm# order by GJKSSJ desc) ]]> 
+	</select>
+
+</sqlMap>

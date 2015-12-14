@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Tjxxzb">
+
+<typeAlias alias="tjxxzb" type="com.founder.zafffwqz.bean.Tjxxzb"/>
+	
+	<!-- 查询单条 -->
+	<select id="queryTjxxzb" parameterClass="tjxxzb" resultClass="Tjxxzb">
+		<![CDATA[select * from FWQZ_MD_TJXXZB t where id= #id# ]]>
+	</select>
+	<insert id="insertTjxxzb" parameterClass="tjxxzb">
+		 INSERT INTO FWQZ_MD_TJXXZB
+		 	(id		
+		 	<isNotEmpty prepend="," property="mdjfxxid">
+				<![CDATA[ mdjfxxid]]>	
+			</isNotEmpty>
+		 	<isNotEmpty prepend="," property="tjdwmc">
+				<![CDATA[ tjdwmc]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tjsj">
+				<![CDATA[ tjsj]]>	
+			</isNotEmpty>
+		 	<isNotEmpty prepend="," property="tjjgdm">
+				<![CDATA[ tjjgdm]]>	
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="tjclxx">
+				<![CDATA[ tjclxx]]>	
+			</isNotEmpty>	
+	    	<isNotEmpty prepend="," property="tjr">
+				<![CDATA[ tjr]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="wtjgzjh">
+				<![CDATA[ wtjgzjh]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tjdd">
+				<![CDATA[ tjdd]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bz">
+				<![CDATA[ bz]]>	
+			</isNotEmpty>
+			,
+			<include refid="insertXtzd"/>
+			)
+	    	 values 
+	    	 (
+	    	<isNotEmpty  property="id">
+				<![CDATA[ #id#]]>	
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="mdjfxxid">
+				<![CDATA[ #mdjfxxid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tjdwmc">
+				<![CDATA[ #tjdwmc#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tjsj">
+				<![CDATA[ #tjsj#]]>	
+			</isNotEmpty>
+		 	<isNotEmpty prepend="," property="tjjgdm">
+				<![CDATA[ #tjjgdm#]]>	
+			</isNotEmpty>	
+	    	<isNotEmpty prepend="," property="tjclxx">
+				<![CDATA[ #tjclxx#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tjr">
+				<![CDATA[ #tjr#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="wtjgzjh">
+				<![CDATA[ #wtjgzjh#]]>	
+			</isNotEmpty>
+				<isNotEmpty prepend="," property="tjdd">
+				<![CDATA[ #tjdd#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bz">
+				<![CDATA[ #bz#]]>	
+			</isNotEmpty>
+			,
+			<include refid="insertXtzdVal"/>									
+	    	  )	    	
+	</insert>
+	<update  id="updateTjxxzb" parameterClass="tjxxzb">
+	 <![CDATA[ update FWQZ_MD_TJXXZB]]>	
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="mdjfxxid"><![CDATA[ mdjfxxid=#mdjfxxid#]]></isNotNull>	
+			<isNotNull prepend="," property="tjdwmc"><![CDATA[ tjdwmc=#tjdwmc#]]></isNotNull>
+			<isNotNull prepend="," property="tjsj"><![CDATA[ tjsj=#tjsj#]]></isNotNull>
+			<isNotNull prepend="," property="tjjgdm"><![CDATA[ tjjgdm=#tjjgdm#]]></isNotNull>	
+			<isNotNull prepend="," property="tjclxx"><![CDATA[ tjclxx=#tjclxx#]]></isNotNull>	
+			<isNotNull prepend="," property="tjr"><![CDATA[ tjr=#tjr#]]></isNotNull>	
+			<isNotNull prepend="," property="wtjgzjh"><![CDATA[ wtjgzjh=#wtjgzjh#]]></isNotNull>	
+			<isNotNull prepend="," property="tjdd"><![CDATA[ tjdd=#tjdd#]]></isNotNull>	
+	    	<isNotNull prepend="," property="bz"><![CDATA[ bz=#bz#]]></isNotNull>								
+			,<include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>	
+	</update>
+	<!-- 查询列表 -->
+	<select id="queryTjxxzbCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) from FWQZ_MD_TJXXZB  where XT_ZXBZ = '0' and mdjfxxid=#mdjfxxid# ]]>
+	</select>
+	<select id="queryList" parameterClass="Map" resultClass="tjxxzb">
+		<![CDATA[ select * from ( 
+						select rownum r, t.* from ( 
+							select * from FWQZ_MD_TJXXZB where XT_ZXBZ = '0' and mdjfxxid=#mdjfxxid#]]>
+		<![CDATA[ order by $sort$ $order$ ) t
+			where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+	
+	<update id="delete" parameterClass="tjxxzb">
+		<![CDATA[ update FWQZ_MD_TJXXZB set ]]> <include refid="deleteXtzd" /> 
+		<![CDATA[where ID = #id# ]]>	
+	</update>
+</sqlMap>

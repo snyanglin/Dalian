@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<report version="5.0">
+	<head>
+		<property name="type">0</property>
+		<name><![CDATA[SYCZFW_zzxxx]]></name>
+		<dataSets>
+			<dataSet name="dwmc" type="DB_SQL" >
+				<property name="dataSource">DB</property>
+				<property name="desc"><![CDATA[]]></property>
+				<property name="query"><![CDATA[="select orgname from org_organization o where o.orgcode='"+case(@ORG_FJ='0' and @ORG_PCS='0',"210200000000",@ORG_FJ!='0' and @ORG_PCS='0',@ORG_FJ,@ORG_FJ!='0' and @ORG_PCS!='0',@ORG_PCS)+"'"]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+			<dataSet name="zzxxx" type="DB_SQL" >
+				<property name="dataSource">DB</property>
+				<property name="desc"><![CDATA[]]></property>
+				<property name="query"><![CDATA[="select (select fwmc from fw_fwjbxxb o where o.id=t.fwid) as xm,t.dz_fwdzxz as sfzhm,
+        t.xt_zhxgrxm as zhxgrxm,
+        t.xt_zhxgrbm as zhxgrbm,
+        (select orgname from jwzh.org_organization o where o.orgcode = t.ssfxjid) as fxjbm,
+        (select orgname from jwzh.org_organization o where o.orgcode = t.sspcsid) as pcsbm,
+        t.xt_cjsj
+ from fw_czfwzb t where 1=1 and substr(xt_zhxgsj,1,10) <= '"+tostr(@ZQ_JS,"yyyy-MM-dd")+
+ "' and substr(xt_zhxgsj,1,10) >= '"+tostr(@ZQ_KS,"yyyy-MM-dd")+"'   "+case(@ORG_FJ!='0' and @ORG_PCS='0' and @ORG_ZRQ='0'," and t.ssfxjid='"+@ORG_FJ+
+ "'",@ORG_FJ!='0' and @ORG_PCS!='0' and @ORG_ZRQ='0'," and t.sspcsid='"+@ORG_PCS+"'",@ORG_FJ!='0' and @ORG_PCS!='0' and @ORG_ZRQ!='0'," and t.sszrqid='"+@ORG_ZRQ+"'")+"
+  and t.xt_zxbz='1' "]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+		</dataSets>
+		<parameters>
+			<parameter name="ORG_FJ" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">分局</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ORG_PCS" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">派出所</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ORG_ZRQ" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">责任区</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ZQ_KS" type="2">
+				<property name="dateFormat">yyyy-MM-dd</property>
+				<property name="default"></property>
+				<property name="desc">开始时间</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ZQ_JS" type="2">
+				<property name="dateFormat">yyyy-MM-dd</property>
+				<property name="default"></property>
+				<property name="desc">结束时间</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="dw" type="6">
+				<property name="dateFormat"></property>
+				<property name="default"></property>
+				<property name="desc">单位</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="zzjglx" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">11</property>
+				<property name="desc">组织机构类型</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+		</parameters>
+		<variables/>
+	</head>
+	<body>
+		<sheet id="sheet1">
+			<page>
+			</page>
+			<grid row="4" col="8">
+				<properties>
+				</properties>
+				<rows>
+					<row id="1">
+						<property name="type">1</property>
+						<property name="height">54</property>
+					</row>
+					<row id="2">
+						<property name="type">2</property>
+					</row>
+					<row id="3">
+					</row>
+					<row id="4">
+						<property name="type">4</property>
+					</row>
+				</rows>
+				<columns>
+					<column id="1">
+						<property name="width">50</property>
+					</column>
+					<column id="2">
+						<property name="width">250</property>
+					</column>
+					<column id="3">
+						<property name="width">350</property>
+					</column>
+					<column id="4">
+					</column>
+					<column id="5">
+						<property name="width">90</property>
+					</column>
+					<column id="6">
+						<property name="width">90</property>
+					</column>
+					<column id="7">
+						<property name="width">90</property>
+					</column>
+					<column id="8">
+						<property name="width">140</property>
+					</column>
+				</columns>
+				<cells>
+					<cell id="1,1" type="0" colspan="7" >
+						<property name="value"><![CDATA[=dwmc.select(ORGNAME)+"总注销详情"]]></property>
+						<property name="font-size">16</property>
+						<border type="1">1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1;1:0,0,0:1</border>
+					</cell>
+					<cell id="1,8" type="0" >
+						<border type="1">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,1" type="0" >
+						<property name="value"><![CDATA[序号]]></property>
+						<property name="font-size">12</property>
+						<property name="bold">0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,2" type="0" >
+						<property name="value"><![CDATA[房屋名称]]></property>
+						<property name="font-size">12</property>
+						<property name="bold">0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,3" type="0" >
+						<property name="value"><![CDATA[详细地址]]></property>
+						<property name="font-size">12</property>
+						<property name="bold">0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,4" type="0" >
+						<property name="value"><![CDATA[采集人姓名]]></property>
+						<property name="font-size">12</property>
+						<property name="bold">0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,5" type="0" >
+						<property name="value"><![CDATA[责任区]]></property>
+						<property name="font-size">12</property>
+						<property name="bold">0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,6" type="0" >
+						<property name="value"><![CDATA[派出所]]></property>
+						<property name="font-size">12</property>
+						<property name="bold">0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,7" type="0" >
+						<property name="value"><![CDATA[分局]]></property>
+						<property name="font-size">12</property>
+						<property name="bold">0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="2,8" type="0" >
+						<property name="value"><![CDATA[修改时间]]></property>
+						<property name="font-size">12</property>
+						<property name="bold">0</property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,1" type="0" >
+						<property name="value"><![CDATA[=(row()-2)]]></property>
+						<property name="ext-left"><![CDATA[B3]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="2">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,2" type="0" >
+						<property name="value"><![CDATA[=zzxxx.select(XM)]]></property>
+						<property name="ext-direction">3</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,3" type="0" >
+						<property name="value"><![CDATA[=zzxxx.select(SFZHM)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,4" type="0" >
+						<property name="value"><![CDATA[=zzxxx.select(ZHXGRXM)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,5" type="0" >
+						<property name="value"><![CDATA[=zzxxx.select(ZHXGRBM)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,6" type="0" >
+						<property name="value"><![CDATA[=zzxxx.select(PCSBM)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,7" type="0" >
+						<property name="value"><![CDATA[=zzxxx.select(FXJBM)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="3,8" type="0" >
+						<property name="value"><![CDATA[=zzxxx.select(XT_CJSJ)]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:0,0,0:1</border>
+						<border type="3">1:0,0,0:1</border>
+					</cell>
+					<cell id="4,1" type="0" >
+					</cell>
+					<cell id="4,2" type="0" >
+					</cell>
+					<cell id="4,3" type="0" >
+					</cell>
+					<cell id="4,4" type="0" >
+					</cell>
+					<cell id="4,5" type="0" >
+					</cell>
+					<cell id="4,6" type="0" >
+					</cell>
+					<cell id="4,7" type="0" >
+						<property name="value"><![CDATA[制表日期：]]></property>
+						<property name="align">2</property>
+					</cell>
+					<cell id="4,8" type="0" >
+						<property name="value"><![CDATA[=tostr(now(),'yyyy-MM-dd')]]></property>
+						<property name="align">0</property>
+					</cell>
+				</cells>
+			</grid>
+		</sheet>
+	</body>
+</report>

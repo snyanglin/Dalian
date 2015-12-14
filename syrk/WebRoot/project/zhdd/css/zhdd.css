@@ -1,0 +1,126 @@
+@charset "utf-8";
+/* CSS Document */
+
+.bodyer{ width:100%; height:100%; position:relative; overflow:hidden;} 
+.body_map{width:100%; height:100%; position:relative; padding:0;}
+.nav_shadow{ height:4px; width:100%; background:url(../images/bg_shadow_top.png) repeat-x; position:absolute; top:0; left:0; z-index:1999;}
+
+/*maptools-地图工具*/
+.toolsmap{ position:absolute; left:150px; top:20px; z-index:990; width:225px; height:40px;text-align:center; background:url(../images/btn_toolsmap.png) no-repeat;}
+.toolsmap a{ display:block; width:45px; height:40px; float:left;}
+.toolsmap .vector:hover,.toolsmap .vectorbg{ background:url(../images/btn_toolsmap.png) 0 -40px no-repeat;}
+.toolsmap .virtual:hover,.toolsmap .virtualbg{ background:url(../images/btn_toolsmap.png) -45px -40px no-repeat;}
+.toolsmap .super:hover,.toolsmap .superbg{ background:url(../images/btn_toolsmap.png) -90px -40px no-repeat;}
+/* .toolsmap .roadnet:hover,.toolsmap .roadnetbg{ background:url(../images/btn_toolsmap.png) -135px -40px no-repeat;} */
+/* .toolsmap .toolbox:hover,.toolsmap .toolboxbg{ background:url(../images/btn_toolsmap.png) -180px -40px no-repeat;} */
+.toolsmap .toolbox:hover,.toolsmap .toolboxbg{ background:url(../images/btn_toolsmap.png) -135px -40px no-repeat;}
+
+/* .toolboxbgdiv{position:absolute;display:none; left:225px; top:-3px; z-index:991; width:210px; height:40px; padding:4px 2px 4px 10px;text-align:center; background:url(../images/btn_toolsmapsbg.png) no-repeat;} */
+.toolboxbgdiv{position:absolute;display:none; left:180px; top:-3px; z-index:991; width:210px; height:40px; padding:4px 2px 4px 10px;text-align:center; background:url(../images/btn_toolsmapsbg.png) no-repeat;}
+.toolboxdiv{ position:relative; z-index:992; width:210px; height:40px;text-align:center; background:url(../images/btn_toolsmaps.png) no-repeat;}
+.toolboxdiv a{ display:block; width:42px; height:40px; float:left;}
+.toolboxdiv .move:hover,.toolboxdiv .movebg{ background:url(../images/btn_toolsmaps.png) 0 -40px no-repeat;}
+.toolboxdiv .distance:hover,.toolboxdiv .distancebg{ background:url(../images/btn_toolsmaps.png) -42px -40px no-repeat;}
+.toolboxdiv .area:hover,.toolboxdiv .areabg{ background:url(../images/btn_toolsmaps.png) -84px -40px no-repeat;}
+.toolboxdiv .remove:hover,.toolboxdiv .removebg{ background:url(../images/btn_toolsmaps.png) -126px -40px no-repeat;}
+.toolboxdiv .print:hover,.toolboxdiv .printbg{ background:url(../images/btn_toolsmaps.png) -168px -40px no-repeat;}
+
+/* .body_lf{width:275px; height:100%; position:absolute; top:0; left:-275px; background:#f2f9ff; z-index:998;} *//*width:275px;*/
+.left_shadow{ height:100%; width:6px; background:url(../images/bg_shadow_left.png) repeat-y; position:absolute; top:0; right:-6px; z-index:1000;}
+.bg_search{ width:100%; height:43px; background:url(../images/bg_search.png) repeat-x; overflow:hidden;}
+.input_search{ background:url(../images/input_search.png) no-repeat; width:191px; height:33px; margin:5px; float:left; overflow:hidden;}
+.input_search_on{background-position:0 -33px;}
+.txt_input_search{ width:145px; padding:0 5px; height:33px; line-height:33px; border:none; background:none; float:left; color: #999999;}
+.btn_input_search{ width:30px; height:33px; display:block; float:left;}
+.btn_retrieval{ width:69px; height:28px; margin:8px 0; float:left; background:url(../images/btn_retrieval.png) no-repeat;}
+.btn_retrieval:hover{background-position:0 -28px;}
+.new_alarm{ overflow:hidden; padding:5px; height:30px; overflow:hidden;}
+.new_alarm span{ float:left; line-height:45px; color:#999999;}
+.btn_new{width:106px; height:30px; display:block; float:left; margin:0 0 0 5px; background:url(../images/btn_new.png) no-repeat; float:right;}
+.btn_new:hover{ background:url(../images/btn_new.png) 0 -30px no-repeat;}
+
+.body_lf dl{ margin:0; padding:0; width:100%; height:auto; border-top:solid 1px #ffffff; border-bottom:solid 1px #c9dced; overflow:hidden;}
+.body_lf dl dt{ margin:0; padding:0; height:27px; width:100%; background:#d5e2ed; border-top:#ffffff; overflow:hidden;}
+.body_lf dl dt span{ float:left; width:5px; height:27px;}
+.body_lf dl dt strong{ float:left; height:27px; width:200px; line-height:27px; padding:0 0 0 5px; overflow:hidden;white-space: nowrap;text-overflow: ellipsis;}
+.body_lf dl dt a{ float:right; margin:5px;}
+.btn_collect_no{ display:block; width:17px; height:17px; float:left; background:url(../images/btn_collect.png) no-repeat bottom;}
+.btn_collect{ display:block; width:17px; height:17px; float:left; background:url(../images/btn_collect.png) no-repeat top;}
+.btn_playback{ display:block; width:17px; height:17px; float:left; background:url(../images/btn_playback.png) no-repeat;}
+.btn_playback:hover{background-position: 0 -17px;}
+.collect_on{ background-position: 0 -17px;}
+.body_lf dl dt a.btn_collect_no,.body_lf dl dt a.btn_collect,.body_lf dl dt a.btn_playback{ float:left;}
+.body_lf dl dt{ cursor:pointer;}
+.body_lf dl dd{ margin:0; padding:5px 10px; height:100%; overflow:hidden; cursor:pointer;}
+
+
+.dd_cont{ font:normal 12px/22px Arial,"宋体"; color:#555555; height:44px; overflow:hidden;}
+.txt_time{ color:#999; overflow:hidden;}
+.txt_time span{padding:0 5px;}
+
+.lf_menu{ width:53px; height:auto; position:absolute; right:-53px; bottom:0; z-index:997;}
+.btn_lftshow,btn_lfthide{ width:53px; height:45px; display:block; background:url(../images/btn_lftoggle.png) 0 -49px no-repeat;}
+.btn_lftshow:hover{ background-position:0 -147px;}
+.btn_lfthide{ background-position:0 0;}
+.btn_lfthide:hover{ background-position:0 -98px;}
+
+/*高级检索*/
+.advancedSearch_div{position:absolute;left:278px;top:0;width:382px;background:#f2f9ff;z-index:1999;display:none; line-height:18px; border:solid 1px #b5cbde;}
+.advancedSearch_div label{line-height:36px;}
+.advancedSearch_div dl.advancedSearch_dl,.advancedSearch_div dl.advancedSearch_dl dt,.advancedSearch_div dl.advancedSearch_dl dd{border:none;cursor:default;}
+.advancedSearch_dl .advancedSearch_dt{background:#1c85d1;border:none;}
+.advancedSearch_div dl,.advancedSearch_div dt,.advancedSearch_div dd{position:relative;}
+.advancedSearch_div dl dt strong{ padding:0 10px; color:#ffffff;}
+.advancedSearch_input{border:none; border-bottom:solid 1px #bbb; height:16px; line-height:18px; width:117px;}
+.advancedSearch_input_select{border:none; height:16px; line-height:18px; background:url(../images/tips_slect.png) center right no-repeat; width:117px; border-bottom:solid 1px #bbb;}
+.advancedSearch_btn{ float:right; text-align:center; background:url(../images/bg_tips_btn.png) no-repeat; width:100px; height:24px; line-height:24px; margin:10px 0 10px 10px; display:block; color:#ffffff;}
+.advancedSearch_btn:hover{ background-position:0 -29px;}
+
+/*警情处置 dd*/
+.tips_jqcz_dd{height:150px;}
+.timelinebody{position:relative;height:100%; padding:0 10px; background:url(../images/timelinebg.png) 83px 0 repeat-y;}
+.timeline{position:relative;width:2px;height:100%; min-height:730px; float:left; top:0; left:80px; background:#1d84d2;}
+.timeliall{position:relative;width:175px;height:100%; float:left; top:0; left:77px;}
+.timeyear{width:77px;height:24px;color:#ffffff;position:relative; margin:10px 0 0 -85px;padding:0 0 0 5px; background:url(../images/timeyearbg.png) no-repeat;}
+.timelicont{ width:100%; position:relative; clear:both;width:175px; margin:10px 0 0}
+.timedate{display:block; width:60px;position:absolute; left:-65px; top:5px; line-height:12px; color:#666666;}
+.timeicon{display:block;position:absolute; left:-11px; top:3px; width:16px;height:16px;background:url(../images/timelineicon.png) no-repeat;}
+.timelidiv{display:block; float:left; background:#b5cbde; margin:0 0 0 10px; width:165px;}
+.timesjx{ width:0;height:0;line-height:0;  border-width:12px 9px 11px 5px;  border-style:solid;  border-color:transparent #b5cbde transparent transparent; position:absolute;top:0; left:-4px;}
+.timetitle{display:block; background:#b5cbde; padding:0 10px;}
+.jqsjmsinfo{ background:#e7f3ff;border:solid 1px #d0deea; padding:5px 2px; line-height:18px; width:159px; position:relative;}
+.jqsjmsinfo span{display:blck;float:left; color:#000000}
+.jqsjmsinfo span.spanbt{width:96px;text-align:right;color:#1c84d1}
+.timeinfobg{width:18px;height:17px;background:url(../images/timeinfobg.png) no-repeat; position:absolute;right:-1px;bottom:-1px;}
+
+/*警情回放*/
+.jqhf_title{height:30px;background:#d5e2ed;}
+.jqhf_title .backbtn{padding:0 5px;float:left;line-height:30px; color:#1d84d2;cursor:pointer;}
+.jqhf_title .backspan{ width:0;height:0;line-height:0;  border-width:7px;  border-style:solid;  border-color:transparent #1d84d2 transparent transparent; float:left; margin:7px 0;}
+.jqhf_mc{width:195px; padding:0 10px 0 0; float:right; text-align:left;font:bold 12px/30px Arial,"宋体"; overflow:hidden;white-space: nowrap;text-overflow: ellipsis;}
+.jqhf_btndiv{float:left;margin:0 10px 0 0;cursor:hand;width:70px;}
+.jqhf_btndiv span{float:left;}
+/* .icon_btn_msg{display:block; float:left; width:16px; height:16px; margin:0; padding:0; background:url(../images/xxwd.png) 0 0 no-repeat;cursor:hand} */
+.icon_btn_img,.icon_btn_voice,.icon_btn_video,.icon_btn_file,.icon_btn_msg{display:block; float:left; width:16px; height:16px; margin:0; padding:0; background:url(../images/annex_btn.png) 0 2px no-repeat;cursor:hand;}
+.icon_btn_voice{ background-position:0 -14px;}
+.icon_btn_video{ background-position:0 -34px;}
+.icon_btn_file{ background-position:0 -52px;}
+.icon_btn_msg{ background-position:0 -70px;}
+
+/*统计报表*/
+.tongjidata{height:41%;clear:both;margin:0 0 10px;}
+.tongjidata_div{width:500px;height:100%;min-height:200px;overflow:auto;}
+.datatjdiv{width:475px;white-space:normal;text-indent:24px;}
+
+/*图片播放*/
+ .content{color:#777;font:12px/1.4 "helvetica neue",arial,sans-serif;width:800px;margin:0px auto;}
+ #galleria{height:497px;width:807px;margin-left: -4px;}
+ 
+ /*定位按钮 by pan*/
+.newloate_button{width:40px; height:40px; display:block;background:url(../images/locate.png) no-repeat; position:absolute;  bottom:0; left:50%; z-index:999; cursor:pointer;display:none}
+.newloate_button:hover{background:url(../images/locate.png) 0 -40px no-repeat;}
+
+
+dl.table_tj span{ display:block; float:left; text-align:right; color:#666666}
+dl.table_tj dt a{float:left;}
+dl.table_tj2 dt span{width:70px; text-align:right;margin-top:5px;}

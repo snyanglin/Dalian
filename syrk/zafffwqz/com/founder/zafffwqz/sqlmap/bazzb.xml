@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Bazzb">
+	
+	<typeAlias alias="bazzb" type="com.founder.zafffwqz.bean.Bazzb" />
+	<!-- 查询单条 -->
+	<select id="query" parameterClass="bazzb" resultClass="bazzb">
+		<![CDATA[select * from ZAFF_BAZZB t where id= #id# ]]>
+	</select>
+	<select id="bazzb_query" parameterClass="Map" resultClass="bazzb">
+		<![CDATA[ SELECT * FROM ZAFF_BAZZB WHERE sqjwsid=#jwsid# AND XT_ZXBZ='0' and rownum =1 ORDER BY xt_cjsj DESC  ]]>
+	</select>
+	<insert id="insertBazzb" parameterClass="bazzb">
+		 INSERT INTO ZAFF_BAZZB
+		 	(id	
+	    	<isNotEmpty prepend="," property="sqid"> <![CDATA[ sqid]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="ryid"> <![CDATA[ ryid]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="fzrcyzjdm"> <![CDATA[ fzrcyzjdm]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="fzrzjhm"> <![CDATA[ fzrzjhm]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="fzrxm"> <![CDATA[ fzrxm]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="fzrlxfs"> <![CDATA[ fzrlxfs]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="zzmc"> <![CDATA[ zzmc]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="zzlb"> <![CDATA[ zzlb]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="zzxsdm"> <![CDATA[ zzxsdm]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="zrfw"> <![CDATA[ zrfw]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="zbpbqk"> <![CDATA[ zbpbqk]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="bazzdzdm"> <![CDATA[ bazzdzdm]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="bazzdzssxdm"> <![CDATA[ bazzdzssxdm]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="bazzdzdzxz"> <![CDATA[ bazzdzdzxz]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="dylbdm"> <![CDATA[ dylbdm]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="lsgxdm"> <![CDATA[ lsgxdm]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="jfly"> <![CDATA[ jfly]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="zyqk"> <![CDATA[ zyqk]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="sfzacbdm"> <![CDATA[ sfzacbdm]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="zjrq"> <![CDATA[ zjrq]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="zzlxfs"> <![CDATA[ zzlxfs]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="zzczhm"> <![CDATA[ zzczhm]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="ssdw"> <![CDATA[ ssdw]]> </isNotEmpty>	
+	    	<isNotEmpty prepend="," property="bz"> <![CDATA[ bz]]> </isNotEmpty>	
+	    	<isNotEmpty prepend="," property="bazzdzmlpdm"> <![CDATA[ bazzdzmlpdm]]> </isNotEmpty>	
+	    	<isNotEmpty prepend="," property="bazzdzdzmlpxz"> <![CDATA[ bazzdzdzmlpxz]]> </isNotEmpty>		
+	    	<isNotEmpty prepend="," property="sqjwsid"> <![CDATA[ sqjwsid]]> </isNotEmpty>		
+			,
+			<include refid="insertXtzd"/>
+			)
+	    	 values 
+	    	 (
+	    	<isNotEmpty  property="id"> <![CDATA[ #id#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="sqid"> <![CDATA[ #sqid#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="ryid"> <![CDATA[ #ryid#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="fzrcyzjdm"> <![CDATA[ #fzrcyzjdm#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="fzrzjhm"> <![CDATA[ #fzrzjhm#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="fzrxm"> <![CDATA[ #fzrxm#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="fzrlxfs"> <![CDATA[ #fzrlxfs#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="zzmc"> <![CDATA[ #zzmc#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="zzlb"> <![CDATA[ #zzlb#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="zzxsdm"> <![CDATA[ #zzxsdm#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="zrfw"> <![CDATA[ #zrfw#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="zbpbqk"> <![CDATA[ #zbpbqk#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="bazzdzdm"> <![CDATA[ #bazzdzdm#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="bazzdzssxdm"> <![CDATA[ #bazzdzssxdm#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="bazzdzdzxz"> <![CDATA[ #bazzdzdzxz#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="dylbdm"> <![CDATA[ #dylbdm#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="lsgxdm"> <![CDATA[ #lsgxdm#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="jfly"> <![CDATA[ #jfly#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="zyqk"> <![CDATA[ #zyqk#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="sfzacbdm"> <![CDATA[ #sfzacbdm#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="zjrq"> <![CDATA[ #zjrq#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="zzlxfs"> <![CDATA[ #zzlxfs#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="zzczhm"> <![CDATA[ #zzczhm#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="ssdw"> <![CDATA[ #ssdw#]]> </isNotEmpty>	
+	    	<isNotEmpty prepend="," property="bz"> <![CDATA[ #bz#]]> </isNotEmpty>	
+	    	<isNotEmpty prepend="," property="bazzdzmlpdm"> <![CDATA[ #bazzdzmlpdm#]]> </isNotEmpty>	
+	    	<isNotEmpty prepend="," property="bazzdzdzmlpxz"> <![CDATA[ #bazzdzdzmlpxz#]]> </isNotEmpty>	
+	    	<isNotEmpty prepend="," property="sqjwsid"> <![CDATA[ #sqjwsid#]]> </isNotEmpty>		
+			,
+			<include refid="insertXtzdVal"/>									
+	    	  )	    	
+	</insert>
+	<update  id="updateBazzb" parameterClass="bazzb">
+	 <![CDATA[ update ZAFF_BAZZB]]>	
+		<dynamic prepend="set">
+	    	<isNotEmpty prepend="," property="sqid"> <![CDATA[ sqid=#sqid#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="ryid"> <![CDATA[ ryid=#ryid#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="fzrcyzjdm"> <![CDATA[ fzrcyzjdm=#fzrcyzjdm#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="fzrzjhm"> <![CDATA[ fzrzjhm=#fzrzjhm#]]> </isNotEmpty>
+	    	<isNotEmpty prepend="," property="fzrxm"> <![CDATA[ fzrxm=#fzrxm#]]> </isNotEmpty>
+	    	, <![CDATA[ fzrlxfs=#fzrlxfs#]]> 
+	    	,<![CDATA[ zzmc=#zzmc#]]> 
+	    	, <![CDATA[ zzlb=#zzlb#]]> 
+	    	, <![CDATA[ zzxsdm=#zzxsdm#]]> 
+	    	, <![CDATA[ zrfw=#zrfw#]]> 
+	    	,<![CDATA[ zbpbqk=#zbpbqk#]]> 
+	    	, <![CDATA[ bazzdzdm=#bazzdzdm#]]>
+	    	, <![CDATA[ bazzdzssxdm=#bazzdzssxdm#]]> 
+	    	, <![CDATA[ bazzdzdzxz=#bazzdzdzxz#]]>
+	    	, <![CDATA[ dylbdm=#dylbdm#]]> 
+	    	, <![CDATA[ lsgxdm=#lsgxdm#]]> 
+	    	, <![CDATA[ jfly=#jfly#]]> 
+	    	, <![CDATA[ zyqk=#zyqk#]]> 
+	    	, <![CDATA[ sfzacbdm=#sfzacbdm#]]> 
+	    	,<![CDATA[ zjrq=#zjrq#]]> 
+	    	, <![CDATA[ zzlxfs=#zzlxfs#]]> 
+	    	, <![CDATA[ zzczhm=#zzczhm#]]> 
+	    	, <![CDATA[ ssdw=#ssdw#]]>
+	    	, <![CDATA[ bz=#bz#]]> 	
+	    	, <![CDATA[ bazzdzmlpdm=#bazzdzmlpdm#]]> 
+	    	, <![CDATA[ bazzdzdzmlpxz=#bazzdzdzmlpxz#]]> 
+	    	,
+	    	<include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>	
+	</update>
+	
+</sqlMap>

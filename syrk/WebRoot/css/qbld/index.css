@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+#title{
+	width:100%;
+	height:40px;
+	background:#42bdf5;
+}
+.nav_bar{
+	float:left;
+	height:40px;
+	
+}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.nav{ margin:0;float:left; height:40px;  position:relative; z-index:1; }
+.nav a{ color:#FFF;  }
+.nav .nLi{ float:left;position:relative; display:inline; height: 40px;cursor: pointer;}
+.nav .nLi h3{ float:left; display:block; line-height:40px; padding:0 22px;  font-size:14px; font-weight:bold;color: #FFF;margin-top: 0px;}
+.nav .on { background:#03a9f4; color:#fff;   }
+#modulePageIframe{
+	width:100%;
+	height:450px;
+	overflow:auto;
+}

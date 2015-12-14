@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZdryZdryzb">
+	
+	<typeAlias alias="zdryZdryzb" type="com.founder.zdrygl.base.model.ZdryZb" />
+	
+	<!-- 新增 -->
+	<insert id="save" parameterClass="zdryZdryzb">
+		<![CDATA[ insert into ZDRY_ZDRYZB_NEW (ID]]>		
+			<isNotEmpty prepend="," property="cyzjdm"><![CDATA[ cyzjdm]]></isNotEmpty>
+			<isNotEmpty prepend="," property="zjhm"><![CDATA[ zjhm]]></isNotEmpty>
+			<isNotEmpty prepend="," property="xm"><![CDATA[ xm]]></isNotEmpty>
+			<isNotEmpty prepend="," property="xbdm"><![CDATA[ xbdm]]></isNotEmpty>
+			<isNotEmpty prepend="," property="mzdm"><![CDATA[ mzdm]]></isNotEmpty>
+			<isNotEmpty prepend="," property="csrq"><![CDATA[ csrq]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jgssxdm"><![CDATA[ jgssxdm]]></isNotEmpty>
+			<isNotEmpty prepend="," property="hjd_xzqhdm"><![CDATA[ hjd_xzqhdm]]></isNotEmpty>
+			<isNotEmpty prepend="," property="hjd_mlpdm"><![CDATA[ hjd_mlpdm]]></isNotEmpty>
+			<isNotEmpty prepend="," property="hjd_mlpxz"><![CDATA[ hjd_mlpxz]]></isNotEmpty>
+			<isNotEmpty prepend="," property="hjd_dzid"><![CDATA[ hjd_dzid]]></isNotEmpty>
+			<isNotEmpty prepend="," property="hjd_dzxz"><![CDATA[ hjd_dzxz]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jzd_xzqhdm"><![CDATA[ jzd_xzqhdm]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jzd_mlpdm"><![CDATA[ jzd_mlpdm]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jzd_mlpxz"><![CDATA[ jzd_mlpxz]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jzd_dzid"><![CDATA[ jzd_dzid]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jzd_dzxz"><![CDATA[ jzd_dzxz]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jzd_zbx"><![CDATA[ jzd_zbx]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jzd_zby"><![CDATA[ jzd_zby]]></isNotEmpty>
+			<isNotEmpty prepend="," property="gxfjdm"><![CDATA[ gxfjdm]]></isNotEmpty>
+			<isNotEmpty prepend="," property="gxpcsdm"><![CDATA[ gxpcsdm]]></isNotEmpty>
+			<isNotEmpty prepend="," property="gxzrqdm"><![CDATA[ gxzrqdm]]></isNotEmpty>
+			<isNotEmpty prepend="," property="bz"><![CDATA[ bz]]></isNotEmpty>			
+			<isNotEmpty prepend="," property="ryid"><![CDATA[ ryid]]></isNotEmpty>
+			<isNotEmpty prepend="," property="zdrylb"><![CDATA[ zdrylb]]></isNotEmpty>
+			<isNotEmpty prepend="," property="syrkid"><![CDATA[ syrkid]]></isNotEmpty>
+			<isNotEmpty prepend="," property="zdrygllxdm"><![CDATA[ zdrygllxdm]]></isNotEmpty>
+			<isNotEmpty prepend="," property="glzt"><![CDATA[ glzt]]></isNotEmpty>
+			<isNotEmpty prepend="," property="zywtjxsbx"><![CDATA[ zywtjxsbx]]></isNotEmpty>
+			<isNotEmpty prepend="," property="glbm"><![CDATA[ glbm]]></isNotEmpty>
+			<isNotEmpty prepend="," property="cxbm"><![CDATA[ cxbm]]></isNotEmpty>
+		, <include refid="insertXtzd"/>)
+		<![CDATA[ values (#id# ]]>		
+			<isNotEmpty prepend="," property="cyzjdm"><![CDATA[#cyzjdm#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="zjhm"><![CDATA[#zjhm#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="xm"><![CDATA[#xm#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="xbdm"><![CDATA[#xbdm#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="mzdm"><![CDATA[#mzdm#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="csrq"><![CDATA[#csrq#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jgssxdm"><![CDATA[#jgssxdm#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="hjd_xzqhdm"><![CDATA[#hjd_xzqhdm#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="hjd_mlpdm"><![CDATA[#hjd_mlpdm#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="hjd_mlpxz"><![CDATA[#hjd_mlpxz#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="hjd_dzid"><![CDATA[#hjd_dzid#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="hjd_dzxz"><![CDATA[#hjd_dzxz#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jzd_xzqhdm"><![CDATA[#jzd_xzqhdm#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jzd_mlpdm"><![CDATA[#jzd_mlpdm#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jzd_mlpxz"><![CDATA[#jzd_mlpxz#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jzd_dzid"><![CDATA[#jzd_dzid#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jzd_dzxz"><![CDATA[#jzd_dzxz#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jzd_zbx"><![CDATA[#jzd_zbx#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jzd_zby"><![CDATA[#jzd_zby#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="gxfjdm"><![CDATA[#gxfjdm#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="gxpcsdm"><![CDATA[#gxpcsdm#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="gxzrqdm"><![CDATA[#gxzrqdm#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="bz"><![CDATA[#bz#]]></isNotEmpty>			
+			<isNotEmpty prepend="," property="ryid"><![CDATA[#ryid#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="zdrylb"><![CDATA[#zdrylb#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="syrkid"><![CDATA[#syrkid#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="zdrygllxdm"><![CDATA[#zdrygllxdm#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="glzt"><![CDATA[#glzt#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="zywtjxsbx"><![CDATA[#zywtjxsbx#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="glbm"><![CDATA[#glbm#]]></isNotEmpty>
+			<isNotEmpty prepend="," property="cxbm"><![CDATA[#cxbm#]]></isNotEmpty>						
+		,<include refid="insertXtzdVal"/>)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterClass="zdryZdryzb">
+		<![CDATA[ update ZDRY_ZDRYZB_NEW ]]>	
+		<dynamic prepend="set">			
+			<isNotNull prepend="," property="cyzjdm"><![CDATA[ cyzjdm = #cyzjdm#]]></isNotNull>
+			<isNotNull prepend="," property="zjhm"><![CDATA[ zjhm = #zjhm#]]></isNotNull>
+			<isNotNull prepend="," property="xm"><![CDATA[ xm = #xm#]]></isNotNull>
+			<isNotNull prepend="," property="xbdm"><![CDATA[ xbdm = #xbdm#]]></isNotNull>
+			<isNotNull prepend="," property="mzdm"><![CDATA[ mzdm = #mzdm#]]></isNotNull>
+			<isNotNull prepend="," property="csrq"><![CDATA[ csrq = #csrq#]]></isNotNull>
+			<isNotNull prepend="," property="jgssxdm"><![CDATA[ jgssxdm = #jgssxdm#]]></isNotNull>
+			<isNotNull prepend="," property="hjd_xzqhdm"><![CDATA[ hjd_xzqhdm = #hjd_xzqhdm#]]></isNotNull>
+			<isNotNull prepend="," property="hjd_mlpdm"><![CDATA[ hjd_mlpdm = #hjd_mlpdm#]]></isNotNull>
+			<isNotNull prepend="," property="hjd_mlpxz"><![CDATA[ hjd_mlpxz = #hjd_mlpxz#]]></isNotNull>
+			<isNotNull prepend="," property="hjd_dzid"><![CDATA[ hjd_dzid = #hjd_dzid#]]></isNotNull>
+			<isNotNull prepend="," property="hjd_dzxz"><![CDATA[ hjd_dzxz = #hjd_dzxz#]]></isNotNull>
+			<isNotNull prepend="," property="jzd_xzqhdm"><![CDATA[ jzd_xzqhdm = #jzd_xzqhdm#]]></isNotNull>
+			<isNotNull prepend="," property="jzd_mlpdm"><![CDATA[ jzd_mlpdm = #jzd_mlpdm#]]></isNotNull>
+			<isNotNull prepend="," property="jzd_mlpxz"><![CDATA[ jzd_mlpxz = #jzd_mlpxz#]]></isNotNull>
+			<isNotNull prepend="," property="jzd_dzid"><![CDATA[ jzd_dzid = #jzd_dzid#]]></isNotNull>
+			<isNotNull prepend="," property="jzd_dzxz"><![CDATA[ jzd_dzxz = #jzd_dzxz#]]></isNotNull>
+			<isNotNull prepend="," property="jzd_zbx"><![CDATA[ jzd_zbx = #jzd_zbx#]]></isNotNull>
+			<isNotNull prepend="," property="jzd_zby"><![CDATA[ jzd_zby = #jzd_zby#]]></isNotNull>
+			<isNotNull prepend="," property="gxfjdm"><![CDATA[ gxfjdm = #gxfjdm#]]></isNotNull>
+			<isNotNull prepend="," property="gxpcsdm"><![CDATA[ gxpcsdm = #gxpcsdm#]]></isNotNull>
+			<isNotNull prepend="," property="gxzrqdm"><![CDATA[ gxzrqdm = #gxzrqdm#]]></isNotNull>
+			<isNotNull prepend="," property="bz"><![CDATA[ bz = #bz#]]></isNotNull>						
+			<isNotNull prepend="," property="ryid"><![CDATA[ ryid = #ryid#]]></isNotNull>
+			<isNotNull prepend="," property="zdrylb"><![CDATA[ zdrylb = #zdrylb#]]></isNotNull>
+			<isNotNull prepend="," property="syrkid"><![CDATA[ syrkid = #syrkid#]]></isNotNull>
+			<isNotNull prepend="," property="zdrygllxdm"><![CDATA[ zdrygllxdm = #zdrygllxdm#]]></isNotNull>
+			<isNotNull prepend="," property="glzt"><![CDATA[ glzt = #glzt#]]></isNotNull>
+			<isNotNull prepend="," property="zywtjxsbx"><![CDATA[ zywtjxsbx = #zywtjxsbx#]]></isNotNull>
+			<isNotNull prepend="," property="glbm"><![CDATA[ glbm = #glbm#]]></isNotNull>
+			<isNotNull prepend="," property="cxbm"><![CDATA[ cxbm = #cxbm#]]></isNotNull>
+			,<include refid="updateXtzd"/>				
+		</dynamic>
+		<![CDATA[ where ID = #id#]]>	
+	</update>
+	
+	<!-- 注销 -->
+	<update id="delete" parameterClass="zdryZdryzb">
+		<![CDATA[ update ZDRY_ZDRYZB_NEW set ]]><include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>	
+	</update>
+	
+	<!-- 管理列表 -->
+	<select id="queryPageCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) from ZDRY_ZDRYZB_NEW z where 1=1 ]]>
+			<isNotEmpty prepend="and" property="zdryZb.zdrygllxdm">
+				z.zdrygllxdm = #zdryZb.zdrygllxdm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.xm">
+				z.xm like '%$zdryZb.xm$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.zjhm">
+				z.zjhm = #zdryZb.zjhm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.xbdm">
+				z.xbdm = #zdryZb.xbdm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.jzd_dzxz">
+				z.jzd_dzxz like '%$zdryZb.jzd_dzxz$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.glbm">
+				(z.glbm = #zdryZb.glbm# or z.gxzrqdm = #zdryZb.glbm#)
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property="zdryZb.bz">
+			     <![CDATA[ z.ZJHM || z.XM|| z.Jzd_dzxz   like '%' || #zdryZb.bz# || '%']]>
+			</isNotEmpty>			
+		<![CDATA[ and z.glzt in (2,3,5,7)  and  z.XT_ZXBZ = '0']]>
+	</select>
+	<select id="queryPage" parameterClass="Map"  resultClass="zdryZdryzb">
+		<![CDATA[ select * from ( select rownum r ,m.* from (
+			select z.* from ZDRY_ZDRYZB_NEW z where 1=1   ]]>
+									
+			<isNotEmpty prepend="and" property="zdryZb.zdrygllxdm">
+				z.zdrygllxdm = #zdryZb.zdrygllxdm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.xm">
+				z.xm like '%$zdryZb.xm$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.zjhm">
+				z.zjhm = #zdryZb.zjhm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.xbdm">
+				z.xbdm = #zdryZb.xbdm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.jzd_dzxz">
+				z.jzd_dzxz like '%$zdryZb.jzd_dzxz$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.glbm">
+				(z.glbm = #zdryZb.glbm# or z.gxzrqdm = #zdryZb.glbm#)
+			</isNotEmpty>			
+			<isNotEmpty prepend="and" property="zdryZb.bz">
+			     <![CDATA[ z.ZJHM || z.XM|| z.Jzd_dzxz   like '%' || #zdryZb.bz# || '%']]>
+			</isNotEmpty>
+
+			<![CDATA[and z.glzt in (2,3,5,7)  and  z.XT_ZXBZ = '0' order by z.$sort$ $order$) m  where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+	
+	<select id="queryByMap" parameterClass="Map" resultClass="zdryZdryzb">
+		<![CDATA[ select * from ZDRY_ZDRYZB_NEW where rownum = 1 and xt_zxbz = '0']]>
+	    <isNotEmpty prepend="and" property="andCondition"><![CDATA[ $andCondition$ ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.id"><![CDATA[ ID=#zdryZdryzb.id# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.ryid"><![CDATA[ RYID=#zdryZdryzb.ryid# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.zdrylb"><![CDATA[ ZDRYLB=#zdryZdryzb.zdrylb# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.syrkid"><![CDATA[ SYRKID=#zdryZdryzb.syrkid# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.zdrygllxdm"><![CDATA[ ZDRYGLLXDM=#zdryZdryzb.zdrygllxdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.glzt"><![CDATA[ GLZT=#zdryZdryzb.glzt# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.zywtjxsbx"><![CDATA[ ZYWTJXSBX=#zdryZdryzb.zywtjxsbx# ]]></isNotEmpty>
+	<!-- 	<isNotEmpty prepend="and" property="zdryZdryzb.zdlgbmid"><![CDATA[ ZDLGBMID=#zdryZdryzb.zdlgbmid# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.zdlgbmmc"><![CDATA[ ZDLGBMMC=#zdryZdryzb.zdlgbmmc# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.sfjm"><![CDATA[ SFJM=#zdryZdryzb.sfjm# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.sfzkdm"><![CDATA[ SFZKDM=#zdryZdryzb.sfzkdm# ]]></isNotEmpty> -->
+		<isNotEmpty prepend="and" property="zdryZdryzb.glbm"><![CDATA[ GLBM=#zdryZdryzb.glbm# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.cxbm"><![CDATA[ CXBM=#zdryZdryzb.cxbm# ]]></isNotEmpty>
+		<!-- <isNotEmpty prepend="and" property="zdryZdryzb.jgssxdm"><![CDATA[ JGSSXDM=#zdryZdryzb.jgssxdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.hjd_ssxjgajgdm"><![CDATA[ HJD_SSXJGAJGDM=#zdryZdryzb.hjd_ssxjgajgdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.hjd_sspcsdm"><![CDATA[ HJD_SSPCSDM=#zdryZdryzb.hjd_sspcsdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.hjd_sssq"><![CDATA[ HJD_SSSQ=#zdryZdryzb.hjd_sssq# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.jzd_szdsdm"><![CDATA[ JZD_SZDSDM=#zdryZdryzb.jzd_szdsdm# ]]></isNotEmpty> -->
+	</select>
+	
+	<select id="queryListByMap" parameterClass="Map" resultClass="zdryZdryzb">
+		<![CDATA[ select * from ZDRY_ZDRYZB_NEW where xt_zxbz = '0']]>
+	    <isNotEmpty prepend="and" property="andCondition"><![CDATA[ $andCondition$ ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.ryid"><![CDATA[ RYID=#zdryZdryzb.ryid# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.zdrylb"><![CDATA[ ZDRYLB=#zdryZdryzb.zdrylb# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.syrkid"><![CDATA[ SYRKID=#zdryZdryzb.syrkid# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.zdrygllxdm"><![CDATA[ ZDRYGLLXDM=#zdryZdryzb.zdrygllxdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.glzt"><![CDATA[ GLZT=#zdryZdryzb.glzt# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.zywtjxsbx"><![CDATA[ ZYWTJXSBX=#zdryZdryzb.zywtjxsbx# ]]></isNotEmpty>
+		<!-- <isNotEmpty prepend="and" property="zdryZdryzb.zdlgbmid"><![CDATA[ ZDLGBMID=#zdryZdryzb.zdlgbmid# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.zdlgbmmc"><![CDATA[ ZDLGBMMC=#zdryZdryzb.zdlgbmmc# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.sfjm"><![CDATA[ SFJM=#zdryZdryzb.sfjm# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.sfzkdm"><![CDATA[ SFZKDM=#zdryZdryzb.sfzkdm# ]]></isNotEmpty> -->
+		<isNotEmpty prepend="and" property="zdryZdryzb.glbm"><![CDATA[ GLBM=#zdryZdryzb.glbm# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.cxbm"><![CDATA[ CXBM=#zdryZdryzb.cxbm# ]]></isNotEmpty>
+	<!-- 	<isNotEmpty prepend="and" property="zdryZdryzb.jgssxdm"><![CDATA[ JGSSXDM=#zdryZdryzb.jgssxdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.hjd_ssxjgajgdm"><![CDATA[ HJD_SSXJGAJGDM=#zdryZdryzb.hjd_ssxjgajgdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.hjd_sspcsdm"><![CDATA[ HJD_SSPCSDM=#zdryZdryzb.hjd_sspcsdm# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.hjd_sssq"><![CDATA[ HJD_SSSQ=#zdryZdryzb.hjd_sssq# ]]></isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZdryzb.jzd_szdsdm"><![CDATA[ JZD_SZDSDM=#zdryZdryzb.jzd_szdsdm# ]]></isNotEmpty> -->
+	</select>
+	<!-- resultClass="java.util.HashMap" remapResults="true" -->
+	
+	<!-- 获取查询权限的List -->
+	<select id="getQeryList" parameterClass="Map" resultClass="zdryZdryzb">
+		<![CDATA[ select * from ( select rownum r ,m.* from (						
+			select z.* from ZDRY_ZDRYZB_NEW z   
+			left join  (
+				    select g1.ORGCODE as sszrqdm ,g2.ORGCODE as sspcsdm,g3.ORGCODE as ssfxjdm from ORG_ORGANIZATION g1, ORG_ORGANIZATION g2, ORG_ORGANIZATION g3
+				    where g2.id=g1.PARENTID
+				    and g3.id=g2.PARENTID
+				) g on (g.SSZRQDM = z.glbm)     	
+			where z.XT_ZXBZ = '0'
+		
+		]]>
+			
+			<isNotEmpty prepend="and" property="zdryZb.glzt">
+				z.glzt = #zdryZb.glzt#
+			</isNotEmpty>
+			<isEmpty prepend="and" property="zdryZb.glzt">
+				z.glzt != '4'
+			</isEmpty>	
+			<isNotEmpty prepend="and" property="zdryZb.zdrygllxdm">
+				z.zdrygllxdm = #zdryZb.zdrygllxdm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.xm">
+				z.xm like '%$zdryZb.xm$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.zjhm">
+				z.zjhm = #zdryZb.zjhm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.xbdm">
+				z.xbdm = #zdryZb.xbdm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.jzd_dzxz">
+				z.jzd_dzxz like '%$zdryZb.jzd_dzxz$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.glbm">
+				(g.sszrqdm = #zdryZb.glbm# 
+					or g.sspcsdm = #zdryZb.glbm#
+					or g.ssfxjdm = #zdryZb.glbm#
+					
+					or z.gxzrqdm = #zdryZb.glbm#
+					or z.gxpcsdm = #zdryZb.glbm#
+					or z.gxfjdm = #zdryZb.glbm#
+				)
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="zdryZb.bz">
+			     <![CDATA[ z.ZJHM || z.XM|| z.Jzd_dzxz   like '%' || #zdryZb.bz# || '%']]>
+			</isNotEmpty>
+
+			<![CDATA[ 
+				order by z.$sort$ $order$
+				
+				) m  				
+				where rownum <= #end# 
+			) where r > #begin# 
+			]]>			
+	</select>
+	<select id="getQeryListCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ 
+			select count(*) from ZDRY_ZDRYZB_NEW z  
+			left join  (
+				    select g1.ORGCODE as sszrqdm ,g2.ORGCODE as sspcsdm,g3.ORGCODE as ssfxjdm from ORG_ORGANIZATION g1, ORG_ORGANIZATION g2, ORG_ORGANIZATION g3
+				    where g2.id=g1.PARENTID
+				    and g3.id=g2.PARENTID
+				) g on (g.SSZRQDM = z.glbm)
+			where z.XT_ZXBZ = '0'  			
+		]]>
+			<isNotEmpty prepend="and" property="zdryZb.glzt">
+				z.glzt = #zdryZb.glzt#
+			</isNotEmpty>
+			<isEmpty prepend="and" property="zdryZb.glzt">
+				z.glzt != '4'
+			</isEmpty>	
+			<isNotEmpty prepend="and" property="zdryZb.zdrygllxdm">
+				z.zdrygllxdm = #zdryZb.zdrygllxdm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.xm">
+				z.xm like '%$zdryZb.xm$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.zjhm">
+				z.zjhm = #zdryZb.zjhm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.xbdm">
+				z.xbdm = #zdryZb.xbdm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.jzd_dzxz">
+				z.Jzd_dzxz like '%$zdryZb.jzd_dzxz$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZb.glbm">
+				(g.sszrqdm = #zdryZb.glbm# 
+					or g.sspcsdm = #zdryZb.glbm#
+					or g.ssfxjdm = #zdryZb.glbm#
+					
+					or z.gxzrqdm = #zdryZb.glbm#
+					or z.gxpcsdm = #zdryZb.glbm#
+					or z.gxfjdm = #zdryZb.glbm#
+				)
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="zdryZb.bz">
+			     <![CDATA[ z.ZJHM || z.XM|| z.Jzd_dzxz   like '%' || #zdryZb.bz# || '%']]>
+			</isNotEmpty>
+						
+	</select>							
+	<!-- 根据门楼牌查询户籍地责任区代码 -->
+	<select id="queryHjdZrqdm" parameterClass="String" resultClass="String">
+		<![CDATA[ select ZRQDM from BZDZ_ADD_MLDZDXB where MLDZID=#MLDZID#]]>
+		
+	</select>
+	
+			<!-- 根据查询可以注销的实有人口 是不是重口 -->
+	<select id="queryCountBySyrk" parameterClass="String" resultClass="Integer">
+		<![CDATA[ select count(1) from ZDRY_ZDRYZB_NEW t where t.XT_ZXBZ = '0' and t.SYRKID = #syrkId# and t.GLZT != '4']]>
+		
+	</select>
+</sqlMap>

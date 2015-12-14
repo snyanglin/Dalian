@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 物防信息主要空间与属性操作，author:tian_chengwei@founder.com -->
+<sqlMap namespace="Zaff_wfxx">
+	<typeAlias alias="wfxx" type="com.founder.zafffwqz.bean.ZaffWfxx"/>	
+	<!-- 查询物防信息 -->
+	<select id="queryWf" parameterClass="Map" resultClass="wfxx">
+		<![CDATA[
+				SELECT * FROM ( 
+					SELECT ROWNUM R ,M.* FROM (
+						SELECT *
+						FROM ZAFF_WFXXB A where 
+						XT_ZXBZ= '0'
+					]]>
+				<isNotEmpty prepend="and" property="wfxx.wfzl">
+					A.WFZL = #wfxx.wfzl#
+				</isNotEmpty>				
+				<isNotEmpty prepend="and" property="wfxx.azrq">
+					A.AZRQ = #wfxx.azrq#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="wfxx.ms">
+					A.MS like '%$wfxx.ms$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="wfxx.dz_wfdzxz">
+					A.DZ_WFDZXZ like '%$wfxx.dz_wfdzxz$%'
+				</isNotEmpty>				
+				<isNotEmpty prepend="and" property="wfxx.gxzrqdm">
+					A.GXZRQDM = #wfxx.gxzrqdm#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="wfxx.gxpcsdm">
+					A.GXPCSDM = #wfxx.gxpcsdm#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="wfxx.condition">
+					A.sl || A.DZ_WFDZXZ like '%$wfxx.condition$%'
+				</isNotEmpty>
+			<![CDATA[ order by $sort$ $order$) m  
+			where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+	<!-- 统计条数 -->
+	<select id="queryCountWf" parameterClass="Map" resultClass="Integer">
+		<![CDATA[select count(1)
+					FROM ZAFF_WFXXB A where 
+							XT_ZXBZ= '0']]>
+				<isNotEmpty prepend="and" property="wfxx.wfzl">
+					A.WFZL = #wfxx.wfzl#
+				</isNotEmpty>				
+				<isNotEmpty prepend="and" property="wfxx.azrq">
+					A.AZRQ = #wfxx.azrq#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="wfxx.ms">
+					A.MS like '%$wfxx.ms$%'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="wfxx.dz_wfdzxz">
+					A.DZ_WFDZXZ like '%$wfxx.dz_wfdzxz$%'
+				</isNotEmpty>				
+				<isNotEmpty prepend="and" property="wfxx.gxzrqdm">
+					A.GXZRQDM = #wfxx.gxzrqdm#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="wfxx.gxpcsdm">
+					A.GXPCSDM = #wfxx.gxpcsdm#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="wfxx.condition">
+					A.sl || A.DZ_WFDZXZ like '%$wfxx.condition$%'
+				</isNotEmpty>
+	</select>
+	<!-- 地图查询物防信息 -->
+	<select id="queryWfxxOnPT" parameterClass="Map" resultClass="wfxx">
+		<![CDATA[SELECT * FROM (
+					 SELECT ROWNUM R ,M.* FROM (
+					 	SELECT *
+							FROM ZAFF_WFXXB A ,ZAFF_WFKJXXB_PT p
+							where 
+							A.id = P.wfid
+							and A.XT_ZXBZ= '0']]>
+			 	<isNotEmpty prepend="and" property="wfxx.wfzl">
+					A.WFZL = #wfxx.wfzl#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="wfxx.dz_wfdzxz">
+					A.DZ_WFDZXZ like '%$wfxx.dz_wfdzxz$%'
+				</isNotEmpty>				
+				<isNotEmpty prepend="and" property="wfxx.gxzrqdm">
+					A.GXZRQDM = #wfxx.gxzrqdm#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="wfxx.gxpcsdm">
+					A.GXPCSDM = #wfxx.gxpcsdm#
+				</isNotEmpty>
+			 
+			<isEqual property="wfxx.type" compareValue="1" prepend="AND">
+		     	 <![CDATA[SDE.ST_WITHIN(p.SHAPE,SDE.ST_POLYGON('polygon((]]> 
+		     	 <isNotNull property="wfxx.zbz"><![CDATA[ $wfxx.zbz$ ]]></isNotNull> ))',
+		     	 <isNotNull property="wfxx.srid"><![CDATA[ $wfxx.srid$]]></isNotNull>
+		     	 <![CDATA[ ))=1]]>
+		     </isEqual>			
+		    <isEqual property="wfxx.type" compareValue="2" prepend="AND">
+		     	 <![CDATA[SDE.ST_WITHIN(p.SHAPE,SDE.ST_BUFFER(SDE.ST_POINT('point(]]> 
+		     	 <isNotNull property="wfxx.zbz"><![CDATA[$wfxx.zbz$]]></isNotNull>)',
+		     	 <isNotNull property="wfxx.srid"><![CDATA[$wfxx.srid$]]></isNotNull>),
+		     	 <isNotNull property="wfxx.mapRadius"><![CDATA[$wfxx.mapRadius$]]></isNotNull>
+		     	 <![CDATA[))=1]]>
+		     </isEqual>
+		    <isEqual property="wfxx.type" compareValue="3" prepend="AND">
+		     	 <![CDATA[SDE.ST_ENVINTERSECTS(p.SHAPE,]]>
+		     	 <isNotNull property="wfxx.zbz"><![CDATA[$wfxx.zbz$]]></isNotNull>
+		     	 <![CDATA[)=1]]>
+		     </isEqual>	
+		      			
+				<![CDATA[ order by $sort$ $order$) m  
+			where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+	<!-- 空间表与属性表关联查询统计条数 -->
+	<select id="queryCountWfxxOnPT" parameterClass="Map" resultClass="int">
+			<![CDATA[SELECT count(1)
+							FROM ZAFF_WFXXB A ,ZAFF_WFKJXXB_PT p
+							WHERE 
+							A.id = P.wfid
+							and A.XT_ZXBZ= '0']]>
+				<isNotEmpty prepend="and" property="wfxx.wfzl">
+					A.WFZL = #wfxx.wfzl#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="wfxx.dz_wfdzxz">
+					A.DZ_WFDZXZ like '%$wfxx.dz_wfdzxz$%'
+				</isNotEmpty>				
+				<isNotEmpty prepend="and" property="wfxx.gxzrqdm">
+					A.GXZRQDM = #wfxx.gxzrqdm#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="wfxx.gxpcsdm">
+					A.GXPCSDM = #wfxx.gxpcsdm#
+				</isNotEmpty>
+			 
+			<isEqual property="wfxx.type" compareValue="1" prepend="AND">
+		     	 <![CDATA[SDE.ST_WITHIN(p.SHAPE,SDE.ST_POLYGON('polygon((]]> 
+		     	 <isNotNull property="wfxx.zbz"><![CDATA[ $wfxx.zbz$ ]]></isNotNull> ))',
+		     	 <isNotNull property="wfxx.srid"><![CDATA[ $wfxx.srid$]]></isNotNull>
+		     	 <![CDATA[ ))=1]]>
+		     </isEqual>			
+		    <isEqual property="wfxx.type" compareValue="2" prepend="AND">
+		     	 <![CDATA[SDE.ST_WITHIN(p.SHAPE,SDE.ST_BUFFER(SDE.ST_POINT('point(]]> 
+		     	 <isNotNull property="wfxx.zbz"><![CDATA[$wfxx.zbz$]]></isNotNull>)',
+		     	 <isNotNull property="wfxx.srid"><![CDATA[$wfxx.srid$]]></isNotNull>),
+		     	 <isNotNull property="wfxx.mapRadius"><![CDATA[$wfxx.mapRadius$]]></isNotNull>
+		     	 <![CDATA[))=1]]>
+		     </isEqual>
+		    <isEqual property="wfxx.type" compareValue="3" prepend="AND">
+		     	 <![CDATA[SDE.ST_ENVINTERSECTS(p.SHAPE,]]>
+		     	 <isNotNull property="wfxx.zbz"><![CDATA[$wfxx.zbz$]]></isNotNull>
+		     	 <![CDATA[)=1]]>
+		     </isEqual>	
+		     			
+	</select>
+	
+	<!-- 获取空间图层srid -->
+	<select id="queryShapetableSrid" parameterClass="map" resultClass="int">
+				select srid from sde.st_geometry_columns t where t.table_name=UPPER(#tableName#) and owner=UPPER(#shapeDbName#)
+	</select>		
+	
+	<!-- 更新物防 -->
+	<update id ="updateWf" parameterClass="wfxx">
+		<![CDATA[ update ZAFF_WFXXB A set ]]><include refid="updateXtzd" /> 
+		<isNotEmpty prepend="," property="zbx">
+			A.zbx = #zbx#
+		</isNotEmpty>		
+		<isNotEmpty prepend="," property="zby">
+			A.zby = #zby#
+		</isNotEmpty>	
+		<isNotEmpty prepend="," property="dwid">
+			A.dwid = #dwid#
+		</isNotEmpty>		
+		<![CDATA[where ID = #id# ]]>
+	</update>
+	<!-- 更新物防Pt表 -->
+	<select id ="getObjectId" parameterClass="wfxx" resultClass="Long">
+		<![CDATA[SELECT SDE.VERSION_USER_DDL.NEXT_ROW_ID(UPPER(#gisUser#),
+					(SELECT REGISTRATION_ID
+						FROM SDE.TABLE_REGISTRY
+							WHERE
+						TABLE_NAME = UPPER(#gisTable#)
+						AND OWNER = UPPER(#gisUser#))) AS OBJECTID from dual
+		]]>
+	</select>
+	<!-- 二次修改2 -->
+	<select id ="getObjectId2" parameterClass="wfxx" resultClass="Long">
+		<![CDATA[SELECT SDE.VERSION_USER_DDL.NEXT_ROW_ID(UPPER(#gisUser#),
+					(SELECT REGISTRATION_ID
+    						FROM SDE.TABLE_REGISTRY
+  		 				WHERE TABLE_NAME = UPPER(#gisTable#)
+     						AND OWNER = UPPER(#gisUser#))) AS OBJECTID from dual
+		]]>
+	</select>
+	<!-- 插入空间表 -->
+	<insert id="insertWfPt" parameterClass="wfxx" >
+		<![CDATA[
+			INSERT INTO zaff_wfkjxxb_pt(OBJECTID,wfid
+			]]>
+			<isNotEmpty prepend="," property="zbx">
+			SHAPE
+			</isNotEmpty>	
+			<![CDATA[) VALUES(
+				]]>
+		<isNotEmpty property="objectid">$objectid$</isNotEmpty>	
+		<isNotEmpty prepend="," property="wfid">#wfid#</isNotEmpty>	
+		<isNotEmpty prepend="," property="zbx">
+			SDE.ST_POINT(#zbx#,#zby#,#srid#)
+		</isNotEmpty>	
+		<![CDATA[
+			)
+		]]>
+	</insert>
+	<!-- 更新Pt表 -->
+	<update id="updateWfPt" parameterClass="wfxx" >
+		<![CDATA[ update zaff_wfkjxxb_pt set ]]>
+		<isNotEmpty  property="zbx">
+			shape = SDE.ST_POINT(#zbx#,#zby#,#srid#)
+		</isNotEmpty>
+		<![CDATA[ where wfid =#wfid# ]]>
+	</update>
+	
+	<!-- 物防基本信息注销 -->
+	<update id ="cancelWfSx" parameterClass="wfxx" >
+		<![CDATA[ update ZAFF_WFXXB set ]]> <include refid="deleteXtzd" /> 
+			<![CDATA[where ID = #id# ]]>
+	</update>
+	<!-- 物防空间信息注销 -->
+	<update id ="cancelWfKj" parameterClass="wfxx" >
+		<![CDATA[ update zaff_wfkjxxb_pt set ]]> <include refid="deleteXtzd" /> 
+			<![CDATA[where ID = #id# ]]>
+	</update>
+	<!-- 提供单位调用 -->
+	<select id="wfxxb_query" parameterClass="Map" resultClass="wfxx">
+		 <![CDATA[ select * from ( select rownum r ,m.* from (
+				SELECT * FROM ZAFF_WFXXB WHERE dwid=#dwid# AND XT_ZXBZ='0' ORDER BY XT_CJSJ desc ]]>
+				<![CDATA[ ) m  where rownum <= #maxNum# ) where r > 0 ]]>
+	</select>
+</sqlMap>

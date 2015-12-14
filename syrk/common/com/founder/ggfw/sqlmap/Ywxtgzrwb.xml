@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Ywxtgzrwb">
+
+<typeAlias alias="ywxtgzrwb" type="com.founder.ggfw.bean.Ywxtgzrwb"/>
+<typeAlias alias="sysMessage" type="com.founder.framework.message.bean.SysMessage"/>
+
+	<!-- 根据id获取任务表记录 -->
+	<!--  
+	<select id="queryYwxtgzrwbById" parameterClass="String" resultClass="ywxtgzrwb">
+		<![CDATA[ select * from RULE_YWXTGZRWB where id = #id# and xt_zxbz = '0' ]]>
+	</select>
+	-->
+	<select id="queryYwxtgzrwbById" parameterClass="String" resultClass="sysMessage">
+		<![CDATA[ select * from sys_message where id = #id# ]]>
+	</select>
+	
+	<!-- 根据部门代码获取上级部门代码 -->
+	<select id="getLeaderOrgcode" parameterClass="String" resultClass="java.util.HashMap">
+		<![CDATA[ 
+		select t1.orgname orgname, t2.orgname leaderOrgname, t2.orgcode, t2.orglevel
+		  from (select t.orgcode, t.parentid, t.orgname
+		          from org_organization t
+		         where t.orgcode = #orgcode#) t1
+		  left join (select t.id, t.orgcode, t.orgname,t.orglevel from org_organization t) t2 on t1.parentid =
+		                                                                   t2.id
+		
+		 ]]>
+	</select>
+
+  <insert id="insertYwxtgzrwb" parameterClass="ywxtgzrwb">
+		 INSERT INTO RULE_YWXTGZRWB 
+		 	(id
+			<isNotEmpty prepend="," property="ywxtrwid">
+				<![CDATA[ ywxtrwid]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ywid">
+				<![CDATA[ ywid]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ywmc">
+				<![CDATA[ ywmc]]>	
+			</isNotEmpty>			
+			<isNotEmpty prepend="," property="ywxtgzrwmc">
+				<![CDATA[ ywxtgzrwmc]]>	
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="xtgzid">
+				<![CDATA[ xtgzid]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="xtgzmc">
+				<![CDATA[ xtgzmc]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="xtgzzxff">
+				<![CDATA[ xtgzzxff]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ywxxckurl">
+				<![CDATA[ ywxxckurl]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ywxtrwms">
+				<![CDATA[ ywxtrwms]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fqsj">
+				<![CDATA[ fqsj]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fqrbmid">
+				<![CDATA[ fqrbmid]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fqrbm">
+				<![CDATA[ fqrbm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fqrid">
+				<![CDATA[ fqrid]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fqr">
+				<![CDATA[ fqr]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclsj">
+				<![CDATA[ rwclsj]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclrbmid">
+				<![CDATA[ rwclrbmid]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclrbm">
+				<![CDATA[ rwclrbm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclrid">
+				<![CDATA[ rwclrid]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclr">
+				<![CDATA[ rwclr]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwcljgdm">
+				<![CDATA[ rwcljgdm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclsm">
+				<![CDATA[ rwclsm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclzxff">
+				<![CDATA[ rwclzxff]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjsj">
+				<![CDATA[ cjsj]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjrbmid">
+				<![CDATA[ cjrbmid]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjrbm">
+				<![CDATA[ cjrbm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjrid">
+				<![CDATA[ cjrid]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjr">
+				<![CDATA[ cjr]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjjgdm">
+				<![CDATA[ cjjgdm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjzxff">
+				<![CDATA[ cjzxff]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ywrwztdm">
+				<![CDATA[ ywrwztdm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zxzt">
+				<![CDATA[ zxzt]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bz">
+				<![CDATA[ bz]]>	
+			</isNotEmpty>
+			,
+			<include refid="insertXtzd"/>
+			)
+	    	 values 
+	    	 ( 
+	    	 <isNotEmpty  property="id">
+				<![CDATA[	 #id#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ywxtrwid">
+				<![CDATA[ #ywxtrwid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ywid">
+				<![CDATA[ #ywid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ywmc">
+				<![CDATA[ #ywmc#]]>	
+			</isNotEmpty>			
+			<isNotEmpty prepend="," property="ywxtgzrwmc">
+				<![CDATA[ #ywxtgzrwmc#]]>	
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="xtgzid">
+				<![CDATA[ #xtgzid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="xtgzmc">
+				<![CDATA[ #xtgzmc#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="xtgzzxff">
+				<![CDATA[ #xtgzzxff#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ywxxckurl">
+				<![CDATA[ #ywxxckurl#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ywxtrwms">
+				<![CDATA[ #ywxtrwms#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fqsj">
+				<![CDATA[ #fqsj#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fqrbmid">
+				<![CDATA[ #fqrbmid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fqrbm">
+				<![CDATA[ #fqrbm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fqrid">
+				<![CDATA[ #fqrid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fqr">
+				<![CDATA[ #fqr#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclsj">
+				<![CDATA[ #rwclsj#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclrbmid">
+				<![CDATA[ #rwclrbmid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclrbm">
+				<![CDATA[ #rwclrbm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclrid">
+				<![CDATA[ #rwclrid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclr">
+				<![CDATA[ #rwclr#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwcljgdm">
+				<![CDATA[ #rwcljgdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclsm">
+				<![CDATA[ #rwclsm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclzxff">
+				<![CDATA[ #rwclzxff#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjsj">
+				<![CDATA[ #cjsj#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjrbmid">
+				<![CDATA[ #cjrbmid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjrbm">
+				<![CDATA[ #cjrbm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjrid">
+				<![CDATA[ #cjrid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjr">
+				<![CDATA[ #cjr#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjjgdm">
+				<![CDATA[ #cjjgdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjzxff">
+				<![CDATA[ #cjzxff#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ywrwztdm">
+				<![CDATA[ #ywrwztdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zxzt">
+				<![CDATA[ #zxzt#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bz">
+				<![CDATA[ #bz#]]>	
+			</isNotEmpty>
+			,
+			<include refid="insertXtzdVal"/>	
+	    	  )	    	
+	</insert>
+	<!-- 根据id更新任务查看状态 -->
+	<update id="updateMessageSfck" parameterClass="Long">
+		<![CDATA[
+			update sys_message set sfck = '1' where id = #id#
+		]]>
+	</update>
+	<update id="updateYwxtgzrwb" parameterClass="ywxtgzrwb">
+		 <![CDATA[ update RULE_YWXTGZRWB ]]>	
+		<dynamic prepend="set">
+			<isNotEmpty prepend="," property="ywxtrwid">
+				<![CDATA[ ywxtrwid=#ywxtrwid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ywid">
+				<![CDATA[ ywid=#ywid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ywmc">
+				<![CDATA[ ywmc=#ywmc#]]>	
+			</isNotEmpty>			
+			<isNotEmpty prepend="," property="ywxtgzrwmc">
+				<![CDATA[ ywxtgzrwmc=#ywxtgzrwmc#]]>	
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="xtgzid">
+				<![CDATA[ xtgzid=#xtgzid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="xtgzmc">
+				<![CDATA[ xtgzmc=#xtgzmc#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="xtgzzxff">
+				<![CDATA[ xtgzzxff=#xtgzzxff#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ywxxckurl">
+				<![CDATA[ ywxxckurl=#ywxxckurl#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ywxtrwms">
+				<![CDATA[ ywxtrwms=#ywxtrwms#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fqsj">
+				<![CDATA[ fqsj=#fqsj#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fqrbmid">
+				<![CDATA[ fqrbmid=#fqrbmid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fqrbm">
+				<![CDATA[ fqrbm=#fqrbm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fqrid">
+				<![CDATA[ fqrid=#fqrid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fqr">
+				<![CDATA[ fqr=#fqr#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclsj">
+				<![CDATA[ rwclsj=#rwclsj#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclrbmid">
+				<![CDATA[ rwclrbmid=#rwclrbmid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclrbm">
+				<![CDATA[ rwclrbm=#rwclrbm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclrid">
+				<![CDATA[ rwclrid=#rwclrid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclr">
+				<![CDATA[ rwclr=#rwclr#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwcljgdm">
+				<![CDATA[ rwcljgdm=#rwcljgdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclsm">
+				<![CDATA[ rwclsm=#rwclsm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwclzxff">
+				<![CDATA[ rwclzxff=#rwclzxff#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjsj">
+				<![CDATA[ cjsj=#cjsj#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjrbmid">
+				<![CDATA[ cjrbmid=#cjrbmid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjrbm">
+				<![CDATA[ cjrbm=#cjrbm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjrid">
+				<![CDATA[ cjrid=#cjrid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjr">
+				<![CDATA[ cjr=#cjr#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjjgdm">
+				<![CDATA[ cjjgdm=#cjjgdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cjzxff">
+				<![CDATA[ cjzxff=#cjzxff#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ywrwztdm">
+				<![CDATA[ ywrwztdm=#ywrwztdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zxzt">
+				<![CDATA[ zxzt=#zxzt#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bz">
+				<![CDATA[ bz=#bz#]]>	
+			</isNotEmpty>
+			,
+			<include refid="updateXtzd"/>			
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>	
+	</update>
+	
+	<!-- begin -->
+	<insert id="insertMsg" parameterClass="sysMessage">
+		 INSERT INTO sys_message 
+		 	(id
+			<isNotEmpty prepend="," property="xxnr">
+				<![CDATA[ xxnr]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="jsr">
+				<![CDATA[ jsr]]>	
+			</isNotEmpty>
+			,
+			<include refid="insertXtzd"/>
+			)
+	    	 values 
+	    	 ( 
+	    	 <isNotEmpty  property="id">
+				<![CDATA[	 #id#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="xxnr">
+				<![CDATA[ #xxnr#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="jsr">
+				<![CDATA[ #jsr#]]>	
+			</isNotEmpty>
+			,
+			<include refid="insertXtzdVal"/>	
+	    	  )	    	
+	</insert>
+	
+	<select id="queryYwxtgzrwbByParm" parameterClass="Map" resultClass="sysMessage">
+		<![CDATA[ select * from (select rownum r ,a.* from sys_message a  where 1=1 ]]>
+			<isNotEmpty prepend="and" property="db.xxnr">
+				<![CDATA[ xxnr like '%' || #db.xxnr# || '%' ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.fssj">
+				<![CDATA[ fssj >= #db.fssj# ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.jssj">
+				<![CDATA[ fssj <= #db.jssj# ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.fsrdm">
+				<![CDATA[ fsrdm = #db.fsrdm# ]]>
+			</isNotEmpty>
+		<![CDATA[ and rownum <= #end# ) where r>#begin# ]]>
+		
+	</select>
+	
+	<select id="queryYwxtgzrwbByCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) from sys_message a  where 1=1 ]]>
+		    <isNotEmpty prepend="and" property="db.xxnr">
+				<![CDATA[ xxnr like '%' || #db.xxnr# || '%' ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.fssj">
+				<![CDATA[ fssj >= #db.fssj# ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.jssj">
+				<![CDATA[ fssj <= #db.jssj# ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="db.fsrdm">
+				<![CDATA[ fsrdm = #db.fsrdm# ]]>
+			</isNotEmpty>
+	</select>
+	
+	<delete id="backMsg" parameterClass="java.util.List">
+		<![CDATA[ delete from sys_message where sfck = '0' and id in]]>
+		<iterate conjunction=","  open="(" close=")">
+			#list[].id#
+		</iterate>
+	</delete>
+	
+	
+</sqlMap>

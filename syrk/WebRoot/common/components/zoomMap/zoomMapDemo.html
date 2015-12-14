@@ -1,0 +1,210 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="<%=basePath%>"/>
+<title>指挥调度</title>
+</head>
+<body>
+	<link rel="stylesheet" type="text/css" href="project/zhdd/css/zhdd.css"/>
+	<!--bodyer-->
+	<div class="bodyer">
+		<div class="nav_shadow"></div>
+		<!--map-->
+		<div id="mapContainer" class="body_map">
+			<div class="div_map" id="pgis_map"></div>
+			<!--map tools-->
+			<div class="maptools_div">
+				<div class="tool_direction">
+					<a class="tool_north" href="#" title="向上"></a> <a class="tool_west"
+						href="#" title="向左"></a> <a class="tool_east" href="#" title="向右"></a>
+					<a class="tool_south" href="#" title="向下"></a> <a class="tool_zoom"
+						href="#" title="zoom"></a>
+				</div>
+				<a class="tool_contro" href="#" title="controller"></a> <a
+					class="tool_narrow" href="#" title="narrow"></a> <a
+					class="tool_track" href="#" title="track"></a>
+			</div>
+			<div class="toolsmap" id="mapTool">
+				<a class="vector " href="#"></a> <a class="virtual " href="#"></a> <a class="super" href="#"></a> <a class="toolbox" href="#"></a>
+				<div class="toolboxbgdiv">
+					<div class="toolboxdiv">
+						<a class="move " href="#"></a> <a class="distance  " href="#"></a>
+						<a class="area" href="#"></a> <a class="remove" href="#"></a> <a class="print" href="#"></a>
+					</div>
+				</div>
+			</div>
+			<!--/map tools-->
+		</div>
+		<!--/map-->
+
+		<!--left-->
+		<div class="body_lf">
+			<div class="left_shadow"></div>
+			<!--左侧菜单-->
+			<div class="lf_menu">
+				<a href="javascript:void(0);" class="btn_lftshow"></a>
+			</div>
+			<!--/左侧菜单-->
+			<!--左侧内容-->
+			<div id="leftcont" class="left_cont"></div>
+			<!--/左侧内容-->
+		</div>
+		<!--/left-->
+
+		<!--right-->
+		<div class="body_rt">
+			<div class="right_shadow"></div>
+			<!--右侧菜单-->
+			<div class="rt_menu">
+				<ul class="rt_menu_ul">
+					<li class="li_on"><a href="#" class="rt_menu_1">实时警力</a>
+					</li>
+					<li><a href="#" class="rt_menu_2">基础信息</a>
+					</li>
+					<li><a href="#" class="rt_menu_3">今日警情</a>
+					</li>
+				</ul>
+				<a href="#" class="btn_rtshow"></a>
+			</div>
+			<!--/右侧菜单-->
+			<!--右侧内容-->
+			<div id="rtcont"></div>
+			<!--右侧内容-->
+		</div>
+		<!--/right-->
+	</div>
+	<!--/bodyer-->
+	<script type="text/javascript" src="project/zhdd/js/jqxx.js"></script>
+	<script type="text/javascript" src="project/zhdd/js/jqcz.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			//初始始化地图
+			var map = new EzMap(document.getElementById("pgis_map"));
+			map.zoomTo(14);
+			//map.registerProx(ezmodule.util.getContextPath()+'/Proxy');
+			map.addMapEventListener(EzEvent.MAP_MOUSEMOVE, function(e) {
+				window.status = "X:" + e.mapPoint.x + "  Y:" + e.mapPoint.y;
+			});
+
+			/**
+			 * 从缓存中获取警情信息
+			 * @param {Object} param JSON对象（包括：jjrdwbh 接警人单位编号，jjrbh 接警人编号，jqzt 警情状态（空字符串：所有，1：未定位，2：未派警，3：已派警，4：处置中，5：已完成。)，showDivId 显示警情信息DIV id，showTotalCountSpanId 显示总数的span id。）
+			 */
+			// 查询我所在机构的所有警情
+			Jqxx.getJqxxFromCache({jjrdwbh: "510601000000", jjrbh: "", jqzt: "", showDivId: "contentInnerDiv", showTotalCountSpanId: "totalCountSpan"});
+			// 查询我的所有警情
+			//Jqxx.getJqxxFromCache({jjrdwbh: "", jjrbh: "1001", jqzt: "", showDivId: "contentInnerDiv", showTotalCountSpanId: "totalCountSpan"});
+			
+			var icon = new Icon();
+			icon.image = "project/base/images/user.png";
+			icon.width = 43;
+			icon.height = 45;
+			
+			var point = new Point(104.41194440, 31.11583333);
+			var title = new Title("旌阳区marker1", 12, 7);
+			var marker = new Marker(point, icon, title);
+			/**
+			 * 注册marker事件
+			 * @param {Object} param JSON对象（包括：mapToolId 地图工具条id，marker marker对象，htmlPath html路径，isCenter 点击marker时超屏幕是否居中）
+			 */
+			var page = "project/zhdd/pages/jqcz.jsp";
+			var param = {mapToolId: "mapTool", marker: marker, htmlPath: page, isCenter: false};
+			MapBalloon.bindingMarkerEvent(param, function(){
+				var jqbh = "2014090413465620240000";
+				Jqcz.openJqxxWindow(jqbh);
+			});
+			map.addOverlay(marker);
+			MapBalloon.init({mapApp: map, mapContainerId: "mapContainer"});
+			
+		});
+
+		/*地图按钮效果*/
+		$(".tool_north").mouseover(function() {
+			$(".tool_direction").addClass("tool_bgn");
+		});
+		$(".tool_north").mouseout(function() {
+			$(".tool_direction").removeClass("tool_bgn");
+		});
+		$(".tool_west").mouseover(function() {
+			$(".tool_direction").toggleClass("tool_bgw");
+		});
+		$(".tool_west").mouseout(function() {
+			$(".tool_direction").removeClass("tool_bgw");
+		});
+		$(".tool_east").mouseover(function() {
+			$(".tool_direction").toggleClass("tool_bge");
+		});
+		$(".tool_east").mouseout(function() {
+			$(".tool_direction").removeClass("tool_bge");
+		});
+		$(".tool_south").mouseover(function() {
+			$(".tool_direction").toggleClass("tool_bgs");
+		});
+		$(".tool_south").mouseout(function() {
+			$(".tool_direction").removeClass("tool_bgs");
+		});
+		$(".toolbox").click(function(){$(".toolboxbgdiv").show();});
+		$(".toolboxbgdiv").mouseenter(function(){$(this).show();});
+		$(".toolboxbgdiv").mouseleave(function(){$(this).hide();});
+
+		/*左侧菜单效果*/
+		$(".lf_more").click(function() {
+			var t = $(".lf_menu_ul").position().top;
+			t = t - 90;
+			$(".lf_menu_ul").animate({
+				top : t
+			});
+			if (t == -90) {
+				$(this).hide();
+				$(".lf_moreb").show();
+			}
+		});
+		$(".lf_moreb").click(function() {
+			var tb = $(".lf_menu_ul").position().top;
+			tb = tb + 90;
+			$(".lf_menu_ul").animate({
+				top : tb
+			});
+			if (tb == 0) {
+				$(this).hide();
+				$(".lf_more").show();
+			}
+		});
+		$(".btn_lftshow").click(function() {
+			var lf = $(".body_lf").position().left;
+			if (lf == 0) {
+				$(".body_lf").animate({
+					left : "-275px"
+				}, "slow");
+			} else {
+				$(".body_lf").animate({
+					left : "0"
+				}, "slow");
+			}
+			$(this).toggleClass("btn_lfthide");
+		});
+
+		$(".btn_rtshow").click(function() {
+			var rt = $(".body_rt").css("right");
+			if (rt == "0px") {
+				$(".body_rt").animate({
+					right : "-270px"
+				}, "slow");
+			} else {
+				$(".body_rt").animate({
+					right : "0"
+				}, "slow");
+			}
+			$(this).toggleClass("btn_rthide");
+		});
+
+		$("#leftcont").load("project/zhdd/leftpage.jsp");
+		$("#rtcont").load("common/components/resource/ssjl.jsp");
+	</script>
+</body>
+</html>

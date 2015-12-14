@@ -1,0 +1,9 @@
+﻿{"begin":0,"end":32,"order":"asc","page":1,"rows":[
+	{"cslb":"系统设置相关参数","csmc":"systemOrganization","cssm":"用户的单位名称","csz":"大连市公安局","id":1},
+	{"cslb":"系统设置相关参数","csmc":"systemName","cssm":"系统名称","csz":"警务信息综合应用平台","id":2},
+	{"cslb":"系统设置相关参数","csmc":"systemXzqh","cssm":"本地行政区划","csz":"210200","id":3},
+	{"cslb":"系统设置相关参数","csmc":"districtXzqh","cssm":"城区行政区划，以逗号开始与结尾","csz":",210202,210203,210204,210211,210212,","id":4},
+	{"cslb":"系统设置相关参数","csmc":"dictRebuildOnStart","cssm":"是否在启动时重新创建所有字典文件","csz":"0","id":5},
+	{"cslb":"服务配置相关参数","csmc":"provinceServiceUrl","cssm":"省厅服务地址","csz":"http://127.0.0.1:8080","id":6},
+	{"cslb":"业务规则相关参数","csmc":"addressPrefix","cssm":"地址前辍，显示列表时截取该前辍","csz":"辽宁省大连市,辽宁省","id":7}
+],"sort":"id","total":7}

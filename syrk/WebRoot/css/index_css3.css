@@ -1,0 +1,533 @@
+@charset "utf-8";
+/* CSS Document */
+body{margin:0px; padding:0px; background:url(../images/bg_03.jpg)  no-repeat #FFF center center ;}
+img{border:0px;}
+.nav_wrap_01{ width:750px; height:auto; overflow:hidden; margin:20px auto;}
+.nav_wrap_01 ul{list-style:none; margin:0px; padding:0px; width:750px; height:auto; overflow:hidden; float:left; }
+.nav_wrap_01 ul li{list-style:none; width:120px; float:left;  height: auto;; overflow: hidden; margin:30px 0 0 100px; text-align:center;}
+.navImages{
+   	width:120px;height:120px;float:left;
+}
+.touying{
+   	width:120px;height:17px;float:left; text-align:center;background:url(../images/touying.png)  no-repeat center top;
+}
+.navText{
+	width:120px; line-height:26px;color:#3d5d7c;font-size:14px;font-weight:bold;
+	}
+.navText a{
+	color:#3d5d7c;font-size:14px; text-decoration:none;font-weight:bold;
+}
+.navText a:hover{
+	color:#0036ff;font-size:14px; text-decoration:none;
+}
+ /**标准地址管理*/
+ .biaozhundizhiguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/biaozhundizhiguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ 	}  
+ .biaozhundizhiguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/biaozhundizhiguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**标准地址核实*/
+ .biaozhundizhiheshi{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/biaozhundizhiheshi_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ 	}  
+ .biaozhundizhiheshi_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/biaozhundizhiheshi_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**出租房屋查询*/
+ .chuzufangwuchaxun{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/chuzufangwuchaxun_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ 	}  
+ .chuzufangwuchaxun_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/chuzufangwuchaxun_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**实有单位查询*/
+ .shiyoudanweichaxun{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyoudanweichaxun_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .shiyoudanweichaxun_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyoudanweichaxun_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  /**实有房屋查询*/
+ .shiyoufangwuchaxun{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyoufangwuchaxun_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .shiyoufangwuchaxun_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyoufangwuchaxun_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**实有人口查询*/
+ .shiyourenkouchaxun{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyourenkouchaxun_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .shiyourenkouchaxun_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyourenkouchaxun_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**重点人员查询*/
+ .zhongdianrenyuanchaxun{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/zhongdianrenyuanchaxun_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .zhongdianrenyuanchaxun_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/zhongdianrenyuanchaxun_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**出生证明*/
+ .chushengzhengming{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/chushengzhengming_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .chushengzhengming_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/chushengzhengming_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**独居老人信息*/
+ .dujulaorenxinxi{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/dujulaorenxinxi_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .dujulaorenxinxi_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/dujulaorenxinxi_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**居住证明*/
+ .juzhuzhengming{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/juzhuzhengming_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .juzhuzhengming_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/juzhuzhengming_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+  /**矛盾调解*/
+ .maoduntiaojie{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/maoduntiaojie_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .maoduntiaojie_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/maoduntiaojie_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**亲属关系证明*/
+ .qinshuguanxizhengming{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/qinshuguanxizhengming_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .qinshuguanxizhengming_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/qinshuguanxizhengming_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+ 
+  /**犬只管理*/
+ .quanzhiguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/quanzhiguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .quanzhiguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/quanzhiguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+  /**特困救助人员*/
+ .tekunjiuzhurenyuan{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/tekunjiuzhurenyuan_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .tekunjiuzhurenyuan_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/tekunjiuzhurenyuan_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+  /**无违法记录证明*/
+ .wuweifajiluzhengming{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/wuweifajiluzhengming_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .wuweifajiluzhengming_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/wuweifajiluzhengming_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**现实表现证明*/
+ .xianshibiaoxianzhengming{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/xianshibiaoxianzhengming_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .xianshibiaoxianzhengming_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/xianshibiaoxianzhengming_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**重点保护对象*/
+ .zhongdianbaohuduixiang{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/zhongdianbaohuduixiang_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .zhongdianbaohuduixiang_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/zhongdianbaohuduixiang_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**标准地址动态*/
+ .biaozhundizhidongtai{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/biaozhundizhidongtai_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .biaozhundizhidongtai_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/biaozhundizhidongtai_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**出租房屋动态*/
+ .chuzufangwudongtai{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/chuzufangwudongtai_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .chuzufangwudongtai_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/chuzufangwudongtai_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**典当业管理*/
+ .diandangyeguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/diandangyeguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .diandangyeguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/diandangyeguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**公共场所管理*/
+ .gonggongchangsuoguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/gonggongchangsuoguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .gonggongchangsuoguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/gonggongchangsuoguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**旅店业管理*/
+ .lvdianyeguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/lvdianyeguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .lvdianyeguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/lvdianyeguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+  /**实有单位管理*/
+ .shiyoudanweiguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyoudanweiguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .shiyoudanweiguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyoudanweiguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**实有单位核实*/
+ .shiyoudanweiheshi{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyoudanweiheshi_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .shiyoudanweiheshi_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyoudanweiheshi_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+  /**学校管理*/
+ .xuexiaoguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/xuexiaoguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .xuexiaoguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/xuexiaoguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+  /**印章业管理*/
+ .yinzhangyeguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/yinzhangyeguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .yinzhangyeguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/yinzhangyeguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+  /**出租房屋管理*/
+ .chuzufangwuguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/chuzufangwuguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .chuzufangwuguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/chuzufangwuguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**实有房屋管理*/
+ .shiyoufangwuguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyoufangwuguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .shiyoufangwuguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyoufangwuguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**常住人口管理*/
+ .changzhurenkouguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/changzhurenkouguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .changzhurenkouguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/changzhurenkouguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+  /**境外人员管理*/
+ .jingwairenyuanguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/jingwairenyuanguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .jingwairenyuanguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/jingwairenyuanguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   /**境外人员管理*/
+ .jingwairenyuanguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/jingwairenyuanguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .jingwairenyuanguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/jingwairenyuanguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+   /**寄住人口管理*/
+ .jizhurenkouguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/jizhurenkouguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .jizhurenkouguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/jizhurenkouguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+   /**流动人口管理*/
+ .liudongrenkouguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/liudongrenkouguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .liudongrenkouguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/liudongrenkouguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+   /**实有人口管理*/
+ .shiyourenkouguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyourenkouguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .shiyourenkouguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyourenkouguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+   /**实有人口核实*/
+ .shiyourenkouheshi{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyourenkouheshi_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .shiyourenkouheshi_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyourenkouheshi_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+   /**实有人口装户*/
+ .shiyourenkouzhuanghu{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyourenkouzhuanghu_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .shiyourenkouzhuanghu_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyourenkouzhuanghu_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+   /**未落常口管理*/
+ .weiluochangkouguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/weiluochangkouguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .weiluochangkouguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/weiluochangkouguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+   /**重点人员管理*/
+ .zhongdianrenyuanguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/zhongdianrenyuanguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .zhongdianrenyuanguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/zhongdianrenyuanguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+   /**标准地址统计*/
+ .biaozhundizhitongji{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/biaozhundizhitongji_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .biaozhundizhitongji_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/biaozhundizhitongji_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+   /**出租房屋统计*/
+ .chuzufangwutongji{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/chuzufangwutongji_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .chuzufangwutongji_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/chuzufangwutongji_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+   /**实有单位统计*/
+ .shiyoudanweitongji{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyoudanweitongji_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .shiyoudanweitongji_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyoudanweitongji_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+   /**实有房屋统计*/
+ .shiyoufangwutongji{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyoufangwutongji_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .shiyoufangwutongji_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyoufangwutongji_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+   /**实有人口统计*/
+ .shiyourenkoutongji{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyourenkoutongji_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .shiyourenkoutongji_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shiyourenkoutongji_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+   /**工作纪实*/
+ .gongzuojishi{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/gongzuojishi_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .gongzuojishi_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/gongzuojishi_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+   /**技防*/
+ .jifang{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/jifang_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .jifang_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/jifang_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+   /**警务室管理*/
+ .jingwushiguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/jingwushiguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .jingwushiguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/jingwushiguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+   /**人防*/
+ .renfang{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/renfang_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .renfang_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/renfang_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+   /**物防*/
+ .wufang{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/wufang_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .wufang_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/wufang_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+   /**工作动态推送*/
+ .gongzuodongtaituisong{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/gongzuodongtaituisong_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .gongzuodongtaituisong_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/gongzuodongtaituisong_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    /**其他宠物管理*/
+ .qitachongwuguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/qitachongwuguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .qitachongwuguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/qitachongwuguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+    /**通知公告管理*/
+ .tongzhigonggaoguali{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/tongzhigonggaoguali_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .tongzhigonggaoguali_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/tongzhigonggaoguali_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+    /**350M*/
+ .sanbaiwushim{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/sanbaiwushim_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .sanbaiwushim_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/sanbaiwushim_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+    /**工作督办列管*/
+ .gongzuodubanlieguan{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/gongzuodubanlieguan_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .gongzuodubanlieguan_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/gongzuodubanlieguan_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+     /**地址层户*/
+ .zhongdianrenyuandongtai{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/zhongdianrenyuandongtai_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .zhongdianrenyuandongtai_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/zhongdianrenyuandongtai_L01.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+     /**四色预警*/
+ .siseyujing{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/siseyujing_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .siseyujing_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/siseyujing_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+     /**警情分析*/
+ .jingqingfenxi{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/jingqingfenxi_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .jingqingfenxi_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/jingqingfenxi_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+    /**GPS*/
+ .gpsxunzhiguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/gpsxunzhiguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .gpsxunzhiguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/gpsxunzhiguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+  /**可防性案件*/
+ .kefangxinganjian{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/kefangxinganjian_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .kefangxinganjian_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/kefangxinganjian_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+  /**考核系统*/
+ .kehexutong{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/kehexutong_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .kehexutong_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/kehexutong_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+  /**巡检系统*/
+ .xunjianxitong{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/xunjianxitong_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .xunjianxitong_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/xunjianxitong_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+  /**音视频*/
+ .yinshipin{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/yinshipin_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .yinshipin_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/yinshipin_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+  /**巡逻车管理*/
+ .xunluocheguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/xunluocheguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .xunluocheguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/xunluocheguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+   /**巡逻员管理*/
+ .xunluoyuanguanli{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/xunluoyuanguanli_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .xunluoyuanguanli_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/xunluoyuanguanli_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+ 
+    /**巡警OA*/
+ .xunjingOA{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/xunjingOA_L_text01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .xunjingOA_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/xunjingOA_L_text02.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+     /**社区警务*/
+ .shequjingwutongji{ width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shequjingwutongji_L01.png)  no-repeat;
+     cursor:pointer;float:left;
+ } 
+ .shequjingwutongji_hover{width:120px; height:145px;  background:url(../images/navigatorNew/theme1/shequjingwutongji_L01_over.png)  no-repeat;
+ cursor:pointer;float:left;}
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+

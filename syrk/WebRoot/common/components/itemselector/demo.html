@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+    <title>itemselector</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<link rel="stylesheet" href="css/itemselector.css" type="text/css"></link>
+    <script type="text/javascript" src="../../../framework/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="js/itemselector.js"></script>
+    <script type="text/javascript">
+			$(document).ready(function() {
+			var items_n_array = [
+			                 {text:'Java',value:'123'},
+			                 {text:'JavaScript',value:'2'},
+			                 {text:'C',value:'3'},
+			                 {text:'PHP',value:'4'},
+			                 {text:'ASP',value:'5'},
+			                 {text:'Java2',value:'6'}
+			        ];
+			var items_y_array = [];
+					ItemSelector.init("itemselector",items_n_array, items_y_array);
+					
+			});
+			
+	</script>
+	
+  </head>
+  
+  <body>
+  	<div id="itemselector">
+  	</div>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZdryInitialize">
+	
+	<resultMap class="java.util.HashMap" id="ZdrylbMap">
+	  <result property="key" column="lbdm"/>
+	  <result property="value" column="classname"/>
+	</resultMap>
+		
+	<resultMap class="java.util.HashMap" id="ZdryDict">
+	  <result property="key" column="lbdm"/>
+	  <result property="value" column="bz"/>
+	</resultMap>
+	
+	<!-- 根据区域代码取重点人员类别对应CLASS -->
+	<select id="queryZdrylbMap" parameterClass="String" resultMap="ZdrylbMap">
+		<![CDATA[ select lbdm   , classname  from ZDRY_ZDRYLXYLBDYB  where  XT_ZXBZ = '0' and lbdm_p = '999999' and QYDM = #qydm# order by LBDM ASC]]> 
+	</select>
+	
+	<!-- 根据区域代码取重点人员字典-->
+	<select id="queryZdryDict" parameterClass="Map" resultMap="ZdryDict">
+		<![CDATA[ select lbdm   , bz  from ZDRY_ZDRYLXYLBDYB  where  XT_ZXBZ = '0']]> 
+			<isNotEmpty prepend="and" property="lbdm_p">
+				lbdm_p = #lbdm_p#
+			</isNotEmpty>
+		<![CDATA[ and QYDM = #qydm# order by LBDM ASC]]> 
+	</select>	
+</sqlMap>

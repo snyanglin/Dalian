@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--  
+	@Author:       [wu.w@founder.com.cn]
+	@CreateDate:   [2015-5-15 上午8:51:54]
+	* @review      : tian_chengwei@founder.com.cn
+	* @reviewDate  : 20150604
+-->
+<sqlMap namespace="dxqzxhdsplzbhdjabxxb">
+	<typeAlias alias="hdab" type="com.founder.zafffwqz.bean.DxqzxhdSplZbHdjabxxb"/>
+	<!-- 大型群众性活动审批类-活动及安保信息类-sql -->
+	<!-- 注销数据 -->
+	<update id="delete" parameterClass="hdab" >
+		<![CDATA[UPDATE DXQZXHDSPL_ZB_HDJABXXB SET ]]><include refid="deleteXtzd"/>
+		<![CDATA[ WHERE hdid = #hdid#]]>
+	</update>
+	
+	<!-- 查询数据 -->
+	<select id="query" parameterClass="String" resultClass="hdab">
+		select * from DXQZXHDSPL_ZB_HDJABXXB  where XT_ZXBZ = '0' and HDID=#hdid#
+	</select>
+	
+	<!-- 新增数据 -->
+	<update id="save" parameterClass="hdab" >
+		INSERT INTO DXQZXHDSPL_ZB_HDJABXXB (
+			HDID,AQJC,DCZGAQYH,SFQDDM,JG,FK,SFJLDM,JLDC,JLBCFK,JLZLJJR,QS,SWRS,JJSS,BZ,<include refid="insertXtzd"/> 
+  		) VALUES (
+  			#hdid#,#aqjc#,#dczgaqyh#,#sfqddm#,#jg#,#fk#,#sfjldm#,#jldc#,#jlbcfk#,#jlzljjr#,#qs#,#swrs#,#jjss#,#bz#,<include refid="insertXtzdVal"/>)
+	</update>
+	
+	<!-- 修改数据 -->
+	<update id="update" parameterClass="hdab" >
+		UPDATE DXQZXHDSPL_ZB_HDJABXXB SET 
+		bz=''
+		<isNotNull prepend = "," property = "aqjc"> <![CDATA[aqjc = #aqjc#]]> </isNotNull>
+		<isNotNull prepend = "," property = "dczgaqyh"> <![CDATA[dczgaqyh = #dczgaqyh#]]> </isNotNull>
+		<isNotNull prepend = "," property = "sfqddm"> <![CDATA[sfqddm = #sfqddm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jg"> <![CDATA[jg = #jg#]]> </isNotNull>
+		<isNotNull prepend = "," property = "fk"> <![CDATA[fk = #fk#]]> </isNotNull>
+		<isNotNull prepend = "," property = "sfjldm"> <![CDATA[sfjldm = #sfjldm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jldc"> <![CDATA[jldc = #jldc#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jlbcfk"> <![CDATA[jlbcfk = #jlbcfk#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jlzljjr"> <![CDATA[jlzljjr = #jlzljjr#]]> </isNotNull>
+		<isNotNull prepend = "," property = "qs"> <![CDATA[qs = #qs#]]> </isNotNull>
+		<isNotNull prepend = "," property = "swrs"> <![CDATA[swrs = #swrs#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jjss"> <![CDATA[jjss = #jjss#]]> </isNotNull>
+		,<include refid="updateXtzd"/>				
+		WHERE hdid = #hdid#
+	</update>
+</sqlMap>

@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Lksq">
+
+	<typeAlias alias="lksq" type="com.founder.qbld.bean.Lksqb" />
+	
+	<!-- 临控申请列表查询 -->
+	<select id="queryLksqList" parameterClass="Map" resultClass="lksq">
+      select * from ( select rownum r ,m.* from (
+	       select * from qbld_lk_lksqb
+		   where 1=1
+		   	  <isNotEmpty prepend="and" property="lksqb.bc_fbrsfzh">
+				   bc_fbrsfzh like '%$lksqb.bc_fbrsfzh$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lksqb.bc_fbr">
+				   bc_fbr like '%$lksqb.bc_fbr$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lksqb.bbkrxm">
+				   bbkrxm like '%$lksqb.bbkrxm$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lksqb.bbkrzjhm">
+				   bbkrzjhm like '%$lksqb.bbkrzjhm$%' 
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lksqb.bc_gklx">
+				   bc_gklx in($lksqb.bc_gklx$)
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lksqb.sqdwjgdm">
+				   sqdwjgdm = #lksqb.sqdwjgdm#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lksqb.bkqssjB">
+				   <![CDATA[ bkqssj >= #lksqb.bkqssjB#  ]]> 
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lksqb.bkqssjE">
+				    <![CDATA[ bkqssj <= #lksqb.bkqssjE# ]]> 
+			  </isNotEmpty>
+			     )m
+      <![CDATA[where rownum <= #end# ) where r > #begin#]]> 
+    </select>
+    
+    <!-- 临控申请列表总数 -->
+    <select id="queryLksqCount" parameterClass="Map" resultClass="Integer">
+         select count(1)
+			from qbld_lk_lksqb
+		  where 1=1
+		     <isNotEmpty prepend="and" property="lksqb.bc_fbrsfzh">
+				   bc_fbrsfzh like '%$lksqb.bc_fbrsfzh$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lksqb.bc_fbr">
+				   bc_fbr like '%$lksqb.bc_fbr$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lksqb.bbkrxm">
+				   bbkrxm like '%$lksqb.bbkrxm$%'
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lksqb.bbkrzjhm">
+				   bbkrzjhm like '%$lksqb.bbkrzjhm$%' 
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lksqb.bc_gklx">
+				   bc_gklx in($lksqb.bc_gklx$)
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lksqb.sqdwjgdm">
+				   sqdwjgdm = #lksqb.sqdwjgdm#
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lksqb.bkqssjB">
+				   <![CDATA[ bkqssj >= #lksqb.bkqssjB#  ]]> 
+			  </isNotEmpty>
+			  <isNotEmpty prepend="and" property="lksqb.bkqssjE">
+				    <![CDATA[ bkqssj <= #lksqb.bkqssjE# ]]> 
+			  </isNotEmpty>
+    </select>
+    
+    <!-- 临控申请详情-->
+    <select id="queryLksqb" parameterClass="Map" resultClass="lksq">
+         select *
+			from qbld_lk_lksqb
+		  where 1=1
+		      <isNotEmpty prepend="and" property="lksqb.xxbkzxbh">
+				   xxbkzxbh = #lksqb.xxbkzxbh#
+			  </isNotEmpty>
+    </select>
+    
+    <!-- 插入临控申请表 -->
+    <insert id="saveLksqb" parameterClass="lksq">
+       insert into qbld_lk_lksqb
+       (
+        xxbkzxbh, cjsj
+        <isNotEmpty prepend="," property="bbkrzjlx">
+			bbkrzjlx
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bbkrzjhm">
+			bbkrzjhm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bbkrxm">
+			bbkrxm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bbkrxb">
+			bbkrxb
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bbkrcsrq">
+			bbkrcsrq
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bkqssj">
+			bkqssj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bkjzsj">
+			bkjzsj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bz">
+			bz
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sqrsfhm">
+			sqrsfhm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sqrxm">
+			sqrxm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sqrlxhm">
+			sqrlxhm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sqdw">
+			sqdw
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sqdwjgdm">
+			sqdwjgdm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bkzxzt">
+			bkzxzt
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="czyzm">
+			czyzm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="rcvserviceid">
+			rcvserviceid
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_qssj">
+			bc_qssj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_qszt">
+			bc_qszt
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_cccs">
+			bc_cccs
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_xzz">
+			bc_xzz
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_hjzz">
+			bc_hjzz
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_tmtz">
+			bc_tmtz
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_gklx">
+			bc_gklx
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_fksj">
+			bc_fksj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bkdyfw">
+			bkdyfw
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_sg">
+			bc_sg
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_fbrlxdh">
+			bc_fbrlxdh
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_fbdw">
+			bc_fbdw
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_fbrsfzh">
+			bc_fbrsfzh
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_fbr">
+			bc_fbr
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_fbsj">
+			bc_fbsj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="lkzljb">
+			lkzljb
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_fbdwbm">
+			bc_fbdwbm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="id">
+			id
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bkyy">
+			bkyy
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="czyq">
+			czyq
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zfyj">
+			zfyj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_sqsj">
+			bc_sqsj
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_bkjb">
+			bc_bkjb
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_sjbkzxzt">
+			bc_sjbkzxzt
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sfsc">
+			sfsc
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sqrbm">
+			sqrbm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="shzt">
+			shzt
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sfscst">
+			sfscst
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bkd">
+			bkd
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bklx">
+			bklx
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="yjrdm">
+			yjrdm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="yjrmc">
+			yjrmc
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="yjdwdm">
+			yjdwdm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="yjdwmc">
+			yjdwmc
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sjhm">
+			sjhm
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="drlkry_id">
+			drlkry_id
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="drlkry_bh">
+			drlkry_bh
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bkts">
+			bkts
+		</isNotEmpty>
+       )VALUES(
+       	#xxbkzxbh#, sysdate
+        <isNotEmpty prepend="," property="bbkrzjlx">
+			#bbkrzjlx#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bbkrzjhm">
+			#bbkrzjhm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bbkrxm">
+			#bbkrxm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bbkrxb">
+			#bbkrxb#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bbkrcsrq">
+			#bbkrcsrq#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bkqssj">
+			#bkqssj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bkjzsj">
+			#bkjzsj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bz">
+			#bz#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sqrsfhm">
+			#sqrsfhm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sqrxm">
+			#sqrxm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sqrlxhm">
+			#sqrlxhm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sqdw">
+			#sqdw#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sqdwjgdm">
+			#sqdwjgdm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bkzxzt">
+			#bkzxzt#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="czyzm">
+			#czyzm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="rcvserviceid">
+			#rcvserviceid#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_qssj">
+			#bc_qssj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_qszt">
+			#bc_qszt#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_cccs">
+			#bc_cccs#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_xzz">
+			#bc_xzz#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_hjzz">
+			#bc_hjzz#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_tmtz">
+			#bc_tmtz#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_gklx">
+			#bc_gklx#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_fksj">
+			#bc_fksj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bkdyfw">
+			#bkdyfw#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_sg">
+			#bc_sg#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_fbrlxdh">
+			#bc_fbrlxdh#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_fbdw">
+			#bc_fbdw#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_fbrsfzh">
+			#bc_fbrsfzh#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_fbr">
+			#bc_fbr#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_fbsj">
+			#bc_fbsj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="lkzljb">
+			#lkzljb#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_fbdwbm">
+			#bc_fbdwbm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="id">
+			#id#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bkyy">
+			#bkyy#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="czyq">
+			#czyq#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="zfyj">
+			#zfyj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_sqsj">
+			#bc_sqsj#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_bkjb">
+			#bc_bkjb#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bc_sjbkzxzt">
+			#bc_sjbkzxzt#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sfsc">
+			#sfsc#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sqrbm">
+			#sqrbm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="shzt">
+			#shzt#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sfscst">
+			#sfscst#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bkd">
+			#bkd#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bklx">
+			#bklx#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="yjrdm">
+			#yjrdm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="yjrmc">
+			#yjrmc#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="yjdwdm">
+			#yjdwdm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="yjdwmc">
+			#yjdwmc#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="sjhm">
+			#sjhm#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="drlkry_id">
+			#drlkry_id#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="drlkry_bh">
+			#drlkry_bh#
+		</isNotEmpty>
+        <isNotEmpty prepend="," property="bkts">
+			#bkts#
+		</isNotEmpty>
+       )
+    </insert>
+    
+</sqlMap>

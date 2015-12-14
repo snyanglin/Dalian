@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<report version="5.0">
+	<head>
+		<property name="type">0</property>
+		<name><![CDATA[BZDZ_MLP]]></name>
+		<dataSets>
+			<dataSet name="dwmc" type="DB_SQL" >
+				<property name="dataSource">bzdz</property>
+				<property name="desc"><![CDATA[单位名称]]></property>
+				<property name="query"><![CDATA[="select orgname from org_organization o where o.orgcode='"+case(@ORG_FJ='0' and @ORG_PCS='0' and @ORG_ZRQ='0',"210200000000",@ORG_FJ!='0' and @ORG_PCS='0' and @ORG_ZRQ='0',@ORG_FJ,@ORG_FJ!='0' and @ORG_PCS!='0' and @ORG_ZRQ='0',@ORG_PCS,@ORG_FJ!='0' and @ORG_PCS!='0' and @ORG_ZRQ!='0',@ORG_ZRQ)+"'"]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+			<dataSet name="data" type="DB_SQL" >
+				<property name="dataSource">bzdz</property>
+				<property name="desc"><![CDATA[]]></property>
+				<property name="query"><![CDATA[=if(@zzjglx=11,"select d1.orgname,
+       d1.orgcode,
+       d1.xjhs,
+       d1.fxjhs,
+       d1.zhs,
+       d1.cwzx,
+       d1.ywzx,
+       d1.zzx,
+       DECODE(d2.youxiaoshu, NULL, 0, d2.youxiaoshu) AS youxiaoshu
+  from (select sum(t.xjhs) as xjhs,
+               sum(t.fxjhs) as fxjhs,
+               sum(t.zhs) as zhs,
+               sum(t.cwzx) as cwzx,
+               sum(t.ywzx) as ywzx,
+               sum(t.zzx) as zzx,
+               t.orgname,
+               t.orgcode
+          from TJBB_BZDZ_CH_TJB t
+         where t.orglevel = '02'
+           and t.orgname is not null
+           and t.hssj >= '"+tostr(@ZQ_KS)+"'
+           and t.hssj <= '"+tostr(@ZQ_JS)+"'
+         group by t.orgname, t.orgcode
+           order by t.orgcode) d1
+  left join (select /* +INDEX(IDX_BZDZ_BZDZXXB_XT_ZHXGSJ,IDX_F_BZDZ_BZDZXXB_XT_ZXBZ,IDX_F_BZDZ_BZDZXXB_ZTBS)*/
+              t.fxjdm as dm, count(1) as youxiaoshu
+               from bzdz_bzdzxxb t
+              where t.xt_zxbz = '0'
+                and t.ztbs = '02'
+                and t.dzjb = '13'
+                and substr(t.xt_zhxgsj, 1, 10) >= '"+tostr(@ZQ_KS)+"'
+                and substr(t.xt_zhxgsj, 1, 10) <= '"+tostr(@ZQ_JS)+"'
+              group by t.fxjdm) d2
+    on d1.orgcode = d2.dm
+","")+
+if(@zzjglx=12," select d1.orgname,
+       d1.orgcode,
+       d1.xjhs,
+       d1.fxjhs,
+       d1.zhs,
+       d1.cwzx,
+       d1.ywzx,
+       d1.zzx,
+       DECODE(d2.youxiaoshu, NULL, 0, d2.youxiaoshu) AS youxiaoshu
+  from (select sum(t.xjhs) as xjhs,
+               sum(t.fxjhs) as fxjhs,
+               sum(t.zhs) as zhs,
+               sum(t.cwzx) as cwzx,
+               sum(t.ywzx) as ywzx,
+               sum(t.zzx) as zzx,
+               t.orgname,
+               t.orgcode
+          from TJBB_BZDZ_CH_TJB t
+         where t.orglevel = '32'
+           and t.orgname is not null
+           and substr(orgcode,1,6)=substr('"+@ORG_FJ+"',1,6)
+           and t.hssj >= '"+tostr(@ZQ_KS)+"'
+           and t.hssj <= '"+tostr(@ZQ_JS)+"'
+         group by t.orgname, t.orgcode
+           order by t.orgcode) d1
+  left join (select /* +INDEX(IDX_BZDZ_BZDZXXB_XT_ZHXGSJ,IDX_F_BZDZ_BZDZXXB_XT_ZXBZ,IDX_F_BZDZ_BZDZXXB_ZTBS)*/
+              t.pcsdm as dm, count(1) as youxiaoshu
+               from bzdz_bzdzxxb t
+              where t.xt_zxbz = '0'
+                and t.ztbs = '02'
+                and t.dzjb = '13'
+                and substr(fxjdm,1,6)=substr('"+@ORG_FJ+"',1,6)
+                and substr(t.xt_zhxgsj, 1, 10) >= '"+tostr(@ZQ_KS)+"'
+                and substr(t.xt_zhxgsj, 1, 10) <= '"+tostr(@ZQ_JS)+"'
+              group by t.pcsdm) d2
+    on d1.orgcode = d2.dm
+","")+
+if(@zzjglx=13," select d1.orgname,
+       d1.orgcode,
+       d1.xjhs,
+       d1.fxjhs,
+       d1.zhs,
+       d1.cwzx,
+       d1.ywzx,
+       d1.zzx,
+       DECODE(d2.youxiaoshu, NULL, 0, d2.youxiaoshu) AS youxiaoshu
+  from (select sum(t.xjhs) as xjhs,
+               sum(t.fxjhs) as fxjhs,
+               sum(t.zhs) as zhs,
+               sum(t.cwzx) as cwzx,
+               sum(t.ywzx) as ywzx,
+               sum(t.zzx) as zzx,
+               t.orgname,
+               t.orgcode
+          from TJBB_BZDZ_CH_TJB t
+         where t.orglevel = '50'
+           and t.orgname is not null
+           and substr(orgcode,1,8)=substr('"+@ORG_PCS+"',1,8)
+           and t.hssj >= '"+tostr(@ZQ_KS)+"'
+           and t.hssj <= '"+tostr(@ZQ_JS)+"'
+         group by t.orgname, t.orgcode
+           order by t.orgcode) d1
+  left join (select /* +INDEX(IDX_BZDZ_BZDZXXB_XT_ZHXGSJ,IDX_F_BZDZ_BZDZXXB_XT_ZXBZ,IDX_F_BZDZ_BZDZXXB_ZTBS)*/
+              t.zrqdm as dm, count(1) as youxiaoshu
+               from bzdz_bzdzxxb t
+              where t.xt_zxbz = '0'
+                and t.ztbs = '02'
+                and t.dzjb = '13'
+                and substr(pcsdm,1,8)=substr('"+@ORG_PCS+"',1,8)
+                and substr(t.xt_zhxgsj, 1, 10) >= '"+tostr(@ZQ_KS)+"'
+                and substr(t.xt_zhxgsj, 1, 10) <= '"+tostr(@ZQ_JS)+"'
+              group by t.zrqdm) d2
+    on d1.orgcode = d2.dm
+","")+
+if(@zzjglx=14," select d1.orgname,
+       d1.orgcode,
+       d1.xjhs,
+       d1.fxjhs,
+       d1.zhs,
+       d1.cwzx,
+       d1.ywzx,
+       d1.zzx,
+       DECODE(d2.youxiaoshu, NULL, 0, d2.youxiaoshu) AS youxiaoshu
+  from (select sum(t.xjhs) as xjhs,
+               sum(t.fxjhs) as fxjhs,
+               sum(t.zhs) as zhs,
+               sum(t.cwzx) as cwzx,
+               sum(t.ywzx) as ywzx,
+               sum(t.zzx) as zzx,
+               t.orgname,
+               t.orgcode
+          from TJBB_BZDZ_CH_TJB t
+         where t.orglevel = '50'
+           and t.orgname is not null
+           and orgcode = '"+@ORG_ZRQ+"'
+           and t.hssj >= '"+tostr(@ZQ_KS)+"'
+           and t.hssj <= '"+tostr(@ZQ_JS)+"'
+          group by t.orgname, t.orgcode) d1
+  left join (select /* +INDEX(IDX_BZDZ_BZDZXXB_XT_ZHXGSJ,IDX_F_BZDZ_BZDZXXB_XT_ZXBZ,IDX_F_BZDZ_BZDZXXB_ZTBS)*/
+              t.zrqdm as dm, count(1) as youxiaoshu
+               from bzdz_bzdzxxb t
+              where t.xt_zxbz = '0'
+                and t.ztbs = '02'
+                and t.dzjb = '13'
+                and zrqdm = '"+@ORG_ZRQ+"'
+                and substr(t.xt_zhxgsj, 1, 10) >= '"+tostr(@ZQ_KS)+"'
+                and substr(t.xt_zhxgsj, 1, 10) <= '"+tostr(@ZQ_JS)+"'
+              group by t.zrqdm ) d2
+    on d1.orgcode = d2.dm
+","")]]></property>
+				<property name="beginRow">0</property>
+				<property name="endRow">0</property>
+			</dataSet>
+		</dataSets>
+		<parameters>
+			<parameter name="ZQ_KS" type="2">
+				<property name="dateFormat">yyyy-MM-dd</property>
+				<property name="default"></property>
+				<property name="desc">开始日期</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ZQ_JS" type="2">
+				<property name="dateFormat">yyyy-MM-dd</property>
+				<property name="default"></property>
+				<property name="desc">结束日期</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ORG_FJ" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">分局代码</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ORG_PCS" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">派出所代码</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="ORG_ZRQ" type="6">
+				<property name="dateFormat"></property>
+				<property name="default">0</property>
+				<property name="desc">责任区代码</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="dw" type="6">
+				<property name="dateFormat"></property>
+				<property name="default"></property>
+				<property name="desc">单位</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+			<parameter name="zzjglx" type="17">
+				<property name="dateFormat"></property>
+				<property name="default">11</property>
+				<property name="desc">组织结构类型</property>
+				<property name="valueCalc">false</property>
+			</parameter>
+		</parameters>
+		<variables/>
+	</head>
+	<body>
+		<sheet id="sheet1">
+			<page>
+			</page>
+			<grid row="5" col="9">
+				<properties>
+					<property name="report-name"><![CDATA[=标准地址统计报表（层户）]]></property>
+				</properties>
+				<rows>
+					<row id="1">
+						<property name="type">1</property>
+						<property name="height">60</property>
+					</row>
+					<row id="2">
+						<property name="type">2</property>
+					</row>
+					<row id="3">
+					</row>
+					<row id="4">
+					</row>
+					<row id="5">
+						<property name="type">4</property>
+						<property name="visible"><![CDATA[1]]></property>
+					</row>
+				</rows>
+				<columns>
+					<column id="1">
+						<property name="width">160</property>
+					</column>
+					<column id="2">
+						<property name="width">90</property>
+					</column>
+					<column id="3">
+						<property name="width">90</property>
+					</column>
+					<column id="4">
+						<property name="width">90</property>
+					</column>
+					<column id="5">
+						<property name="width">107</property>
+					</column>
+					<column id="6">
+						<property name="width">90</property>
+					</column>
+					<column id="7">
+						<property name="width">90</property>
+					</column>
+					<column id="8">
+						<property name="width">90</property>
+					</column>
+					<column id="9">
+						<property name="visible"><![CDATA[1]]></property>
+					</column>
+				</columns>
+				<cells>
+					<cell id="1,1" type="0" colspan="9" >
+						<property name="value"><![CDATA[=dwmc.select(ORGNAME)+"标准地址统计(层户)"]]></property>
+						<property name="font-size">20</property>
+						<border type="1">1:153,153,153:1;1:153,153,153:1;1:153,153,153:1;1:153,153,153:1;1:153,153,153:1;1:153,153,153:1;1:153,153,153:1;1:153,153,153:1;null</border>
+					</cell>
+					<cell id="2,1" type="0" >
+						<property name="value"><![CDATA[单位]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="2">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="2,2" type="0" >
+						<property name="value"><![CDATA[新建]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="2,3" type="0" >
+						<property name="value"><![CDATA[核实(非新建)]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="2,4" type="0" >
+						<property name="value"><![CDATA[总核实]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="2,5" type="0" >
+						<property name="value"><![CDATA[核实有效数]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="2,6" type="0" >
+						<property name="value"><![CDATA[错误注销]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="2,7" type="0" >
+						<property name="value"><![CDATA[业务注销]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="2,8" type="0" >
+						<property name="value"><![CDATA[总注销]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="2,9" type="0" >
+						<property name="value"><![CDATA[id]]></property>
+					</cell>
+					<cell id="3,1" type="0" >
+						<property name="value"><![CDATA[=if(@zzjglx+1<14,"<u><span style='cursor:hand'>","")+data.select(ORGNAME)+if(@zzjglx+1<14,"</span></u>","")]]></property>
+						<property name="ext-direction">3</property>
+						<property name="font-color"><![CDATA[=if(@zzjglx+1<14,'0,0,255','0,0,0')]]></property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<property name="web-target"><![CDATA[_self]]></property>
+						<property name="web-event"><![CDATA[onclick:="window.location.href='"+if(@zzjglx+1<14,"ReportEmitter?rpt=BZDZ_CH.brt&params=ORG_FJ=" +if(@ORG_FJ="0" and @ORG_PCS="0" and @ORG_ZRQ="0",I3{},@ORG_FJ)+";ORG_PCS="+if(@ORG_FJ!="0" and @ORG_PCS="0" and @ORG_ZRQ="0",I3{},@ORG_PCS)+";ORG_ZRQ="+if(@ORG_FJ!="0" and @ORG_PCS!="0" and @ORG_ZRQ="0",I3{},@ORG_ZRQ)+";ZQ_KS="+tostr(@ZQ_KS)+";zzjglx="+(@zzjglx+1)+";ZQ_JS="+tostr(@ZQ_JS)+";dw="+I3+";window.parent.window.mask();","#")+"'"]]></property>
+						<property name="web-html">0</property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="2">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="3,2" type="0" >
+						<property name="value"><![CDATA[=data.select(XJHS)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="3,3" type="0" >
+						<property name="value"><![CDATA[=data.select(FXJHS)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="3,4" type="0" >
+						<property name="value"><![CDATA[=B3+C3]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="3,5" type="0" >
+						<property name="value"><![CDATA[=data.select(YOUXIAOSHU)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="3,6" type="0" >
+						<property name="value"><![CDATA[=data.select(CWZX)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="3,7" type="0" >
+						<property name="value"><![CDATA[=data.select(YWZX)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="3,8" type="0" >
+						<property name="value"><![CDATA[=data.select(ZZX)]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[=if(row()%2==0,'255,255,255','239,250,252')]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="3,9" type="0" >
+						<property name="value"><![CDATA[=data.select(ORGCODE)]]></property>
+					</cell>
+					<cell id="4,1" type="0" >
+						<property name="value"><![CDATA[合计]]></property>
+						<property name="background"><![CDATA[255,255,153]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="2">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="4,2" type="0" >
+						<property name="value"><![CDATA[=sum(B3{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[255,255,153]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="4,3" type="0" >
+						<property name="value"><![CDATA[=sum(C3{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[255,255,153]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="4,4" type="0" >
+						<property name="value"><![CDATA[=sum(D3{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[255,255,153]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="4,5" type="0" >
+						<property name="value"><![CDATA[=sum(E3{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[255,255,153]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="4,6" type="0" >
+						<property name="value"><![CDATA[=sum(F3{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[255,255,153]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="4,7" type="0" >
+						<property name="value"><![CDATA[=sum(G3{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[255,255,153]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="4,8" type="0" >
+						<property name="value"><![CDATA[=sum(H3{})]]></property>
+						<property name="view-format">1|###0;-###0</property>
+						<property name="background"><![CDATA[255,255,153]]></property>
+						<border type="1">1:153,153,153:1</border>
+						<border type="3">1:153,153,153:1</border>
+					</cell>
+					<cell id="4,9" type="0" >
+					</cell>
+					<cell id="5,1" type="0" >
+					</cell>
+					<cell id="5,2" type="0" >
+					</cell>
+					<cell id="5,3" type="0" >
+					</cell>
+					<cell id="5,4" type="0" >
+					</cell>
+					<cell id="5,5" type="0" >
+					</cell>
+					<cell id="5,6" type="0" >
+					</cell>
+					<cell id="5,7" type="0" >
+					</cell>
+					<cell id="5,8" type="0" >
+					</cell>
+					<cell id="5,9" type="0" >
+					</cell>
+				</cells>
+			</grid>
+		</sheet>
+	</body>
+</report>

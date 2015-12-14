@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="DbrwMain">
+
+	<typeAlias alias="dbrwDbpzb" type="com.founder.dbrw.bean.DbrwDbpzb" />
+	<typeAlias alias="dbrwDbrwb" type="com.founder.dbrw.bean.DbrwDbrwb" />
+	<typeAlias alias="dbrwDbrwsjmxb" type="com.founder.dbrw.bean.DbrwDbrwsjmxb" />
+	<typeAlias alias="dbrwDdbrwb" type="com.founder.dbrw.bean.DbrwDdbrwb" />
+	<typeAlias alias="dbrwDdbrwsjmxb" type="com.founder.dbrw.bean.DbrwDdbrwsjmxb" />
+	<typeAlias alias="dbrwMainVo" type="com.founder.dbrw.vo.DbrwMainVo" />
+	<typeAlias alias="dbrwJctj" type="com.founder.dbrw.bean.DbrwJctj" />
+
+	<!-- 根据【督办模型id】、【派出所id】查询待督办任务详细表(按分页查询) -->
+	<select id="queryDbrwDdbrwsjmxbList" parameterClass="Map"
+		resultClass="dbrwDdbrwsjmxb">
+		<![CDATA[ select * from ( select rownum r ,m.* from (
+			select b.*, c.orgname sszrqmc from DBRW_DDBRWB a,DBRW_DDBRWSJMXB b, ORG_ORGANIZATION c where a.id = b.ddbrwid ]]>
+		<isNotEmpty prepend="and" property="entity.dbrwfqpcsdm">
+			a.dbrwfqpcsdm = #entity.dbrwfqpcsdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.dbmxid">
+			a.dbmxid = #entity.dbmxid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.ddbsjx1">
+			b.ddbsjx1 =	#entity.ddbsjx1#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.ddbsjx9">
+			b.ddbsjx9 =	#entity.ddbsjx9#
+		</isNotEmpty>
+		<![CDATA[  and b.sszrqdm = c.orgcode(+) and a.xt_zxbz = '0' and b.xt_zxbz = '0' order by $sort$ $order$) m  
+		where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+
+	<!-- 根据【督办模型id】、【派出所id】查询待督办任务详细表（总数） -->
+	<select id="queryDbrwDdbrwsjmxbCount" parameterClass="Map"
+		resultClass="Integer">
+		<![CDATA[ select count(*) from (select b.* from DBRW_DDBRWB a,DBRW_DDBRWSJMXB b where a.id = b.ddbrwid ]]>
+		<isNotEmpty prepend="and" property="entity.dbrwfqpcsdm">
+			a.dbrwfqpcsdm =	#entity.dbrwfqpcsdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.dbmxid">
+			a.dbmxid = #entity.dbmxid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.ddbsjx1">
+			b.ddbsjx1 =	#entity.ddbsjx1#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.ddbsjx9">
+			b.ddbsjx9 =	#entity.ddbsjx9#
+		</isNotEmpty>
+		<![CDATA[ and a.xt_zxbz = '0' and b.xt_zxbz = '0' ) ]]>
+	</select>
+
+	<!-- 【高危人员】分组查询待督办任务详细表 -->
+	<select id="queryGwryList" parameterClass="Map" resultClass="dbrwMainVo">
+		<![CDATA[ select ddbsjx1 name, count(*) value from (select b.* from DBRW_DDBRWB a, DBRW_DDBRWSJMXB b where a.id = b.ddbrwid ]]>
+		<isNotEmpty prepend="and" property="dbrwfqpcsdm">
+			a.dbrwfqpcsdm =	#dbrwfqpcsdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="dbmxid">
+			a.dbmxid = #dbmxid#
+		</isNotEmpty>
+		<![CDATA[ and a.xt_zxbz = '0' and b.xt_zxbz = '0' ) group by ddbsjx1 ]]>
+	</select>
+
+	<!-- 【重点人员】分组查询待督办任务详细表 -->
+	<select id="queryZdryList" parameterClass="Map" resultClass="dbrwMainVo">
+		<![CDATA[ select ddbsjx1 name, count(*) value from (select b.* from DBRW_DDBRWB a, DBRW_DDBRWSJMXB b where a.id = b.ddbrwid ]]>
+		<isNotEmpty prepend="and" property="dbrwfqpcsdm">
+			a.dbrwfqpcsdm =	#dbrwfqpcsdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="dbmxid">
+			a.dbmxid = #dbmxid#
+		</isNotEmpty>
+		<![CDATA[ and a.xt_zxbz = '0' and b.xt_zxbz = '0' ) group by ddbsjx1 ]]>
+	</select>
+
+	<!-- 督办任务 -->
+	<select id="queryDbrwList" parameterClass="Map" resultClass="dbrwDbrwb">
+		<![CDATA[ select a.*,(select b.ORGNAME from ORG_ORGANIZATION b where b.ORGCODE = a.DBRWFQPCSDM and b.XT_ZXBZ = '0' and rownum = 1) as DBRWFQPCSMC,
+			(select c.ORGNAME from ORG_ORGANIZATION c where c.ORGCODE = a.DBRWFQDWDM and c.XT_ZXBZ = '0' and rownum = 1) as DBRWFQDWMC
+	 		from ( select rownum r ,m.* from (
+				select * from DBRW_DBRWB t where 1=1 ]]>
+		<isNotEmpty prepend="and" property="dbrwfqpcsdm">
+			t.dbrwfqpcsdm =	#dbrwfqpcsdm#
+		</isNotEmpty>
+		<![CDATA[ and t.xt_zxbz = '0' order by t.rwzt,t.rwkssj desc) m where rownum <= #end# ) a where a.r > #begin# ]]>
+	</select>
+
+	<!-- 督办任务（总数） -->
+	<select id="queryDbrwListCount" parameterClass="Map"
+		resultClass="Integer">
+		<![CDATA[ select count(*) from (select * from DBRW_DBRWB t where 1=1 ]]>
+		<isNotEmpty prepend="and" property="dbrwfqpcsdm">
+			t.dbrwfqpcsdm =	#dbrwfqpcsdm#
+		</isNotEmpty>
+		<![CDATA[ and t.xt_zxbz = '0') ]]>
+	</select>
+
+	<!-- 待督办业务 -->
+	<select id="queryDdbrwbList" parameterClass="Map" resultClass="dbrwDdbrwb">
+		<![CDATA[ select t.* from DBRW_DDBRWB t where 1=1 ]]>
+		<isNotEmpty prepend="and" property="dbrwfqpcsdm">
+			t.dbrwfqpcsdm =	#dbrwfqpcsdm#
+		</isNotEmpty>
+		<![CDATA[ and t.xt_zxbz = '0' ]]>
+	</select>
+
+	<!-- 对“无人居住房屋”、“独居出租房屋”和“群居出租房屋”统计数据进行比较，并返回最大的类别 -->
+	<select id="getSyfwMax" parameterClass="String" resultClass="dbrwMainVo">
+		<![CDATA[ select * from(
+			select * from(select '空置房屋' name, 'wrjz' typev, '15D9845505C14BEF8F3C658986536318' dbmxid, count(*) zs from (
+				select b.* from DBRW_DDBRWB a,DBRW_DDBRWSJMXB b where a.id = b.ddbrwid  
+					and a.dbmxid = '15D9845505C14BEF8F3C658986536318' and a.dbrwfqpcsdm = #dbrwfqpcsdm# and a.xt_zxbz = '0' and b.xt_zxbz = '0' ]]>
+				<![CDATA[ ) union select '独居房屋' name, 'dj' typev, '3F93097553E34BEC9DD7F70767FB5925' dbmxid, count(*) zs from (
+				select b.* from DBRW_DDBRWB a,DBRW_DDBRWSJMXB b where a.id = b.ddbrwid 
+					 and a.dbmxid = '3F93097553E34BEC9DD7F70767FB5925' and a.dbrwfqpcsdm = #dbrwfqpcsdm# and a.xt_zxbz = '0' and b.xt_zxbz = '0' ]]>
+				<![CDATA[ ) union select '群居房屋' name, 'qj' typev, 'CC51C3AAB08448668A1F0D0A5385DD15' dbmxid, count(*) zs from (
+				select b.* from DBRW_DDBRWB a,DBRW_DDBRWSJMXB b where a.id = b.ddbrwid 
+					and a.dbmxid = 'CC51C3AAB08448668A1F0D0A5385DD15' and a.dbrwfqpcsdm = #dbrwfqpcsdm# and a.xt_zxbz = '0' and b.xt_zxbz = '0' ]]>
+      			 <![CDATA[ )) t order by t.zs desc ) where rownum = 1  ]]>
+	</select>
+
+	<!-- 对“从业人员流动性较大的企业”和“无从业人员的企业”统计数据进行比较，并返回最大的类别 -->
+	<select id="getSydwMax" parameterClass="String" resultClass="dbrwMainVo">
+		<![CDATA[ select * from(
+			select * from(select '人员流动性大企业' name, 'ldxjdqy' typev, '32264DA2945A424297C18613666A6077' dbmxid, count(*) zs from (
+				select b.* from DBRW_DDBRWB a,DBRW_DDBRWSJMXB b where a.id = b.ddbrwid  
+					and a.dbmxid = '32264DA2945A424297C18613666A6077' and a.dbrwfqpcsdm = #dbrwfqpcsdm# and a.xt_zxbz = '0' and b.xt_zxbz = '0' ]]>
+				<![CDATA[ ) union select '无人企业' name, 'wrqy' typev, '3BC189E54F99495EB87411255C1D8A9A' dbmxid, count(*) zs from (
+				select b.* from DBRW_DDBRWB a,DBRW_DDBRWSJMXB b where a.id = b.ddbrwid  
+					 and a.dbmxid = '3BC189E54F99495EB87411255C1D8A9A' and a.dbrwfqpcsdm = #dbrwfqpcsdm# and a.xt_zxbz = '0' and b.xt_zxbz = '0' ]]>
+      			 <![CDATA[ )) t order by t.zs desc ) where rownum = 1  ]]>
+	</select>
+	<!-- 督办任务明细和总数 modify by wu_chunhui@founder.com.cn Date:2014-10-30 -->
+	<!-- 根据【督办模型id】、【派出所id】查询督办任务详细表(按分页查询) -->
+
+	<select id="queryDbrwDbrwsjmxbList" parameterClass="Map"
+		resultClass="dbrwDbrwsjmxb">
+		<![CDATA[ select * from ( select rownum r ,m.* from (
+				select b.*, c.orgname sszrqmc from DBRW_DBRWB a,DBRW_DBRWSJMXB b, ORG_ORGANIZATION c where a.id = b.dbrwid ]]>
+		<isNotEmpty prepend="and" property="entity.dbrwfqpcsdm">
+			a.dbrwfqpcsdm =	#entity.dbrwfqpcsdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.dbmxid">
+			a.dbmxid = #entity.dbmxid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.dbsjx1">
+			b.dbsjx1 = #entity.dbsjx1#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.dbsjx9">
+			b.dbsjx9 = #entity.dbsjx9#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.sfwcdm">
+			b.sfwcdm = #entity.sfwcdm#
+		</isNotEmpty>
+		<isEmpty prepend="and" property="entity.sfwcdm">
+			b.sfwcdm is null
+		</isEmpty>
+		<![CDATA[  and b.sszrqdm = c.orgcode(+) and a.xt_zxbz = '0' and b.xt_zxbz = '0' order by $sort$ $order$) m  
+		where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+
+	<!-- 根据【督办模型id】、【派出所id】查询督办任务详细表（总数） -->
+	<select id="queryDbrwDbrwsjmxbCount" parameterClass="Map"
+		resultClass="Integer">
+		<![CDATA[ select count(*) from (select b.* from DBRW_DBRWB a,DBRW_DBRWSJMXB b where a.id = b.dbrwid ]]>
+		<isNotEmpty prepend="and" property="entity.dbrwfqpcsdm">
+			a.dbrwfqpcsdm =	#entity.dbrwfqpcsdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.dbmxid">
+			a.dbmxid = #entity.dbmxid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.dbsjx1">
+			b.dbsjx1 = #entity.dbsjx1#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.dbsjx9">
+			b.dbsjx9 = #entity.dbsjx9#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entity.sfwcdm">
+			b.sfwcdm = #entity.sfwcdm#
+		</isNotEmpty>
+		<isEmpty prepend="and" property="entity.sfwcdm">
+			b.sfwcdm is null
+		</isEmpty>
+		<![CDATA[ and a.xt_zxbz = '0' and b.xt_zxbz = '0' ) ]]>
+	</select>
+
+	<!-- 【重点人员】分组查询督办任务详细表 -->
+	<select id="queryDbZdryList" parameterClass="Map" resultClass="dbrwMainVo">
+		<![CDATA[ select dbsjx1 name, count(*) value from (select b.* from DBRW_DBRWB a, DBRW_DBRWSJMXB b where a.id = b.dbrwid ]]>
+		<isNotEmpty prepend="and" property="dbrwfqpcsdm">
+			a.dbrwfqpcsdm =	#dbrwfqpcsdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="dbmxid">
+			a.dbmxid = #dbmxid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="sfwcdm">
+			b.sfwcdm = #sfwcdm#
+		</isNotEmpty>
+		<isEmpty prepend="and" property="sfwcdm">
+			b.sfwcdm is null
+		</isEmpty>
+		<![CDATA[ and a.xt_zxbz = '0' and b.xt_zxbz = '0' ) group by dbsjx1 ]]>
+	</select>
+	<!-- 【高危人员】分组查询督办任务详细表 -->
+	<select id="queryDbGwryList" parameterClass="Map" resultClass="dbrwMainVo">
+		<![CDATA[ select dbsjx1 name, count(*) value from (select b.* from DBRW_DBRWB a, DBRW_DBRWSJMXB b where a.id = b.dbrwid ]]>
+		<isNotEmpty prepend="and" property="dbrwfqpcsdm">
+			a.dbrwfqpcsdm =	#dbrwfqpcsdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="dbmxid">
+			a.dbmxid = #dbmxid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="sfwcdm">
+			b.sfwcdm = #sfwcdm#
+		</isNotEmpty>
+		<isEmpty prepend="and" property="sfwcdm">
+			b.sfwcdm is null
+		</isEmpty>
+		<![CDATA[ and a.xt_zxbz = '0' and b.xt_zxbz = '0' ) group by dbsjx1 ]]>
+	</select>
+
+	<!-- 督办任务中或完成 对“无人居住房屋”、“独居出租房屋”和“群居出租房屋”统计数据进行比较，并返回最大的类别 -->
+	<select id="getDbSyfwMax" parameterClass="Map" resultClass="dbrwMainVo">
+		<![CDATA[ select * from(
+			select * from(select '空置房屋' name, 'wrjz' typev, '15D9845505C14BEF8F3C658986536318' dbmxid, count(*) zs from (
+				select b.* from DBRW_DBRWB a,DBRW_DBRWSJMXB b where a.id = b.Dbrwid  
+					and a.dbmxid = '15D9845505C14BEF8F3C658986536318' and a.dbrwfqpcsdm = #dbrwfqpcsdm# and a.xt_zxbz = '0' and b.xt_zxbz = '0' ]]>
+		<isNotEmpty prepend="and" property="sfwcdm">
+			b.sfwcdm = #sfwcdm#
+		</isNotEmpty>
+		<isEmpty prepend="and" property="sfwcdm">
+			b.sfwcdm is null
+		</isEmpty>
+				<![CDATA[ ) union select '独居房屋' name, 'dj' typev, '3F93097553E34BEC9DD7F70767FB5925' dbmxid, count(*) zs from (
+				select b.* from DBRW_DBRWB a,DBRW_DBRWSJMXB b where a.id = b.Dbrwid 
+					 and a.dbmxid = '3F93097553E34BEC9DD7F70767FB5925' and a.dbrwfqpcsdm = #dbrwfqpcsdm# and a.xt_zxbz = '0' and b.xt_zxbz = '0' ]]>
+		<isNotEmpty prepend="and" property="sfwcdm">
+			b.sfwcdm = #sfwcdm#
+		</isNotEmpty>
+		<isEmpty prepend="and" property="sfwcdm">
+			b.sfwcdm is null
+		</isEmpty>
+				<![CDATA[ ) union select '群居房屋' name, 'qj' typev, 'CC51C3AAB08448668A1F0D0A5385DD15' dbmxid, count(*) zs from (
+				select b.* from DBRW_DBRWB a,DBRW_DBRWSJMXB b where a.id = b.Dbrwid 
+					and a.dbmxid = 'CC51C3AAB08448668A1F0D0A5385DD15' and a.dbrwfqpcsdm = #dbrwfqpcsdm# and a.xt_zxbz = '0' and b.xt_zxbz = '0' ]]>
+		<isNotEmpty prepend="and" property="sfwcdm">
+			b.sfwcdm = #sfwcdm#
+		</isNotEmpty>
+		<isEmpty prepend="and" property="sfwcdm">
+			b.sfwcdm is null
+		</isEmpty>
+      	<![CDATA[ )) t order by t.zs desc ) where rownum = 1  ]]>
+	</select>
+
+	<!-- 督办任务中或完成 对“从业人员流动性较大的企业”和“无从业人员的企业”统计数据进行比较，并返回最大的类别 -->
+	<select id="getDbSydwMax" parameterClass="Map" resultClass="dbrwMainVo">
+		<![CDATA[ select * from(
+			select * from(select '从业人员流动性较大企业' name, 'ldxjdqy' typev, '32264DA2945A424297C18613666A6077' dbmxid, count(*) zs from (
+				select b.* from DBRW_DBRWB a,DBRW_DBRWSJMXB b where a.id = b.Dbrwid  
+					and a.dbmxid = '32264DA2945A424297C18613666A6077' and a.dbrwfqpcsdm = #dbrwfqpcsdm# and a.xt_zxbz = '0' and b.xt_zxbz = '0' ]]>
+		<isNotEmpty prepend="and" property="sfwcdm">
+			b.sfwcdm = #sfwcdm#
+		</isNotEmpty>
+		<isEmpty prepend="and" property="sfwcdm">
+			b.sfwcdm is null
+		</isEmpty>
+		<![CDATA[ ) union select '无人企业' name, 'wrqy' typev, '3BC189E54F99495EB87411255C1D8A9A' dbmxid, count(*) zs from (
+				select b.* from DBRW_DBRWB a,DBRW_DBRWSJMXB b where a.id = b.dbrwid  
+					 and a.dbmxid = '3BC189E54F99495EB87411255C1D8A9A' and a.dbrwfqpcsdm = #dbrwfqpcsdm# and a.xt_zxbz = '0' and b.xt_zxbz = '0' ]]>
+		<isNotEmpty prepend="and" property="sfwcdm">
+			b.sfwcdm = #sfwcdm#
+		</isNotEmpty>
+		<isEmpty prepend="and" property="sfwcdm">
+			b.sfwcdm is null
+		</isEmpty>
+      	 <![CDATA[ )) t order by t.zs desc ) where rownum = 1  ]]>
+	</select>
+
+
+	<!-- 未督办  -->
+	<select id="queryWdbrwCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*)
+				  from DBRW_DDBRWB t
+				 where  t.dbrwfqpcsdm = #sspcsdm#
+     	]]>
+		<isNotEmpty prepend="and" property="ywzlid">
+			t.dbmxid in ($ywzlid$)
+		</isNotEmpty>
+	</select>
+	
+	
+	<!-- 督办中 -->
+	<select id="queryDbzrwCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*)
+		  		from DBRW_DBRWB t
+			 	where  t.dbrwfqpcsdm = #sspcsdm#
+				   and t.RWZT ='0'
+				]]>
+		<isNotEmpty prepend="and" property="ywzlid">
+			t.dbmxid in ($ywzlid$)
+		</isNotEmpty>
+	</select>
+	
+	
+	<!-- 已督办   -->
+	<select id="queryYdbrwCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ 
+			select count(*)
+		  		from DBRW_DBRWB t
+			 	where  t.dbrwfqpcsdm = #sspcsdm#
+				   and t.RWZT ='1'
+		 ]]>
+		<isNotEmpty prepend="and" property="ywzlid">
+			t.dbmxid in ($ywzlid$)
+		</isNotEmpty>
+	</select>
+	
+	
+	<select id="queryJctjListCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ 
+			select      count(*) 
+          from (SELECT FQRBMID,
+                       FQRBM,
+                       SUM(CASE
+                             WHEN FLAG = '0' AND
+                                  SUBSTR(RWCLSJ, 1, 4) = TO_CHAR(SYSDATE, 'YYYY') THEN
+                              1
+                             ELSE
+                              0
+                           END) YEARSUM_FQ,
+                       SUM(CASE
+                             WHEN FLAG = '0' AND SUBSTR(RWCLSJ, 1, 7) =
+                                  TO_CHAR(SYSDATE, 'YYYY-MM') THEN
+                              1
+                             ELSE
+                              0
+                           END) MONTHSUM_FQ,
+                       SUM(CASE
+                             WHEN FLAG = '1' AND
+                                  SUBSTR(RWCLSJ, 1, 4) = TO_CHAR(SYSDATE, 'YYYY') THEN
+                              1
+                             ELSE
+                              0
+                           END) YEARSUM_CL,
+                       SUM(CASE
+                             WHEN FLAG = '1' AND
+                                  SUBSTR(RWCLSJ, 1, 7) = TO_CHAR(SYSDATE, 'YYYY-MM') THEN
+                              1
+                             ELSE
+                              0
+                           END) MONTHSUM_CL
+                  FROM (SELECT FQRBMID, FQRBM, RWCLSJ, '0' FLAG
+                          FROM RULE_YWXTGZRWB
+                         WHERE (RWCLJGDM = '0' OR RWCLJGDM = '2' OR
+                               CJJGDM = '0' OR CJJGDM = '2')
+                        UNION ALL
+                        SELECT RWCLRBMID, RWCLRBM, RWCLSJ, '1' FLAG
+                          FROM RULE_YWXTGZRWB
+                         WHERE (RWCLJGDM = '0' OR RWCLJGDM = '2' OR
+                               CJJGDM = '0' OR CJJGDM = '2'))
+                 where SUBSTR(FQRBMID, 1, 8) = #pcsdm#
+                 GROUP BY FQRBMID, FQRBM)
+		 ]]>
+	</select>
+	
+	<select id="queryJctjList" parameterClass="Map" resultClass="dbrwJctj">
+		<![CDATA[ 
+select *
+  from (select FQRBMID,
+               FQRBM,
+               YEARSUM_FQ,
+               MONTHSUM_FQ,
+               YEARSUM_CL,
+               MONTHSUM_CL,
+               rownum      r
+          from (SELECT FQRBMID,
+                       FQRBM,
+                       SUM(CASE
+                             WHEN FLAG = '0' AND
+                                  SUBSTR(RWCLSJ, 1, 4) = TO_CHAR(SYSDATE, 'YYYY') THEN
+                              1
+                             ELSE
+                              0
+                           END) YEARSUM_FQ,
+                       SUM(CASE
+                             WHEN FLAG = '0' AND SUBSTR(RWCLSJ, 1, 7) =
+                                  TO_CHAR(SYSDATE, 'YYYY-MM') THEN
+                              1
+                             ELSE
+                              0
+                           END) MONTHSUM_FQ,
+                       SUM(CASE
+                             WHEN FLAG = '1' AND
+                                  SUBSTR(RWCLSJ, 1, 4) = TO_CHAR(SYSDATE, 'YYYY') THEN
+                              1
+                             ELSE
+                              0
+                           END) YEARSUM_CL,
+                       SUM(CASE
+                             WHEN FLAG = '1' AND
+                                  SUBSTR(RWCLSJ, 1, 7) = TO_CHAR(SYSDATE, 'YYYY-MM') THEN
+                              1
+                             ELSE
+                              0
+                           END) MONTHSUM_CL
+                  FROM (SELECT FQRBMID, FQRBM, RWCLSJ, '0' FLAG
+                          FROM RULE_YWXTGZRWB
+                         WHERE (RWCLJGDM = '0' OR RWCLJGDM = '2' OR
+                               CJJGDM = '0' OR CJJGDM = '2')
+                        UNION ALL
+                        SELECT RWCLRBMID, RWCLRBM, RWCLSJ, '1' FLAG
+                          FROM RULE_YWXTGZRWB
+                         WHERE (RWCLJGDM = '0' OR RWCLJGDM = '2' OR
+                               CJJGDM = '0' OR CJJGDM = '2'))
+                 where SUBSTR(FQRBMID, 1, 8) =  #pcsdm#
+                 GROUP BY FQRBMID, FQRBM)
+         where rownum <=#end# )
+ where r > #begin#
+
+
+		 ]]>
+	</select>
+
+</sqlMap>

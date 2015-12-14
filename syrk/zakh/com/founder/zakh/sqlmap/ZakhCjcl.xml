@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZakhCjcl">
+	<typeAlias alias="zakhCjcl" type="com.founder.zakh.bean.ZakhCjclBean" />
+	
+	<!-- 新增 -->
+	<insert id="save" parameterClass="zakhCjcl">
+		<![CDATA[
+			insert into KH_CJCL(ORGID,ORGNAME,CL,UPDUSER,UPDDATE,ORGTREEPATH) 
+						values (#orgid#,#orgname#,'50',#upduser#,#upddate#,#orgtreepath#)
+		]]>
+	</insert>
+	
+	<!-- 删除 -->
+	<update id="delete" parameterClass="java.lang.String">
+		<![CDATA[ delete from KH_CJCL where ORGID = #orgid# ]]>
+	</update>
+	
+	<!-- 更新 -->
+	<update id="update" parameterClass="zakhCjcl">
+		<![CDATA[ update KH_CJCL ]]>
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="cl"><![CDATA[ CL=#cl# ]]></isNotNull>
+			<isNotNull prepend="," property="upduser"><![CDATA[ UPDUSER=#upduser# ]]></isNotNull>
+			<isNotNull prepend="," property="upddate"><![CDATA[ UPDDATE=#upddate# ]]></isNotNull>
+		</dynamic>
+		<![CDATA[ where ORGID = #orgid#]]>
+	</update>
+	
+	<!-- 查询 -->
+	<select id="query" parameterClass="Map" resultClass="zakhCjcl">
+		<![CDATA[
+		select * from KH_CJCL
+		 where 1=1
+		]]>
+		<isNotEmpty prepend="and" property="orgid">
+			ORGID = #orgid#
+		</isNotEmpty>
+	</select>
+	
+	<select id="querySumCl" parameterClass="Map" resultClass="Long">
+		<![CDATA[
+		select sum(cl) from KH_CJCL
+		 where 1=1
+		]]>
+		<isNotEmpty prepend="and" property="orgCode">
+			 orgid in(select ORGCODE AS ORGID 
+					   from ORG_ORGANIZATION 
+					  where PARENTTREEPATH like '%$orgCode$%'
+					    and ORGLEVEL = '50'
+					    and ORGBIZTYPE = '04')	
+		     or orgid=#orgCode#	 
+		</isNotEmpty>
+	</select>
+</sqlMap>

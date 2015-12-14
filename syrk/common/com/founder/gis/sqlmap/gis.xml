@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.founder.gis.sqlmap.Gis">
+	<typeAlias alias="gisvo" type="com.founder.gis.vo.GisVo"/>
+	<!-- 获取地图【责任区】坐标点信息 -->
+    <select id="queryZrqMapBz" parameterClass="gisvo" resultClass="gisvo">
+       SELECT T.ORGCODE ZRQDM, T.ORGNAME ZRQMC
+		   FROM $tableName$
+	   WHERE SUBSTR(T.ORGCODE, 0, 8) || '0000' = #pcsdm#
+		   AND SDE.ST_WITHIN(SDE.ST_POINT(#zbx#, #zby#, 0), T.SHAPE) = 1
+    </select>
+    <!-- 获取地图【派出所】坐标点信息 -->
+    <select id="queryPcsMapBz" parameterClass="gisvo" resultClass="gisvo">
+       SELECT T.ORGCODE PCSDM,T.ORGNAME PCSMC
+	  		FROM $tableName$
+	   WHERE SDE.ST_WITHIN(SDE.ST_POINT(#zbx#, #zby#, 0), T.SHAPE) = 1
+    </select>
+    <!-- 获取空间图层的Srid -->
+    <select id="getShapeTableSrid" parameterClass="map" resultClass="int">
+        SELECT SRID
+		   FROM SDE.ST_GEOMETRY_COLUMNS T
+	    WHERE T.TABLE_NAME = UPPER(#tableName#)
+	      AND T.OWNER = UPPER(#gisUser#)
+    </select>
+    <!-- 获取SDE空间图层下一个Objectid -->
+    <select id="getSdeSeqValue" parameterClass="map" resultClass="int">
+        SELECT SDE.VERSION_USER_DDL.NEXT_ROW_ID(UPPER(#gisUser#),
+	          (SELECT REGISTRATION_ID
+	             FROM SDE.TABLE_REGISTRY
+	            WHERE TABLE_NAME =
+	                  UPPER(#tableName#)
+	              AND OWNER =
+	                  UPPER(#gisUser#))) AS OBJECTID
+        FROM DUAL
+    </select>
+</sqlMap>

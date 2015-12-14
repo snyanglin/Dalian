@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Ywxtsfqypzb">
+	
+	<typeAlias alias="ywxtsfqypzb" type="com.founder.ywxt.bean.Ywxtsfqypzb" />
+	<!-- 查询单条（根据业务协同类型） -->
+	<select id="queryByYwxtlx" parameterClass="String" resultClass="ywxtsfqypzb">
+		<![CDATA[ select * from SYS_YWXTSFQYPZB t where xt_zxbz='0' and Ywxtlx = #ywxtlx#  and rownum = 1 ]]>
+	</select>
+	<select id="queryById" parameterClass="String" resultClass="ywxtsfqypzb">
+		<![CDATA[ select * from SYS_YWXTSFQYPZB t where id = #id# ]]>
+	</select>
+	
+		<!-- 查询显示列表 -->
+	<select id="query" parameterClass="Map" resultClass="ywxtsfqypzb">
+		SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+		SELECT *
+		FROM SYS_YWXTSFQYPZB T
+		WHERE T.XT_ZXBZ = '0'
+		ORDER BY T.YWXTLX) M 
+		  <![CDATA[WHERE ROWNUM <= #end# ) WHERE R > #begin#]]>
+	</select>
+
+	<!-- 实有人口管理列表数据【总数】 -->
+	<select id="queryCount" parameterClass="Map" resultClass="Integer">
+		SELECT COUNT(T.ID)
+		FROM SYS_YWXTSFQYPZB T
+		WHERE T.XT_ZXBZ = '0'
+	
+	</select>
+	
+	
+		<!-- 新增 -->
+	<insert id="save" parameterClass="ywxtsfqypzb">
+		<![CDATA[ insert into SYS_YWXTSFQYPZB (ID,YWXTLX,SFQY,BZ,]]><include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#,#ywxtlx#,#sfqy#,#bz#,]]>
+			<include refid="insertXtzdVal"/>)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterClass="ywxtsfqypzb">
+		<![CDATA[ update SYS_YWXTSFQYPZB ]]>	
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="sfqy"><![CDATA[ SFQY=#sfqy# ]]></isNotNull>
+			<isNotNull prepend="," property="bz"><![CDATA[ BZ=#bz# ]]></isNotNull>
+			,<include refid="updateXtzd"/>				
+		</dynamic>
+		<![CDATA[ where ID = #id#]]>	
+	</update>
+	
+	<!-- 注销 -->
+	<update id="delete" parameterClass="ywxtsfqypzb">
+		<![CDATA[ update SYS_YWXTSFQYPZB set ]]><include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>	
+	</update>
+	
+	
+</sqlMap>

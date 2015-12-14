@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="org_organization">
+
+	<typeAlias alias="organization" type="com.founder.tzgg.bean.Org_Organization" />
+	
+	<select id="queryOrg" parameterClass="Map" resultClass="organization">
+		<![CDATA[ 	SELECT id,orgcode,orgname,orgtype,orglevel,orgbiztype,parentid,parenttreepath,orgqc
+								 FROM ORG_ORGANIZATION T 
+										WHERE XT_ZXBZ='0'
+		]]>
+			<isNotEmpty prepend="and" property="organization.orgtype">
+				orgtype = #organization.orgtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="organization.orglevel">
+				orglevel = #organization.orglevel#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="organization.parentid">
+				parentid = #organization.parentid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="organization.orgbiztype">
+				orgbiztype = #organization.orgbiztype#
+			</isNotEmpty>			
+						
+					
+	</select>
+</sqlMap>

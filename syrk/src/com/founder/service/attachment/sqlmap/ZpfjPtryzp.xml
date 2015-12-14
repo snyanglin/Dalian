@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZpfjPtryzp">
+	
+	<typeAlias alias="zpfjPtryzpxxb" type="com.founder.service.attachment.bean.ZpfjPtryzpxxb" />
+	<typeAlias alias="zpfjPtryzpglb" type="com.founder.service.attachment.bean.ZpfjPtryzpglb" />
+	
+	<!-- 统计人员照片 -->
+	<select id="queryPtryzpCount" parameterClass="zpfjPtryzpglb" resultClass="Integer">
+		<![CDATA[ select count(*) from ZPFJ_PTRYZPGLB t,ZPFJ_PTRYZPXXB x where t.XT_ZXBZ = '0' ]]> 
+			<isNotEmpty prepend="and" property="ryid">
+				t.RYID = #ryid# 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="lybm">
+				t.LYBM = #lybm# 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="lyid">
+				t.LYID = #lyid# 
+			</isNotEmpty>
+			<![CDATA[ and t.ZPID = x.ID and x.XT_ZXBZ = '0']]>
+	</select>
+
+	<!-- 查询人员最新的一张照片 -->
+	<select id="queryPtryzpSingle" parameterClass="zpfjPtryzpglb" resultClass="zpfjPtryzpxxb">
+		<![CDATA[ select * from (select x.ZP from ZPFJ_PTRYZPGLB t,ZPFJ_PTRYZPXXB x where t.XT_ZXBZ = '0' ]]> 
+			<isNotEmpty prepend="and" property="ryid">
+				t.RYID = #ryid# 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="lybm">
+				t.LYBM = #lybm# 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="lyid">
+				t.LYID = #lyid# 
+			</isNotEmpty>
+			<![CDATA[ and t.ZPID = x.ID and x.XT_ZXBZ = '0' order by x.XT_ZHXGSJ desc) where rownum=1 ]]>
+	</select>
+	
+	<!-- 查询人员的多张照片 -->
+	<select id="queryPtryzpList" parameterClass="zpfjPtryzpglb" resultClass="zpfjPtryzpxxb">
+		<![CDATA[ select x.* from ZPFJ_PTRYZPGLB t,ZPFJ_PTRYZPXXB x where t.XT_ZXBZ = '0' ]]> 
+			<isNotEmpty prepend="and" property="ryid">
+				t.RYID = #ryid# 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="lybm">
+				t.LYBM = #lybm# 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="lyid">
+				t.LYID = #lyid# 
+			</isNotEmpty>
+			<![CDATA[ and t.ZPID = x.ID and x.XT_ZXBZ = '0' order by x.XT_ZHXGSJ desc ]]>
+	</select>
+	
+	<!-- 查询人员最新的一张照片缩略图 -->
+	<select id="queryPtryzpsltSingle" parameterClass="zpfjPtryzpglb" resultClass="zpfjPtryzpxxb">
+		<![CDATA[ select * from (select x.ZPSLT from ZPFJ_PTRYZPGLB t,ZPFJ_PTRYZPXXB x where t.XT_ZXBZ = '0' ]]>
+			<isNotEmpty prepend="and" property="ryid">
+				t.RYID = #ryid# 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="lybm">
+				t.LYBM = #lybm# 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="lyid">
+				t.LYID = #lyid# 
+			</isNotEmpty>
+			<![CDATA[ and t.ZPID = x.ID and x.XT_ZXBZ = '0' order by x.XT_ZHXGSJ desc) where rownum=1 ]]>
+	</select>
+
+	<!-- 查询人员的多张照片缩略图 -->
+	<select id="queryPtryzpsltList" parameterClass="zpfjPtryzpglb" resultClass="zpfjPtryzpxxb">
+		<![CDATA[ select x.ZPSLT from ZPFJ_PTRYZPGLB t,ZPFJ_PTRYZPXXB x where t.XT_ZXBZ = '0' ]]> 
+			<isNotEmpty prepend="and" property="ryid">
+				t.RYID = #ryid# 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="lybm">
+				t.LYBM = #lybm# 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="lyid">
+				t.LYID = #lyid# 
+			</isNotEmpty>
+			<![CDATA[ and t.ZPID = x.ID and x.XT_ZXBZ = '0' order by x.XT_ZHXGSJ desc ]]>
+	</select>
+
+	<!-- 新增照片关联表 -->
+	<insert id="savePtryzpglb" parameterClass="zpfjPtryzpglb">
+		<![CDATA[ insert into ZPFJ_PTRYZPGLB (ID,RYID,ZPID,LYMS,LYID,LYBM,BZ, ]]><include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#,#ryid#,#zpid#,#lyms#,#lyid#,#lybm#,#bz#, ]]><include refid="insertXtzdVal"/>)
+	</insert>
+	
+	<!-- 新增照片信息表 -->
+	<insert id="savePtryzpxxb" parameterClass="zpfjPtryzpxxb">
+		<![CDATA[ insert into ZPFJ_PTRYZPXXB (ID,ZP,ZPSLT,BZ, ]]><include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#,#zp#,#zpslt#,#bz#, ]]><include refid="insertXtzdVal"/>)
+	</insert>
+
+	<!-- 注销照片关联表 -->
+	<update id="deletePtryzpglb" parameterClass="zpfjPtryzpglb">
+		<![CDATA[ update ZPFJ_PTRYZPGLB set ]]><include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>	
+	</update>
+	
+	<!-- 根据照片id查询照片 -->
+	<select id="queryZpById" parameterClass="String" resultClass="zpfjPtryzpxxb">
+		<![CDATA[ select * from ZPFJ_PTRYZPXXB where id = #value# ]]> 
+	</select>
+	
+</sqlMap>

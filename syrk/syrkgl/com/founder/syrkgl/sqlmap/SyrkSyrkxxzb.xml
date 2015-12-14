@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="SyrkSyrkxxzb">
+
+	<typeAlias alias="syrkSyrkxxzb" type="com.founder.syrkgl.bean.SyrkSyrkxxzb" />
+
+	<!-- 查询单条（根据主键） -->
+	<select id="queryById" parameterClass="String" resultClass="syrkSyrkxxzb">
+		<![CDATA[ select * from SYRK_SYRKXXZB t where ID = #id# and XT_ZXBZ = '0' and rownum = 1 ]]>
+	</select>
+
+	<!-- 查询单条（根据证件类型和证件号码查询） -->
+	<select id="queryByZJ" parameterClass="syrkSyrkxxzb" resultClass="syrkSyrkxxzb">
+		<![CDATA[ select * from SYRK_SYRKXXZB t where cyzjdm=#cyzjdm# and zjhm=#zjhm# and XT_ZXBZ = '0' and rownum = 1 ]]>
+	</select>
+	
+   	<select id="queryList" parameterClass="syrkSyrkxxzb" resultClass="syrkSyrkxxzb">
+		<![CDATA[ select * from SYRK_SYRKXXZB t where XT_ZXBZ = '0' ]]>
+		<isNotEmpty prepend="AND" property="zjhm">
+			T.zjhm = #zjhm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="cyzjdm">
+			T.cyzjdm = #cyzjdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="jzd_dzid">
+			T.JZD_DZID = #jzd_dzid#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="syrkywlxdm">
+			T.SYRKYWLXDM = #syrkywlxdm#
+		</isNotEmpty>
+	</select>
+
+
+	<!-- 根据ryid查询人员所有类型列表 -->
+	<select id="queryListByRyid" parameterClass="String"
+		resultClass="syrkSyrkxxzb">
+		<![CDATA[ select * from SYRK_SYRKXXZB t where  ryid = #ryid# and  t.XT_ZXBZ = '0']]>
+	</select>
+
+	<!-- 根据RYID、实有人口业务类型查询列表 -->
+	<select id="queryListByRyidYwlx" parameterClass="syrkSyrkxxzb"
+		resultClass="syrkSyrkxxzb">
+		SELECT * FROM
+		SYRK_SYRKXXZB T
+		WHERE T.XT_ZXBZ = '0'
+		<isNotEmpty prepend="AND" property="ryid">
+			T.RYID = #ryid#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="syrkywlxdm">
+			T.SYRKYWLXDM = #syrkywlxdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="gxzrqdm">
+			T.GXZRQDM = #gxzrqdm#
+		</isNotEmpty>
+	</select>
+
+	<!-- 根据ryid、实有人口业务类型查询列表 -->
+	<select id="queryCzrkByRyid" parameterClass="String"
+		resultClass="syrkSyrkxxzb">
+		<![CDATA[ select * from SYRK_SYRKXXZB t where ryid = #ryid# and SYRKYWLXDM = '1' and t.XT_ZXBZ = '0' and rownum = 1 ]]>
+	</select>
+
+	<!-- 根据实有人口ID查询是否存在该记录 -->
+	<select id="isExist" parameterClass="String" resultClass="Integer">
+		<![CDATA[ select count(*) from SYRK_SYRKXXZB t where id = #value#  and t.XT_ZXBZ = '0'  ]]>
+	</select>
+
+	<!-- 根据实有人口ID查询是否存在该记录 -->
+	<select id="isExistRyDz" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) from SYRK_SYRKXXZB t where RYID = #ryid# and JZD_DZID = #jzd_dzid# and
+		t.XT_ZXBZ = '0'  and not exists (select *
+          from syrk_czrkxxb a
+           where a.id = t.id
+           and a.sfrhyzdm = '0'
+           and a.xt_zxbz = '0') ]]>
+	</select>
+
+	<!-- 新增 -->
+	<insert id="save" parameterClass="syrkSyrkxxzb">
+		<![CDATA[ insert into SYRK_SYRKXXZB (ID]]>
+		<isNotEmpty prepend="," property="ryid"><![CDATA[ ryid]]></isNotEmpty>
+		<isNotEmpty prepend="," property="syrkywlxdm"><![CDATA[ syrkywlxdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="cyzjdm"><![CDATA[ cyzjdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zjhm"><![CDATA[ zjhm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xm"><![CDATA[ xm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xbdm"><![CDATA[ xbdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="mzdm"><![CDATA[ mzdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="csrq"><![CDATA[ csrq]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jgssxdm"><![CDATA[ jgssxdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="hjd_xzqhdm"><![CDATA[ hjd_xzqhdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="hjd_mlpdm"><![CDATA[ hjd_mlpdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="hjd_mlpxz"><![CDATA[ hjd_mlpxz]]></isNotEmpty>
+		<isNotEmpty prepend="," property="hjd_dzid"><![CDATA[ hjd_dzid]]></isNotEmpty>
+		<isNotEmpty prepend="," property="hjd_dzxz"><![CDATA[ hjd_dzxz]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jzd_xzqhdm"><![CDATA[ jzd_xzqhdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jzd_mlpdm"><![CDATA[ jzd_mlpdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jzd_mlpxz"><![CDATA[ jzd_mlpxz]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jzd_dzid"><![CDATA[ jzd_dzid]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jzd_dzxz"><![CDATA[ jzd_dzxz]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jzd_zbx"><![CDATA[ jzd_zbx]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jzd_zby"><![CDATA[ jzd_zby]]></isNotEmpty>
+		<isNotEmpty prepend="," property="gxfjdm"><![CDATA[ gxfjdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="gxpcsdm"><![CDATA[ gxpcsdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="gxzrqdm"><![CDATA[ gxzrqdm]]></isNotEmpty>
+		,
+		<include refid="insertXtzd" />)
+		<![CDATA[ values (#id# ]]>
+		<isNotEmpty prepend="," property="ryid"><![CDATA[#ryid#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="syrkywlxdm"><![CDATA[#syrkywlxdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="cyzjdm"><![CDATA[#cyzjdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zjhm"><![CDATA[ #zjhm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xm"><![CDATA[ #xm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xbdm"><![CDATA[#xbdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="mzdm"><![CDATA[ #mzdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="csrq"><![CDATA[ #csrq#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jgssxdm"><![CDATA[#jgssxdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="hjd_xzqhdm"><![CDATA[ #hjd_xzqhdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="hjd_mlpdm"><![CDATA[ #hjd_mlpdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="hjd_mlpxz"><![CDATA[ #hjd_mlpxz#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="hjd_dzid"><![CDATA[#hjd_dzid#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="hjd_dzxz"><![CDATA[#hjd_dzxz#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jzd_xzqhdm"><![CDATA[ #jzd_xzqhdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jzd_mlpdm"><![CDATA[ #jzd_mlpdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jzd_mlpxz"><![CDATA[ #jzd_mlpxz#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jzd_dzid"><![CDATA[ #jzd_dzid#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jzd_dzxz"><![CDATA[ #jzd_dzxz#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jzd_zbx"><![CDATA[ #jzd_zbx#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jzd_zby"><![CDATA[ #jzd_zby#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="gxfjdm"><![CDATA[  #gxfjdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="gxpcsdm"><![CDATA[ #gxpcsdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="gxzrqdm"><![CDATA[ #gxzrqdm#]]></isNotEmpty>
+		,
+		<include refid="insertXtzdVal" />
+		)
+	</insert>
+
+	<!-- 更新 -->
+	<update id="update" parameterClass="syrkSyrkxxzb">
+		<![CDATA[ update SYRK_SYRKXXZB ]]>
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="xm"><![CDATA[ xm=#xm#]]></isNotNull>
+			<isNotNull prepend="," property="xbdm"><![CDATA[xbdm =#xbdm#]]></isNotNull>
+			<isNotNull prepend="," property="mzdm"><![CDATA[ mzdm=#mzdm#]]></isNotNull>
+			<isNotNull prepend="," property="csrq"><![CDATA[ csrq = #csrq#]]></isNotNull>
+			<isNotNull prepend="," property="jgssxdm"><![CDATA[jgssxdm = #jgssxdm#]]></isNotNull>
+			<isNotNull prepend="," property="hjd_xzqhdm"><![CDATA[hjd_xzqhdm= #hjd_xzqhdm#]]></isNotNull>
+			<isNotNull prepend="," property="hjd_mlpdm"><![CDATA[ hjd_mlpdm=#hjd_mlpdm#]]></isNotNull>
+			<isNotNull prepend="," property="hjd_mlpxz"><![CDATA[ hjd_mlpxz=#hjd_mlpxz#]]></isNotNull>
+			<isNotNull prepend="," property="hjd_dzid"><![CDATA[hjd_dzid =#hjd_dzid#]]></isNotNull>
+			<isNotNull prepend="," property="hjd_dzxz"><![CDATA[ hjd_dzxz=#hjd_dzxz#]]></isNotNull>
+			<isNotNull prepend="," property="jzd_xzqhdm"><![CDATA[ jzd_xzqhdm = #jzd_xzqhdm#]]></isNotNull>
+			<isNotNull prepend="," property="jzd_mlpdm"><![CDATA[jzd_mlpdm = #jzd_mlpdm#]]></isNotNull>
+			<isNotNull prepend="," property="jzd_mlpxz"><![CDATA[jzd_mlpxz= #jzd_mlpxz#]]></isNotNull>
+			<isNotNull prepend="," property="jzd_dzid"><![CDATA[ jzd_dzid=#jzd_dzid#]]></isNotNull>
+			<isNotNull prepend="," property="jzd_dzxz"><![CDATA[ jzd_dzxz=#jzd_dzxz#]]></isNotNull>
+			<isNotNull prepend="," property="jzd_zbx"><![CDATA[jzd_zbx =#jzd_zbx#]]></isNotNull>
+			<isNotNull prepend="," property="jzd_zby"><![CDATA[ jzd_zby=#jzd_zby#]]></isNotNull>
+			<isNotNull prepend="," property="gxfjdm"><![CDATA[ gxfjdm = #gxfjdm#]]></isNotNull>
+			<isNotNull prepend="," property="gxpcsdm"><![CDATA[gxpcsdm = #gxpcsdm#]]></isNotNull>
+			<isNotNull prepend="," property="gxzrqdm"><![CDATA[gxzrqdm= #gxzrqdm#]]></isNotNull>
+			,
+			<include refid="updateXtzd" />
+		</dynamic>
+		<![CDATA[ where ID = #id#]]>
+	</update>
+
+	<!-- 注销 -->
+	<update id="delete" parameterClass="syrkSyrkxxzb">
+		<![CDATA[ update SYRK_SYRKXXZB set ]]><include refid="deleteXtzd" /><![CDATA[ where ID = #id# ]]>
+	</update>
+
+	<!-- 查询人员的管辖责任区 -->
+	<select id="queryRyGxzrq" parameterClass="Map" resultClass="String">
+		<![CDATA[ select GXZRQDM from SYRK_SYRKXXZB where XT_ZXBZ='0' and RYID=#ryid# ]]>
+		<isNotEmpty prepend="and" property="zrqdm">
+			GXZRQDM != #zrqdm#
+		</isNotEmpty>
+		<![CDATA[ group by GXZRQDM ]]>
+	</select>
+
+	<!-- 查询人员管辖责任区列表（实有人口新增时，向其他管辖责任区发送消息用） -->
+	<select id="queryRyGxzrqList" parameterClass="String"
+		resultClass="syrkSyrkxxzb">
+		<![CDATA[ select * from SYRK_SYRKXXZB t where ryid = #ryid# and t.XT_ZXBZ = '0' order by GXZRQDM,SYRKYWLXDM ]]>
+	</select>
+	<!-- 根据身份证和责任区查询实有人口ID -->
+	<select id="querySyrkByZjhm" parameterClass="Map" resultClass="syrkSyrkxxzb">
+	<![CDATA[ select a.*  from SYRK_SYRKXXZB a where 
+	 a.gxzrqdm =#gxzrqdm# and a.zjhm=#zjhm# and  a.CYZJDM ='111' and  a.xt_zxbz = '0']]>
+	</select>
+
+	<!-- 实有人口管理列表数据 -->
+	<select id="query" parameterClass="Map" resultClass="syrkSyrkxxzb">
+		SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+		SELECT *
+		FROM SYRK_SYRKXXZB T
+		WHERE T.XT_ZXBZ = '0'
+		<isNotEmpty prepend="AND" property="entity.syrkywlxdm">
+			T.SYRKYWLXDM = #entity.syrkywlxdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.xm">
+			T.XM LIKE '%'||#entity.xm#||'%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.zjhm">
+			T.ZJHM LIKE '%'||#entity.zjhm#||'%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.xbdm">
+			T.XBDM = #entity.xbdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.mzdm">
+			T.MZDM = #entity.mzdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.jzd_dzxz">
+			T.JZD_DZXZ LIKE '%'||#entity.jzd_dzxz#||'%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.searchbox">
+			instr(T.ZJHM||T.XM||T.JZD_DZXZ,#entity.searchbox#,1,1)>0
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.jzd_dzid">
+			T.JZD_DZID = #entity.jzd_dzid#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.gxfjdm">
+			T.GXFJDM = #entity.gxfjdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.gxpcsdm">
+			T.GXPCSDM = #entity.gxpcsdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.gxzrqdm">
+			T.GXZRQDM = #entity.gxzrqdm#
+		</isNotEmpty>
+		ORDER BY T.$sort$ $order$) M 
+		  <![CDATA[WHERE ROWNUM <= #end# ) WHERE R > #begin#]]>
+	</select>
+
+	<!-- 实有人口管理列表数据【总数】 -->
+	<select id="queryCount" parameterClass="Map" resultClass="Integer">
+		SELECT COUNT(T.ID)
+		FROM SYRK_SYRKXXZB T
+		WHERE T.XT_ZXBZ = '0'
+		<isNotEmpty prepend="AND" property="entity.syrkywlxdm">
+			T.SYRKYWLXDM = #entity.syrkywlxdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.xm">
+			T.XM LIKE '%'||#entity.xm#||'%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.zjhm">
+			T.ZJHM LIKE '%'||#entity.zjhm#||'%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.xbdm">
+			T.XBDM = #entity.xbdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.mzdm">
+			T.MZDM = #entity.mzdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.jzd_dzxz">
+			T.JZD_DZXZ LIKE '%'||#entity.jzd_dzxz#||'%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.searchbox">
+			instr(T.ZJHM||T.XM||T.JZD_DZXZ,#entity.searchbox#,1,1)>0
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.jzd_dzid">
+			T.JZD_DZID = #entity.jzd_dzid#
+		</isNotEmpty>
+				<isNotEmpty prepend="AND" property="entity.gxfjdm">
+			T.GXFJDM = #entity.gxfjdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.gxpcsdm">
+			T.GXPCSDM = #entity.gxpcsdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.gxzrqdm">
+			T.GXZRQDM = #entity.gxzrqdm#
+		</isNotEmpty>
+	</select>
+
+	<!-- 实有人口查询列表数据 -->
+	<select id="querySyrk" parameterClass="Map" resultClass="syrkSyrkxxzb">
+		SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+		SELECT *
+		FROM $tableName$
+		WHERE T.XT_ZXBZ = '0'
+		<isNotEmpty prepend="AND" property="entity.syrkywlxdm">
+			T.SYRKYWLXDM = #entity.syrkywlxdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.xm">
+			T.XM LIKE '%'||#entity.xm#||'%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.zjhm">
+			T.ZJHM LIKE '%'||#entity.zjhm#||'%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.xbdm">
+			T.XBDM = #entity.xbdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.mzdm">
+			T.MZDM = #entity.mzdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.jzd_dzxz">
+			T.JZD_DZXZ LIKE '%'||#entity.jzd_dzxz#||'%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.searchbox">
+			instr(T.ZJHM||T.XM||T.JZD_DZXZ,#entity.searchbox#,1,1)>0
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.cyzjdm">
+			T.CYZJDM = #entity.cyzjdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.jzd_dzid">
+			T.JZD_DZID = #entity.jzd_dzid#
+		</isNotEmpty>
+		<!-- 以下空间查询条件 开始 -->
+		<isNotEmpty prepend="AND" property="entity.drawType">
+			T.JZD_MLPDM = P.MLDZID
+		</isNotEmpty>
+		<isEqual prepend="AND" property="entity.drawType"
+			compareValue="drawCircle">
+			SDE.ST_WITHIN(P.SHAPE,SDE.ST_BUFFER(SDE.ST_POINT('POINT($entity.drawZbz$)',$entity.drawSrid$),$entity.drawRadius$))=1
+		</isEqual>
+		<isEqual prepend="AND" property="entity.drawType"
+			compareValue="drawRect">
+			SDE.ST_ENVINTERSECTS(P.SHAPE,$entity.drawZbz$)=1
+		</isEqual>
+		<isEqual prepend="AND" property="entity.drawType"
+			compareValue="drawPolygon">
+			SDE.ST_WITHIN(P.SHAPE,SDE.ST_POLYGON('polygon(($entity.drawZbz$))',$entity.drawSrid$))=1
+		</isEqual>
+		<!-- 以下空间查询条件 结束 -->
+		) M 
+		  <![CDATA[WHERE ROWNUM <= #end# ) WHERE R > #begin#]]>
+	</select>
+
+	<!-- 实有人口查询列表数据【总数】 -->
+	<select id="querySyrkCount" parameterClass="Map" resultClass="Integer">
+		SELECT COUNT(T.ID)
+		FROM $tableName$
+		WHERE T.XT_ZXBZ = '0'
+		<isNotEmpty prepend="AND" property="entity.syrkywlxdm">
+			T.SYRKYWLXDM = #entity.syrkywlxdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.xm">
+			T.XM LIKE '%'||#entity.xm#||'%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.zjhm">
+			T.ZJHM LIKE '%'||#entity.zjhm#||'%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.xbdm">
+			T.XBDM = #entity.xbdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.mzdm">
+			T.MZDM = #entity.mzdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.jzd_dzxz">
+			T.JZD_DZXZ LIKE '%'||#entity.jzd_dzxz#||'%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.searchbox">
+			instr(T.ZJHM||T.XM||T.JZD_DZXZ,#entity.searchbox#,1,1)>0
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.cyzjdm">
+			T.CYZJDM = #entity.cyzjdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.jzd_dzid">
+			T.JZD_DZID = #entity.jzd_dzid#
+		</isNotEmpty>
+		<!-- 以下空间查询条件 开始 -->
+		<isNotEmpty prepend="AND" property="entity.drawType">
+			T.JZD_MLPDM = P.MLDZID
+		</isNotEmpty>
+		<isEqual prepend="AND" property="entity.drawType"
+			compareValue="drawCircle">
+			SDE.ST_WITHIN(P.SHAPE,SDE.ST_BUFFER(SDE.ST_POINT('point($entity.drawZbz$)',$entity.drawSrid$),$entity.drawRadius$))=1
+		</isEqual>
+		<isEqual prepend="AND" property="entity.drawType"
+			compareValue="drawRect">
+			SDE.ST_ENVINTERSECTS(P.SHAPE,$entity.drawZbz$)=1
+		</isEqual>
+		<isEqual prepend="AND" property="entity.drawType"
+			compareValue="drawPolygon">
+			SDE.ST_WITHIN(P.SHAPE,SDE.ST_POLYGON('polygon(($entity.drawZbz$))',$entity.drawSrid$))=1
+		</isEqual>
+		<!-- 以下空间查询条件 结束 -->
+	</select>
+	<select id="queryListByDzDm" parameterClass="Map" resultClass="syrkSyrkxxzb">
+	<![CDATA[ select *  from SYRK_SYRKXXZB a where 
+	 a.jzd_dzid =#jzd_dzid# and a.gxzrqdm=#gxzrqdm#  and  a.xt_zxbz = '0'
+    and a.xt_zxbz = '0' ]]>
+	</select>
+
+	<!-- 实有房屋用,根据 管辖责任区与人员ID 取人员居住地址ID -->
+	<select id="queryJzdzidByRyidAndZrqdm" parameterClass="Map"
+		resultClass="String">
+		select JZD_DZID from SYRK_SYRKXXZB a where
+		a.gxzrqdm=#gxzrqdm# and a.ryid = #ryid# and a.xt_zxbz = '0'
+	</select>
+</sqlMap>

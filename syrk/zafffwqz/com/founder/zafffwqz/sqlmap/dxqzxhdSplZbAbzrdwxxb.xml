@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--  
+	@Author:       [wu.w@founder.com.cn]
+	@CreateDate:   [2015-5-15 上午8:51:54]
+	* @review      : tian_chengwei@founder.com.cn
+	* @reviewDate  : 20150604
+-->
+<sqlMap namespace="dxqzxhdsplzbabzrdwxxb">
+	<typeAlias alias="abdw" type="com.founder.zafffwqz.bean.DxqzxhdSplZbAbzrdwxxb"/>
+	<typeAlias alias="abxq" type="com.founder.zafffwqz.bean.DxqzxhdSplZbAbzlxqxxb"/>
+	<!-- 大型群众性活动审批类-安保责任单位信息类-sql -->
+	<!-- 注销数据 -->
+	<update id="delete" parameterClass="abdw" >
+		<![CDATA[UPDATE DXQZXHDSPL_ZB_ABZRDWXXB SET ]]><include refid="deleteXtzd"/>
+		<![CDATA[ WHERE hdid = #hdid#]]>
+	</update>
+	
+	<!-- 查询数据 -->
+	<select id="query" parameterClass="String" resultClass="abdw">
+		select * from DXQZXHDSPL_ZB_ABZRDWXXB  where XT_ZXBZ = '0' and HDID=#hdid#
+	</select>
+	
+	<!-- 新增数据 -->
+	<update id="save" parameterClass="abdw" >
+		INSERT INTO DXQZXHDSPL_ZB_ABZRDWXXB (
+			HDID,ABXKDW,AQXKDWFZR,ABFZR,ABLXR,ABQWDJDM,AQXKYJ,MCCABZLDM,MCCABJLS,GYBAYBAGSMC,BAGSZYFZR,
+			BAGSZYFZRZW,BAGSZYFZRZJZLDM,BAGSZYFZRZJHM,BAGSZYFZRLXDH,ABFA,ABXQ,BZ,<include refid="insertXtzd"/> 
+  		) VALUES (
+  			#hdid#,#abxkdw#,#aqxkdwfzr#,#abfzr#,#ablxr#,#abqwdjdm#,#aqxkyj#,#mccabzldm#,#mccabjls#,#gybaybagsmc#,
+  			#bagszyfzr#,#bagszyfzrzw#,#bagszyfzrzjzldm#,#bagszyfzrzjhm#,#bagszyfzrlxdh#,#abfa#,#abxq#,#bz#,
+  			<include refid="insertXtzdVal"/>)
+	</update>
+	
+	<!-- 修改数据 -->
+	<update id="update" parameterClass="abdw" >
+		UPDATE DXQZXHDSPL_ZB_ABZRDWXXB SET
+		bz=''
+		<isNotNull prepend = "," property = "abxkdw"> <![CDATA[abxkdw = #abxkdw#]]> </isNotNull>
+		<isNotNull prepend = "," property = "aqxkdwfzr"> <![CDATA[aqxkdwfzr = #aqxkdwfzr#]]> </isNotNull>
+		<isNotNull prepend = "," property = "abfzr"> <![CDATA[abfzr = #abfzr#]]> </isNotNull>
+		<isNotNull prepend = "," property = "ablxr"> <![CDATA[ablxr = #ablxr#]]> </isNotNull>
+		<isNotNull prepend = "," property = "abqwdjdm"> <![CDATA[abqwdjdm = #abqwdjdm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "aqxkyj"> <![CDATA[aqxkyj = #aqxkyj#]]> </isNotNull>
+		<isNotNull prepend = "," property = "mccabzldm"> <![CDATA[mccabzldm = #mccabzldm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "mccabjls"> <![CDATA[mccabjls = #mccabjls#]]> </isNotNull>
+		<isNotNull prepend = "," property = "gybaybagsmc"> <![CDATA[gybaybagsmc = #gybaybagsmc#]]> </isNotNull>
+		<isNotNull prepend = "," property = "bagszyfzr"> <![CDATA[bagszyfzr = #bagszyfzr#]]> </isNotNull>
+		<isNotNull prepend = "," property = "bagszyfzrzw"> <![CDATA[bagszyfzrzw = #bagszyfzrzw#]]> </isNotNull>
+		<isNotNull prepend = "," property = "bagszyfzrzjzldm"> <![CDATA[bagszyfzrzjzldm = #bagszyfzrzjzldm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "bagszyfzrzjhm"> <![CDATA[bagszyfzrzjhm = #bagszyfzrzjhm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "bagszyfzrlxdh"> <![CDATA[bagszyfzrlxdh = #bagszyfzrlxdh#]]> </isNotNull>
+		<isNotNull prepend = "," property = "abfa"> <![CDATA[abfa = #abfa#]]> </isNotNull>
+		<isNotNull prepend = "," property = "abxq"> <![CDATA[abxq = #abxq#]]> </isNotNull>
+		,<include refid="updateXtzd"/>				
+		WHERE hdid = #hdid#
+	</update>
+	
+	<!-- 删除详情数据 -->
+	<update id="deleteAbxq" parameterClass="String" >
+		DELETE DXQZXHDSPL_ZB_ABZRDW_ABXQXXB WHERE hdid = #hdid#
+	</update>
+	
+	<!-- 新增详情数据 -->
+	<update id="saveAbxq" parameterClass="abxq" >
+		INSERT INTO DXQZXHDSPL_ZB_ABZRDW_ABXQXXB (
+			HDID,ABZLDM,ABZLTXT,ABZLNUM 
+  		) VALUES (
+  			#hdid#,#abzldm#,#abzltxt#,#abzlnum#)
+	</update>
+</sqlMap>

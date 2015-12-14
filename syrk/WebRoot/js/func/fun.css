@@ -1,0 +1,118 @@
+@CHARSET "UTF-8";
+.sortable1,.sortable2{
+	min-height:280px;
+}
+
+.treeBox{
+		clear:both;
+		margin: 0 10px;
+		height: 300px;
+		overflow: auto;
+		background-color:#D5FFCE; 
+		width:280px;
+		min-height:300px;
+		border:#9ADF8F 1px solid;
+		list-style-type: none; 
+		margin: 0; 
+		/* padding: 0 0 2.5em; */ 
+		float: left; 
+		margin-right: 10px; 
+	}
+	.sortable1 li, .sortable2 li { 
+		margin: 0 5px 5px 5px; 
+		padding: 5px; 
+		font-size: 1.2em; 
+		width: 120px; 
+	}
+	.sure{
+		width:96px;
+		height:36px;
+		background: url(images/loginBtn.png) no-repeat;
+		border: none;
+		color: #ffffff;
+		font-size: 15px;
+		line-height: 15px;
+		cursor: pointer;
+		text-shadow: 1px 1px 1px #4b7c01;
+	}
+	
+	*{
+			margin:0;
+			padding:0;
+			list-style-type:none;
+			font-size:12px;
+		}
+		a,img{
+			border:0;
+		}
+		#files{
+			margin:100px auto;
+			width:400px;
+		}
+		.tree,.tree ul,.tree li{
+			list-style:none;
+			margin:0;
+			padding:0;
+			zoom: 1;
+		}
+		.tree ul{
+			margin-left:8px;
+		}
+		.tree li a{
+			color:#555;
+			padding:.1em 7px .1em 27px;
+			display:block;
+			text-decoration:none;
+			border:1px dashed #fff;
+			background:url(images/icon-file.gif) 5px 50% no-repeat;
+		}
+		.tree li a.tree-parent{
+			background:url(images/icon-folder-open.gif) 5px 50% no-repeat;
+		}
+		.tree li a.tree-parent-collapsed{
+			background:url(images/icon-folder.gif) 5px 50% no-repeat;
+		}
+		.tree li a:hover,.tree li a.tree-parent:hover,.tree li a:focus,.tree li a.tree-parent:focus,.tree li a.tree-item-active{
+			color:#000;
+			border:1px solid #eee;
+			background-color:#fafafa;
+			-moz-border-radius:4px;
+			-webkit-border-radius:4px;
+			border-radius:4px;
+		}
+		.tree li a:focus,.tree li a.tree-parent:focus,.tree li a.tree-item-active{
+			border:1px solid #e2f3fb;
+			background-color:#f2fafd;
+		}
+		.tree ul.tree-group-collapsed{
+			display:none;
+		}
+		
+		#main-content ul li{
+			background:none;
+		}
+		.ui-state-highlight input{
+			float:left;
+			position: relative;
+			left:-17px;
+			top:2px;
+		}
+		
+		/*隐藏原框架icon*/
+		.connectedSortable .tree-icon{
+			display:none !important;
+		}
+		.connectedSortable .tree-checkbox{
+			margin-right:7px;
+			margin-left:2px;
+		}
+		.connectedSortable li li .tree-checkbox{
+			display:none;
+		}
+
+/*取消间隔*/
+.none{
+	margin:0px !important;
+	padding:0px !important;
+	height:0px !important;
+}

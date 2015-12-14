@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Dwjbxxb">
+	
+	<typeAlias alias="dwjbxxb" type="com.founder.sydw_dl.bean.Dwjbxxb" />
+	<typeAlias alias="frfzr" type="com.founder.sydw_dl.bean.Frfzrllrb" />
+	<typeAlias alias="sydwhsrwb" type="com.founder.sydw_dl.bean.Sydwhsrwb" />
+	<typeAlias alias="jhsgxxb" type="com.founder.sydw_dl.bean.Jhsgxxb" />
+	<typeAlias alias="jrdwxxb" type="com.founder.sydw_dl.bean.Jrdwxxb" />
+	<typeAlias alias="dwyhflcxxb" type="com.founder.sydw_dl.bean.Dwyhflcxxb" />
+	<typeAlias alias="dwccxxb" type="com.founder.sydw_dl.bean.Dwccxxb" />
+	<typeAlias alias="dwbmxxb" type="com.founder.sydw_dl.bean.Dwbmxxb"/>
+	<typeAlias alias="varchar" type="oracle.jdbc.OracleTypes.VARCHAR"/>
+	<typeAlias alias="number" type="oracle.jdbc.OracleTypes.NUMBER"/>
+	<typeAlias alias="logInfo" type="com.founder.framework.entity.OperationLog"/>
+	
+	<!-- 查询列表 -->
+	<select id="queryCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) from DW_DWJBXXB t where t.XT_ZXBZ = '0' ]]>
+		<isNotEmpty prepend="and" property="dwjbxxb.dwlbdm">
+			DWLBDM = #dwjbxxb.dwlbdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="dwjbxxb.glbmid">
+			GLBMID = #dwjbxxb.glbmid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="dwjbxxb.glpcsid">
+			GLPCSID = #dwjbxxb.glpcsid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="dwjbxxb.glfxjid">
+			GLFXJID = #dwjbxxb.glfxjid#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="dwjbxxb.zagldwbmdwbm">
+			zagldwbm like '%$dwjbxxb.zagldwbm$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="dwjbxxb.dwmc">
+			DWMC like '%$dwjbxxb.dwmc$%'
+		</isNotEmpty>
+	</select>
+	<select id="queryList" parameterClass="Map" resultClass="dwjbxxb">
+		<![CDATA[ select * from ( select rownum r ,m.* from (
+			select * from DW_DWJBXXB t where t.XT_ZXBZ = '0' ]]>
+			<isNotEmpty prepend="and" property="dwjbxxb.dwlbdm">
+				DWLBDM = #dwjbxxb.dwlbdm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dwjbxxb.glbmid">
+				GLBMID = #dwjbxxb.glbmid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dwjbxxb.glpcsid">
+				GLPCSID = #dwjbxxb.glpcsid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dwjbxxb.glfxjid">
+				GLFXJID = #dwjbxxb.glfxjid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dwjbxxb.zagldwbm">
+				zagldwbm like '%$dwjbxxb.zagldwbm$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dwjbxxb.dwmc">
+				DWMC like '%$dwjbxxb.dwmc$%'
+			</isNotEmpty>
+		<![CDATA[ order by $sort$ $order$) m  
+		where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+
+	<!-- 查询单条 -->
+	<select id="query" parameterClass="dwjbxxb" resultClass="dwjbxxb">
+		<![CDATA[select t.*,(SELECT ORGNAME FROM ORG_ORGANIZATION WHERE XT_ZXBZ = '0' AND ORGCODE = DZMS_SSZRQDM) DZMS_SSZRQMC,
+	 			 			(SELECT ORGNAME FROM ORG_ORGANIZATION WHERE XT_ZXBZ = '0' AND ORGCODE = DZMS_SSPCSDM) DZMS_SSPCSMC
+	 			 from DW_DWJBXXB t where ID = #id#]]>
+	</select>
+	
+	<delete id ="dwXzDelete" parameterClass="String" >
+		 DELETE FROM DW_DWXZXXB T WHERE T.ID = #id#
+	</delete>
+	
+	<!-- 查询单条ById -->
+	<select id="queryById" parameterClass="String" resultClass="dwjbxxb">
+		<![CDATA[select t.*,(SELECT ORGNAME FROM ORG_ORGANIZATION WHERE XT_ZXBZ = '0' AND ORGCODE = DZMS_SSZRQDM) DZMS_SSZRQMC,
+	 			 			(SELECT ORGNAME FROM ORG_ORGANIZATION WHERE XT_ZXBZ = '0' AND ORGCODE = DZMS_SSPCSDM) DZMS_SSPCSMC
+		 from DW_DWJBXXB t where ID = #id# and ]]><include refid="yxjl"/>
+	</select>
+
+	<!-- 查询未核实ById -->
+	<select id="queryWhsById" parameterClass="String" resultClass="dwjbxxb">
+		<![CDATA[select * from DW_DWJBXXB t where ID = #id# and (t.xt_zxbz = '0' or t.xt_zxbz = '2') ]]>
+	</select>
+	
+	<!-- 查询单条，根据单位名称与单位地址代码 -->
+	<select id="queryByDwmcDwdzdm" parameterClass="Map" resultClass="dwjbxxb">
+		<![CDATA[select a.* from DW_DWJBXXB a where a.DWMC = #dwmc# and a.XT_ZXBZ = '0'  and a.DZ_DWDZDM = #dz_dwdzdm#]]>
+	</select>
+	
+	<!-- 判断是否存在该单位，根据单位ID、单位名称、单位地址代码 -->
+	<select id="queryExistDw" parameterClass="Map" resultClass="Integer">
+		<![CDATA[select count(*) from DW_DWJBXXB a where a.DWMC = #dwmc# and a.XT_ZXBZ = '0'  and a.DZ_DWDZDM = #dz_dwdzdm#]]>
+		<isNotEmpty prepend="and" property="id">
+			a.ID != #id#
+		</isNotEmpty>
+	</select>
+	<!-- 新增 -->
+	<insert id="save" parameterClass="dwjbxxb">
+		<![CDATA[ insert into DW_DWJBXXB (ID ]]>
+		<isNotEmpty prepend="," property="dwlbdm"><![CDATA[DWLBDM]]></isNotEmpty>
+		<isNotEmpty prepend="," property="glbmid"><![CDATA[GLBMID]]></isNotEmpty>
+		<isNotEmpty prepend="," property="glpcsid"><![CDATA[GLPCSID]]></isNotEmpty>
+		<isNotEmpty prepend="," property="glfxjid"><![CDATA[GLFXJID]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zagldwbm"><![CDATA[zagldwbm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwmc"><![CDATA[DWMC]]></isNotEmpty>
+		<isNotEmpty prepend="," property="sfblyyzzdm"><![CDATA[SFBLYYZZDM]]></isNotEmpty>
+		<isNotEmpty prepend="," property="yyzzh"><![CDATA[yyzzh]]></isNotEmpty>
+		<isNotEmpty prepend="," property="yyzzyxq_qsrq"><![CDATA[yyzzyxq_qsrq]]></isNotEmpty>
+		<isNotEmpty prepend="," property="yyzzyxq_jzrq"><![CDATA[yyzzyxq_jzrq]]></isNotEmpty>
+		<isNotEmpty prepend="," property="yyzzfzjgid"><![CDATA[YYZZFZJGID]]></isNotEmpty>
+		<isNotEmpty prepend="," property="yyzzfzjg"><![CDATA[YYZZFZJG]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zczb"><![CDATA[zczb]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zzjgdm"><![CDATA[zzjgdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="swdjhm"><![CDATA[swdjhm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jyfwzy"><![CDATA[JYFWZY]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jyfwjy"><![CDATA[JYFWJY]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jyfsdm"><![CDATA[JYFSDM]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jymj_mjpfm"><![CDATA[jymj_mjpfm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jjlxdm"><![CDATA[jjlxdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="lxdh"><![CDATA[LXDH]]></isNotEmpty>
+		<isNotEmpty prepend="," property="czhm"><![CDATA[czhm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="kyrq"><![CDATA[KYRQ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zddwbs"><![CDATA[zddwbs]]></isNotEmpty>
+		<isNotEmpty prepend="," property="sfyfwjddm"><![CDATA[SFYFWJDDM]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jdsj"><![CDATA[JDSJ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="sfwzdwdm"><![CDATA[SFWZDWDM]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwztdm"><![CDATA[DWZTDM]]></isNotEmpty>
+		<isNotEmpty prepend="," property="hdrnrs"><![CDATA[HDRNRS]]></isNotEmpty>
+		<isNotEmpty prepend="," property="yysj"><![CDATA[YYSJ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="sfzqxyydm"><![CDATA[sfzqxyydm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zqxyygl"><![CDATA[ZQXYYGL]]></isNotEmpty>
+		<isNotEmpty prepend="," property="bz"><![CDATA[BZ]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_dwdzdm"><![CDATA[dz_dwdzdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_dwdzssxdm"><![CDATA[dz_dwdzssxdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_dwdzxz"><![CDATA[dz_dwdzxz]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_dwdzmlpdm"><![CDATA[dz_dwdzmlpdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_dwdzmlpxz"><![CDATA[dz_dwdzmlpxz]]></isNotEmpty>
+		<isNotEmpty prepend="," property="sfyxfjddm"><![CDATA[sfyxfjddm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="sfswdwdm"><![CDATA[sfswdwdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwywmc"><![CDATA[dwywmc]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwywsx"><![CDATA[dwywsx]]></isNotEmpty>
+		<isNotEmpty prepend="," property="hylbdm"><![CDATA[hylbdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="tyrq01"><![CDATA[tyrq01]]></isNotEmpty>
+		<isNotEmpty prepend="," property="wz"><![CDATA[wz]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dzms_zbx"><![CDATA[dzms_zbx]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dzms_zby"><![CDATA[dzms_zby]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dzms_sszrqdm"><![CDATA[dzms_sszrqdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dzms_sspcsdm"><![CDATA[dzms_sspcsdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="sjdwid"><![CDATA[sjdwid]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dzms"><![CDATA[dzms]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dzms_chdz"><![CDATA[dzms_chdz]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dzms_dwdzmlpxz"><![CDATA[dzms_dwdzmlpxz]]></isNotEmpty>,
+		<include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#]]>
+		<isNotEmpty prepend="," property="dwlbdm"><![CDATA[#dwlbdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="glbmid"><![CDATA[#glbmid#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="glpcsid"><![CDATA[#glpcsid#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="glfxjid"><![CDATA[#glfxjid#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zagldwbm"><![CDATA[#zagldwbm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwmc"><![CDATA[#dwmc#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="sfblyyzzdm"><![CDATA[#sfblyyzzdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="yyzzh"><![CDATA[#yyzzh#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="yyzzyxq_qsrq"><![CDATA[#yyzzyxq_qsrq#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="yyzzyxq_jzrq"><![CDATA[#yyzzyxq_jzrq#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="yyzzfzjgid"><![CDATA[#yyzzfzjgid#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="yyzzfzjg"><![CDATA[#yyzzfzjg#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zczb"><![CDATA[#zczb#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zzjgdm"><![CDATA[#zzjgdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="swdjhm"><![CDATA[#swdjhm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jyfwzy"><![CDATA[#jyfwzy#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jyfwjy"><![CDATA[#jyfwjy#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jyfsdm"><![CDATA[#jyfsdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jymj_mjpfm"><![CDATA[#jymj_mjpfm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jjlxdm"><![CDATA[#jjlxdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="lxdh"><![CDATA[#lxdh#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="czhm"><![CDATA[#czhm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="kyrq"><![CDATA[#kyrq#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zddwbs"><![CDATA[#zddwbs#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="sfyfwjddm"><![CDATA[#sfyfwjddm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jdsj"><![CDATA[#jdsj#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="sfwzdwdm"><![CDATA[#sfwzdwdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwztdm"><![CDATA[#dwztdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="hdrnrs"><![CDATA[#hdrnrs#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="yysj"><![CDATA[#yysj#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="sfzqxyydm"><![CDATA[#sfzqxyydm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zqxyygl"><![CDATA[#zqxyygl#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="bz"><![CDATA[#bz#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_dwdzdm"><![CDATA[#dz_dwdzdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_dwdzssxdm"><![CDATA[#dz_dwdzssxdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_dwdzxz"><![CDATA[#dz_dwdzxz#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_dwdzmlpdm"><![CDATA[#dz_dwdzmlpdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dz_dwdzmlpxz"><![CDATA[#dz_dwdzmlpxz#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="sfyxfjddm"><![CDATA[#sfyxfjddm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="sfswdwdm"><![CDATA[#sfswdwdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwywmc"><![CDATA[#dwywmc#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwywsx"><![CDATA[#dwywsx#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="hylbdm"><![CDATA[#hylbdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="tyrq01"><![CDATA[#tyrq01#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="wz"><![CDATA[#wz#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dzms_zbx"><![CDATA[#dzms_zbx#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dzms_zby"><![CDATA[#dzms_zby#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dzms_sszrqdm"><![CDATA[#dzms_sszrqdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dzms_sspcsdm"><![CDATA[#dzms_sspcsdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="sjdwid"><![CDATA[#sjdwid#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dzms"><![CDATA[#dzms#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dzms_chdz"><![CDATA[#dzms_chdz#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dzms_dwdzmlpxz"><![CDATA[#dzms_dwdzmlpxz#]]></isNotEmpty>
+		,<include refid="insertXtzdVal"/>)
+	</insert>
+	<!-- 新增单位选择表  -->
+	<insert id="dwXzSave" parameterClass="com.founder.sydw_dl.vo.DwxzxxVO">
+		<![CDATA[ INSERT INTO DW_DWXZXXB (id]]>
+		<isNotEmpty prepend="," property="sydwlx"><![CDATA[sydwlx]]></isNotEmpty>
+		<isNotEmpty prepend="," property="glbmid"><![CDATA[glbmid]]></isNotEmpty>
+		<isNotEmpty prepend="," property="glpcsid"><![CDATA[glpcsid]]></isNotEmpty>
+		<isNotEmpty prepend="," property="glfxjid"><![CDATA[glfxjid]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwbh"><![CDATA[dwbh]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwmc"><![CDATA[dwmc]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwdz"><![CDATA[dwdz]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwbm"><![CDATA[dwbm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwbm1"><![CDATA[dwbm1]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwqcjm"><![CDATA[dwqcjm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwqcpyjm"><![CDATA[dwqcpyjm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xt_zhxgsj"><![CDATA[xt_zhxgsj]]></isNotEmpty>
+		)
+		<![CDATA[ VALUES (#id#]]>
+		<isNotEmpty prepend="," property="sydwlx"><![CDATA[#sydwlx#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="glbmid"><![CDATA[#glbmid#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="glpcsid"><![CDATA[#glpcsid#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="glfxjid"><![CDATA[#glfxjid#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwbh"><![CDATA[#dwbh#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwmc"><![CDATA[#dwmc#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwdz"><![CDATA[#dwdz#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwbm"><![CDATA[#dwbm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwbm1"><![CDATA[#dwbm1#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwqcjm"><![CDATA[#dwqcjm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dwqcpyjm"><![CDATA[#dwqcpyjm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xt_zhxgsj"><![CDATA[#xt_zhxgsj#]]></isNotEmpty>
+		)
+	</insert>
+	<!-- 更新 -->
+	<update id="dwXzUpdate" parameterClass="com.founder.sydw_dl.vo.DwxzxxVO">
+		<![CDATA[ update DW_DWXZXXB ]]>	
+			<dynamic prepend="set">
+				<isNotNull prepend="," property="sydwlx"><![CDATA[ sydwlx=#sydwlx# ]]></isNotNull>
+				<isNotNull prepend="," property="glbmid"><![CDATA[ glbmid=#glbmid# ]]></isNotNull>
+				<isNotNull prepend="," property="glpcsid"><![CDATA[ glpcsid=#glpcsid# ]]></isNotNull>
+				<isNotNull prepend="," property="glfxjid"><![CDATA[ glfxjid=#glfxjid# ]]></isNotNull>
+				<isNotNull prepend="," property="dwbh"><![CDATA[ dwbh=#dwbh# ]]></isNotNull>
+				<isNotNull prepend="," property="dwmc"><![CDATA[ dwmc=#dwmc# ]]></isNotNull>
+				<isNotNull prepend="," property="dwdz"><![CDATA[ dwdz=#dwdz# ]]></isNotNull>
+				<isNotNull prepend="," property="dwbm"><![CDATA[ dwbm=#dwbm# ]]></isNotNull>
+				<isNotNull prepend="," property="dwbm1"><![CDATA[ dwbm1=#dwbm1# ]]></isNotNull>
+				<isNotNull prepend="," property="dwqcjm"><![CDATA[ dwqcjm=#dwqcjm# ]]></isNotNull>
+				<isNotNull prepend="," property="dwqcpyjm"><![CDATA[ dwqcpyjm=#dwqcpyjm# ]]></isNotNull>
+				<isNotNull prepend="," property="xt_zhxgsj"><![CDATA[ xt_zhxgsj=#xt_zhxgsj# ]]></isNotNull>
+			</dynamic>
+		<![CDATA[ where id = #id#]]>	
+	</update>
+	<!-- 更新 -->
+	<update id="update" parameterClass="dwjbxxb">
+		<![CDATA[ update DW_DWJBXXB ]]>	
+			<dynamic prepend="set">
+				 <isNotNull prepend="," property="dwlbdm"><![CDATA[ DWLBDM=#dwlbdm# ]]></isNotNull>
+				 <isNotNull prepend="," property="sjdwid"><![CDATA[ SJDWID=#sjdwid# ]]></isNotNull>
+				 <isNotNull prepend="," property="glbmid"><![CDATA[ GLBMID=#glbmid# ]]></isNotNull>
+				 <isNotNull prepend="," property="glpcsid"><![CDATA[ GLPCSID=#glpcsid# ]]></isNotNull>
+				 <isNotNull prepend="," property="glfxjid"><![CDATA[ GLFXJID=#glfxjid# ]]></isNotNull>
+				 <isNotNull prepend="," property="zagldwbm"><![CDATA[ ZAGLDWBM=#zagldwbm# ]]></isNotNull>
+				 <isNotNull prepend="," property="dwmc"><![CDATA[ DWMC=#dwmc# ]]></isNotNull>
+				 <isNotNull prepend="," property="sfblyyzzdm"><![CDATA[ SFBLYYZZDM=#sfblyyzzdm# ]]></isNotNull>
+				 <isNotNull prepend="," property="yyzzh"><![CDATA[ YYZZH=#yyzzh# ]]></isNotNull>
+				 <isNotNull prepend="," property="yyzzyxq_qsrq"><![CDATA[ YYZZYXQ_QSRQ=#yyzzyxq_qsrq# ]]></isNotNull>
+				 <isNotNull prepend="," property="yyzzyxq_jzrq"><![CDATA[ YYZZYXQ_JZRQ=#yyzzyxq_jzrq# ]]></isNotNull>
+				 <isNotNull prepend="," property="yyzzfzjgid"><![CDATA[ YYZZFZJGID=#yyzzfzjgid# ]]></isNotNull>
+				 <isNotNull prepend="," property="yyzzfzjg"><![CDATA[ YYZZFZJG=#yyzzfzjg# ]]></isNotNull>
+				 <isNotNull prepend="," property="zczb"><![CDATA[ ZCZB=#zczb# ]]></isNotNull>
+				 <isNotNull prepend="," property="zzjgdm"><![CDATA[ ZZJGDM=#zzjgdm# ]]></isNotNull>
+				 <isNotNull prepend="," property="swdjhm"><![CDATA[ SWDJHM=#swdjhm# ]]></isNotNull>
+				 <isNotNull prepend="," property="jyfwzy"><![CDATA[ JYFWZY=#jyfwzy# ]]></isNotNull>
+				 <isNotNull prepend="," property="jyfwjy"><![CDATA[ JYFWJY=#jyfwjy# ]]></isNotNull>
+				 <isNotNull prepend="," property="jyfsdm"><![CDATA[ JYFSDM=#jyfsdm# ]]></isNotNull>
+				 <isNotNull prepend="," property="jymj_mjpfm"><![CDATA[ JYMJ_MJPFM=#jymj_mjpfm# ]]></isNotNull>
+				 <isNotNull prepend="," property="jjlxdm"><![CDATA[ JJLXDM=#jjlxdm# ]]></isNotNull>
+				 <isNotNull prepend="," property="lxdh"><![CDATA[ LXDH=#lxdh# ]]></isNotNull>
+				 <isNotNull prepend="," property="czhm"><![CDATA[ CZHM=#czhm# ]]></isNotNull>
+				 <isNotNull prepend="," property="zddwbs"><![CDATA[ zddwbs=#zddwbs# ]]></isNotNull>
+				 <isNotNull prepend="," property="sfyfwjddm"><![CDATA[ SFYFWJDDM=#sfyfwjddm# ]]></isNotNull>
+				 <isNotNull prepend="," property="jdsj"><![CDATA[ JDSJ=#jdsj# ]]></isNotNull>
+				 <isNotNull prepend="," property="sfwzdwdm"><![CDATA[ SFWZDWDM=#sfwzdwdm# ]]></isNotNull>
+				 <isNotNull prepend="," property="dwztdm"><![CDATA[ DWZTDM=#dwztdm# ]]></isNotNull>
+				 <isNotNull prepend="," property="hdrnrs"><![CDATA[ HDRNRS=#hdrnrs# ]]></isNotNull>
+				 <isNotNull prepend="," property="yysj"><![CDATA[ YYSJ=#yysj# ]]></isNotNull>
+				 <isNotNull prepend="," property="sfzqxydm"><![CDATA[ SFZQXYDM=#sfzqxydm# ]]></isNotNull>
+				 <isNotNull prepend="," property="zqxyygl"><![CDATA[ ZQXYYGL=#zqxyygl# ]]></isNotNull>
+				 <isNotNull prepend="," property="bz"><![CDATA[ BZ=#bz# ]]></isNotNull>
+				 <isNotNull prepend="," property="dz_dwdzdm"><![CDATA[ DZ_DWDZDM=#dz_dwdzdm# ]]></isNotNull>
+				 <isNotNull prepend="," property="dz_dwdzssxdm"><![CDATA[ DZ_DWDZSSXDM=#dz_dwdzssxdm# ]]></isNotNull>
+				 <isNotNull prepend="," property="dz_dwdzxz"><![CDATA[ DZ_DWDZXZ=#dz_dwdzxz# ]]></isNotNull>
+				 <isNotNull prepend="," property="dz_dwdzmlpdm"><![CDATA[ DZ_DWDZMLPDM=#dz_dwdzmlpdm# ]]></isNotNull>
+				 <isNotNull prepend="," property="dz_dwdzmlpxz"><![CDATA[ DZ_DWDZMLPXZ=#dz_dwdzmlpxz# ]]></isNotNull>
+				 <isNotNull prepend="," property="sfswdwdm"><![CDATA[ SFSWDWDM=#sfswdwdm# ]]></isNotNull>
+				 <isNotNull prepend="," property="sfyxfjddm"><![CDATA[ SFYXFJDDM=#sfyxfjddm# ]]></isNotNull>
+				 <isNotNull prepend="," property="kyrq"><![CDATA[ KYRQ=#kyrq# ]]></isNotNull>
+				 <isNotNull prepend="," property="sfzqxyydm"><![CDATA[ SFZQXYYDM=#sfzqxyydm# ]]></isNotNull>
+				 <isNotNull prepend="," property="dwywmc"><![CDATA[ DWYWMC=#dwywmc# ]]></isNotNull>
+				 <isNotNull prepend="," property="dwywsx"><![CDATA[ DWYWSX=#dwywsx# ]]></isNotNull>
+				 <isNotNull prepend="," property="hylbdm"><![CDATA[ HYLBDM=#hylbdm# ]]></isNotNull>
+				 <isNotNull prepend="," property="tyrq01"><![CDATA[ TYRQ01=#tyrq01# ]]></isNotNull>
+				 <isNotNull prepend="," property="wz"><![CDATA[ WZ=#wz# ]]></isNotNull>
+				<isNotNull prepend="," property="xt_zxbz"><![CDATA[ xt_zxbz=#xt_zxbz# ]]></isNotNull>
+				<isNotNull prepend="," property="xt_hssj"><![CDATA[ xt_hssj=#xt_hssj# ]]></isNotNull>
+				<isNotNull prepend="," property="dzms"><![CDATA[ dzms=#dzms# ]]></isNotNull>
+				<isNotNull prepend="," property="dzms_chdz"><![CDATA[ dzms_chdz=#dzms_chdz# ]]></isNotNull>
+				<isNotNull prepend="," property="dzms_dwdzmlpxz"><![CDATA[ dzms_dwdzmlpxz=#dzms_dwdzmlpxz# ]]></isNotNull>
+				<isNotNull prepend="," property="dzms_zbx"><![CDATA[ dzms_zbx=#dzms_zbx# ]]></isNotNull>
+				<isNotNull prepend="," property="dzms_zby"><![CDATA[ dzms_zby=#dzms_zby# ]]></isNotNull>
+				<isNotNull prepend="," property="dzms_sszrqdm"><![CDATA[ dzms_sszrqdm=#dzms_sszrqdm# ]]></isNotNull>
+				<isNotNull prepend="," property="dzms_sspcsdm"><![CDATA[ dzms_sspcsdm=#dzms_sspcsdm# ]]></isNotNull>
+				,<include refid="updateXtzd"/>
+			</dynamic>
+		<![CDATA[ where id = #id#]]>	
+	</update>
+	<!-- 注销 -->
+	<update id="delete" parameterClass="dwjbxxb">
+		<![CDATA[ update DW_DWJBXXB set ]]><include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>	
+	</update>
+	<!-- 根据地址代码查询单位 列表-->
+	<select id ="queryDwByDzDm" parameterClass="Map" resultClass="dwjbxxb">
+		<![CDATA[SELECT A.ID, A.DWLBDM, A.DWMC, a.DZ_DWDZXZ, a.DZ_DWDZDM
+				  		FROM DW_DWJBXXB A
+				 		WHERE 1=1]]>
+		<isNotEmpty prepend="and" property="dwjbxxb.dz_dwdzdm">
+			a.DZ_DWDZMLPDM =#dwjbxxb.dz_dwdzdm#
+		</isNotEmpty>	   			  
+	</select>
+	<!-- 获取空间图层srid -->
+	<select id="queryShapetableSrid" parameterClass="map" resultClass="int">
+				select srid from sde.st_geometry_columns t where t.table_name=UPPER(#tableName#) and owner=UPPER(#shapeDbName#)
+	</select>	
+	<!-- 根据单位ID查询法人与责任人-->
+	<select id="queryDwfrfzrByDwid" parameterClass="String" resultClass="frfzr">
+		<![CDATA[select * from DW_FRFZRLLRB t where t.DWID = #id# and  ]]><include refid="yxjl"/>
+	</select>
+	<!-- 查询旧货收购信息 -->
+	<select id="jhsgxxb_query" parameterClass="Map" resultClass="com.founder.sydw_dl.bean.Jhsgxxb">
+		 <![CDATA[select * from DW_JHSGXXB t where dwid=#dwid# and XT_ZXBZ = '0' ]]>
+	</select>
+	<!-- 银行分理处信息 -->
+	<select id="dwyhflcxxb_query" parameterClass="Map" resultClass="com.founder.sydw_dl.bean.Dwyhflcxxb">
+		 <![CDATA[select * from DW_YHFLCXXB t where dwid=#dwid# and XT_ZXBZ = '0' ]]>
+	</select>
+	<!-- 查询单位仓储信息 -->
+	<select id="dwccxxb_query" parameterClass="Map" resultClass="com.founder.sydw_dl.bean.Dwccxxb">
+		 <![CDATA[select * from DW_DWCCXXB t where dwid=#dwid# and XT_ZXBZ = '0' ]]>
+	</select>
+	<!-- 查询单位别名表By单位dwid-->
+	<select id="queryDwbmxxbByDwid" parameterClass="String" resultClass="dwbmxxb">
+		<![CDATA[select * from dw_dwbmb t where t.DWID = #dwid# and t.xt_zxbz = '0' order by XT_CJSJ ]]>
+	</select>
+	<!-- 判断是否存在该单位，根据单位ID、单位别名 -->
+	<select id="queryExistDwbm" parameterClass="Map" resultClass="Integer">
+		<![CDATA[select count(*) from dw_dwbmb b where dwbm = #dwbm# and XT_ZXBZ = '0' and ID = #DWID#  ]]>
+	</select>
+	<!-- 新增单位别名 -->
+	<insert id="saveDwbmxxb" parameterClass="dwbmxxb">
+		<![CDATA[ insert into DW_DWBMB (ID,DWID,dwbm,bz, ]]><include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#,#dwid#,#dwbm#,#bz#, ]]><include refid="insertXtzdVal"/>)
+	</insert>
+	<!-- 更新单别名-->
+	<update id="updateDwbmxxb" parameterClass="dwbmxxb">
+		<![CDATA[ update dw_dwbmb ]]>	
+			<dynamic prepend="set">
+				<isNotNull prepend="," property="dwid"><![CDATA[ dwid=#dwid# ]]></isNotNull>
+				<isNotNull prepend="," property="dwbm"><![CDATA[ dwbm=#dwbm# ]]></isNotNull>
+				<isNotNull prepend="," property="bz"><![CDATA[ bz=#bz# ]]></isNotNull>
+				<isNotNull prepend="," property="xt_zxbz"><![CDATA[ xt_zxbz=#xt_zxbz# ]]></isNotNull>
+				,
+				<include refid="updateXtzd"/>
+			</dynamic>
+		<![CDATA[ where id = #id#]]>	
+	</update>
+	<!-- 删除单位别名 -->
+		<update id="deleteDwbmxxb" parameterClass="String">
+		<![CDATA[ delete dw_dwbmb  where dwid = #dwid#]]>	
+	</update>
+	<!-- 查询信息 -->
+	<select id="yhxxb_query" parameterClass="Map" resultClass="com.founder.sydw_dl.bean.Yhxxb">
+		 <![CDATA[
+		 select * from DW_YHXXB t where dwid=#dwid# and XT_ZXBZ = '0'
+		 
+		 ]]>
+	</select>
+	<!-- 生成单位编号的序号 -->
+	<parameterMap id="dwbh_map" class="java.util.HashMap">
+		<parameter property="result" jdbcType="VARCHAR" javaType="String" mode="OUT"/>
+		<parameter property="dwbh" jdbcType="VARCHAR" javaType="String" mode="IN" />
+		<parameter property="zl"  jdbcType="NUMBER" javaType="java.lang.Integer" mode="IN" />
+	</parameterMap>
+	<procedure id="queryDwbh" parameterMap="dwbh_map">
+		 <![CDATA[{?=call func_sys_xh_seq(?,?)}]]>
+	</procedure>
+	<!-- 根据单位ID取得单位log_info 信息 -->
+	<select id="dwjqdt_query" parameterClass="Map" resultClass="logInfo">
+		 <![CDATA[
+		 select * from log_info where  ((modname=#modname# and funcname=#funcname#) or (modname=#modname1# and funcname=#funcname1#)) and operate_type=#operate_type# and QUERY_FILED= #dwid# order by OPERATE_TIME desc
+		 
+		 ]]>
+	</select>
+</sqlMap>

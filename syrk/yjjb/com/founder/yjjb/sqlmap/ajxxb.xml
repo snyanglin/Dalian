@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="xsajxxb">
+	
+	<typeAlias alias="xsajxxb" type="com.founder.yjjb.bean.Ajxxb" />
+	
+	<!-- 添加 -->
+	<insert id="save" parameterClass="xsajxxb">
+		<![CDATA[
+		INSERT INTO YJJB_AJXXB
+  			(
+  			ID,AJBH,AJMC,AJLX,AJZT,BADW,SAJYXX,LAJYXX,PAJYXX,CFJYXX,SLSJ,SLFZDM,SLZDM,SLZXDM,
+  			]]> <include refid="insertXtzd"/> <![CDATA[ )
+		VALUES
+  			(
+  			#id#,#ajbh#,#ajmc#,#ajlx#,#ajzt#,#badw#,#sajyxx#,#lajyxx#,#pajyxx#,#cfjyxx#,#slsj#,#slfzdm#,#slzdm#,#slzxdm#,
+  			 ]]> <include refid="insertXtzdVal"/> <![CDATA[ )
+  		]]>
+	</insert>
+	
+	<!-- 查询 -->
+	<select id="queryById" parameterClass="xsajxxb" resultClass="xsajxxb">
+		<![CDATA[ SELECT * FROM YJJB_AJXXB WHERE id = #id# ]]>
+	</select>
+	
+	 
+	<!-- 修改 -->
+	<update id="update" parameterClass="xsajxxb">
+		 <![CDATA[ UPDATE YJJB_AJXXB ]]>	
+		<dynamic prepend="set">
+			<isNotNull prepend = "," property = "ajbh"> <![CDATA[ajbh = #ajbh#]]> </isNotNull>
+			<isNotNull prepend = "," property = "ajmc"> <![CDATA[ajmc = #ajmc#]]> </isNotNull>
+			<isNotNull prepend = "," property = "ajlx"> <![CDATA[ajlx = #ajlx#]]> </isNotNull>
+			<isNotNull prepend = "," property = "ajzt"> <![CDATA[ajzt = #ajzt#]]> </isNotNull>
+			<isNotNull prepend = "," property = "badw"> <![CDATA[badw = #badw#]]> </isNotNull>
+			<isNotNull prepend = "," property = "sajyxx"> <![CDATA[sajyxx = #sajyxx#]]> </isNotNull>
+			<isNotNull prepend = "," property = "lajyxx"> <![CDATA[lajyxx = #lajyxx#]]> </isNotNull>
+			<isNotNull prepend = "," property = "pajyxx"> <![CDATA[pajyxx = #pajyxx#]]> </isNotNull>
+			<isNotNull prepend = "," property = "cfjyxx"> <![CDATA[cfjyxx = #cfjyxx#]]> </isNotNull>
+			<isNotNull prepend = "," property = "slsj"> <![CDATA[slsj = #slsj#]]> </isNotNull>
+			
+			<isNotNull prepend = "," property = "slfzdm"> <![CDATA[slfzdm = #slfzdm#]]> </isNotNull>
+			<isNotNull prepend = "," property = "slzdm"> <![CDATA[slzdm = #slzdm#]]> </isNotNull>
+			<isNotNull prepend = "," property = "slzxdm"> <![CDATA[slzxdm = #slzxdm#]]> </isNotNull>
+			, <include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ WHERE id = #id#]]>
+	</update>
+
+	<!-- 注销-->
+	<update id="delete" parameterClass="xsajxxb">
+		<![CDATA[UPDATE YJJB_AJXXB SET]]> <include refid="deleteXtzd"/>
+		<![CDATA[WHERE id = #id#]]>
+	</update>
+	
+	<!-- 查询列表 -->
+	<select id="queryCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ 
+		SELECT SUM(tempcount) from(
+		
+				  SELECT COUNT(*) as tempcount FROM YJJB_AJXXB tt1 
+				  WHERE tt1.XT_ZXBZ='0' AND tt1.BADW =  #xsajxxb.badw# 
+				  AND NOT EXISTS (SELECT 1 FROM  YJJB_XSAJGXB tt2 WHERE  tt2.XT_ZXBZ='0' AND tt1.AJBH=tt2.AJBH  AND tt2.XSBH = #xsajxxb.xsbh#)
+				  
+		 ]]>	
+		<isNotEmpty prepend="and" property="xsajxxb.ajbh"> <![CDATA[tt1.AJBH=#xsajxxb.ajbh#]]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.ajmc"> <![CDATA[tt1.AJMC like '%$xsajxxb.ajmc$%']]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.ajzt"> <![CDATA[tt1.AJZT=#xsajxxb.ajzt#]]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.sajyxx"> <![CDATA[tt1.SAJYXX like '%$xsajxxb.sajyxx$%']]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.starttime"> <![CDATA[tt1.SLSJ >= #xsajxxb.starttime#]]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.endtime"> <![CDATA[tt1.SLSJ <= #xsajxxb.endtime#]]> </isNotEmpty>
+		
+		<![CDATA[ UNION ALL
+				  SELECT COUNT(*) as tempcount FROM jwzh.ga_jcxx_aj_ajjbxx@ldy tt1 WHERE tt1.SLDWJGDM  = #xsajxxb.badw#
+				  AND NOT EXISTS ( SELECT 1 FROM  YJJB_XSAJGXB tt2 WHERE  tt2.XT_ZXBZ='0' AND tt1.AJBH=tt2.AJBH  AND tt2.XSBH = #xsajxxb.xsbh#)
+		]]>
+		<isNotEmpty prepend="and" property="xsajxxb.ajbh"> <![CDATA[tt1.AJBH=#xsajxxb.ajbh#]]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.ajmc"> <![CDATA[tt1.AJMC like '%$xsajxxb.ajmc$%']]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.ajzt"> <![CDATA[tt1.AJZT=#xsajxxb.ajzt#]]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.sajyxx"> <![CDATA[tt1.JYAQ like '%$xsajxxb.sajyxx$%']]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.starttime"> <![CDATA[to_char(tt1.SLSJ,'yyyy-MM-dd') >= #xsajxxb.starttime#]]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.endtime"> <![CDATA[to_char(tt1.SLSJ,'yyyy-MM-dd') <= #xsajxxb.endtime#]]> </isNotEmpty>
+		<![CDATA[	)a ]]>
+	</select>
+	
+	<select id="queryList" parameterClass="Map" resultClass="xsajxxb">
+		<![CDATA[ SELECT * FROM ( 
+						SELECT ROWNUM r, t.AJBH,t.AJMC,t.BADW,t.AJZT,t.tbsj,t.sajyxx,t.slsj,t.ajlx  FROM ( 
+							SELECT tt1.AJBH,tt1.AJMC,tt1.BADW,tt1.AJZT,tt1.xt_lrsj as tbsj,tt1.sajyxx,tt1.slsj,tt1.ajlx
+							FROM YJJB_AJXXB tt1 WHERE tt1.XT_ZXBZ='0'  AND tt1.BADW =  #xsajxxb.badw#
+								AND NOT EXISTS (
+									SELECT 1 FROM  YJJB_XSAJGXB tt2 WHERE  tt2.XT_ZXBZ='0' AND tt1.AJBH=tt2.AJBH  AND tt2.XSBH = #xsajxxb.xsbh#
+								)
+								
+		]]>	
+		<isNotEmpty prepend="and" property="xsajxxb.ajbh"> <![CDATA[ tt1.AJBH=#xsajxxb.ajbh#]]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.ajmc"> <![CDATA[ tt1.AJMC like '%$xsajxxb.ajmc$%']]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.ajzt"> <![CDATA[ tt1.AJZT=#xsajxxb.ajzt#]]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.sajyxx"> <![CDATA[ tt1.SAJYXX like '%$xsajxxb.sajyxx$%']]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.starttime"> <![CDATA[tt1.SLSJ >= #xsajxxb.starttime#]]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.endtime"> <![CDATA[tt1.SLSJ <= #xsajxxb.endtime#]]> </isNotEmpty>
+		<![CDATA[ 
+		UNION ALL
+				SELECT tt1.AJBH,tt1.AJMC,tt1.SLDWJGDM AS BADW,tt1.AJZT,to_char(tt1.tbsj,'yyyy-MM-dd hh:mm:ss') as tbsj ,tt1.jyaq as sajyxx,to_char(tt1.slsj,'yyyy-MM-dd hh:mm:ss') as slsj,'3' as ajlx
+				FROM jwzh.ga_jcxx_aj_ajjbxx@ldy tt1 WHERE tt1.SLDWJGDM  = #xsajxxb.badw#
+				AND NOT EXISTS (
+					SELECT 1 FROM  YJJB_XSAJGXB tt2 WHERE  tt2.XT_ZXBZ='0' AND tt1.AJBH=tt2.AJBH  AND tt2.XSBH = #xsajxxb.xsbh#
+				)
+		]]>
+		<isNotEmpty prepend="and" property="xsajxxb.ajbh"> <![CDATA[tt1.AJBH=#xsajxxb.ajbh#]]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.ajmc"> <![CDATA[tt1.AJMC like '%$xsajxxb.ajmc$%']]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.ajzt"> <![CDATA[tt1.AJZT=#xsajxxb.ajzt#]]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.sajyxx"> <![CDATA[tt1.JYAQ like '%$xsajxxb.sajyxx$%']]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.starttime"> <![CDATA[to_char(tt1.SLSJ,'yyyy-MM-dd') >= #xsajxxb.starttime#]]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsajxxb.endtime"> <![CDATA[to_char(tt1.SLSJ,'yyyy-MM-dd') <= #xsajxxb.endtime#]]> </isNotEmpty>
+		<![CDATA[ ) t
+			WHERE rownum <= #end# ) WHERE r > #begin#  ORDER BY 6 $order$]]>
+	</select>
+	
+	<!-- 查询 -->
+	<select id="queryByAjbh" parameterClass="xsajxxb" resultClass="xsajxxb">
+		<![CDATA[ SELECT * FROM YJJB_AJXXB WHERE ajbh = #ajbh# ]]>
+	</select>
+	
+	<!-- 根据案件编号查看该编号案件条数，为0或大于0 -->
+	<select id ="ifExistAjNum" parameterClass="Map" resultClass="int"> 
+		<![CDATA[select count(*) from YJJB_AJXXB where 
+				xt_zxbz='0' and ajbh=#ajbh#]]>			
+	</select>
+	
+	<!-- 根据案件编号在老警综里面查询单条 -->
+	<select id="queryByAjbhLjz" parameterClass="xsajxxb" resultClass="xsajxxb">
+		<![CDATA[ SELECT AJBH,T2.ORGNAME AS XT_LRRBM,USERNAME AS XT_LRRXM
+					FROM jwzh.ga_jcxx_aj_ajjbxx@ldy T1 ,ORG_ORGANIZATION T2,ORG_USER T3
+					WHERE  T1.SLDWJGDM=T2.ORGCODE AND T1.SLRXM = T3.ALARM AND AJBH = #ajbh# ]]>
+	</select>
+	
+	<!-- 根据案件编号在举报表和老警综里面查询单条 -->
+	<select id="queryAllAjxxByAjbh" parameterClass="xsajxxb" resultClass="xsajxxb">
+		<![CDATA[ SELECT * FROM V_YJJB_AJ WHERE AJBH = #ajbh# ]]>
+	</select>
+    </sqlMap>

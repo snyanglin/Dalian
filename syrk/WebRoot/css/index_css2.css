@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* CSS Document */
+body{margin:0px; padding:0px; background:url(../images/index/bg_03.jpg)  no-repeat #FFF center center ;}
+img{border:0px;}
+.nav_wrap_01{ width:750px; height:auto; overflow:hidden; margin:20px auto;}
+.nav_wrap_01 ul{list-style:none; margin:0px; padding:0px; width:750px; height:auto; overflow:hidden; float:left; }
+.nav_wrap_01 ul li{list-style:none; width:120px; float:left; height:154px; margin:30px 0 0 100px; text-align:center;}
+.nav_wrap_01 ul li a{ text-decoration:none;}
+#syrkgl{
+ 	background:url(../images/index/b_syrkgl.png) no-repeat right;
+ 	cursor: pointer;
+ 	width:120;
+ 	height:154;
+}
+#syrkhs{
+ 	background:url(../images/index/b_syrkhs.png) no-repeat right;
+ 	cursor: pointer;
+ 	width:120;
+ 	height:154;
+}
+#bzdzgl{
+ 	background:url(../images/index/b_bzdzgl.png) no-repeat right;
+ 	cursor: pointer;
+ 	width:120;
+ 	height:154;
+}
+#bzdzhs{
+ 	background:url(../images/index/b_bzdzhs.png) no-repeat right;
+ 	cursor: pointer;
+ 	width:120;
+ 	height:154;
+}
+#sydwgl{
+ 	background:url(../images/index/b_sydwgl.png) no-repeat right;
+ 	cursor: pointer;
+ 	width:120;
+ 	height:154;
+}
+#sydwhs{
+ 	background:url(../images/index/b_sydwhs.png) no-repeat right;
+ 	cursor: pointer;
+ 	width:120;
+ 	height:154;
+}
+#syfwgl{
+ 	background:url(../images/index/b_syfwgl.png) no-repeat right;
+ 	cursor: pointer;
+ 	width:120;
+ 	height:154;
+}
+
+#gzdtts{
+ 	background:url(../images/index/b_gzdtts.png) no-repeat right;
+ 	cursor: pointer;
+ 	width:120;
+ 	height:154;
+}
+#zdrkgl{
+ 	background:url(../images/index/b_zdrkgl.png)  no-repeat right;
+ 	cursor: pointer;
+ 	width:120;
+ 	height:154;
+}

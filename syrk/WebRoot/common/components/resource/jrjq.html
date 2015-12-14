@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>今日警情</title>
+
+<link href="../../common/components/FusionCharts/Gallery/assets/ui/css/style.css" rel="stylesheet" type="text/css" />
+<link href=../../common/components/FusionCharts/Gallery/assets/prettify/prettify.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="common/components/FusionCharts/Charts/FusionCharts.js"></script>
+<script type="text/javascript" src="common/components/FusionCharts/Gallery/assets/prettify/prettify.js"></script>
+<script type="text/javascript" src="common/components/FusionCharts/Gallery/assets/ui/js/json2.js"></script>
+<script type="text/javascript" src="common/components/FusionCharts/Gallery/assets/ui/js/lib.js" ></script>
+
+<script type="text/javascript" src="common/components/resource/js/jrjq.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		ScrollBarTool.init("scroll_main_jrjq", "scroll_content_jrjq", 0); 
+		$(window).resize(ScrollBarTool.debounce(function() {
+			ScrollBarTool.init("scroll_main_jrjq", "scroll_content_jrjq", 0, true); 
+		}, 500)); 
+	});
+</script>
+</head>
+<body onload="Jrjq.init();">
+<div id="scroll_main_jrjq">
+		<div id="scroll_content_jrjq"> 
+			<div class="input_selectbg" id="jrjq_zzjg">
+				<input type="hidden" id="jrjq_zzjg_dm" />
+				<input type="text" id="jrjq_zzjg_mc" class="zzjg_slect input_select" style="width:225px;"  onExit="Jrjq.zzjgFireFunc()"/>
+				<div class="clear" id="jrjq_zzjg_data_Div"></div>
+			</div> 
+			<div id="jrjq_jqlx" style="width: 300px;height: 270px; margin-left:-15px"></div>
+			<div id="jrjq_jqsl" style="width: 300px;height: 270px;margin-left:-15px;margin-top: -20px"></div>
+			<div id="jrjq_jqzt" style="width: 300px;height: 270px;margin-left:-15px"></div>
+			<div id="jrjq_myd" style="width: 300px;height: 270px;margin-left:-15px"></div>
+		</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"  
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="NameValuePair">
+	<typeAlias alias="nameValuePair" type="com.founder.spsxt.vo.NameValuePair"/>
+	<typeAlias alias="sxtStatisticVO" type="com.founder.spsxt.vo.SxtStatisticVO"/>
+	
+
+<!-- 根据代码和名称对应的拼音查询，传递的参数：id(代码)/py(拼音)等   -->
+	<select id="getOrgCodeNameByCondition" parameterClass="Map" resultClass="nameValuePair" > 
+		<![CDATA[
+
+			select orgcode id,orgName name from org_organization where rownum<#maxRows#
+		]]>	
+		<isNotEmpty prepend="and" property="id"><![CDATA[ orgCode like '$id$%' ]]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="py"><![CDATA[ ORGNAMEPY like '$py$%' ]]> </isNotEmpty>
+	</select>
+ 
+ <!-- 获得视频单位id，dwmc列表 。根据代码和名称对应的拼音查询，传递的参数：id(代码)/py(拼音)等   -->
+	<select id="getSpdwIdNameByCondition" parameterClass="Map" resultClass="nameValuePair" > 
+		<![CDATA[
+			select id,dwmc name from JF_SPDWJBXX where rownum<#maxRows#
+		]]>	
+		<isNotEmpty prepend="and" property="id"><![CDATA[ id like '$id$%' ]]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="py"><![CDATA[ dwpy like '%$py$%' ]]> </isNotEmpty>
+	</select>
+ 
+ 
+ 
+  <!-- 获得行政区划， 根据代码和名称对应的拼音查询，传递的参数：id(代码)/py(拼音)   -->
+	<select id="getXzqhByCondition" parameterClass="Map" resultClass="nameValuePair" > 
+		<![CDATA[
+			
+			select dm id, ct name from SYS_DICT2 where  rownum<#maxRows# and zdBH='D_BZ_XZQH'			
+		]]>	
+		<isNotEmpty prepend="and" property="id"><![CDATA[ dm like '$id$%' ]]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="py"><![CDATA[ py like '%$py$%' ]]> </isNotEmpty>
+	</select>
+	
+ 
+   <!-- 获得地理区域， 根据代码和名称对应的拼音查询，传递的参数：id(代码)/py(拼音)   -->
+	<select id="getAreaByCondition" parameterClass="Map" resultClass="nameValuePair" > 
+		<![CDATA[			
+			select code id,meaning name from JF_DLQYXXB where  rownum<#maxRows# 	
+		]]>	
+		<isNotEmpty prepend="and" property="id"><![CDATA[ id like '$id$%' ]]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="py"><![CDATA[ spell like '%$py$%' ]]> </isNotEmpty>
+	</select>	
+ 	<!-- 根据机构代码查找父级树路径  -->
+ 	<select id="getParentTreePathByOrgCode" parameterClass="String" resultClass="String" > 
+		<![CDATA[			
+			select parentTreePath from org_organization where orgcode=#orgCode#	 	
+		]]>	
+	</select>	
+
+	<!-- 根据2级机构获得平台名称2014.11.23.   -->
+	<select id="getPlatformByOrgCode"  parameterClass="String" resultClass="nameValuePair" >
+		<![CDATA[ 			
+			select ssOrgCode id,name from jf_dic_ptmc where ssOrgCode=#ssOrgCode#
+		]]>
+
+	</select>	
+   	<!-- 根据2级机构获得其边界坐标串2014.12.19.   -->
+	<select id="getBjzbzByOrgCode"  parameterClass="String" resultClass="String" >
+		<![CDATA[ 			
+			select bjzbz from org_organization  where  orgcode=#orgcode#
+		]]>	
+	</select> 
+	
+<!-- 摄像头统计   -->
+	<select id="getSxtStatistic" parameterClass="Map"  resultClass="sxtStatisticVO" > 
+		<![CDATA[
+			select org.orgName name,hasCoordinate ,noCoordinate ,hasCoordinate+noCoordinate total from
+			(
+			  select
+			        ssorgcode, 
+			        (select  count(*) from JF_SPTJBXX where sfgazj=#sfgazj# and  (jd is not null and wd is not null) and substr(xt_lrrbmid,1,6)=substr(ssorgcode,1,6)) hasCoordinate  , 
+			        (select  count(*) from JF_SPTJBXX where sfgazj=#sfgazj# and (jd is null or wd is null) and substr(xt_lrrbmid,1,6)=substr(ssorgcode,1,6)) noCoordinate
+			        
+			  from 
+			  (
+			        select distinct ssorgcode from jf_dic_ptmc
+			  )
+			) t1
+			inner join org_organization org on t1.ssorgcode=org.orgcode
+
+			
+		]]>	
+	</select>
+	
+ 	<!-- 根据分局代码获得计数值  -->
+	<update id="updateCounterValue" parameterClass="String">
+		<![CDATA[ 
+			update jf_dic_Counter set curValue=curValue+1 where ssorgcode=#orgCode#
+		]]>
+	</update>			
+	<select id="getCurrentCounterValue" parameterClass="String" resultClass="Integer">
+		<![CDATA[ 
+			select curValue from jf_dic_Counter where ssorgcode=#orgCode#		
+		]]>		
+	</select>	
+		
+		 	 	
+</sqlMap>

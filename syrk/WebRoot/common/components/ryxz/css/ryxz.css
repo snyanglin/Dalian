@@ -1,0 +1,10 @@
+@charset "utf-8";
+/* CSS Document */
+
+.itemselector{font-size:12px;height:370px;margin:5px 0 0;clear:both;}
+.itemselector .itemselectorbtn{float: left;width: 24px;overflow: hidden;height:100%;}
+.itemselector .itemselector_data{float: left;height:100%;}
+.itemselector .itemselectorbtna{display:block;width:20px;height:20px; margin:80px 2px 0;background: url("../images/itemselectorbtn.png") no-repeat;}
+.itemselector .itemselectorbtna:hover{background-position: 0 -40px;}
+.itemselector .itemselectorbtnb{display:block;width:20px;height:20px; margin:25px 2px;background: url("../images/itemselectorbtn.png") 0 -20px no-repeat;}
+.itemselector .itemselectorbtnb:hover{background-position: 0 -60px;}

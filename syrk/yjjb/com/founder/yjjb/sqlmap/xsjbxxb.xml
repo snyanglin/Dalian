@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="xsjbxxb">
+	
+	<typeAlias alias="xsjbxxb" type="com.founder.yjjb.bean.Xsjbxxb" />
+	
+	<!-- 添加 -->
+	<insert id="save" parameterClass="xsjbxxb">
+		<![CDATA[
+		INSERT INTO YJJB_XSJBXXB
+  			(ID,XSDZDM,XSDZMS,XSDZZBX,XSDZZBY,JBSJ,CCSJ,FCSJ,SLRBH,SLFZDM,SLZDM,
+  			SLZXDM,SLDZDM,SLDZMS,SLDZZBX,SLDZZBY,XSZT,CCJG,FCJG,JBNR,JBXXXZ,JBRXM,JBRSFZH,JBRXJZDZ,HJDZ,
+  			JBRXB,JBRSR,JBRDW,JBRLXFS,JBRMOBILE,CZZCP,CYZGZ,XSLX,XSLY,XSDZSSXDM,XSDZMLPXZ,XSDZMLPDM,XSDZXZ,SLDZXZ,
+  			SLDZMLPDM,SLDZMLPXZ,SLDZSSXDM,CCBZ,FCBZ,JBRDWDM,DZBZ,ZCBZ, ]]> <include refid="insertXtzd"/> <![CDATA[ )
+		VALUES
+  			(#id#,#xsdzdm#,#xsdzms#,#xsdzzbx#,#xsdzzby#,#jbsj#,#ccsj#,#fcsj#,#slrbh#,#slfzdm#,#slzdm#,#slzxdm#,
+  			#sldzdm#,#sldzms#,#sldzzbx#,#sldzzby#,#xszt#,#ccjg#,#fcjg#,#jbnr#,#jbxxxz#,#jbrxm#,#jbrsfzh#,
+  			#jbrxjzdz#,#hjdz#,#jbrxb#,#jbrsr#,#jbrdw#,#jbrlxfs#,#jbrmobile#,#czzcp#,#cyzgz#,#xslx#,#xsly#,#xsdzssxdm#,
+  			#xsdzmlpxz#,#xsdzmlpdm#,#xsdzxz#,#sldzxz#,#sldzmlpdm#,#sldzmlpxz#,#sldzssxdm#,#ccbz#,#fcbz#,
+  			#jbrdwdm#,#dzbz#,#zcbz#, ]]> <include refid="insertXtzdVal"/> <![CDATA[ )
+  		]]>
+	</insert>
+	
+	<!-- 查询-->
+	<select id="queryById" parameterClass="xsjbxxb" resultClass="xsjbxxb">
+		<![CDATA[ SELECT * FROM YJJB_XSJBXXB WHERE XT_ZXBZ = '0' AND ID = #id# ]]>
+	</select>
+	
+	<!-- 查询未初查数据-->
+	<select id="queryCCById"  resultClass="xsjbxxb">
+		<![CDATA[ SELECT * FROM YJJB_XSJBXXB WHERE XT_ZXBZ = '0' AND XSZT = '00']]>
+	</select>
+	
+	<!-- 查询未初查数据-->
+	<select id="queryFCById"  resultClass="xsjbxxb">
+		<![CDATA[ SELECT * FROM YJJB_XSJBXXB WHERE XT_ZXBZ = '0' AND XSZT = '10']]>
+	</select>
+	
+	
+	<!-- 修改 -->
+	<update id="update" parameterClass="xsjbxxb">
+		 <![CDATA[ UPDATE YJJB_XSJBXXB ]]>	
+		<dynamic prepend="set">
+		<isNotNull prepend = "," property = "jbrdwdm"> <![CDATA[jbrdwdm = #jbrdwdm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "sldzxz"> <![CDATA[sldzxz = #sldzxz#]]> </isNotNull>
+		<isNotNull prepend = "," property = "sldzmlpdm"> <![CDATA[sldzmlpdm = #sldzmlpdm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "sldzmlpxz"> <![CDATA[sldzmlpxz = #sldzmlpxz#]]> </isNotNull>
+		<isNotNull prepend = "," property = "sldzssxdm"> <![CDATA[sldzssxdm = #sldzssxdm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "ccbz"> <![CDATA[ccbz = #ccbz#]]> </isNotNull>
+		<isNotNull prepend = "," property = "fcbz"> <![CDATA[fcbz = #fcbz#]]> </isNotNull>
+		<isNotNull prepend = "," property = "xsdzmlpxz"> <![CDATA[xsdzmlpxz = #xsdzmlpxz#]]> </isNotNull>
+		<isNotNull prepend = "," property = "xsdzssxdm"> <![CDATA[xsdzssxdm = #xsdzssxdm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "xsdzxz"> <![CDATA[xsdzxz = #xsdzxz#]]> </isNotNull>
+		<isNotNull prepend = "," property = "xsdzmlpdm"> <![CDATA[xsdzmlpdm = #xsdzmlpdm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "xsdzdm"> <![CDATA[xsdzdm = #xsdzdm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "xsdzms"> <![CDATA[xsdzms = #xsdzms#]]> </isNotNull>
+		<isNotNull prepend = "," property = "xsdzzbx"> <![CDATA[xsdzzbx = #xsdzzbx#]]> </isNotNull>
+		<isNotNull prepend = "," property = "xsdzzby"> <![CDATA[xsdzzby = #xsdzzby#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jbsj"> <![CDATA[jbsj = #jbsj#]]> </isNotNull>
+		<isNotNull prepend = "," property = "ccsj"> <![CDATA[ccsj = #ccsj#]]> </isNotNull>
+		<isNotNull prepend = "," property = "fcsj"> <![CDATA[fcsj = #fcsj#]]> </isNotNull>
+		<isNotNull prepend = "," property = "slrbh"> <![CDATA[slrbh = #slrbh#]]> </isNotNull>
+		<isNotNull prepend = "," property = "slfzdm"> <![CDATA[slfzdm = #slfzdm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "slzdm"> <![CDATA[slzdm = #slzdm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "slzxdm"> <![CDATA[slzxdm = #slzxdm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "sldzdm"> <![CDATA[sldzdm = #sldzdm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "sldzms"> <![CDATA[sldzms = #sldzms#]]> </isNotNull>
+		<isNotNull prepend = "," property = "sldzzbx"> <![CDATA[sldzzbx = #sldzzbx#]]> </isNotNull>
+		<isNotNull prepend = "," property = "sldzzby"> <![CDATA[sldzzby = #sldzzby#]]> </isNotNull>
+		<isNotNull prepend = "," property = "xszt"> <![CDATA[xszt = #xszt#]]> </isNotNull>
+		<isNotNull prepend = "," property = "ccjg"> <![CDATA[ccjg = #ccjg#]]> </isNotNull>
+		<isNotNull prepend = "," property = "fcjg"> <![CDATA[fcjg = #fcjg#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jbnr"> <![CDATA[jbnr = #jbnr#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jbxxxz"> <![CDATA[jbxxxz = #jbxxxz#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jbrxm"> <![CDATA[jbrxm = #jbrxm#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jbrsfzh"> <![CDATA[jbrsfzh = #jbrsfzh#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jbrxjzdz"> <![CDATA[jbrxjzdz = #jbrxjzdz#]]> </isNotNull>
+		<isNotNull prepend = "," property = "hjdz"> <![CDATA[hjdz = #hjdz#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jbrxb"> <![CDATA[jbrxb = #jbrxb#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jbrsr"> <![CDATA[jbrsr = #jbrsr#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jbrdw"> <![CDATA[jbrdw = #jbrdw#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jbrlxfs"> <![CDATA[jbrlxfs = #jbrlxfs#]]> </isNotNull>
+		<isNotNull prepend = "," property = "jbrmobile"> <![CDATA[jbrmobile = #jbrmobile#]]> </isNotNull>
+		<isNotNull prepend = "," property = "czzcp"> <![CDATA[czzcp = #czzcp#]]> </isNotNull>
+		<isNotNull prepend = "," property = "cyzgz"> <![CDATA[cyzgz = #cyzgz#]]> </isNotNull>
+		<isNotNull prepend = "," property = "xslx"> <![CDATA[xslx = #xslx#]]> </isNotNull>
+		<isNotNull prepend = "," property = "xsly"> <![CDATA[xsly = #xsly#]]> </isNotNull>
+		<isNotNull prepend = "," property = "zcbz"> <![CDATA[zcbz = #zcbz#]]> </isNotNull>
+		<isNotNull prepend = "," property = "dzbz"> <![CDATA[dzbz = #dzbz#]]> </isNotNull>
+			, <include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ WHERE id = #id#]]>
+	</update>
+	
+	<!-- 查询列表 -->
+	<select id="queryCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ SELECT COUNT(*) FROM YJJB_XSJBXXB  WHERE XT_ZXBZ = '0'  ]]>
+		<isNotEmpty prepend="and" property="xsjbxxb.starttime">	<![CDATA[JBSJ >= #xsjbxxb.starttime#]]>	</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.endtime">	<![CDATA[JBSJ <= #xsjbxxb.endtime#]]>	</isNotEmpty>		
+		<isNotEmpty prepend="and" property="xsjbxxb.ccjg">		<![CDATA[CCJG=#xsjbxxb.ccjg#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.fcjg">		<![CDATA[FCJG=#xsjbxxb.fcjg#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.jbxxxz">	<![CDATA[JBXXXZ=#xsjbxxb.jbxxxz#]]>		</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.xslx">		<![CDATA[XSLX=#xsjbxxb.xslx#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.xszt">		<![CDATA[XSZT=#xsjbxxb.xszt#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.jbnr">		<![CDATA[JBNR like '%$xsjbxxb.jbnr$%']]> </isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.id">		<![CDATA[id like '%$xsjbxxb.id$%']]> </isNotEmpty>
+		<!-- 受理分站为本单位下属单位OR录入人时本人OR录入单位是本单位 -->
+		<dynamic prepend="and" open="(" close=")">
+		<isNotEmpty prepend="and" property="xsjbxxb.slfzdm">	<![CDATA[SLFZDM like '%$xsjbxxb.slfzdm$%']]> </isNotEmpty>
+		<isNotEmpty prepend="or" property="xsjbxxb.xt_lrrid">	<![CDATA[xt_lrrid = #xsjbxxb.xt_lrrid#]]> 	</isNotEmpty>
+		<isNotEmpty prepend="or" property="xsjbxxb.xt_lrrbm">	<![CDATA[xt_lrrbm = #xsjbxxb.xt_lrrbm#]]> 	</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 数据查询 -->
+	<select id="queryList" parameterClass="Map" resultClass="xsjbxxb">
+		<![CDATA[ SELECT * FROM ( SELECT ROWNUM r, t.* FROM ( SELECT * FROM YJJB_XSJBXXB WHERE XT_ZXBZ = '0'  ]]>
+		<isNotEmpty prepend="and" property="xsjbxxb.starttime">			<![CDATA[JBSJ >= #xsjbxxb.starttime#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.endtime">			<![CDATA[JBSJ <= #xsjbxxb.endtime#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.ccjg">				<![CDATA[CCJG=#xsjbxxb.ccjg#]]>					</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.fcjg">				<![CDATA[FCJG=#xsjbxxb.fcjg#]]>					</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.jbxxxz">			<![CDATA[JBXXXZ=#xsjbxxb.jbxxxz#]]>				</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.xslx">				<![CDATA[XSLX=#xsjbxxb.xslx#]]>					</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.xszt">				<![CDATA[XSZT=#xsjbxxb.xszt#]]>					</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.jbnr">				<![CDATA[JBNR like '%$xsjbxxb.jbnr$%']]> 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.id">		<![CDATA[id like '%$xsjbxxb.id$%']]> </isNotEmpty>
+		<!-- 受理分站为本单位下属单位OR录入人时本人OR录入单位是本单位 -->
+		<dynamic prepend="and" open="(" close=")">
+			<isNotEmpty prepend="and" property="xsjbxxb.slfzdm">		<![CDATA[SLFZDM like '%$xsjbxxb.slfzdm$%']]>  	</isNotEmpty>
+			<isNotEmpty prepend="or" property="xsjbxxb.xt_lrrid">		<![CDATA[xt_lrrid = #xsjbxxb.xt_lrrid#]]> 		</isNotEmpty>
+			<isNotEmpty prepend="or" property="xsjbxxb.xt_lrrbm">		<![CDATA[xt_lrrbm = #xsjbxxb.xt_lrrbm#]]> 		</isNotEmpty>
+		</dynamic>
+		<![CDATA[ ORDER BY $sort$ $order$ ) t WHERE rownum <= #end# ) WHERE r > #begin# ]]>
+	</select>
+	
+	<!-- 查询列表 -->
+	<select id="queryAllCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ SELECT COUNT(*) FROM YJJB_XSJBXXB  WHERE XT_ZXBZ = '0'  ]]>
+		<isNotEmpty prepend="and" property="xsjbxxb.starttime">	<![CDATA[JBSJ >= #xsjbxxb.starttime#]]>	</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.endtime">	<![CDATA[JBSJ <= #xsjbxxb.endtime#]]>	</isNotEmpty>		
+		<isNotEmpty prepend="and" property="xsjbxxb.ccjg">		<![CDATA[CCJG=#xsjbxxb.ccjg#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.fcjg">		<![CDATA[FCJG=#xsjbxxb.fcjg#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.jbxxxz">	<![CDATA[JBXXXZ=#xsjbxxb.jbxxxz#]]>		</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.xslx">		<![CDATA[XSLX=#xsjbxxb.xslx#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.xszt">		<![CDATA[XSZT=#xsjbxxb.xszt#]]>			</isNotEmpty>
+		
+	</select>
+	
+	<!-- 数据查询 -->
+	<select id="queryAllList" parameterClass="Map" resultClass="xsjbxxb">
+		<![CDATA[ SELECT * FROM ( SELECT ROWNUM r, t.* FROM ( SELECT * FROM YJJB_XSJBXXB WHERE XT_ZXBZ = '0'  ]]>
+		<isNotEmpty prepend="and" property="xsjbxxb.starttime">			<![CDATA[JBSJ >= #xsjbxxb.starttime#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.endtime">			<![CDATA[JBSJ <= #xsjbxxb.endtime#]]>			</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.ccjg">				<![CDATA[CCJG=#xsjbxxb.ccjg#]]>					</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.fcjg">				<![CDATA[FCJG=#xsjbxxb.fcjg#]]>					</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.jbxxxz">			<![CDATA[JBXXXZ=#xsjbxxb.jbxxxz#]]>				</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.xslx">				<![CDATA[XSLX=#xsjbxxb.xslx#]]>					</isNotEmpty>
+		<isNotEmpty prepend="and" property="xsjbxxb.xszt">				<![CDATA[XSZT=#xsjbxxb.xszt#]]>					</isNotEmpty>
+		<![CDATA[ ORDER BY $sort$ $order$ ) t WHERE rownum <= #end# ) WHERE r > #begin# ]]>
+	</select>
+	
+
+	<!-- 注销-->
+	<update id="delete" parameterClass="xsjbxxb">
+		<![CDATA[UPDATE YJJB_XSJBXXB SET]]> <include refid="deleteXtzd"/>
+		<![CDATA[WHERE id = #id#]]>
+	</update>
+	
+	<!-- 根据session查询当前用户的权限列表 -->
+	<select id="queryUserAssignRole" parameterClass="sessionBean" resultClass="xsjbxxb">
+		<![CDATA[ select ID as jsId,ROLENAME as jsRolename,ROLEDESC as jsRoledesc,BZ as jsBz from ORG_ROLE where XT_ZXBZ = '0' and ID in (
+			select ROLEID from ORG_ROLE_ASSIGN where ASSIGNTYPE = '3' and ASSIGNID = #id# ]]>
+			<isNotEmpty prepend="union all" property="userOrgIDRight">
+				select ROLEID from ORG_ROLE_ASSIGN where ASSIGNTYPE = '1' and ASSIGNID in ($userOrgIDRight$)
+			</isNotEmpty>
+			<isNotEmpty prepend="union all" property="userPositionId">
+				select ROLEID from ORG_ROLE_ASSIGN where ASSIGNTYPE = '2' and ASSIGNID in ($userPositionId$)
+			</isNotEmpty>
+			<isNotEmpty prepend="union all" property="positionId">
+				select ROLEID from ORG_ROLE_ASSIGN where ASSIGNTYPE = '4' and ASSIGNID in ($positionId$)
+			</isNotEmpty>
+			<![CDATA[ ) ]]>
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="DzContextSearch">
+	<!-- 地址全文检索（门楼牌号） -->
+	<select id="searchAddressMlph" parameterClass="com.founder.service.contextsearch.address.bean.DzContextCondition" resultClass="com.founder.service.contextsearch.address.bean.DzContextCombo">
+		<![CDATA[ SELECT MLDZID as ID,DZMC AS TEXT,FXJDM AS DZFXJDM,PCSDM AS DZPCSDM,ZRQDM AS DZZRQDM,XZQHDM AS DZXZQH,DMDM AS DZJLXDM,DMMC AS DZJLXMC,
+			ZBX as DZZBX,ZBY as DZZBY FROM BZDZ_ADD_MLDZDXB WHERE XT_ZXBZ = '0' ]]>
+			<isNotEmpty prepend="and" property="queryExpression">
+				$queryExpression$
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="xzqh">
+				XZQHDM = #xzqh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jlxdm">
+				DMDM = #jlxdm#
+			</isNotEmpty>
+			<![CDATA[ and rownum <= 10 ]]>
+	</select>
+	<!-- 地址全文检索（门楼牌号详址） -->
+	<select id="searchAddressMlphXz" parameterClass="com.founder.service.contextsearch.address.bean.DzContextCondition" resultClass="com.founder.framework.utils.ComboBox">
+		<![CDATA[ select * from (select CHDZID as ID,(DYH || '-' || SHMC) as TEXT from BZDZ_ADD_CHDZDXB 
+			where XT_ZXBZ = '0' and DZJB = '4' and MLDZID = #id# ]]>
+			<isNotEmpty prepend="and" property="searchKey">
+				(DYH || '-' || SHMC) like '%$searchKey$%'
+			</isNotEmpty>
+			<![CDATA[ order by TEXT) where rownum <= 10 ]]>
+	</select>
+	
+	<!-- 内保单位管辖的门楼牌号） -->
+	<select id="searchNbAddressMlph" parameterClass="com.founder.service.contextsearch.address.bean.DzContextCondition" resultClass="com.founder.service.contextsearch.address.bean.DzContextCombo">
+		<![CDATA[ 
+		select t1. MLDZID    as ID,
+       t1.DZMC   AS TEXT,
+       t1.FXJDM  AS DZFXJDM,
+       t1.PCSDM  AS DZPCSDM,
+       t1.ZRQDM  AS DZZRQDM,
+       t1.XZQHDM AS DZXZQH,
+       t1.DMDM   AS DZJLXDM,
+       t1.DMMC   AS DZJLXMC,
+       t1.ZBX    as DZZBX,
+       t1.ZBY    as DZZBY from BZDZ_ADD_MLDZDXB t1 where t1.xt_zxbz='0' and exists  (SELECT 1 FROM DW_DWJBXXB where xt_zxbz = '0' AND GLBMID=#zrqdm# and t1.MLDZID=DW_DWJBXXB.DZ_DWDZMLPDM and DW_DWJBXXB.DZ_DWDZDM <> DW_DWJBXXB.DZ_DWDZMLPDM )
+		
+			]]>
+			<isNotEmpty prepend="and" property="queryExpression">
+				$queryExpression$
+			</isNotEmpty>			
+			<![CDATA[ and rownum <= 10 ]]>
+	</select>
+	<!-- 内保单位管辖的（门楼牌号详址） -->
+	<select id="searchNbAddressMlphXz" parameterClass="com.founder.service.contextsearch.address.bean.DzContextCondition" resultClass="com.founder.framework.utils.ComboBox">
+		<![CDATA[ 
+            select * from (select CHDZID as ID,(DYH || '-' || SHMC) as TEXT from BZDZ_ADD_CHDZDXB t1
+			where XT_ZXBZ = '0' and DZJB = '4' and MLDZID = #id# AND  exists (SELECT 1  FROM DW_DWJBXXB T2 WHERE t1.CHDZID=t2.DZ_DWDZDM AND GLBMID=#zrqdm# and T2.xt_zxbz='0' )  
+			
+			]]>
+			<isNotEmpty prepend="and" property="searchKey">
+				(DYH || '-' || SHMC) like '%$searchKey$%'
+			</isNotEmpty>
+			<![CDATA[ order by TEXT) where rownum <= 10 ]]>
+	</select>
+</sqlMap>

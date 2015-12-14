@@ -1,0 +1,557 @@
+* {
+   font: 9pt "宋体"; 
+}
+
+body {
+   -moz-user-select: none;
+}
+
+img{border:0px;}
+
+/******************************************* 顶页部分 *******************************************/
+
+.bannerBody {
+   margin: 0;
+   border: 0; 
+   background: #EDF6FE;
+   width:100%;
+}
+
+.bannerBody1 {
+   margin:0; 
+   padding:0; 
+   border:0px; 
+   height:100%; 
+   width:100%; 
+   overflow:auto; 
+   background:#6fc35c url(images/bg.jpg) top center repeat-x; 
+   font:normal 12px/22px Arial,"微软雅黑";
+}
+
+.bannerright{
+	width:230px;
+	height:72px;
+	position:absolute;
+	right:0;
+	top:0;
+}
+
+.banner01 {
+   background: url(images/banner_01.jpg) no-repeat left;
+}
+.banner02 {
+   background: url(images/banner_02.jpg);
+}
+.banner03 {
+   background: url(images/banner_03.jpg) no-repeat right;
+}
+.banner04 {
+	width:594px; height:75px; background:url(images/logoJz.png) no-repeat left; margin:0 0 0 20px; float:left
+}
+.top_menurt{ width:155px;; float:right; margin:10px 10px 0 0;}
+.topdate{ width:155px; height:32px; background:#ffffff;}
+.datelf{ float:left; width:75px; height:32px; background:#1abc9c; color:#f1e9dc; text-align:center; font-family:Arial, "微软雅黑";}
+.datelf b{ float:left; display:inline-block; width:30px; font-size:20px; line-height:32px;}
+.datelf span{ display:inline-block; width:40px; font-size:9px; line-height:16px;}
+.datert{ float:right; width:85px;}
+.datert span{ float:left; display:block; width:64px; line-height:32px; font-size:20px; text-align:center;}
+.loginout{ display:block; float:right; margin:0 5px 0 0; width:16px; height:32px; background:url(images/loginout.png) center 6px no-repeat;}
+.topry{ width:155px; line-height:18px; margin:3px 0 0; color:#1c1d71; font-weight:bold;}
+.toprylf{float:left; width:70px;}
+.topryrt{float:right; width:85px;}
+
+.top_menu{ height:1px; width:260px; margin:1px 1px 0;background:url(images/toprtbg.png) repeat-x;  float:right;}
+
+.toprt_line{ float:left; background:url(images/toprt_line.gif) top no-repeat; width:2px; height:75px;}
+.user_info{ background:#2c3e50; float:left; height:72px; width:60px; margin:10px 10px 0; position:relative; text-align:center;cursor:pointer;}
+.user_icon{ width:38px; margin:10px auto 5px;}
+.user_info span{ line-height:18px; padding:0; color:#ffffff;}
+.btn_info{ float:right; display:block; width:50px; height:43px;}
+.user_info_on{ background:#f24f46;}
+.user_sanj{ width:60px; height:10px; background:url(images/userinfo_sanj.png) center no-repeat; position:absolute; bottom:-9px; left:0; display:none;}
+.user_info_on .user_sanj{ display:block;}
+
+.bannerbg{width:100%;overflow:hidden;position:relative;}
+.banner_lf{width:650px;height:72px;float:left;}
+.banner_ct{padding:0 220px 0 0;}
+.banner_rt{width:220px;height:72px;position:absolute;right:0;top:0;}
+.banner_btnlf{display:block;width:10px; height:72px;float:left;position:relative;z-index:999;background:url(images/navbtn_lf.png) no-repeat;}
+.banner_btnrt{display:block;width:10px; height:72px;float:right;position:relative;z-index:999;background:url(images/navbtn_rt.png) no-repeat;}
+.banner_ctct{height:72px;position:relative;z-index:990;}
+.bannerul{width:auto;height:72px;margin:5px 0 0 0;padding:0;list-style:none;float:left;}
+.bannerul ul {margin:0px;padding:0px;}
+.bannerul li{padding:0;float:left;height:auto;overflow:hidden;width:60px;margin-left:5px;display:inline;}
+.bannerul li a{display:block;width:60px; text-align:center; color:#fff;font-weight:bold;}
+.bannerul li a:hover{display:block;width:60px; text-align:center; color:#ff0000;font-weight:bold;}
+.banner_info{overflow:hidden;margin:0 0 0 45px;}
+.banner_info span{display:block;width:16px;height:16px;float:left;color:#fff;}
+.banner_info a{float:left;padding:0 5px 0 0;color:#fff;}
+
+.bannerbz{
+	background: url(images/bz.png) no-repeat right;
+	cursor: pointer;
+}
+.bannerdzlb {
+   background: url(images/dzlb.png) no-repeat right;
+   cursor: pointer;
+}
+.bannergzjk {
+   background: url(images/gzjk.png) no-repeat right;
+   cursor: pointer;
+}
+.bannerBzdz {
+   background: url(images/biaozhundizhi.jpg) no-repeat right;
+   cursor: pointer;
+}
+.bannerSyrkHs{
+	background: url(images/syrkhs.png) no-repeat right;
+    cursor: pointer;
+}
+.bannerDwHs{
+	background: url(images/dwhs.png) no-repeat right;
+    cursor: pointer;
+}
+.bannerSydw{
+	background: url(images/shiyoudanwei.jpg) no-repeat right;
+    cursor: pointer;
+}
+.bannerZdrkHs{
+	background: url(images/zdrk_hs.png) no-repeat right;
+    cursor: pointer;
+}
+.bannerZdry {
+   background: url(images/banner_zdrk.png) no-repeat right;
+   cursor: pointer;
+}
+.bannerSyrk {
+   background: url(images/shiyourenkou.jpg) no-repeat right;
+   cursor: pointer;
+}
+.bannerSyfw {
+   background: url(images/shiyoufangwu.jpg) no-repeat right;
+   cursor: pointer;
+}
+.bannerGzdx {
+   background: url(images/banner_gzdx.jpg) no-repeat right;
+   cursor: pointer;
+}
+
+.bannerZhdl {
+   background: url(images/banner_zhdl.jpg) no-repeat right;
+   cursor: pointer;
+}
+
+.bannerUser {
+   background: url(images/banner_user.jpg) no-repeat right;
+}
+
+.bannerJz {
+   background: url(images/user_icon.png) no-repeat center;
+}
+
+.bannerNavi {
+   background: url(images/banner_navigator.jpg) no-repeat right;
+   cursor: pointer;
+}
+.userInfo {
+   color: #FFFFFF;
+   padding-left: 4px;
+   padding-right: 2px;
+}
+
+.userInfo1 {
+   color: #000000;
+}
+
+.logout1 {
+	color: #80B1DB;
+	cursor: pointer;
+}
+
+.logout2 {
+	color: #FFFFFF;
+	cursor: pointer;
+}
+
+.home1 {
+   cursor: pointer;
+   background: url(images/banner_home.gif) no-repeat top;
+}
+.home2 {
+   cursor: pointer;
+   background: url(images/banner_home.gif) no-repeat bottom;
+}
+
+.crossout1 {
+   cursor: pointer;
+   background: url(images/banner_crossout.gif) no-repeat top;
+}
+.crossout2 {
+   cursor: pointer;
+   background: url(images/banner_crossout.gif) no-repeat bottom;
+}
+
+.lock1 {
+   cursor: pointer;
+   background: url(images/banner_lock.gif)  no-repeat top;
+}
+.lock2 {
+   cursor: pointer;
+   background: url(images/banner_lock.gif) no-repeat bottom;
+}
+
+.help1 {
+   cursor: pointer;
+   background: url(images/banner_help.gif)  no-repeat top;
+}
+.help2 {
+   cursor: pointer;
+   background: url(images/banner_help.gif) no-repeat bottom;
+}
+
+
+/******************************************* 菜单页部分 *******************************************/
+
+.menuBody {
+   margin: 0;
+   border: 0;
+   background: #F3FAFF;
+   border-left: 1px solid #72C0F4;
+}
+
+.bodyTd {
+   border-right: 1px solid #72C0F4;
+}
+
+.tabTable1 {
+   height: 1px;
+   background: #CDDCEF;
+}
+
+.tabTable2 {
+   height: 24px;
+   border-top: 1px solid #72C0F4;
+   border-bottom: 1px solid #72C0F4;
+   background: url(images/foot_bg.jpg) repeat-x top;
+}
+
+.menuTitle {
+   width: 85px;
+   height: 24px;
+   background: url(images/menu_title.jpg) no-repeat left;
+}
+
+.menuTitleKSS {
+   width: 120px;
+   height: 24px;
+   background: url(images/menu_title_kss.jpg) no-repeat left;
+}
+
+.menuTitleJQ {
+   width: 120px;
+   height: 24px;
+   background: url(images/menu_title_jq.jpg) no-repeat left;
+}
+
+.menuDiv {
+   position: absolute; 
+   left: 0; 
+   top: 30; 
+   width: 200; 
+   overflow: hidden; 
+   /*background: #feF487;*/
+}
+
+.menuDivIE6 {
+   position: absolute; 
+   left: 0; 
+   top: 30; 
+   width: 200; 
+   overflow: hidden; 
+   scrollbar-face-color: #E4E4E4; 
+   scrollbar-highlight-color: #FBFDFC; 
+   scrollbar-shadow-color: #2E4266; 
+   scrollbar-3dlight-color: #2E4266;
+   scrollbar-arrow-color: #2E4266; 
+   scrollbar-darkshadow-color: #FFFFFF; 
+   scrollbar-base-color: #170708;
+   /*background: #feF487;*/
+}
+
+.menuTable {
+   position: absolute; 
+   left: 6; 
+}
+
+.butUp1 {
+   z-index: 30;
+   position: absolute; 
+   left: 177;
+   top: 32;
+   cursor: pointer;
+   height: 15px;
+   width: 15px;
+   background: url(images/menu_arrow.gif) no-repeat left top;
+}
+
+.butUp2 {
+   z-index: 30;
+   position: absolute; 
+   left: 177;
+   top: 32;
+   cursor: pointer;
+   height: 15px;
+   width: 15px;
+   background: url(images/menu_arrow.gif) no-repeat right top;
+}
+
+.butDown1 {
+   z-index: 30;
+   position: absolute; 
+   left: 177;
+   cursor: pointer;
+   height: 15px;
+   width: 15px;
+   background: url(images/menu_arrow.gif) no-repeat left bottom;
+}
+
+.butDown2 {
+   z-index: 30;
+   position: absolute; 
+   left: 177;
+   cursor: pointer;
+   height: 15px;
+   width: 15px;
+   background: url(images/menu_arrow.gif) no-repeat right bottom;
+}
+
+/******************************************* 底页部分 *******************************************/
+
+.footBody {
+   margin: 0;
+   border: 0;
+   background: #CCDDFB;
+}
+
+.footTable {
+   height: 24px;
+   border: 1px solid #72C0F4;
+   background: url(images/foot_bg.jpg) repeat-x top;
+}
+
+
+/******************************************* 缩进页部分 *******************************************/
+
+.ZoomBody {
+   margin: 0;
+   border: 0;
+   background: url(images/dz_scrollBg.jpg) repeat-y left;
+}
+
+.zoomLeft1 {
+   cursor: pointer;
+   height: 67px;
+   width: 8px;
+   background: url(images/zoom_button.gif) no-repeat left top;
+}
+
+.zoomLeft2 {
+   cursor: pointer;
+   height: 67px;
+   width: 8px;
+   background: url(images/zoom_button.gif) no-repeat right top;
+}
+
+.zoomRight1 {
+   cursor: pointer;
+   height: 67px;
+   width: 8px;
+   background: url(images/zoom_button.gif) no-repeat left bottom;
+}
+
+.zoomRight2 {
+   cursor: pointer;
+   height: 67px;
+   width: 8px;
+   background: url(images/zoom_button.gif) no-repeat right bottom;
+}
+
+
+/******************************************* 锁定部分 *******************************************/
+
+.lockTable {
+   height: 114px;
+   width: 335px;
+   background: url(images/lock.gif) no-repeat;
+}
+
+
+/******************************************* 错误页面部分 *******************************************/
+
+.errorBody {
+   margin: 0;
+   border: 0;
+}
+
+.errorHead {
+   color: #010778;
+   background-color: #E7EEF7;
+   border-left: #FFFFFF 1px solid;
+   border-top: #FFFFFF 1px solid;
+   border-right: #D9DFE7 1px solid;
+   border-bottom: #D9DFE7 1px solid;
+}
+
+.errorTr {
+   background: #FFFFFF;
+}
+
+.errorTd {
+   color: #333333;
+   border-left: #FFFFFF 1px solid;
+   border-top: #FFFFFF 1px solid;
+}
+
+.errorIcon {
+   background: #FFFFFF url(images/error.gif) no-repeat center center;
+}
+
+.errorDiv {
+   overflow-y: auto;
+   vertical-align: top;
+   background: #FFFFFF;
+   width: 100%;
+   height: 100%;
+   padding: 6px;
+}
+
+a:link {
+   color: #0178B4; text-decoration: none
+}
+a:visited {
+   /*color: #0178B4; */text-decoration: none
+}
+a:active {
+  /* color: #0178B4; */text-decoration: none
+}
+a:hover {
+   color: #FF0000; text-decoration: none
+}
+
+
+/******************************************* PKI页面部分 *******************************************/
+.PKILoginTable {
+   width: 820px;
+   height: 500px;
+   background: #FFFFFF url(images/PKI_bg.jpg) no-repeat center center;
+}
+
+.PKILoginBut1 {
+   height: 43px;
+   width: 154px;
+   border: 0px;
+   background: url(images/PKI_login.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.PKILoginBut2 {
+   height: 43px;
+   width: 154px;
+   border: 0px;
+   background: url(images/PKI_login.jpg) no-repeat bottom;
+   cursor: pointer;
+}
+
+.PKIFailTable {
+   width: 600px;
+   height: 300px;
+   background: #FFFFFF url(images/PKI_fail_bg.jpg) no-repeat center center;
+}
+
+.PKIFailBackBut1 {
+   height: 29px;
+   width: 89px;
+   border: 0px;
+   background: url(images/PKI_fail_back.jpg) no-repeat top;
+   cursor: pointer;
+}
+
+.PKIFailBackBut2 {
+   height: 29px;
+   width: 89px;
+   border: 0px;
+   background: url(images/PKI_fail_back.jpg) no-repeat bottom;
+   cursor: pointer;
+}
+
+.Border_Color_Div {
+  background-color: #ccc
+}
+.Border_Color {
+  background-color: #ccc
+}
+.Border_Color_Td_Div {
+  background-color: #FFFFFF;
+ color:#007be3; 
+  font-family:微软雅黑;
+}
+.Border_Color_Td_Div_1{
+	background-color: #007BE3;
+    font-family:微软雅黑;
+    background-color:#007be3; 
+    line-height:28px; 
+    text-align:center; 
+    font-size:14px; 
+    color:#fff;
+}
+.Border_Color_Td_Div_2{
+	font-size:14px; 
+	color:#4b4b4b;
+	font-family:'Microsoft Yahei'; 
+	line-height:28px; 
+	text-align:left; 
+	width:100%; 
+	margin:0 auto;
+}
+.BGColor_TR_OR {
+  background-color: #ff9933
+}
+.BGColor_TR{
+  background-color: #66CCFF
+}
+.font_div_out{
+  color: #ff3300
+}
+.font_div_over{
+  color: #000000
+}
+.hover{
+	background:red;
+}
+
+
+
+
+
+
+
+
+
+
+.bannerZdgz {
+   background: url(images/richanggongzuo.jpg) no-repeat right;
+   cursor: pointer;
+}
+
+.bannerGzts {
+   background: url(images/shishigongzuo.jpg) no-repeat right;
+   cursor: pointer;
+}
+
+.bannerGztj {
+   background: url(images/gongzuotongji.jpg) no-repeat right;
+   cursor: pointer;
+}
+
+
+

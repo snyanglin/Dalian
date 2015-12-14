@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 物防信息主要属性表操作，author:tian_chengwei@founder.com 
+
+ * @review      : wu.w@founder.com.cn
+ * @reviewDate  : 20150604-->
+<sqlMap namespace="Wfxxb">
+
+<typeAlias alias="wfxxb" type="com.founder.zafffwqz.bean.ZaffWfxx"/>
+
+	<!-- 添加 -->
+	<insert id="save" parameterClass="wfxxb">
+		insert into ZAFF_WFXXB
+  			(id
+  			<isNotEmpty prepend="," property="gxzrqdm">
+				<![CDATA[ gxzrqdm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="gxpcsdm">
+				<![CDATA[ gxpcsdm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="gxfxjdm">
+				<![CDATA[ gxfxjdm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dwid">
+				<![CDATA[ dwid]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="wfzl">
+				<![CDATA[ wfzl]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sl">
+				<![CDATA[ sl]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="azrq">
+				<![CDATA[ azrq]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ms">
+				<![CDATA[ ms]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dz_wfdzdm">
+				<![CDATA[ dz_wfdzdm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dz_wfdzssxdm">
+				<![CDATA[ dz_wfdzssxdm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dz_wfdzxz">
+				<![CDATA[ dz_wfdzxz]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dz_wfdzmlpdm">
+				<![CDATA[ dz_wfdzmlpdm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dz_wfdzmlpxz">
+				<![CDATA[ dz_wfdzmlpxz]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zbx">
+				<![CDATA[ zbx]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zby">
+				<![CDATA[ zby]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bz">
+				<![CDATA[ bz]]>	
+			</isNotEmpty>
+			, <include refid="insertXtzd"/>  )
+		values
+  			(
+  			<isNotEmpty  property="id">
+				<![CDATA[ #id#]]>	
+			</isNotEmpty>
+  			<isNotEmpty prepend="," property="gxzrqdm">
+				<![CDATA[ #gxzrqdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="gxpcsdm">
+				<![CDATA[ #gxpcsdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="gxfxjdm">
+				<![CDATA[ #gxfxjdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dwid">
+				<![CDATA[ #dwid#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="wfzl">
+				<![CDATA[ #wfzl#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sl">
+				<![CDATA[ #sl#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="azrq">
+				<![CDATA[ #azrq#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ms">
+				<![CDATA[ #ms#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dz_wfdzdm">
+				<![CDATA[ #dz_wfdzdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dz_wfdzssxdm">
+				<![CDATA[ #dz_wfdzssxdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dz_wfdzxz">
+				<![CDATA[ #dz_wfdzxz#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dz_wfdzmlpdm">
+				<![CDATA[ #dz_wfdzmlpdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dz_wfdzmlpxz">
+				<![CDATA[ #dz_wfdzmlpxz#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zbx">
+				<![CDATA[ #zbx#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zby">
+				<![CDATA[ #zby#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bz">
+				<![CDATA[ #bz#]]>	
+			</isNotEmpty>
+  			,
+  			<include refid="insertXtzdVal"/> )
+  		
+	</insert>
+	
+	<!-- 查询 -->
+	<select id="queryById" parameterClass="wfxxb" resultClass="wfxxb">
+		<![CDATA[ select * from ZAFF_WFXXB where id = #id# ]]>
+	</select>
+	
+	<!-- 修改 -->
+	<update id="updateWfxxb" parameterClass="wfxxb">
+		 <![CDATA[ update ZAFF_WFXXB ]]>	
+		<dynamic prepend="set">
+			<isNotEmpty  prepend="," property="id">
+				<![CDATA[ id = #id#]]>	
+			</isNotEmpty>
+  			<isNotEmpty prepend="," property="gxzrqdm">
+				<![CDATA[ gxzrqdm = #gxzrqdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="gxpcsdm">
+				<![CDATA[ gxpcsdm = #gxpcsdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="gxfxjdm">
+				<![CDATA[ gxfxjdm = #gxfxjdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dwid">
+				<![CDATA[ dwid = #dwid#]]>	
+			</isNotEmpty>
+			<isNotNull prepend="," property="wfzl">
+				<![CDATA[ wfzl = #wfzl#]]>	
+			</isNotNull>
+			<isNotEmpty prepend="," property="sl">
+				<![CDATA[ sl = #sl#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="azrq">
+				<![CDATA[ azrq = #azrq#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ms">
+				<![CDATA[ ms = #ms#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dz_wfdzdm">
+				<![CDATA[ dz_wfdzdm = #dz_wfdzdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dz_wfdzssxdm">
+				<![CDATA[ dz_wfdzssxdm = #dz_wfdzssxdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dz_wfdzxz">
+				<![CDATA[ dz_wfdzxz = #dz_wfdzxz#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dz_wfdzmlpdm">
+				<![CDATA[ dz_wfdzmlpdm = #dz_wfdzmlpdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dz_wfdzmlpxz">
+				<![CDATA[ dz_wfdzmlpxz = #dz_wfdzmlpxz#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zbx">
+				<![CDATA[ zbx = #zbx#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zby">
+				<![CDATA[ zby = #zby#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bz">
+				<![CDATA[ bz = #bz#]]>	
+			</isNotEmpty>
+			,
+			<include refid="updateXtzd"/>				
+		</dynamic>
+	 <![CDATA[ where id = #id#]]>	
+	</update>
+	
+	<!-- 通过单位ID查询 -->
+	<select id="wfxxb_query" parameterClass="Map" resultClass="wfxxb">
+		<![CDATA[ select * from ( select rownum r ,m.* from (
+				SELECT * FROM ZAFF_SQWYHCYB WHERE sqjwsid=#jwsid# AND XT_ZXBZ='0' ORDER BY xt_cjsj DESC ]]>
+				<![CDATA[ ) m  where rownum <= #maxNum# ) where r > 0 ]]>
+	</select>
+
+</sqlMap>

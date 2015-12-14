@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="EmEnterpriseFrfzrxxb">
+	<typeAlias alias="emEnterpriseFrfzrxxb" type="com.founder.shhxxcj.bean.EmEnterpriseFrfzrxxb" />
+	
+	
+	
+
+	<!-- 查询列表 -->
+	<select id="queryList" parameterClass="Map" resultClass="emEnterpriseFrfzrxxb">
+		<![CDATA[ select * from ( select rownum r ,m.* from (
+				select id,ZJHM,XM,MZ,LXDH,XB,JTZZ,XDZ,'法人' as type
+                      from EMCEOS  
+				      WHERE enterpriseid=#entity.enterpriseid#  ]]>
+		<isNotEmpty prepend="AND" property="entity.xm">
+			xm  like '%$entity.xm$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.zjhm">
+			zjhm like'%$entity.zjhm$%'
+		</isNotEmpty>
+      <![CDATA[ 
+			union			
+			select id,ZJHM,XM,MZ,LXDH,XB,JTZZ,XDZ,'负责人' as type
+                      from EMPICS  
+				      WHERE enterpriseid=#entity.enterpriseid# ]]>
+		<isNotEmpty prepend="AND" property="entity.xm">
+			xm  like '%$entity.xm$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.zjhm">
+			zjhm like'%$entity.zjhm$%'
+		</isNotEmpty>
+	   <![CDATA[) m  where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+	
+		<!-- 查询数量 -->
+	<select id="queryCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[select count(1) from (select ID
+                      from EMCEOS
+				      WHERE enterpriseid=#entity.enterpriseid#  ]]>
+		<isNotEmpty prepend="AND" property="entity.xm">
+			xm  like '%$entity.xm$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.zjhm">
+			zjhm like'%$entity.zjhm$%'
+		</isNotEmpty>
+      <![CDATA[ 
+			union			
+			 select ID
+                      from EMPICS
+				      WHERE enterpriseid=#entity.enterpriseid# ]]>
+			<isNotEmpty prepend="AND" property="entity.xm">
+			xm  like '%$entity.xm$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="entity.zjhm">
+			zjhm like'%$entity.zjhm$%'
+		</isNotEmpty>
+	   <![CDATA[) m]]>
+	</select>
+	
+
+</sqlMap>

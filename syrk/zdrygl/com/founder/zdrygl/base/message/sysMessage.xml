@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="SysMessage">
+	
+	<typeAlias alias="sysMessage" type="com.founder.zdrygl.base.message.SysMessage" />
+
+	<!-- 新增 -->
+	<insert id="save" parameterClass="sysMessage">
+		<![CDATA[ insert into SYS_MESSAGE (ID,XXNR,XXLB,YWURL,FSR,FSRDM,FSSJ,FSRSSDW,FSRSSDWDM,JSLX,JSR,JSRDM,JSRSSDW,JSRSSDWDM,SFCK,CKSJ,XXBT,DKFS) 
+		values(#id#,#xxnr#,#xxlb#,#ywurl#,#fsr#,#fsrdm#,#fssj#,#fsrssdw#,#fsrssdwdm#,#jslx#,#jsr#,#jsrdm#,#jsrssdw#,#jsrssdwdm#,#sfck#,#cksj#,#xxbt#,#dkfs#)]]>
+	</insert>
+
+	<!-- 修改 -->
+	<update id="update" parameterClass="sysMessage">
+		<![CDATA[ update sys_message set sfck='1', cksj=#cksj#]]> <![CDATA[where ID = #id# ]]>	
+	</update>
+
+	<!-- 新增 
+	<insert id="saves" parameterClass="java.util.List">
+		insert all
+		<iterate conjunction=" ">
+		<![CDATA[ into SYS_MESSAGE (ID,XXNR,XXLB,YWURL,FSR,FSRDM,FSSJ,FSRSSDW,FSRSSDWDM,DXZT,JSLX,JSR,JSRDM,JSRSSDW,JSRSSDWDM,SFCK,CKSJ,XXBT) values]]>
+			<![CDATA[ (#list[].id#,#list[].xxnr#,#list[].xxlb#,#list[].ywurl#,#list[].fsr#,#list[].fsrdm#,#list[].fssj#,#list[].fsrssdw#,#list[].fsrssdwdm#,#list[].dxzt#,
+			#list[].jslx#,#list[].jsr#,#list[].jsrdm#,#list[].jsrssdw#,#list[].jsrssdwdm#,#list[].sfck#,#list[].cksj#,#list[].xxbt#) ]]>
+		</iterate>
+		select * from dual
+	</insert>-->
+	
+</sqlMap>

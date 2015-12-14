@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="sys_tzgg">
+	<typeAlias alias="tzgg" type="com.founder.tzgg.bean.Sys_Tzggb" />
+	<typeAlias alias="zpfjFjxxb" type="com.founder.service.attachment.bean.ZpfjFjxxb" />
+	<typeAlias alias="sysMessage" type="com.founder.framework.message.bean.SysMessage" />
+	<!-- 查询列表 -->
+	<select id="queryList" parameterClass="Map" resultClass="tzgg">
+			<![CDATA[ 
+					SELECT * FROM ( 
+						SELECT ROWNUM R ,M.* FROM (
+							SELECT * FROM SYS_TZGGB T WHERE T.XT_ZXBZ = '0'
+			]]>
+			<isNotEmpty prepend="and" property="tzgg.ggbt">
+				ggbt like '%$tzgg.ggbt$%'
+			</isNotEmpty>	
+			<isNotEmpty prepend="and" property="tzgg.ggnr">
+				ggnr like '%$tzgg.ggnr$%'
+			</isNotEmpty>	
+			<isNotEmpty prepend="and" property="tzgg.fbztdm">
+				fbztdm = #tzgg.fbztdm#
+			</isNotEmpty>							
+			<isNotEmpty prepend="and" property="tzgg.fsr">
+				fsr like '%$tzgg.fsr$%'
+			</isNotEmpty>	
+			<isNotEmpty prepend="and" property="tzgg.fsbm">
+				fsbm like '%$tzgg.fsbm$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tzgg.fsbmid">
+				fsbmid = #tzgg.fsbmid#
+			</isNotEmpty>						
+			<isNotEmpty prepend="and" property="tzgg.startDate">
+				<![CDATA[ fssj >= #tzgg.startDate# ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tzgg.endDate">
+				<![CDATA[ fssj <= #tzgg.endDate#]]>
+			</isNotEmpty>			
+			<![CDATA[ order by $sort$ $order$) m  
+		where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+	<select id ="queryCountList" parameterClass="Map" resultClass="Integer">
+		<![CDATA[
+				SELECT count(1) 
+					FROM SYS_TZGGB T 
+						WHERE 
+							T.XT_ZXBZ = '0'
+			]]>
+			<isNotEmpty prepend="and" property="tzgg.ggbt">
+				ggbt like '%$tzgg.ggbt$%'
+			</isNotEmpty>	
+			<isNotEmpty prepend="and" property="tzgg.ggnr">
+				ggnr like '%$tzgg.ggnr$%'
+			</isNotEmpty>	
+			<isNotEmpty prepend="and" property="tzgg.fbztdm">
+				fbztdm = #tzgg.fbztdm#
+			</isNotEmpty>							
+			<isNotEmpty prepend="and" property="tzgg.fsr">
+				fsr like '%$tzgg.fsr$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tzgg.fsbm">
+				fsbm like '%$tzgg.fsbm$%'
+			</isNotEmpty>	
+			<isNotEmpty prepend="and" property="tzgg.fsbmid">
+				fsbmid = #tzgg.fsbmid#
+			</isNotEmpty>							
+			<isNotEmpty prepend="and" property="tzgg.startDate">
+				<![CDATA[ fssj >= #tzgg.startDate# ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tzgg.endDate">
+				<![CDATA[ fssj <= #tzgg.endDate#]]>
+			</isNotEmpty>	
+	</select>	
+	<!-- 单条 -->
+	<select id="queryById" parameterClass="tzgg" resultClass="tzgg">
+		<![CDATA[ select * from SYS_TZGGB where id= #id#]]>
+	</select>
+	<!-- 新增 -->
+	<insert id="save" parameterClass="tzgg">
+		<![CDATA[ insert into SYS_TZGGB(ID,GGBT,GGNR,FSR,FSRID,FSBM,FSBMID,FSSJ,FBZTDM,BZ,ljym,zjtk,tzgglx,]]><include refid="insertXtzd"/>
+		<![CDATA[ ) values(#id#,#ggbt#,#ggnr#,#fsr#,#fsrid#,#fsbm#,#fsbmid#,to_char(sysdate,'yyyy-MM-dd HH24:mi:ss'),#fbztdm#,#bz#,#ljym#,#zjtk#,#tzgglx#,]]><include refid="insertXtzdVal"/>
+		<![CDATA[)]]> 
+	</insert>
+	<!-- 修改 -->
+	<update id="update" parameterClass="tzgg">
+		<![CDATA[ update SYS_TZGGB ]]>
+		<dynamic prepend="set">
+			<isNotEmpty prepend="," property="id"><![CDATA[ id=#id# ]]></isNotEmpty>
+			<isNotEmpty prepend="," property="ggbt"><![CDATA[ ggbt=#ggbt# ]]></isNotEmpty>
+			<isNotEmpty prepend="," property="ggnr"><![CDATA[ ggnr=#ggnr# ]]></isNotEmpty>
+			<isNotEmpty prepend="," property="fsr"><![CDATA[ fsr=#fsr# ]]></isNotEmpty>
+			<isNotEmpty prepend="," property="fsrid"><![CDATA[ fsrid=#fsrid# ]]></isNotEmpty>
+			<isNotEmpty prepend="," property="fsbm"><![CDATA[ fsbm=#fsbm# ]]></isNotEmpty>
+			<isNotEmpty prepend="," property="fsbmid"><![CDATA[ fsbmid=#fsbmid# ]]></isNotEmpty>
+			<isNotEmpty prepend="," property="fssj"><![CDATA[ fssj=to_char(sysdate,'yyyy-MM-dd HH24:mi:ss') ]]></isNotEmpty>
+			<isNotEmpty prepend="," property="fbztdm"><![CDATA[ fbztdm=#fbztdm# ]]></isNotEmpty>
+			<isNotEmpty prepend="," property="bz"><![CDATA[ bz=#bz# ]]></isNotEmpty>
+			
+			<isNotEmpty prepend="," property="ljym"><![CDATA[ ljym=#ljym# ]]></isNotEmpty>
+			<isNotEmpty prepend="," property="zjtk"><![CDATA[ zjtk=#zjtk# ]]></isNotEmpty>
+			<isNotEmpty prepend="," property="tzgglx"><![CDATA[ tzgglx=#tzgglx# ]]></isNotEmpty>
+			,
+			<include refid="updateXtzd"/>
+		</dynamic>
+		<![CDATA[ where id = #id#]]>	
+	</update>
+	<!-- 注销-->
+	<update id="delete" parameterClass="tzgg">
+		<![CDATA[ update SYS_TZGGB ]]>
+				<include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>
+	</update>
+	
+	<!-- 保存接收部门字表 -->
+	<insert id ="saveBm" parameterClass="tzgg"  >
+		<![CDATA[ insert into SYS_TZGG_JSBMZB(ID,JSBM,JSBMID,BZ,TZGGID,]]><include refid="insertXtzd"/>
+		<![CDATA[)values(#id#,#jsbm#,#jsbmid#,#bz#,#tzggid#,]]><include refid="insertXtzdVal"/>
+		<![CDATA[)
+			]]>
+	</insert>
+	<!-- 更新部门子表 -->
+	<update id="updateBm" parameterClass="tzgg">
+		<![CDATA[ update SYS_TZGG_JSBMZB ]]>
+			<dynamic prepend="set">
+			<isNotEmpty prepend="," property="id"><![CDATA[ id=#id# ]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jsbm"><![CDATA[ jsbm=#jsbm# ]]></isNotEmpty>
+			<isNotEmpty prepend="," property="jsbmid"><![CDATA[ jsbmid=#jsbmid# ]]></isNotEmpty>
+			<isNotEmpty prepend="," property="bz"><![CDATA[ bz=#bz# ]]></isNotEmpty>
+			,
+			<include refid="updateXtzd"/>
+		</dynamic>
+		<![CDATA[ where tzggid = #id#]]>	
+	</update>
+	<delete id="deleteBm" parameterClass="tzgg">
+		<![CDATA[ delete from SYS_TZGG_JSBMZB  where tzggid = #id#]]>
+	</delete>
+	<select id="queryByTzggId" parameterClass="Map" resultClass="tzgg">
+		<![CDATA[select * from SYS_TZGG_JSBMZB where  tzggid = #tzgg.id#]]>
+	</select>
+	
+	<!-- 查询通知公告附件 -->
+	<select id="queryFj" parameterClass="Map" resultClass="zpfjFjxxb">
+		<![CDATA[select ID,WJMC,WJHZLX,WJDX,WJDXSM,WJXZCS,LYMS,XT_CJSJ 
+					from ZPFJ_FJXXB t 
+					where t.XT_ZXBZ = '0' and 
+							LYBM = #zpfjFjxxb.lybm# and LYID = #zpfjFjxxb.lyid# ]]>
+	</select>
+	<!-- 保存并发消息 -->
+	<insert id ="insertMessage" parameterClass="Map">
+		<![CDATA[INSERT INTO SYS_MESSAGE(ID,JSR,JSRDM,JSRSSDW,JSRSSDWDM,XXNR,XXLB,YWURL,FSR,FSRDM,FSSJ,FSRSSDW,FSRSSDWDM,DXZT,SFCK,XXBT)]]>
+		<![CDATA[ (SELECT SEQ_PK.nextval as id,A.USERNAME, A.USERID, C.ORGNAME, C.ORGCODE,
+						#sysMessage.xxnr#,
+						#sysMessage.xxlb#,
+						#sysMessage.ywurl#,
+						#sysMessage.fsr#,
+						#sysMessage.fsrdm#,
+						#sysMessage.fssj#,
+						#sysMessage.fsrssdw#,
+						#sysMessage.fsrssdwdm#,
+						#sysMessage.dxzt#,
+						#sysMessage.sfck#,
+						#sysMessage.xxbt#]]>
+		 FROM ORG_USER A, ORG_ORG_USER B, ORG_ORGANIZATION C
+				WHERE A.ID = B.USERID
+     			AND B.ORGID = C.ID
+     			<isNotEmpty prepend="and" property="fsbmid">
+     	 			C.ORGCODE  like '$fsbmid$%'
+     			</isNotEmpty>
+     			)
+	</insert>
+</sqlMap>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="DbrwDbrwb">
+
+	<typeAlias alias="dbrwDdbrwb" type="com.founder.dbrw.bean.DbrwDdbrwb" />
+	<typeAlias alias="dbrwDdbrwsjmxb" type="com.founder.dbrw.bean.DbrwDdbrwsjmxb" />
+	<typeAlias alias="dbrwDbrwb" type="com.founder.dbrw.bean.DbrwDbrwb" />
+	<typeAlias alias="dbrwDbrwfkb" type="com.founder.dbrw.bean.DbrwDbrwfkb" />
+
+	<!-- 查询单条督办任务 -->
+	<select id="queryDbrwb" parameterClass="String" resultClass="dbrwDbrwb">
+		<![CDATA[ select * from DBRW_DBRWB where ID = #id# and rownum = 1 ]]>
+	</select>
+
+	<!-- 查询督办任务列表 -->
+	<select id="queryDbrwCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) from DBRW_DBRWB where XT_ZXBZ = '0' ]]>
+		<isNotEmpty prepend="and" property="entity.dbrwfqpcsdm">
+			dbrwfqpcsdm = #entity.dbrwfqpcsdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="id">
+			id != #id#
+		</isNotEmpty>
+	</select>
+	<select id="queryDbrwList" parameterClass="Map" resultClass="dbrwDbrwb">
+		<![CDATA[ select * from ( select rownum r ,m.* from (
+				select * from DBRW_DBRWB where XT_ZXBZ = '0' ]]>
+				<isNotEmpty prepend="and" property="entity.dbrwfqpcsdm">
+					dbrwfqpcsdm = #entity.dbrwfqpcsdm#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="id">
+					id != #id#
+				</isNotEmpty>
+				<![CDATA[ order by $sort$ $order$) m  
+		where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+
+	<!-- 单位任务反馈 -->
+	<select id="queryCountArray" parameterClass="String" resultClass="dbrwDbrwfkb">
+		<![CDATA[ select * from DBRW_DBRWFKB t where t.dbrwid = #value# and t.xt_zxbz='0' ]]>
+	</select>
+	<!-- 单位任务反馈总数 -->
+	<select id="queryCountTotal" parameterClass="String" resultClass="dbrwDbrwfkb">
+		<![CDATA[ select '总量' fkbmmc , decode(sum(rwzsl),null,0,sum(rwzsl)) rwzsl, decode(sum(wcrwzsl),null,0,sum(wcrwzsl)) wcrwzsl  from DBRW_DBRWFKB t where t.dbrwid = #value# and t.xt_zxbz='0' ]]>
+	</select>
+	
+	<!-- 更多督办功能总条数 -->
+	<select id="queryDbCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) from DBRW_DBRWB where XT_ZXBZ = '0' ]]>
+		<isNotEmpty prepend="and" property="db.dbrwfqpcsdm">
+			<![CDATA[dbrwfqpcsdm = #db.dbrwfqpcsdm#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="db.rwbt">
+			<![CDATA[ rwbt like '%' || #db.rwbt# || '%' ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="db.rwzt">
+			<![CDATA[rwzt = #db.rwzt#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="db.rwfqsj">
+			<![CDATA[rwfqsj = #db.rwfqsj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="db.rwkssj">
+			<![CDATA[rwkssj >= #db.rwkssj#]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="db.rwjssj">
+			<![CDATA[rwjssj <= #db.rwjssj#]]>
+		</isNotEmpty>
+	</select>
+	
+	<!-- 更多督办功能新增查询 -->
+	<select id="queryDb" parameterClass="Map" resultClass="com.founder.dbrw.bean.DbrwDbrwb">
+		<![CDATA[ select a.*,(select b.ORGNAME from ORG_ORGANIZATION b where b.ORGCODE = a.DBRWFQPCSDM and b.XT_ZXBZ = '0' and rownum = 1) as DBRWFQPCSMC,
+			(select c.ORGNAME from ORG_ORGANIZATION c where c.ORGCODE = a.DBRWFQDWDM and c.XT_ZXBZ = '0' and rownum = 1) as DBRWFQDWMC
+	 		from ( select rownum r ,m.* from (
+				select * from DBRW_DBRWB t where 1=1 ]]>
+		<isNotEmpty prepend="and" property="db.dbrwfqpcsdm">
+			<![CDATA[t.dbrwfqpcsdm = #db.dbrwfqpcsdm# ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="db.rwbt">
+			<![CDATA[ rwbt like '%' || #db.rwbt# || '%' ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="db.rwzt">
+			<![CDATA[ rwzt = #db.rwzt# ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="db.rwfqsj">
+			<![CDATA[ rwfqsj = #db.rwfqsj# ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="db.rwkssj">
+			<![CDATA[ rwkssj >= #db.rwkssj# ]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="db.rwjssj">
+			<![CDATA[ rwjssj <= #db.rwjssj# ]]>
+		</isNotEmpty>
+				
+		<![CDATA[ and t.xt_zxbz = '0' order by t.rwzt,t.rwkssj desc) m where rownum <= #end# ) a where a.r > #begin# ]]>
+				
+				
+	</select>
+	
+</sqlMap>

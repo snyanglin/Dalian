@@ -1,0 +1,130 @@
+* {
+   font: 9pt "宋体"; 
+}
+
+body {
+   -moz-user-select: none;
+}
+
+/******************************************* 弹出菜单 *******************************************/
+
+.menuTopTd1 {
+   background: url(images/menuTop1.gif) no-repeat left;
+   height: 4px;
+}
+
+.menuTopTd2 {
+   background: url(images/menuTop2.gif) repeat-x;
+   height: 4px;
+}
+
+.menuTopTd3 {
+   background: url(images/menuTop3.gif) no-repeat right;
+   height: 4px;
+}
+
+.menuBottomTd1 {
+   background: url(images/menuBottom1.gif) no-repeat left;
+   height: 4px;
+}
+
+.menuBottomTd2 {
+	background: url(images/menuBottom2.gif) repeat-x;
+	height: 4px;
+}
+
+.menuBottomTd3 {
+   background: url(images/menuBottom3.gif) no-repeat right;
+   height: 4px;
+}
+
+.menuLeftTd {
+   background: url(images/menuLeft.gif) repeat-y;
+}
+
+.menuRightTd {
+   background: url(images/menuRight.gif) repeat-y;
+}
+
+.menuBarTr1 {
+   height: 22px;
+   background: #C1E1F6;
+   cursor: pointer;
+}
+
+.menuBarTr2 {
+   height: 22px;
+   background: #00B0E6;
+   cursor: pointer;
+}
+
+.menuBarTd1 {
+   color: #001524;
+   padding-left: 13px;
+   background: #DAEEFC;
+   cursor: pointer;
+}
+
+.menuBarTd2 {
+   color: #FFFFFF;
+   padding-left: 13px;
+   background: #00B0E6;
+   cursor: pointer;
+}
+
+.menuBarSplitTr {
+   height: 4px;
+   background: #C1E1F6;
+}
+
+.menuBarSplitTd {
+   background: url(images/menuSpilt.gif) no-repeat center;
+}
+
+.menuAdd {
+   background-image: url(images/icon_add.gif);
+   background-position: center; 
+   background-repeat: no-repeat;
+}
+
+.menuEdit {
+   background-image: url(images/icon_edit.gif);
+   background-position: center; 
+   background-repeat: no-repeat;
+}
+
+.menuDelete {
+   background-image: url(images/icon_delete.gif);
+   background-position: center; 
+   background-repeat: no-repeat;
+}
+
+.menuMoveUp {
+   background-image: url(images/icon_moveUp.gif);
+   background-position: center; 
+   background-repeat: no-repeat;
+}
+
+.menuMoveDown {
+   background-image: url(images/icon_moveDown.gif);
+   background-position: center; 
+   background-repeat: no-repeat;
+}
+
+.menuHistory {
+   background-image: url(images/icon_history.gif);
+   background-position: center; 
+   background-repeat: no-repeat;
+}
+
+.menuPerson {
+   background-image: url(images/icon_person.gif);
+   background-position: center; 
+   background-repeat: no-repeat;
+}
+
+.menuChoose {
+   background-image: url(images/icon_choose.gif);
+   background-position: center; 
+   background-repeat: no-repeat;
+}

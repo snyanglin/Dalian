@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="DbrwRwcl">
+	
+	<typeAlias alias="dbrwDbrwb" type="com.founder.dbrw.bean.DbrwDbrwb"/>
+	<typeAlias alias="dbrwDbrwsjmxb" type="com.founder.dbrw.bean.DbrwDbrwsjmxb"/>
+	<typeAlias alias="dbrwDbrwfkb" type="com.founder.dbrw.bean.DbrwDbrwfkb"/>
+	
+	
+	<!-- 根据督办任务ID查询督办任务主表 -->
+	<select id="queryDbrwb" parameterClass="dbrwDbrwb" resultClass="dbrwDbrwb">
+		<![CDATA[select * from DBRW_DBRWB t where ID = #id# and xt_zxbz = '0' ]]>
+	</select>
+	
+	
+	<!-- 根据督办任务数据明细表ID查询督办任务子表 -->
+	<select id="queryDbrwDbrwsjmxb" parameterClass="dbrwDbrwsjmxb" resultClass="dbrwDbrwsjmxb">
+		<![CDATA[select * from DBRW_DBRWSJMXB t where ID = #id# and xt_zxbz = '0' ]]>
+	</select>
+	
+	
+	<!-- 根据督办任务ID查询督办任务子表总数 -->
+	<select id="queryDbrwsjmxbCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[select count(*) from DBRW_DBRWSJMXB t where DBRWID = #dbrwDbrwsjmxb.dbrwid#  and xt_zxbz = '0'  ]]>
+			<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.sszrqdm">
+				sszrqdm=#dbrwDbrwsjmxb.sszrqdm# 
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.sspcsdm"> 
+				sspcsdm=#dbrwDbrwsjmxb.sspcsdm# 
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.ssfxjdm"> 
+				ssfxjdm=#dbrwDbrwsjmxb.ssfxjdm# 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.dbsjx1">
+				dbsjx1 like '%$dbrwDbrwsjmxb.dbsjx1$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.dbsjx2">
+				dbsjx2 like '%$dbrwDbrwsjmxb.dbsjx2$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.dbsjx3">
+				dbsjx3 like '%$dbrwDbrwsjmxb.dbsjx3$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.dbsjx4">
+				dbsjx4 like '%$dbrwDbrwsjmxb.dbsjx4$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.dbsjx5">
+				dbsjx5 like '%$dbrwDbrwsjmxb.dbsjx5$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.dbsjx6">
+				dbsjx6 like '%$dbrwDbrwsjmxb.dbsjx6$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.dbsjx7">
+				dbsjx7 like '%$dbrwDbrwsjmxb.dbsjx7$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.dbsjx8">
+				dbsjx8 like '%$dbrwDbrwsjmxb.dbsjx8$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.dbsjx9">
+				dbsjx9 like '%$dbrwDbrwsjmxb.dbsjx9$%'
+			</isNotEmpty>
+		</select>
+	
+	
+	<!-- 根据督办任务ID查询督办任务子表完成总数 -->
+	<select id="queryDbrwsjmxbWcCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[select count(*) from DBRW_DBRWSJMXB t where DBRWID = #dbrwDbrwsjmxb.dbrwid# and sfwcdm='1'  and xt_zxbz = '0'  ]]>
+		
+					<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.sszrqdm">
+						sszrqdm=#dbrwDbrwsjmxb.sszrqdm# 
+					</isNotEmpty>
+					
+					<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.sspcsdm"> 
+						sspcsdm=#dbrwDbrwsjmxb.sspcsdm# 
+					</isNotEmpty>
+					
+					<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.ssfxjdm"> 
+						ssfxjdm=#dbrwDbrwsjmxb.ssfxjdm# 
+					</isNotEmpty>
+	</select>
+	
+	
+	<!-- 根据督办任务ID查询督办任务子表 -->
+	<select id="queryDbrwsjmxb" parameterClass="Map" resultClass="dbrwDbrwsjmxb">
+		<![CDATA[ select a.*,(select b.ORGNAME from ORG_ORGANIZATION b where b.ORGCODE = a.SSZRQDM and b.XT_ZXBZ = '0' and rownum = 1) as SSZRQMC 
+			 from ( select rownum r ,m.* from (
+				select * from DBRW_DBRWSJMXB  t where DBRWID = #dbrwDbrwsjmxb.dbrwid#   and xt_zxbz = '0'  ]]>
+					<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.sszrqdm">
+						sszrqdm=#dbrwDbrwsjmxb.sszrqdm# 
+					</isNotEmpty>
+					
+					<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.sspcsdm"> 
+						sspcsdm=#dbrwDbrwsjmxb.sspcsdm# 
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.ssfxjdm"> 
+						ssfxjdm=#dbrwDbrwsjmxb.ssfxjdm# 
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.dbsjx1">
+						dbsjx1 like '%$dbrwDbrwsjmxb.dbsjx1$%'
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.dbsjx2">
+						dbsjx2 like '%$dbrwDbrwsjmxb.dbsjx2$%'
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.dbsjx3">
+						dbsjx3 like '%$dbrwDbrwsjmxb.dbsjx3$%'
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.dbsjx4">
+						dbsjx4 like '%$dbrwDbrwsjmxb.dbsjx4$%'
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.dbsjx5">
+						dbsjx5 like '%$dbrwDbrwsjmxb.dbsjx5$%'
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.dbsjx6">
+						dbsjx6 like '%$dbrwDbrwsjmxb.dbsjx6$%'
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.dbsjx7">
+						dbsjx7 like '%$dbrwDbrwsjmxb.dbsjx7$%'
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.dbsjx8">
+						dbsjx8 like '%$dbrwDbrwsjmxb.dbsjx8$%'
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="dbrwDbrwsjmxb.dbsjx9">
+						dbsjx9 like '%$dbrwDbrwsjmxb.dbsjx9$%'
+					</isNotEmpty>
+				<![CDATA[ order by $sort$ $order$) m  
+		where rownum <= #end# ) a where r > #begin# ]]>
+	</select>
+	
+	
+	<!-- 根据dbmxbh得到统计模型列表title -->
+	<select id="getFiledTitle" parameterClass="String" resultClass="HashMap">
+		<![CDATA[   select DBSJXBTM,DBSJXBTBL from DBRW_DBPZB where id=#dbmxID#    ]]>
+	</select>
+	
+	
+	<!-- 根据督办任务ID查询督办任务反馈表 -->
+	<select id="querydbrwDbrwfkb" parameterClass="dbrwDbrwfkb" resultClass="dbrwDbrwfkb">
+		<![CDATA[select * from DBRW_DBRWFKB t where DBRWID = #dbrwid# and xt_zxbz = '0'  and fkbmdm = #fkbmdm# and rownum = 1]]>
+	</select>
+	
+	
+	
+	<!-- 保存督办任务反馈表 -->
+	<insert id="insertDbrwfkb" parameterClass="dbrwDbrwfkb">
+		 INSERT INTO DBRW_DBRWFKB 
+		 	(id
+		 	<isNotEmpty prepend="," property="dbrwid">
+				<![CDATA[ dbrwid]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fkbmdm">
+				<![CDATA[ fkbmdm]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fkbmmc">
+				<![CDATA[ fkbmmc]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dbfknr">
+				<![CDATA[ dbfknr]]>	
+			</isNotEmpty>			
+			<isNotEmpty prepend="," property="rwzsl">
+				<![CDATA[ rwzsl]]>	
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="wcrwzsl">
+				<![CDATA[ wcrwzsl]]>	
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="zdhssl">
+				<![CDATA[ zdhssl]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sdhssl">
+				<![CDATA[ sdhssl]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="xzywsjl">
+				<![CDATA[ xzywsjl]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zxywsjl">
+				<![CDATA[ zxywsjl]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fksj">
+				<![CDATA[ fksj]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bz">
+				<![CDATA[ bz]]>	
+			</isNotEmpty>
+			,
+			<include refid="insertXtzd"/>
+			)
+	    	 values 
+	    	 ( 
+	    	 <isNotEmpty  property="id">
+				<![CDATA[	 #id#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dbrwid">
+				<![CDATA[	 #dbrwid#]]>	
+			</isNotEmpty>
+		 	<isNotEmpty prepend="," property="fkbmdm">
+				<![CDATA[	 #fkbmdm#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fkbmmc">
+				<![CDATA[	 #fkbmmc#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dbfknr">
+				<![CDATA[	 #dbfknr#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rwzsl">
+				<![CDATA[    #rwzsl#]]>
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="wcrwzsl">
+				<![CDATA[    #wcrwzsl#]]>	
+			</isNotEmpty>			
+			<isNotEmpty prepend="," property="zdhssl">
+				<![CDATA[	 #zdhssl#]]>	
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="sdhssl">
+				<![CDATA[	 #sdhssl#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="xzywsjl">
+				<![CDATA[	 #xzywsjl#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zxywsjl">
+				<![CDATA[	 #zxywsjl#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fksj">
+				<![CDATA[	 #fksj#]]>	
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bz">
+				<![CDATA[	 #bz#]]>	
+			</isNotEmpty>
+			,
+			<include refid="insertXtzdVal"/>	
+	    	  )	    	
+	</insert>
+	
+	<!-- 更新督办任务反馈表 -->
+	<update id="updateDbrwfkb" parameterClass="dbrwDbrwfkb">
+		<![CDATA[ update DBRW_DBRWFKB ]]>	
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="wcrwzsl">
+				<![CDATA[ wcrwzsl=#wcrwzsl#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="sdhssl">
+				<![CDATA[ sdhssl=#sdhssl#]]>	
+			</isNotNull>
+			,
+			<include refid="updateXtzd"/>				
+		</dynamic>
+	    <![CDATA[ where id = #id#]]>	
+	</update>
+	
+	<!-- 保存反馈 -->
+	<update id="saveFK" parameterClass="dbrwDbrwsjmxb">
+		<![CDATA[ update DBRW_DBRWSJMXB ]]>	
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="dbfknr">
+				<![CDATA[ dbfknr=#dbfknr#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="sjclsj">
+				<![CDATA[ sjclsj=#sjclsj#]]>	
+			</isNotNull>	
+			<isNotNull prepend="," property="sjclr">
+				<![CDATA[ sjclr=#sjclr#]]>	
+			</isNotNull>			
+			<isNotNull prepend="," property="sjclrid">
+				<![CDATA[ sjclrid=#sjclrid#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="dbfklxdm">
+				<![CDATA[ dbfklxdm=#dbfklxdm#]]>	
+			</isNotNull>
+			<isNotNull prepend="," property="sfwcdm">
+				<![CDATA[ sfwcdm=#sfwcdm#]]>	
+			</isNotNull>
+			,
+			<include refid="updateXtzd"/>				
+		</dynamic>
+	    <![CDATA[ where id = #id#]]>	
+	</update>
+	
+	
+	<!-- 刷新处理情况 -->
+	<parameterMap id="refresh-map" class="java.util.HashMap">
+		<parameter property="id" jdbcType="VARCHAR" javaType="String" mode="IN"/>
+		<parameter property="dbmxid" jdbcType="VARCHAR" javaType="String" mode="IN" />
+		<parameter property="sszrqdm"  jdbcType="VARCHAR" javaType="String" mode="IN" />
+		<parameter property="czlx"  jdbcType="VARCHAR" javaType="String" mode="IN" />
+		<parameter property="czr"  jdbcType="VARCHAR" javaType="String" mode="IN" />
+		<parameter property="czrid"  jdbcType="VARCHAR" javaType="String" mode="IN" />
+	</parameterMap>
+	<procedure id="Refresh" parameterMap="refresh-map">
+		 <![CDATA[ { call pro_dbrwfk(?,?,?,?,?,?) } ]]>
+	</procedure>
+	
+	
+	
+	<!-- 更新消息表 -->
+	<update id="updateMessage" parameterClass="Map">
+		<![CDATA[ update SYS_MESSAGE set SFCK='1',CKSJ=#cksj# where id=#MessageID# ]]>	
+	</update>
+	
+
+</sqlMap>

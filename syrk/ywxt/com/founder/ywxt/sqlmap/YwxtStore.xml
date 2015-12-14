@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="YwxtStore">
+
+	<insert id="storeYwxtxxb" parameterClass="string">
+		<![CDATA[ 
+			insert into YWXT_YWXTXXB_STORE SELECT * FROM YWXT_YWXTXXB WHERE ID = #id#
+		]]>
+	</insert>
+	
+	<insert id="storeCyryxxb" parameterClass="string">
+		<![CDATA[
+			insert into YWXT_CYRYXXB_STORE SELECT * FROM YWXT_CYRYXXB WHERE ID = #id#
+		]]>
+	</insert>
+	
+	<delete id="physicalDeleteCyryxxb" parameterClass="string">
+		<![CDATA[
+				delete from YWXT_CYRYXXB WHERE ID = #id#
+			]]>
+	</delete>
+	
+	<delete id="physicalDeleteYwxtxxb" parameterClass="string">
+		<![CDATA[
+				delete from YWXT_YWXTXXB WHERE ID = #id#
+			]]>
+	</delete>
+
+</sqlMap>

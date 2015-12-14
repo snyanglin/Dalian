@@ -1,0 +1,90 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/pages/commonInclude.jsp"%>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title></title>
+</head>
+
+<body> 
+<div class="easyui-layout" data-options="fit:true">
+    <form action="<%=basePath%>zdrylxylbdyb/save" id="dataForm" name="dataForm" method="post">
+	    <div data-options="region:'center', split:true" style="border-width: 0px;">
+			<table border="0" cellpadding="0" cellspacing="10" width="816" align="center">
+	    	<tr class="dialogTr">
+		    	<td width="20%" class="dialogTd" align="right">重点人员类型：</td>
+		    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="zdrylxdm" name="zdrylxdm" style="width:200px;"
+					data-options="url: contextPath + '/common/dict/BD_D_ZDRYLBDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true"/></td>
+	    	</tr>
+	    	<tr class="dialogTr">
+	    		<td width="20%" class="dialogTd" align="right">重点人员类别：</td>
+	    		<td width="80%" class="dialogTd" colspan="3"><input type="text" name="zdrylbdm" id="zdrylbdm"  class="easyui-combotree" style="width:493px;"
+	    			data-options="url: contextPath + '/common/dict/DL_D_ZDRYLBDM.js',onlyLeaf:true,dataFilter:'^01|^02|^03',tipPosition:'left',
+	    			multiple:false,required:true,panelWidth:613,method:'get',editable:true,lines:true" >
+		    	</td>
+	    	</tr>
+	    	</table>
+	    </div>
+    </form>
+</div>
+
+<script type="text/javascript" >
+var flag ="";
+var zdrylbdmText="";
+var zdrylxdmText="";
+function doInit(paramArray) {
+}
+
+function beforeSubmit() {
+	var su = true;
+	$.ajax({
+		async:false,
+		type:"POST",
+		url:"<%= basePath%>zdrylxylbdyb/getisExist",
+		dataType:"json",
+		data:"zdrylxdm="+document.getElementById("zdrylxdm").value+"&zdrylbdm="+document.getElementById("zdrylbdm").value,
+		success:function(data){
+				if (data&&data.sfzhflag&&data.zdrylxdm) {
+					if(data.sfzhflag==true){
+						var zdrylxdm=document.getElementById("zdrylxdm").value;
+						if(zdrylxdm==data.zdrylxdm){
+							su = false;
+							alert("该数据项已经添加，请重新选择！");
+						}else {
+							zdrylbdmText = $("#zdrylbdm").combotree("getText");
+							zdrylxdmText = window.top.getDictName(contextPath + '/common/dict/BD_D_ZDRYLBDM.js', data.zdrylxdm);
+							flag ="1";
+						}
+						
+					}
+					
+					
+				}else {
+					
+					flag="2";
+				}
+			}
+		});
+		return  su;
+}
+
+function afterSubmit(submitData) {
+}
+
+function getconfirm(){
+	if(flag=="1"){
+		return "【重点人员类别】"+zdrylbdmText+"，已属于【重点人员类型】"+zdrylxdmText+"，是否要强制解除原有关系，建立新的关系？";
+	}else {
+		return "您是否要保存数据？";
+	}
+  	
+}
+</script>
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,18 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* 打开页面子项信息标题样式 */
+.open_tab_zxbz{
+	text-align:left;
+	border-bottom:dotted 1px #ccc;
+	margin:10px 0 10px 0;
+	width:650px;
+	float:none; 
+	color:#007be3;
+	clear:both; 
+	padding:5px 0 5px 2px;
+	overflow:hidden;
+	font: 11pt;
+}
+
+

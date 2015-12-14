@@ -1,0 +1,15 @@
+[
+{"id":"icon-flowSend","text":"送件","py":"SJ"},
+{"id":"icon-flowWrite","text":"签发","py":"QF"},
+{"id":"icon-flowSponsor","text":"退件","py":"TJ"},
+{"id":"icon-ok","text":"同意","py":"TY"},
+{"id":"icon-cancel","text":"不同意","py":"BTY"},
+{"id":"icon-flowArchive","text":"归档","py":"GD"},
+{"id":"icon-flowEnd","text":"结束","py":"JS"},
+{"id":"icon-choose","text":"选择","py":"XZ"},
+{"id":"icon-flowStamp","text":"盖章","py":"GZ"},
+{"id":"icon-add","text":"新增","py":"XZ"},
+{"id":"icon-edit","text":"修改","py":"XG"},
+{"id":"icon-save","text":"保存","py":"BC"},
+{"id":"icon-print","text":"打印","py":"DY"}
+]

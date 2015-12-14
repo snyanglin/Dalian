@@ -1,0 +1,63 @@
+/* dragDiv */
+.dragDiv{position:absolute;overflow:hidden;top:100px;left:100px;width:500px;height:360px;background:#e9e9e9;border:1px solid #444;border-radius:5px;box-shadow:0 1px 3px 2px #666;z-index: 100}
+.dragDiv .title{position:relative;height:27px;margin:5px;}
+.dragDiv .title h2{font-size:14px;height:27px;line-height:24px;border-bottom:1px solid #A1B4B0;}
+.dragDiv .title div{position:absolute;height:19px;top:2px;right:0;}
+.dragDiv .title a{float:left;width:21px;height:19px;display:block;margin-left:5px;background:url(../img/drag/tool.png) no-repeat;}
+a.open{/*background-position:0 0;*/position:absolute;z-index: 120;width:70px;height:70px;background:url(../img/drag/win_min.png) no-repeat;}
+/*a.open:hover{background-position:0 -29px;}*/
+.dragDiv .title a.min{background-position:-29px 0;}
+.dragDiv .title a.min:hover{background-position:-29px -29px;}
+.dragDiv .title a.max{background-position:-60px 0;}
+.dragDiv .title a.max:hover{background-position:-60px -29px;}
+.dragDiv .title a.revert{background-position:-149px 0;display:none;}
+.dragDiv .title a.revert:hover{background-position:-149px -29px;}
+.dragDiv .title a.close{background-position:-89px 0;}
+.dragDiv .title a.close:hover{background-position:-89px -29px;}
+.dragDiv .content{overflow:auto;width: 100%;height: 100%;margin:-60px 5px 0 0;padding:0;}
+.dragDiv .resizeBR{position:absolute;width:14px;height:14px;right:0;bottom:0;overflow:hidden;cursor:nw-resize;background:url(../img/drag/tresize.png) no-repeat;}
+.dragDiv .resizeL,.dragDiv .resizeT,.dragDiv .resizeR,.dragDiv .resizeB,.dragDiv .resizeLT,.dragDiv .resizeTR,.dragDiv .resizeLB{position:absolute;background:#000;overflow:hidden;opacity:0;filter:alpha(opacity=0);}
+.dragDiv .resizeL,.dragDiv .resizeR{top:0;width:5px;height:100%;cursor:w-resize;}
+.dragDiv .resizeR{right:0;}
+.dragDiv .resizeT,.dragDiv .resizeB{width:100%;height:5px;cursor:n-resize;}
+.dragDiv .resizeT{top:0;}
+.dragDiv .resizeB{bottom:0;}
+.dragDiv .resizeLT,.dragDiv .resizeTR,.dragDiv .resizeLB{width:8px;height:8px;/*background:#FF0;*/}
+.dragDiv .resizeLT{top:0;left:0;cursor:nw-resize;}
+.dragDiv .resizeTR{top:0;right:0;cursor:ne-resize;}
+.dragDiv .resizeLB{left:0;bottom:0;cursor:ne-resize;}
+
+/* dragDiv1 */
+*{margin:0;padding:0;}
+.dragDiv1{position:absolute;overflow:hidden;top:100px;left:100px;background:#e9e9e9;border:1px solid #444;border-radius:5px;box-shadow:0 1px 3px 2px #666;z-index: 100}
+/*.dragDiv1{display:none;position:absolute;top:100px;left:100px;width:400px;height:300px;background:#e9e9e9;border:1px solid #444;border-radius:5px;box-shadow:0 1px 3px 2px #666;}*/
+.dragDiv1 .title{position:relative;height:27px;margin:5px;width: auto;}
+.dragDiv1 .title h2{font-size:14px;height:27px;line-height:24px;border-bottom:1px solid #A1B4B0;}
+.dragDiv1 .title div{position:absolute;height:19px;top:2px;right:0;}
+/*.dragDiv1 .title a{float:left;width:21px;height:19px;display:block;margin-left:5px;background:url(../img/drag/tool.png) no-repeat;}*/
+.dragDiv1 .title a{float:left;width:21px;height:19px;display:block;margin-left:5px;background:url(../img/drag/tool.png) no-repeat;}
+/*a.open{position:absolute;left:90%;top:50px;margin-left:-10px;background-position:0 0;z-index: 120;width:21px;height:19px;background:url(../img/drag/tool.png) no-repeat;}*/
+/*.dragDiv1 a.open{position:absolute;z-index: 120;width:70px;height:70px;background:url(../img/drag/win_min.png) no-repeat;}*/
+/*.dragDiv1 a.open:hover{background-position:0 -29px;}*/
+.dragDiv1 .title a.min{background-position:-29px 0;}
+.dragDiv1 .title a.min:hover{background-position:-29px -29px;}
+.dragDiv1 .title a.max{background-position:-60px 0;}
+.dragDiv1 .title a.max:hover{background-position:-60px -29px;}
+.dragDiv1 .title a.revert{background-position:-149px 0;display:none;}
+.dragDiv1 .title a.revert:hover{background-position:-149px -29px;}
+.dragDiv1 .title a.close{background-position:-89px 0;}
+.dragDiv1 .title a.close:hover{background-position:-89px -29px;}
+/*.dragDiv1 .content{overflow:auto;width: auto;height: auto;}*/
+.dragDiv1 .content{overflow:auto;margin:0px 1px;padding:0;}
+.dragDiv1 .resizeBR{position:absolute;width:14px;height:14px;right:0;bottom:0;overflow:hidden;cursor:nw-resize;background:url(../img/drag/resize.png) no-repeat;}
+.dragDiv1 .resizeL,.dragDiv1 .resizeT,.dragDiv1 .resizeR,.dragDiv1 .resizeB,.dragDiv1 .resizeLT,.dragDiv1 .resizeTR,.dragDiv1 .resizeLB{position:absolute;background:#000;overflow:hidden;opacity:0;filter:alpha(opacity=0);}
+.dragDiv1 .resizeL,.dragDiv1 .resizeR{top:0;width:5px;height:100%;cursor:w-resize;}
+.dragDiv1 .resizeR{right:0;}
+.dragDiv1 .resizeT,.dragDiv1 .resizeB{width:100%;height:5px;cursor:n-resize;}
+.dragDiv1 .resizeT{top:0;}
+.dragDiv1 .resizeB{bottom:0;}
+.dragDiv1 .resizeLT,.dragDiv1 .resizeTR,.dragDiv1 .resizeLB{width:8px;height:8px;}
+.dragDiv1 .resizeLT{top:0;left:0;cursor:nw-resize;}
+.dragDiv1 .resizeTR{top:0;right:0;cursor:ne-resize;}
+.dragDiv1 .resizeLB{left:0;bottom:0;cursor:ne-resize;}
+

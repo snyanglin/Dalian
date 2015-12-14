@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZdryFzcsfryxxb">
+	
+	<typeAlias alias="zdryFzcsfryxxb" type="com.founder.zdrygl.base.model.ZdryFzcsfryxxb" />
+	
+	<!-- 查询单条（根据主键） -->
+	<select id="queryById" parameterClass="String" resultClass="zdryFzcsfryxxb">
+		<![CDATA[ select * from ZDRY_FZCSFRYXXB t where ID = #id#  and rownum = 1 ]]>
+	</select>
+	
+	<select id="queryViewByMap" parameterClass="Map" resultClass="zdryFzcsfryxxb">
+		<![CDATA[ 
+			select  t.ID,t.XXSB,t.SFYY,t.JKBM,t.JKJBDM,t.SFRYLBDM,t.YJJSFSX,t.WJJSFSX,t.ZZYLDD,t.JFBM,t.JFBM,t.CFQK,  t1.ZDRYLB as BZ
+			from ZDRY_FZCSFRYXXB t, ZDRY_ZDRYZB_NEW t1 					
+			where t.ID = #id#  and t.id=t1.id and t.XT_ZXBZ = '0' and t1.xt_zxbz='0'			
+  		]]>
+	</select>
+
+	<!-- 新增 -->
+	<insert id="save" parameterClass="zdryFzcsfryxxb">
+		<![CDATA[ insert into ZDRY_FZCSFRYXXB (ID,XXSB,SFYY,JKBM,JKJBDM,SFRYLBDM,YJJSFSX,WJJSFSX,ZZYLDD,JFBM,CFQK,BZ,]]><include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#,#xxsb#,#sfyy#,#jkbm#,#jkjbdm#,#sfrylbdm#,#yjjsfsx#,#wjjsfsx#,#zzyldd#,#jfbm#,#cfqk#,#bz#,]]>
+			<include refid="insertXtzdVal"/>)
+	</insert>
+	 
+	<!-- 更新 -->
+	<update id="update" parameterClass="zdryFzcsfryxxb">
+		<![CDATA[ update ZDRY_FZCSFRYXXB ]]>	
+		<dynamic prepend="set">
+			 <isNotNull prepend="," property="xxsb"><![CDATA[ XXSB=#xxsb# ]]></isNotNull>
+			 <isNotNull prepend="," property="sfyy"><![CDATA[ SFYY=#sfyy# ]]></isNotNull>
+			 <isNotNull prepend="," property="jkbm"><![CDATA[ JKBM=#jkbm# ]]></isNotNull>
+			 <isNotNull prepend="," property="jkjbdm"><![CDATA[ JKJBDM=#jkjbdm# ]]></isNotNull>
+			 <isNotNull prepend="," property="sfrylbdm"><![CDATA[ SFRYLBDM=#sfrylbdm# ]]></isNotNull>
+			 <isNotNull prepend="," property="yjjsfsx"><![CDATA[ YJJSFSX=#yjjsfsx# ]]></isNotNull>
+			 <isNotNull prepend="," property="wjjsfsx"><![CDATA[ WJJSFSX=#wjjsfsx# ]]></isNotNull>
+			 <isNotNull prepend="," property="zzyldd"><![CDATA[ ZZYLDD=#zzyldd# ]]></isNotNull>
+			 <isNotNull prepend="," property="jfbm"><![CDATA[ JFBM=#jfbm# ]]></isNotNull>
+			 <isNotNull prepend="," property="cfqk"><![CDATA[ CFQK=#cfqk# ]]></isNotNull>
+			 <isNotNull prepend="," property="bz"><![CDATA[ BZ=#bz# ]]></isNotNull>,
+
+			<include refid="updateXtzd"/>				
+		</dynamic>
+		<![CDATA[ where ID = #id#]]>	
+	</update>
+	
+	<!-- 注销 -->
+	<update id="delete" parameterClass="zdryFzcsfryxxb">
+		<![CDATA[ update ZDRY_FZCSFRYXXB set ]]><include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>	
+	</update>
+
+</sqlMap>
