@@ -61,6 +61,9 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		if(entity.getStartProcessInstance()!=null){
 			entity.setProcessInstanceBusinessKey(entity.getZdryzb().getId());
 			entity.getStartProcessInstance().getVariables().put("zdryId", entity.getZdryzbId());
+			entity.getStartProcessInstance().getVariables().put("zdryZb", entity.getZdryzb());
+			entity.getStartProcessInstance().getVariables().put("zdrycx", entity.getZdrycx());
+			entity.getStartProcessInstance().getVariables().put("zdrylbdx", entity.getZdrylbdx());
 			startProcessInstance(entity.getStartProcessInstance());
 		}
 	}
@@ -91,6 +94,9 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		if(entity.getStartProcessInstance()!=null){
 			entity.setProcessInstanceBusinessKey(entity.getZdryzb().getId());
 			entity.getStartProcessInstance().getVariables().put("zdryId", entity.getZdryzbId());
+			entity.getStartProcessInstance().getVariables().put("zdryZb", entity.getZdryzb());
+			entity.getStartProcessInstance().getVariables().put("zdrycx", entity.getZdrycx());
+			entity.getStartProcessInstance().getVariables().put("zdrylbdx", entity.getZdrylbdx());
 			startProcessInstance(entity.getStartProcessInstance());
 		}
 	}
@@ -100,7 +106,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		zdryService.cgSuccess(sessionBean,entity);
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());
 		paraObj.put("result", "cgSuccess");
-		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.CGSPJG,paraObj);
+		//jwzhMessageService.sendMessage(MessageDict.ZDRYGL.CGSPJG,paraObj);
 	}
 
 	@Override
@@ -108,7 +114,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		zdryService.cgFail(sessionBean,entity);
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());
 		paraObj.put("result", "cgFail");
-		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.CGSPJG,paraObj);
+		//jwzhMessageService.sendMessage(MessageDict.ZDRYGL.CGSPJG,paraObj);
 	}
 
 	@Override
@@ -138,7 +144,16 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	public final void zd(SessionBean sessionBean , ZOBean entity) {
 		//转递不涉及子表的修改
 		zdryService.zd(sessionBean,entity);//新加，改变状态
-			startProcessInstance();
+		setZdrylbdxId(entity);
+		zd_(sessionBean,entity.getZdrylbdx());
+		if(entity.getStartProcessInstance()!=null){
+			entity.setProcessInstanceBusinessKey(entity.getZdryzb().getId());
+			entity.getStartProcessInstance().getVariables().put("zdryId", entity.getZdryzbId());
+			entity.getStartProcessInstance().getVariables().put("zdryZb", entity.getZdryzb());
+			entity.getStartProcessInstance().getVariables().put("zdrycx", entity.getZdrycx());
+			entity.getStartProcessInstance().getVariables().put("zdrylbdx", entity.getZdrylbdx());
+			startProcessInstance(entity.getStartProcessInstance());
+		}
 	}
 
 	@Override
@@ -223,9 +238,9 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 //	TODO 待实现 
 //	protected abstract void cgFail_(SessionBean sessionBean,Zdry zdrylbdx);
 //	TODO 待实现 
-//	protected abstract void zd_(SessionBean sessionBean,Zdry zdrylbdx);
+	protected abstract void zd_(SessionBean sessionBean,Zdry zdrylbdx);
 //	TODO 待实现 
-//	protected abstract void zdFail_(SessionBean sessionBean,Zdry zdrylbdx);
+	protected abstract void zdFail_(SessionBean sessionBean,Zdry zdrylbdx);
 	
 	protected abstract void update_(SessionBean sessionBean);
 	

@@ -162,22 +162,17 @@ public class DlParamsInitializer implements IfParamInitializer {
 		 * 07	纳入视线对象（无流程）(nrsx)
 		 * 08	一般关注对象(不持久 化 )
 		 */
-		if (!zdryZdryzb.getZdrygllxdm().equals("07") ) {
-			variables.put("sqlx", zdrylxmc +"撤管");
-			variables.put("splevel", "1");// 设置审批级别，一级审批
-			variables.put("zdryId", zdryZdryzb.getId());
-			variables.put("sqyj", "申请将" + zdryxm	+ "撤管");
-			variables.put("xm", zdryxm);// 被列管人员姓名
-			variables.put("zjhm", zdryVO.getZdryZdryzb().getZjhm());// 证件号码
+		variables.put("sqlx", zdrylxmc +"撤管");
+		variables.put("splevel", "1");// 设置审批级别，一级审批
+		variables.put("zdryId", zdryZdryzb.getId());
+		variables.put("sqyj", "申请将" + zdryxm	+ "撤管");
+		variables.put("xm", zdryxm);// 被列管人员姓名
+		variables.put("zjhm", zdryVO.getZdryZdryzb().getZjhm());// 证件号码
 
-			// set parameters of processinstance
-			spi.setProcessKey("dl_zalcg");
-			spi.setBusinessKey(zdryZdryzb.getId());
-			spi.setVariables(variables);
-		}  else {
-			//07	纳入视线对象（无流程）
-			spi.setHasWorkflow(false);
-		}
+		// set parameters of processinstance
+		spi.setProcessKey("dl_zalcg");
+		spi.setBusinessKey(zdryZdryzb.getId());
+		spi.setVariables(variables);
 		
 	}
 
@@ -190,17 +185,12 @@ public class DlParamsInitializer implements IfParamInitializer {
 		
 
 		variables.put("zdrylx", zdryZdryzb.getZdrygllxdm());// 人员类型
-		variables.put("zdryzb", zdryVO.getZdryZdryzb());
-		variables.put("zdrylbdx", zdryVO.getZdrylbdx());
-		
-		variables.put("zdryId", zdryZdryzb.getId()); // 重点人员总表Id
 		variables.put("zdrylxmc", zdrylxmc);// 人员类型名称
 		variables.put("xm", zdryxm);// 被列管人员姓名
 		variables.put("cyzjdm", zdryVO.getZdryZdryzb().getCyzjdm());
 		variables.put("zjhm", zdryVO.getZdryZdryzb().getZjhm());// 证件号码
 		// variables.put("splx", "重点人口列管");//审批类型
 		variables.put("sqyj", zdryVO.getYwsqyy());// 申请意见
-		variables.put("zdryName", zdryxm);// 申请意见
 		/**
 		 * 01	监管对象
 		 * 02	重点人口
@@ -215,10 +205,7 @@ public class DlParamsInitializer implements IfParamInitializer {
 			variables.put("sqlx", zdrylxmc);
 			variables.put("splevel", "1");// 设置审批级别，一级审批
 			variables.put("approvalMethod", "shbApproval");
-			variables.put("zdryId", zdryZdryzb.getId());
 			variables.put("sqyj", "申请将" + zdryxm	+ "列管为"+zdrylxmc);
-			variables.put("xm", zdryxm);// 被列管人员姓名
-			variables.put("zjhm", zdryVO.getZdryZdryzb().getZjhm());// 证件号码
 
 			// set parameters of processinstance
 			spi.setProcessKey("dl_zalcg");

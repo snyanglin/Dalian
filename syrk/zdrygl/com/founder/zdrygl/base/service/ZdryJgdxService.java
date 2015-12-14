@@ -43,16 +43,12 @@ public class ZdryJgdxService  extends ZdryServiceDecorator{
 	 */
 	@Override
 	protected void lg_(SessionBean sessionBean ,Zdry zdrylbdx) {
-		ZdryJgdxxxb zdryJgdxxxb = (ZdryJgdxxxb) zdrylbdx;
-		BaseService.setSaveProperties(zdryJgdxxxb, sessionBean);	
-		zdryJgdxxxbDao.insert(zdryJgdxxxb);
+		insert(sessionBean,zdrylbdx);
 	}
 	
 	@Override
 	protected void lgFail_(SessionBean sessionBean, Zdry zdrylbdx) {
-		ZdryJgdxxxb zdryJgdxxxb = (ZdryJgdxxxb) zdrylbdx;
-		BaseService.setCrossoutProperties(zdryJgdxxxb, sessionBean);
-		zdryJgdxxxbDao.delete(zdryJgdxxxb);
+		delete(sessionBean,zdrylbdx);
 		
 	}
 	@Override
@@ -92,4 +88,25 @@ public class ZdryJgdxService  extends ZdryServiceDecorator{
 		return zdryJgdxxxbDao.queryById(zdryid);
 	}
 
+	@Override
+	protected void zd_(SessionBean sessionBean, Zdry zdrylbdx) {
+		insert(sessionBean,zdrylbdx);
+	}
+
+	@Override
+	protected void zdFail_(SessionBean sessionBean, Zdry zdrylbdx) {
+		delete(sessionBean,zdrylbdx);
+	}
+	protected void insert(SessionBean sessionBean ,Zdry zdrylbdx) {
+		ZdryJgdxxxb zdryJgdxxxb = (ZdryJgdxxxb) zdrylbdx;
+		BaseService.setSaveProperties(zdryJgdxxxb, sessionBean);	
+		zdryJgdxxxbDao.insert(zdryJgdxxxb);
+	}
+	
+	protected void delete(SessionBean sessionBean, Zdry zdrylbdx) {
+		ZdryJgdxxxb zdryJgdxxxb = (ZdryJgdxxxb) zdrylbdx;
+		BaseService.setCrossoutProperties(zdryJgdxxxb, sessionBean);
+		zdryJgdxxxbDao.delete(zdryJgdxxxb);
+		
+	}
 }

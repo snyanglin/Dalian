@@ -2,7 +2,7 @@
 
 <tr class="dialogTr">
 <td width="20%" class="dialogTd" align="right">待列管人员姓名：</td>
-<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text"  id="zdryName" value="${varMap.zdryName}" name="zdryName" style="width:200px;" readonly="readonly"  /></td>
+<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text"  id="zdryName" value="${varMap.xm}" name="zdryName" style="width:200px;" readonly="readonly"  /></td>
 <td width="20%" class="dialogTd" align="right">公民身份号码：</td>
 <td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="zjhm" id="zjhm"   value="${varMap.zjhm}" style="width:200px;" readonly="readonly" /></td>
 		    	

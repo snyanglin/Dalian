@@ -29,16 +29,16 @@ public class WorkFlowParametersInitialService {
 			SessionBean sessionBean, ZdryVO zdryVO, LcgFlagEnum lcgFlag) {
 		// StartProcessInstance initializes
 		StartProcessInstance spi = new StartProcessInstance();
+		IfParamInitializer initializer = null;
 		String systemXzqh = SystemConfig.getString("systemXzqh")==null?"210000":SystemConfig.getString("systemXzqh");
 		if(systemXzqh.equals(SysXzqhEnum.DALIAN.getName())){
-			IfParamInitializer initializer = createInstanceByClassName(SysXzqhEnum.DALIAN.getValue());
-			spi = initializer.initialProcessInstance(sessionBean, zdryVO, lcgFlag);
+			initializer = createInstanceByClassName(SysXzqhEnum.DALIAN.getValue());
 		}else if(systemXzqh.equals(SysXzqhEnum.LIAONING.getName())){
-			IfParamInitializer initializer = createInstanceByClassName(SysXzqhEnum.LIAONING.getValue());
-			spi = initializer.initialProcessInstance(sessionBean, zdryVO, lcgFlag);
+			initializer = createInstanceByClassName(SysXzqhEnum.LIAONING.getValue());
 		}else{
 			//TODO:
 		}
+		spi = initializer.initialProcessInstance(sessionBean, zdryVO, lcgFlag);
 		return spi;
 	}
 	/**

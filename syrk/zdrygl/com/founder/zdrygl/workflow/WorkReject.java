@@ -45,7 +45,7 @@ public class WorkReject extends WorkflowDelegate {
 		Map<String,Object> variables = arg0.getProcessVariables();
 		
 		String zdrylx = (String) variables.get("zdrylx");
-		ZdryZb zdryzb = (ZdryZb) variables.get("zdryzb");
+		ZdryZb zdryzb = (ZdryZb) variables.get("zdryZb");
 		Zdry zdrylbdx = (Zdry) variables.get("zdrylbdx");
 		ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
 		

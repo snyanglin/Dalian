@@ -109,7 +109,7 @@ public class Zdywjs extends WorkflowDelegate {
 			}
 			setVariable("gtld", nextTaskOwner);
 			// set Other parameters
-			setVariable("zdryName", zdryName);
+			//setVariable("zdryName", zdryName);
 			setLocalVariable("businessType", "0");
 			setLocalVariable("approvalMethod", "zdmjApproval");
 			setLocalVariable("org", targetOrgOrganization);

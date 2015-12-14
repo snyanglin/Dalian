@@ -60,16 +60,13 @@ public class Dlaywjs extends WorkflowDelegate{
 	
 	@Resource(name = "ryRyjbxxbService")
 	private RyRyjbxxbService ryRyjbxxbService;
-	Object service = null;
 	@Override
 	public void doBusiness(BaseWorkFlowBean arg0) {
-		service = new String("test");
 		Map<String, Object> variables = arg0.getProcessVariables();
 		String zdry_jzd_mlpdm = null;
 		try {
 			String zdrygllxdm = (String) variables.get("zdrylx");
 			String zdryId = (String) variables.get("zdryId");
-//			String lrrzrq = (String) variables.get("lrrzrq");
 			String cyzjdm = (String) variables.get("cyzjdm");
 			String zjhm = (String) variables.get("zjhm");
 

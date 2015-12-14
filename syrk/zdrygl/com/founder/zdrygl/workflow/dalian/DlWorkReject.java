@@ -15,6 +15,7 @@ import com.founder.framework.components.AppConst;
 import com.founder.workflow.bean.BaseWorkFlowBean;
 import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 import com.founder.zdrygl.base.model.ZdryZb;
+import com.founder.zdrygl.base.model.Zdrycx;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.ZOBean;
@@ -45,10 +46,12 @@ public class DlWorkReject extends WorkflowDelegate {
 		Map<String,Object> variables = arg0.getProcessVariables();
 		
 		String zdrylx = (String) variables.get("zdrylx");
-		ZdryZb zdryzb = (ZdryZb) variables.get("zdryzb");
+		ZdryZb zdryzb = (ZdryZb) variables.get("zdryZb");
 		Zdry zdrylbdx = (Zdry) variables.get("zdrylbdx");
 		ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
 		ZOBean entity = new ZOBean(zdryzb, zdrylbdx);
+		Zdrycx zdrycx = (Zdrycx) variables.get("zdrycx");
+		entity.setZdrycx(zdrycx);
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
 		

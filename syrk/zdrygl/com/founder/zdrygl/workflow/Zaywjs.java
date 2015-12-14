@@ -65,13 +65,12 @@ public class Zaywjs extends WorkflowDelegate{
 		String zdry_hjd_mlpdm = null;
 		try {
 			String zdrygllxdm = (String) variables.get("zdrylx");
-			String zdryId = (String) variables.get("zdryId");
-			String lrrzrq = (String) variables.get("lrrzrq");
+			ZdryZb zdryZb = (ZdryZb) variables.get("zdryZb");
+			//String lrrzrq = (String) variables.get("lrrzrq");
 			String cyzjdm =  (String) variables.get("cyzjdm");
 			String zjhm =  (String) variables.get("zjhm");
 			
 			OrgOrganization orgOrganization = new OrgOrganization();
-			ZdryZb zdryZb = (ZdryZb) zdryQueryService.queryById(zdryId);
 			String syrkSyrkxxzbId = zdryZb.getSyrkid();
 			SyrkSyrkxxzb syrkSyrkxxzb = syrkSyrkxxzbService.queryById(syrkSyrkxxzbId);
 			if(syrkSyrkxxzb != null){

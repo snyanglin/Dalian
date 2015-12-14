@@ -44,7 +44,7 @@ public class Lcgcg  extends WorkflowDelegate {
 		Map<String,Object> variables = arg0.getProcessVariables();
 		String sqlxdm = (String) variables.get("sqlxdm");
 		String zdrylx = (String) variables.get("zdrylx");
-		ZdryZb zdryzb = (ZdryZb) variables.get("zdryzb");
+		ZdryZb zdryzb = (ZdryZb) variables.get("zdryZb");
 		Zdry zdrylbdx = (Zdry) variables.get("zdrylbdx");
 
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder

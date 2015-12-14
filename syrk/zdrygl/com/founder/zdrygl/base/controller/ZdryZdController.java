@@ -37,6 +37,7 @@ import com.founder.zdrygl.base.service.wf.WorkFlowParametersInitialService;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 import com.google.gson.Gson;
 
@@ -144,12 +145,13 @@ public class ZdryZdController extends BaseController {
 			zdrycx.setZdrylb(zb_new.getZdrylb());
 			
 			
-			String zdrygllxdm = zdryZb.getZdryZdryzb().getZdrygllxdm();// 重点人员类型
 			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdryConstant,zdryQueryService);
 			StartProcessInstance spi = wfpis.initialProcessInstance(sessionBean,zdryZb,LcgFlagEnum.ZD);
-			ZdryService zdryService = zdryFactory.createZdryService(zdrygllxdm, zdrycx, zdryZb.getZdrylbdx());
-			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(),spi.getVariables());
-			zdryService.zd(sessionBean);
+			ZdryService zdryService = zdryFactory.createZdryService(zb_new.getZdrygllxdm());
+			ZOBean entity = new ZOBean(zb_new, zdryZb.getZdrylbdx());
+			entity.setZdrycx(zdrycx);
+			entity.setStartProcessInstance(spi);
+			zdryService.zd(sessionBean,entity);
 			
 			//处理上传的转递依据
 			List<ZpfjFjxxb> list = new ArrayList<ZpfjFjxxb>();
@@ -157,10 +159,10 @@ public class ZdryZdController extends BaseController {
 				CommonsMultipartFile multipartFile = uploadFile[i];
 				if (!multipartFile.isEmpty()) {
 					FileItem fileItem = multipartFile.getFileItem();
-					ZpfjFjxxb entity = new ZpfjFjxxb();
-					entity.setLybm("ZDRY_ZDRYZB");
-					entity.setLyid(zdryZb.getZdryZdryzb().getId());//保存的是当前选择的重点人员id，因为后续 转递要改成一次只转一个类型
-					entity.setLyms("重点人员转递-转递依据");
+					ZpfjFjxxb entity0 = new ZpfjFjxxb();
+					entity0.setLybm("ZDRY_ZDRYZB");
+					entity0.setLyid(zdryZb.getZdryZdryzb().getId());//保存的是当前选择的重点人员id，因为后续 转递要改成一次只转一个类型
+					entity0.setLyms("重点人员转递-转递依据");
 					String wjmc = fileItem.getName();
 					if (wjmc.indexOf("\\") != -1) { // 去除完整路径
 						wjmc = wjmc.substring(wjmc.lastIndexOf("\\") + 1);
@@ -171,11 +173,11 @@ public class ZdryZdController extends BaseController {
 						wjhzlx = wjmc.substring(atI + 1);
 						wjhzlx = wjhzlx.toLowerCase();
 					}
-					entity.setWjmc(wjmc);
-					entity.setWjhzlx(wjhzlx);
-					entity.setWj(multipartFile.getBytes());
-					long wjdx = entity.getWj().length;
-					entity.setWjdx(new Long(wjdx));
+					entity0.setWjmc(wjmc);
+					entity0.setWjhzlx(wjhzlx);
+					entity0.setWj(multipartFile.getBytes());
+					long wjdx = entity0.getWj().length;
+					entity0.setWjdx(new Long(wjdx));
 					String wjdxsm = "";
 					if (wjdx < 1024) {
 						wjdxsm = "" + wjdx + " B";
@@ -188,9 +190,9 @@ public class ZdryZdController extends BaseController {
 						long kb = (long) Math.floor(wjdx / 1024);
 						wjdxsm = "" + kb + " KB";
 					}
-					entity.setWjdxsm(wjdxsm);
-					entity.setWjxzcs(new Long(0));
-					list.add(entity);
+					entity0.setWjdxsm(wjdxsm);
+					entity0.setWjxzcs(new Long(0));
+					list.add(entity0);
 				}
 			}
 			if (list.size() > 0) {
