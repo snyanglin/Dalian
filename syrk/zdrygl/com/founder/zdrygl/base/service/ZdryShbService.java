@@ -82,6 +82,13 @@ public class ZdryShbService  extends ZdryServiceDecorator{
 		zdryShbzdryxxbDao.update(zdry);
 	}
 	
+	@Override
+	protected void update_(SessionBean sessionBean, Zdry zdrylbdx) {
+		ZdryShbzdryxxb zdryShbzdryxxb = (ZdryShbzdryxxb) zdrylbdx;
+		BaseService.setUpdateProperties(zdryShbzdryxxb, sessionBean);
+		zdryShbzdryxxbDao.update(zdryShbzdryxxb);
+	}
+	
 	/**
 	 * 
 	 * @Title: queryZdryInfo_

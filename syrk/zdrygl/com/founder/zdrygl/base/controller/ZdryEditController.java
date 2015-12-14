@@ -231,8 +231,10 @@ public class ZdryEditController extends BaseController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		sessionBean = getSessionBean(sessionBean);
 		try {
-			ZdryService zdryService = zdryFactory.createZdryService(zdryVO.getZdryZdryzb().getZdrygllxdm(), zdryVO.getZdryZdryzb(), zdryVO.getZdrylbdx());
-			zdryService.update(sessionBean);
+//			ZdryService zdryService = zdryFactory.createZdryService(zdryVO.getZdryZdryzb().getZdrygllxdm(), zdryVO.getZdryZdryzb(), zdryVO.getZdrylbdx());
+			ZdryService zdryService = zdryFactory.createZdryService(zdryVO.getZdryZdryzb().getZdrygllxdm());
+			ZOBean entity = new ZOBean(zdryVO.getZdryZdryzb(), zdryVO.getZdrylbdx());
+			zdryService.update(sessionBean,entity);
 			
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
 			model.put(AppConst.MESSAGES, getUpdateSuccess());

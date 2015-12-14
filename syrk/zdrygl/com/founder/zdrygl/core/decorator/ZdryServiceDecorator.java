@@ -187,9 +187,8 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	
 	@Override
 	public final void update(SessionBean sessionBean, ZOBean zdry) {
-		// TODO Auto-generated method stub
 		zdryService.update(sessionBean,zdry);//总表修改
-//		update_(sessionBean,zdry.getZdrylbdx());
+		update_(sessionBean,zdry.getZdrylbdx());
 	}
 
 	
@@ -230,7 +229,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	protected abstract void update_(SessionBean sessionBean);
 	
 //	TODO 待实现 
-//	protected abstract void update_(SessionBean sessionBean,Zdry zdrylbdx);
+	protected abstract void update_(SessionBean sessionBean,Zdry zdrylbdx);
 	
 	
 	/**

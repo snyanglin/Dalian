@@ -79,17 +79,12 @@ public class ZdryZszhjsbrService  extends ZdryServiceDecorator{
 		ZdryZszhjsbrxxxbDao.update(zdry);
 	}
 	
-	/**
-	 * 
-	 * @Title: queryZdryInfo_
-	 * @Description: TODO(查询重点人员子表)
-	 * @param @param zdryid
-	 * @return Zdry    返回类型
-	 * @throw
-	 */
-//	@Override
-	public Zdry queryZdryInfo_(String zdryid) {
-		return ZdryZszhjsbrxxxbDao.queryById(zdryid);
+	@Override
+	protected void update_(SessionBean sessionBean, Zdry zdrylbdx) {
+		ZdryZszhjsbrxxb zdryZszhjsbrxxb = (ZdryZszhjsbrxxb) zdrylbdx;
+		BaseService.setUpdateProperties(zdryZszhjsbrxxb, sessionBean);
+		ZdryZszhjsbrxxxbDao.update(zdryZszhjsbrxxb);
 	}
+	
 
 }

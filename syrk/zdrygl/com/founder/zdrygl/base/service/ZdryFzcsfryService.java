@@ -67,7 +67,7 @@ public class ZdryFzcsfryService  extends ZdryServiceDecorator{
 	/**
 	 * 
 	 * @Title: update_
-	 * @Description: TODO(子表（重点人口）修改)
+	 * @Description: (子表（重点人口）修改)
 	 * @param @param sessionBean    设定文件
 	 * @return void    返回类型
 	 * @throw
@@ -78,6 +78,14 @@ public class ZdryFzcsfryService  extends ZdryServiceDecorator{
 		zdry.setId(this.getZdryId());
 		zdryFzcsfryxxbDao.update(zdry);
 	}
+
+	@Override
+	protected void update_(SessionBean sessionBean, Zdry zdrylbdx) {
+		ZdryFzcsfryxxb zdryFzcsfryxxb = (ZdryFzcsfryxxb) zdrylbdx;
+		BaseService.setUpdateProperties(zdryFzcsfryxxb, sessionBean);
+		zdryFzcsfryxxbDao.update(zdryFzcsfryxxb);
+	}
+
 	
 	/**
 	 * 
