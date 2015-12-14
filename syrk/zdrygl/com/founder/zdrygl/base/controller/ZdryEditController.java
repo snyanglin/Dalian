@@ -234,6 +234,7 @@ public class ZdryEditController extends BaseController {
 //			ZdryService zdryService = zdryFactory.createZdryService(zdryVO.getZdryZdryzb().getZdrygllxdm(), zdryVO.getZdryZdryzb(), zdryVO.getZdrylbdx());
 			ZdryService zdryService = zdryFactory.createZdryService(zdryVO.getZdryZdryzb().getZdrygllxdm());
 			ZOBean entity = new ZOBean(zdryVO.getZdryZdryzb(), zdryVO.getZdrylbdx());
+			entity.getZdrylbdx().setId(zdryVO.getZdryZdryzb().getId());
 			zdryService.update(sessionBean,entity);
 			
 			model.put(AppConst.STATUS, AppConst.SUCCESS);

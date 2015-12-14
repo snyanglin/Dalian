@@ -178,9 +178,9 @@
 	    	
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right" id="lgrqText">业务办理日期：</td>
-		    	<td width="30%" class="dialogTd"><input type="text" name="ywclsj" id="ywclsj" class="easyui-validatebox inputreadonly" style="width:200px;" value="${zdryLczywblb.ywclsj}" readonly="readonly" /></td>
+		    	<td width="30%" class="dialogTd"><input type="text" name="ywclsj" id="ywclsj" class="easyui-validatebox inputreadonly" style="width:200px;" value="${applyDate}" readonly="readonly" /></td>
 		    	<td width="20%" class="dialogTd" align="right" id="lgrText">业务办理人：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" id="ywblr_xm" name="ywblr_xm" style="width:200px;" value="${zdryLczywblb.ywblr_xm }" readonly="readonly" /></td>
+		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" id="ywblr_xm" name="ywblr_xm" style="width:200px;" value="${applyUser}" readonly="readonly" /></td>
 	    	</tr>
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right" id="lgsqyjText">申请意见：</td>

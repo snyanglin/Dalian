@@ -50,7 +50,7 @@ if (userInfo != null) {
 		    <table id="zdrkDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;display:none">
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">重点人员管理方法：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="glffdm" name=".glffdm" style="width:200px;" value="${zdryVO.zdryZdrk.glffdm}"
+		    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="glffdm" name="zdryZdrk.glffdm" style="width:200px;" value="${zdryVO.zdryZdrk.glffdm}"
 					data-options="url: contextPath + '/common/dict/BD_D_ZDRKGLFFDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'right'"/></td>
 	    		<td width="20%" class="dialogTd" align="right">列管来源：</td>
 		    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="lglydm" name="zdryZdrk.lglydm" style="width:200px;" value="${zdryVO.zdryZdrk.lglydm}"
