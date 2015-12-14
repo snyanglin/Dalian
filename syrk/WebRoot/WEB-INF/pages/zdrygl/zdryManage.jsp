@@ -81,10 +81,12 @@
 						<td  width="200px;">
 							<a href="javascript:void(0)" class="easyui-linkbutton" 
 								 iconCls="icon-search" onclick="detailSearch()">精确查询</a>
-						</td>						
+						</td>
+						<!-- 
 						<td width="100px;">
-							<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-add"  onclick="addLg();">新增</a>
-						</td>						 
+							<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-add"  onclick="addLg();">新增列管</a>
+						</td>
+						 -->
 					</tr>
 				</table>
 			</div>

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.founder.framework.annotation.DBInfoAnnotation;
 import com.founder.framework.annotation.FieldDesc;
+import com.founder.framework.base.entity.BaseEntity;
 import com.founder.zdrygl.core.model.Zdry;
 
 /***
@@ -20,7 +21,7 @@ import com.founder.zdrygl.core.model.Zdry;
  * @Version: [v1.0]
  */
 @DBInfoAnnotation(tableName = "ZDRY_JGDXXXB", pk = "id")
-public class ZdryJgdxxxb extends ZdryZb implements Serializable ,Zdry{
+public class ZdryJgdxxxb extends BaseEntity implements Serializable ,Zdry{
 
 	/**
 	 * 

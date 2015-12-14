@@ -74,7 +74,7 @@
 							<td width="80"><script type="text/javascript">document.write(window.top.getDictName(contextPath + '/common/dict/GB_D_MZDM.js', "${zdry.mzdm}"));</script></td>
 					</tr>
 					<tr>
-						<th  align="right" width="130">出生日期：</th> <td width="270" colspan="3">${zdry.csrq }</td> 						
+						<th  align="right" width="130">出生日期：</th> <td width="90">${zdry.csrq }</td> 
 					</tr>
 					<tr>
 						<th  align="right" width="130">户籍地址：</th> <td width="270" colspan="3">${zdry.hjd_dzxz }</td>
@@ -82,9 +82,7 @@
 					<tr>
 						<th  align="right" width="130">居住地址：</th> <td width="270" colspan="3">${zdry.jzd_dzxz }</td>
 					</tr>
-					<tr>
-						<th  align="right" width="130">主要问题及现实表现：</th> <td width="270" colspan="3">${zdry.zywtjxsbx }</td>
-					</tr>
+
 				</table>
 		</td>
 	</tr>
@@ -175,10 +173,10 @@ $(document).ready(function(){
  		$("a.info_editbtn").remove();
 	}else{
  		$("a.editbtn").show();
- 		$("a.savebtn").click(save_view);
+		$("a.savebtn").click(save_view);
 		$("a.info_editbtn").click(editEnable);
 		$("a.editbtn").click(edit_view);
-		getServerMenuNew(1);
+		getServerMenu(1);
 		//getServerMenu(2);
 	}
 	/***************固定事件注册，页面初始化**************************/
@@ -201,59 +199,6 @@ $(document).ready(function(){
 	document.getElementById("topPhotoid").src = contextPath+"/zpfjPtryzp/queryPtryzpSingle.jpg?ryid=${zdry.ryid}&zjhm=${zdry.zjhm}&cyzjdm=${zdry.cyzjdm}";
 	
 });
-
-/**
- * 获取功能表 1,业务办理，2，可增加信息
- */
-function getServerMenuNew(gnlxdm){
- 	var menu= null ;
-	$.ajax({
-		type:"post",
-		url:contextPath+infoPara.serverMenuUrl,
-		dataType:"json",
-		data:infoPara.serverMenuPara+"&gnlxdm="+gnlxdm,
-		success:function(data){
-		 	if("1" == gnlxdm){
-		 	  menu = $("#serverMenu");
-		 	}else if("2" == gnlxdm){
-			  menu = $("#serverAddInfo");
-			}
-			$(menu).empty();
-			$.each(data,function(i,item){
-				if("1" == gnlxdm){
-				  $(menu).append(serverMenuHtml(item));
-				}else if("2" == gnlxdm){
-				  $(menu).append(serverLXRHtml(item));
-				}
-			}); 
-			
-		},
-		complete:function(){
-			if(menu){
-				if("1" == gnlxdm){					
-					$(menu).find("a.doServer").click(doServerMenu);					
-				}else if("2" == gnlxdm){
-					$(menu).find("a.addInfo").click(addInfoHtml_nav);
-				}
-			};
-		}
-	});
-}
-
-function doServerMenu(){	
-	var editUrl = $(this).attr("url");
-	var confirmmsg = $(this).attr("confirmmsg");
-	editUrl = editUrl + (editUrl.indexOf('?') != -1 ? '&' : '?');
-	editUrl = editUrl + infoPara.serverPara;
-	var paramArray = $.parseJSON(infoPara.serverIframePara);
-	
-	if($(this).attr("title")=="动态记实" || $(this).attr("title")=="撤管重点人员"){
-		menu_open($(this).attr("title"), editUrl);
-	}else{
-		infoOpen(contextPath+editUrl,$(this).attr("title"),paramArray, confirmmsg , "edit_complete");
-	}		
-}
-
 function loadActivityTrace() { // 显示活动轨迹
 	$.ajax({
 		type: 'POST',
