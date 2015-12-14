@@ -43,9 +43,7 @@ public class ZdrySqsbService  extends ZdryServiceDecorator{
 	 */
 	@Override
 	protected void lg_(SessionBean sessionBean ,Zdry zdrylbdx) {
-		ZdrySqsbzdryxxb zdrySqsbzdryxxb = (ZdrySqsbzdryxxb) zdrylbdx ;
-		BaseService.setSaveProperties(zdrySqsbzdryxxb, sessionBean);	
-		zdrySqsbzdryxxbDao.insert(zdrySqsbzdryxxb);
+		insert(sessionBean, zdrylbdx);
 	}
 	
 	@Override
@@ -57,12 +55,7 @@ public class ZdrySqsbService  extends ZdryServiceDecorator{
 
 	@Override
 	protected void cg_(SessionBean sessionBean, Zdry zdrylbdx) {
-		if(zdrylbdx != null){
-			ZdrySqsbzdryxxb zdrySqsbzdryxxb = (ZdrySqsbzdryxxb) zdrylbdx ;
-			BaseService.setSaveProperties(zdrySqsbzdryxxb, sessionBean);	
-			zdrySqsbzdryxxbDao.insert(zdrySqsbzdryxxb);
-		}
-		
+		insert(sessionBean, zdrylbdx);
 	}
 	
 	/**
@@ -80,6 +73,13 @@ public class ZdrySqsbService  extends ZdryServiceDecorator{
 		zdrySqsbzdryxxbDao.update(zdry);
 	}
 	
+	@Override
+	protected void update_(SessionBean sessionBean, Zdry zdrylbdx) {
+		ZdrySqsbzdryxxb zdrySqsbzdryxxb = (ZdrySqsbzdryxxb) zdrylbdx;
+		BaseService.setUpdateProperties(zdrySqsbzdryxxb, sessionBean);
+		zdrySqsbzdryxxbDao.update(zdrySqsbzdryxxb);
+	}
+	
 	/**
 	 * 
 	 * @Title: queryZdryInfo_
@@ -91,6 +91,26 @@ public class ZdrySqsbService  extends ZdryServiceDecorator{
 //	@Override
 	public Zdry queryZdryInfo_(String zdryid) {
 		return zdrySqsbzdryxxbDao.queryById(zdryid);
+	}
+
+	@Override
+	protected void zd_(SessionBean sessionBean, Zdry zdrylbdx) {
+		insert(sessionBean, zdrylbdx);
+	}
+
+	@Override
+	protected void zdFail_(SessionBean sessionBean, Zdry zdrylbdx) {
+		ZdrySqsbzdryxxb zdrySqsbzdryxxb = (ZdrySqsbzdryxxb) zdrylbdx;
+		BaseService.setCrossoutProperties(zdrySqsbzdryxxb, sessionBean);
+		zdrySqsbzdryxxbDao.delete(zdrySqsbzdryxxb);
+	}
+	
+	private void insert(SessionBean sessionBean, Zdry zdrylbdx){
+		if(zdrylbdx != null){
+			ZdrySqsbzdryxxb zdrySqsbzdryxxb = (ZdrySqsbzdryxxb) zdrylbdx ;
+			BaseService.setSaveProperties(zdrySqsbzdryxxb, sessionBean);	
+			zdrySqsbzdryxxbDao.insert(zdrySqsbzdryxxb);
+		}
 	}
 
 }

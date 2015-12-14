@@ -43,9 +43,7 @@ public class ZdryZszhjsbrService  extends ZdryServiceDecorator{
 	 */
 	@Override
 	protected void lg_(SessionBean sessionBean , Zdry zdrylbdx) {
-		ZdryZszhjsbrxxb zdryZszhjsbrxxb = (ZdryZszhjsbrxxb) zdrylbdx ;
-		BaseService.setSaveProperties(zdryZszhjsbrxxb, sessionBean);	
-		ZdryZszhjsbrxxxbDao.insert(zdryZszhjsbrxxb);
+		insert(sessionBean, zdrylbdx);
 	}
 	
 	@Override
@@ -57,11 +55,7 @@ public class ZdryZszhjsbrService  extends ZdryServiceDecorator{
 
 	@Override
 	protected void cg_(SessionBean sessionBean, Zdry zdrylbdx) {
-		if(zdrylbdx != null){
-			ZdryZszhjsbrxxb zdryZszhjsbrxxb = (ZdryZszhjsbrxxb) zdrylbdx ;
-			BaseService.setSaveProperties(zdryZszhjsbrxxb, sessionBean);	
-			ZdryZszhjsbrxxxbDao.insert(zdryZszhjsbrxxb);
-		}
+		insert(sessionBean, zdrylbdx);
 	}
 	
 	/**
@@ -79,17 +73,30 @@ public class ZdryZszhjsbrService  extends ZdryServiceDecorator{
 		ZdryZszhjsbrxxxbDao.update(zdry);
 	}
 	
-	/**
-	 * 
-	 * @Title: queryZdryInfo_
-	 * @Description: TODO(查询重点人员子表)
-	 * @param @param zdryid
-	 * @return Zdry    返回类型
-	 * @throw
-	 */
-//	@Override
-	public Zdry queryZdryInfo_(String zdryid) {
-		return ZdryZszhjsbrxxxbDao.queryById(zdryid);
+	@Override
+	protected void update_(SessionBean sessionBean, Zdry zdrylbdx) {
+		ZdryZszhjsbrxxb zdryZszhjsbrxxb = (ZdryZszhjsbrxxb) zdrylbdx;
+		BaseService.setUpdateProperties(zdryZszhjsbrxxb, sessionBean);
+		ZdryZszhjsbrxxxbDao.update(zdryZszhjsbrxxb);
 	}
 
+	@Override
+	protected void zd_(SessionBean sessionBean, Zdry zdrylbdx) {
+		insert(sessionBean, zdrylbdx);
+	}
+
+	@Override
+	protected void zdFail_(SessionBean sessionBean, Zdry zdrylbdx) {
+		ZdryZszhjsbrxxb zdryZszhjsbrxxb = (ZdryZszhjsbrxxb) zdrylbdx;
+		BaseService.setCrossoutProperties(zdryZszhjsbrxxb, sessionBean);
+		ZdryZszhjsbrxxxbDao.delete(zdryZszhjsbrxxb);
+	}
+	
+	private void insert(SessionBean sessionBean, Zdry zdrylbdx){
+		if(zdrylbdx != null){
+			ZdryZszhjsbrxxb zdryZszhjsbrxxb = (ZdryZszhjsbrxxb) zdrylbdx ;
+			BaseService.setSaveProperties(zdryZszhjsbrxxb, sessionBean);	
+			ZdryZszhjsbrxxxbDao.insert(zdryZszhjsbrxxb);
+		}
+	}
 }

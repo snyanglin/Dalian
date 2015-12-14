@@ -105,7 +105,7 @@ OrgRightPublic orgRightPublic = new OrgRightPublic();
 	
 <HTML>
 <HEAD>
-<TITLE></TITLE>
+<TITLE><%=SystemConfig.getString("systemOrganization")%>－<%=SystemConfig.getString("systemName")%></TITLE>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
   body{font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;line-height:1.5;}
