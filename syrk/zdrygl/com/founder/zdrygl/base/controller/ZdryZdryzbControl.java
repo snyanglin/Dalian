@@ -29,17 +29,14 @@ import com.founder.framework.annotation.RestfulAnnotation;
 import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
+import com.founder.framework.config.SystemConfig;
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.exception.RestException;
-import com.founder.framework.organization.department.service.OrgOrganizationService;
-import com.founder.framework.organization.position.service.OrgPositionService;
-import com.founder.framework.organization.user.service.OrgUserService;
 import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.EasyUIPage;
-import com.founder.ldym.util.SystemConfig;
-import com.founder.service.attachment.service.ZpfjFjxxbService;
+import com.founder.syrkgl.bean.SyrkSyrkxxzb;
+import com.founder.syrkgl.service.SyrkSyrkxxzbService;
 import com.founder.workflow.bean.StartProcessInstance;
-import com.founder.workflow.service.inteface.JProcessDefinitionService;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrycg;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
@@ -79,27 +76,15 @@ public class ZdryZdryzbControl extends BaseController {
 
 	@Autowired
 	private ZdryConstant zdryConstant;
-
-	@Autowired
-	private JProcessDefinitionService processDefinitionService;
-
-	@Resource(name = "orgUserService")
-	private OrgUserService orgUserService;
-
-	@Resource(name = "orgOrganizationService")
-	private OrgOrganizationService orgOrganizationService;
-
-	@Resource(name = "orgPositionService")
-	private OrgPositionService orgPositionService;
-
-	@Resource(name = "zpfjFjxxbService")
-	private ZpfjFjxxbService zpfjFjxxbService;
 	
 	@Autowired
 	private ZdryRuleService zdryRuleService;
 	
 	@Autowired
 	private ZdryVOValidator zdryVOValidator;
+	
+	@Resource(name = "syrkSyrkxxzbService")
+	private SyrkSyrkxxzbService syrkSyrkxxzbService;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) { 
@@ -121,7 +106,6 @@ public class ZdryZdryzbControl extends BaseController {
 	 */
 	@RequestMapping(value = "/manager", method = RequestMethod.GET)
 	public String manage() {
-		SystemConfig.add(AppConst.XZQH,"210200");//TODO for test
 		zdryConstant.createTreeJS();
 		return "zdrygl/zdryManage";
 	}
@@ -192,12 +176,19 @@ public class ZdryZdryzbControl extends BaseController {
 	 * @throws
 	 */
 	@RequestMapping(value = "/zdryAddPre", method = RequestMethod.GET)
-	public ModelAndView zdryAddPre(SessionBean sessionBean) {
+	public ModelAndView zdryAddPre(String syrkid,SessionBean sessionBean) {
 		ModelAndView mv = new ModelAndView("zdrygl/add/zdryAddPre");
 		sessionBean = getSessionBean(sessionBean);
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		mv.addObject("applyUser", sessionBean.getUserName());
 		mv.addObject("applyDate", formatter.format(new Date()));
+		
+		SyrkSyrkxxzb syrkxxb=syrkSyrkxxzbService.queryById(syrkid);
+		mv.addObject("syrkxxb", syrkxxb);
+		
+		if("210200".equals(SystemConfig.getString(AppConst.XZQH))){//大连，列管是从实有人口来的			
+			if(syrkxxb==null) throw new RuntimeException("can not find syrk");
+		}
 		return mv;
 	}
 
