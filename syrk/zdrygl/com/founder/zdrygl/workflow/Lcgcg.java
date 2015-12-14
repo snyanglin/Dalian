@@ -17,6 +17,7 @@ import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
 
 /**
@@ -45,7 +46,6 @@ public class Lcgcg  extends WorkflowDelegate {
 		String zdrylx = (String) variables.get("zdrylx");
 		ZdryZb zdryzb = (ZdryZb) variables.get("zdryzb");
 		Zdry zdrylbdx = (Zdry) variables.get("zdrylbdx");
-		ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
 
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
 				.getRequestAttributes()).getRequest();
@@ -55,14 +55,13 @@ public class Lcgcg  extends WorkflowDelegate {
 		 * String spr = sessionBean.getUserId(); 
 		 * String spbm =sessionBean.getUserOrgCode();
 		 */
-
+		ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
+		ZOBean entity = new ZOBean(zdryzb, zdrylbdx);
 		if ("01".equals(sqlxdm)){
-			zdryService.lgSuccess(sessionBean);
-		}else if ("02".equals(sqlxdm))
-			zdryService.cgSuccess(sessionBean);
-		else if ("04".equals(sqlxdm)) {// 请假
-			String qjId = (String) variables.get("qjId");
-			// zdryService.qjSuccess(sessionBean);
+			zdryService.lgSuccess(sessionBean,entity);
+		}else if ("02".equals(sqlxdm)){
+			zdryService.cgSuccess(sessionBean,entity);
+		}else if ("04".equals(sqlxdm)) {// 请假
 		}
 	}
 

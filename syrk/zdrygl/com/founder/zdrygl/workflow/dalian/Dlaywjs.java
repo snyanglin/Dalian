@@ -69,7 +69,7 @@ public class Dlaywjs extends WorkflowDelegate{
 		try {
 			String zdrygllxdm = (String) variables.get("zdrylx");
 			String zdryId = (String) variables.get("zdryId");
-			String lrrzrq = (String) variables.get("lrrzrq");
+//			String lrrzrq = (String) variables.get("lrrzrq");
 			String cyzjdm = (String) variables.get("cyzjdm");
 			String zjhm = (String) variables.get("zjhm");
 

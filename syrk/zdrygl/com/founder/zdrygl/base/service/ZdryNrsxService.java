@@ -43,20 +43,26 @@ public class ZdryNrsxService  extends ZdryServiceDecorator{
 	 * 列管重点人口
 	 */
 	@Override
-	protected void lg_(SessionBean sessionBean) {
-		BaseService.setSaveProperties(zdry, sessionBean);	
-		zdry.setId(this.getZdryId());
-		zdryNrsxdxxxbDao.insert(zdry);
+	protected void lg_(SessionBean sessionBean,Zdry zdrylbdx) {
+		ZdryNrsxdxxxb zdryNrsxdxxxb = (ZdryNrsxdxxxb) zdrylbdx ;
+		BaseService.setSaveProperties(zdryNrsxdxxxb, sessionBean);	
+		zdryNrsxdxxxbDao.insert(zdryNrsxdxxxb);
 	}
 
 	@Override
-	protected void cg_(SessionBean sessionBean) {
-		if(zdry != null){
-			BaseService.setSaveProperties(zdry, sessionBean);
-			zdry.setId(this.getZdryId());
-			zdryNrsxdxxxbDao.insert(zdry);
-		}
+	protected void lgFail_(SessionBean sessionBean, Zdry zdrylbdx) {
+		ZdryNrsxdxxxb zdryNrsxdxxxb = (ZdryNrsxdxxxb) zdrylbdx;
+		BaseService.setCrossoutProperties(zdryNrsxdxxxb, sessionBean);
+		zdryNrsxdxxxbDao.delete(zdryNrsxdxxxb);
 		
+	}
+	@Override
+	protected void cg_(SessionBean sessionBean, Zdry zdrylbdx) {
+		if(zdrylbdx != null){
+			ZdryNrsxdxxxb zdryNrsxdxxxb = (ZdryNrsxdxxxb) zdrylbdx ;
+			BaseService.setSaveProperties(zdryNrsxdxxxb, sessionBean);	
+			zdryNrsxdxxxbDao.insert(zdryNrsxdxxxb);
+		}
 	}
 	
 	/**

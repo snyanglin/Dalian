@@ -3,6 +3,7 @@ package com.founder.zdrygl.core.inteface;
 import java.util.Map;
 
 import com.founder.framework.base.entity.SessionBean;
+import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
 
 /**
@@ -27,11 +28,17 @@ public interface ZdryService {
 	 * @return void    返回类型
 	 * @throw
 	 */
-	public void lg(SessionBean sessionBean);
-
-	public void lgSuccess(SessionBean sessionBean);
+//	public void lg(SessionBean sessionBean);
 	
-	public void lgFail(SessionBean sessionBean);
+	public void lg(SessionBean sessionBean , ZOBean entity);
+
+//	public void lgSuccess(SessionBean sessionBean);
+	
+	public void lgSuccess(SessionBean sessionBean , ZOBean entity);
+	
+//	public void lgFail(SessionBean sessionBean);
+	
+	public void lgFail(SessionBean sessionBean , ZOBean entity);
 
 	/**
 	 * 
@@ -41,11 +48,18 @@ public interface ZdryService {
 	 * @return void    返回类型
 	 * @throw
 	 */
-	public void cg(SessionBean sessionBean);
+//	public void cg(SessionBean sessionBean);
 	
-	public void cgSuccess(SessionBean sessionBean);
+	public void cg(SessionBean sessionBean , ZOBean entity);
 	
-	public void cgFail(SessionBean sessionBean);
+//	public void cgSuccess(SessionBean sessionBean);
+	
+	public void cgSuccess(SessionBean sessionBean , ZOBean entity);
+	
+//	public void cgFail(SessionBean sessionBean);
+	
+	//TODO 后续补上实现
+	public void cgFail(SessionBean sessionBean , ZOBean entity);
 	
 	/**
 	 * 
@@ -55,11 +69,11 @@ public interface ZdryService {
 	 * @return void    返回类型
 	 * @throw
 	 */
-	public void zl(SessionBean sessionBean);
+	public void zl(SessionBean sessionBean , ZOBean zdry);
 	
-	public void zlSuccess(SessionBean sessionBean);
+	public void zlSuccess(SessionBean sessionBean , ZOBean zdry);
 	
-	public void zlFail(SessionBean sessionBean);
+	public void zlFail(SessionBean sessionBean , ZOBean zdry);
 	
 	/**
 	 * 
@@ -69,6 +83,12 @@ public interface ZdryService {
 	 * @return void    返回类型
 	 * @throw
 	 */
+	public void zd(SessionBean sessionBean, ZOBean zdry);
+	
+	public void zdSuccess(SessionBean sessionBean, ZOBean zdry);
+	
+	public void zdFail(SessionBean sessionBean, ZOBean zdry);
+	
 	public void zd(SessionBean sessionBean);
 	
 	public void zdSuccess(SessionBean sessionBean);
@@ -85,6 +105,9 @@ public interface ZdryService {
 	 */
 	public void update(SessionBean sessionBean);
 	
+	public void update(SessionBean sessionBean, ZOBean zdry);
+	
+	@Deprecated
 	public void setZdry(Zdry entity);
 	/**
 	 * 
@@ -96,9 +119,10 @@ public interface ZdryService {
 	 * @return void    返回类型
 	 * @throw
 	 */
+	@Deprecated
 	public void setStartProcessInstance(String processKey,String applyUserId, Map<String,Object> variables);
 		
-	
+	@Deprecated
 	public Zdry getZdry();
 	
 	/**
@@ -109,18 +133,8 @@ public interface ZdryService {
 	 * @return String    返回类型
 	 * @throw
 	 */
+	@Deprecated
 	public String getZdryId();
-	
-	/**
-	 * 
-	 * @Title: queryZdryAllInfo
-	 * @Description: (查询重点人员总表和各个子表的的信息)
-	 * @param @param zdryid
-	 * @param @return    设定文件
-	 * @return Zdry[]    返回类型 [0]重点人员总表，[1]重点人员字表
-	 * @throws
-	 */
-//	public Zdry[] queryZdryAllInfo(String zdryid);
 	
 	/**
 	 * 
@@ -130,7 +144,7 @@ public interface ZdryService {
 	 * @return Map<String,String>    返回类型
 	 * @throws
 	 */
-	public Map<String,String> getZdryXmAndZdrylxName();
+	public Map<String,String> getZdryXmAndZdrylxName(Zdry zdry);
 
 	
 }

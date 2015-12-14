@@ -24,7 +24,7 @@ import com.founder.zdrygl.core.model.Zdry;
  */
 public class ZdrySqjzService  extends ZdryServiceDecorator{
 
-	private ZdrySqjzryxxb zdry;
+	private ZdrySqjzryxxb zdrylbdx;
 	
 	@Resource(name="zdrySqjzryxxbDao")
 	private ZdrySqjzryxxbDao  zdrySqjzryxxbDao;
@@ -35,25 +35,32 @@ public class ZdrySqjzService  extends ZdryServiceDecorator{
 
 	@Override
 	public void setZdry(Zdry entity) {
-		this.zdry = (ZdrySqjzryxxb) entity;
+		this.zdrylbdx = (ZdrySqjzryxxb) entity;
 	}
 
 	/**
 	 * 列管重点人口
 	 */
 	@Override
-	protected void lg_(SessionBean sessionBean) {
-		BaseService.setSaveProperties(zdry, sessionBean);	
-		zdry.setId(this.getZdryId());
-		zdrySqjzryxxbDao.insert(zdry);
+	protected void lg_(SessionBean sessionBean , Zdry zdrylbdx) {
+		ZdrySqjzryxxb zdrySqjzryxxb = (ZdrySqjzryxxb) zdrylbdx ;
+		BaseService.setSaveProperties(zdrySqjzryxxb, sessionBean);	
+		zdrySqjzryxxbDao.insert(zdrySqjzryxxb);
+	}
+	
+	@Override
+	protected void lgFail_(SessionBean sessionBean, Zdry zdrylbdx) {
+		ZdrySqjzryxxb zdrySqjzryxxb = (ZdrySqjzryxxb) zdrylbdx;
+		BaseService.setCrossoutProperties(zdrySqjzryxxb, sessionBean);
+		zdrySqjzryxxbDao.delete(zdrySqjzryxxb);
 	}
 
 	@Override
-	protected void cg_(SessionBean sessionBean) {
-		if(zdry != null){
-			BaseService.setSaveProperties(zdry, sessionBean);
-			zdry.setId(this.getZdryId());
-			zdrySqjzryxxbDao.insert(zdry);
+	protected void cg_(SessionBean sessionBean, Zdry zdrylbdx) {
+		if(zdrylbdx != null){
+			ZdrySqjzryxxb zdrySqjzryxxb = (ZdrySqjzryxxb) zdrylbdx ;
+			BaseService.setSaveProperties(zdrySqjzryxxb, sessionBean);	
+			zdrySqjzryxxbDao.insert(zdrySqjzryxxb);
 		}
 		
 	}
@@ -68,9 +75,9 @@ public class ZdrySqjzService  extends ZdryServiceDecorator{
 	 */
 	@Override
 	protected void update_(SessionBean sessionBean) {
-		BaseService.setUpdateProperties(zdry, sessionBean);
-		zdry.setId(this.getZdryId());
-		zdrySqjzryxxbDao.update(zdry);
+		BaseService.setUpdateProperties(zdrylbdx, sessionBean);
+		zdrylbdx.setId(this.getZdryId());
+		zdrySqjzryxxbDao.update(zdrylbdx);
 	}
 	
 	/**

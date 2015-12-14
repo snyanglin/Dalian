@@ -23,8 +23,11 @@ import com.founder.zdrygl.core.model.Zdry;
  * @Version:      [v1.0]
  */
 public class ZdryQtgzdxService  extends ZdryServiceDecorator{
+	
+	private ZdrySqsbzdryxxb  zdry;
 
-
+	@Resource(name="zdrySqsbzdryxxbDao")
+	private ZdrySqsbzdryxxbDao zdrySqsbzdryxxbDao;
 
 	public ZdryQtgzdxService(ZdryService zdryService) {
 		super(zdryService);
@@ -39,13 +42,26 @@ public class ZdryQtgzdxService  extends ZdryServiceDecorator{
 	 * 列管重点人口
 	 */
 	@Override
-	protected void lg_(SessionBean sessionBean) {
-		
+	protected void lg_(SessionBean sessionBean,Zdry zdrylbdx) {
+		ZdrySqsbzdryxxb zdrySqsbzdryxxb = (ZdrySqsbzdryxxb) zdrylbdx;
+		BaseService.setSaveProperties(zdrySqsbzdryxxb, sessionBean);	
+		zdrySqsbzdryxxbDao.insert(zdrySqsbzdryxxb);
 	}
-
+	
 	@Override
-	protected void cg_(SessionBean sessionBean) {
-			
+	protected void lgFail_(SessionBean sessionBean, Zdry zdrylbdx) {
+		ZdrySqsbzdryxxb zdrySqsbzdryxxb = (ZdrySqsbzdryxxb) zdrylbdx;
+		BaseService.setCrossoutProperties(zdrySqsbzdryxxb, sessionBean);
+		zdrySqsbzdryxxbDao.delete(zdrySqsbzdryxxb);
+	}
+	
+	@Override
+	protected void cg_(SessionBean sessionBean, Zdry zdrylbdx) {
+		if(zdrylbdx != null){
+			ZdrySqsbzdryxxb zdrySqsbzdryxxb = (ZdrySqsbzdryxxb) zdrylbdx;
+			BaseService.setSaveProperties(zdrySqsbzdryxxb, sessionBean);	
+			zdrySqsbzdryxxbDao.insert(zdrySqsbzdryxxb);
+		}
 	}
 	
 	/**
@@ -58,7 +74,9 @@ public class ZdryQtgzdxService  extends ZdryServiceDecorator{
 	 */
 	@Override
 	protected void update_(SessionBean sessionBean) {
-		
+		BaseService.setUpdateProperties(zdry, sessionBean);
+		zdry.setId(this.getZdryId());
+		zdrySqsbzdryxxbDao.update(zdry);
 	}
 	
 	/**
@@ -71,7 +89,7 @@ public class ZdryQtgzdxService  extends ZdryServiceDecorator{
 	 */
 //	@Override
 	public Zdry queryZdryInfo_(String zdryid) {
-		return null;
+		return zdrySqsbzdryxxbDao.queryById(zdryid);
 	}
 
 }

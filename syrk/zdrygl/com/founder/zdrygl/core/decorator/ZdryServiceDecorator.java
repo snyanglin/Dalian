@@ -14,6 +14,7 @@ import com.founder.workflow.service.inteface.JProcessDefinitionService;
 import com.founder.zdrygl.base.message.MessageDict;
 import com.founder.zdrygl.core.inteface.JwzhMessageService;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 
@@ -41,6 +42,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		
     @Autowired
 	private JProcessDefinitionService processDefinitionService;
+    
     @Autowired
     private JwzhMessageService jwzhMessageService;
     
@@ -50,85 +52,123 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	public ZdryServiceDecorator(ZdryService zdryService){
 		this.zdryService = zdryService;
 	}
+	
+	@Override
+	public final void lg(SessionBean sessionBean , ZOBean entity){
+		zdryService.lg(sessionBean, entity);
+		setZdrylbdxId(entity);
+		lg_(sessionBean,entity.getZdrylbdx());
+		if(entity.getStartProcessInstance()!=null){
+			entity.setProcessInstanceBusinessKey(entity.getZdryzb().getId());
+			entity.getStartProcessInstance().getVariables().put("zdryId", entity.getZdryzbId());
+			startProcessInstance(entity.getStartProcessInstance());
+		}
+	}
 
 	@Override
-	public final void lg(SessionBean sessionBean) {
-		zdryService.lg(sessionBean);
-		lg_(sessionBean);
-		
-		if(checkWorkFlow())
+	public final void lgSuccess(SessionBean sessionBean , ZOBean entity){
+		zdryService.lgSuccess(sessionBean,entity);	
+		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());
+		paraObj.put("result", "lgSuccess");
+		paraObj.put("zdryId", entity.getZdryzbId());
+		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.LGSPJG,paraObj);
+	}
+	
+	@Override
+	public final void lgFail(SessionBean sessionBean, ZOBean entity) {
+		zdryService.lgFail(sessionBean,entity);
+		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());
+		paraObj.put("result", "lgFail");
+		paraObj.put("zdryId", entity.getZdryzbId());
+		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.LGSPJG,paraObj);
+	}
+	
+	@Override
+	public final void cg(SessionBean sessionBean , ZOBean entity){
+		zdryService.cg(sessionBean, entity);
+		setZdrylbdxId(entity);
+		cg_(sessionBean,entity.getZdrylbdx());
+		if(entity.getStartProcessInstance()!=null){
+			entity.setProcessInstanceBusinessKey(entity.getZdryzb().getId());
+			entity.getStartProcessInstance().getVariables().put("zdryId", entity.getZdryzbId());
+			startProcessInstance(entity.getStartProcessInstance());
+		}
+	}
+	
+	@Override
+	public final void cgSuccess(SessionBean sessionBean , ZOBean entity) {
+		zdryService.cgSuccess(sessionBean,entity);
+		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());
+		paraObj.put("result", "cgSuccess");
+		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.CGSPJG,paraObj);
+	}
+
+	@Override
+	public final void cgFail(SessionBean sessionBean , ZOBean entity) {
+		zdryService.cgFail(sessionBean,entity);
+		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());
+		paraObj.put("result", "cgFail");
+		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.CGSPJG,paraObj);
+	}
+
+	@Override
+	public final void zl(SessionBean sessionBean, ZOBean entity) {
+		//转类（小类）不涉及子表的修改
+		zdryService.zl(sessionBean, entity);//新加，改变状态
+		if(entity.getStartProcessInstance()!= null){
+			entity.setProcessInstanceBusinessKey(entity.getZdryzb().getId());
+			entity.getStartProcessInstance().getVariables().put("zdryId", entity.getZdryzbId());
+			startProcessInstance(entity.getStartProcessInstance());
+		}
+	}
+
+	@Override
+	public final void zlSuccess(SessionBean sessionBean, ZOBean entity) {
+		//转类（小类）不涉及子表的修改
+		zdryService.zlSuccess(sessionBean ,entity);
+	}
+
+	@Override
+	public final void zlFail(SessionBean sessionBean, ZOBean entity) {
+		//转类（小类）不涉及子表的修改
+		zdryService.zlFail(sessionBean , entity);
+	}
+
+	@Override
+	public final void zd(SessionBean sessionBean , ZOBean entity) {
+		//转递不涉及子表的修改
+		zdryService.zd(sessionBean,entity);//新加，改变状态
 			startProcessInstance();
 	}
 
 	@Override
-	public final void lgSuccess(SessionBean sessionBean) {
-		zdryService.lgSuccess(sessionBean);	
-		/*Object paraObj = getMessageParam(sessionBean);//获取消息的参数
-		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.LGSQ,paraObj);*/
+	public final void zdSuccess(SessionBean sessionBean , ZOBean entity) {
+		//转递不涉及子表的修改
+		zdryService.zdSuccess(sessionBean ,entity);
+		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());//获取消息的参数
+		paraObj.put("result", "zdSuccess");
+		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDSPJG,paraObj);
 	}
 
 	@Override
-	public final void lgFail(SessionBean sessionBean) {
-		zdryService.lgFail(sessionBean);
-	}
-
-	@Override
-	public final void cg(SessionBean sessionBean) {
-		zdryService.cg(sessionBean);
-		cg_(sessionBean);
-		
-		if(checkWorkFlow())
-			startProcessInstance();
-	}
-
-	@Override
-	public final void cgSuccess(SessionBean sessionBean) {
-		zdryService.cgSuccess(sessionBean);
-	}
-
-	@Override
-	public final void cgFail(SessionBean sessionBean) {
-		zdryService.cgFail(sessionBean);
-	}
-
-	@Override
-	public final void zl(SessionBean sessionBean) {
-		//转类（小类）不涉及子表的修改
-		zdryService.zl(sessionBean);//新加，改变状态
-		if(checkWorkFlow())
-			startProcessInstance();
-	}
-
-	@Override
-	public final void zlSuccess(SessionBean sessionBean) {
-		//转类（小类）不涉及子表的修改
-		zdryService.zlSuccess(sessionBean);
-	}
-
-	@Override
-	public final void zlFail(SessionBean sessionBean) {
-		//转类（小类）不涉及子表的修改
-		zdryService.zlFail(sessionBean);
+	public final void zdFail(SessionBean sessionBean , ZOBean entity) {
+		//转递不涉及子表的修改
+		zdryService.zdFail(sessionBean,entity);
+		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());//获取消息的参数
+		paraObj.put("result", "zdFail");
+		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDSPJG,paraObj);
 	}
 
 	@Override
 	public final void zd(SessionBean sessionBean) {
-		//转递不涉及子表的修改
-		zdryService.zd(sessionBean);//新加，改变状态
-		if(checkWorkFlow())
-			startProcessInstance();
 	}
 
 	@Override
 	public final void zdSuccess(SessionBean sessionBean) {
-		//转递不涉及子表的修改
-		zdryService.zdSuccess(sessionBean);
 	}
 
 	@Override
 	public final void zdFail(SessionBean sessionBean) {
-		//转递不涉及子表的修改
-		zdryService.zdFail(sessionBean);
 	}
 	
 	/**
@@ -144,6 +184,14 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		zdryService.update(sessionBean);//总表修改
 		update_(sessionBean);//子表修改		
 	}
+	
+	@Override
+	public final void update(SessionBean sessionBean, ZOBean zdry) {
+		// TODO Auto-generated method stub
+		zdryService.update(sessionBean,zdry);//总表修改
+//		update_(sessionBean,zdry.getZdrylbdx());
+	}
+
 	
 	@Override
 	public Zdry getZdry() {
@@ -166,45 +214,56 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	}
 		
 	
-	protected abstract void lg_(SessionBean sessionBean);
+	protected abstract void lg_(SessionBean sessionBean,Zdry zdrylbdx);
+	
+	protected abstract void lgFail_(SessionBean sessionBean,Zdry zdrylbdx);
 
-	protected abstract void cg_(SessionBean sessionBean);
+	protected abstract void cg_(SessionBean sessionBean,Zdry zdrylbdx);
+	
+//	TODO 待实现 
+//	protected abstract void cgFail_(SessionBean sessionBean,Zdry zdrylbdx);
+//	TODO 待实现 
+//	protected abstract void zd_(SessionBean sessionBean,Zdry zdrylbdx);
+//	TODO 待实现 
+//	protected abstract void zdFail_(SessionBean sessionBean,Zdry zdrylbdx);
 	
 	protected abstract void update_(SessionBean sessionBean);
+	
+//	TODO 待实现 
+//	protected abstract void update_(SessionBean sessionBean,Zdry zdrylbdx);
 	
 	
 	/**
 	 * 
 	 * @Title: getMessageParam
 	 * @Description: (获取消息生产需要的参数)
-	 * @param @param paraObj
+	 * @param @param sessionBean
+	 * @param @param zdry
 	 * @param @return    设定文件
-	 * @return Object    返回类型
-	 * @throw
+	 * @return Map<String,Object>    返回类型
+	 * @throws
 	 */
-	protected Object getMessageParam(SessionBean sessionBean){
-		Map<String,Object> paramMap = new HashMap<String,Object>();
-        
+	protected Map<String,Object> getMessageParam(SessionBean sessionBean , Zdry zdry){
         //私有参数处理
         Map<String,Object> paramObj = new HashMap<String,Object>();
         paramObj.put("fsrName", sessionBean.getUserName());//发送人姓名
         paramObj.put("fsrUserCode", sessionBean.getUserId());//发送人代码	
         paramObj.put("fsrOrgName", sessionBean.getUserOrgName());//发送人机构名
-        paramObj.putAll(getZdryXmAndZdrylxName());
-        paramMap.put("paramObj", paramObj);
-        
-        return paramMap;
+        paramObj.putAll(getZdryXmAndZdrylxName(zdry));
+        return paramObj;
 	}
 	
 	@Override
-	public final  Map<String,String> getZdryXmAndZdrylxName(){
-		return zdryService.getZdryXmAndZdrylxName();
-	}
-
-	private boolean checkWorkFlow(){
-		return processDefinitionService != null;
+	public final Map<String,String> getZdryXmAndZdrylxName(Zdry zdry){
+		return zdryService.getZdryXmAndZdrylxName(zdry);
 	}
 	
+	public void setZdrylbdxId(ZOBean entity){
+		if(entity.getZdrylbdx() != null)
+			entity.getZdrylbdx().setId(entity.getZdryzb().getId());
+	}
+	
+	@Deprecated
 	private void startProcessInstance(){
 		if(processInstance == null){
 			return ;//没有流程
@@ -216,6 +275,14 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 			processInstance.setBusinessKey(zdryService.getZdryId());
 			processInstance.getVariables().put("zdryId", zdryService.getZdryId());
 			processDefinitionService.startProcessInstance(processInstance.getApplyUserId(),processInstance.getProcessKey(), processInstance.getBusinessKey(), processInstance.getVariables());
+		}
+	}
+	
+	private void startProcessInstance(StartProcessInstance startProcessInstance){
+		if(startProcessInstance != null && StringUtils.isEmpty(startProcessInstance.getProcessKey())){
+			throw new BussinessException("缺少流程启动参数！");
+		}else{
+			processDefinitionService.startProcessInstance(startProcessInstance.getApplyUserId(),startProcessInstance.getProcessKey(), startProcessInstance.getBusinessKey(), startProcessInstance.getVariables());
 		}
 	}
 }

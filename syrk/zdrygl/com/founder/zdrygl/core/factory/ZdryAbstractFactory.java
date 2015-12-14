@@ -30,4 +30,6 @@ public interface ZdryAbstractFactory {
 	 */
 	public ZdryService createZdryService(String zdrylx ,Zdry zdryzb, Zdry zdrylbdx);
 	
+	public ZdryService createZdryService(String zdrylx);
+	
 }

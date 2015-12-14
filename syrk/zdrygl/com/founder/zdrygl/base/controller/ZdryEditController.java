@@ -37,6 +37,7 @@ import com.founder.zdrygl.base.vo.ZdrygnVO;
 import com.founder.zdrygl.base.vo.ZdryxxzsVO;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 import com.google.gson.Gson;
 /**
@@ -424,10 +425,12 @@ public class ZdryEditController extends BaseController {
 			String zdrygllxdm = zdryZb.getZdryZdryzb().getZdrygllxdm();// 重点人员类型
 			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdryConstant,zdryQueryService);
 			StartProcessInstance spi = wfpis.initialProcessInstance(sessionBean,zdryZb,LcgFlagEnum.ZL);
-			ZdryService zdryService = zdryFactory.createZdryService(zdrygllxdm, zdryZb.getZdryZdryzb(), zdryZb.getZdrylbdx());
-			//ZdryService zdryService = zdryFactory.createZdryService(zdryZb.getZdrygllxdm(), zdryZb, null);
-			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(),spi.getVariables());	
-			zdryService.zl(sessionBean);
+			ZdryService zdryService = zdryFactory.createZdryService(zdrygllxdm);
+			ZOBean entity = new ZOBean(zdryZb.getZdryZdryzb(), zdryZb.getZdrylbdx());
+			entity.setStartProcessInstance(spi);
+			
+//			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(),spi.getVariables());	
+			zdryService.zl(sessionBean,entity);
 			
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
 			model.put(AppConst.MESSAGES, getUpdateSuccess());

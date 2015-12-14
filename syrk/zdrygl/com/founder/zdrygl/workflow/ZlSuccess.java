@@ -61,7 +61,7 @@ public class ZlSuccess extends WorkflowDelegate{
 //		zdryZdryzbService.update(zdryZdryzb, sessionBean);
 
 		
-		zdryService.zlSuccess(sessionBean);
+//		TODO zdryService.zlSuccess(sessionBean);
 	}
 	
 	

@@ -1,5 +1,7 @@
 package com.founder.zdrygl.core.inteface;
 
+import java.util.Map;
+
 /**
  * ****************************************************************************
  * @Package:      [com.founder.zdrygl.core.inteface.JwzhMessageService.java]  
@@ -25,7 +27,7 @@ public interface JwzhMessageService {
 	 * @return void    返回类型
 	 * @throw
 	 */
-	public void sendMessage(String xxlx, Object source, String jslx, Object jsdx);
+	public void sendMessage(String xxlx, Map<String,Object> source, String jslx, Object jsdx);
 	
 	/**
 	 * 
@@ -36,6 +38,6 @@ public interface JwzhMessageService {
 	 * @return void    返回类型
 	 * @throws
 	 */
-	public void sendMessage(String xxlx, Object source);
+	public void sendMessage(String xxlx, Map<String,Object> source);
 	
 }

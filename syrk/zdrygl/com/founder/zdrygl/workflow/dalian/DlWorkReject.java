@@ -4,8 +4,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.activiti.engine.delegate.DelegateExecution;
-import org.activiti.engine.delegate.JavaDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -19,6 +17,7 @@ import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
 
 
@@ -48,8 +47,8 @@ public class DlWorkReject extends WorkflowDelegate {
 		String zdrylx = (String) variables.get("zdrylx");
 		ZdryZb zdryzb = (ZdryZb) variables.get("zdryzb");
 		Zdry zdrylbdx = (Zdry) variables.get("zdrylbdx");
-		ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
-		
+		ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
+		ZOBean entity = new ZOBean(zdryzb, zdrylbdx);
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
 		
@@ -63,14 +62,10 @@ public class DlWorkReject extends WorkflowDelegate {
 		String spbm=sessionBean.getUserOrgCode();*/
 		
 		if(sqlxdm.equals("01")){//列管
-			zdryService.lgFail(sessionBean);
-		}
-		if(sqlxdm.equals("02")){//撤管
-			zdryService.cgFail(sessionBean);
-		}
-		if(sqlxdm.equals("04")){//请假
-			//String qjId=(String) arg0.getVariable("qjId");			
-			//zdryUntil.qjFail(qjId,sessionBean.getUserName(),spr,sessionBean.getRemoteAddr(),spyj);
+			zdryService.lgFail(sessionBean,entity);
+		}else if(sqlxdm.equals("02")){//撤管
+			zdryService.cgFail(sessionBean,entity);
+		}else if(sqlxdm.equals("04")){//请假
 		}
 	}
 	

@@ -161,8 +161,7 @@ function doInit(paramArray) {
 	setInputReadonly("jzrk_gmsfhm", true);
 	setInputReadonly("jzrk_hjd_dzxz", true);
 	//setInputReadonly("jzrk_jzd_dzxz", true);
-	setInputReadonly("jzrk_jzd1", true);
-	setInputReadonly("jzrk_jzd2", true);
+	
 	if($("#jzrk_jzd_dzid").val()==""&&$("#jzrk_jzd2").val()!=""){
 		setInputReadonly("jzrk_jzd1", false);
 		setInputReadonly("jzrk_jzd2", false);
@@ -172,7 +171,8 @@ function doInit(paramArray) {
 	initAddressSearch("jzrk_jzd1", {zrqdm:zrqdm}, "jzrk_jzd_mlpdm", "jzrk_jzd_mlpxz", "jzrk_jzd2", {text:"jzrk_jzd_dzxz",dzxzqh:"jzrk_jzd_xzqhdm",id:"jzrk_jzd_dzid",dzzbx:"jzrk_jzd_zbx",dzzby:"jzrk_jzd_zby"}, null, null);
 	initAddressSearch("jzrk_fz_jzd1", {}, "jzrk_fz_jzd_mlpdm", "jzrk_fz_jzd_mlpxz", "jzrk_fz_jzd2", {text:"jzrk_fz_jzd_dzxz",dzxzqh:"jzrk_fz_jzd_xzqhdm",id:"jzrk_fz_jzd_dzid"}, null, null);
 	initDepartmentSearch("jzrk_gzdw_select", {}, "jzrk_gzdwid", "jzrk_gzdw", {});
-
+	setInputReadonly("jzrk_jzd1", true);
+	setInputReadonly("jzrk_jzd2", true);
 	jzrk_zjzcsfldm_onChange("${jzrk.zjzcsfldm}");
 	
 }

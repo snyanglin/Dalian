@@ -78,7 +78,7 @@
 							data-options="url: contextPath + '/common/dict/GB_D_GJHDQDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right'"/></td> 
 				    	<td width="20%" class="dialogTd" align="right">出生地：</td>
 				    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="jbxx_csdssxdm" name="jbxx.csdssxdm" value="${ryRyjbxxb.csdssxdm}" style="width:200px;" 
-	    	                data-options="mode:'remote',dataFilter:'.*[^00]$',valueField:'id',textField:'text',selectOnNavigation:false,method:'post'"/></td>
+	    	                data-options="mode:'remote',dataFilter:'([0-9]{4})([0-9][1-9]|[1-9][0-9])',valueField:'id',textField:'text',selectOnNavigation:false,method:'post'"/></td>
 					</tr>
 					<tr class="dialogTr">
 				    	<td width="20%" class="dialogTd" align="right">籍贯国家：</td>
@@ -86,7 +86,7 @@
 							data-options="url: contextPath + '/common/dict/GB_D_GJHDQDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right',onChange:jbxx_jggjdqdm_onChange"/></td> 
 				    	<td width="20%" class="dialogTd" align="right">籍贯：</td>
 				    	<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="jbxx_jgssxdm" name="jbxx.jgssxdm" value="${ryRyjbxxb.jgssxdm}" style="width:200px;" 
-	    	                data-options="mode:'remote',dataFilter:'.*[^00]$',valueField:'id',textField:'text',selectOnNavigation:false,method:'post'"/></td>
+	    	                data-options="mode:'remote',dataFilter:'([0-9]{4})([0-9][1-9]|[1-9][0-9])',valueField:'id',textField:'text',selectOnNavigation:false,method:'post'"/></td>
 					</tr>
 					<tr class="dialogTr">
 		    	        <td width="20%" class="dialogTd" align="right">曾用名：</td>

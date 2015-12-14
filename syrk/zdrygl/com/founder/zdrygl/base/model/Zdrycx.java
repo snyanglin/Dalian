@@ -2,7 +2,7 @@ package com.founder.zdrygl.base.model;
 
 /**
  * ****************************************************************************
- * @Package:      [com.founder.zdrygl.base.model.Zdrycg.java]  
+ * @Package:      [com.founder.zdrygl.base.model.Zdrycx.java]  
  * @ClassName:    [Zdrycg]   
  * @Description:  [重点人员撤管]   
  * @Author:       [wei.wen@founder.com.cn]  
@@ -12,7 +12,7 @@ package com.founder.zdrygl.base.model;
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
-public class Zdrycg  extends ZdryZb {
+public class Zdrycx  extends ZdryZb {
 
 	private static final long serialVersionUID = -543790100757572975L;
 	

@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
@@ -21,9 +20,6 @@ import com.founder.framework.utils.StringUtils;
 @Repository("sysMessageDao2")
 public class SysMessageDao extends BaseDaoImpl {
 
-	private static Logger logger = Logger.getLogger(SysMessageDao.class);
-
-
 
 	/**
 	 * 保存单条消息（消息中的所有属性值由外部传入）<br>
@@ -33,6 +29,7 @@ public class SysMessageDao extends BaseDaoImpl {
 	 * @return Long 新增的消息表主键
 	 */
 	public Long saveMessage(SysMessage entity) {
+		
 		Long returnValue = new Long(0);
 		if (entity != null) {
 			entity.setId(getSequence("")); // 生成主键
@@ -53,7 +50,7 @@ public class SysMessageDao extends BaseDaoImpl {
 			if (StringUtils.isBlank(entity.getJslx())) {
 				entity.setJslx("0"); // 默认接收类型为人员
 			}
-			insert("Message.save", entity);
+			insert("SysMessage.save", entity);
 			returnValue = entity.getId();
 		}
 		return returnValue;
