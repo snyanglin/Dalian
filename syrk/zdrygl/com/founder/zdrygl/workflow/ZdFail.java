@@ -1,9 +1,9 @@
 package com.founder.zdrygl.workflow;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
-import org.activiti.engine.delegate.DelegateExecution;
-import org.activiti.engine.delegate.JavaDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -12,6 +12,8 @@ import org.springframework.web.util.WebUtils;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
+import com.founder.workflow.bean.BaseWorkFlowBean;
+import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
@@ -33,32 +35,29 @@ import com.founder.zdrygl.core.model.Zdry;
  */
 
 @Component
-public class ZdFail implements JavaDelegate{
+public class ZdFail extends WorkflowDelegate{
 
 	@Autowired
 	public ZdryAbstractFactory zdryFactory;
 	@Override
-	public void execute(DelegateExecution arg0) throws Exception {
-		
+	public void doBusiness(BaseWorkFlowBean arg0) {
+		Map<String,Object> variables = arg0.getProcessVariables();
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
 
-		String zdrylx = (String) arg0.getVariable("zdrylx");
-		ZdryZb zdryzb = (ZdryZb) arg0.getVariable("zdryzb");
-		Zdry zdrylbdx = (Zdry) arg0.getVariable("zdrylbdx");
-		
-
-		String yjzd_dzid 	= (String)  arg0.getVariable("yjzd_dzid");
-		String yjzd_dzxz 	= (String)  arg0.getVariable("yjzd_dzxz");
-		String yjzd_mlpdm 	= (String)  arg0.getVariable("yjzd_mlpdm");
-		String yjzd_mlpxz 	= (String)  arg0.getVariable("yjzd_mlpxz");
-		String yjzd_xzqhdm 	= (String)  arg0.getVariable("yjzd_xzqhdm");
-		String yjzd_zbx 	= (String)  arg0.getVariable("yjzd_zbx");
-		String yjzd_zby 	= (String)  arg0.getVariable("yjzd_zby");
-		String yglbm 		= (String)  arg0.getVariable("yglbm");
-		String ryid 		= (String)  arg0.getVariable("ryid");
-		String ygxpcsdm		= (String)  arg0.getVariable("ygxpcsdm");
-		String yzrqdm 		= (String)  arg0.getVariable("yzrqdm");//原责任区代码
+		String zdrylx = (String) variables.get("zdrylx");
+		ZdryZb zdryzb = (ZdryZb) variables.get("zdryzb");
+		Zdry zdrylbdx = (Zdry) variables.get("zdrylbdx");
+		String yjzd_dzid 	= (String)  variables.get("yjzd_dzid");
+		String yjzd_dzxz 	= (String)  variables.get("yjzd_dzxz");
+		String yjzd_mlpdm 	= (String)  variables.get("yjzd_mlpdm");
+		String yjzd_mlpxz 	= (String)  variables.get("yjzd_mlpxz");
+		String yjzd_xzqhdm 	= (String)  variables.get("yjzd_xzqhdm");
+		String yjzd_zbx 	= (String)  variables.get("yjzd_zbx");
+		String yjzd_zby 	= (String)  variables.get("yjzd_zby");
+		String yglbm 		= (String)  variables.get("yglbm");
+		String ygxpcsdm		= (String)  variables.get("ygxpcsdm");
+		String yzrqdm 		= (String)  variables.get("yzrqdm");//原责任区代码
 		
 		if(yjzd_dzid != null){
 			zdryzb.setJzd_dzid(yjzd_dzid);

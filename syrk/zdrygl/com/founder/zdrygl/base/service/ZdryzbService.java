@@ -264,7 +264,7 @@ public class ZdryzbService implements ZdryService {
 	@MethodAnnotation(value = "修改", type = logType.update)
 	@Override
 	public final void update(SessionBean sessionBean) {
-		//总表还不确定要修改	
+		updateZdry(sessionBean,zdryzb);
 	}
 	
 	@Override

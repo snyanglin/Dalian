@@ -24,6 +24,7 @@
     	<input type="hidden" id="zdryHsbId" name="zdryHsbId" value="${zdryHsbId}" />
     	<input type="hidden" id="syrkid" name="zdryZdryzb.syrkid" value="" />
     	<input type="hidden" id="ryid" name="zdryZdryzb.ryid" value="" />
+    	<input type="hidden" id="ky_jzrq" name="zdrySqjzryxxb.ky_jzrq" value="2015-12-30" />
     	
 	    <table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 			<tr class="dialogTr">		    	

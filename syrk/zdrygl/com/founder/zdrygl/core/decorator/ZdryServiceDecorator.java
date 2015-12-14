@@ -158,7 +158,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		paraObj.put("result", "zdFail");
 		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDSPJG,paraObj);
 	}
-	
+
 	@Override
 	public final void zd(SessionBean sessionBean) {
 	}
@@ -265,9 +265,15 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	
 	@Deprecated
 	private void startProcessInstance(){
+		if(processInstance == null){
+			return ;//没有流程
+		}
 		if(processInstance != null && StringUtils.isEmpty(processInstance.getProcessKey())){
 			throw new BussinessException("缺少流程启动参数！");
 		}else{
+			//put zdryId & name to variables
+			processInstance.setBusinessKey(zdryService.getZdryId());
+			processInstance.getVariables().put("zdryId", zdryService.getZdryId());
 			processDefinitionService.startProcessInstance(processInstance.getApplyUserId(),processInstance.getProcessKey(), processInstance.getBusinessKey(), processInstance.getVariables());
 		}
 	}
