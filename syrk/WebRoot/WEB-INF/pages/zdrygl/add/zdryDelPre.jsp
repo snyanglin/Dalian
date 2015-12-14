@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/pages/commonInclude.jsp"%>
+<%@ page import="com.founder.framework.config.SystemConfig"%>
 
 <html>
 <head>
@@ -33,13 +34,14 @@
 	    			<input class="easyui-validatebox inputreadonly" type="text"  id="ylglx" style="width:200px;" readonly="readonly"  value="${zdrylxmc}"/>
 		    	</td>
 		    </tr>
-		    <tr class="dialogTr" id="cgyyText" style="display:none">
+		    <tr class="dialogTr" id="cgyyText">
 		    	<td width="20%" class="dialogTd" align="right" >撤管原因：</td>
 		    	<td width="80%" class="dialogTd" colspan="3">
-		    	<input class="easyui-validatebox " type="text" id="cgyy" name="ywsqyy" style="width: 608px;" data-options="required:false,validType:['maxLength[100]','unnormal']" />
+		    	<input class="easyui-validatebox " type="text" id="cgyy" name="ywsqyy" style="width: 596px;" data-options="required:false,validType:['maxLength[100]','unnormal']" />
 		    	</td>
 	    	</tr>
-	    	<tr class="dialogTr" id="cgyyZd">
+	    	<!--
+	    	<tr class="dialogTr" id="cgyyZd" style="display:none">
 		    	<td width="20%" class="dialogTd" align="right" >撤管原因：</td>
 		    	<td width="80%" class="dialogTd" colspan="3">
 		    		<input class="easyui-combobox" type="text" id="cgyyCombo" style="width:200px;" 
@@ -47,6 +49,7 @@
 								valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'right',onChange:changeCgyy"/>
 				</td>
 			</tr>
+			-->
 		   <tr class="dialogTr"> 
 		    	<td width="20%" class="dialogTd" align="right">撤管类型：</td>
 		    	<td width="80%" class="dialogTd" colspan="3">
@@ -97,7 +100,7 @@
 </body>
 <script type="text/javascript" >
 var mainTabID = "${mainTabID}";
-
+var xzqh = "<%=SystemConfig.getString("systemXzqh")%>";
 var gllxdm_old = $("#zdrygllxdm_old").val();
 function startup(){
 	$("#jgdxDiv").hide();
@@ -108,25 +111,30 @@ function startup(){
 	$("#sqsbzdryDiv").hide();
 	$("#sgafzdryDiv").hide();
 	//$("#ggDiv").hide();	
-	initCgyy();
+	//initCgyy();
 };
-
+/*
 function initCgyy(){		
-	if(gllxdm_old ==  "01"){//社区矫正
-		$('#cgyyCombo').combobox('setDataFilter', '1[0-9][0-9]');
-	}else if(gllxdm_old ==  "02"){//重点人口
-		$('#cgyyCombo').combobox('setDataFilter', '2[0-9][0-9]');
-	}else if(gllxdm_old ==  "03"){//肇事肇祸精神病人
-		$('#cgyyCombo').combobox('setDataFilter', '3[0-9][0-9]');
-	}else if(gllxdm_old ==  "08"){//涉枪涉爆重点人员
-		$('#cgyyCombo').combobox('setDataFilter', '4[0-9][0-9]');
-	}else{//手动输入
+	if(xzqh == "210000"){//沈阳
+		if(gllxdm_old ==  "01"){//社区矫正
+			$('#cgyyCombo').combobox('setDataFilter', '1[0-9][0-9]');
+		}else if(gllxdm_old ==  "02"){//重点人口
+			$('#cgyyCombo').combobox('setDataFilter', '2[0-9][0-9]');
+		}else if(gllxdm_old ==  "03"){//肇事肇祸精神病人
+			$('#cgyyCombo').combobox('setDataFilter', '3[0-9][0-9]');
+		}else if(gllxdm_old ==  "08"){//涉枪涉爆重点人员
+			$('#cgyyCombo').combobox('setDataFilter', '4[0-9][0-9]');
+		}else{//手动输入
+			$('#cgyyText').show();
+			$('#cgyyZd').hide();
+		}
+	}else{
 		$('#cgyyText').show();
 		$('#cgyyZd').hide();
 	}
 	
-	
 }
+*/
 
 function changeCgyy(newValue, oldValue){
 	if(newValue == undefined ) return;
