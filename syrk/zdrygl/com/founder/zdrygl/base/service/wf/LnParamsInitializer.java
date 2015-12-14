@@ -1,4 +1,4 @@
-package com.founder.zdrygl.base.service;
+package com.founder.zdrygl.base.service.wf;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -6,47 +6,37 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.founder.framework.base.entity.SessionBean;
-import com.founder.framework.organization.department.bean.OrgOrganization;
-import com.founder.framework.organization.department.service.OrgOrganizationService;
-import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrylxylbdyb;
+import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.base.vo.ZdryZdryzbVO;
-import com.founder.zdrygl.core.inteface.ZdryQueryService;
-import com.founder.zdrygl.core.utils.LcgFlagEnum;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 
-public class WorkFlowParametersInitialService {
+public class LnParamsInitializer implements IfParamInitializer {
 	ZdryConstant zdryConstant;
-	OrgOrganizationService orgOrganizationService;
-	OrgPositionService orgPositionService;
-	ZdryQueryService zdryQueryService;
+	ZdryInfoQueryService zdryQueryService;
 	
-	public WorkFlowParametersInitialService(
-			ZdryConstant zdryConstant, OrgOrganizationService orgOrganizationService,
-			OrgPositionService orgPositionService,
-			ZdryQueryService zdryQueryService) {
+	public LnParamsInitializer() {
 		super();
+	}
+	public LnParamsInitializer( ZdryConstant zdryConstant,ZdryInfoQueryService zdryQueryService) {
 		this.zdryConstant = zdryConstant;
-		this.orgOrganizationService = orgOrganizationService;
-		this.orgPositionService = orgPositionService;
 		this.zdryQueryService = zdryQueryService;
 	}
-
-	/**
-	 * 
-	 * @Title: startLgProcess
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
-	 * @param @param sessionBean
-	 * @param @param zdryVO 设定文件
-	 * @return void 返回类型
-	 * @throws
-	 */
-	public StartProcessInstance initialProcessInstance(
-			SessionBean sessionBean, ZdryVO zdryVO, LcgFlagEnum lcgFlag) {
-		// StartProcessInstance initializes
+	@Override
+	public void setZdryConstant(ZdryConstant zdryConstant) {
+		this.zdryConstant = zdryConstant;
+	}
+	@Override
+	public void setZdryQueryService(ZdryInfoQueryService zdryQueryService) {
+		this.zdryQueryService = zdryQueryService;
+	}
+	@Override
+	public StartProcessInstance initialProcessInstance(SessionBean sessionBean, ZdryVO zdryVO,
+			LcgFlagEnum lcgFlag) {
+		// TODO Auto-generated method stub
 		Map<String, Object> variables = new HashMap<String, Object>();
 		StartProcessInstance spi = new StartProcessInstance();
 		spi.setApplyUserId(sessionBean.getUserId());
@@ -77,14 +67,11 @@ public class WorkFlowParametersInitialService {
 			prepareZl(spi,sessionBean,zdryVO,variables);
 		}else{
 		}
-
 		return spi;
 	}
 
-
 	private void prepareZl(StartProcessInstance spi, SessionBean sessionBean,
 			ZdryVO zdryVO, Map<String, Object> variables) {
-		// TODO Auto-generated method stub
 		String  lrrzrq= sessionBean.getUserOrgCode();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String createTime=formatter.format(new Date());//申请时间
@@ -113,7 +100,6 @@ public class WorkFlowParametersInitialService {
 		spi.setBusinessKey(zdryVO.getZdryZdryzb().getId());
 		spi.setVariables(variables);
 	}
-
 	private void prepareCg(StartProcessInstance spi, SessionBean sessionBean, ZdryVO zdryVO, Map<String, Object> variables) {
 		String zdryxm = zdryVO.getZdryZdryzb().getXm();
 		Zdrylxylbdyb zdrylxylbdyb = new Zdrylxylbdyb();
@@ -136,7 +122,7 @@ public class WorkFlowParametersInitialService {
 		variables.put("zdryName", zdryxm);// 申请意见
 		
 		if (zdryZdryzb.getZdrygllxdm().equals("07")) {// 环保
-			variables.put("sqlx", "涉环保撤管");
+			variables.put("sqlx", "纳入视线撤管");
 			variables.put("splevel", "1");// 设置审批级别，一级审批
 			variables.put("approvalMethod", "shbApproval");
 			variables.put("zdryId", zdryZdryzb.getId());
@@ -152,29 +138,14 @@ public class WorkFlowParametersInitialService {
 																// 审批
 			variables.put("sqlx", "其他关注对象撤管");// 申请类型
 
-			OrgOrganization orgOrganization = orgOrganizationService
-					.queryUpOrgByLevel(sessionBean.getUserOrgCode(), "32");
-			String fsxOrgCode = orgOrganization.getOrgcode();// 得到本名等级为三级，派出所部门code
-			String taskParameter = fsxOrgCode + "_"
-					+ orgPositionService.queryByPosid("SZ").getId().toString(); // 部门code+所长岗位ID
-			variables.put("sz", taskParameter);
-			variables.put("approvalMethod", "szApproval");
-
 			// set parameters of processinstance
 			spi.setProcessKey("szsp");
 			spi.setBusinessKey(zdryZdryzb.getId());
 			spi.setVariables(variables);
 		} else if (zdryZdryzb.getZdrygllxdm().equals("05")) {// 涉公安访
 			variables.put("sqlx", "涉公安访撤管");
-
-			OrgOrganization orgOrganization = orgOrganizationService
-					.queryUpOrgByLevel(sessionBean.getUserOrgCode(), "32");
-			String fsxOrgCode = orgOrganization.getOrgcode();// 得到本名等级为三级，派出所部门code
-			String taskParameter = fsxOrgCode + "_"
-					+ orgPositionService.queryByPosid("SZ").getId().toString(); // 部门code+所长岗位ID
-			variables.put("approvalMethod", "sgafApproval");
-			variables.put("szsp", taskParameter);
-
+			variables.put("sqrOrgCode", sessionBean.getUserOrgCode());
+			variables.put("sqrUpOrgCode", sessionBean.getUserManageOrgCode());
 			// set parameters of processinstance
 			spi.setProcessKey("sgaj_lcg");
 			spi.setBusinessKey(zdryZdryzb.getId());
@@ -182,13 +153,8 @@ public class WorkFlowParametersInitialService {
 		} else // 治安
 
 		if (zdryZdryzb.getZdrygllxdm().equals("01")) {
-			// if ("0104".equals(zdryZb.getZdrylb())) {
 
 			variables.put("sqlx", "社区矫正人员撤管");// 申请类型
-			/*
-			 * processDefinitionService.startProcessInstance(
-			 * sessionBean.getUserId(), "zalcg", zdryZdryzb.getId(), variables);
-			 */
 			// set parameters of processinstance
 			spi.setProcessKey("sqjz");
 			spi.setBusinessKey(zdryZdryzb.getId());
@@ -200,7 +166,6 @@ public class WorkFlowParametersInitialService {
 			}else{
 				variables.put("sqlx", "治安撤管");// 申请类型
 			}
-
 			// set parameters of processinstance
 			spi.setProcessKey("zalcg");
 			spi.setBusinessKey(zdryZdryzb.getId());
@@ -246,29 +211,14 @@ public class WorkFlowParametersInitialService {
 																// 审批
 			variables.put("sqlx", "其他关注对象");// 申请类型
 
-			OrgOrganization orgOrganization = orgOrganizationService
-					.queryUpOrgByLevel(sessionBean.getUserOrgCode(), "32");
-			String fsxOrgCode = orgOrganization.getOrgcode();// 得到本名等级为三级，派出所部门code
-			String taskParameter = fsxOrgCode + "_"
-					+ orgPositionService.queryByPosid("SZ").getId().toString(); // 部门code+所长岗位ID
-			variables.put("sz", taskParameter);
-			variables.put("approvalMethod", "szApproval");
-
 			// set parameters of processinstance
 			spi.setProcessKey("szsp");
 			spi.setBusinessKey(zdryZdryzb.getId());
 			spi.setVariables(variables);
 		} else if (zdryZdryzb.getZdrygllxdm().equals("05")) {// 涉公安访
 			variables.put("sqlx", "涉公安访列管");
-
-			OrgOrganization orgOrganization = orgOrganizationService
-					.queryUpOrgByLevel(sessionBean.getUserOrgCode(), "32");
-			String fsxOrgCode = orgOrganization.getOrgcode();// 得到本名等级为三级，派出所部门code
-			String taskParameter = fsxOrgCode + "_"
-					+ orgPositionService.queryByPosid("SZ").getId().toString(); // 部门code+所长岗位ID
-			variables.put("approvalMethod", "sgafApproval");
-			variables.put("szsp", taskParameter);
-
+			variables.put("sqrOrgCode", sessionBean.getUserOrgCode());
+			variables.put("sqrUpOrgCode", sessionBean.getUserManageOrgCode());
 			// set parameters of processinstance
 			spi.setProcessKey("sgaj_lcg");
 			spi.setBusinessKey(zdryZdryzb.getId());
@@ -276,13 +226,7 @@ public class WorkFlowParametersInitialService {
 		} else // 治安
 
 		if (zdryZdryzb.getZdrygllxdm().equals("01")) {
-			// if ("0104".equals(zdryZb.getZdrylb())) {
-
 			variables.put("sqlx", "社区矫正人员列管");// 申请类型
-			/*
-			 * processDefinitionService.startProcessInstance(
-			 * sessionBean.getUserId(), "zalcg", zdryZdryzb.getId(), variables);
-			 */
 			// set parameters of processinstance
 			spi.setProcessKey("sqjz");
 			spi.setBusinessKey(zdryZdryzb.getId());
@@ -301,13 +245,10 @@ public class WorkFlowParametersInitialService {
 			spi.setVariables(variables);
 		}
 	}
-
 	private void prepareZd(StartProcessInstance spi, SessionBean sessionBean,
 			ZdryVO zdryVO, Map<String, Object> variables) {
-		// TODO Auto-generated method stub
 		ZdryZdryzbVO zdryZdryVo= zdryVO.getZdryZdryzbVO();
 		ZdryZb zb = zdryVO.getZdryZdryzb();
-		//zdryVO.getZdryZdryzb();
 		ZdryZb yzb = (ZdryZb) zdryQueryService.queryById(zdryVO.getZdryZdryzb().getId());
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		variables.put("sqsj",formatter.format(new Date())); //申请时间
@@ -346,7 +287,7 @@ public class WorkFlowParametersInitialService {
 		variables.put("zdrylbdx", zdryVO.getZdrylbdx());
 
 		// set parameters of processinstance
-		spi.setProcessKey("zd");
+		spi.setProcessKey("dl_zd");
 		spi.setBusinessKey(zdryVO.getZdryZdryzb().getId());
 		spi.setVariables(variables);
 	}

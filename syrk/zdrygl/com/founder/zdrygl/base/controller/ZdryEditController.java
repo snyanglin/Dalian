@@ -28,15 +28,15 @@ import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.framework.utils.DateUtils;
 import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.zdrygl.base.model.ZdryZb;
-import com.founder.zdrygl.base.service.WorkFlowParametersInitialService;
 import com.founder.zdrygl.base.service.ZdryEditService;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
+import com.founder.zdrygl.base.service.wf.LcgFlagEnum;
+import com.founder.zdrygl.base.service.wf.WorkFlowParametersInitialService;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.base.vo.ZdrygnVO;
 import com.founder.zdrygl.base.vo.ZdryxxzsVO;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
-import com.founder.zdrygl.core.utils.LcgFlagEnum;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 import com.google.gson.Gson;
 /**
@@ -422,7 +422,7 @@ public class ZdryEditController extends BaseController {
 		try {			
 			//只传入了ID和zdrylb两个字段
 			String zdrygllxdm = zdryZb.getZdryZdryzb().getZdrygllxdm();// 重点人员类型
-			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdryConstant,orgOrganizationService,orgPositionService,zdryQueryService);
+			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdryConstant,zdryQueryService);
 			StartProcessInstance spi = wfpis.initialProcessInstance(sessionBean,zdryZb,LcgFlagEnum.ZL);
 			ZdryService zdryService = zdryFactory.createZdryService(zdrygllxdm, zdryZb.getZdryZdryzb(), zdryZb.getZdrylbdx());
 			//ZdryService zdryService = zdryFactory.createZdryService(zdryZb.getZdrygllxdm(), zdryZb, null);

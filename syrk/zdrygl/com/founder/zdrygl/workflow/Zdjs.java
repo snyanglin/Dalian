@@ -1,5 +1,7 @@
 package com.founder.zdrygl.workflow;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.activiti.engine.delegate.DelegateExecution;
@@ -10,6 +12,8 @@ import com.founder.bzdz.service.DzService;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.syrkgl.service.SyrkSyrkxxzbService;
+import com.founder.workflow.bean.BaseWorkFlowBean;
+import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 
 
 
@@ -27,35 +31,18 @@ import com.founder.syrkgl.service.SyrkSyrkxxzbService;
  */
 @Deprecated
 @Component
-public class Zdjs implements JavaDelegate{
+public class Zdjs extends WorkflowDelegate{
 
-
-	
-	@Resource(name = "orgOrganizationService")
-	private OrgOrganizationService orgOrganizationService;
-	
 	@Resource(name = "orgPositionService")
 	private OrgPositionService orgPositionService;
-	
 
-	@Resource(name = "dzService")
-	private DzService dzService;
-	
-	 
-	@Resource(name = "syrkSyrkxxzbService")
-	private SyrkSyrkxxzbService syrkSyrkxxzbService;
-	
 	@Override
-	public void execute(DelegateExecution arg0) throws Exception {
-				
-		
-
-			String sszrqdm=(String) arg0.getVariable("sszrqdm");
-			String taskParameter=sszrqdm+"_"+orgPositionService.queryByPosid("ZRQMJ").getId().toString()+"_ZDJS";   //责任区部门code+民警岗位ID
-			arg0.setVariableLocal("zrqmj", taskParameter);
-		
-		
-		
+	public void doBusiness(BaseWorkFlowBean arg0) {
+		Map<String,Object> variables = arg0.getProcessVariables();
+		String sszrqdm=(String) variables.get("sszrqdm");
+		String taskParameter=sszrqdm+"_"+orgPositionService.queryByPosid("ZRQMJ").getId().toString()+"_ZDJS";   //责任区部门code+民警岗位ID
+		setLocalVariable("zrqmj", taskParameter);
+	
 	}
 	
 	

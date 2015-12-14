@@ -1,4 +1,4 @@
-package com.founder.zdrygl.workflow;
+package com.founder.zdrygl.workflow.dalian;
 
 import java.util.Map;
 
@@ -37,13 +37,14 @@ import com.founder.zdrygl.core.model.Zdry;
  */
 
 @Component
-public class ZlSuccess extends WorkflowDelegate{
-
+public class DlWorkReject extends WorkflowDelegate {
 	@Autowired
 	public ZdryAbstractFactory zdryFactory;
+
 	@Override
 	public void doBusiness(BaseWorkFlowBean arg0) {
 		Map<String,Object> variables = arg0.getProcessVariables();
+		
 		String zdrylx = (String) variables.get("zdrylx");
 		ZdryZb zdryzb = (ZdryZb) variables.get("zdryzb");
 		Zdry zdrylbdx = (Zdry) variables.get("zdrylbdx");
@@ -52,16 +53,25 @@ public class ZlSuccess extends WorkflowDelegate{
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
 		
+		String sqlxdm=(String) variables.get("sqlxdm");//申请类型
+		/*String zdryId=(String) arg0.getVariable("zdryId");
+		String zdryxm=(String) arg0.getVariable("xm");
+		String ywsqrId=(String) arg0.getVariable("applyUserId");
+		String cghZdryId=(String) arg0.getVariable("cghZdryId");
+		String spyj=(String) arg0.getVariable("spyj");
+		String spr=sessionBean.getUserId();
+		String spbm=sessionBean.getUserOrgCode();*/
 		
-		/*String zdryId = (String) variables.get("zdryId");
-		String xzdrylb = (String) variables.get("xzdrylb");*/
-//		ZdryZdryzb zdryZdryzb =zdryZdryzbService.queryById(zdryId);
-//		zdryZdryzb.setGlzt("2");
-//		zdryZdryzb.setZdrylb(xzdrylb);
-//		zdryZdryzbService.update(zdryZdryzb, sessionBean);
-
-		
-		zdryService.zlSuccess(sessionBean);
+		if(sqlxdm.equals("01")){//列管
+			zdryService.lgFail(sessionBean);
+		}
+		if(sqlxdm.equals("02")){//撤管
+			zdryService.cgFail(sessionBean);
+		}
+		if(sqlxdm.equals("04")){//请假
+			//String qjId=(String) arg0.getVariable("qjId");			
+			//zdryUntil.qjFail(qjId,sessionBean.getUserName(),spr,sessionBean.getRemoteAddr(),spyj);
+		}
 	}
 	
 	

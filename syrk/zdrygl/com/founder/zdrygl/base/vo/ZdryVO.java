@@ -5,6 +5,7 @@ import java.io.Serializable;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.config.SystemConfig;
 import com.founder.zdrygl.base.model.ZdryFzcsfryxxb;
+import com.founder.zdrygl.base.model.ZdryJgdxqxjdjb;
 import com.founder.zdrygl.base.model.ZdryJgdxxxb;
 import com.founder.zdrygl.base.model.ZdryNrsxdxxxb;
 import com.founder.zdrygl.base.model.ZdrySgafzdryxxb;
@@ -44,6 +45,7 @@ public class ZdryVO implements Serializable {
 	ZdrySqjzryxxb zdrySqjzryxxb;//社区矫正
 	ZdrySgafzdryxxb zdrySgafzdryxxb;//涉公安访
 	ZdryNrsxdxxxb zdryNrsxdxxxb;//纳入视线对象
+	ZdryJgdxqxjdjb zdryJgdxqxjdjb;//监管对象请销假
 	
 	String cglxdm;//撤管类型代码
 	String ywsqyy;//业务申请原因（流程用）
@@ -203,6 +205,13 @@ public class ZdryVO implements Serializable {
 	}
 	public void setZdrylbStr(String zdrylbStr) {
 		this.zdrylbStr = zdrylbStr;
+	}
+	
+	public ZdryJgdxqxjdjb getZdryJgdxqxjdjb() {
+		return zdryJgdxqxjdjb;
+	}
+	public void setZdryJgdxqxjdjb(ZdryJgdxqxjdjb zdryJgdxqxjdjb) {
+		this.zdryJgdxqxjdjb = zdryJgdxqxjdjb;
 	}
 	/**
 	 * 

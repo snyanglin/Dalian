@@ -1,5 +1,7 @@
 package com.founder.zdrygl.workflow;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.activiti.engine.delegate.DelegateExecution;
@@ -12,6 +14,8 @@ import org.springframework.web.util.WebUtils;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
+import com.founder.workflow.bean.BaseWorkFlowBean;
+import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
@@ -33,23 +37,23 @@ import com.founder.zdrygl.core.model.Zdry;
  */
 
 @Component
-public class WorkReject implements JavaDelegate{
+public class WorkReject extends WorkflowDelegate {
 	@Autowired
 	public ZdryAbstractFactory zdryFactory;
-	
+
 	@Override
-	public void execute(DelegateExecution arg0) throws Exception {
-		// TODO Auto-generated method stub
-				
-		String zdrylx = (String) arg0.getVariable("zdrylx");
-		ZdryZb zdryzb = (ZdryZb) arg0.getVariable("zdryzb");
-		Zdry zdrylbdx = (Zdry) arg0.getVariable("zdrylbdx");
+	public void doBusiness(BaseWorkFlowBean arg0) {
+		Map<String,Object> variables = arg0.getProcessVariables();
+		
+		String zdrylx = (String) variables.get("zdrylx");
+		ZdryZb zdryzb = (ZdryZb) variables.get("zdryzb");
+		Zdry zdrylbdx = (Zdry) variables.get("zdrylbdx");
 		ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
 		
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
 		
-		String sqlxdm=(String) arg0.getVariable("sqlxdm");//申请类型
+		String sqlxdm=(String) variables.get("sqlxdm");//申请类型
 		/*String zdryId=(String) arg0.getVariable("zdryId");
 		String zdryxm=(String) arg0.getVariable("xm");
 		String ywsqrId=(String) arg0.getVariable("applyUserId");
@@ -68,7 +72,6 @@ public class WorkReject implements JavaDelegate{
 			//String qjId=(String) arg0.getVariable("qjId");			
 			//zdryUntil.qjFail(qjId,sessionBean.getUserName(),spr,sessionBean.getRemoteAddr(),spyj);
 		}
-		
 	}
 	
 	

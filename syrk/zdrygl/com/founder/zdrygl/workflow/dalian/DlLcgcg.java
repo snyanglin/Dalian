@@ -1,11 +1,9 @@
-package com.founder.zdrygl.workflow;
+package com.founder.zdrygl.workflow.dalian;
 
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.activiti.engine.delegate.DelegateExecution;
-import org.activiti.engine.delegate.JavaDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -21,46 +19,51 @@ import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.Zdry;
 
-
-
 /**
  * ****************************************************************************
- * @Package:      [com.founder.zdrygl.workflow.BmjsWorkflow.java]  
- * @ClassName:    [WorkReject]   
- * @Description:  [列撤管流程审批拒绝通用实现类]   
- * @Author:       [he_minxi@founder.com.cn]  
- * @CreateDate:   [2015年8月4日 下午3:14:40]   
- * @UpdateUser:   [Administrator(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateDate:   [2015年8月4日 下午3:14:40，(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
- * @Version:      [v1.0]
+ * 
+ * @Package: [com.founder.zdrygl.workflow.Lcgcg.java]
+ * @ClassName: [Lcgcg]
+ * @Description: [列撤管成功]
+ * @Author: [wei.wen@founder.com.cn]
+ * @CreateDate: [2015年8月14日 下午3:51:29]
+ * @UpdateUser: [wei.wen@founder.com.cn(如多次修改保留历史记录，增加修改记录)]
+ * @UpdateDate: [2015年8月14日 下午3:51:29，(如多次修改保留历史记录，增加修改记录)]
+ * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]
+ * @Version: [v1.0]
  */
-
 @Component
-public class ZlFail extends WorkflowDelegate {
-
+public class DlLcgcg  extends WorkflowDelegate {
 
 	@Autowired
 	public ZdryAbstractFactory zdryFactory;
+
 	@Override
 	public void doBusiness(BaseWorkFlowBean arg0) {
 		Map<String,Object> variables = arg0.getProcessVariables();
+		String sqlxdm = (String) variables.get("sqlxdm");
 		String zdrylx = (String) variables.get("zdrylx");
 		ZdryZb zdryzb = (ZdryZb) variables.get("zdryzb");
 		Zdry zdrylbdx = (Zdry) variables.get("zdrylbdx");
-		zdryzb.setZdrylb( (String) variables.get("yzdrylb"));
 		ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
-		
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
-		
-		//String zdryId = (String) variables.get("zdryId");
-	
-//		ZdryZdryzb zdryZdryzb =zdryZdryzbService.queryById(zdryId);
-//		zdryZdryzb.setGlzt("2");
-//		zdryZdryzbService.update(zdryZdryzb, sessionBean);
-		zdryService.zdFail(sessionBean);
+
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
+				.getRequestAttributes()).getRequest();
+		SessionBean sessionBean = (SessionBean) WebUtils.getSessionAttribute(
+				request, AppConst.USER_SESSION);
+		/*
+		 * String spr = sessionBean.getUserId(); 
+		 * String spbm =sessionBean.getUserOrgCode();
+		 */
+
+		if ("01".equals(sqlxdm)){
+			zdryService.lgSuccess(sessionBean);
+		}else if ("02".equals(sqlxdm))
+			zdryService.cgSuccess(sessionBean);
+		else if ("04".equals(sqlxdm)) {// 请假
+			String qjId = (String) variables.get("qjId");
+			// zdryService.qjSuccess(sessionBean);
+		}
 	}
-	
-	
+
 }

@@ -1,23 +1,16 @@
 package com.founder.zdrygl.workflow;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.activiti.engine.delegate.DelegateExecution;
-import org.activiti.engine.delegate.JavaDelegate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.founder.framework.organization.assign.service.OrgAssignPublic;
-import com.founder.framework.organization.assign.vo.OrgUserInfo;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.position.service.OrgPositionService;
-import com.founder.workflow.service.inteface.JProcessDefinitionService;
+import com.founder.workflow.bean.BaseWorkFlowBean;
+import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 
 /**
  * ****************************************************************************
@@ -32,21 +25,22 @@ import com.founder.workflow.service.inteface.JProcessDefinitionService;
  * @Version:      [v1.0]
  */
 @Component
-public class Shbspdwjs implements JavaDelegate {
+public class Shbspdwjs extends WorkflowDelegate {
 	@Resource(name = "orgOrganizationService")
 	private OrgOrganizationService orgOrganizationService;
 	@Resource
 	private OrgPositionService orgPositionService;
 
 	@Override
-	public void execute(DelegateExecution execution) throws Exception {
-		String zdrylx = (String) execution.getVariable("zdrylx");
+	public void doBusiness(BaseWorkFlowBean arg0) {
+		Map<String,Object> variables = arg0.getProcessVariables();
+		String zdrylx = (String) variables.get("zdrylx");
 		//如果是涉环保重点人员
 		if("07".equals(zdrylx)){
-			String sqrOrgCode = (String) execution.getVariable("sqrOrgCode");
-			String sqrOrgLevel = (String) execution.getVariable("sqrOrgLevel");
-			//String sqrOrgBiztype=(String) execution.getVariable("sqrOrgBiztype");
-			String splevel=(String) execution.getVariable("splevel");
+			String sqrOrgCode = (String) variables.get("sqrOrgCode");
+			String sqrOrgLevel = (String) variables.get("sqrOrgLevel");
+			//String sqrOrgBiztype=(String) variables.get("sqrOrgBiztype");
+			String splevel=(String) variables.get("splevel");
 			OrgOrganization ssOrg =new OrgOrganization();
 			//申请人部门
 			ssOrg =orgOrganizationService.queryByOrgcode(sqrOrgCode);	
@@ -57,7 +51,7 @@ public class Shbspdwjs implements JavaDelegate {
 				//分县局环保大队和市局环保大队申请的，由大队长一级审批
 				if("31".equals(sqrOrgLevel)||"30".equals(sqrOrgLevel)){
 					String ddz=orgPositionService.queryByPosid("DDZ").getId().toString();
-					execution.setVariable("level1spr", ssOrgCode+"_"+ddz);
+					this.setVariable("level1spr", ssOrgCode+"_"+ddz);
 
 				}else if("".equals(sqrOrgLevel)){//省厅环保大队申请的
 					
@@ -71,17 +65,16 @@ public class Shbspdwjs implements JavaDelegate {
 				if("31".equals(sqrOrgLevel)){	
 					String fjz=orgPositionService.queryByPosid("FJZ").getId().toString();
 
-					execution.setVariable("level2spr", upOrg.getOrgcode()+"_"+fjz);					
+					this.setVariable("level2spr", upOrg.getOrgcode()+"_"+fjz);					
 					
 				}else if("30".equals(sqrOrgLevel)){//市局环保大队申请的 由支队长审批
 					String zdz=orgPositionService.queryByPosid("ZDZ").getId().toString();
-					execution.setVariable("level2spr", upOrg.getOrgcode()+"_"+zdz);					
+					this.setVariable("level2spr", upOrg.getOrgcode()+"_"+zdz);					
 				}else if("".equals(sqrOrgLevel)){//省厅环保大队申请的
 					
 				}
 			}			
 		}
-		
 	}
 	
 

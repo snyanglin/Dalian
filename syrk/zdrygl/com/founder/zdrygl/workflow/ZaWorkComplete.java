@@ -1,10 +1,15 @@
 package com.founder.zdrygl.workflow;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
+
+import com.founder.workflow.bean.BaseWorkFlowBean;
+import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 
 
 
@@ -22,17 +27,12 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class ZaWorkComplete implements JavaDelegate{
+public class ZaWorkComplete extends WorkflowDelegate{
 
-	
-	
 	@Override
-	public void execute(DelegateExecution arg0) throws Exception {
-		// TODO Auto-generated method stub
-				
-	
-	
-		//String userId=(String) arg0.getVariable("userId");//重点人员ID
+	public void doBusiness(BaseWorkFlowBean arg0) {
+		Map<String,Object> variables = arg0.getProcessVariables();
+	  //String userId=(String) arg0.getVariable("userId");//重点人员ID
 		
 
 		//HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
