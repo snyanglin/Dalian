@@ -29,7 +29,7 @@
 		    <tr class="dialogTr">
 	    		<td width="20%" class="dialogTd" align="right">现居住地址：</td>
 		    	<td width="80%" class="dialogTd" colspan="3"><input class="easyui-validatebox inputreadonly"  type="text" id="dz_hjdzmlpxz" name="zdryZdryzbVO.dz_hjdzmlpxz" value="${zdryZb.zdryZdryzb.jzd_dzxz}" maxlength="50"  readonly="readonly"
-		    		style="width: 665px;" data-options=""/>
+		    		style="width: 628px;" data-options=""/>
 		    	</td>
 		    </tr>
 		    <tr class="dialogTr">
@@ -76,18 +76,17 @@
 		    <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">转递原因：</td>
 		    	<td width="30%" class="dialogTd" colspan="3">
-		    		<input class="easyui-validatebox" type="text" id="ywfqyy" name="zdryZdryzbVO.ywfqyy" style="width: 665px;" value=""  />
+		    		<input class="easyui-validatebox" type="text" id="ywfqyy" name="zdryZdryzbVO.ywfqyy" style="width: 628px;" value=""  />
 				</td>
 		    </tr>
 		    <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">转递依据：</td>
 		    	<td width="30%" class="dialogTd" colspan="3">
-		    		<input type="file" name="uploadFile" id="uploadFile" style="width:665px;" class="easyui-validatebox" data-options="tipPosition:'left',invalidMessage:'请选择要上传的转递依据'" />
+		    		<input type="file" name="uploadFile" id="uploadFile" style="width:628px;" class="easyui-validatebox" data-options="tipPosition:'left',invalidMessage:'请选择要上传的转递依据'" />
 				</td>
 		    </tr>	
-		    <tr>
-		    	<td><A href="#" onclick="viewWorkflowDialog();">查看流程图</a> </td>
-		    	<td></td>
+		    <tr class="dialogTr">
+		    	<td class="dialogTd" align="center" colspan="2"><a href="#" onclick="viewWorkflowDialog();">查看流程图</a> </td>		    	
 		    </tr>	    
 	    	</table>
 	    </div>

@@ -43,9 +43,7 @@ public class ZdryZdrkService  extends ZdryServiceDecorator{
 	 */
 	@Override
 	protected void lg_(SessionBean sessionBean , Zdry zdrylbdx) {
-		ZdryZdrkxxb zdryZdrkxxb = (ZdryZdrkxxb) zdrylbdx;
-		BaseService.setSaveProperties(zdryZdrkxxb, sessionBean);	
-		zdryZdrkxxbDao.insert(zdryZdrkxxb);
+		insert(sessionBean, zdrylbdx);
 	}
 	
 	@Override
@@ -57,11 +55,7 @@ public class ZdryZdrkService  extends ZdryServiceDecorator{
 
 	@Override
 	protected void cg_(SessionBean sessionBean , Zdry zdrylbdx) {
-		if(zdrylbdx != null){
-			ZdryZdrkxxb zdryZdrkxxb = (ZdryZdrkxxb) zdrylbdx;
-			BaseService.setSaveProperties(zdryZdrkxxb, sessionBean);	
-			zdryZdrkxxbDao.insert(zdryZdrkxxb);
-		}
+		insert(sessionBean, zdrylbdx);
 	}
 	
 	/**
@@ -79,17 +73,30 @@ public class ZdryZdrkService  extends ZdryServiceDecorator{
 		zdryZdrkxxbDao.update(zdry);
 	}
 	
-	/**
-	 * 
-	 * @Title: queryZdryAllInfo_
-	 * @Description: TODO(查询重点人员子表)
-	 * @param @param zdryid
-	 * @return void    返回类型
-	 * @throw
-	 */
-//	@Override
-	public Zdry queryZdryInfo_(String zdryid) {
-//		zdryVO.setZdryZdrk((ZdryZdrkxxb) zdryZdrkxxbDao.queryById(zdryid));
-		return null;
+	@Override
+	protected void update_(SessionBean sessionBean, Zdry zdrylbdx) {
+		ZdryZdrkxxb zdryZdrkxxb = (ZdryZdrkxxb) zdrylbdx;
+		BaseService.setUpdateProperties(zdryZdrkxxb, sessionBean);
+		zdryZdrkxxbDao.update(zdryZdrkxxb);
+	}
+	
+	@Override
+	protected void zd_(SessionBean sessionBean, Zdry zdrylbdx) {
+		insert(sessionBean, zdrylbdx);		
+	}
+
+	@Override
+	protected void zdFail_(SessionBean sessionBean, Zdry zdrylbdx) {
+		ZdryZdrkxxb zdryZdrkxxb = (ZdryZdrkxxb) zdrylbdx;
+		BaseService.setCrossoutProperties(zdryZdrkxxb, sessionBean);
+		zdryZdrkxxbDao.delete(zdryZdrkxxb);
+	}
+	
+	private void insert(SessionBean sessionBean, Zdry zdrylbdx){
+		if(zdrylbdx != null){
+			ZdryZdrkxxb zdryZdrkxxb = (ZdryZdrkxxb) zdrylbdx;
+			BaseService.setSaveProperties(zdryZdrkxxb, sessionBean);	
+			zdryZdrkxxbDao.insert(zdryZdrkxxb);
+		}
 	}
 }

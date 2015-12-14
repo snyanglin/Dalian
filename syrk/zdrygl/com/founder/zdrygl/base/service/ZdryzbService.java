@@ -266,16 +266,19 @@ public class ZdryzbService implements ZdryService {
 	public final void update(SessionBean sessionBean) {
 		updateZdry(sessionBean,zdryzb);
 	}
-	
+	@MethodAnnotation(value = "修改", type = logType.update)
 	@Override
 	public void update(SessionBean sessionBean, ZOBean zdry) {
 		//总表还不确定要修改	
+		updateZdry(sessionBean,(ZdryZb) zdry.getZdryzb());
 	}
 
 
 	private void updateZdry(SessionBean sessionBean,ZdryZb entity){
-		BaseService.setUpdateProperties(entity, sessionBean);
-		zdryZdryZbDao.update(entity);
+		if(entity != null){
+			BaseService.setUpdateProperties(entity, sessionBean);
+			zdryZdryZbDao.update(entity);
+		}
 	}
 	private void deleteZdry(SessionBean sessionBean,ZdryZb entity){
 		BaseService.setCrossoutProperties(entity, sessionBean);

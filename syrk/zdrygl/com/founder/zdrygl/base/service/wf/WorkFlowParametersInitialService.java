@@ -1,7 +1,7 @@
 package com.founder.zdrygl.base.service.wf;
 
 import com.founder.framework.base.entity.SessionBean;
-import com.founder.ldym.util.SystemConfig;
+import com.founder.framework.config.SystemConfig;
 import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.base.vo.ZdryVO;
