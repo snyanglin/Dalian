@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.workflow.bean.StartProcessInstance;
+import com.founder.zdrygl.base.model.ZdryJgdxqxjdjb;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrylxylbdyb;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
@@ -67,9 +68,36 @@ public class DlParamsInitializer implements IfParamInitializer {
 		}else if(lcgFlag.getValue().equals("04")){
 			//转类
 			prepareZl(spi,sessionBean,zdryVO,variables);
+		}else if(lcgFlag.getValue().equals("05")){
+			//请销假
+			prepareQxj(spi,sessionBean,zdryVO,variables);
 		}else{
 		}
 		return spi;
+	}
+
+	private void prepareQxj(StartProcessInstance spi, SessionBean sessionBean,
+			ZdryVO zdryVO, Map<String, Object> variables) {
+		ZdryJgdxqxjdjb zdryJgdxqxjdjb = zdryVO.getZdryJgdxqxjdjb();
+		String lrrzrq = sessionBean.getUserOrgCode();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String createTime = formatter.format(new Date());// 申请时间
+		variables.put("createTime", createTime);
+		variables.put("lrrzrq", lrrzrq);//录入人管辖责任区
+ 		variables.put("zdryId", zdryJgdxqxjdjb.getZdryid()); //重点人员总表Id
+ 		
+ 		variables.put("xm", zdryVO.getXm());//请假人员姓名
+		variables.put("zjhm", zdryVO.getZjhm());//证件号码
+		variables.put("sqlx", "监管对象请假");//申请类型	  			
+	    variables.put("sqyj", zdryVO.getYwsqyy());//申请意见		
+		variables.put("sqlxdm", "05");
+		variables.put("approvalMethod", "szApproval");
+		variables.put("sqyj","监管对象" + zdryVO.getXm()+"请假");
+		// set parameters of processinstance
+		spi.setProcessKey("dl_jgdxqj");
+		spi.setBusinessKey(zdryVO.getZdryZdryzb().getId());
+		spi.setVariables(variables);
+
 	}
 
 	private void prepareZl(StartProcessInstance spi, SessionBean sessionBean,
@@ -79,7 +107,7 @@ public class DlParamsInitializer implements IfParamInitializer {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String createTime=formatter.format(new Date());//申请时间
 		variables.put("createTime", createTime);
-		variables.put("zdryzb", zdryVO.getZdryZdryzb());
+		//variables.put("zdryzb", zdryVO.getZdryZdryzb());
 		variables.put("lrrzrq", lrrzrq);//录入人管辖责任区
  		variables.put("zdryId", zdryVO.getZdryZdryzb().getId()); //重点人员总表Id
 		variables.put("zdryName", zdryVO.getXm());

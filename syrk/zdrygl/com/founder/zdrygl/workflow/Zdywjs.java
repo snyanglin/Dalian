@@ -266,5 +266,16 @@ public class Zdywjs extends WorkflowDelegate {
 		System.out.println("### 通知原辖区社区民警");
 		
 	}
-	
+	/**
+	 * 
+	 * @Title: notifyCjry
+	 * @Description: 通知共同领导裁决
+	 * @param     设定文件
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public void notifyCjry(){
+		System.out.println("### 通知共同领导裁决人员");
+		
+	}
 }

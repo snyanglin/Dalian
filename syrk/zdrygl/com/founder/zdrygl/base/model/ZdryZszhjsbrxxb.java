@@ -29,6 +29,14 @@ public class ZdryZszhjsbrxxb extends ZdryZb implements Serializable ,Zdry{
 	private String jyaq;
 	@FieldDesc("备注")
 	private String bz;
+	@FieldDesc("危险性评估登记") 
+	private String wxxpgdj;
+	@FieldDesc("肇事时间") 
+	private String zssj;
+	@FieldDesc("肇事地点") 
+	private String zsdd;
+	@FieldDesc("记录人") 
+	private String jlr;
 
 	public String getId() {
 		return id;
@@ -102,4 +110,37 @@ public class ZdryZszhjsbrxxb extends ZdryZb implements Serializable ,Zdry{
 		this.bz = bz;
 	}
 
+	public String getWxxpgdj() {
+		return wxxpgdj;
+	}
+
+	public void setWxxpgdj(String wxxpgdj) {
+		this.wxxpgdj = wxxpgdj;
+	}
+
+	public String getZssj() {
+		return zssj;
+	}
+
+	public void setZssj(String zssj) {
+		this.zssj = zssj;
+	}
+
+	public String getZsdd() {
+		return zsdd;
+	}
+
+	public void setZsdd(String zsdd) {
+		this.zsdd = zsdd;
+	}
+
+	public String getJlr() {
+		return jlr;
+	}
+
+	public void setJlr(String jlr) {
+		this.jlr = jlr;
+	}
+
+	
 }

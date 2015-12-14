@@ -12,7 +12,7 @@
 	
 	<select id="queryViewByMap" parameterClass="Map" resultClass="zdryZszhjsbrxxb">
 		<![CDATA[ 
-			select t.ID , t.JSBLBDM,t.SFYZSZSDM,t.JSBCY,t.SFCJSLCJZDM,t.JDJG,t.ZJQDSJ, t.JYAQ,  t1.ZDRYLB as BZ
+			select t.ID , t.JSBLBDM,t.SFYZSZSDM,t.JSBCY,t.SFCJSLCJZDM,t.JDJG,t.ZJQDSJ, t.JYAQ, t.WXXPGDJ,t.ZSSJ,t.ZSDD,t.JLR, t1.ZDRYLB as BZ
 			from ZDRY_ZSZHJSBRXXB t, ZDRY_ZDRYZB_NEW t1 					
 			where t.ID = #id#  and t.id=t1.id and t.XT_ZXBZ = '0' and t1.xt_zxbz='0'			
   		]]>
@@ -20,7 +20,7 @@
 	
 	<select id="queryViewByMap210200" parameterClass="Map" resultClass="zdryZszhjsbrxxb">
 		<![CDATA[ 
-			select t.ID , t.JSBLBDM,t.SFYZSZSDM,t.JSBCY,t.SFCJSLCJZDM,t.JDJG,t.ZJQDSJ, t.JYAQ,  t1.ZDRYGLLXDM as BZ
+			select t.ID , t.JSBLBDM,t.SFYZSZSDM,t.JSBCY,t.SFCJSLCJZDM,t.JDJG,t.ZJQDSJ, t.JYAQ, t.WXXPGDJ,t.ZSSJ,t.ZSDD,t.JLR,  t1.ZDRYGLLXDM as BZ
 			from ZDRY_ZSZHJSBRXXB t, ZDRY_ZDRYZB_NEW t1 					
 			where t.ID = #id#  and t.id=t1.id and t.XT_ZXBZ = '0' and t1.xt_zxbz='0'			
   		]]>
@@ -28,8 +28,8 @@
 
 	<!-- 新增 -->
 	<insert id="save" parameterClass="zdryZszhjsbrxxb">
-		<![CDATA[ insert into ZDRY_ZSZHJSBRXXB (ID,JSBLBDM,SFYZSZSDM,JSBCY,SFCJSLCJZDM,JDJG,ZJQDSJ,JYAQ,BZ,]]><include refid="insertXtzd"/>)
-		<![CDATA[ values (#id#,#jsblbdm#,#sfyzszsdm#,#jsbcy#,#sfcjslcjzdm#,#jdjg#,#zjqdsj#,#jyaq#,#bz#,]]>
+		<![CDATA[ insert into ZDRY_ZSZHJSBRXXB (ID,JSBLBDM,SFYZSZSDM,JSBCY,SFCJSLCJZDM,JDJG,ZJQDSJ,JYAQ,BZ, WXXPGDJ,ZSSJ,ZSDD,JLR,]]><include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#,#jsblbdm#,#sfyzszsdm#,#jsbcy#,#sfcjslcjzdm#,#jdjg#,#zjqdsj#,#jyaq#,#bz#,#wxxpgdj#,#zssj#,#zsdd#,#jlr#,]]>
 			<include refid="insertXtzdVal"/>)
 	</insert>
 	
@@ -44,7 +44,11 @@
 			 <isNotNull prepend="," property="jdjg"><![CDATA[ JDJG=#jdjg# ]]></isNotNull>
 			 <isNotNull prepend="," property="zjqdsj"><![CDATA[ ZJQDSJ=#zjqdsj# ]]></isNotNull>
 			 <isNotNull prepend="," property="jyaq"><![CDATA[ JYAQ=#jyaq# ]]></isNotNull>
-			 <isNotNull prepend="," property="bz"><![CDATA[ BZ=#bz# ]]></isNotNull>,
+			 <isNotNull prepend="," property="bz"><![CDATA[ BZ=#bz# ]]></isNotNull>
+			 <isNotNull prepend="," property="wxxpgdj"><![CDATA[ WXXPGDJ = #wxxpgdj#]]></isNotNull>
+			<isNotNull prepend="," property="zssj"><![CDATA[ ZSSJ = #zssj#]]></isNotNull>
+			<isNotNull prepend="," property="zsdd"><![CDATA[ ZSDD = #zsdd#]]></isNotNull>
+			<isNotNull prepend="," property="jlr"><![CDATA[ JLR = #jlr#]]></isNotNull>,
 			<include refid="updateXtzd"/>				
 		</dynamic>
 		<![CDATA[ where ID = #id#]]>	

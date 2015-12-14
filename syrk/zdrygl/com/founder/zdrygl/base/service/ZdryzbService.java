@@ -15,6 +15,8 @@ import com.founder.framework.annotation.ParaAnnotation;
 import com.founder.framework.annotation.TypeAnnotation;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
+import com.founder.framework.components.AppConst;
+import com.founder.framework.config.SystemConfig;
 import com.founder.framework.utils.UUID;
 import com.founder.syrkgl.bean.RyRyjbxxb;
 import com.founder.syrkgl.service.RyRyjbxxbService;
@@ -195,7 +197,9 @@ public class ZdryzbService implements ZdryService {
 	@MethodAnnotation(value = "修改", type = logType.update)
 	@Override
 	public final void update(SessionBean sessionBean) {
-		//总表还不确定要修改	
+		if("210200".equals(SystemConfig.getString(AppConst.XZQH))){//大连
+			updateZdry(sessionBean,zdryzb);
+		}
 	}
 
 	private void updateZdry(SessionBean sessionBean,ZdryZb entity){

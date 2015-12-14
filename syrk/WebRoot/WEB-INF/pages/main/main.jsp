@@ -87,7 +87,22 @@ OrgRightPublic orgRightPublic = new OrgRightPublic();
 
 <script type="text/javascript" src="<%=contextPath%>/common/websocket/jWebSocket.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/common/websocket/jwsMosPlugIn.js"></script>
+<script type="text/javascript">
+	//接收消息
+	var topWindow = new Messenger("topWindow",'Founder');
+	topWindow.listen(
+			function(msg){
+				if(msg == "relogin"){
+					topMessager.alert(MESSAGER_TITLE, '用户操作超时，请重新登录！', 'error', function() {
+						window.top.location.href = contextPath + "/index.jsp";
+					});
+				}
+				
+			}
 
+	);
+	</script>
+	
 <HTML>
 <HEAD>
 <TITLE></TITLE>

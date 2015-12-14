@@ -13,13 +13,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.founder.framework.base.service.BaseService;
-import com.founder.framework.components.AppConst;
-import com.founder.framework.config.SystemConfig;
 import com.founder.service.attachment.bean.ZpfjFjxxb;
 import com.founder.service.attachment.dao.ZpfjFjxxbDao;
 import com.founder.zdrygl.base.dao.ZdryEditDao;
 import com.founder.zdrygl.base.dao.ZdryFzcsfryxxbDao;
 import com.founder.zdrygl.base.dao.ZdryJgdxqxjdjbDao;
+import com.founder.zdrygl.base.dao.ZdryJgdxxxbDao;
 import com.founder.zdrygl.base.dao.ZdryJkbjllxxbDao;
 import com.founder.zdrygl.base.dao.ZdryNrsxdxxxbDao;
 import com.founder.zdrygl.base.dao.ZdryPsjdbDao;
@@ -29,7 +28,6 @@ import com.founder.zdrygl.base.dao.ZdrySqjzryxxbDao;
 import com.founder.zdrygl.base.dao.ZdrySqsbzdryxxbDao;
 import com.founder.zdrygl.base.dao.ZdryZdrkxxbDao;
 import com.founder.zdrygl.base.dao.ZdryZszhjsbrxxbDao;
-import com.founder.zdrygl.base.dao.ZdryJgdxxxbDao;
 import com.founder.zdrygl.base.model.ZdryFzcsfryxxb;
 import com.founder.zdrygl.base.model.ZdryJgdxqxjdjb;
 import com.founder.zdrygl.base.model.ZdryJgdxxxb;
@@ -130,7 +128,7 @@ public class ZdryEditService extends BaseService {
 			map.remove("dlbh");
 			map.put("zdryid",zdrkMap.get("zdryid"));
 			map.put("isEdit",zdrkMap.get("isEdit"));
-			map.put("zdrylx",SystemConfig.getString(AppConst.XZQH)+"_"+(String)zdrkMap.get("zdrylx"));//由于各个区域的重点人员类型代码不一样，所以用区域代码+重点人员管理类型代码 来区分
+			map.put("zdrylx",zdrkMap.get("zdrylx"));//由于各个区域的重点人员类型代码不一样，所以用区域代码+重点人员管理类型代码 来区分
 			map.put("gxzrq",zdrkMap.get("GXZRQ"));			
 			map.put("xxdxlxdm","1");
 			
@@ -333,7 +331,7 @@ public class ZdryEditService extends BaseService {
 		return zdryPsjdbDao.queryViewList(map);
 	}
 	
-	public ZdryNrsxdxxxb nrsx_query(Map<String, Object> map){
+	public ZdryNrsxdxxxb nrsxdxxxb_query(Map<String, Object> map){
 		ZdryNrsxdxxxb entity = (ZdryNrsxdxxxb)zdryNrsxdxxxbDao.queryViewByMap(map);
 		entity.setBz(zdryConstant.zdryDict().get(entity.getBz()));
 		return entity;

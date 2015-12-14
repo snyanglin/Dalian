@@ -472,7 +472,9 @@ public class ZdryZdryzbControl extends BaseController {
 			// start process
 			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdryConstant,zdryQueryService);
 			StartProcessInstance spi = wfpis.initialProcessInstance(sessionBean, zdryVO,LcgFlagEnum.CG);
-			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(), spi.getVariables());
+			if(spi.isHasWorkflow()){
+				zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(),spi.getVariables());
+			}
 			zdryService.cg(sessionBean);
 
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
