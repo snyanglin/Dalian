@@ -1,4 +1,4 @@
-﻿package com.founder.xjpt.easymap.Dao;
+package com.founder.xjpt.easymap.Dao;
 
 import com.founder.xjpt.easymap.bean.SsyjBean;
 import com.founder.xjpt.easymap.conn.DBConnection;
