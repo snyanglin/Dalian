@@ -19,6 +19,18 @@ import com.founder.zdrygl.base.model.ZdryJkbjllxxb;
 import com.founder.zdrygl.base.service.ZdryJkbjllxxbService;
 import com.google.gson.Gson;
 
+/**
+ * ****************************************************************************
+ * @Package:      [com.founder.zdrygl.base.controller.ZdryJkbjllxxbController.java]  
+ * @ClassName:    [ZdryJkbjllxxbController]   
+ * @Description:  [监控帮教力量]   
+ * @Author:       [zhang.hai@founder.com.cn]  
+ * @CreateDate:   [2015年12月15日 下午3:49:56]   
+ * @UpdateUser:   [ZhangHai(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年12月15日 下午3:49:56，(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
+ * @Version:      [v1.0]
+ */
 @Controller
 @RequestMapping(value = "zdryJkbjllxxb")
 public class ZdryJkbjllxxbController extends BaseController {

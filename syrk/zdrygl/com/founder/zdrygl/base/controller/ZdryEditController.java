@@ -443,6 +443,15 @@ public class ZdryEditController extends BaseController {
 		return mv;
 	}
 	
+	/**
+	 * 
+	 * @Title: fjEdit
+	 * @Description: TODO(附件编辑页面，使用的是整个系统公用的附件页面)
+	 * @param @param zdryid
+	 * @param @return    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throw
+	 */
 	@RequestMapping(value = "/fjEdit", method = RequestMethod.GET)
 	public ModelAndView fjEdit(String zdryid) {
 		ModelAndView mv = new ModelAndView("zpfj/fjEdit");

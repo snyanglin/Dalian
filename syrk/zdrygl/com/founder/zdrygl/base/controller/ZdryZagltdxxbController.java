@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.founder.framework.annotation.RestfulAnnotation;
@@ -19,12 +17,23 @@ import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
-import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
 import com.founder.zdrygl.base.model.ZdryZagltdxxb;
 import com.founder.zdrygl.base.service.ZdryZagltdxxbService;
 import com.google.gson.Gson;
 
+/**
+ * ****************************************************************************
+ * @Package:      [com.founder.zdrygl.base.controller.ZdryZagltdxxbController.java]  
+ * @ClassName:    [ZdryZagltdxxbController]   
+ * @Description:  [复制-大连-作案规律]   
+ * @Author:       [zhang.hai@founder.com.cn]  
+ * @CreateDate:   [2015年12月15日 下午3:48:29]   
+ * @UpdateUser:   [ZhangHai(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年12月15日 下午3:48:29，(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
+ * @Version:      [v1.0]
+ */
 @Controller
 @RequestMapping(value = "zdryZagltdxxb")
 public class ZdryZagltdxxbController extends BaseController {
