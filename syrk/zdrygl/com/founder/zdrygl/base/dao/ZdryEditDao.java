@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
 import com.founder.zdrygl.base.vo.ZdrygnVO;
+import com.founder.zdrygl.base.vo.ZdrylgxxVO;
 import com.founder.zdrygl.base.vo.ZdryxxzsVO;
 
 /**
@@ -70,6 +71,10 @@ public class ZdryEditDao extends BaseDaoImpl {
 		} else {
 			return 0;
 		}
+	}
+
+	public List<ZdrylgxxVO> queryLgxxByZdryid(Map<String, Object> map) {
+		return queryForList("ZdryEdit.queryLgxxByZdryid", map.get("zdryid"));
 	}
 
 }

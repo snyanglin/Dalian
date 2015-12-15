@@ -450,4 +450,25 @@ public class ZdryEditController extends BaseController {
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
 	}
+	
+	@RequestMapping(value = "/fjEdit", method = RequestMethod.GET)
+	public ModelAndView fjEdit(String zdryid) {
+		ModelAndView mv = new ModelAndView("zpfj/fjEdit");
+		mv.addObject("lybm", "ZDRY_ZDRYZB");
+		mv.addObject("lyid", zdryid);
+		mv.addObject("lyms", "重点人员-附件");
+		mv.addObject("fileType", "");
+		mv.addObject("fileOnly", 0);
+		return mv;
+	}
+	
+	/*
+	@RequestMapping(value = "/query", method = RequestMethod.POST)
+	public @ResponseBody List<ZpfjFjxxb> query(String ryid){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", ryid);
+		List<ZpfjFjxxb> fjxx = zdryEditService.fjxx_query(map);
+		return fjxx;
+	}
+	*/
 }

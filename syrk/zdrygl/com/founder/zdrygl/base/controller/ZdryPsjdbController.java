@@ -38,10 +38,10 @@ public class ZdryPsjdbController extends BaseController {
 	 * @throws
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public ModelAndView add(String id) {
+	public ModelAndView add(String zdryid) {
 		ModelAndView mv = new ModelAndView("zdrygl/edit/zdryPsjdb");
 		ZdryPsjdb entity = new ZdryPsjdb();
-		entity.setZdryid(id);
+		entity.setZdryid(zdryid);
 		mv.addObject("entity", entity);
 		return mv;
 	}

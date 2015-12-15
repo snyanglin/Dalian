@@ -37,10 +37,10 @@ public class ZdryJkbjllxxbController extends BaseController {
 	 * @throws
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public ModelAndView add(String id) {
+	public ModelAndView add(String zdryid) {
 		ModelAndView mv = new ModelAndView("zdrygl/edit/zdryJkbjllxxb");
 		ZdryJkbjllxxb entity = new ZdryJkbjllxxb();
-		entity.setZdryid(id);
+		entity.setZdryid(zdryid);
 		mv.addObject("entity", entity);
 		return mv;
 	}
@@ -93,8 +93,7 @@ public class ZdryJkbjllxxbController extends BaseController {
 	 * @throws
 	 */
 	@RestfulAnnotation(valiField = "id,zdryid,jkbjlxdm,jkbjry_ybbjr_rygx,jkbjry_gmsfhm,jkbjry_xm", serverId = "3")
-	@RequestMapping(value = "/{id}", method = { RequestMethod.POST,
-			RequestMethod.PUT })
+	@RequestMapping(value = "/{id}", method = { RequestMethod.POST,RequestMethod.GET })
 	public ModelAndView update(ZdryJkbjllxxb entity, SessionBean sessionBean) {
 		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
 		Map<String, Object> map = new HashMap<String, Object>();
