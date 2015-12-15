@@ -23,8 +23,6 @@ import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
-import com.founder.framework.organization.department.service.OrgOrganizationService;
-import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.framework.utils.DateUtils;
 import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.zdrygl.base.model.ZdryZb;
@@ -70,13 +68,7 @@ public class ZdryEditController extends BaseController {
 	
 	@Autowired
 	private ZdryRuleService zdryRuleService;
-	
-	@Resource(name = "orgOrganizationService")
-	private OrgOrganizationService orgOrganizationService;
 
-	@Resource(name = "orgPositionService")
-	private OrgPositionService orgPositionService;
-	
 	/**
 	 * 
 	 * @Title: queryRyzsxx
