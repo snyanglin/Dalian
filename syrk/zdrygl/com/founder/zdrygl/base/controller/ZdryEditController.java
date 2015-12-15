@@ -461,14 +461,4 @@ public class ZdryEditController extends BaseController {
 		mv.addObject("fileOnly", 0);
 		return mv;
 	}
-	
-	/*
-	@RequestMapping(value = "/query", method = RequestMethod.POST)
-	public @ResponseBody List<ZpfjFjxxb> query(String ryid){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", ryid);
-		List<ZpfjFjxxb> fjxx = zdryEditService.fjxx_query(map);
-		return fjxx;
-	}
-	*/
 }

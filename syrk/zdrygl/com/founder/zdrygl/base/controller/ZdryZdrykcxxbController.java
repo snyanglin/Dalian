@@ -36,40 +36,6 @@ public class ZdryZdrykcxxbController extends BaseController {
 	private ZdryZdrykcxxbService zdryZdrykcxxbService;
 
 	/**
-	 * @Title: query
-	 * @Description: TODO(查询列表页面)
-	 * @param @return 设定文件
-	 * @return ModelAndView 返回类型
-	 * @throws
-	 */
-	@RequestMapping(value = "/query", method = RequestMethod.GET)
-	public ModelAndView query() {
-		ModelAndView mv = new ModelAndView("zdrygl/edit/zdryZdrykcxxbQuery");
-		return mv;
-	}
-
-	/**
-	 * @Title: queryList
-	 * @Description: TODO(查询列表数据)
-	 * @param @param page
-	 * @param @param rows
-	 * @param @param entity
-	 * @param @param sessionBean
-	 * @param @return 设定文件
-	 * @return EasyUIPage 返回类型
-	 * @throws
-	 */
-	@RequestMapping(value = "/queryList", method = RequestMethod.POST)
-	public @ResponseBody
-	EasyUIPage queryList(EasyUIPage page,
-			@RequestParam(value = "rows", required = false) Integer rows,
-			ZdryZdrykcxxb entity, SessionBean sessionBean) {
-		page.setPagePara(rows);
-		sessionBean = getSessionBean(sessionBean);
-		return zdryZdrykcxxbService.queryList(page, entity);
-	}
-
-	/**
 	 * @Title: add
 	 * @Description: TODO(新增页面)
 	 * @param @param zdryid
@@ -181,35 +147,6 @@ public class ZdryZdrykcxxbController extends BaseController {
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));
 		return mv;
-	}
-
-	/**
-	 * @Title: delete
-	 * @Description: TODO(注销保存)
-	 * @param @param entity
-	 * @param @param sessionBean
-	 * @param @return 设定文件
-	 * @return ModelAndView 返回类型
-	 * @throws
-	 */
-	@RestfulAnnotation(valiField = "id", serverId = "3")
-	@RequestMapping(value = "/{id}", method = { RequestMethod.DELETE })
-	public ModelAndView delete(ZdryZdrykcxxb entity, SessionBean sessionBean) {
-		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
-		Map<String, Object> map = new HashMap<String, Object>();
-		sessionBean = getSessionBean(sessionBean);
-		try {
-			zdryZdrykcxxbService.delete(entity, sessionBean);
-			map.put(AppConst.STATUS, AppConst.SUCCESS);
-			map.put(AppConst.MESSAGES, getDeleteSuccess());
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage(), e);
-			map.put(AppConst.STATUS, AppConst.FAIL);
-			map.put(AppConst.MESSAGES, getDeleteFail());
-		}
-		mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));
-		return mv;
-	}
+	}	
 
 }
