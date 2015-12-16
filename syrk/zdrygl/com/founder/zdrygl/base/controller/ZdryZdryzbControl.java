@@ -368,12 +368,44 @@ public class ZdryZdryzbControl extends BaseController {
 	 * @throw
 	 */
 	@RequestMapping(value = "/queryklglx", method = RequestMethod.POST)
-	public @ResponseBody String queryklglx(String ylglxStr) {
+	public @ResponseBody String queryklglx(String ylglxStr,String syrkid) {
 		String klgStr;
 		try {
 			klgStr = zdryRuleService.getKlglx(ylglxStr);
 			if ("".equals(klgStr)) {// 没有可列管的类型，不能返回“”，此时应该没有匹配的选项
 				klgStr = "999999";
+			}else{//有可同时列管的类型
+				/*大连需求：同一辖区内同一个监督部门管理的重点人员管理类型间不允许重复列管*/
+				if("210200".equals(SystemConfig.getString(AppConst.XZQH))){//大连
+					List zdryList = zdryQueryService.queryListBySyrkId(syrkid);
+					ZdryZb zdryzb;
+					Map jgbmMap=null;//所有的重点人员监管部门对应Map
+					Map ylgJjgbmMap=null;//已列管类型的监管部门
+					SessionBean sessionBean = getSessionBean();
+					String glbm=sessionBean.getUserOrgCode();
+					for(int i=0;i<zdryList.size();i++){//循环获取已列管的类型所在的监管部门Map
+						zdryzb=(ZdryZb) zdryList.get(i);
+						if(glbm.equals(zdryzb.getGlbm())){//同一辖区内
+							if(jgbmMap==null)
+								jgbmMap=zdryRuleService.getZdryLxJgbmMap();
+							if(jgbmMap==null){
+								throw new RuntimeException("获取重点人员监管部门失败，请检查规则平台");
+							}
+							if(ylgJjgbmMap==null) ylgJjgbmMap=new HashMap();
+							ylgJjgbmMap.put(jgbmMap.get(zdryzb.getZdrygllxdm()),true);//已列管的监管部门
+						}
+					}
+					
+					if(ylgJjgbmMap!=null){//有已列管类型的监管部门
+						String klgAry[]=klgStr.split("\\|");
+						for(int index=0;index<klgAry.length;index++){//循环可列管的类型
+							if(ylgJjgbmMap.get(jgbmMap.get(klgAry[index]))!=null){//已列管的有这个部门，可列管的也有这个部门，此时应该删除这个克列管的类型
+								klgStr=klgStr.replace(klgAry[index], "999999");
+							}
+						}
+					}
+					
+				}
 			}
 			return klgStr;
 		} catch (Exception e) {			

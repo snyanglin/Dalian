@@ -252,7 +252,7 @@ function queryYlglx(ryid,syrkid){
 				var resAry=data.split("/");
 				$("#ylglxTr").show();
 				$("#ylglx").text(resAry[0]);
-				queryKlglx(resAry[1]);//查询可列管类型				
+				queryKlglx(resAry[1],syrkid);//查询可列管类型				
 			}else{
 				$("#ylglxTr").hide();
 				$("#zdrygllxdm").combobox("setDataFilter", "");
@@ -266,12 +266,12 @@ function queryYlglx(ryid,syrkid){
 }
 
 //查询可列管类型
-function queryKlglx(ylglxStr){
+function queryKlglx(ylglxStr,syrkid){
 	$.ajax({
 		type: "POST",
 		url: contextPath + "/zdryzb/queryklglx",
 		dataType: "json",
-		data:"ylglxStr=" + ylglxStr,
+		data:"ylglxStr=" + ylglxStr+"&syrkid="+syrkid,
 		success: function(data) {
 			if (data) {								
 				$("#zdrygllxdm").combobox("setDataFilter", data);	
