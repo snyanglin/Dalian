@@ -1,4 +1,4 @@
-﻿package com.founder.xjpt.easymap.Dao;
+package com.founder.xjpt.easymap.Dao;
 
 //import com.founder.noreas.authorityManager.AuthorityManagerUtils;
 //

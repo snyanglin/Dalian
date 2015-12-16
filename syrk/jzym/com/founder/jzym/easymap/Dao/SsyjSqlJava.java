@@ -1,4 +1,4 @@
-﻿package com.founder.jzym.easymap.Dao;
+package com.founder.jzym.easymap.Dao;
 
 import com.founder.jzym.easymap.bean.SsyjBean;
 import com.founder.jzym.easymap.conn.DBConnection;

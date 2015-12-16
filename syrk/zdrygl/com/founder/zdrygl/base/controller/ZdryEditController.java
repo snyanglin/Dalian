@@ -23,8 +23,6 @@ import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
-import com.founder.framework.organization.department.service.OrgOrganizationService;
-import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.framework.utils.DateUtils;
 import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.zdrygl.base.model.ZdryZb;
@@ -70,13 +68,7 @@ public class ZdryEditController extends BaseController {
 	
 	@Autowired
 	private ZdryRuleService zdryRuleService;
-	
-	@Resource(name = "orgOrganizationService")
-	private OrgOrganizationService orgOrganizationService;
 
-	@Resource(name = "orgPositionService")
-	private OrgPositionService orgPositionService;
-	
 	/**
 	 * 
 	 * @Title: queryRyzsxx
@@ -448,6 +440,26 @@ public class ZdryEditController extends BaseController {
 			model.put(AppConst.MESSAGES, getUpdateFail());
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
+		return mv;
+	}
+	
+	/**
+	 * 
+	 * @Title: fjEdit
+	 * @Description: TODO(附件编辑页面，使用的是整个系统公用的附件页面)
+	 * @param @param zdryid
+	 * @param @return    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throw
+	 */
+	@RequestMapping(value = "/fjEdit", method = RequestMethod.GET)
+	public ModelAndView fjEdit(String zdryid) {
+		ModelAndView mv = new ModelAndView("zpfj/fjEdit");
+		mv.addObject("lybm", "ZDRY_ZDRYZB");
+		mv.addObject("lyid", zdryid);
+		mv.addObject("lyms", "重点人员-附件");
+		mv.addObject("fileType", "");
+		mv.addObject("fileOnly", 0);
 		return mv;
 	}
 }

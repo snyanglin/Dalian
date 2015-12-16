@@ -1,4 +1,4 @@
-﻿/**********************************************************************   
+/**********************************************************************   
  * <p>文件名：Dateutil.java </p>
  * <p>文件描述：日期处理类
  * @project_name：syrk
@@ -119,8 +119,7 @@ public class Dateutil {
 
 	/**
 	 * 取得当前日期所在周的第一天
-	 * 
-	 * @param date
+	 *
 	 * @return
 	 */
 	public static Date getFirstDayOfWeek() {
@@ -133,8 +132,7 @@ public class Dateutil {
 
 	/**
 	 * 取得当前日期所在周的最后一天
-	 * 
-	 * @param date
+	 *
 	 * @return
 	 */
 	public static Date getLastDayOfWeek() {

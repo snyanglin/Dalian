@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZdryZagltdxxb">
+	
+	<typeAlias alias="zdryZagltdxxb" type="com.founder.zdrygl.base.model.ZdryZagltdxxb" />
+	
+	<!-- 查询列表 -->
+	<select id="queryCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(*) from ZDRY_ZAGLTDXXB t where XT_ZXBZ = '0' and ZDRYID = #zdryZagltdxxb.zdryid# ]]>
+		<isNotEmpty prepend="and" property="zdryZagltdxxb.ajlbdm">
+			AJLBDM = #zdryZagltdxxb.ajlbdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZagltdxxb.xzdxdm">
+			XZDXDM = #zdryZagltdxxb.xzdxdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZagltdxxb.xzwpdm">
+			XZWPDM = #zdryZagltdxxb.xzwpdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZagltdxxb.zasddm">
+			ZASDDM = #zdryZagltdxxb.zasddm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZagltdxxb.zagjdm">
+			ZAGJDM = #zdryZagltdxxb.zagjdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZagltdxxb.xyrxzfsdm">
+			XYRXZFSDM = #zdryZagltdxxb.xyrxzfsdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZagltdxxb.zatddm">
+			ZATDDM = #zdryZagltdxxb.zatddm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZagltdxxb.xzsjdm">
+			XZSJDM = #zdryZagltdxxb.xzsjdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="zdryZagltdxxb.xzcsdm">
+			XZCSDM = #zdryZagltdxxb.xzcsdm#
+		</isNotEmpty>
+	</select>
+	<select id="queryList" parameterClass="Map" resultClass="zdryZagltdxxb">
+		<![CDATA[ select * from ( select rownum r ,m.* from (
+			select * from ZDRY_ZAGLTDXXB t where t.XT_ZXBZ = '0' and ZDRYID = #zdryZagltdxxb.zdryid# ]]>
+			<isNotEmpty prepend="and" property="zdryZagltdxxb.ajlbdm">
+				AJLBDM = #zdryZagltdxxb.ajlbdm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZagltdxxb.xzdxdm">
+				XZDXDM = #zdryZagltdxxb.xzdxdm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZagltdxxb.xzwpdm">
+				XZWPDM = #zdryZagltdxxb.xzwpdm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZagltdxxb.zasddm">
+				ZASDDM = #zdryZagltdxxb.zasddm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZagltdxxb.zagjdm">
+				ZAGJDM = #zdryZagltdxxb.zagjdm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZagltdxxb.xyrxzfsdm">
+				XYRXZFSDM = #zdryZagltdxxb.xyrxzfsdm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZagltdxxb.zatddm">
+				ZATDDM = #zdryZagltdxxb.zatddm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZagltdxxb.xzsjdm">
+				XZSJDM = #zdryZagltdxxb.xzsjdm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zdryZagltdxxb.xzcsdm">
+				XZCSDM = #zdryZagltdxxb.xzcsdm#
+			</isNotEmpty>
+			<![CDATA[ order by $sort$ $order$) m  
+		where rownum <= #end# ) where r > #begin# ]]>
+	</select>
+
+	<!-- 查询显示列表 -->
+	<select id="queryViewList" parameterClass="Map" resultClass="zdryZagltdxxb">
+		<![CDATA[ select * from (
+			select * from ZDRY_ZAGLTDXXB t where t.XT_ZXBZ = '0' and ZDRYID = #zdryid# ]]>
+			<![CDATA[ order by xt_cjsj desc) m where rownum <= #maxNum# ]]>
+	</select>
+
+	<!-- 查询单条（根据主键） -->
+	<select id="queryById" parameterClass="String" resultClass="zdryZagltdxxb">
+		<![CDATA[ select * from ZDRY_ZAGLTDXXB t where ID = #id# and XT_ZXBZ = '0' and rownum = 1 ]]>
+	</select>
+
+	<!-- 新增 -->
+	<insert id="save" parameterClass="zdryZagltdxxb">
+		<![CDATA[ insert into ZDRY_ZAGLTDXXB (ID,ZDRYID,AJLBDM,XZDXDM,XZWPDM,ZASDDM,ZAGJDM,XYRXZFSDM,ZATDDM,XZSJDM,XZCSDM,BZ, ]]><include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#,#zdryid#,#ajlbdm#,#xzdxdm#,#xzwpdm#,#zasddm#,#zagjdm#,#xyrxzfsdm#,#zatddm#,#xzsjdm#,#xzcsdm#,#bz#,]]><include refid="insertXtzdVal"/>)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterClass="zdryZagltdxxb">
+		<![CDATA[ update ZDRY_ZAGLTDXXB ]]>	
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="ajlbdm"><![CDATA[ AJLBDM=#ajlbdm# ]]></isNotNull>
+			<isNotNull prepend="," property="xzdxdm"><![CDATA[ XZDXDM=#xzdxdm# ]]></isNotNull>
+			<isNotNull prepend="," property="xzwpdm"><![CDATA[ XZWPDM=#xzwpdm# ]]></isNotNull>
+			<isNotNull prepend="," property="zasddm"><![CDATA[ ZASDDM=#zasddm# ]]></isNotNull>
+			<isNotNull prepend="," property="zagjdm"><![CDATA[ ZAGJDM=#zagjdm# ]]></isNotNull>
+			<isNotNull prepend="," property="xyrxzfsdm"><![CDATA[ XYRXZFSDM=#xyrxzfsdm# ]]></isNotNull>
+			<isNotNull prepend="," property="zatddm"><![CDATA[ ZATDDM=#zatddm# ]]></isNotNull>
+			<isNotNull prepend="," property="xzsjdm"><![CDATA[ XZSJDM=#xzsjdm# ]]></isNotNull>
+			<isNotNull prepend="," property="xzcsdm"><![CDATA[ XZCSDM=#xzcsdm# ]]></isNotNull>
+			<isNotNull prepend="," property="bz"><![CDATA[ BZ=#bz# ]]></isNotNull>			
+			,<include refid="updateXtzd"/>				
+		</dynamic>
+		<![CDATA[ where ID = #id#]]>	
+	</update>
+	
+	<!-- 注销 -->
+	<update id="delete" parameterClass="zdryZagltdxxb">
+		<![CDATA[ update ZDRY_ZAGLTDXXB set ]]><include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>	
+	</update>
+
+</sqlMap>

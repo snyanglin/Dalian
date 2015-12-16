@@ -19,6 +19,18 @@ import com.founder.zdrygl.base.model.ZdryPsjdb;
 import com.founder.zdrygl.base.service.ZdryPsjdbService;
 import com.google.gson.Gson;
 
+/**
+ * ****************************************************************************
+ * @Package:      [com.founder.zdrygl.base.controller.ZdryPsjdbController.java]  
+ * @ClassName:    [ZdryPsjdbController]   
+ * @Description:  [评审鉴定]   
+ * @Author:       [zhang.hai@founder.com.cn]  
+ * @CreateDate:   [2015年12月15日 下午3:49:37]   
+ * @UpdateUser:   [ZhangHai(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年12月15日 下午3:49:37，(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
+ * @Version:      [v1.0]
+ */
 @Controller
 @RequestMapping(value = "zdryPsjdb")
 public class ZdryPsjdbController extends BaseController {
@@ -38,10 +50,10 @@ public class ZdryPsjdbController extends BaseController {
 	 * @throws
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public ModelAndView add(String id) {
+	public ModelAndView add(String zdryid) {
 		ModelAndView mv = new ModelAndView("zdrygl/edit/zdryPsjdb");
 		ZdryPsjdb entity = new ZdryPsjdb();
-		entity.setZdryid(id);
+		entity.setZdryid(zdryid);
 		mv.addObject("entity", entity);
 		return mv;
 	}

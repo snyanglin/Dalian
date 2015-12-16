@@ -1,5 +1,17 @@
 package com.founder.zdrygl.base.vo;
 
+/**
+ * ****************************************************************************
+ * @Package:      [com.founder.zdrygl.base.vo.ZdrylgxxVO.java]  
+ * @ClassName:    [ZdrylgxxVO]   
+ * @Description:  [重点人列管信息VO-编辑页面下方子菜单查询显示]   
+ * @Author:       [zhang.hai@founder.com.cn]  
+ * @CreateDate:   [2015年12月15日 下午3:13:56]   
+ * @UpdateUser:   [ZhangHai(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年12月15日 下午3:13:56，(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
+ * @Version:      [v1.0]
+ */
 public class ZdrylgxxVO {
 	
 	private String zdryid;

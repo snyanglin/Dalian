@@ -1,4 +1,4 @@
-﻿package com.founder.spsxt.vo;
+package com.founder.spsxt.vo;
 
 import java.io.Serializable;
 
