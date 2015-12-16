@@ -45,12 +45,7 @@ public class DlLcgcg  extends WorkflowDelegate {
 		Map<String,Object> variables = arg0.getProcessVariables();
 		String sqlxdm = (String) variables.get("sqlxdm");
 		String zdrylx = (String) variables.get("zdrylx");
-		ZdryZb zdryzb = (ZdryZb) variables.get("zdryZb");
-		Zdry zdrylbdx = (Zdry) variables.get("zdrylbdx");
 		ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
-		ZOBean entity = new ZOBean(zdryzb, zdrylbdx);
-		Zdrycx zdrycx = (Zdrycx) variables.get("zdrycx");
-		entity.setZdrycx(zdrycx);
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
 				.getRequestAttributes()).getRequest();
 		SessionBean sessionBean = (SessionBean) WebUtils.getSessionAttribute(
@@ -60,6 +55,11 @@ public class DlLcgcg  extends WorkflowDelegate {
 		 * String spbm =sessionBean.getUserOrgCode();
 		 */
 
+		ZdryZb zdryzb = (ZdryZb) variables.get("zdryZb");
+		Zdry zdrylbdx = (Zdry) variables.get("zdrylbdx");
+		ZOBean entity = new ZOBean(zdryzb, zdrylbdx);
+		Zdrycx zdrycx = (Zdrycx) variables.get("zdrycx");
+		entity.setZdrycx(zdrycx);
 		if ("01".equals(sqlxdm)){
 			zdryService.lgSuccess(sessionBean,entity);
 		}else if ("02".equals(sqlxdm))

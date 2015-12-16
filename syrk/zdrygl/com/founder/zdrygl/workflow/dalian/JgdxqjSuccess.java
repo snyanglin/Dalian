@@ -2,11 +2,21 @@ package com.founder.zdrygl.workflow.dalian;
 
 import java.util.Map;
 
-import org.springframework.stereotype.Component;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.util.WebUtils;
+
+import com.founder.framework.base.entity.SessionBean;
+import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
 import com.founder.workflow.bean.BaseWorkFlowBean;
 import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
+import com.founder.zdrygl.base.model.ZdryJgdxqxjdjb;
+import com.founder.zdrygl.base.service.ZdryJgdxqxjdjbService;
 /**
  * ****************************************************************************
  * @Package:      [com.founder.activiti.demo.workflow.dalian.JgdxqjSuccess.java]  
@@ -22,13 +32,23 @@ import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 @Component
 public class JgdxqjSuccess extends WorkflowDelegate{
 
+	@Resource(name="zdryJgdxqxjdjbService")
+	ZdryJgdxqxjdjbService ZdryJgdxqxjdjbService;
 	@Override
 	public void doBusiness(BaseWorkFlowBean arg0) {
 		Map<String,Object> variables = arg0.getProcessVariables();
 		try {
-			String lrrzrq=(String) variables.get("lrrzrq");
-			setLocalVariable("approvalMethod", "szzlApproval");
-		
+			String spyj=(String) variables.get("spyj");
+			//ZdryZb zdryzb = (ZdryZb) variables.get("zdryZb");
+			ZdryJgdxqxjdjb entity = (ZdryJgdxqxjdjb) variables.get("jgdx");
+
+			HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
+					.getRequestAttributes()).getRequest();
+			SessionBean sessionBean = (SessionBean) WebUtils.getSessionAttribute(
+					request, AppConst.USER_SESSION);
+			entity.setSpjg("1");//不同意，不准假
+			entity.setSpyj(spyj);
+			ZdryJgdxqxjdjbService.updateSp(entity, sessionBean);
 		} catch(BussinessException aa){
 			 throw  new BussinessException("重点人员请假出错");//抛出异常  
 		}

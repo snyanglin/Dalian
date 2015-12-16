@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
+import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.UUID;
 import com.founder.zdrygl.base.dao.ZdryJgdxqxjdjbDao;
 import com.founder.zdrygl.base.model.ZdryJgdxqxjdjb;
@@ -73,5 +74,18 @@ public class ZdryJgdxqxjdjbService extends BaseService {
 			return false;
 		}
 		return true;
+	}
+	/**
+	 * 更新审批<br>
+	 * 
+	 * @param entity
+	 */
+	public void updateSp(ZdryJgdxqxjdjb entity, SessionBean sessionBean) {
+		BaseService.setUpdateProperties(entity, sessionBean);
+		entity.setSpr_xm(sessionBean.getUserName());
+		entity.setSpr_id(sessionBean.getUserId());
+		entity.setSpsj(DateUtils.getSystemDateTimeString());
+		zdryJgdxqxjdjbDao.updateSp(entity, sessionBean);
+	
 	}
 }

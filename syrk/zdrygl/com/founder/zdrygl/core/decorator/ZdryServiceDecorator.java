@@ -106,7 +106,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		zdryService.cgSuccess(sessionBean,entity);
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());
 		paraObj.put("result", "cgSuccess");
-		//jwzhMessageService.sendMessage(MessageDict.ZDRYGL.CGSPJG,paraObj);
+		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.CGSPJG,paraObj);
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		zdryService.cgFail(sessionBean,entity);
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());
 		paraObj.put("result", "cgFail");
-		//jwzhMessageService.sendMessage(MessageDict.ZDRYGL.CGSPJG,paraObj);
+		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.CGSPJG,paraObj);
 	}
 
 	@Override

@@ -95,7 +95,7 @@ public class DlParamsInitializer implements IfParamInitializer {
 		variables.put("sqyj","监管对象" + zdryVO.getXm()+"请假");
 		// set parameters of processinstance
 		spi.setProcessKey("dl_jgdxqj");
-		spi.setBusinessKey(zdryVO.getZdryZdryzb().getId());
+		spi.setBusinessKey(zdryVO.getZdryJgdxqxjdjb().getZdryid());
 		spi.setVariables(variables);
 
 	}

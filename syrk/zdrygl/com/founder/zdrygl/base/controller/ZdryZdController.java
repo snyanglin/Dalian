@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
+import com.founder.framework.config.SystemConfig;
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.position.service.OrgPositionService;
@@ -102,6 +103,8 @@ public class ZdryZdController extends BaseController {
 		ZdryVO vo = new ZdryVO();
 		vo.setZdryZdryzb(zdryZb);
 		mv.addObject("zdryZb", vo);
+		String systemXzqh = SystemConfig.getString("systemXzqh")==null?"210000":SystemConfig.getString("systemXzqh");
+		mv.addObject("systemXzqh", systemXzqh);
 		
 		return mv;
 	}

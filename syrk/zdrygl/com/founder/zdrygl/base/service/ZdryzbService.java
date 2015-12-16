@@ -220,12 +220,13 @@ public class ZdryzbService implements ZdryService {
 		//先把管辖部门和管理部门设置相同，如果是双列管，再设置为户籍地管理部门
 		//ZdryGzb zdryGzb=zdryZdryZbDao.queryByZdrylx(zdryzb.getZdrygllxdm(),SystemConfig.getString("zdryQY"));
 		//if(zdryGzb!=null && "1".equals(zdryGzb.getSfslg())){//双列管，查询户籍地管理部门
-		RyRyjbxxb ryjbxxb = ryRyjbxxbService.queryById(zdryzb.getRyid());//人员基本信息	
+		ZdryZb tmpZb = (ZdryZb)zdry.getZdryzb();
+		RyRyjbxxb ryjbxxb = ryRyjbxxbService.queryById(tmpZb.getRyid());//人员基本信息	
 		if(ryjbxxb!=null && ryjbxxb.getHjd_mlpdm()!= null){
 			//String zdry_hjd_zrqdm = dzService.queryMldzDx(ryjbxxb.getHjd_mlpdm()).getZrqdm();
 			String gxbm=zdryZdryZbDao.queryHjdZrqdm(ryjbxxb.getHjd_mlpdm());
 			if(gxbm!=null && gxbm.length()>0)
-				zdryzb.setGxbm(gxbm);
+				tmpZb.setGxbm(gxbm);
 		}
 		//}
 		
@@ -236,8 +237,8 @@ public class ZdryzbService implements ZdryService {
 		entity.setGlzt(ZdryConstant.YZD);
 		deleteZdry(sessionBean,entity);
 //		if(!isDelete()){
-			zdryzb.setGlzt(ZdryConstant.YLG);
-			updateZdry(sessionBean,zdryzb);
+		tmpZb.setGlzt(ZdryConstant.YLG);
+		updateZdry(sessionBean,tmpZb);
 //		}
 	}
 

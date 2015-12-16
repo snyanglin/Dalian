@@ -15,8 +15,10 @@ import com.founder.framework.components.AppConst;
 import com.founder.workflow.bean.BaseWorkFlowBean;
 import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 import com.founder.zdrygl.base.model.ZdryZb;
+import com.founder.zdrygl.base.model.Zdrycx;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
 
 
@@ -46,12 +48,14 @@ public class ZdSuccess extends WorkflowDelegate{
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
 		
-		String zdrylx = (String) variables.get("zdrylx");
-		ZdryZb zdryzb = (ZdryZb) variables.get("zdryzb");
+		String zdrylx = (String) variables.get("zdrylx"); 
+		
+		ZdryZb zdryzb = (ZdryZb) variables.get("zdryZb");
 		Zdry zdrylbdx = (Zdry) variables.get("zdrylbdx");
-		//sessionBean.getExtendMap().put("xglbm", xglbm);
+		ZOBean entity = new ZOBean(zdryzb, zdrylbdx);
+		Zdrycx zdrycx = (Zdrycx) variables.get("zdrycx");
+		entity.setZdrycx(zdrycx);
 		String sszrqdm = (String)  variables.get("sszrqdm");
-		//String yglbm = (String)  variables.get("yglbm");
 		if(sszrqdm != null){
 			zdryzb.setGxzrqdm(sszrqdm);
 		}
@@ -66,8 +70,7 @@ public class ZdSuccess extends WorkflowDelegate{
 		if(xgxpcsdm != null){
 			zdryzb.setGxpcsdm(xgxpcsdm);
 		}
-		
-		ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
+
 		
 		
 		/*
@@ -82,7 +85,8 @@ public class ZdSuccess extends WorkflowDelegate{
 		/*sessionBean.getExtendMap().put("xgxpcsdm", (String)  variables.get("xgxpcsdm"));
 		sessionBean.getExtendMap().put("ygxpcsdm", (String)  variables.get("ygxpcsdm"));
 		sessionBean.getExtendMap().put("yglbm", yglbm);*/
-		zdryService.zdSuccess(sessionBean);
+		ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
+		zdryService.zdSuccess(sessionBean,entity);
 	}
 	
 	

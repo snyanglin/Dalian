@@ -63,7 +63,6 @@ public class Jgdxqjjs extends WorkflowDelegate{
 		try {
 			String zdryId = (String) variables.get("zdryId");
 			ZdryZb zdryZb = (ZdryZb) zdryQueryService.queryById(zdryId);
-			OrgOrganization orgOrganization = new OrgOrganization();
 			String syrkSyrkxxzbId = zdryZb.getSyrkid();
 			SyrkSyrkxxzb syrkSyrkxxzb = syrkSyrkxxzbService
 					.queryById(syrkSyrkxxzbId);

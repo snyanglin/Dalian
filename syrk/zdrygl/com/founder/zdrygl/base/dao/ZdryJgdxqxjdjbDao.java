@@ -84,4 +84,13 @@ public class ZdryJgdxqxjdjbDao extends BaseDaoImpl {
 	public int queryWxjNum(String zdryId){
 		return (int)queryForObject("ZdryJgdxqxjdjb.queryWxjNum", zdryId);
 	}
+	/**
+	 * 更新审批<br>
+	 * 
+	 * @param entity
+	 */
+	public void updateSp(ZdryJgdxqxjdjb entity, SessionBean sessionBean) {
+		update("ZdryJgdxqxjdjb.updateSp", entity);
+	}
+
 }

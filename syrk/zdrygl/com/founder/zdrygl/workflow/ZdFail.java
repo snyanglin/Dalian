@@ -15,8 +15,10 @@ import com.founder.framework.components.AppConst;
 import com.founder.workflow.bean.BaseWorkFlowBean;
 import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 import com.founder.zdrygl.base.model.ZdryZb;
+import com.founder.zdrygl.base.model.Zdrycx;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
 
 
@@ -46,9 +48,14 @@ public class ZdFail extends WorkflowDelegate{
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
 
 		String zdrylx = (String) variables.get("zdrylx");
-		ZdryZb zdryzb = (ZdryZb) variables.get("zdryzb");
+
+		ZdryZb zdryzb = (ZdryZb) variables.get("zdryZb");
 		Zdry zdrylbdx = (Zdry) variables.get("zdrylbdx");
-		String yjzd_dzid 	= (String)  variables.get("yjzd_dzid");
+		ZOBean entity = new ZOBean(zdryzb, zdrylbdx);
+		Zdrycx zdrycx = (Zdrycx) variables.get("zdrycx");
+		entity.setZdrycx(zdrycx);
+		
+		/*String yjzd_dzid 	= (String)  variables.get("yjzd_dzid");
 		String yjzd_dzxz 	= (String)  variables.get("yjzd_dzxz");
 		String yjzd_mlpdm 	= (String)  variables.get("yjzd_mlpdm");
 		String yjzd_mlpxz 	= (String)  variables.get("yjzd_mlpxz");
@@ -89,9 +96,9 @@ public class ZdFail extends WorkflowDelegate{
 		if(yzrqdm != null ){
 			zdryzb.setGxzrqdm(yzrqdm);
 		}
-
-		ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
-		zdryService.zdFail(sessionBean);
+		 */
+		ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
+		zdryService.zdFail(sessionBean,entity);
 	}
 	
 	
