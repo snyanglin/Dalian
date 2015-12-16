@@ -137,7 +137,6 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 
 	@Override
 	public final void zd(SessionBean sessionBean , ZOBean entity) {
-		//转递不涉及子表的修改
 		zdryService.zd(sessionBean,entity);//新加，改变状态
 		setZdrylbdxId(entity);
 		zd_(sessionBean,entity.getZdrylbdx());
@@ -153,7 +152,6 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 
 	@Override
 	public final void zdSuccess(SessionBean sessionBean , ZOBean entity) {
-		//转递不涉及子表的修改
 		zdryService.zdSuccess(sessionBean ,entity);
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());//获取消息的参数
 		paraObj.put("result", "zdSuccess");
@@ -162,8 +160,8 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 
 	@Override
 	public final void zdFail(SessionBean sessionBean , ZOBean entity) {
-		//转递不涉及子表的修改
 		zdryService.zdFail(sessionBean,entity);
+		zdFail_(sessionBean, entity.getZdrylbdx());
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());//获取消息的参数
 		paraObj.put("result", "zdFail");
 		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDSPJG,paraObj);
@@ -192,12 +190,11 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	
 //	TODO 待实现 
 //	protected abstract void cgFail_(SessionBean sessionBean,Zdry zdrylbdx);
-//	TODO 待实现 
+
 	protected abstract void zd_(SessionBean sessionBean,Zdry zdrylbdx);
-//	TODO 待实现 
+	
 	protected abstract void zdFail_(SessionBean sessionBean,Zdry zdrylbdx);
 	
-//	TODO 待实现 
 	protected abstract void update_(SessionBean sessionBean,Zdry zdrylbdx);
 	
 	
