@@ -98,13 +98,13 @@ public class ZdryFzcsfryService  extends ZdryServiceDecorator{
 
 	@Override
 	protected void zd_(SessionBean sessionBean, Zdry zdrylbdx) {
-		insert(sessionBean,zdry);
+		insert(sessionBean,zdrylbdx);
 		
 	}
 
 	@Override
 	protected void zdFail_(SessionBean sessionBean, Zdry zdrylbdx) {
-		// TODO Auto-generated method stub
+		delete(sessionBean,zdrylbdx);
 		
 	}
 	private void insert(SessionBean sessionBean, Zdry zdry){
@@ -113,7 +113,7 @@ public class ZdryFzcsfryService  extends ZdryServiceDecorator{
 		zdryFzcsfryxxbDao.insert(zdryFzcsfryxxb);
 	}
 
-	private void delete(SessionBean sessionBean, ZdryFzcsfryxxb zdrylbdx) {
+	private void delete(SessionBean sessionBean, Zdry zdrylbdx) {
 		ZdryFzcsfryxxb zdryFzcsfryxxb = (ZdryFzcsfryxxb) zdrylbdx;
 		BaseService.setCrossoutProperties(zdryFzcsfryxxb, sessionBean);
 		zdryFzcsfryxxbDao.delete(zdryFzcsfryxxb);

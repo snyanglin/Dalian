@@ -15,7 +15,7 @@
 <tr class="dialogTr">
 <td width="20%" class="dialogTd" align="right" id="cgsqyjText">申请意见：</td>
 <td width="80%" class="dialogTd" colspan="3">
-<input class="easyui-validatebox inputreadonly" type="text" id="sqyj" name="sqyj"  value="tezsd"  style="width: 619px;" data-options="required:false,validType:['maxLength[100]','unnormal']"  readonly="readonly"/></td>
+<input class="easyui-validatebox inputreadonly" type="text" id="sqyj" name="sqyj"  value="${varMap.sqyj }"  style="width: 619px;" data-options="required:false,validType:['maxLength[100]','unnormal']"  readonly="readonly"/></td>
 </tr>
 
  <input type="hidden" id="agree" name="agree""  value="sjbm" />

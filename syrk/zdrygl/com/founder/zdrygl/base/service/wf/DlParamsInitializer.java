@@ -124,7 +124,7 @@ public class DlParamsInitializer implements IfParamInitializer {
 	    variables.put("sqyj", zdryVO.getYwsqyy());//申请意见		
 		variables.put("sqlxdm", "03");//列管01  撤管02 专类03
 		variables.put("approvalMethod", "szzlApproval");
-		variables.put("sqyj", "申请将"+zdryVO.getXm()+"转换重点人员类别");
+		variables.put("sqyj",zdryVO.getYwsqyy());// "申请将"+zdryVO.getXm()+"转换重点人员类别");
 
 		// set parameters of processinstance
 		spi.setProcessKey("ln_zl");
@@ -165,7 +165,7 @@ public class DlParamsInitializer implements IfParamInitializer {
 		variables.put("sqlx", zdrylxmc +"撤管");
 		variables.put("splevel", "1");// 设置审批级别，一级审批
 		variables.put("zdryId", zdryZdryzb.getId());
-		variables.put("sqyj", "申请将" + zdryxm	+ "撤管");
+		variables.put("sqyj",zdryVO.getYwsqyy());// "申请将"+zdryVO.getXm()+"转换重点人员类别");
 		variables.put("xm", zdryxm);// 被列管人员姓名
 		variables.put("zjhm", zdryVO.getZdryZdryzb().getZjhm());// 证件号码
 
