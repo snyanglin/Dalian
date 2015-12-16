@@ -8,14 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
-import com.founder.framework.message.bean.SysMessage;
-import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.EasyUIPage;
-import com.founder.framework.utils.StringUtils;
 import com.founder.framework.utils.UUID;
 import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 import com.founder.zdrygl.base.dao.ZdryZdrykcxxbDao;
-import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.ZdryZdrykcxxb;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 
@@ -66,7 +62,7 @@ public class ZdryZdrykcxxbService{
 
 	/**
 	 * @Title: queryById
-	 * @Description: TODO(根据ID查询单条记录)
+	 * @Description: (根据ID查询单条记录)
 	 * @param @param id
 	 * @param @return 设定文件
 	 * @return ZdryZdrykcxxb 返回类型
@@ -85,7 +81,6 @@ public class ZdryZdrykcxxbService{
 		entity.setId(UUID.create()); // 生成主键
 		BaseService.setSaveProperties(entity, sessionBean);
 		zdryZdrykcxxbDao.save(entity, sessionBean);
-		//sendMessage(entity, sessionBean);
 	}
 
 	/**
@@ -122,7 +117,7 @@ public class ZdryZdrykcxxbService{
 
 	/**
 	 * @Title: sendMessage
-	 * @Description: TODO(发送考察（所长或上级）)
+	 * @Description: (发送考察（所长或上级）)
 	 * @param @param entity
 	 * @param @param sessionBean 设定文件
 	 * @return void 返回类型

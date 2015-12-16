@@ -46,7 +46,6 @@ import com.founder.zdrygl.base.model.ZdryZdrkxxb;
 import com.founder.zdrygl.base.model.ZdryZdrykcxxb;
 import com.founder.zdrygl.base.model.ZdryZszhjsbrxxb;
 import com.founder.zdrygl.base.vo.ZdrygnVO;
-import com.founder.zdrygl.base.vo.ZdrylgxxVO;
 import com.founder.zdrygl.base.vo.ZdryxxzsVO;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 import com.google.gson.Gson;
@@ -398,18 +397,6 @@ public class ZdryEditService extends BaseService {
 		return zdryZdrykcxxbDao.queryViewList(map);
 	}
 
-	/**
-	 * 
-	 * @Title: lgxx_query
-	 * @Description: TODO(重点人员列管信息查询)
-	 * @param @param map
-	 * @param @return    设定文件
-	 * @return List<ZdrylgxxVO>    返回类型
-	 * @throw
-	 */
-	public List<ZdrylgxxVO> lgxx_query(Map<String, Object> map) {
-		return zdryEditDao.queryLgxxByZdryid(map);
-	}
 	/*
 	
 	public ZdryShbzdryxxb shbzdry_query (Map<String,Object> map){

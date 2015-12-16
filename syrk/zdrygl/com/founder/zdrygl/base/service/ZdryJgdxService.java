@@ -24,18 +24,11 @@ import com.founder.zdrygl.core.model.Zdry;
  */
 public class ZdryJgdxService  extends ZdryServiceDecorator{
 
-	private ZdryJgdxxxb zdry;
-	
 	@Resource(name="zdryJgdxxxbDao")
 	private ZdryJgdxxxbDao zdryJgdxxxbDao;
 
 	public ZdryJgdxService(ZdryService zdryService) {
 		super(zdryService);
-	}
-
-	@Override
-	public void setZdry(Zdry entity) {
-		this.zdry = (ZdryJgdxxxb) entity;
 	}
 
 	/**
@@ -68,13 +61,6 @@ public class ZdryJgdxService  extends ZdryServiceDecorator{
 	 * @return void    返回类型
 	 * @throw
 	 */
-	@Override
-	protected void update_(SessionBean sessionBean) {
-		BaseService.setUpdateProperties(zdry, sessionBean);
-		zdry.setId(this.getZdryId());
-		zdryJgdxxxbDao.update(zdry);
-	}
-	
 	@Override
 	protected void update_(SessionBean sessionBean, Zdry zdrylbdx) {
 		ZdryJgdxxxb zdryJgdxxxb = (ZdryJgdxxxb) zdrylbdx;

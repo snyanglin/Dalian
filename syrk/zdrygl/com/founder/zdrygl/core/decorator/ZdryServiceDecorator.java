@@ -34,11 +34,6 @@ import com.founder.zdrygl.core.utils.ZdryConstant;
 public abstract class ZdryServiceDecorator implements ZdryService{
 
 	protected ZdryService zdryService;
-
-	/**
-	 * 流程启动对象
-	 */
-	private StartProcessInstance processInstance;
 		
     @Autowired
 	private JProcessDefinitionService processDefinitionService;
@@ -174,17 +169,6 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDSPJG,paraObj);
 	}
 
-	@Override
-	public final void zd(SessionBean sessionBean) {
-	}
-
-	@Override
-	public final void zdSuccess(SessionBean sessionBean) {
-	}
-
-	@Override
-	public final void zdFail(SessionBean sessionBean) {
-	}
 	
 	/**
 	 * 
@@ -195,39 +179,11 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	 * @throw
 	 */
 	@Override
-	public final void update(SessionBean sessionBean) {
-		zdryService.update(sessionBean);//总表修改
-		update_(sessionBean);//子表修改		
-	}
-	
-	@Override
 	public final void update(SessionBean sessionBean, ZOBean zdry) {
 		zdryService.update(sessionBean,zdry);//总表修改
 		update_(sessionBean,zdry.getZdrylbdx());
 	}
 
-	
-	@Override
-	public Zdry getZdry() {
-		return zdryService.getZdry();
-	}
-	
-	@Override
-	public String getZdryId() {
-		return getZdry().getId();
-	}
-	
-	
-	@Override
-	public final void setStartProcessInstance(String processKey, String applyUserId, Map<String,Object> variables){
-		if(processInstance == null) 
-			processInstance = new StartProcessInstance();
-		processInstance.setProcessKey(processKey);
-		processInstance.setApplyUserId(applyUserId);
-		processInstance.setVariables(variables);
-	}
-		
-	
 	protected abstract void lg_(SessionBean sessionBean,Zdry zdrylbdx);
 	
 	protected abstract void lgFail_(SessionBean sessionBean,Zdry zdrylbdx);
@@ -240,8 +196,6 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	protected abstract void zd_(SessionBean sessionBean,Zdry zdrylbdx);
 //	TODO 待实现 
 	protected abstract void zdFail_(SessionBean sessionBean,Zdry zdrylbdx);
-	
-	protected abstract void update_(SessionBean sessionBean);
 	
 //	TODO 待实现 
 	protected abstract void update_(SessionBean sessionBean,Zdry zdrylbdx);
@@ -275,21 +229,6 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	public void setZdrylbdxId(ZOBean entity){
 		if(entity.getZdrylbdx() != null)
 			entity.getZdrylbdx().setId(entity.getZdryzb().getId());
-	}
-	
-	@Deprecated
-	private void startProcessInstance(){
-		if(processInstance == null){
-			return ;//没有流程
-		}
-		if(processInstance != null && StringUtils.isEmpty(processInstance.getProcessKey())){
-			throw new BussinessException("缺少流程启动参数！");
-		}else{
-			//put zdryId & name to variables
-			processInstance.setBusinessKey(zdryService.getZdryId());
-			processInstance.getVariables().put("zdryId", zdryService.getZdryId());
-			processDefinitionService.startProcessInstance(processInstance.getApplyUserId(),processInstance.getProcessKey(), processInstance.getBusinessKey(), processInstance.getVariables());
-		}
 	}
 	
 	private void startProcessInstance(StartProcessInstance startProcessInstance){

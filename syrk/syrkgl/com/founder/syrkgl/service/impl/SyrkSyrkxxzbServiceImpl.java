@@ -643,7 +643,7 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 		
 		SyrkSyrkxxzb syrk = new SyrkSyrkxxzb();
 		setCrossoutProperties(syrk, sessionBean);
-		String xxnr = "";
+//		String xxnr = "";
 		String errorMessage="";
 		if ("1".equals(entity.getSyrkywlxdm())) {
 			//判断是否为重点人口

@@ -43,13 +43,4 @@
 		 ]]>	
 			 <![CDATA[ where id = #id#]]>		
 	</update>
-	
-	<select id="queryLgxxByZdryid" parameterClass="String" resultClass="zdrylgxxVO">
-		<![CDATA[ select t.id zdryid ,t.zdrygllxdm , t.zdlgbmmc , y.sqr_xm sqr , y.sqsj , y.spr_xm  spr , y.spsj 
-			from ZDRY_ZDRYZB t , zdry_lczywblb l , zdry_ywspb y 
-			where t.id =#value# and t.id = l.zdryid and l.id = y.ywbid and t.glzt in (2,3,5) 
-			and l.ywcljg = '1' and l.ywlx = '1' 
-			and t.xt_zxbz = '0'  and l.xt_zxbz = '0'  and y.xt_zxbz = '0'  
-		]]>
-	</select>
 </sqlMap>
