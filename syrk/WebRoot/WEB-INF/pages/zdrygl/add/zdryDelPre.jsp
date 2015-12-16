@@ -31,7 +31,7 @@
 		    <tr class="dialogTr" id="cgyyText">
 		    	<td width="20%" class="dialogTd" align="right" >撤管原因：</td>
 		    	<td width="80%" class="dialogTd" colspan="3">
-		    	<input class="easyui-validatebox " type="text" id="cgyy" name="ywsqyy" style="width: 628px;" data-options="required:false,validType:['maxLength[100]','unnormal']" />
+		    	<input class="easyui-validatebox " type="text" id="cgyy" name="ywsqyy" style="width: 628px;" data-options="required:true,validType:['maxLength[100]','unnormal']" />
 		    	</td>
 	    	</tr>
 		   <tr class="dialogTr"> 
@@ -39,7 +39,7 @@
 		    	<td width="80%" class="dialogTd" colspan="3">
 		    		<input class="easyui-combobox" type="text"  id="zdrygllxdm" name="zdryZdryzb.zdrygllxdm"   style="width:200px;" value=""
 					data-options="url: contextPath +'/common/dict/BD_D_ZDRYGLLX.js',dataFilter:'${kcgStr }',  
-					valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'right',onChange:zdrylxChange"/>
+					valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'right',onChange:zdrylxChange"/>
 
 	    			<input type="text" name="zdryZdryzb.zdrylb" id="zdrylbStr"  class="easyui-combotree" style="width:420px;"
 	    			data-options="onlyLeaf:true,valueField:'id',textField:'text',

@@ -24,18 +24,11 @@ import com.founder.zdrygl.core.model.Zdry;
  */
 public class ZdrySqjzService  extends ZdryServiceDecorator{
 
-	private ZdrySqjzryxxb zdrylbdx;
-	
 	@Resource(name="zdrySqjzryxxbDao")
 	private ZdrySqjzryxxbDao  zdrySqjzryxxbDao;
 
 	public ZdrySqjzService(ZdryService zdryService) {
 		super(zdryService);
-	}
-
-	@Override
-	public void setZdry(Zdry entity) {
-		this.zdrylbdx = (ZdrySqjzryxxb) entity;
 	}
 
 	/**
@@ -61,36 +54,16 @@ public class ZdrySqjzService  extends ZdryServiceDecorator{
 	/**
 	 * 
 	 * @Title: update_
-	 * @Description: TODO(子表（重点人口）修改)
+	 * @Description: (子表（重点人口）修改)
 	 * @param @param sessionBean    设定文件
 	 * @return void    返回类型
 	 * @throw
 	 */
 	@Override
-	protected void update_(SessionBean sessionBean) {
-		BaseService.setUpdateProperties(zdrylbdx, sessionBean);
-		zdrylbdx.setId(this.getZdryId());
-		zdrySqjzryxxbDao.update(zdrylbdx);
-	}
-	
-	@Override
 	protected void update_(SessionBean sessionBean, Zdry zdrylbdx) {
 		ZdrySqjzryxxb zdrySqjzryxxb = (ZdrySqjzryxxb) zdrylbdx;
 		BaseService.setUpdateProperties(zdrySqjzryxxb, sessionBean);
 		zdrySqjzryxxbDao.update(zdrySqjzryxxb);
-	}
-	
-	/**
-	 * 
-	 * @Title: queryZdryInfo_
-	 * @Description: TODO(查询重点人员子表)
-	 * @param @param zdryid
-	 * @return Zdry    返回类型
-	 * @throw
-	 */
-//	@Override
-	public Zdry queryZdryInfo_(String zdryid) {
-		return zdrySqjzryxxbDao.queryById(zdryid);
 	}
 	
 	@Override

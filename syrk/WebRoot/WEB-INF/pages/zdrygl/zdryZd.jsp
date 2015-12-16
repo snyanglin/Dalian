@@ -18,7 +18,7 @@
     	<input type="hidden" id="lxdh" name="zdryZdryzb.zdrygllxdm" value="${zdryZb.zdryZdryzb.zdrygllxdm}" />
     	<input type="hidden" id="lxdh" name="zdryZdryzb.cyzjdm" value="${zdryZb.zdryZdryzb.cyzjdm}" />
     	
-		<%-- <jsp:include page="zdryYwzd.jsp"></jsp:include> --%>
+		<jsp:include page="zdryYwzd.jsp"></jsp:include>
 	    <div data-options="region:'center', split:true" style="width:500px; border-width: 0px;">
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 			<tr class="dialogTr">

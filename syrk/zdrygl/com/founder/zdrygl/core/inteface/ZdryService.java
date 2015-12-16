@@ -28,15 +28,11 @@ public interface ZdryService {
 	 * @return void    返回类型
 	 * @throw
 	 */
-//	public void lg(SessionBean sessionBean);
-	
 	public void lg(SessionBean sessionBean , ZOBean entity);
 
-//	public void lgSuccess(SessionBean sessionBean);
 	
 	public void lgSuccess(SessionBean sessionBean , ZOBean entity);
 	
-//	public void lgFail(SessionBean sessionBean);
 	
 	public void lgFail(SessionBean sessionBean , ZOBean entity);
 
@@ -48,17 +44,13 @@ public interface ZdryService {
 	 * @return void    返回类型
 	 * @throw
 	 */
-//	public void cg(SessionBean sessionBean);
 	
 	public void cg(SessionBean sessionBean , ZOBean entity);
 	
-//	public void cgSuccess(SessionBean sessionBean);
 	
 	public void cgSuccess(SessionBean sessionBean , ZOBean entity);
 	
-//	public void cgFail(SessionBean sessionBean);
 	
-	//TODO 后续补上实现
 	public void cgFail(SessionBean sessionBean , ZOBean entity);
 	
 	/**
@@ -89,52 +81,8 @@ public interface ZdryService {
 	
 	public void zdFail(SessionBean sessionBean, ZOBean zdry);
 	
-	public void zd(SessionBean sessionBean);
-	
-	public void zdSuccess(SessionBean sessionBean);
-	
-	public void zdFail(SessionBean sessionBean);
-		
-	/**
-	 * 
-	 * @Title: update
-	 * @Description: (重点人员修改)
-	 * @param @param sessionBean    设定文件
-	 * @return void    返回类型
-	 * @throw
-	 */
-	public void update(SessionBean sessionBean);
-	
 	public void update(SessionBean sessionBean, ZOBean zdry);
 	
-	@Deprecated
-	public void setZdry(Zdry entity);
-	/**
-	 * 
-	 * @Title: setStartProcessInstance
-	 * @Description: (设置流程启动参数)
-	 * @param @param businessKey 业务主键
-	 * @param @param applyUserId 流程发起人
-	 * @param @param variables    设定文件 流程启动业务参数
-	 * @return void    返回类型
-	 * @throw
-	 */
-	@Deprecated
-	public void setStartProcessInstance(String processKey,String applyUserId, Map<String,Object> variables);
-		
-	@Deprecated
-	public Zdry getZdry();
-	
-	/**
-	 * 
-	 * @Title: getZdryId
-	 * @Description: (获取重点人员总表的ID)
-	 * @param @return    设定文件
-	 * @return String    返回类型
-	 * @throw
-	 */
-	@Deprecated
-	public String getZdryId();
 	
 	/**
 	 * 

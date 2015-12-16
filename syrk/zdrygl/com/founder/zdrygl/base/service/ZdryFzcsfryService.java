@@ -24,8 +24,6 @@ import com.founder.zdrygl.core.model.Zdry;
  */
 public class ZdryFzcsfryService  extends ZdryServiceDecorator{
 
-	private ZdryFzcsfryxxb zdry;
-	
 	@Resource(name="zdryFzcsfryxxbDao")
 	private ZdryFzcsfryxxbDao  zdryFzcsfryxxbDao;
 
@@ -33,10 +31,6 @@ public class ZdryFzcsfryService  extends ZdryServiceDecorator{
 		super(zdryService);
 	}
 
-	@Override
-	public void setZdry(Zdry entity) {
-		this.zdry = (ZdryFzcsfryxxb) entity;
-	}
 
 	/**
 	 * 列管重点人口
@@ -48,7 +42,7 @@ public class ZdryFzcsfryService  extends ZdryServiceDecorator{
 	
 	@Override
 	protected void lgFail_(SessionBean sessionBean, Zdry zdrylbdx) {
-		delete(sessionBean,zdry);
+		delete(sessionBean,(ZdryFzcsfryxxb) zdrylbdx);
 	}
 
 	@Override
@@ -69,13 +63,6 @@ public class ZdryFzcsfryService  extends ZdryServiceDecorator{
 	 * @throw
 	 */
 	@Override
-	protected void update_(SessionBean sessionBean) {
-		BaseService.setUpdateProperties(zdry, sessionBean);
-		zdry.setId(this.getZdryId());
-		zdryFzcsfryxxbDao.update(zdry);
-	}
-
-	@Override
 	protected void update_(SessionBean sessionBean, Zdry zdrylbdx) {
 		ZdryFzcsfryxxb zdryFzcsfryxxb = (ZdryFzcsfryxxb) zdrylbdx;
 		BaseService.setUpdateProperties(zdryFzcsfryxxb, sessionBean);
@@ -83,19 +70,6 @@ public class ZdryFzcsfryService  extends ZdryServiceDecorator{
 	}
 
 	
-	/**
-	 * 
-	 * @Title: queryZdryInfo_
-	 * @Description: TODO(查询重点人员子表)
-	 * @param @param zdryid
-	 * @return Zdry    返回类型
-	 * @throw
-	 */
-//	@Override
-	public Zdry queryZdryInfo_(String zdryid) {
-		return zdryFzcsfryxxbDao.queryById(zdryid);
-	}
-
 	@Override
 	protected void zd_(SessionBean sessionBean, Zdry zdrylbdx) {
 		insert(sessionBean,zdrylbdx);
@@ -104,7 +78,7 @@ public class ZdryFzcsfryService  extends ZdryServiceDecorator{
 
 	@Override
 	protected void zdFail_(SessionBean sessionBean, Zdry zdrylbdx) {
-		delete(sessionBean,zdrylbdx);
+		delete(sessionBean,(ZdryFzcsfryxxb)zdrylbdx);
 		
 	}
 	private void insert(SessionBean sessionBean, Zdry zdry){
@@ -113,10 +87,9 @@ public class ZdryFzcsfryService  extends ZdryServiceDecorator{
 		zdryFzcsfryxxbDao.insert(zdryFzcsfryxxb);
 	}
 
-	private void delete(SessionBean sessionBean, Zdry zdrylbdx) {
-		ZdryFzcsfryxxb zdryFzcsfryxxb = (ZdryFzcsfryxxb) zdrylbdx;
-		BaseService.setCrossoutProperties(zdryFzcsfryxxb, sessionBean);
-		zdryFzcsfryxxbDao.delete(zdryFzcsfryxxb);
+	private void delete(SessionBean sessionBean, ZdryFzcsfryxxb zdrylbdx) {
+		BaseService.setCrossoutProperties(zdrylbdx, sessionBean);
+		zdryFzcsfryxxbDao.delete(zdrylbdx);
 	}
 
 

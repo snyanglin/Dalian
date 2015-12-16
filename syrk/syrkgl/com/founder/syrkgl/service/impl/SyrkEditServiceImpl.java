@@ -11,7 +11,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.utils.StringUtils;
@@ -54,7 +53,6 @@ import com.founder.syrkgl.dao.SyrkWlhryxxbDao;
 import com.founder.syrkgl.service.SyrkEditService;
 import com.founder.syrkgl.vo.SyrkgnVo;
 import com.founder.syrkgl.vo.SyrkxxzsVo;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

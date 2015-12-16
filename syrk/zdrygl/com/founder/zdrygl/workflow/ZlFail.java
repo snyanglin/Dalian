@@ -4,8 +4,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.activiti.engine.delegate.DelegateExecution;
-import org.activiti.engine.delegate.JavaDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -19,6 +17,7 @@ import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
 
 
@@ -49,8 +48,8 @@ public class ZlFail extends WorkflowDelegate {
 		ZdryZb zdryzb = (ZdryZb) variables.get("zdryzb");
 		Zdry zdrylbdx = (Zdry) variables.get("zdrylbdx");
 		zdryzb.setZdrylb( (String) variables.get("yzdrylb"));
-		ZdryService zdryService = zdryFactory.createZdryService(zdrylx, zdryzb, zdrylbdx);
-		
+		ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
+		ZOBean entity = new ZOBean(zdryzb, zdrylbdx);
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
 		
@@ -59,7 +58,7 @@ public class ZlFail extends WorkflowDelegate {
 //		ZdryZdryzb zdryZdryzb =zdryZdryzbService.queryById(zdryId);
 //		zdryZdryzb.setGlzt("2");
 //		zdryZdryzbService.update(zdryZdryzb, sessionBean);
-		zdryService.zdFail(sessionBean);
+		zdryService.zdFail(sessionBean,entity);
 	}
 	
 	

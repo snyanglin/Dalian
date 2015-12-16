@@ -24,13 +24,9 @@ import com.founder.zdrygl.core.model.Zdry;
  */
 public class ZdryQtgzdxService  extends ZdryServiceDecorator{
 	
+
 	public ZdryQtgzdxService(ZdryService zdryService) {
 		super(zdryService);
-	}
-
-	@Override
-	public void setZdry(Zdry entity) {
-		
 	}
 
 	/**
@@ -60,26 +56,9 @@ public class ZdryQtgzdxService  extends ZdryServiceDecorator{
 	 * @throw
 	 */
 	@Override
-	protected void update_(SessionBean sessionBean) {
-	}
-	
-	@Override
 	protected void update_(SessionBean sessionBean, Zdry zdrylbdx) {
 	}
 	
-	/**
-	 * 
-	 * @Title: queryZdryInfo_
-	 * @Description: TODO(查询重点人员子表)
-	 * @param @param zdryid
-	 * @return Zdry    返回类型
-	 * @throw
-	 */
-//	@Override
-	public Zdry queryZdryInfo_(String zdryid) {
-		return null;//zdrySqsbzdryxxbDao.queryById(zdryid);
-	}
-
 	@Override
 	protected void zd_(SessionBean sessionBean, Zdry zdrylbdx) {
 		insert(sessionBean,zdrylbdx);
