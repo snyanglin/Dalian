@@ -197,6 +197,25 @@ public class ZdryRuleService {
 		return resMap;
 	}
 	
+	/**
+	 * 
+	 * @Title: getZdryLxJgbmMap
+	 * @Description: TODO(获取重点人员类型的监管部门Map)
+	 * @param @return    设定文件
+	 * @return Map<String,String>    返回类型
+	 * @throws Exception 
+	 * @throw
+	 */
+	public Map<String,String> getZdryLxJgbmMap() throws Exception{
+		RuleBean ruleBean = droolsRequest.requestDroolsServer(SystemConfig.getString(AppConst.XZQH)+"_ZDRYJGBM","GETJGBM",null);
+		if(ruleBean.getResStatus()==1){
+			throw new RuntimeException("Drools Exception:"+ruleBean.getResponse());			
+		}
+		
+		Map<String,String> resMap=(Map) ruleBean.getResponse();
+		return resMap;
+	}
+	
 	public RuleBean validateZdryVO(Object paramObj) throws Exception{
 		RuleBean ruleBean=droolsRequest.requestDroolsServer(SystemConfig.getString(AppConst.XZQH)+"_ZDRY_VALIDATION", "ZdryVO", paramObj);
 		return ruleBean;					

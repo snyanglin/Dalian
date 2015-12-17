@@ -154,9 +154,9 @@ public class ZdryzbService implements ZdryService {
 
 	@MethodAnnotation(value = "转类", type = logType.update)
 	@Override	
-	public void zl(SessionBean sessionBean, ZOBean zdry) {		
+	public void zl(SessionBean sessionBean, ZOBean entity) {		
 		// 查询原有信息，发送消息的时候需要
-		ZdryZb oldLb = (ZdryZb) zdry.getZdryzb();
+		ZdryZb oldLb = (ZdryZb) entity.getZdryzb();
 		ZdryZb newLb = (ZdryZb) zdryZdryZbDao.queryById(oldLb.getId());
 		newLb.setGlzt(ZdryConstant.ZLSQ);
 		newLb.setZdrylb(oldLb.getZdrylb());		
@@ -164,19 +164,19 @@ public class ZdryzbService implements ZdryService {
 	}
 
 	@Override
-	public void zlSuccess(SessionBean sessionBean, ZOBean zdry) {
+	public void zlSuccess(SessionBean sessionBean, ZOBean entity) {
 		ZdryZb zdryzb = new ZdryZb();
-		zdryzb.setId(zdry.getZdryzb().getId());
+		zdryzb.setId(entity.getZdryzbId());
 		zdryzb.setGlzt(ZdryConstant.YLG);
 		updateZdry(sessionBean,zdryzb);
 	}
 
-	//TODO 还原类别
 	@Override
-	public void zlFail(SessionBean sessionBean, ZOBean zdry) {
+	public void zlFail(SessionBean sessionBean, ZOBean entity) {
 		ZdryZb zdryzb = new ZdryZb();
-		zdryzb.setId(zdry.getZdryzb().getId());
+		zdryzb.setId(entity.getZdryzbId());
 		zdryzb.setGlzt(ZdryConstant.YLG);
+		zdryzb.setZdrylb(((ZdryZb)entity.getZdryzb()).getZdrylb());
 		updateZdry(sessionBean,zdryzb);
 
 	}
@@ -185,7 +185,7 @@ public class ZdryzbService implements ZdryService {
 	@Override
 	public void zd(SessionBean sessionBean, ZOBean entity) {
 		ZdryZb zdry_old = new ZdryZb();
-		zdry_old.setId(entity.getZdryzb().getId());
+		zdry_old.setId(entity.getZdryzbId());
 		zdry_old.setGlzt(ZdryConstant.ZDSQ);
 		updateZdry(sessionBean,zdry_old);				
 		if(!isDelete(entity.getZdrycx())){

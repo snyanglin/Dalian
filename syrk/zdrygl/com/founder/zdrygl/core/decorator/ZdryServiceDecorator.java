@@ -138,7 +138,6 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 
 	@Override
 	public final void zd(SessionBean sessionBean , ZOBean entity) {
-		//转递不涉及子表的修改
 		zdryService.zd(sessionBean,entity);//新加，改变状态
 		setZdrylbdxId(entity);
 		zd_(sessionBean,entity.getZdrylbdx());
@@ -175,6 +174,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		paraObj.put("jsrUserId", zb.getXt_zhxgrid());
 		paraObj.put("jsrUserName", zb.getXt_zhxgrxm());
 		zdryService.zdFail(sessionBean,entity);
+		zdFail_(sessionBean, entity.getZdrylbdx());
 		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDSPJG,paraObj);
 	}
 
@@ -201,12 +201,11 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	
 //	TODO 待实现 
 //	protected abstract void cgFail_(SessionBean sessionBean,Zdry zdrylbdx);
-//	TODO 待实现 
+
 	protected abstract void zd_(SessionBean sessionBean,Zdry zdrylbdx);
-//	TODO 待实现 
+	
 	protected abstract void zdFail_(SessionBean sessionBean,Zdry zdrylbdx);
 	
-//	TODO 待实现 
 	protected abstract void update_(SessionBean sessionBean,Zdry zdrylbdx);
 	
 	
