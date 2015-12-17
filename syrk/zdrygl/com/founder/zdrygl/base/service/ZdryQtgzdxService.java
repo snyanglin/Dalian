@@ -1,11 +1,6 @@
 package com.founder.zdrygl.base.service;
 
-import javax.annotation.Resource;
-
 import com.founder.framework.base.entity.SessionBean;
-import com.founder.framework.base.service.BaseService;
-import com.founder.zdrygl.base.dao.ZdrySqsbzdryxxbDao;
-import com.founder.zdrygl.base.model.ZdrySqsbzdryxxb;
 import com.founder.zdrygl.core.decorator.ZdryServiceDecorator;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.Zdry;
@@ -14,7 +9,7 @@ import com.founder.zdrygl.core.model.Zdry;
  * ****************************************************************************
  * @Package:      [com.founder.zdrygl.base.service.ZdrySqsbService.java]  
  * @ClassName:    [ZdrySqsbService]   
- * @Description:  [涉枪涉爆人业务服务]   
+ * @Description:  [其他关注对象， 没有表，不需要实现具体功能]   
  * @Author:       [cong_rihong@founder.com.cn] 
  * @CreateDate:   [2015年9月21日 下午7:16:11]   
  * @UpdateUser:   [cong_rihong@founder.com.cn(如多次修改保留历史记录，增加修改记录)]   
@@ -34,12 +29,10 @@ public class ZdryQtgzdxService  extends ZdryServiceDecorator{
 	 */
 	@Override
 	protected void lg_(SessionBean sessionBean,Zdry zdrylbdx) {
-		//insert(sessionBean,zdrylbdx);
 	}
 	
 	@Override
 	protected void lgFail_(SessionBean sessionBean, Zdry zdrylbdx) {
-		//delete(sessionBean,zdrylbdx);
 	}
 	
 	@Override
@@ -50,7 +43,7 @@ public class ZdryQtgzdxService  extends ZdryServiceDecorator{
 	/**
 	 * 
 	 * @Title: update_
-	 * @Description: TODO(子表（重点人口）修改)
+	 * @Description: (子表（重点人口）修改)
 	 * @param @param sessionBean    设定文件
 	 * @return void    返回类型
 	 * @throw
@@ -61,16 +54,9 @@ public class ZdryQtgzdxService  extends ZdryServiceDecorator{
 	
 	@Override
 	protected void zd_(SessionBean sessionBean, Zdry zdrylbdx) {
-		insert(sessionBean,zdrylbdx);
 	}
 
 	@Override
 	protected void zdFail_(SessionBean sessionBean, Zdry zdrylbdx) {
-		delete(sessionBean,zdrylbdx);
-	}
-	protected void insert(SessionBean sessionBean,Zdry zdrylbdx) {
-	}
-	
-	protected void delete(SessionBean sessionBean, Zdry zdrylbdx) {
 	}
 }
