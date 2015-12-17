@@ -72,7 +72,10 @@ public class SysMessageInfoRuleServiceImpl implements SysMessageInfoService {
 				sysMessage.setJsr(jsr[1]);
 				sysMessage.setJsrdm(jsr[0]);
 			}else if(resMap.get("msgJsr") instanceof String[][]){
-				
+				//TODO:
+				String[][] jsr = (String[][]) resMap.get("msgJsr");
+				sysMessage.setJsr(jsr[0][1]);
+				sysMessage.setJsrdm(jsr[0][0]);
 			}
 		}else if("1".equals(sysMessage.getJslx())){
 			sysMessage.setJsrssdw(resMap.get("jsrssdw").toString());

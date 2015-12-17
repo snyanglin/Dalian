@@ -1,5 +1,6 @@
 package com.founder.zdrygl.workflow;
 
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -70,6 +71,19 @@ public class ZdSuccess extends WorkflowDelegate{
 		if(xgxpcsdm != null){
 			zdryzb.setGxpcsdm(xgxpcsdm);
 		}
+		//变更录入人信息:为下次转递提供正确的原辖区民警信息
+		String xt_lrsj = (String) variables.get("xt_lrsj");
+		if(xt_lrsj!=null) zdryzb.setXt_lrsj(xt_lrsj);
+		String xt_lrrxm = (String) variables.get("xt_lrrxm");
+		if(xt_lrrxm!=null) zdryzb.setXt_lrrxm(xt_lrrxm);
+		String xt_lrrid = (String) variables.get("xt_lrrid");
+		if(xt_lrrid!=null) zdryzb.setXt_lrrid(xt_lrrid);
+		String xt_lrrbm = (String) variables.get("xt_lrrbm");
+		if(xt_lrrbm!=null) zdryzb.setXt_lrrbm(xt_lrrbm);
+		Long xt_lrrbmid = (Long) variables.get("xt_lrrbmid");
+		if(xt_lrrbmid!=null) zdryzb.setXt_lrrbmid(String.valueOf(xt_lrrbmid));
+		String xt_lrip = (String) variables.get("xt_lrip");
+		if(xt_lrip!=null) zdryzb.setXt_lrip(xt_lrip);
 		
 		ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
 		zdryService.zdSuccess(sessionBean,entity);

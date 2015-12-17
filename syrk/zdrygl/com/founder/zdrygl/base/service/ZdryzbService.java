@@ -216,6 +216,13 @@ public class ZdryzbService implements ZdryService {
 			ZdryZb newZb = new ZdryZb();
 			newZb.setId( entity.getZdryzbId());
 			newZb.setGlzt(ZdryConstant.YLG);
+			//变更录入人信息:为下次转递提供正确的原辖区民警信息
+			newZb.setXt_lrsj(tmpZb.getXt_lrsj());
+			newZb.setXt_lrrxm(tmpZb.getXt_lrrxm());
+			newZb.setXt_lrrid(tmpZb.getXt_lrrid());
+			newZb.setXt_lrrbm(tmpZb.getXt_lrrbm());
+			newZb.setXt_lrrbmid(tmpZb.getXt_lrrbmid());
+			newZb.setXt_lrip(tmpZb.getXt_lrip());
 			if(!StringUtils.isEmpty(gxbm))
 				newZb.setGxbm(gxbm);
 			updateZdry(sessionBean,newZb);
