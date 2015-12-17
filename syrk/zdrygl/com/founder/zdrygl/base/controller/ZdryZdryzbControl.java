@@ -409,7 +409,7 @@ public class ZdryZdryzbControl extends BaseController {
 			}
 			return klgStr;
 		} catch (Exception e) {			
-			e.printStackTrace();
+			 logger.error("同时列管的类型出错！", e);
 		}
 		
 		return "999999";

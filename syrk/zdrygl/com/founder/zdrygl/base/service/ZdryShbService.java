@@ -52,6 +52,13 @@ public class ZdryShbService  extends ZdryServiceDecorator{
 		insert(sessionBean, zdrylbdx);		
 	}
 	
+	@Override
+	protected void cgFail_(SessionBean sessionBean, Zdry zdrylbdx) {
+		ZdryShbzdryxxb shbzdryxxb = (ZdryShbzdryxxb) zdrylbdx;
+		BaseService.setCrossoutProperties(shbzdryxxb, sessionBean);
+		zdryShbzdryxxbDao.delete(shbzdryxxb);
+	}
+	
 	/**
 	 * 
 	 * @Title: update_

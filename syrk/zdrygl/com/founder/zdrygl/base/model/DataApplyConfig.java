@@ -3,10 +3,14 @@ package com.founder.zdrygl.base.model;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.log4j.Logger;
 
 import com.founder.framework.config.SystemConfig;
 
 public class DataApplyConfig {
+	
+	private static Logger logger = Logger.getLogger(DataApplyConfig.class);
+	
 	private String dataApplyUrl="http://localhost:8080/syrk/dataApply/syrkApply";
 	private int dataApplyTimeOut=10000;
 	private int dataApplyConTimeOut=10000;
@@ -48,7 +52,7 @@ public class DataApplyConfig {
 	/**
 	 * 
 	 * @Title: dataApply
-	 * @Description: TODO(httpClient调用华云复用接口)
+	 * @Description: (httpClient调用华云复用接口)
 	 * @param @param cyzjdm
 	 * @param @param zjhm
 	 * @param @return    设定文件
@@ -68,11 +72,9 @@ public class DataApplyConfig {
 				if(res!=null){					
 					return res;
 				}
-					
-					
 			}
 		} catch (Exception e) {
-			e.printStackTrace();			
+			 logger.error(e.getMessage(), e);		
 		}finally{
 			method.releaseConnection();
 		}

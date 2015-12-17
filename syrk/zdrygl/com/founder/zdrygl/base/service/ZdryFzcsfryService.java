@@ -53,6 +53,11 @@ public class ZdryFzcsfryService  extends ZdryServiceDecorator{
 			zdryFzcsfryxxbDao.insert(zdryFzcsfryxxb);
 		}
 	}
+
+	@Override
+	protected void cgFail_(SessionBean sessionBean, Zdry zdrylbdx) {
+		delete(sessionBean,(ZdryFzcsfryxxb) zdrylbdx);
+	}
 	
 	/**
 	 * 
@@ -91,6 +96,5 @@ public class ZdryFzcsfryService  extends ZdryServiceDecorator{
 		BaseService.setCrossoutProperties(zdrylbdx, sessionBean);
 		zdryFzcsfryxxbDao.delete(zdrylbdx);
 	}
-
 
 }

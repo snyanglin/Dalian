@@ -199,8 +199,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 
 	protected abstract void cg_(SessionBean sessionBean,Zdry zdrylbdx);
 	
-//	TODO 待实现 
-//	protected abstract void cgFail_(SessionBean sessionBean,Zdry zdrylbdx);
+	protected abstract void cgFail_(SessionBean sessionBean,Zdry zdrylbdx);
 
 	protected abstract void zd_(SessionBean sessionBean,Zdry zdrylbdx);
 	

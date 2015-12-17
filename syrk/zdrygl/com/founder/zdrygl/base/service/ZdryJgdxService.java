@@ -53,6 +53,11 @@ public class ZdryJgdxService  extends ZdryServiceDecorator{
 		}
 	}
 	
+	@Override
+	protected void cgFail_(SessionBean sessionBean, Zdry zdrylbdx) {
+		delete(sessionBean,(ZdryJgdxxxb) zdrylbdx);
+	}
+	
 	/**
 	 * 
 	 * @Title: update_

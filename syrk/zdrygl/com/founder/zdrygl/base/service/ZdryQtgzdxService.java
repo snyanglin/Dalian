@@ -40,6 +40,10 @@ public class ZdryQtgzdxService  extends ZdryServiceDecorator{
 		
 	}
 	
+	@Override
+	protected void cgFail_(SessionBean sessionBean, Zdry zdrylbdx) {
+	}
+	
 	/**
 	 * 
 	 * @Title: update_
