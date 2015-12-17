@@ -55,48 +55,6 @@ public class ZdFail extends WorkflowDelegate{
 		Zdrycx zdrycx = (Zdrycx) variables.get("zdrycx");
 		entity.setZdrycx(zdrycx);
 		
-		/*String yjzd_dzid 	= (String)  variables.get("yjzd_dzid");
-		String yjzd_dzxz 	= (String)  variables.get("yjzd_dzxz");
-		String yjzd_mlpdm 	= (String)  variables.get("yjzd_mlpdm");
-		String yjzd_mlpxz 	= (String)  variables.get("yjzd_mlpxz");
-		String yjzd_xzqhdm 	= (String)  variables.get("yjzd_xzqhdm");
-		String yjzd_zbx 	= (String)  variables.get("yjzd_zbx");
-		String yjzd_zby 	= (String)  variables.get("yjzd_zby");
-		String yglbm 		= (String)  variables.get("yglbm");
-		String ygxpcsdm		= (String)  variables.get("ygxpcsdm");
-		String yzrqdm 		= (String)  variables.get("yzrqdm");//原责任区代码
-		
-		if(yjzd_dzid != null){
-			zdryzb.setJzd_dzid(yjzd_dzid);
-		}
-		if(yjzd_dzxz != null){
-			zdryzb.setJzd_dzxz(yjzd_dzxz);
-		}
-		if(yjzd_mlpdm != null){
-			zdryzb.setJzd_mlpdm(yjzd_mlpdm);
-		}
-		if(yjzd_mlpxz != null){
-			zdryzb.setJzd_mlpxz(yjzd_mlpxz);
-		}
-		if(yjzd_xzqhdm != null){
-			zdryzb.setJzd_xzqhdm(yjzd_xzqhdm);
-		}
-		if(yjzd_zbx != null){
-			zdryzb.setJzd_zbx(yjzd_zbx);
-		}
-		if(yjzd_zby != null){
-			zdryzb.setJzd_zby(yjzd_zby);
-		}
-		if(yglbm != null){
-			zdryzb.setGlbm(yglbm);
-		}
-		if(ygxpcsdm != null){
-			zdryzb.setGxpcsdm(ygxpcsdm);
-		}
-		if(yzrqdm != null ){
-			zdryzb.setGxzrqdm(yzrqdm);
-		}
-		 */
 		ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
 		zdryService.zdFail(sessionBean,entity);
 	}
