@@ -70,21 +70,7 @@ public class ZdSuccess extends WorkflowDelegate{
 		if(xgxpcsdm != null){
 			zdryzb.setGxpcsdm(xgxpcsdm);
 		}
-
 		
-		
-		/*
-		String zdryid=(String) variables.get("zdryid");
-		String zdryxm=(String) variables.get("xm");
-		
-		String ywsqrId=(String) variables.get("applyUserId");
-		String ywsqr=(String) variables.get("sqrName");*/
-		//String sfcj=(String) variables.get("sfcj");
-		
-		
-		/*sessionBean.getExtendMap().put("xgxpcsdm", (String)  variables.get("xgxpcsdm"));
-		sessionBean.getExtendMap().put("ygxpcsdm", (String)  variables.get("ygxpcsdm"));
-		sessionBean.getExtendMap().put("yglbm", yglbm);*/
 		ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
 		zdryService.zdSuccess(sessionBean,entity);
 	}

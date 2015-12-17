@@ -24,8 +24,6 @@ import com.founder.zdrygl.core.model.Zdry;
  */
 public class ZdryQtgzdxService  extends ZdryServiceDecorator{
 	
-	@Resource(name="zdrySqsbzdryxxbDao")
-	private ZdrySqsbzdryxxbDao zdrySqsbzdryxxbDao;
 
 	public ZdryQtgzdxService(ZdryService zdryService) {
 		super(zdryService);
@@ -36,21 +34,17 @@ public class ZdryQtgzdxService  extends ZdryServiceDecorator{
 	 */
 	@Override
 	protected void lg_(SessionBean sessionBean,Zdry zdrylbdx) {
-		insert(sessionBean,zdrylbdx);
+		//insert(sessionBean,zdrylbdx);
 	}
 	
 	@Override
 	protected void lgFail_(SessionBean sessionBean, Zdry zdrylbdx) {
-		delete(sessionBean,zdrylbdx);
+		//delete(sessionBean,zdrylbdx);
 	}
 	
 	@Override
 	protected void cg_(SessionBean sessionBean, Zdry zdrylbdx) {
-		if(zdrylbdx != null){
-			ZdrySqsbzdryxxb zdrySqsbzdryxxb = (ZdrySqsbzdryxxb) zdrylbdx;
-			BaseService.setSaveProperties(zdrySqsbzdryxxb, sessionBean);	
-			zdrySqsbzdryxxbDao.insert(zdrySqsbzdryxxb);
-		}
+		
 	}
 	
 	/**
@@ -63,9 +57,6 @@ public class ZdryQtgzdxService  extends ZdryServiceDecorator{
 	 */
 	@Override
 	protected void update_(SessionBean sessionBean, Zdry zdrylbdx) {
-		ZdrySqsbzdryxxb zdrySqsbzdryxxb = (ZdrySqsbzdryxxb) zdrylbdx;
-		BaseService.setUpdateProperties(zdrySqsbzdryxxb, sessionBean);
-		zdrySqsbzdryxxbDao.update(zdrySqsbzdryxxb);
 	}
 	
 	@Override
@@ -78,14 +69,8 @@ public class ZdryQtgzdxService  extends ZdryServiceDecorator{
 		delete(sessionBean,zdrylbdx);
 	}
 	protected void insert(SessionBean sessionBean,Zdry zdrylbdx) {
-		ZdrySqsbzdryxxb zdrySqsbzdryxxb = (ZdrySqsbzdryxxb) zdrylbdx;
-		BaseService.setSaveProperties(zdrySqsbzdryxxb, sessionBean);	
-		zdrySqsbzdryxxbDao.insert(zdrySqsbzdryxxb);
 	}
 	
 	protected void delete(SessionBean sessionBean, Zdry zdrylbdx) {
-		ZdrySqsbzdryxxb zdrySqsbzdryxxb = (ZdrySqsbzdryxxb) zdrylbdx;
-		BaseService.setCrossoutProperties(zdrySqsbzdryxxb, sessionBean);
-		zdrySqsbzdryxxbDao.delete(zdrySqsbzdryxxb);
 	}
 }

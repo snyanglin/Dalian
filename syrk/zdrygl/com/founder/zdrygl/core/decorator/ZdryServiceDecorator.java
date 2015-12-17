@@ -12,6 +12,7 @@ import com.founder.framework.exception.BussinessException;
 import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.workflow.service.inteface.JProcessDefinitionService;
 import com.founder.zdrygl.base.message.MessageDict;
+import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.inteface.JwzhMessageService;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.ZOBean;
@@ -152,18 +153,28 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 
 	@Override
 	public final void zdSuccess(SessionBean sessionBean , ZOBean entity) {
-		zdryService.zdSuccess(sessionBean ,entity);
+		//转递不涉及子表的修改
+		ZdryZb zb = (ZdryZb) entity.getZdryzb();
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());//获取消息的参数
 		paraObj.put("result", "zdSuccess");
+		paraObj.put("zdryId", entity.getZdryzbId());
+		paraObj.put("jsrUserId", zb.getXt_zhxgrid());
+		paraObj.put("jsrUserName", zb.getXt_zhxgrxm());
+		zdryService.zdSuccess(sessionBean ,entity);
 		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDSPJG,paraObj);
 	}
 
 	@Override
 	public final void zdFail(SessionBean sessionBean , ZOBean entity) {
-		zdryService.zdFail(sessionBean,entity);
-		zdFail_(sessionBean, entity.getZdrylbdx());
+		//转递不涉及子表的修改
+		ZdryZb zb = (ZdryZb) entity.getZdryzb();
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());//获取消息的参数
 		paraObj.put("result", "zdFail");
+		paraObj.put("zdryId", entity.getZdryzbId());
+		paraObj.put("jsrUserId", zb.getXt_zhxgrid());
+		paraObj.put("jsrUserName", zb.getXt_zhxgrxm());
+		zdryService.zdFail(sessionBean,entity);
+		zdFail_(sessionBean, entity.getZdrylbdx());
 		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDSPJG,paraObj);
 	}
 

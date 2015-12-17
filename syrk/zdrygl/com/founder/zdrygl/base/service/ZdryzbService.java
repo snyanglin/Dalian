@@ -279,6 +279,7 @@ public class ZdryzbService implements ZdryService {
 		Map<String, String> map = new HashMap<String,String>();
 		ZdryZb zdryzb = (ZdryZb) zdry;
 		map.put("zdryName", zdryzb.getXm());
+		map.put("zdryGllxdm", zdryzb.getZdrygllxdm());
 		map.put("zdrylxName", zdryConstant.getValueOfZdryDict(zdryzb.getZdrygllxdm()));
 		return map;
 	}

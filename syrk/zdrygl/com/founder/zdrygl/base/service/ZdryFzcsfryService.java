@@ -78,7 +78,7 @@ public class ZdryFzcsfryService  extends ZdryServiceDecorator{
 
 	@Override
 	protected void zdFail_(SessionBean sessionBean, Zdry zdrylbdx) {
-		// TODO Auto-generated method stub
+		delete(sessionBean,(ZdryFzcsfryxxb)zdrylbdx);
 		
 	}
 	private void insert(SessionBean sessionBean, Zdry zdry){
