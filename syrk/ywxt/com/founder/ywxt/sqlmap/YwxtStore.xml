@@ -5,13 +5,13 @@
 
 	<insert id="storeYwxtxxb" parameterClass="string">
 		<![CDATA[ 
-			insert into YWXT_YWXTXXB_STORE SELECT * FROM YWXT_YWXTXXB WHERE ID = #id#
+			insert into YWXT_YWXTXXB_STORE (id, ywnr, ywlx, datajson, bz, xt_cjsj, xt_lrsj, xt_lrrxm, xt_lrrid, xt_lrrbm, xt_lrrbmid, xt_lrip, xt_zhxgsj, xt_zhxgrxm, xt_zhxgrid, xt_zhxgrbm, xt_zhxgrbmid, xt_zhxgip, xt_zxbz, xt_zxyy) SELECT id, ywnr, ywlx, datajson, bz, xt_cjsj, xt_lrsj, xt_lrrxm, xt_lrrid, xt_lrrbm, xt_lrrbmid, xt_lrip, xt_zhxgsj, xt_zhxgrxm, xt_zhxgrid, xt_zhxgrbm, xt_zhxgrbmid, xt_zhxgip, xt_zxbz, xt_zxyy FROM YWXT_YWXTXXB WHERE ID = #id#
 		]]>
 	</insert>
 	
 	<insert id="storeCyryxxb" parameterClass="string">
 		<![CDATA[
-			insert into YWXT_CYRYXXB_STORE SELECT * FROM YWXT_CYRYXXB WHERE ID = #id#
+			insert into YWXT_CYRYXXB_STORE (id, cyrid, cyrxm, xtdz, xtjg, xtywid, bz, xt_cjsj, xt_lrsj, xt_lrrxm, xt_lrrid, xt_lrrbm, xt_lrrbmid, xt_lrip, xt_zhxgsj, xt_zhxgrxm, xt_zhxgrid, xt_zhxgrbm, xt_zhxgrbmid, xt_zhxgip, xt_zxbz, xt_zxyy, sszrq, sspcs) SELECT id, cyrid, cyrxm, xtdz, xtjg, xtywid, bz, xt_cjsj, xt_lrsj, xt_lrrxm, xt_lrrid, xt_lrrbm, xt_lrrbmid, xt_lrip, xt_zhxgsj, xt_zhxgrxm, xt_zhxgrid, xt_zhxgrbm, xt_zhxgrbmid, xt_zhxgip, xt_zxbz, xt_zxyy, sszrq, sspcs FROM YWXT_CYRYXXB WHERE ID = #id#
 		]]>
 	</insert>
 	
