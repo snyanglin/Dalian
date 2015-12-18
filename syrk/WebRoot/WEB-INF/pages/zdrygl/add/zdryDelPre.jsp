@@ -74,11 +74,11 @@
 <script type="text/javascript" >
 var mainTabID = "${mainTabID}";
 var lcg="cg";//zdryLgLxInc.jsp更改类型的时候使用
-function startup(){
-	
-	//$("#ggDiv").hide();	
-	//initCgyy();
-};
+var kcgStr="${kcgStr }";
+$(document).ready(function(){
+    if(kcgStr=="999999")//不能撤为其他类型，只能注销
+    	setComboRequired("zdrygllxdm", false);
+});
 
 function beforeSubmit() {
 	var obj=$("#fzxzdm").combotree("tree");
