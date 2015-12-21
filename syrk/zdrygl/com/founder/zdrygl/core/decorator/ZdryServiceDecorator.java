@@ -54,7 +54,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		zdryService.lg(sessionBean, entity);
 		setZdrylbdxId(entity);
 		lg_(sessionBean,entity.getZdrylbdx());
-		if(entity.getStartProcessInstance()!=null){
+		if(entity.getStartProcessInstance()!=null && entity.getStartProcessInstance().isHasWorkflow()){
 			entity.setProcessInstanceBusinessKey(entity.getZdryzb().getId());
 			entity.getStartProcessInstance().getVariables().put("zdryId", entity.getZdryzbId());
 			entity.getStartProcessInstance().getVariables().put("zdryZb", entity.getZdryzb());
@@ -87,7 +87,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		zdryService.cg(sessionBean, entity);
 		setZdrylbdxId(entity);
 		cg_(sessionBean,entity.getZdrylbdx());
-		if(entity.getStartProcessInstance()!=null){
+		if(entity.getStartProcessInstance()!=null  && entity.getStartProcessInstance().isHasWorkflow()){
 			entity.setProcessInstanceBusinessKey(entity.getZdryzb().getId());
 			entity.getStartProcessInstance().getVariables().put("zdryId", entity.getZdryzbId());
 			entity.getStartProcessInstance().getVariables().put("zdryZb", entity.getZdryzb());
