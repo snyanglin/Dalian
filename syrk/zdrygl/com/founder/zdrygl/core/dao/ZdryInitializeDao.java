@@ -84,4 +84,8 @@ public class ZdryInitializeDao extends BaseDaoImpl{
 		map.put("qydm", qydm);
 		return queryForList("ZdryInitialize.queryZdryDict", map);
 	}
+
+	public String queryXzqh() {
+		return (String) queryForObject("ZdryInitialize.queryXzqh", null);
+	}
 }

@@ -26,4 +26,9 @@
 			</isNotEmpty>
 		<![CDATA[ and QYDM = #qydm# order by LBDM ASC]]> 
 	</select>	
+	
+	<select id="queryXzqh"  resultClass="String">
+		<![CDATA[ select csz  from SYS_XTCS_GLOBAL2  where  XT_ZXBZ = '0' and csmc = 'systemXzqh' ]]> 
+	</select>
+	
 </sqlMap>

@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.XmlWebApplicationContext;
 
-import com.founder.framework.components.AppConst;
 import com.founder.framework.config.SystemConfig;
 import com.founder.framework.utils.TreeDataBuilder;
 import com.founder.framework.utils.TreeNode;
@@ -30,7 +32,7 @@ import com.founder.zdrygl.core.dao.ZdryInitializeDao;
  * @Version:      [v1.0]
  */
 @Component
-public class ZdryConstant {
+public class ZdryConstant implements ApplicationListener<ContextRefreshedEvent> {
 	
 	@Autowired
 	private  ZdryInitializeDao zdryInitializeDao;
@@ -48,6 +50,8 @@ public class ZdryConstant {
 	public static final String XF = "6";
 	public static final String ZLSQ = "7";
 	public static final String YZD = "8";
+	
+	private static String XZQH = "";
 		
 	/**
 	 * 动态读取数据库配置数据
@@ -69,13 +73,13 @@ public class ZdryConstant {
 	
 	public Map<String,String> zdryServiceMap(){
 		if(zdryServiceMap.size() == 1)
-			zdryServiceMap.putAll(zdryInitializeDao.queryZdrylxMap(SystemConfig.getString(AppConst.XZQH)==""?"210000":SystemConfig.getString(AppConst.XZQH)));
+			zdryServiceMap.putAll(zdryInitializeDao.queryZdrylxMap(XZQH));
 		return zdryServiceMap;
 	}
 	
 	public String getValueOfZdryServiceMap(String zdrylxdm){
 		if(zdryServiceMap.size() == 1)
-			zdryServiceMap.putAll(zdryInitializeDao.queryZdrylxMap(SystemConfig.getString(AppConst.XZQH)==""?"210000":SystemConfig.getString(AppConst.XZQH)));
+			zdryServiceMap.putAll(zdryInitializeDao.queryZdrylxMap(XZQH));
 		return zdryServiceMap.get(zdrylxdm);
 	}
 	/**
@@ -88,7 +92,7 @@ public class ZdryConstant {
 	 */
 	public Map<String,String> zdryDict(){
 		if(zdryDict.isEmpty())
-			zdryDict.putAll(zdryInitializeDao.queryZdryDict(SystemConfig.getString(AppConst.XZQH)==""?"210000":SystemConfig.getString(AppConst.XZQH)));
+			zdryDict.putAll(zdryInitializeDao.queryZdryDict(XZQH));
 		return zdryDict;
 	}
 	
@@ -103,7 +107,7 @@ public class ZdryConstant {
 	 */
 	public String getValueOfZdryDict(String zdrylxdm){
 		if(zdryDict.isEmpty())
-			zdryDict.putAll(zdryInitializeDao.queryZdryDict(SystemConfig.getString(AppConst.XZQH)==""?"210000":SystemConfig.getString(AppConst.XZQH)));
+			zdryDict.putAll(zdryInitializeDao.queryZdryDict(XZQH));
 		return zdryDict.get(zdrylxdm);
 	}
 	
@@ -181,11 +185,10 @@ public class ZdryConstant {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private List<TreeNode> queryChildNodeList(TreeNode parrentNode){
-		String qydm = SystemConfig.getString(AppConst.XZQH);
 		String lbdm_p = "999999";
 		if(parrentNode!=null) lbdm_p = parrentNode.getId();
 		
-		List dictList = zdryInitializeDao.getChildList(lbdm_p,org.springframework.util.StringUtils.isEmpty(qydm)?"210000":qydm);
+		List dictList = zdryInitializeDao.getChildList(lbdm_p,XZQH);
 		List<TreeNode> nodeList = new ArrayList<TreeNode>();
 		if (dictList != null && dictList.size() > 0) { // 有数据
 			Map<String,String> dictMap;			
@@ -202,5 +205,16 @@ public class ZdryConstant {
 		}			
 		
 		return nodeList;
+	}
+
+	@Override
+	public void onApplicationEvent(ContextRefreshedEvent applicationEvent) {
+		
+		 if (applicationEvent.getSource() instanceof XmlWebApplicationContext) {
+             if (((XmlWebApplicationContext) applicationEvent.getSource()).getDisplayName().equals("Root WebApplicationContext")) {
+            	 XZQH = zdryInitializeDao.queryXzqh();
+            	 createTreeJS();
+             }
+         }
 	}	
 }
