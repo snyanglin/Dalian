@@ -7,7 +7,7 @@
 	
 	<!-- 新增 -->
 	<insert id="save" parameterClass="zdryZdryzb">
-		<![CDATA[ insert into ZDRY_ZDRYZB (ID]]>		
+		<![CDATA[ insert into ZDRY_ZDRYZB_NEW (ID]]>		
 			<isNotEmpty prepend="," property="cyzjdm"><![CDATA[ cyzjdm]]></isNotEmpty>
 			<isNotEmpty prepend="," property="zjhm"><![CDATA[ zjhm]]></isNotEmpty>
 			<isNotEmpty prepend="," property="xm"><![CDATA[ xm]]></isNotEmpty>
@@ -77,7 +77,7 @@
 	
 	<!-- 更新 -->
 	<update id="update" parameterClass="zdryZdryzb">
-		<![CDATA[ update ZDRY_ZDRYZB ]]>	
+		<![CDATA[ update ZDRY_ZDRYZB_NEW ]]>	
 		<dynamic prepend="set">			
 			<isNotNull prepend="," property="cyzjdm"><![CDATA[ cyzjdm = #cyzjdm#]]></isNotNull>
 			<isNotNull prepend="," property="zjhm"><![CDATA[ zjhm = #zjhm#]]></isNotNull>
@@ -117,12 +117,12 @@
 	
 	<!-- 注销 -->
 	<update id="delete" parameterClass="zdryZdryzb">
-		<![CDATA[ update ZDRY_ZDRYZB set ]]><include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>	
+		<![CDATA[ update ZDRY_ZDRYZB_NEW set ]]><include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>	
 	</update>
 	
 	<!-- 管理列表 -->
 	<select id="queryPageCount" parameterClass="Map" resultClass="Integer">
-		<![CDATA[ select count(*) from ZDRY_ZDRYZB z where 1=1 ]]>
+		<![CDATA[ select count(*) from ZDRY_ZDRYZB_NEW z where 1=1 ]]>
 			<isNotEmpty prepend="and" property="zdryZb.zdrygllxdm">
 				z.zdrygllxdm = #zdryZb.zdrygllxdm#
 			</isNotEmpty>
@@ -148,7 +148,7 @@
 	</select>
 	<select id="queryPage" parameterClass="Map"  resultClass="zdryZdryzb">
 		<![CDATA[ select * from ( select rownum r ,m.* from (
-			select z.* from ZDRY_ZDRYZB z where 1=1   ]]>
+			select z.* from ZDRY_ZDRYZB_NEW z where 1=1   ]]>
 									
 			<isNotEmpty prepend="and" property="zdryZb.zdrygllxdm">
 				z.zdrygllxdm = #zdryZb.zdrygllxdm#
@@ -176,7 +176,7 @@
 	</select>
 	
 	<select id="queryByMap" parameterClass="Map" resultClass="zdryZdryzb">
-		<![CDATA[ select * from ZDRY_ZDRYZB where rownum = 1 and xt_zxbz = '0']]>
+		<![CDATA[ select * from ZDRY_ZDRYZB_NEW where rownum = 1 and xt_zxbz = '0']]>
 	    <isNotEmpty prepend="and" property="andCondition"><![CDATA[ $andCondition$ ]]></isNotEmpty>
 		<isNotEmpty prepend="and" property="zdryZdryzb.id"><![CDATA[ ID=#zdryZdryzb.id# ]]></isNotEmpty>
 		<isNotEmpty prepend="and" property="zdryZdryzb.ryid"><![CDATA[ RYID=#zdryZdryzb.ryid# ]]></isNotEmpty>
@@ -199,7 +199,7 @@
 	</select>
 	
 	<select id="queryListByMap" parameterClass="Map" resultClass="zdryZdryzb">
-		<![CDATA[ select * from ZDRY_ZDRYZB where xt_zxbz = '0']]>
+		<![CDATA[ select * from ZDRY_ZDRYZB_NEW where xt_zxbz = '0']]>
 	    <isNotEmpty prepend="and" property="andCondition"><![CDATA[ $andCondition$ ]]></isNotEmpty>
 		<isNotEmpty prepend="and" property="zdryZdryzb.ryid"><![CDATA[ RYID=#zdryZdryzb.ryid# ]]></isNotEmpty>
 		<isNotEmpty prepend="and" property="zdryZdryzb.zdrylb"><![CDATA[ ZDRYLB=#zdryZdryzb.zdrylb# ]]></isNotEmpty>
@@ -224,7 +224,7 @@
 	<!-- 获取查询权限的List -->
 	<select id="getQeryList" parameterClass="Map" resultClass="zdryZdryzb">
 		<![CDATA[ select * from ( select rownum r ,m.* from (						
-			select z.* from ZDRY_ZDRYZB z   
+			select z.* from ZDRY_ZDRYZB_NEW z   
 			left join  (
 				    select g1.ORGCODE as sszrqdm ,g2.ORGCODE as sspcsdm,g3.ORGCODE as ssfxjdm from ORG_ORGANIZATION g1, ORG_ORGANIZATION g2, ORG_ORGANIZATION g3
 				    where g2.id=g1.PARENTID
@@ -280,7 +280,7 @@
 	</select>
 	<select id="getQeryListCount" parameterClass="Map" resultClass="Integer">
 		<![CDATA[ 
-			select count(*) from ZDRY_ZDRYZB z  
+			select count(*) from ZDRY_ZDRYZB_NEW z  
 			left join  (
 				    select g1.ORGCODE as sszrqdm ,g2.ORGCODE as sspcsdm,g3.ORGCODE as ssfxjdm from ORG_ORGANIZATION g1, ORG_ORGANIZATION g2, ORG_ORGANIZATION g3
 				    where g2.id=g1.PARENTID
@@ -333,7 +333,7 @@
 	
 			<!-- 根据查询可以注销的实有人口 是不是重口 -->
 	<select id="queryCountBySyrk" parameterClass="String" resultClass="Integer">
-		<![CDATA[ select count(1) from ZDRY_ZDRYZB t where t.XT_ZXBZ = '0' and t.SYRKID = #syrkId# and t.GLZT != '4']]>
+		<![CDATA[ select count(1) from ZDRY_ZDRYZB_NEW t where t.XT_ZXBZ = '0' and t.SYRKID = #syrkId# and t.GLZT != '4']]>
 		
 	</select>
 </sqlMap>

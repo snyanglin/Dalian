@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
 import com.founder.framework.exception.BussinessException;
@@ -24,7 +26,7 @@ import com.founder.ywxt.dao.YwxtcyryxxbDao;
 /***
  * ****************************************************************************
  * 
- * @Package: [com.founder.ywxt.service.AbstractXtTask.java]
+ * @Package: [cn.mos.ywxt.service.AbstractXtTask.java]
  * @ClassName: [AbstractXtTask]
  * @Description: [工厂接口的抽象类，抽象一些通用的方法]
  * @Author: [wu_chunhui@founder.com.cn]
@@ -97,6 +99,16 @@ public abstract class AbstractXtTask implements XtTaskService {
 			}
 		}
 		
+		//维护接收方信息，判断条件：（不是领导裁定） 且 （当前登录人不是发起人） 且 （接收人信息为空）
+		if(sessionBean != null && approvalLevel<APPROVALLEVEL && !fqCyr.getCyrid().equals(sessionBean.getUserId()) && StringUtils.isBlank(jsCyr.getCyrid()) ){
+			//有些情况下，参与人员可能为空
+			//如：实有人口注销协同
+			//因为发协同的时候，不知道谁能接收协同任务
+			//所以，如果发现参与人为空的情况，人工补充一下
+			jsCyr.setCyrid(sessionBean.getUserId());
+			jsCyr.setCyrxm(sessionBean.getUserName());
+		}
+		
 		if ("0".equals(xtjg)&&approvalLevel<APPROVALLEVEL) {//如果当前等级小于配置等级,找寻共同上级,进行裁定
 			sysmessage=sysMessageDao.query(sysmessage);
 			String url="/ywxt/creatRyxt?xtId="+(String)map.get("xtId")+"&approvalLevel="+(approvalLevel+1)+"&xtType="+xtType;
@@ -128,7 +140,7 @@ public abstract class AbstractXtTask implements XtTaskService {
 				sysMessageDao.saveMessageByOrg(sysmessage, orgOrganization.getOrgcode(), false, false);
 			}
 		}
-		
+
 		//维护协同裁定结果
 		if ("1".equals(xtjg)) {
 			//同意修改 或 发起方正确
@@ -176,7 +188,6 @@ public abstract class AbstractXtTask implements XtTaskService {
 		
 		//如果不是领导拒绝，而是底层拒绝，那么证明不能清除协同数据
 		if(approvalLevel < APPROVALLEVEL && xtjg.equals("0")){
-			System.out.println("协同任务未结束");
 			return;
 		}
 		

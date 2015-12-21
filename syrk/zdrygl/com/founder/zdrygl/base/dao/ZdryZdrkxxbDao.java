@@ -29,17 +29,17 @@ public class ZdryZdrkxxbDao extends BaseDaoImpl implements ZdryGllxEntityDaoServ
 		ZdryZdrkxxb zdryZdrkxxb = (ZdryZdrkxxb)zdry;
 		super.insert("ZdryZdrkxxb.save", zdryZdrkxxb);
 	}
-//88888
+
 	@Override
 	public void update(Zdry zdry) {
 		ZdryZdrkxxb zdryZdrkxxb = (ZdryZdrkxxb)zdry;
-		super.insert("ZdryZdrkxxb.update", zdryZdrkxxb);
+		super.update("ZdryZdrkxxb.update", zdryZdrkxxb);
 	}
 
 	@Override
 	public void delete(Zdry zdry) {
 		ZdryZdrkxxb zdryZdrkxxb = (ZdryZdrkxxb)zdry;
-		super.insert("ZdryZdrkxxb.delete", zdryZdrkxxb);
+		super.delete("ZdryZdrkxxb.delete", zdryZdrkxxb);
 	}
 
 	@Override

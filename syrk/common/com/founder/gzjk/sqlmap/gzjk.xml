@@ -1305,10 +1305,10 @@
 		<![CDATA[
 		select nvl(sum(case when glzt='2' then 1 else 0 end),0) xz,
        nvl(sum(case when glzt='4' then 1 else 0 end),0) zx
-		  from ZDRY_ZDRYZB 
+		  from ZDRY_ZDRYZB_NEW 
 		 where xt_zhxgsj like '$currentDay$%'
-		   and (sszrqdm=#dwdm# or substr(sszrqdm,1,8)||'0000'= #dwdm# or substr(sszrqdm,1,6)||'000000'=#dwdm#
-		    or  substr(sszrqdm,1,4)||'00000000'=#dwdm#)
+		   and (gxzrqdm=#dwdm# or substr(gxzrqdm,1,8)||'0000'= #dwdm# or substr(gxzrqdm,1,6)||'000000'=#dwdm#
+		    or  substr(gxzrqdm,1,4)||'00000000'=#dwdm#)
 		 ]]>
 	</select>
 	

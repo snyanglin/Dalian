@@ -60,16 +60,6 @@ public class ZdryzbService implements ZdryService {
 		zdryZdryZbDao.insert(zdryzb);
 	}
 	
-	/*@MethodAnnotation(value = "列管", type = logType.insert)
-	@Override
-	public void lg(SessionBean sessionBean) {
-		zdryzb.setId(UUID.create());
-		zdryzb.setGlzt(ZdryConstant.LGSQ);
-		zdryzb.setGlbm(sessionBean.getUserOrgCode());//管理部门
-		BaseService.setSaveProperties(zdryzb, sessionBean);		
-		zdryZdryZbDao.insert(zdryzb);
-	}*/
-	
 	@Override
 	public void lgSuccess(SessionBean sessionBean, ZOBean entity) {
 		ZdryZb zdryzb = (ZdryZb) entity.getZdryzb();
@@ -77,33 +67,10 @@ public class ZdryzbService implements ZdryService {
 		updateZdry(sessionBean,zdryzb);
 	}
 
-/*	@Override
-	public void lgSuccess(SessionBean sessionBean) {
-		zdryzb.setGlzt(ZdryConstant.YLG);
-		updateZdry(sessionBean,zdryzb);
-	}
-*/
 	@Override
 	public void lgFail(SessionBean sessionBean, ZOBean entity) {
 		deleteZdry(sessionBean,(ZdryZb) entity.getZdryzb());
 	}
-	
-	/*@Override
-	public void lgFail(SessionBean sessionBean) {
-		deleteZdry(sessionBean,zdryzb);
-	}*/
-
-//	@MethodAnnotation(value = "撤管", type = logType.update)
-//	@Override
-//	public void cg(SessionBean sessionBean) {
-//		ZdryZb entity = new ZdryZb();
-//		entity.setId(zdrycx.getZdryid_old());
-//		entity.setGlzt(ZdryConstant.CGSQ);
-//		updateZdry(sessionBean,entity);				
-//		if(!isDelete()){
-////		this.lg(sessionBean);			
-//		}
-//	}
 	
 	/**
 	 * 1.Zdrycx对象中的id是 申请撤管重点人员总表ID
