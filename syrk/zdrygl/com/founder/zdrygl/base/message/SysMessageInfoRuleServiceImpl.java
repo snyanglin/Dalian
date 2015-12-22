@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.founder.drools.base.zdry.service.ZdryRuleService;
 import com.founder.framework.exception.BussinessException;
+import com.founder.framework.exception.RuleException;
 import com.founder.zdrygl.core.inteface.SysMessageInfoService;
 
 /**
@@ -51,7 +52,10 @@ public class SysMessageInfoRuleServiceImpl implements SysMessageInfoService {
 			return sysMessage;			
 		}catch(Exception e){
 			logger.error("消息规则调用出错", e);
-			throw new BussinessException(e.toString());
+			if(e instanceof RuleException)
+				throw new RuleException(e.getLocalizedMessage());
+			else
+				throw new BussinessException(e.toString());
 		}
 		
 	}
