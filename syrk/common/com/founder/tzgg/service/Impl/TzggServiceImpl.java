@@ -29,7 +29,7 @@ public class TzggServiceImpl extends BaseService implements TzggService {
 	@Resource(name = "tzggDao")
 	private TzggDao tzggDao;
 	
-	@Resource(name = "sysMessageDao")
+	@Resource
 	private SysMessageDao sysMessageDao;
 	
 	@Override

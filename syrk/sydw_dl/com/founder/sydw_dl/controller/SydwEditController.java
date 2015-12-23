@@ -67,7 +67,7 @@ public class SydwEditController extends BaseController {
 	@Resource(name = "sysDictGlService")
 	private SysDictGlService sysDictGlService;
 	
-	@Resource(name = "sysMessageDao")
+	@Resource
 	private SysMessageDao sysMessageDao;
 	
 	

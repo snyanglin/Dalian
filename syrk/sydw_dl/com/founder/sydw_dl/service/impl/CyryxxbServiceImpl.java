@@ -31,7 +31,7 @@ public class CyryxxbServiceImpl extends BaseService implements CyryxxbService {
 	private CyryxxbDao cyryxxbDao;
 
 	
-	@Resource(name = "sysMessageDao")
+	@Resource
 	private SysMessageDao sysMessageDao;
 	
 	@Resource(name = "dwjbxxbDao")

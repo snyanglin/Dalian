@@ -43,7 +43,7 @@ public class ZdryZdrykcxxbService{
 	@Resource(name = "zdryZdryzbService")
 	private ZdryZdryzbService zdryZdryzbService;
 /
-	@Resource(name = "sysMessageDao")
+	@Resource
 	private SysMessageDao sysMessageDao;
 
 	@Resource(name = "sysDictGlService")

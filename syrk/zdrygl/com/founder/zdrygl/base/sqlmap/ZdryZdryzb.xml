@@ -4,7 +4,7 @@
 <sqlMap namespace="ZdryZdryzb">
 	
 	<typeAlias alias="zdryZdryzb" type="com.founder.zdrygl.base.model.ZdryZb" />
-	
+	<typeAlias alias="zdryZdryzbVO" type="com.founder.zdrygl.base.vo.ZdryZdryzbVO"/>
 	<!-- 新增 -->
 	<insert id="save" parameterClass="zdryZdryzb">
 		<![CDATA[ insert into ZDRY_ZDRYZB_NEW (ID]]>		
@@ -335,5 +335,14 @@
 	<select id="queryCountBySyrk" parameterClass="String" resultClass="Integer">
 		<![CDATA[ select count(1) from ZDRY_ZDRYZB_NEW t where t.XT_ZXBZ = '0' and t.SYRKID = #syrkId# and t.GLZT != '4']]>
 		
+	</select>
+
+	<select id="queryZdryVOByRyid" parameterClass="String" resultClass="zdryZdryzbVO">
+		<![CDATA[ select t.*,g.jgbmdm ,g.jgbmmc,g.sfsjsp from ZDRY_ZDRYZB t left join  ZDRY_GLPZPZB g
+  			on t.zdrygllxdm = g.zdrygllxdm and g.xt_zxbz = '0' where  t.ryid = #id# and t.glzt in (3,2,1,5)  and t.XT_ZXBZ = '0'  ]]>
+	</select>
+
+	<select id="queryBySyrkidAndgllx" parameterClass="Map" resultClass="zdryZdryzb">
+		<![CDATA[ select * from ZDRY_ZDRYZB t where syrkid = #syrkid#  and zdrygllxdm = #gllx# and XT_ZXBZ = '0' and rownum = 1    ]]>
 	</select>
 </sqlMap>

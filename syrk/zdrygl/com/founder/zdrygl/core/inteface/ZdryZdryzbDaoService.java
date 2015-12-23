@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.founder.framework.utils.EasyUIPage;
+import com.founder.zdrygl.base.vo.ZdryZdryzbVO;
 import com.founder.zdrygl.core.model.Zdry;
 
 /**
@@ -103,4 +104,6 @@ public interface ZdryZdryzbDaoService {
 	 * 
 	 */
 	public Integer  queryCount(String syrkId);
+
+	public List<ZdryZdryzbVO> queryZdryVoByRyid(String ryid);
 }

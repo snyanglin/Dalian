@@ -11,13 +11,10 @@
 <body>
 
 <form action="<%=basePath%>zdryHsb/saveHszd" id="dataForm" name="dataForm" method="post">
-   	
-	<input type="hidden" id="_method" name="_method" value=""/>
-  	<input type='hidden' name='id' id="pk" value="${entity.id}" />
-  	<input type='hidden' name='hsid' id="hsid" value="${entity.hsid}" />
-  	<input type='hidden' name='ysspcs' id="ysspcs" value="${entity.ysspcs}" />
+
+    	<input type='hidden' name='id' id="id" value="${zdryHsb.id}" />
   	   	
-   	<table border="0" cellpadding="0" cellspacing="10" width="846" align="left">
+   		<table border="0" cellpadding="0" cellspacing="10" width="846" align="left">
 		<tr class="dialogTr">
     		<td width="20%" class="dialogTd" align="right">姓名：</td>
 	    	<td width="30%" class="dialogTd">
@@ -49,10 +46,10 @@
 	    <tr class="dialogTr">
 	    	<td width="20%" class="dialogTd" align="right">原居住地址详址：</td>
 	    	<td width="80%" class="dialogTd" colspan="3">
-	    		<input type='hidden' name='ydz_jzdzdm' value="${entity.ydz_jzdzdm}" />
-	    		<input type='hidden' name='ydz_jzdzmlpdm' value="${entity.ydz_jzdzmlpdm}" />
-	    		<input type='hidden' name='ydz_jzdzmlpxz' value="${entity.ydz_jzdzmlpxz}" />
-	    		<input type='hidden' name='ydz_jzdzssxdm' value="${entity.ydz_jzdzssxdm}" />
+	    		<input type='hidden' name='ydz_jzdzdm' value="${zdryHsb.dz_jzdzdm}" />
+	    		<input type='hidden' name='ydz_jzdzmlpdm' value="${zdryHsb.dz_jzdzmlpdm}" />
+	    		<input type='hidden' name='ydz_jzdzmlpxz' value="${zdryHsb.dz_jzdzmlpxz}" />
+	    		<input type='hidden' name='ydz_jzdzssxdm' value="${zdryHsb.dz_jzdzssxdm}" />
 	    		<input class="easyui-validatebox" type="text" id="ydz_jzdzxz" name="ydz_jzdzxz" style="width: 618px;" value="${entity.ydz_jzdzxz}"/>
 	    	</td>
 	   	</tr>

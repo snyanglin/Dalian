@@ -66,7 +66,7 @@ public class SyrkEditController extends BaseController {
 	private RyRyjbxxbService ryRyjbxxbService;
 	@Resource(name = "ryRylxfsxxbService")
 	private RyRylxfsxxbService ryRylxfsxxbService;
-	@Resource(name = "sysMessageDao")
+	@Resource
 	private SysMessageDao sysMessageDao;
 	
 	

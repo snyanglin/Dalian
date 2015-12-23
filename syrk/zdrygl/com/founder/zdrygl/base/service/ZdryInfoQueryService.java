@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.founder.zdrygl.base.vo.ZdryZdryzbVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -196,4 +197,7 @@ public class ZdryInfoQueryService extends ZdryQueryService {
 		return null;
 	}
 
+	public List<ZdryZdryzbVO> queryZdryVoByRyid(String ryid){
+		return zdryZdryZbDao.queryZdryVoByRyid(ryid);
+	}
 }

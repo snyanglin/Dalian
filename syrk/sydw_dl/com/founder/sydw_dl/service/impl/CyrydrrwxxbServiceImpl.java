@@ -76,7 +76,7 @@ public  class CyrydrrwxxbServiceImpl  extends BaseService implements Cyrydrrwxxb
 	private CyrydrrwmxbService cyrydrrwmxbService;
 	@Resource(name = "cyrydrrwxxbService")
 	private CyrydrrwxxbService cyrydrrwxxbService;
-	@Resource(name = "sysMessageDao")
+	@Resource
 	private SysMessageDao sysMessageDao;
 	@Resource(name = "ryRyjbxxbService")
 	private RyRyjbxxbService ryRyjbxxbService;

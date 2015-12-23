@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.founder.zdrygl.base.vo.ZdryZdryzbVO;
 import org.springframework.stereotype.Repository;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
@@ -225,5 +226,16 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 	 */
 	public Integer queryCount(String syrkId) {
 		return (Integer) queryForObject("ZdryZdryzb.queryCountBySyrk", syrkId);
+	}
+
+	public List<ZdryZdryzbVO> queryZdryVoByRyid(String ryid) {
+		return this.queryForList("ZdryZdryzb.queryZdryVOByRyid", ryid);
+	}
+
+	public ZdryZb queryBySyrkidAndgllx(String syrkid, String gllx) {
+		HashMap map = new HashMap();
+		map.put("syrkid", syrkid);
+		map.put("gllx", gllx);
+		return (ZdryZb)this.queryForObject("ZdryZdryzb.queryBySyrkidAndgllx", map);
 	}
 }

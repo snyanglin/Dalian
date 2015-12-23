@@ -30,7 +30,7 @@ public class DbrwDdbrwbServiceImpl implements DbrwDdbrwbService {
 	@Resource(name = "dbrwDdbrwbDao")
 	private DbrwDdbrwbDao dbrwDdbrwbDao;
 
-	@Resource(name = "sysMessageDao")
+	@Resource
 	private SysMessageDao sysMessageDao;
 
 	@Resource(name = "orgOrganizationDao")

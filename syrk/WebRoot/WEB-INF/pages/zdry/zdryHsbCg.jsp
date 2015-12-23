@@ -39,9 +39,9 @@
 	    	<table id="ggDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;">
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right" id="lgrqText">业务办理日期：</td>
-		    	<td width="30%" class="dialogTd"><input type="text" name="ywclsj" id="ywclsj" class="easyui-validatebox inputreadonly" style="width: 200px;" value="${zdryYwspb.sqsj}" readonly="readonly" /></td>
+		    	<td width="30%" class="dialogTd"><input type="text" name="ywclsj" id="ywclsj" class="easyui-validatebox inputreadonly" style="width: 200px;" value="${Sqsj}" readonly="readonly" /></td>
 		    	<td width="20%" class="dialogTd" align="right" id="lgrText">业务办理人：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" id="ywblr_xm" name="ywblr_xm" style="width:200px;" value="${zdryYwspb.sqr_xm }" readonly="readonly" />
+		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" id="ywblr_xm" name="ywblr_xm" style="width:200px;" value="${sqr_xm }" readonly="readonly" />
 		    	</td>
 	    	</tr>
 	    	<tr class="dialogTr">

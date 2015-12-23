@@ -29,7 +29,7 @@ public class DwjbxxbServiceImpl implements DwjbxxbService {
 	@Resource(name = "dwjbxxbDao")
 	private DwjbxxbDao dwjbxxbDao;
 
-	@Resource(name = "sysMessageDao")
+	@Resource
 	private SysMessageDao sysMessageDao;
 
 

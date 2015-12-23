@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.founder.ggfw.dao.YwxtgzrwbDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,12 @@ import com.founder.ggfw.service.YwxtRuleService;
 public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService {
 
 	@Resource(name = "ywxtRuleDao")
-	private YwxtRuleDao ywxtRuleDao;	
+	private YwxtRuleDao ywxtRuleDao;
+
+	@Resource(name = "ywxtgzrwbDao")
+	private YwxtgzrwbDao ywxtgzrwbDao;
 	
-	@Resource(name = "sysMessageDao")
+	@Resource
 	private SysMessageDao sysMessageDao;
 
 	@Resource(name = "sysMessageService")
@@ -71,7 +75,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("4");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
 			OrgUser orguser=new OrgUser();
 			orguser=orgUserService.queryByUserid(entity.getFsrdm());
 			sessionBean=orgUserService.initSessionUser(orguser);
@@ -82,7 +86,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("2");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
 		}
 		//调用联系电话变更业务方法
 		try {
@@ -119,7 +123,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 		ywxtgzrwb.setYwrwztdm("4");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 		BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 		//BaseService.setSaveProperties(czrkxxb, sessionBean);
-		sysMessageDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
+		ywxtgzrwbDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
 		common_coexist(param);
 		return null;
 	}
@@ -145,7 +149,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("4");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
 			common_leader_refuse(param);
 		}else{
 			//修改业务协同任务表
@@ -154,7 +158,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("3");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
 			common_refuse(param);
 		}
 		return null;
@@ -191,7 +195,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("4");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
 			OrgUser orguser=new OrgUser();
 			orguser=orgUserService.queryByUserid(entity.getFsrdm());
 			sessionBean=orgUserService.initSessionUser(orguser);
@@ -202,7 +206,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("2");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
 		}
 		//调用从业人员变更业务方法
 		try {
@@ -240,7 +244,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 		ywxtgzrwb.setYwrwztdm("4");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 		BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 		//BaseService.setSaveProperties(czrkxxb, sessionBean);
-		sysMessageDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
+		ywxtgzrwbDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
 		common_coexist(param);
 		return null;
 	}
@@ -266,7 +270,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("4");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
 			common_leader_refuse(param);
 		}else{
 			//修改业务协同任务表
@@ -275,7 +279,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("3");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
 			common_refuse(param);
 		}
 		return null;
@@ -311,7 +315,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("4");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
 			OrgUser orguser=new OrgUser();
 			orguser=orgUserService.queryByUserid(entity.getFsrdm());
 			sessionBean=orgUserService.initSessionUser(orguser);
@@ -322,7 +326,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("2");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
 		}
 		//调用服务处所变更业务方法
 		try {
@@ -360,7 +364,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 		ywxtgzrwb.setYwrwztdm("4");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 		BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 		//BaseService.setSaveProperties(czrkxxb, sessionBean);
-		sysMessageDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
+		ywxtgzrwbDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
 		common_coexist(param);
 		return null;
 	}
@@ -386,7 +390,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("4");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
 			common_leader_refuse(param);
 		}else{
 			ywxtgzrwb.setRwcljgdm("1");//任务处理结果代码0-接受1-拒绝2-共存
@@ -394,7 +398,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("3");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
 			common_refuse(param);
 		}
 		return null;
@@ -430,7 +434,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("4");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
 			OrgUser orguser=new OrgUser();
 			orguser=orgUserService.queryByUserid(entity.getFsrdm());
 			sessionBean=orgUserService.initSessionUser(orguser);
@@ -441,7 +445,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("2");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
 		}
 		//调用服务处所注销业务方法
 		try {
@@ -479,7 +483,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 		ywxtgzrwb.setYwrwztdm("4");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 		BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 		//BaseService.setSaveProperties(czrkxxb, sessionBean);
-		sysMessageDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
+		ywxtgzrwbDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
 		common_coexist(param);
 		return null;
 	}
@@ -506,7 +510,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("4");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
 			sessionBean = (SessionBean)param.get("sessionBeanTemp");
 			try {
 				MethodUtils.invokeMethod(sysMessageService, methodName, new Object[]{
@@ -525,7 +529,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("3");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
 			common_refuse(param);
 		}
 		return null;
@@ -559,7 +563,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("4");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
 			OrgUser orguser=new OrgUser();
 			orguser=orgUserService.queryByUserid(entity.getFsrdm());
 			sessionBean=orgUserService.initSessionUser(orguser);
@@ -570,7 +574,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("2");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
 		}
 		try {
 			MethodUtils.invokeMethod(sysMessageService, methodName, new Object[]{
@@ -607,7 +611,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 		ywxtgzrwb.setYwrwztdm("4");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 		BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 		//BaseService.setSaveProperties(czrkxxb, sessionBean);
-		sysMessageDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
+		ywxtgzrwbDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
 		common_coexist(param);
 		return null;
 	}
@@ -633,7 +637,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("4");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
 			common_leader_refuse(param);
 		}else{
 			ywxtgzrwb.setRwcljgdm("1");//任务处理结果代码0-接受1-拒绝2-共存
@@ -641,7 +645,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("3");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
 			common_refuse(param);
 		}
 		return null;
@@ -672,7 +676,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("4");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
 			OrgUser orguser=new OrgUser();
 			orguser=orgUserService.queryByUserid(entity.getFsrdm());
 			sessionBean=orgUserService.initSessionUser(orguser);
@@ -683,7 +687,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("2");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
 		}
 		try {
 			MethodUtils.invokeMethod(sysMessageService, methodName, new Object[]{
@@ -720,7 +724,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 		ywxtgzrwb.setYwrwztdm("4");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 		BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 		//BaseService.setSaveProperties(czrkxxb, sessionBean);
-		sysMessageDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
+		ywxtgzrwbDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
 		common_coexist(param);
 		return null;
 	}
@@ -746,7 +750,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("4");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByCjr(ywxtgzrwb,sessionBean);
 			sessionBean = (SessionBean)param.get("sessionBeanTemp");
 			try {
 				MethodUtils.invokeMethod(sysMessageService, methodName, new Object[]{
@@ -765,7 +769,7 @@ public class YwxtRuleServiceImpl extends BaseService implements YwxtRuleService 
 			ywxtgzrwb.setYwrwztdm("3");//协同任务状态代码0-待发起1－已发起2-已接收3-待裁决4－已裁决
 			BaseService.setUpdateProperties(ywxtgzrwb, sessionBean);
 			//BaseService.setSaveProperties(czrkxxb, sessionBean);
-			sysMessageDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
+			ywxtgzrwbDao.updateYwxtgzrwbByClr(ywxtgzrwb,sessionBean);
 			common_refuse(param);
 		}
 		return null;
