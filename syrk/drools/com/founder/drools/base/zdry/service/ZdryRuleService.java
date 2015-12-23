@@ -12,6 +12,7 @@ import com.founder.drools.core.request.DroolsRequest;
 import com.founder.drools.core.request.RuleBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.config.SystemConfig;
+import com.founder.framework.exception.RuleException;
 
 /**
  * ****************************************************************************
@@ -191,7 +192,7 @@ public class ZdryRuleService {
 		
 		RuleBean ruleBean = droolsRequest.requestDroolsServer(SystemConfig.getString(AppConst.XZQH)+"_ZDRY_MESSAGE", xxlx, param);
 		if(ruleBean.getResStatus()==1){
-			throw new RuntimeException("Drools Exception:"+ruleBean.getResponse());			
+			throw new RuleException((String)ruleBean.getResponse());			
 		}
 		Map<String,Object> resMap=(Map) ruleBean.getResponse();
 		return resMap;

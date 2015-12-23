@@ -183,6 +183,17 @@ function checkPassword(e) {
 function disappear() {
    document.getElementById("errorTd").innerHTML = "";
 }
+
+var isRelogin=true;
+//弹出超时窗口
+function showRelogin(){
+	if(isRelogin){
+		isRelogin=false;
+		alert("用户操作超时,请重新登录！");
+		location.href="<%=basePath%>LoginPage/login";
+	}
+}
+
 //显示DIV层
 function showDysCalendar(){
 	var trigger="";
