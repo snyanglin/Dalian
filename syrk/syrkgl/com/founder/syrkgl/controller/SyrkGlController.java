@@ -60,7 +60,7 @@ public class SyrkGlController extends BaseController {
 
 	@Resource(name = "dzService")
 	private DzService dzService;
-	@Resource(name = "sysMessageDao")
+	@Resource
 	private SysMessageDao sysMessageDao;
 	
 	/**

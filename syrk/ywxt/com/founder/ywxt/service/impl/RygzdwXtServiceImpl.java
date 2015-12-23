@@ -51,7 +51,7 @@ public class RygzdwXtServiceImpl extends AbstractXtTask {
 	private YwxtYwxtxxbDao ywxtYwxtxxbDao;
 	@Resource(name = "orgOrganizationService")
 	private OrgOrganizationService orgOrganizationService;
-	@Resource(name = "sysMessageDao")
+	@Resource
 	private SysMessageDao sysMessageDao;
 
 	@Override

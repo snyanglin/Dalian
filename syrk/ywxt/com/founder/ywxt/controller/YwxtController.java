@@ -42,7 +42,7 @@ public class YwxtController  extends BaseController {
 	
 	@Resource(name = "ywxtYwxtxxbDao")
 	private YwxtYwxtxxbDao ywxtYwxtxxbDao;
-	@Resource(name = "sysMessageDao")
+	@Resource
 	private SysMessageDao sysMessageDao;
 
 

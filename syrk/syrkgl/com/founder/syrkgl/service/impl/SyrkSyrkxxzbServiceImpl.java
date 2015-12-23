@@ -92,7 +92,7 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 	@Resource(name = "syrkWlhryxxbDao")
 	private SyrkWlhryxxbDao syrkWlhryxxbDao;
 
-	@Resource(name = "sysMessageDao")
+	@Resource
 	private SysMessageDao sysMessageDao;
 
 	@Resource(name = "sysDictGlService")

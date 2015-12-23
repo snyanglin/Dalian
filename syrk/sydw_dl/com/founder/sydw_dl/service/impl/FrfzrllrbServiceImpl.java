@@ -34,7 +34,7 @@ public class FrfzrllrbServiceImpl  extends BaseService implements FrfzrllrbServi
 	@Resource(name = "cyryxxbDao")
 	private CyryxxbDao cyryxxbDao;
 	
-	@Resource(name = "sysMessageDao")
+	@Resource
 	private SysMessageDao sysMessageDao;
 	
 	@Resource(name = "ryRyjbxxbDao")

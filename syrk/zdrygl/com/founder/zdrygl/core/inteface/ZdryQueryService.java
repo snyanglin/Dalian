@@ -2,6 +2,7 @@ package com.founder.zdrygl.core.inteface;
 
 import java.util.List;
 
+import com.founder.zdrygl.base.vo.ZdryZdryzbVO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.founder.framework.utils.EasyUIPage;
@@ -65,5 +66,6 @@ public abstract class ZdryQueryService {
 	public abstract Zdry queryZdryzbById(String zdryId , String zdrygllxdm);
 	
 	public abstract Integer queryForCount(String syrkId);
-	
+
+	public abstract List<ZdryZdryzbVO> queryZdryVoByRyid(String ryid);
 }

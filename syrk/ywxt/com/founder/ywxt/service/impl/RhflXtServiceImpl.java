@@ -53,7 +53,7 @@ public class RhflXtServiceImpl extends AbstractXtTask {
 	private OrgOrganizationService orgOrganizationService;
 	@Resource(name = "syrkCzrkxxbDao")
 	private SyrkCzrkxxbDao SyrkCzrkxxbDao;
-	@Resource(name = "sysMessageDao")
+	@Resource
 	private SysMessageDao sysMessageDao;
 
 	@Override

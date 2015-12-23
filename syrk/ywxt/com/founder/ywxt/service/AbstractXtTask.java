@@ -39,7 +39,7 @@ import com.founder.ywxt.dao.YwxtcyryxxbDao;
 public abstract class AbstractXtTask implements XtTaskService {
 	@Resource(name = "orgOrganizationService")
 	private OrgOrganizationService orgOrganizationService;
-	@Resource(name = "sysMessageDao")
+	@Resource
 	private SysMessageDao sysMessageDao;
 	protected final int APPROVALLEVEL = 2;
 	@Resource(name = "ywxtcyryxxbDao")

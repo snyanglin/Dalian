@@ -44,7 +44,7 @@ public class SyrkLdrkxxbController extends BaseController {
 
 	@Resource(name = "syrkLdrkxxbService")
 	private SyrkLdrkxxbService syrkLdrkxxbService;
-	@Resource(name = "sysMessageDao")
+	@Resource
 	private SysMessageDao sysMessageDao;
 
 	/**
