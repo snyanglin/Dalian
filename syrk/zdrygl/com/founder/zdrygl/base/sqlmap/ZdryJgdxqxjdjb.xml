@@ -85,4 +85,5 @@
 		</dynamic>
 		<![CDATA[ where ID = #id#]]>	
 	</update>
+	
 </sqlMap>

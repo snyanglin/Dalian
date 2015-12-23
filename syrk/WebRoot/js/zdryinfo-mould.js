@@ -94,7 +94,7 @@ function info_qxjdjb_(){
 	sb.append("<li><span class='spantitle'>审批结果：</span><span name='spjg'  dict='/common/dict/D_GG_SPJG'  class='edit_word input_w2'></span></li>");
 	sb.append("<li><span class='spantitle'>审批意见：</span><span name='spyj' class='edit_word input_w1'></span></li>");
 	sb.append("<li class='uline2'></li>");
-	sb.append("<li class='uline2'><a class='delfw_btn ulrt_btn' href='javascript:void(0);'></a><a class='editfw_btn ulrt_btn' href='javascript:void(0);'></a></li>");
+	sb.append("<li class='uline2'><a class='editfw_btn ulrt_btn' href='javascript:void(0);'></a></li>");
 	sb.append("<input type='hidden' name='id' />");
 	sb.append("</ul>");
 	return sb.toString();

@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,14 +44,14 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 
 	@Resource(name = "zdryQueryService")
 	private ZdryInfoQueryService zdryQueryService;
-	
-    @Autowired
+
+	@Autowired
 	private JProcessDefinitionService processDefinitionService;
-	
+
 	/**
 	 * 
 	 * @Title: add
-	 * @Description: TODO(新增 页面)
+	 * @Description: (新增 页面)
 	 * @param @param id
 	 * @param @return    设定文件
 	 * @return ModelAndView    返回类型
@@ -58,7 +59,16 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView add(String zdryid) {
-		ModelAndView mv = new ModelAndView("zdrygl/edit/zdryJgdxqxjdjbAdd");
+		
+		ModelAndView mv = new ModelAndView(getViewName(null));
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(!zdryJgdxqxjdjbService.sfnqj(zdryid)){
+			map.put(AppConst.STATUS, AppConst.FAIL);
+			map.put(AppConst.MESSAGES, "该重点人员还有未销假的请假申请，不能再请假");
+			mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));
+			return mv;
+		}
+		mv.setViewName("zdrygl/edit/zdryJgdxqxjdjbAdd");
 		ZdryJgdxqxjdjb entity = new ZdryJgdxqxjdjb();
 		entity.setZdryid(zdryid);
 		ZdryVO vo = new ZdryVO();
@@ -66,7 +76,7 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 		mv.addObject("entity", vo);
 		return mv;
 	}
-	
+
 	/**
 	 * 
 	 * @Title: save
@@ -97,12 +107,11 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 			spi.getVariables().put("zdryZb", zdryzb);
 			spi.getVariables().put("jgdx", zdryVO.getZdryJgdxqxjdjb());
 			processDefinitionService.startProcessInstance(spi.getApplyUserId(),spi.getProcessKey(), spi.getBusinessKey(), spi.getVariables());
-			
+
 			map.put(AppConst.STATUS, AppConst.SUCCESS);
 			map.put(AppConst.MESSAGES, getAddSuccess());
 			map.put(AppConst.SAVE_ID, "" + zdryVO.getZdryJgdxqxjdjb().getId()); // 返回主键
 		} catch (Exception e) {
-			e.printStackTrace();
 			logger.error(e.getMessage(), e);
 			map.put(AppConst.STATUS, AppConst.FAIL);
 			map.put(AppConst.MESSAGES, getAddFail());
@@ -110,7 +119,7 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));
 		return mv;
 	}
-		
+
 	/**
 	 * 
 	 * @Title: queryDetail
@@ -128,7 +137,7 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 		mv.addObject("entity",vo);
 		return mv;
 	}
-	
+
 	/**
 	 * 
 	 * @Title: update
@@ -150,7 +159,6 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 			map.put(AppConst.STATUS, AppConst.SUCCESS);
 			map.put(AppConst.MESSAGES, getUpdateSuccess());
 		} catch (Exception e) {
-			e.printStackTrace();
 			logger.error(e.getMessage(), e);
 			map.put(AppConst.STATUS, AppConst.FAIL);
 			map.put(AppConst.MESSAGES, getUpdateFail());
@@ -158,6 +166,26 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));
 		return mv;
 	}
+
+	/**
+	 * 
+	 * @Title: updateView
+	 * @Description: (打开编辑页面)
+	 * @param @param id
+	 * @param @param sessionBean
+	 * @param @return    设定文件
+	 * @return ModelAndView    返回类型
+	 * @throws
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ModelAndView updateView(@PathVariable(value = "id")String id, SessionBean sessionBean) {
+		ModelAndView mv = new ModelAndView("zdrygl/edit/zdryJgdxqxjdjbAdd");
+		ZdryVO vo = new ZdryVO();
+		vo.setZdryJgdxqxjdjb(zdryJgdxqxjdjbService.queryById(id));
+		mv.addObject("entity",vo);
+		return mv;
+	}
+
 	/**
 	 * @Title: edit
 	 * @Description: TODO(审批页面)
@@ -205,7 +233,6 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 			map.put(AppConst.STATUS, AppConst.SUCCESS);
 			map.put(AppConst.MESSAGES, "审批成功！");
 		} catch (Exception e) {
-			e.printStackTrace();
 			logger.error(e.getMessage(), e);
 			map.put(AppConst.STATUS, AppConst.FAIL);
 			map.put(AppConst.MESSAGES, "审批失败！");
@@ -213,5 +240,5 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));
 		return mv;
 	}
-	
+
 }
