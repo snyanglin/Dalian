@@ -26,7 +26,7 @@ public class RfxxServiceImpl extends BaseService implements RfxxService {
 	@Resource(name = "rfxxDao")
 	private RfxxDao rfxxDao;
 	
-	@Resource(name = "sysMessageDao")
+	@Resource
 	private SysMessageDao sysMessageDao;
 	
 	@Resource(name="ryRylxfsxxbService")

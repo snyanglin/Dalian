@@ -51,6 +51,7 @@ public class ZdryVO implements Serializable {
 	String ywsqyy;//业务申请原因（流程用）
 	String xm;
 	String zjhm;
+	String zdryHsbId;
 	ZdryZdryzbVO zdryZdryzbVO;
 	
 	
@@ -206,7 +207,13 @@ public class ZdryVO implements Serializable {
 	public void setZdrylbStr(String zdrylbStr) {
 		this.zdrylbStr = zdrylbStr;
 	}
-	
+	public String getZdryHsbId() {
+		return zdryHsbId;
+	}
+	public void setZdryHsbId(String zdryHsbId) {
+		this.zdryHsbId = zdryHsbId;
+	}
+
 	public ZdryJgdxqxjdjb getZdryJgdxqxjdjb() {
 		return zdryJgdxqxjdjb;
 	}

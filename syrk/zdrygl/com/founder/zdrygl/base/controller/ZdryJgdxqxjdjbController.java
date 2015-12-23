@@ -16,6 +16,7 @@ import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
+import com.founder.framework.exception.RuleException;
 import com.founder.framework.utils.DateUtils;
 import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.workflow.service.inteface.JProcessDefinitionService;
@@ -208,7 +209,11 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 			e.printStackTrace();
 			logger.error(e.getMessage(), e);
 			map.put(AppConst.STATUS, AppConst.FAIL);
-			map.put(AppConst.MESSAGES, "审批失败！");
+			if(e instanceof RuleException){
+				map.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
+			}else{
+				map.put(AppConst.MESSAGES, "审批失败！");
+			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));
 		return mv;

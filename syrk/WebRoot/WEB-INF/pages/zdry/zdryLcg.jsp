@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/pages/commonInclude.jsp"%>
-<%@ page import="com.founder.framework.config.SystemConfig"%>	
+<%@ page import="com.founder.framework.config.SystemConfig"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -11,9 +11,9 @@
     <form action=""  id="dataForm" name="dataForm" method="post" enctype="multipart/form-data" >
     	<input type="text" id="syrkid" name="zdryZdryzb.syrkid" value="${zdryZdryzbVO.syrkid}" />
     	<input type="hidden" id="id" name="zdryZdryzb.id" value="${zdryZdryzbVO.id}" />
-    	<input type="hidden" id="zdryLczywblb.ywblr_id" name="zdryLczywblb.ywblr_id" value="${zdryLczywblb.ywblr_id}" />
+    	<input type="hidden" id="zdryLczywblb.ywblr_id" name="zdryLczywblb.ywblr_id" value="${ywblr_id}" />
     	<input type="hidden" id="zdryHsbId" name="zdryHsbId" value="${zdryHsbId}" />
-    	
+
 	    <div data-options="region:'center', split:true" style="width:500px; border-width: 0px;">
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 			<tr class="dialogTr">
@@ -39,24 +39,24 @@
 					valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'right',onChange:getcghlx"/>
 		    	</td>
 		    </tr>
-		    
-		 
-		    
+
+
+
 	    	</c:if>
-		    <tr class="dialogTr"> 
+		    <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">重点人员管理类型：</td>
 		    	<td width="30%" class="dialogTd">
-					<input class="easyui-combobox" type="text"  id="zdrygllxdm" name="zdryZdryzb.zdrygllxdm"   style="width:200px;" 
-					data-options="url: contextPath +  '/common/dict/BD_D_ZDRYLBDMLIST_MUNICIPAL.js',
+					<input class="easyui-combobox" type="text"  id="zdrygllxdm" name="zdryZdryzb.zdrygllxdm"   style="width:200px;"
+						   data-options="url: contextPath +'/common/dict/BD_D_ZDRYGLLX.js',
 					valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'right',onChange:zdrylxChange"/>
 				</td>
 		    </tr>
-	
+
 		      <tr class="dialogTr">
 	    		<td width="20%" class="dialogTd" align="right">重点人员类别：</td>
 	    		<td width="80%" class="dialogTd" colspan="3"><input type="text" name="zdrylbStr" id="zdrylbStr" class="easyui-combotree" style="width:619px;"
-	    			data-options="url: contextPath + '/common/dict/BD_D_ZDRYLBDM.js',onlyLeaf:true,
-	    			multiple:false,required:true,panelWidth:613,method:'get',lines:true,tipPosition:'left'" >
+					data-options="onlyLeaf:true,valueField:'id',textField:'text',
+	    			multiple:false,required:true,panelWidth:400,method:'get',lines:true,tipPosition:'left'" />
 		    	</td>
 		    </tr>
 		    	       <tr id="sqsbzdrycg">
@@ -67,25 +67,25 @@
 	    	</tr>
 		    </table>
  		<!-- 这里引用公用列管信息模块 -->
-		    <%@include file="/WEB-INF/pages/zdry/zdryLgLxInc.jsp"%>
+		    <%@include file="/WEB-INF/pages/zdrygl/add/zdryLgLxInc.jsp"%>
 		     <!-- 列管公共信息 -->
 	    	<table id="ggDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;">
-	    	
+
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right" id="lgrqText">业务办理日期：</td>
-		    	<td width="30%" class="dialogTd"><input type="text" name="ywclsj" id="ywclsj" class="easyui-validatebox inputreadonly" style="width: 200px;" value="${zdryLczywblb.ywclsj}" readonly="readonly" /></td>
+		    	<td width="30%" class="dialogTd"><input type="text" name="ywclsj" id="ywclsj" class="easyui-validatebox inputreadonly" style="width: 200px;" value="${ywclsj}" readonly="readonly" /></td>
 		    	<td width="20%" class="dialogTd" align="right" id="lgrText">业务办理人：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" id="ywblr_xm" name="ywblr_xm" style="width:200px;" value="${zdryLczywblb.ywblr_xm }" readonly="readonly" />
+		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" id="ywblr_xm" name="ywblr_xm" style="width:200px;" value="${ywblr_xm }" readonly="readonly" />
 		    	</td>
 	    	</tr>
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right" id="lgsqyjText">申请意见：</td>
 		    	<td width="80%" class="dialogTd" colspan="3">
-		    	<input class="easyui-validatebox " type="text" id="ywfqyy" name="zdryLczywblb.ywfqyy" style="width: 619px;" data-options="required:false,validType:['maxLength[100]','unnormal']" /></td>
+		    	<input class="easyui-validatebox " type="text" id="ywfqyy" name="ywfqyy" style="width: 619px;" data-options="required:false,validType:['maxLength[100]','unnormal']" /></td>
 	    	</tr>
-	    	
+
 	    	</table>
-	    		    	
+
 	    </div>
     </form>
 </div>
@@ -93,6 +93,10 @@
 var placeVersion = "<%=SystemConfig.getString("PlaceVersion")%>";
 
 var ywlx='${ywlx}';
+var lcg="lg";
+if(ywlx==2){
+    lcg="cg";
+}
 var filterStr='${filterStr}';
 var filterZdStr='${filterZdStr}';
 var mainTabID = "${mainTabID}";
@@ -105,10 +109,10 @@ $(document).ready(function(){
 	$("#ggDiv").hide();
 	$("#sqjzryDiv").hide();
 	$("#sqsbzdryDiv").hide();
-	 $("#sqsbzdrycg").hide();
+	$("#sqsbzdrycg").hide();
 
-	 $("#nrsxdxDiv").hide();
-	 
+	$("#nrsxdxDiv").hide();
+
 	setInputReadonly("zdrylbStr", true);
     if(placeVersion=="辽宁省厅版"){
     	//去掉重复列管
@@ -118,7 +122,7 @@ $(document).ready(function(){
         	//暂不考虑07和08 涉环保 涉枪爆
     		$('#zdrygllxdm').combobox('setDataFilter', '^(01|02|03|04|06|08)$');
     		//$("#jbxx_cyzjdm").combobox("setDataFilter", "[111]");
-    		
+
     	}
      }else if(placeVersion=="大连版"){
          //alert(filterStr);
@@ -128,35 +132,35 @@ $(document).ready(function(){
      		$('#zdrygllxdm').combobox('setDataFilter', '^0[1-8]{1,1}$');
      		//$("#jbxx_cyzjdm").combobox("setDataFilter", "[111]");
      	}
-		
-		
+
+
      }
-     
-     
+
+
     $('#zdrygllxdm').combobox('setValue', '${zdrygllxdm}');
-    
+
 	var zdryHsbId = $("#zdryHsbId").val();
 	if(zdryHsbId != null && zdryHsbId != ""){
 		$('#zdrylbStr').combotree('setValue', '${zdrylbdm}');
 		$('#glffdm').combobox('setValue', '${glffdm}');
 		$('#lglydm').combobox('setValue', '${lglydm}');
 	}
-	
+
 });
 
 
 function doInit(paramArray) {
 	var windowID = paramArray['windowID'];
 	if(ywlx=="1"){
-		$("#dataForm").attr("action","<%=basePath%>zdryLcg/saveLg");
+		$("#dataForm").attr("action","<%=basePath%>zdryHsb/saveLg");
 	}else if(ywlx=="2"){
-		$("#dataForm").attr("action","<%=basePath%>zdryLcg/saveCg");
+		$("#dataForm").attr("action","<%=basePath%>zdryHsb/saveCg");
 		var data=$("#cglxdm").combobox("getData");
-		
+
 		//if(data.length==1){
 		//	$("#cglxdm").combobox("select",data[0].id);
 		//}
-		
+
 	}
 	//如果列管类型为监管，不准所有列管
 	if(filterStr=="1"&&ywlx=="1"){
@@ -171,7 +175,7 @@ function doInit(paramArray) {
 	if(filterZdStr=='9999'&&ywlx=="2"){
 		alert("此人所有重点人员类型状态都为进行中状态不可再撤管和转递");
 	}
-	
+
 }
 
 function beforeSubmit() {
@@ -192,8 +196,8 @@ function beforeSubmit() {
             return false;
           }
 	}
-	
-   
+
+
 }
 
 function afterSubmit() {
@@ -232,7 +236,7 @@ function getcghlx(newValue,oldValue){
 			$('#zdrygllxdm').combobox('setDataFilter', zdrylx);
 
 
-			 
+
              if(cglx=="08"){
             	 $("#sqsbzdrycg").show();
             		setComboRequired("cgyy",true);
@@ -240,9 +244,9 @@ function getcghlx(newValue,oldValue){
             	 $("#sqsbzdrycg").hide();
             	 setComboRequired("cgyy",false);
              }
-			
+
 			if(zdrylx=='09'){
-				setComboRequired("zdrylbStr", false);			
+				setComboRequired("zdrylbStr", false);
 			}
 		}else if(placeVersion=="大连版"){
 			var cglx=newValue;
@@ -263,11 +267,11 @@ function getcghlx(newValue,oldValue){
 
 	 }
 		}
-	
+
 }
 
 
 
 
-	
+
 </script>

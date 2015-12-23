@@ -21,6 +21,7 @@ import com.founder.framework.base.controller.BaseController;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.config.SystemConfig;
+import com.founder.framework.exception.RuleException;
 import com.founder.framework.organization.assign.service.OrgAssignPublic;
 import com.founder.framework.organization.assign.vo.OrgUserInfo;
 import com.founder.framework.organization.department.bean.OrgOrganization;
@@ -479,7 +480,13 @@ public class ZdryApprovalController extends BaseController {
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
-			model.put(AppConst.MESSAGES, "审批失败！");
+						
+			if(e instanceof RuleException){
+				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
+			}else{
+				model.put(AppConst.MESSAGES, "审批失败！");
+			}
+				
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 
@@ -528,7 +535,11 @@ public class ZdryApprovalController extends BaseController {
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
-			model.put(AppConst.MESSAGES, "审批失败！");
+			if(e instanceof RuleException){
+				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
+			}else{
+				model.put(AppConst.MESSAGES, "审批失败！");
+			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
@@ -597,7 +608,11 @@ public class ZdryApprovalController extends BaseController {
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
-			model.put(AppConst.MESSAGES, "审批失败！");
+			if(e instanceof RuleException){
+				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
+			}else{
+				model.put(AppConst.MESSAGES, "审批失败！");
+			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 
@@ -631,7 +646,11 @@ public class ZdryApprovalController extends BaseController {
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
-			model.put(AppConst.MESSAGES, "审批失败！");
+			if(e instanceof RuleException){
+				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
+			}else{
+				model.put(AppConst.MESSAGES, "审批失败！");
+			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
@@ -676,7 +695,11 @@ public class ZdryApprovalController extends BaseController {
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
-			model.put(AppConst.MESSAGES, "审批失败！");
+			if(e instanceof RuleException){
+				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
+			}else{
+				model.put(AppConst.MESSAGES, "审批失败！");
+			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
@@ -709,7 +732,11 @@ public class ZdryApprovalController extends BaseController {
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
-			model.put(AppConst.MESSAGES, "审批失败！");
+			if(e instanceof RuleException){
+				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
+			}else{
+				model.put(AppConst.MESSAGES, "审批失败！");
+			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
@@ -740,7 +767,11 @@ public class ZdryApprovalController extends BaseController {
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
-			model.put(AppConst.MESSAGES, "审批失败！");
+			if(e instanceof RuleException){
+				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
+			}else{
+				model.put(AppConst.MESSAGES, "审批失败！");
+			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
@@ -767,7 +798,11 @@ public class ZdryApprovalController extends BaseController {
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
-			model.put(AppConst.MESSAGES, "审批失败！");
+			if(e instanceof RuleException){
+				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
+			}else{
+				model.put(AppConst.MESSAGES, "审批失败！");
+			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
@@ -802,7 +837,11 @@ public class ZdryApprovalController extends BaseController {
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
-			model.put(AppConst.MESSAGES, "审批失败！");
+			if(e instanceof RuleException){
+				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
+			}else{
+				model.put(AppConst.MESSAGES, "审批失败！");
+			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 
@@ -846,7 +885,11 @@ public class ZdryApprovalController extends BaseController {
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
-			model.put(AppConst.MESSAGES, "审批失败！");
+			if(e instanceof RuleException){
+				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
+			}else{
+				model.put(AppConst.MESSAGES, "审批失败！");
+			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
@@ -892,7 +935,11 @@ public class ZdryApprovalController extends BaseController {
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
-			model.put(AppConst.MESSAGES, "审批失败！");
+			if(e instanceof RuleException){
+				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
+			}else{
+				model.put(AppConst.MESSAGES, "审批失败！");
+			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;

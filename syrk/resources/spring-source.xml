@@ -90,6 +90,7 @@
 				<value>classpath:/com/founder/framework/sqlmap/operationLog.xml</value>
 				<value>classpath:/com/founder/framework/sqlmap/system.xml</value>
 				<value>classpath:/com/founder/framework/sysManager/sqlmap/*.xml</value>
+				<value>classpath:/com/founder/framework/message/sqlmap/message.xml</value>
 				<value>classpath:/com/founder/framework/dictionary/sqlmap/*.xml</value>
 				<value>classpath:/com/founder/framework/organization/**/sqlmap/*.xml</value>
 				<value>classpath:/com/founder/framework/systemconfig/sqlmap/*.xml</value>

@@ -15,13 +15,13 @@ import org.springframework.web.util.WebUtils;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
+import com.founder.framework.message.bean.MessageDict;
+import com.founder.framework.message.service.impl.JwzhMessageServiceImpl;
 import com.founder.workflow.bean.BaseWorkFlowBean;
 import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
-import com.founder.zdrygl.base.message.MessageDict;
 import com.founder.zdrygl.base.model.ZdryJgdxqxjdjb;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.service.ZdryJgdxqxjdjbService;
-import com.founder.zdrygl.core.inteface.JwzhMessageService;
 import com.founder.zdrygl.workflow.utils.WorkflowUtil;
 /**
  * ****************************************************************************
@@ -38,7 +38,7 @@ import com.founder.zdrygl.workflow.utils.WorkflowUtil;
 @Component
 public class JgdxqjFail extends WorkflowDelegate {
     @Autowired
-    private JwzhMessageService jwzhMessageService;
+    private JwzhMessageServiceImpl jwzhMessageService;
     @Resource(name="workflowUtil")
     private WorkflowUtil workflowUtil;
     
@@ -62,7 +62,7 @@ public class JgdxqjFail extends WorkflowDelegate {
 		//send message
 		Map<String,Object> paraObj = workflowUtil.getMessageParam(sessionBean,zdryzb);//获取消息的参数
 		paraObj.put("result", "qjSuccess");
-		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.JGDXQXJSPJG,paraObj);
+		jwzhMessageService.sendMessage("MESSAGE_ZDRYGL_JGDXQXJSPJG",paraObj);
 		log.debug("请假失败 ");
 	}
 	

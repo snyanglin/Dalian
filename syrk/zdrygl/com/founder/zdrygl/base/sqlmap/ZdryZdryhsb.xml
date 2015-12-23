@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+		"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<sqlMap namespace="ZdryZdryhsb">
+
+	<typeAlias alias="zdryZdryhsb" type="com.founder.zdrygl.base.model.ZdryZdryhsb"/>
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+		ID,SJLY,LYID,SSPCS,HSZT,ZDRYGLLXDM,ZDRYLBDM,CYZJDM,ZJHM,XM,XBDM,MZDM,CSRQ,DZ_HJDZSSXDM,DZ_HJDZMLPDM,DZ_HJDZMLPXZ,DZ_HJDZDM,DZ_HJDZXZ,DZ_JZDZSSXDM,DZ_JZDZMLPDM,DZ_JZDZMLPXZ,DZ_JZDZDM,DZ_JZDZXZ,SARYZCDM,HYKYDM,BRBJCJDM,ZWCJDM,JCHDDQ,XXCJYJDM,LG_SQR,LG_SQRID,LG_SQRQ,LG_SPR,LG_SPRID,LG_SPRQ,LG_SPYJ,JGDX_JGLBDM,JGDX_JGDWJGDM,JGDX_JGDWMC,JGDX_PJJGMC,ZDRK_GLFFDM,ZDRK_LGLYDM,XT_CJSJ,XT_LRSJ,XT_LRRID,XT_LRRXM,XT_LRRBM,XT_LRRBMID,XT_LRIP,XT_ZHXGSJ,XT_ZHXGRXM,XT_ZHXGRID,XT_ZHXGRBM,XT_ZHXGRBMID,XT_ZHXGIP,XT_ZXBZ,XT_ZXYY,XFBMDM
+	    ]]>
+	</sql>
+
+	<sql id="insertColumns">
+		<isNotNull  property="id">ID</isNotNull>
+		<isNotNull prepend="," property="sjly">SJLY</isNotNull>
+		<isNotNull prepend="," property="lyid">LYID</isNotNull>
+		<isNotNull prepend="," property="sspcs">SSPCS</isNotNull>
+		<isNotNull prepend="," property="hszt">HSZT</isNotNull>
+		<isNotNull prepend="," property="zdrygllxdm">ZDRYGLLXDM</isNotNull>
+		<isNotNull prepend="," property="zdrylbdm">ZDRYLBDM</isNotNull>
+		<isNotNull prepend="," property="cyzjdm">CYZJDM</isNotNull>
+		<isNotNull prepend="," property="zjhm">ZJHM</isNotNull>
+		<isNotNull prepend="," property="xm">XM</isNotNull>
+		<isNotNull prepend="," property="xbdm">XBDM</isNotNull>
+		<isNotNull prepend="," property="mzdm">MZDM</isNotNull>
+		<isNotNull prepend="," property="csrq">CSRQ</isNotNull>
+		<isNotNull prepend="," property="dz_hjdzssxdm">DZ_HJDZSSXDM</isNotNull>
+		<isNotNull prepend="," property="dz_hjdzmlpdm">DZ_HJDZMLPDM</isNotNull>
+		<isNotNull prepend="," property="dz_hjdzmlpxz">DZ_HJDZMLPXZ</isNotNull>
+		<isNotNull prepend="," property="dz_hjdzdm">DZ_HJDZDM</isNotNull>
+		<isNotNull prepend="," property="dz_hjdzxz">DZ_HJDZXZ</isNotNull>
+		<isNotNull prepend="," property="dz_jzdzssxdm">DZ_JZDZSSXDM</isNotNull>
+		<isNotNull prepend="," property="dz_jzdzmlpdm">DZ_JZDZMLPDM</isNotNull>
+		<isNotNull prepend="," property="dz_jzdzmlpxz">DZ_JZDZMLPXZ</isNotNull>
+		<isNotNull prepend="," property="dz_jzdzdm">DZ_JZDZDM</isNotNull>
+		<isNotNull prepend="," property="dz_jzdzxz">DZ_JZDZXZ</isNotNull>
+		<isNotNull prepend="," property="saryzcdm">SARYZCDM</isNotNull>
+		<isNotNull prepend="," property="hykydm">HYKYDM</isNotNull>
+		<isNotNull prepend="," property="brbjcjdm">BRBJCJDM</isNotNull>
+		<isNotNull prepend="," property="zwcjdm">ZWCJDM</isNotNull>
+		<isNotNull prepend="," property="jchddq">JCHDDQ</isNotNull>
+		<isNotNull prepend="," property="xxcjyjdm">XXCJYJDM</isNotNull>
+		<isNotNull prepend="," property="lg_sqr">LG_SQR</isNotNull>
+		<isNotNull prepend="," property="lg_sqrid">LG_SQRID</isNotNull>
+		<isNotNull prepend="," property="lg_sqrq">LG_SQRQ</isNotNull>
+		<isNotNull prepend="," property="lg_spr">LG_SPR</isNotNull>
+		<isNotNull prepend="," property="lg_sprid">LG_SPRID</isNotNull>
+		<isNotNull prepend="," property="lg_sprq">LG_SPRQ</isNotNull>
+		<isNotNull prepend="," property="lg_spyj">LG_SPYJ</isNotNull>
+		<isNotNull prepend="," property="jgdx_jglbdm">JGDX_JGLBDM</isNotNull>
+		<isNotNull prepend="," property="jgdx_jgdwjgdm">JGDX_JGDWJGDM</isNotNull>
+		<isNotNull prepend="," property="jgdx_jgdwmc">JGDX_JGDWMC</isNotNull>
+		<isNotNull prepend="," property="jgdx_pjjgmc">JGDX_PJJGMC</isNotNull>
+		<isNotNull prepend="," property="zdrk_glffdm">ZDRK_GLFFDM</isNotNull>
+		<isNotNull prepend="," property="zdrk_lglydm">ZDRK_LGLYDM</isNotNull>
+		<isNotNull prepend="," property="xfbmdm">XFBMDM</isNotNull>
+		,
+		<include refid="insertXtzd"/>
+	</sql>
+
+	<sql id="insertColumnsValues">
+		<isNotNull  property="id">#id#</isNotNull>
+		<isNotNull prepend="," property="sjly">#sjly#</isNotNull>
+		<isNotNull prepend="," property="lyid">#lyid#</isNotNull>
+		<isNotNull prepend="," property="sspcs">#sspcs#</isNotNull>
+		<isNotNull prepend="," property="hszt">#hszt#</isNotNull>
+		<isNotNull prepend="," property="zdrygllxdm">#zdrygllxdm#</isNotNull>
+		<isNotNull prepend="," property="zdrylbdm">#zdrylbdm#</isNotNull>
+		<isNotNull prepend="," property="cyzjdm">#cyzjdm#</isNotNull>
+		<isNotNull prepend="," property="zjhm">#zjhm#</isNotNull>
+		<isNotNull prepend="," property="xm">#xm#</isNotNull>
+		<isNotNull prepend="," property="xbdm">#xbdm#</isNotNull>
+		<isNotNull prepend="," property="mzdm">#mzdm#</isNotNull>
+		<isNotNull prepend="," property="csrq">#csrq#</isNotNull>
+		<isNotNull prepend="," property="dz_hjdzssxdm">#dz_hjdzssxdm#</isNotNull>
+		<isNotNull prepend="," property="dz_hjdzmlpdm">#dz_hjdzmlpdm#</isNotNull>
+		<isNotNull prepend="," property="dz_hjdzmlpxz">#dz_hjdzmlpxz#</isNotNull>
+		<isNotNull prepend="," property="dz_hjdzdm">#dz_hjdzdm#</isNotNull>
+		<isNotNull prepend="," property="dz_hjdzxz">#dz_hjdzxz#</isNotNull>
+		<isNotNull prepend="," property="dz_jzdzssxdm">#dz_jzdzssxdm#</isNotNull>
+		<isNotNull prepend="," property="dz_jzdzmlpdm">#dz_jzdzmlpdm#</isNotNull>
+		<isNotNull prepend="," property="dz_jzdzmlpxz">#dz_jzdzmlpxz#</isNotNull>
+		<isNotNull prepend="," property="dz_jzdzdm">#dz_jzdzdm#</isNotNull>
+		<isNotNull prepend="," property="dz_jzdzxz">#dz_jzdzxz#</isNotNull>
+		<isNotNull prepend="," property="saryzcdm">#saryzcdm#</isNotNull>
+		<isNotNull prepend="," property="hykydm">#hykydm#</isNotNull>
+		<isNotNull prepend="," property="brbjcjdm">#brbjcjdm#</isNotNull>
+		<isNotNull prepend="," property="zwcjdm">#zwcjdm#</isNotNull>
+		<isNotNull prepend="," property="jchddq">#jchddq#</isNotNull>
+		<isNotNull prepend="," property="xxcjyjdm">#xxcjyjdm#</isNotNull>
+		<isNotNull prepend="," property="lg_sqr">#lg_sqr#</isNotNull>
+		<isNotNull prepend="," property="lg_sqrid">#lg_sqrid#</isNotNull>
+		<isNotNull prepend="," property="lg_sqrq">#lg_sqrq#</isNotNull>
+		<isNotNull prepend="," property="lg_spr">#lg_spr#</isNotNull>
+		<isNotNull prepend="," property="lg_sprid">#lg_sprid#</isNotNull>
+		<isNotNull prepend="," property="lg_sprq">#lg_sprq#</isNotNull>
+		<isNotNull prepend="," property="lg_spyj">#lg_spyj#</isNotNull>
+		<isNotNull prepend="," property="jgdx_jglbdm">#jgdx_jglbdm#</isNotNull>
+		<isNotNull prepend="," property="jgdx_jgdwjgdm">#jgdx_jgdwjgdm#</isNotNull>
+		<isNotNull prepend="," property="jgdx_jgdwmc">#jgdx_jgdwmc#</isNotNull>
+		<isNotNull prepend="," property="jgdx_pjjgmc">#jgdx_pjjgmc#</isNotNull>
+		<isNotNull prepend="," property="zdrk_glffdm">#zdrk_glffdm#</isNotNull>
+		<isNotNull prepend="," property="zdrk_lglydm">#zdrk_lglydm#</isNotNull>
+		<isNotNull prepend="," property="xfbmdm">#xfbmdm#</isNotNull>
+		,
+		<include refid="insertXtzdVal"/>
+	</sql>
+
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="insert" >
+		INSERT INTO ZDRY_ZDRYHSB (
+		<include refid="insertColumns"/>
+		) VALUES (
+		<include refid="insertColumnsValues"/>
+		)
+	</insert>
+
+	<sql id="updateColumns">
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="sjly">SJLY = #sjly#</isNotNull>
+			<isNotNull prepend="," property="lyid">LYID = #lyid#</isNotNull>
+			<isNotNull prepend="," property="sspcs">SSPCS = #sspcs#</isNotNull>
+			<isNotNull prepend="," property="hszt">HSZT = #hszt#</isNotNull>
+			<isNotNull prepend="," property="zdrygllxdm">ZDRYGLLXDM = #zdrygllxdm#</isNotNull>
+			<isNotNull prepend="," property="zdrylbdm">ZDRYLBDM = #zdrylbdm#</isNotNull>
+			<isNotNull prepend="," property="cyzjdm">CYZJDM = #cyzjdm#</isNotNull>
+			<isNotNull prepend="," property="zjhm">ZJHM = #zjhm#</isNotNull>
+			<isNotNull prepend="," property="xm">XM = #xm#</isNotNull>
+			<isNotNull prepend="," property="xbdm">XBDM = #xbdm#</isNotNull>
+			<isNotNull prepend="," property="mzdm">MZDM = #mzdm#</isNotNull>
+			<isNotNull prepend="," property="csrq">CSRQ = #csrq#</isNotNull>
+			<isNotNull prepend="," property="dz_hjdzssxdm">DZ_HJDZSSXDM = #dz_hjdzssxdm#</isNotNull>
+			<isNotNull prepend="," property="dz_hjdzmlpdm">DZ_HJDZMLPDM = #dz_hjdzmlpdm#</isNotNull>
+			<isNotNull prepend="," property="dz_hjdzmlpxz">DZ_HJDZMLPXZ = #dz_hjdzmlpxz#</isNotNull>
+			<isNotNull prepend="," property="dz_hjdzdm">DZ_HJDZDM = #dz_hjdzdm#</isNotNull>
+			<isNotNull prepend="," property="dz_hjdzxz">DZ_HJDZXZ = #dz_hjdzxz#</isNotNull>
+			<isNotNull prepend="," property="dz_jzdzssxdm">DZ_JZDZSSXDM = #dz_jzdzssxdm#</isNotNull>
+			<isNotNull prepend="," property="dz_jzdzmlpdm">DZ_JZDZMLPDM = #dz_jzdzmlpdm#</isNotNull>
+			<isNotNull prepend="," property="dz_jzdzmlpxz">DZ_JZDZMLPXZ = #dz_jzdzmlpxz#</isNotNull>
+			<isNotNull prepend="," property="dz_jzdzdm">DZ_JZDZDM = #dz_jzdzdm#</isNotNull>
+			<isNotNull prepend="," property="dz_jzdzxz">DZ_JZDZXZ = #dz_jzdzxz#</isNotNull>
+			<isNotNull prepend="," property="saryzcdm">SARYZCDM = #saryzcdm#</isNotNull>
+			<isNotNull prepend="," property="hykydm">HYKYDM = #hykydm#</isNotNull>
+			<isNotNull prepend="," property="brbjcjdm">BRBJCJDM = #brbjcjdm#</isNotNull>
+			<isNotNull prepend="," property="zwcjdm">ZWCJDM = #zwcjdm#</isNotNull>
+			<isNotNull prepend="," property="jchddq">JCHDDQ = #jchddq#</isNotNull>
+			<isNotNull prepend="," property="xxcjyjdm">XXCJYJDM = #xxcjyjdm#</isNotNull>
+			<isNotNull prepend="," property="lg_sqr">LG_SQR = #lg_sqr#</isNotNull>
+			<isNotNull prepend="," property="lg_sqrid">LG_SQRID = #lg_sqrid#</isNotNull>
+			<isNotNull prepend="," property="lg_sqrq">LG_SQRQ = #lg_sqrq#</isNotNull>
+			<isNotNull prepend="," property="lg_spr">LG_SPR = #lg_spr#</isNotNull>
+			<isNotNull prepend="," property="lg_sprid">LG_SPRID = #lg_sprid#</isNotNull>
+			<isNotNull prepend="," property="lg_sprq">LG_SPRQ = #lg_sprq#</isNotNull>
+			<isNotNull prepend="," property="lg_spyj">LG_SPYJ = #lg_spyj#</isNotNull>
+			<isNotNull prepend="," property="jgdx_jglbdm">JGDX_JGLBDM = #jgdx_jglbdm#</isNotNull>
+			<isNotNull prepend="," property="jgdx_jgdwjgdm">JGDX_JGDWJGDM = #jgdx_jgdwjgdm#</isNotNull>
+			<isNotNull prepend="," property="jgdx_jgdwmc">JGDX_JGDWMC = #jgdx_jgdwmc#</isNotNull>
+			<isNotNull prepend="," property="jgdx_pjjgmc">JGDX_PJJGMC = #jgdx_pjjgmc#</isNotNull>
+			<isNotNull prepend="," property="zdrk_glffdm">ZDRK_GLFFDM = #zdrk_glffdm#</isNotNull>
+			<isNotNull prepend="," property="zdrk_lglydm">ZDRK_LGLYDM = #zdrk_lglydm#</isNotNull>
+			<isNotNull prepend="," property="xfbmdm">XFBMDM = #xfbmdm#</isNotNull>
+			,
+			<include refid="updateXtzd"/>
+		</dynamic>
+	</sql>
+
+	<update id="update" >
+		UPDATE ZDRY_ZDRYHSB
+		<include refid="updateColumns"/>
+		WHERE
+		ID = #id#
+	</update>
+
+	<!-- 注销 -->
+	<update id="delete" parameterClass="zdryZdryhsb">
+		<![CDATA[ update ZDRY_ZDRYHSB set ]]><include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>
+	</update>
+
+	<select id="queryById" resultClass="zdryZdryhsb">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		    FROM ZDRY_ZDRYHSB
+	        WHERE
+		        ID = #id#
+	    ]]>
+	</select>
+
+	<sql id="queryWhere">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotNull()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<dynamic prepend="where">
+			1=1
+			<isNotNull  property="zdryZdryhsbVO.id">
+				AND ID = #zdryZdryhsbVO.id#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.sjly">
+				AND SJLY = #zdryZdryhsbVO.sjly#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.lyid">
+				AND LYID = #zdryZdryhsbVO.lyid#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.sspcs">
+				AND SSPCS = #zdryZdryhsbVO.sspcs#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.hszt">
+				AND HSZT = #zdryZdryhsbVO.hszt#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.zdrygllxdm">
+				AND ZDRYGLLXDM = #zdryZdryhsbVO.zdrygllxdm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.zdrylbdm">
+				AND ZDRYLBDM = #zdryZdryhsbVO.zdrylbdm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.cyzjdm">
+				AND CYZJDM = #zdryZdryhsbVO.cyzjdm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.zjhm">
+				AND ZJHM = #zdryZdryhsbVO.zjhm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xm">
+				AND XM = #zdryZdryhsbVO.xm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xbdm">
+				AND XBDM = #zdryZdryhsbVO.xbdm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.mzdm">
+				AND MZDM = #zdryZdryhsbVO.mzdm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.csrq">
+				AND CSRQ = #zdryZdryhsbVO.csrq#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.dz_hjdzssxdm">
+				AND DZ_HJDZSSXDM = #zdryZdryhsbVO.dz_hjdzssxdm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.dz_hjdzmlpdm">
+				AND DZ_HJDZMLPDM = #zdryZdryhsbVO.dz_hjdzmlpdm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.dz_hjdzmlpxz">
+				AND DZ_HJDZMLPXZ = #zdryZdryhsbVO.dz_hjdzmlpxz#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.dz_hjdzdm">
+				AND DZ_HJDZDM = #zdryZdryhsbVO.dz_hjdzdm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.dz_hjdzxz">
+				AND DZ_HJDZXZ = #zdryZdryhsbVO.dz_hjdzxz#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.dz_jzdzssxdm">
+				AND DZ_JZDZSSXDM = #zdryZdryhsbVO.dz_jzdzssxdm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.dz_jzdzmlpdm">
+				AND DZ_JZDZMLPDM = #zdryZdryhsbVO.dz_jzdzmlpdm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.dz_jzdzmlpxz">
+				AND DZ_JZDZMLPXZ = #zdryZdryhsbVO.dz_jzdzmlpxz#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.dz_jzdzdm">
+				AND DZ_JZDZDM = #zdryZdryhsbVO.dz_jzdzdm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.dz_jzdzxz">
+				AND DZ_JZDZXZ = #zdryZdryhsbVO.dz_jzdzxz#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.saryzcdm">
+				AND SARYZCDM = #zdryZdryhsbVO.saryzcdm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.hykydm">
+				AND HYKYDM = #zdryZdryhsbVO.hykydm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.brbjcjdm">
+				AND BRBJCJDM = #zdryZdryhsbVO.brbjcjdm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.zwcjdm">
+				AND ZWCJDM = #zdryZdryhsbVO.zwcjdm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.jchddq">
+				AND JCHDDQ = #zdryZdryhsbVO.jchddq#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xxcjyjdm">
+				AND XXCJYJDM = #zdryZdryhsbVO.xxcjyjdm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.lg_sqr">
+				AND LG_SQR = #zdryZdryhsbVO.lg_sqr#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.lg_sqrid">
+				AND LG_SQRID = #zdryZdryhsbVO.lg_sqrid#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.lg_sqrq">
+				AND LG_SQRQ = #zdryZdryhsbVO.lg_sqrq#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.lg_spr">
+				AND LG_SPR = #zdryZdryhsbVO.lg_spr#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.lg_sprid">
+				AND LG_SPRID = #zdryZdryhsbVO.lg_sprid#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.lg_sprq">
+				AND LG_SPRQ = #zdryZdryhsbVO.lg_sprq#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.lg_spyj">
+				AND LG_SPYJ = #zdryZdryhsbVO.lg_spyj#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.jgdx_jglbdm">
+				AND JGDX_JGLBDM = #zdryZdryhsbVO.jgdx_jglbdm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.jgdx_jgdwjgdm">
+				AND JGDX_JGDWJGDM = #zdryZdryhsbVO.jgdx_jgdwjgdm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.jgdx_jgdwmc">
+				AND JGDX_JGDWMC = #zdryZdryhsbVO.jgdx_jgdwmc#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.jgdx_pjjgmc">
+				AND JGDX_PJJGMC = #zdryZdryhsbVO.jgdx_pjjgmc#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.zdrk_glffdm">
+				AND ZDRK_GLFFDM = #zdryZdryhsbVO.zdrk_glffdm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.zdrk_lglydm">
+				AND ZDRK_LGLYDM = #zdryZdryhsbVO.zdrk_lglydm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xt_cjsj">
+				AND XT_CJSJ = #zdryZdryhsbVO.xt_cjsj#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xt_lrsj">
+				AND XT_LRSJ = #zdryZdryhsbVO.xt_lrsj#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xt_lrrid">
+				AND XT_LRRID = #zdryZdryhsbVO.xt_lrrid#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xt_lrrxm">
+				AND XT_LRRXM = #zdryZdryhsbVO.xt_lrrxm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xt_lrrbm">
+				AND XT_LRRBM = #zdryZdryhsbVO.xt_lrrbm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xt_lrrbmid">
+				AND XT_LRRBMID = #zdryZdryhsbVO.xt_lrrbmid#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xt_lrip">
+				AND XT_LRIP = #zdryZdryhsbVO.xt_lrip#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xt_zhxgsj">
+				AND XT_ZHXGSJ = #zdryZdryhsbVO.xt_zhxgsj#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xt_zhxgrxm">
+				AND XT_ZHXGRXM = #zdryZdryhsbVO.xt_zhxgrxm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xt_zhxgrid">
+				AND XT_ZHXGRID = #zdryZdryhsbVO.xt_zhxgrid#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xt_zhxgrbm">
+				AND XT_ZHXGRBM = #zdryZdryhsbVO.xt_zhxgrbm#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xt_zhxgrbmid">
+				AND XT_ZHXGRBMID = #zdryZdryhsbVO.xt_zhxgrbmid#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xt_zhxgip">
+				AND XT_ZHXGIP = #zdryZdryhsbVO.xt_zhxgip#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xt_zxbz">
+				AND XT_ZXBZ = #zdryZdryhsbVO.xt_zxbz#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xt_zxyy">
+				AND XT_ZXYY = #zdryZdryhsbVO.xt_zxyy#
+			</isNotNull>
+			<isNotNull  property="zdryZdryhsbVO.xfbmdm">
+				AND XFBMDM = #zdryZdryhsbVO.xfbmdm#
+			</isNotNull>
+		</dynamic>
+	</sql>
+	<select id="queryCount" resultClass="Integer">
+		SELECT count(*) FROM ZDRY_ZDRYHSB
+		<include refid="queryWhere"/>
+	</select>
+
+	<!--
+        分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+        因为分页查询将传 offset,pageSize,lastRows 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+	<select id="query" resultClass="zdryZdryhsb">
+		SELECT <include refid="columns" />
+		FROM ZDRY_ZDRYHSB
+		<include refid="queryWhere"/>
+
+
+	</select>
+
+</sqlMap>
+
