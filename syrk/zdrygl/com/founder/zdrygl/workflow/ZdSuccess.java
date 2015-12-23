@@ -21,6 +21,7 @@ import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
+import com.founder.zdrygl.workflow.utils.ZdryZbUtil;
 
 
 
@@ -84,7 +85,6 @@ public class ZdSuccess extends WorkflowDelegate{
 		if(xt_lrrbmid!=null) zdryzb.setXt_lrrbmid(String.valueOf(xt_lrrbmid));
 		String xt_lrip = (String) variables.get("xt_lrip");
 		if(xt_lrip!=null) zdryzb.setXt_lrip(xt_lrip);
-		
 		ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
 		zdryService.zdSuccess(sessionBean,entity);
 	}

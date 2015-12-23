@@ -1,5 +1,6 @@
 package com.founder.zdrygl.workflow;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -11,11 +12,13 @@ import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.position.bean.OrgPosition;
 import com.founder.framework.organization.position.service.OrgPositionService;
-import com.founder.syrkgl.service.RyRyjbxxbService;
-import com.founder.syrkgl.service.SyrkSyrkxxzbService;
 import com.founder.workflow.bean.BaseWorkFlowBean;
 import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
+import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
+import com.founder.zdrygl.base.service.wf.WfywEnum;
+import com.founder.zdrygl.core.utils.SpringContextHolder;
+import com.founder.zdrygl.workflow.utils.WorkflowUtil;
 
 /**
  * ****************************************************************************
@@ -42,12 +45,6 @@ public class Zdywjs extends WorkflowDelegate {
 
 	@Resource(name = "zdryQueryService")
 	private ZdryInfoQueryService zdryQueryService;
-
-	@Resource(name = "syrkSyrkxxzbService")
-	private SyrkSyrkxxzbService syrkSyrkxxzbService;
-	
-	@Resource(name = "ryRyjbxxbService")
-	private RyRyjbxxbService ryRyjbxxbService;
 	/**
 	 *1)  两个辖区在同一个派出所内，则共同上级为派出所所长；
 	 *2）	若两个辖区在两个派出所，但在同一个分局内，则共同上级为分局业务部门；
@@ -63,53 +60,43 @@ public class Zdywjs extends WorkflowDelegate {
 		Map<String,Object> variables = arg0.getProcessVariables();
 		String nextTaskOwner = null;
 		try {
+			ZdryZb zdrycx = (ZdryZb) variables.get("zdrycx");
 			String zdrygllxdm = (String) variables.get("zdrylx");
-			//String zdryId = (String) variables.get("zdryId");
-			String zdryName = (String) variables.get("zdryName");
-			//String lrrzrq = (String) variables.get("lrrzrq");
-			//String cyzjdm =  (String) variables.get("cyzjdm");
-			//String zjhm =  (String) variables.get("zjhm");
 			String sszrqdm = (String) variables.get("sszrqdm");//ygxzrqdm
-			String ygxzrqdm = (String) variables.get("ygxzrqdm");//ygxzrqdm
 			
 			OrgOrganization orgOrganization = new OrgOrganization();
-			/*ZdryZb zdryZb = (ZdryZb) zdryQueryService.queryById(zdryId);
-			String syrkSyrkxxzbId = zdryZb.getSyrkid();
-			SyrkSyrkxxzb syrkSyrkxxzb = syrkSyrkxxzbService.queryById(syrkSyrkxxzbId);*/
 			
-			String current_jzd_zrqdm = ygxzrqdm;// 重点人员原居住责任区
+			String current_jzd_zrqdm = zdrycx.getGxzrqdm();// 重点人员原居住责任区
 			String target_jzd_zrqdm = sszrqdm;// 重点人员新居住地责任区;
 			//设定流程新责任区负责人
 			//String zdry_hjd_zrqdm = dzService.queryMldzDx(target_jzd_mlpdm).getZrqdm();// 重点人员户籍地责任区
 			OrgOrganization targetOrgOrganization = orgOrganizationService.queryByOrgcode(sszrqdm);
+			String beanId = WorkflowUtil.buildWorkflowKey(WfywEnum.ZD.getValue());
+			LinkedHashMap<String,String> wfParams = SpringContextHolder.getBean(beanId);
 			String taskParameter = targetOrgOrganization.getOrgcode() + "_"
-					+ orgPositionService.queryByPosid("ZRQMJ").getId().toString(); // 责任区部门code+民警岗位ID
+					+ orgPositionService.queryByPosid(wfParams.get("spgwL1")).getId().toString(); // 责任区部门code+民警岗位ID
 			setLocalVariable("spmj", taskParameter);
 			setVariable("xglbm", targetOrgOrganization.getOrgcode());
-			setVariable("yglbm",orgOrganizationService.queryByOrgcode(ygxzrqdm).getOrgcode());
+			setVariable("yglbm",orgOrganizationService.queryByOrgcode(zdrycx.getGxzrqdm()).getOrgcode());
 
-			//设定共同领导
-			//部门相同，不同责任区
-			//判断责任区所属组织
+			//设定共同领导 :
 			orgOrganization = orgOrganizationService.queryUpOrgByLevel(current_jzd_zrqdm, "32");
 			OrgOrganization newOrgOrganization = orgOrganizationService.queryUpOrgByLevel(target_jzd_zrqdm, "32");
 			if( orgOrganization.getOrgcode().equals(newOrgOrganization.getOrgcode())
 					&& orgOrganization.getOrgbiztype().equals(newOrgOrganization.getOrgbiztype()) 
-					//&& orgOrganization.getOrgbiztype().equals("09")//责任区 
 					&& orgOrganization.getOrglevel().equals(newOrgOrganization.getOrglevel())
 					&& orgOrganization.getOrglevel().equals("32")//派出所
 					){
+				// 部门相同，不同责任区,判断责任区所属组织
 				nextTaskOwner = newOrgOrganization.getOrgcode() + "_"
 						+ orgPositionService.queryByPosid("SZ")
 								.getId().toString(); // 责任区部门code+所长岗位ID
 			}else {
 				OrgOrganization sameParentOrg =orgOrganizationService.querySameParentOrg(orgOrganization.getOrgcode(),newOrgOrganization.getOrgcode());
-				System.out.println("sameParentOrg--> " + sameParentOrg.getOrgcode() );
 				nextTaskOwner = buildTaskOwner(sameParentOrg,newOrgOrganization,zdrygllxdm);
 			}
 			setVariable("gtld", nextTaskOwner);
 			// set Other parameters
-			//setVariable("zdryName", zdryName);
 			setLocalVariable("businessType", "0");
 			setLocalVariable("approvalMethod", "zdmjApproval");
 			setLocalVariable("org", targetOrgOrganization);
@@ -124,7 +111,7 @@ public class Zdywjs extends WorkflowDelegate {
 	/**
 	 * 
 	 * @Title: buildTaskOwner
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @Description: (根据重点人员类型)
 	 * @param @param sameParentOrg
 	 * @param @param newOrgOrganization
 	 * @param @param zdrygllxdm
@@ -134,32 +121,46 @@ public class Zdywjs extends WorkflowDelegate {
 	 */
 	private String buildTaskOwner(OrgOrganization sameParentOrg,
 			OrgOrganization newOrgOrganization, String zdrygllxdm) {
-		// TODO Auto-generated method stub
 		String[] posCodes = null;
 		String nextTaskOwner = null;
-		if(zdrygllxdm.equals("01")||zdrygllxdm.equals("02")
+		String beanId = WorkflowUtil.buildWorkflowKey(WfywEnum.ZD.getValue());
+		LinkedHashMap<String,String> wfParams = SpringContextHolder.getBean(beanId);
+		String key = "spgwL2_" + zdrygllxdm.trim() + "_" +sameParentOrg.getOrglevel().trim() ;
+		if(wfParams.get(key) != null){
+			posCodes =  wfParams.get(key).split(",");
+			
+		}else{
+			key = "spgwL2_default_"+sameParentOrg.getOrglevel();
+			if(wfParams.get(key) != null){
+				posCodes =  wfParams.get(key).split(",");
+			}
+		}
+		if(posCodes == null){
+			throw new BussinessException("查找共同业务主管组织机构等级出错，组织机构等级为：" + sameParentOrg.getOrglevel());// 抛出异常
+		}
+		/*if(zdrygllxdm.equals("01")||zdrygllxdm.equals("02")
 				||zdrygllxdm.equals("03")||zdrygllxdm.equals("04")
 				||zdrygllxdm.equals("06")||zdrygllxdm.equals("08")){
 			//治安
 			if(sameParentOrg.getOrglevel().equals("21")){
-				//若两个辖区在两个派出所，但在同一个分局内，则共同上级为分局业务部门:FXJZAYWZG
-				posCodes = new String[]{"FXJZAYWZG","FXJGLY"};
+				//若两个辖区在两个派出所，但在同一个分局内，则共同上级为分局业务部门:"FXJZAYWZG","FXJGLY"
+				posCodes = wfParams.get("spgwL2_99_21").split(",");// new String[]{"FXJZAYWZG","FXJGLY"};
 			}else if(sameParentOrg.getOrglevel().equals("10")){
 				//若两个辖区在不同分局，则共同上级为市局业务部门： 市公安局
-				posCodes = new String[]{"SJGLY"};
+				posCodes = wfParams.get("spgwL2_99_10").split(",");// new String[]{"SJGLY"};
 			}else{
 				//其他
 				
 			}
-			nextTaskOwner = getTaskOwnerFilterByOrglevel(sameParentOrg,newOrgOrganization,posCodes);
 		}else if(zdrygllxdm.equals("07")){
+			
 			//环保
 			if(sameParentOrg.getOrglevel().equals("21")){
-				//若两个辖区在两个派出所，但在同一个分局内，则共同上级为分局业务部门:FXJZAYWZG
-				posCodes = new String[]{"FXJZAYWZG","FXJGLY"};
+				//若两个辖区在两个派出所，但在同一个分局内，则共同上级为分局业务部门:"FXJZAYWZG","FXJGLY"
+				posCodes = wfParams.get("spgwL2_07_21").split(",");// new String[]{"FXJZAYWZG","FXJGLY"};
 			}else if(sameParentOrg.getOrglevel().equals("10")){
 				//若两个辖区在不同分局，则共同上级为市局业务部门： 市公安局
-				posCodes = new String[]{"SJGLY"};
+				posCodes = wfParams.get("spgwL2_07_10").split(",");// new String[]{"SJGLY"};
 			}else{
 				//其他
 				
@@ -168,18 +169,18 @@ public class Zdywjs extends WorkflowDelegate {
 			//信访
 			if(sameParentOrg.getOrglevel().equals("21")){
 				//若两个辖区在两个派出所，但在同一个分局内，则共同上级为分局业务部门:FXJZAYWZG
-				posCodes = new String[]{"FXJSGAFYWZG"};
+				posCodes =  wfParams.get("spgwL2_05_21").split(",");//new String[]{"FXJSGAFYWZG"};
 			}else if(sameParentOrg.getOrglevel().equals("10")){
 				//若两个辖区在不同分局，则共同上级为市局业务部门： 市公安局
-				posCodes = new String[]{"SJGLY"};
+				posCodes =  wfParams.get("spgwL2_05_10").split(",");//new String[]{"SJGLY"};
 			}else{
 				//其他
 				
 			}
 		}else{
 			//反恐
-		}
-		nextTaskOwner = getTaskOwnerFilterByOrglevel(sameParentOrg,newOrgOrganization,posCodes);
+		}*/
+		nextTaskOwner = getTaskOwnerFilterByOrglevel(sameParentOrg,posCodes);
 		return nextTaskOwner;
 	}
 	/**
@@ -193,18 +194,8 @@ public class Zdywjs extends WorkflowDelegate {
 	 * @return String    返回类型
 	 * @throws
 	 */
-	public String getTaskOwnerFilterByOrglevel(OrgOrganization sameParentOrg,OrgOrganization newOrgOrganization,String[] posCodes){
-		String nextTaskOwner = null;
-		if(sameParentOrg.getOrglevel().equals("21")){
-			//若两个辖区在两个派出所，但在同一个分局内，则共同上级为分局业务部门:FXJZAYWZG
-			nextTaskOwner = buildTaskOwnerByArray(sameParentOrg,posCodes);
-		}else if(sameParentOrg.getOrglevel().equals("10")){
-			//若两个辖区在不同分局，则共同上级为市局业务部门： 市公安局
-			nextTaskOwner = buildTaskOwnerByArray(sameParentOrg,posCodes);
-		}else{
-			//其他
-			
-		}
+	public String getTaskOwnerFilterByOrglevel(OrgOrganization sameParentOrg,String[] posCodes){
+		String nextTaskOwner = buildTaskOwnerByArray(sameParentOrg,posCodes);
 		if( nextTaskOwner == null){
 			throw new BussinessException("未找到共同业务主管，请审查。");// 抛出异常
 		}

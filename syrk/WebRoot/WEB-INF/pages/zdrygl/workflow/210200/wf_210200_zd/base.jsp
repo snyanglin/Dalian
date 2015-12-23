@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 		<tr class="dialogTr">
 	    	<td width="30%" class="dialogTd" align="right">转递人员姓名：</td>
-	    	<td width="20%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text"  id="zdryName" name="zdryName" value="${varMap.zdryName}" style="width:200px;" readonly="readonly"  /></td>
+	    	<td width="20%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text"  id="zdryName" name="zdryName" value="${varMap.xm}" style="width:200px;" readonly="readonly"  /></td>
 	    	<td width="30%" class="dialogTd" align="right">公民身份号码：</td>
 	    	<td width="20%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="zjhm" id="zjhm"  value="${varMap.zjhm}" style="width:200px;" readonly="readonly" /></td>
 	     </tr>		

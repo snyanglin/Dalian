@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                     http://www.springframework.org/schema/beans/spring-beans.xsd
+                     http://www.springframework.org/schema/tx
+                     http://www.springframework.org/schema/tx/spring-tx.xsd
+                     http://www.springframework.org/schema/context 
+                     http://www.springframework.org/schema/context/spring-context.xsd
+                     http://www.springframework.org/schema/aop
+                     http://www.springframework.org/schema/aop/spring-aop.xsd
+                     http://www.springframework.org/schema/jee
+                     http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+                     http://www.springframework.org/schema/jdbc
+                     http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd" default-autowire="byName">
+        <!-- id为流程Id -->  
+	    <bean id="wf_210200_zalcg" class="org.springframework.beans.factory.config.MapFactoryBean">  
+	      <property name="sourceMap">  
+	          <map>  
+	            <entry key="level" value="1"/>  <!-- default, 1级流程 -->
+	            <!-- 非正常上访，肇事肇祸/轻微精神病人，需要治安支队派出所管理大队大队长审批 -->
+	            <entry key="spgwL1_zazd" value="DDZ"/> 
+	            <!-- 其他类型都由所长审批 -->
+	            <entry key="spgwL1_sz" value="SZ"/>   
+	          </map>  
+	      </property>  
+	    </bean>  
+	    <bean id="wf_210200_zd" class="org.springframework.beans.factory.config.MapFactoryBean">  
+	      <property name="sourceMap">  
+	          <map>  
+	            <entry key="level" value="2"/>  <!-- default, 1级流程 -->
+	            <!-- 不需要设置，由转递接收区的民警负责处理 -->
+	            <entry key="spgwL1" value="ZRQMJ"/>
+        		<!-- 转递特别，裁决时需要双方责任区共同领导人审批 : key的含义：spgw(岗位首字母)+重点人员类型类别代码+组织机构等级(orgLevel)--> 
+        		<!-- 环保：07 -->
+	            <entry key="spgwL2_07_21" value="FXJZAYWZG,FXJGLY"/>  
+	            <entry key="spgwL2_07_10" value="SJGLY"/>
+        		<!-- 信访：05 -->
+	            <entry key="spgwL2_05_21" value="FXJZAYWZG,FXJGLY"/>  
+	            <entry key="spgwL2_05_10" value="SJGLY"/> 
+        		<!-- 治安 ：01，02，03，04，06，08 -->
+	            <entry key="spgwL2_default_21" value="FXJZAYWZG,FXJGLY"/>  
+	            <entry key="spgwL2_default_10" value="SJGLY"/>   
+	          </map>  
+	      </property>  
+	    </bean>  
+	    <bean id="wf_210200_jgdxqj" class="org.springframework.beans.factory.config.MapFactoryBean">  
+	      <property name="sourceMap">  
+	          <map>  
+	            <entry key="level" value="1"/>  <!-- default, 1级流程 -->
+	            <entry key="spgwL1" value="SZ"/>  
+	            <entry key="spgwdj" value="32"/>  <!-- 审批岗位等级 -->
+	          </map>  
+	      </property>  
+	    </bean>  
+                 
+ </beans>

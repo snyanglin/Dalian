@@ -103,6 +103,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		zdryService.cgSuccess(sessionBean,entity);
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());
 		paraObj.put("result", "cgSuccess");
+		paraObj.put("zdryId", entity.getZdryzbId());
 		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.CGSPJG,paraObj);
 	}
 
@@ -112,6 +113,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		cgFail_(sessionBean, entity.getZdrylbdx());
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());
 		paraObj.put("result", "cgFail");
+		paraObj.put("zdryId", entity.getZdryzbId());
 		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.CGSPJG,paraObj);
 	}
 
@@ -164,7 +166,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		paraObj.put("jsrUserName", zb.getXt_zhxgrxm());
 		zdryService.zdSuccess(sessionBean ,entity);
 		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDSPJG,paraObj);
-	}
+	} 
 
 	@Override
 	public final void zdFail(SessionBean sessionBean , ZOBean entity) {

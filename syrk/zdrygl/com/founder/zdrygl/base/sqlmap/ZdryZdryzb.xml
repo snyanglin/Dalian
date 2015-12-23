@@ -117,7 +117,12 @@
 	
 	<!-- 注销 -->
 	<update id="delete" parameterClass="zdryZdryzb">
-		<![CDATA[ update ZDRY_ZDRYZB_NEW set ]]><include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>	
+		<![CDATA[ update ZDRY_ZDRYZB_NEW set ]]>
+			<include refid="deleteXtzd"/>
+			<isNotEmpty prepend="," property="glzt">
+					glzt = #glzt# 
+			</isNotEmpty>
+		<![CDATA[ where ID = #id# ]]>	
 	</update>
 	
 	<!-- 管理列表 -->

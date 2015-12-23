@@ -15,17 +15,17 @@
     	<input type="hidden" id="zdryZdryzb.id" name="zdryZdryzb.id" value="${zdryZb.zdryZdryzb.id}" />
     	<input type="hidden" id="zdryZdryzbVO.id" name="zdryZdryzbVO.id" value="${zdryZb.zdryZdryzb.id}" />
     	<input type="hidden" id="lxdh" name="zdryZdryzb.zdrylb" value="${zdryZb.zdryZdryzb.zdrylb}" />
-    	<input type="hidden" id="lxdh" name="zdryZdryzb.zdrygllxdm" value="${zdryZb.zdryZdryzb.zdrygllxdm}" />
+    	<input type="hidden" id="zdrygllxdm" name="zdryZdryzb.zdrygllxdm" value="${zdryZb.zdryZdryzb.zdrygllxdm}" />
     	<input type="hidden" id="lxdh" name="zdryZdryzb.cyzjdm" value="${zdryZb.zdryZdryzb.cyzjdm}" />
     	
-		<%-- <jsp:include page="zdryYwzd.jsp"></jsp:include> --%>
+		<jsp:include page="zdryYwzd.jsp"></jsp:include>
 	    <div data-options="region:'center', split:true" style="width:500px; border-width: 0px;">
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
 			<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">姓名：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text"  id="xm" name="xm" style="width:200px;" readonly="readonly"  value="${zdryZb.zdryZdryzb.xm}"/></td>
+		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text"  id="xm" name="zdryZdryzb.xm" style="width:200px;" readonly="readonly"  value="${zdryZb.zdryZdryzb.xm}"/></td>
 				<td width="20%" class="dialogTd" align="right">公民身份号码：</td>
-		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="zjhm" style="width:200px;" readonly="readonly" value="${zdryZb.zdryZdryzb.zjhm}"/></td>
+		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="zdryZdryzb.zjhm" style="width:200px;" readonly="readonly" value="${zdryZb.zdryZdryzb.zjhm}"/></td>
 		    </tr>		 
 		    <tr class="dialogTr">
 	    		<td width="20%" class="dialogTd" align="right">现居住地址：</td>
@@ -65,19 +65,19 @@
     	   <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">管辖派出所：</td>
 		    	<td width="30%" class="dialogTd">
-		    		<input class="easyui-validatebox inputreadonly" type="text" id="xgxpcs" name="zdryZdryzbVO.xgxpcs" value="" style="width:200px;" readonly="readonly" />
-		    		<input type="hidden" name="zdryZdryzbVO.sspcsdm" id="xgxpcsdm" value=""/>
+		    		<input class="easyui-validatebox inputreadonly" type="text" id="xgxpcs" name="zdryZdryzb.xgxpcs" value="" style="width:200px;" readonly="readonly" />
+		    		<input type="hidden" name="zdryZdryzb.gxpcsdm" id="xgxpcsdm" value=""/>
 		    	</td>
 				<td width="20%" class="dialogTd" align="right">管辖责任区：</td>
 		    	<td width="30%" class="dialogTd">
-		    		<input class="easyui-validatebox inputreadonly" type="text" id="xgxzrq" name="zdryZdryzbVO.xgxzrq" value="" style="width:200px;" readonly="readonly" />
-		    		<input type="hidden" name="zdryZdryzbVO.sszrqdm" id="xgxzrqdm" value=""/>
+		    		<input class="easyui-validatebox inputreadonly" type="text" id="xgxzrq" name="zdryZdryzb.xgxzrq" value="" style="width:200px;" readonly="readonly" />
+		    		<input type="hidden" name="zdryZdryzb.gxzrqdm" id="xgxzrqdm" value=""/>
 		    	</td>
 		    </tr>
 		    <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">转递原因：</td>
 		    	<td width="30%" class="dialogTd" colspan="3">
-		    		<input class="easyui-validatebox" type="text" id="ywfqyy" name="zdryZdryzbVO.ywfqyy" style="width: 628px;" value=""  />
+		    		<input class="easyui-validatebox" type="text" id="ywfqyy" name="zdryZdryzb.bz" style="width: 628px;" value=""  />
 				</td>
 		    </tr>
 		    <tr class="dialogTr">
@@ -87,7 +87,8 @@
 				</td>
 		    </tr>	
 		    <tr class="dialogTr">
-		    	<td class="dialogTd" align="center" colspan="2"><a href="#" onclick="viewWorkflowDialog();">查看流程图</a> </td>		    	
+		    	<td width="20%" class="dialogTd" align="right">流程图:</td>
+		    	<td width="30%" class="dialogTd" colspan="3"><a href="#" onclick="viewWorkflowDialog();">查看</a> </td>		    	
 		    </tr>	    
 	    	</table>
 	    </div>
@@ -118,11 +119,26 @@ function changeCodeToName(){
 	public_getOrgName('xgxzrqdm','xgxzrq');
 }
 function viewWorkflowDialog(){
-	var processDefinitionKey = "zd";
-	var url = '/syrk/diagram/diagram/' + processDefinitionKey;
-	var result=window.open(url,'newWindow','modal=yes,height=600px,width=900px,resizable=yes,z-look=yes,alwaysRaised=yes'); 
-	window.onfocus=function (){result.focus();};
-
+	var zdrygllxdm = $("#zdrygllxdm").val();
+	var processDefinitionKey =null;
+	$.ajax({
+		async:false,
+		type:"POST",
+		url:"<%= basePath%>wf/getProcDefId/2/" + zdrygllxdm,
+		dataType:"json",
+		success:function(data){
+			if (data && data.length>0) {
+				processDefinitionKey = data;
+				var url = '/syrk/diagram/diagram/' + processDefinitionKey;
+				var result=window.open(url,'_blank','modal=yes,height=600px,width=900px,resizable=yes,z-look=yes,alwaysRaised=yes'); 
+				window.onfocus=function (){result.focus();};
+			}else{
+				alert("Workflow is not found.");
+			}				
+		}
+	});   
+	
 }
+
 </script>
 </html>

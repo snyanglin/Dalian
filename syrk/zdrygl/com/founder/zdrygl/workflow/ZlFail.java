@@ -19,6 +19,7 @@ import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
+import com.founder.zdrygl.workflow.utils.ZdryZbUtil;
 
 
 
@@ -58,7 +59,10 @@ public class ZlFail extends WorkflowDelegate {
 //		ZdryZdryzb zdryZdryzb =zdryZdryzbService.queryById(zdryId);
 //		zdryZdryzb.setGlzt("2");
 //		zdryZdryzbService.update(zdryZdryzb, sessionBean);
-		zdryService.zdFail(sessionBean,entity);
+		//add sp reason
+		zdryzb.setXt_zxyy("审批未通过");
+		ZdryZbUtil.setXtZxyy(zdrylbdx, "审批未通过");
+		zdryService.zlFail(sessionBean,entity);
 	}
 	
 	

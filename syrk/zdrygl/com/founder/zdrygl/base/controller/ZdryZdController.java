@@ -39,6 +39,7 @@ import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.ZOBean;
+import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 import com.google.gson.Gson;
 
@@ -146,12 +147,13 @@ public class ZdryZdController extends BaseController {
 			zdrycx.setZdrygllxdm_old(zb_old.getZdrygllxdm());
 			zdrycx.setZdrygllxdm(zb_new.getZdrygllxdm());
 			zdrycx.setZdrylb(zb_new.getZdrylb());
-			
+			//子表
+			Zdry zdry = zdryQueryService.queryZdryzbById(zb_old.getId(), zb_old.getZdrygllxdm());
 			
 			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdryConstant,zdryQueryService);
 			StartProcessInstance spi = wfpis.initialProcessInstance(sessionBean,zdryZb,LcgFlagEnum.ZD);
 			ZdryService zdryService = zdryFactory.createZdryService(zb_new.getZdrygllxdm());
-			ZOBean entity = new ZOBean(zb_new, zdryZb.getZdrylbdx());
+			ZOBean entity = new ZOBean(zb_new, zdry);
 			entity.setZdrycx(zdrycx);
 			entity.setStartProcessInstance(spi);
 			zdryService.zd(sessionBean,entity);

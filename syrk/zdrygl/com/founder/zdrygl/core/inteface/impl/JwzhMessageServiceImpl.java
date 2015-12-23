@@ -27,7 +27,7 @@ import com.founder.zdrygl.core.inteface.SysMessageInfoService;
 @Service
 public class JwzhMessageServiceImpl implements JwzhMessageService {
 
-
+	private boolean isFire=true;
 	/**
 	 * 消息发送接口
 	 */
@@ -40,13 +40,15 @@ public class JwzhMessageServiceImpl implements JwzhMessageService {
 	private SysMessageInfoService sysMessageInfoService;
 	
 	@Override
-	public void sendMessage(String xxlx, Map<String,Object> source, String jslx, Object jsdx) {		
+	public void sendMessage(String xxlx, Map<String,Object> source, String jslx, Object jsdx) {	
+		if(!isFire) return;	
 		SysMessage sysMessage = sysMessageInfoService.initSysMessage(xxlx, source);
 		sendMessageService.sendMessage(sysMessage,jslx,jsdx);
 	}
 
 	@Override
 	public void sendMessage(String xxlx, Map<String,Object> source) {
+		if(!isFire) return;
 		SysMessage sysMessage = sysMessageInfoService.initSysMessage(xxlx, source);
 		if(sysMessage.getStatus()!=0){
 			throw new BussinessException(sysMessage.getErrorMessage());

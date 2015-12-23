@@ -19,6 +19,7 @@
                      http://www.springframework.org/schema/mvc 
   					 http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 
+	<import resource="workflow-210200.xml" />
 	<bean id="SpringContextHolder" class = "com.founder.zdrygl.core.utils.SpringContextHolder"/>	
 	
 	<bean id="logInterceptor" class="com.founder.framework.interceptor.LogInterceptor" />

@@ -878,6 +878,7 @@ public class ZdryApprovalController extends BaseController {
 				variables.put("xglbm", targetOrgOrganization.getOrgcode());//210202530004
 				variables.put("xgxpcsdm", xgxpcsOrg.getOrgcode());
 				variables.put("spjg", "1");
+				variables.put("isNewDepartment", "1");
 			}else if (zdryWorkflowVO.getSpjg().equals("1")) {
 				variables.put("jslx", zdryWorkflowVO.getSpjg());
 				variables.put("spjg", "1");

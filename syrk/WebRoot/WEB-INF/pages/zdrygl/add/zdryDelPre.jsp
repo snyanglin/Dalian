@@ -43,7 +43,8 @@
 
 	    			<input type="text" name="zdryZdryzb.zdrylb" id="zdrylbStr"  class="easyui-combotree" style="width:420px;"
 	    			data-options="onlyLeaf:true,valueField:'id',textField:'text',
-	    			multiple:false,required:false,panelWidth:400,method:'get',lines:true,tipPosition:'left'" >	    			
+	    			multiple:false,required:false,panelWidth:400,method:'get',lines:true,tipPosition:'left'" >
+	    			<A href="#" onclick="viewWorkflowDialog();">查看流程图</a> 	    			
 		    	</td>
 		    </tr>
 		    
@@ -106,7 +107,26 @@ function afterSubmit() {
 	closeSelf();
 	executeTabPageMethod(mainTabID, "queryButton()");
 }
-
+function viewWorkflowDialog(){
+	var zdrygllxdm = $("#zdrygllxdm").val();
+	var processDefinitionKey =null;
+	$.ajax({
+		async:false,
+		type:"POST",
+		url:"<%= basePath%>wf/getProcDefId/1/" + zdrygllxdm,
+		dataType:"json",
+		success:function(data){
+			if (data && data.length>0) {
+				processDefinitionKey = data;
+				var url = '/syrk/diagram/diagram/' + processDefinitionKey;
+				var result=window.open(url,'_blank','modal=yes,height=600px,width=900px,resizable=yes,z-look=yes,alwaysRaised=yes'); 
+				window.onfocus=function (){result.focus();};
+			}else{
+				alert("Workflow is not found.");
+			}				
+		}
+	});   
+}
 </script>
 
 </html>

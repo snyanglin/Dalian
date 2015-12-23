@@ -60,5 +60,8 @@ public class MessageDictZdrygl {
 	 * 消息_重点人员_转类审批结果
 	 */
 	public String ZLSPJG="MESSAGE_ZDRYGL_ZLSPJG";
-
+	/**
+	 * 消息_重点人员_监管对象请销假审批结果
+	 */
+	public String JGDXQXJSPJG="MESSAGE_ZDRYGL_JGDXQXJSPJG";
 }

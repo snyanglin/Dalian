@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -16,8 +17,12 @@ import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.workflow.bean.BaseWorkFlowBean;
 import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
+import com.founder.zdrygl.base.message.MessageDict;
 import com.founder.zdrygl.base.model.ZdryJgdxqxjdjb;
+import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.service.ZdryJgdxqxjdjbService;
+import com.founder.zdrygl.core.inteface.JwzhMessageService;
+import com.founder.zdrygl.workflow.utils.WorkflowUtil;
 /**
  * ****************************************************************************
  * @Package:      [com.founder.activiti.demo.workflow.dalian.JgdxqjFail.java]  
@@ -32,6 +37,11 @@ import com.founder.zdrygl.base.service.ZdryJgdxqxjdjbService;
  */
 @Component
 public class JgdxqjFail extends WorkflowDelegate {
+    @Autowired
+    private JwzhMessageService jwzhMessageService;
+    @Resource(name="workflowUtil")
+    private WorkflowUtil workflowUtil;
+    
 	Log log = LogFactory.getLog(this.getClass());
 	@Resource(name="zdryJgdxqxjdjbService")
 	ZdryJgdxqxjdjbService ZdryJgdxqxjdjbService;
@@ -40,7 +50,7 @@ public class JgdxqjFail extends WorkflowDelegate {
 		Map<String,Object> variables = arg0.getProcessVariables();
 		String spyj=(String) variables.get("spyj");
 		String zdrylx = (String) variables.get("zdrylx");
-		//ZdryZb zdryzb = (ZdryZb) variables.get("zdryZb");
+		ZdryZb zdryzb = (ZdryZb) variables.get("zdryZb");
 		ZdryJgdxqxjdjb entity = (ZdryJgdxqxjdjb) variables.get("jgdx");
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
 				.getRequestAttributes()).getRequest();
@@ -49,6 +59,10 @@ public class JgdxqjFail extends WorkflowDelegate {
 		entity.setSpjg("1");//不同意，不准假
 		entity.setSpyj(spyj);
 		ZdryJgdxqxjdjbService.updateSp(entity, sessionBean);
+		//send message
+		Map<String,Object> paraObj = workflowUtil.getMessageParam(sessionBean,zdryzb);//获取消息的参数
+		paraObj.put("result", "qjSuccess");
+		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.JGDXQXJSPJG,paraObj);
 		log.debug("请假失败 ");
 	}
 	

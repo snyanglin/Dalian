@@ -384,37 +384,24 @@ function ryxxTag(index){
 	}
 }
 function viewWorkflowDialog(){
-	var processDefinitionKey = "zalcg";
 	var zdrygllxdm = $("#zdrygllxdm").val();
-	if(zdrygllxdm == "01"){
-		//社区矫正人员
-		processDefinitionKey="sqjz";
-	}else if(zdrygllxdm == "02"){
-		//重点人口
-		processDefinitionKey="zalcg";
-	}else if(zdrygllxdm == "03"){
-		//肇事肇祸精神病人
-		processDefinitionKey="zalcg";
-	}else if(zdrygllxdm == "04"){
-		//非正常上访重点人员
-		processDefinitionKey="zalcg";
-	}else if(zdrygllxdm == "05"){
-		//涉公安访重点人员
-		processDefinitionKey="sgaf_lcg";
-	}else if(zdrygllxdm == "06"){
-		//其他关注对象
-		processDefinitionKey="szsp";
-	}else if(zdrygllxdm == "07"){
-		//涉环保重点人员
-		processDefinitionKey="shb_lcg";
-	}else if(zdrygllxdm == "08"){
-		//涉枪涉爆重点人员
-		processDefinitionKey="zalcg";
-	}
-	var url = '/syrk/diagram/diagram/' + processDefinitionKey;
-	var result=window.open(url,'newWindow','modal=yes,height=600px,width=900px,resizable=yes,z-look=yes,alwaysRaised=yes'); 
-	window.onfocus=function (){result.focus();};
-
+	var processDefinitionKey =null;
+	$.ajax({
+		async:false,
+		type:"POST",
+		url:"<%= basePath%>wf/getProcDefId/1/" + zdrygllxdm,
+		dataType:"json",
+		success:function(data){
+			if (data && data.length>0) {
+				processDefinitionKey = data;
+				var url = '/syrk/diagram/diagram/' + processDefinitionKey;
+				var result=window.open(url,'_blank','modal=yes,height=600px,width=900px,resizable=yes,z-look=yes,alwaysRaised=yes'); 
+				window.onfocus=function (){result.focus();};
+			}else{
+				alert("Workflow is not found.");
+			}				
+		}
+	});   
 }
 
 </script>

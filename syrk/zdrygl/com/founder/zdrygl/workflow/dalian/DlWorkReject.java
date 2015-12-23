@@ -20,6 +20,7 @@ import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
+import com.founder.zdrygl.workflow.utils.ZdryZbUtil;
 
 
 
@@ -63,7 +64,10 @@ public class DlWorkReject extends WorkflowDelegate {
 		String spyj=(String) arg0.getVariable("spyj");
 		String spr=sessionBean.getUserId();
 		String spbm=sessionBean.getUserOrgCode();*/
-		
+
+		//add sp reason
+		zdryzb.setXt_zxyy("审批未通过");
+		ZdryZbUtil.setXtZxyy(zdrylbdx, "审批未通过");
 		if(sqlxdm.equals("01")){//列管
 			zdryService.lgFail(sessionBean,entity);
 		}else if(sqlxdm.equals("02")){//撤管
