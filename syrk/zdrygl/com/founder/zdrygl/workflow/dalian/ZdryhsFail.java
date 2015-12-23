@@ -2,13 +2,21 @@ package com.founder.zdrygl.workflow.dalian;
 
 import java.util.Map;
 
+import com.founder.framework.base.entity.SessionBean;
+import com.founder.framework.components.AppConst;
+import com.founder.zdrygl.base.service.ZdryZdryhsbService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
 
 import com.founder.workflow.bean.BaseWorkFlowBean;
 import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.util.WebUtils;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -28,10 +36,18 @@ import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 public class ZdryhsFail extends WorkflowDelegate {
 	Log log = LogFactory.getLog(this.getClass());
 
+	@Resource
+	ZdryZdryhsbService zdryZdryhsbService;
 	@Override
 	public void doBusiness(BaseWorkFlowBean arg0) {
 		Map<String,Object> variables = arg0.getProcessVariables();
-		String zdrylx = (String) variables.get("zdrylx");
+		String spyj=(String) variables.get("spyj");
+		String zdryHsbId=(String) variables.get("zdryHsbId");
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
+				.getRequestAttributes()).getRequest();
+		SessionBean sessionBean = (SessionBean) WebUtils.getSessionAttribute(
+				request, AppConst.USER_SESSION);
+		zdryZdryhsbService.saveApproval("0",spyj,zdryHsbId,sessionBean);
 		log.debug("核实失败 ");
 	}
 	

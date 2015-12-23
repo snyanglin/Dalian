@@ -5,7 +5,8 @@ public enum LcgFlagEnum {
 	 CG("撤管", "02"),
 	 ZD("转递", "03"), 
 	 ZL("转类", "04"),
-	 QXJ("请销假","05");
+	 QXJ("请销假","05"),
+	 HSCG("核实撤管","06");
      private String name;
      private String value;
 

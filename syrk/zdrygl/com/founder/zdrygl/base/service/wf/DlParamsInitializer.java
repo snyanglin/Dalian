@@ -68,6 +68,9 @@ public class DlParamsInitializer implements IfParamInitializer {
 		}else if(lcgFlag.getValue().equals("05")){
 			//请销假
 			prepareQxj(spi,sessionBean,zdryVO,variables);
+		}else if(lcgFlag.getValue().equals("06")){
+			//核实撤管
+			prepareHSCG(spi,sessionBean,zdryVO,variables);
 		}else{
 		}
 		return spi;
@@ -213,5 +216,35 @@ public class DlParamsInitializer implements IfParamInitializer {
 		spi.setVariables(variables);
 	}
 
+
+	/**
+	 * 核实撤管
+	 * @param spi
+	 * @param sessionBean
+	 * @param zdryVO
+	 * @param variables
+	 */
+	private void prepareHSCG(StartProcessInstance spi, SessionBean sessionBean,
+							 ZdryVO zdryVO, Map<String, Object> variables) {
+		String lrrzrq = sessionBean.getUserOrgCode();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String createTime = formatter.format(new Date());// 申请时间
+		variables.put("createTime", createTime);
+		variables.put("lrrzrq", lrrzrq);//录入人管辖责任区
+
+		variables.put("xm", zdryVO.getXm());//请假人员姓名
+		variables.put("zjhm", zdryVO.getZjhm());//证件号码
+		variables.put("sqlx", "重点人员核实撤管");//申请类型
+		variables.put("sqyj", zdryVO.getYwsqyy());//申请意见
+		variables.put("sqlxdm", zdryVO.getCglxdm());
+		variables.put("zdrylx", zdryVO.getCglxdm());
+		variables.put("approvalMethod", "zdryApproval");
+		variables.put("zdryHsbId",zdryVO.getZdryHsbId());
+		// set parameters of processinstance
+		spi.setProcessKey(WorkflowUtil.buildWorkflowKey("zdryhs"));
+		spi.setBusinessKey(zdryVO.getZdryHsbId());
+		spi.setVariables(variables);
+
+	}
 }
 

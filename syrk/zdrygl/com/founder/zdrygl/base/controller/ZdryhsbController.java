@@ -145,14 +145,14 @@ public class ZdryhsbController extends BaseController{
      * @return
      */
 	@RequestMapping(value = "/saveHsCg",method = RequestMethod.POST)
-	public ModelAndView saveHsCg(String zdryHsbId,  SessionBean sessionBean) {
+	public ModelAndView saveHsCg(String zdryHsbId, String sqyj,SessionBean sessionBean) {
 		ModelAndView mv = new ModelAndView("redirect:/forward/forword");
 		HashMap model = new HashMap();
 		sessionBean = this.getSessionBean(sessionBean);
 
 		try {
 			ZdryZdryhsb e = zdryZdryhsbService.queryById(zdryHsbId);
-			zdryZdryhsbService.saveHsCg(e,sessionBean);
+			zdryZdryhsbService.saveHsCg(e,sqyj,sessionBean);
 			model.put("status", "success");
 			model.put("message", "申请发起成功");
 		} catch (Exception var7) {
@@ -307,31 +307,5 @@ public class ZdryhsbController extends BaseController{
 	}
 
 
-	@RequestMapping(value ="/saveCg",method = RequestMethod.POST)
-	public ModelAndView saveCg(ZdryVO zdryVO, SessionBean sessionBean) {
-		ModelAndView mv = new ModelAndView(this.getViewName(sessionBean));
-		HashMap model = new HashMap();
-		sessionBean = this.getSessionBean(sessionBean);
-
-		try {
-			zdryZdryhsbService.saveCg(zdryVO,sessionBean, zdryVO.getCglxdm());
-			model.put("status", "success");
-			model.put("message", getAddSuccess());
-		} catch (BussinessException var6) {
-			var6.printStackTrace();
-			new RestException(var6.getLocalizedMessage());
-			this.logger.error(var6.getLocalizedMessage(), var6);
-			model.put("status", "error");
-			model.put("message", var6.getLocalizedMessage());
-		} catch (Exception var7) {
-			var7.printStackTrace();
-			this.logger.error(var7.getLocalizedMessage(), var7);
-			model.put("status", "error");
-			model.put("message", getAddFail());
-		}
-
-		mv.addObject("message", (new Gson()).toJson(model));
-		return mv;
-	}
 }
 
