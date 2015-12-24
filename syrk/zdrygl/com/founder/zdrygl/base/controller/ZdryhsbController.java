@@ -122,18 +122,17 @@ public class ZdryhsbController extends BaseController{
 	/**
 	 * 准备核实撤管
 	 * @param zdryHsbId
-	 * @param zdrygllxdm
      * @return
      */
 	@RequestMapping(value = "/createHsCg",method =RequestMethod.GET)
-	public ModelAndView createHsLg(String zdryHsbId,  String zdrygllxdm) {
+	public ModelAndView createHsLg(String zdryHsbId) {
 		SessionBean sessionBean = this.getSessionBean();
 		ModelAndView mv = new ModelAndView("zdry/zdryHsbCg");
 		ZdryZdryhsb zdryHsb = zdryZdryhsbService.queryById(zdryHsbId);
 		mv.addObject("zdryHsb", zdryHsb);
-		mv.addObject("Sqsj", DateUtils.getSystemDateString());
-		mv.addObject("Sqr_xm", sessionBean.getUserName());
-		mv.addObject("zdrygllxdm", zdrygllxdm);
+		mv.addObject("sqsj", DateUtils.getSystemDateString());
+		mv.addObject("sqr_xm", sessionBean.getUserName());
+		mv.addObject("zdrygllxdm", zdryHsb.getZdrygllxdm());
 		return mv;
 	}
 

@@ -19,27 +19,19 @@
 		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" name="zdryHsb.zjhm" style="width:200px;" readonly="readonly" value="${zdryHsb.zjhm}"/></td>
 		    </tr>
 		    <tr class="dialogTr">
-		    	<td width="20%" class="dialogTd" align="right">撤管类别：</td>
+		    	<td width="20%" class="dialogTd" align="right">重点人员管理类型：</td>
 		    	<td width="30%" class="dialogTd" colspan="3">
 		    	<input class="easyui-combobox" type="text"  id="cglxdm" name="cglxdm"   style="width:200px;" value="${zdrygllxdm}"
-					data-options="url: contextPath +  '/common/dict/BD_D_ZDRYLBDM.js',
+					data-options="url: contextPath +  '/common/dict/BD_D_ZDRYGLLX.js',
 					valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'right'"/>
 		    	</td>
-		    </tr>
-		    <tr class="dialogTr"> 
-		    	<td width="20%" class="dialogTd" align="right">重点人员管理类型：</td>
-		    	<td width="30%" class="dialogTd">
-					<input class="easyui-combobox " type="text"  id="zdrygllxdm" name="zdryZdryzb.zdrygllxdm"   style="width:200px;" value="6" 
-					data-options="url: contextPath +  '/common/dict/BD_D_ZDRYLBDM.js',
-					valueField:'id',textField:'text',selectOnNavigation:false,method:'get',tipPosition:'right'"/>
-				</td>
 		    </tr>
 		    </table>
 		     <!-- 列管公共信息 -->
 	    	<table id="ggDiv" border="0" cellpadding="0" cellspacing="10" width="100%" align="center" style="margin-top: -10px;">
 	    	<tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right" id="lgrqText">业务办理日期：</td>
-		    	<td width="30%" class="dialogTd"><input type="text" name="ywclsj" id="ywclsj" class="easyui-validatebox inputreadonly" style="width: 200px;" value="${Sqsj}" readonly="readonly" /></td>
+		    	<td width="30%" class="dialogTd"><input type="text" name="ywclsj" id="ywclsj" class="easyui-validatebox inputreadonly" style="width: 200px;" value="${sqsj}" readonly="readonly" /></td>
 		    	<td width="20%" class="dialogTd" align="right" id="lgrText">业务办理人：</td>
 		    	<td width="30%" class="dialogTd"><input class="easyui-validatebox inputreadonly" type="text" id="ywblr_xm" name="ywblr_xm" style="width:200px;" value="${sqr_xm }" readonly="readonly" />
 		    	</td>
