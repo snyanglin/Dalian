@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.founder.framework.utils.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -442,18 +443,15 @@ public class ZdryApprovalController extends BaseController {
 
 			Map<String, Object> variables = new HashMap<String, Object>();
 
-			if (!(zdryWorkflowVO.getNextSpUserId().equals("") || zdryWorkflowVO
-					.getNextSpUserId() == null)) {
+			if (StringUtils.isBlank(zdryWorkflowVO.getNextSpUserId())) {
 
 				// variables.put(zdryWorkflowVO.getNextSppos()+"Approved",
 				// zdryWorkflowVO.getNextSpUserId());
 				variables.put("fxjzg", zdryWorkflowVO.getNextSpUserId());
 
 			}
-			if ((zdryWorkflowVO.getNextSpUserId().equals("") || zdryWorkflowVO
-					.getNextSpUserId() == null)
-					&& (!(zdryWorkflowVO.getNextSpposId().equals("") || zdryWorkflowVO
-							.getNextSpposId() == null))) {
+			if ((StringUtils.isBlank(zdryWorkflowVO.getNextSpUserId()))
+					&& (StringUtils.isBlank(zdryWorkflowVO.getNextSpposId()))) {
 
 				// variables.put(zdryWorkflowVO.getNextSppos()+"Approved",
 				// zdryWorkflowVO.getNextSpOrgCode()+"_"+zdryWorkflowVO.getNextSpposId());
