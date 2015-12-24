@@ -314,10 +314,11 @@ public class ZdryZdryhsbService {
         paraObj.put("fsrUserCode", sessionBean.getUserId());//发送人代码
         paraObj.put("fsrOrgName", sessionBean.getUserOrgName());//发送人机构名
         paraObj.put("zdryName", zdryHsb.getXm());
-        paraObj.put("zdryGllxdm", zdryHsb.getZdrygllxdm());
-        paraObj.put("zdrylxName", zdryConstant.getValueOfZdryDict(zdryHsb.getZdrygllxdm()));
+        paraObj.put("zdryGllxdm", StringUtils.isBlank(zdryHsb.getZdrygllxdm())?"01":zdryHsb.getZdrygllxdm());
+        paraObj.put("zdrylxName", zdryConstant.getValueOfZdryDict(StringUtils.isBlank(zdryHsb.getZdrygllxdm())?"01":zdryHsb.getZdrygllxdm()));
         paraObj.put("suggestion", spyj);
-//        jwzhMessageService.sendMessage(MessageDict.ZDRYGL.CGSPJG,paraObj,"0",zdryHsb.getXt_zhxgrid());
+        paraObj.put("jslx", "0");
+        jwzhMessageService.sendMessage("MESSAGE_ZDRYGL_ZDHSSPJG",paraObj,"0",zdryHsb.getXt_zhxgrid());
         BaseService.setUpdateProperties(zdryHsb, sessionBean);
         zdryZdryhsbDao.update(zdryHsb);
     }
