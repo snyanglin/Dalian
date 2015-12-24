@@ -25,6 +25,7 @@ import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.workflow.exception.BaseWorkflowException;
+import com.founder.zdrygl.workflow.utils.WorkflowUtil;
 
 /**
  * ****************************************************************************
@@ -60,6 +61,9 @@ public class Dlaywjs extends WorkflowDelegate{
 	
 	@Resource(name = "ryRyjbxxbService")
 	private RyRyjbxxbService ryRyjbxxbService;
+	
+	@Resource(name="workflowUtil")
+	private WorkflowUtil workflowUtil;
 	@Override
 	public void doBusiness(BaseWorkFlowBean arg0) {
 		Map<String, Object> variables = arg0.getProcessVariables();
@@ -95,7 +99,7 @@ public class Dlaywjs extends WorkflowDelegate{
 			if (zdrygllxdm.equals("04") || zdrygllxdm.equals("05")
 					|| zdrygllxdm.equals("06")) {
 				variableKey = "zazd";
-				taskOwner = camZazdTaskOwner("30", "DDZ");
+				taskOwner = workflowUtil.camZazdTaskOwner("30", "DDZ");
 				setLocalVariable("isSz",false);
 			} else {
 				taskOwner = camSzTaskOwner(syrkSyrkxxzb, zdry_jzd_zrqdm, "32", "SZ");
@@ -117,32 +121,7 @@ public class Dlaywjs extends WorkflowDelegate{
 		}
 
 	}
-	/**
-	 * @throws BaseWorkflowException 
-	 * 
-	 * @Title: camZazdTaskOwner
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
-	 * @param @param syrkSyrkxxzb
-	 * @param @param zdry_jzd_zrqdm
-	 * @param @param orgLevel
-	 * @param @param posId
-	 * @param @return    设定文件
-	 * @return String    返回类型
-	 * @throws
-	 */
-	private String camZazdTaskOwner(String orgLevel, String posId) throws BaseWorkflowException {
-		String taskParameter = null;
-		String orgName = "治安管理支队派出所工作大队";
-		String systemXzqh = SystemConfig.getString("systemXzqh")==null?"210000":SystemConfig.getString("systemXzqh");
-		List<OrgOrganization>  orgLst = orgOrganizationService.queryList(orgName,orgLevel,systemXzqh);
-		if(orgLst.size() > 0 && orgLst.size()==1){
-			taskParameter = orgLst.get(0).getOrgcode() + "_"
-					+ orgPositionService.queryByPosid(posId).getId().toString();
-		}else{
-			throw new BaseWorkflowException("未定义" + orgName);
-		}
-		return taskParameter;
-	}
+	
 	/**
 	 * 
 	 * @Title: camSzTaskOwner

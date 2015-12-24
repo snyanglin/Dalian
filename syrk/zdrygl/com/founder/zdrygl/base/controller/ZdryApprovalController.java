@@ -877,6 +877,7 @@ public class ZdryApprovalController extends BaseController {
 				variables.put("jslx", zdryWorkflowVO.getSpjg());
 				variables.put("spjg", "1");
 			}
+			variables.put("ywfqyy", zdryWorkflowVO.getYwfqyy());
 			//gtldrApproval
 			variables.put("approvalMethod", "gtldrApproval");
 			taskService.completeTask(zdryWorkflowVO.getTaskId(), variables); // 执行任务

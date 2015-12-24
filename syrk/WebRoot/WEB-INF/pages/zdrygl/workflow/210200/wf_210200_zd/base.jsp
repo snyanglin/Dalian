@@ -37,7 +37,8 @@
 	    	<td width="20%" class="dialogTd" align="right" id="cgsqyjText">现居住地址：</td>
 	      	<td width="80%" class="dialogTd" colspan="3"><input class="easyui-validatebox inputreadonly" type="text" name="zddz" id="zddz" value="${varMap.zddz}"  style="width: 619px;" maxlength="50" readonly="readonly" /></td>	    	
   		</tr>
-	   <script type="text/javascript">
-			$("#cdDiv")
-				   		
-	   </script> 	
+  		 <tr class="dialogTr">
+	    	<td width="20%" class="dialogTd" align="right" id="cgsqyjText">拒绝原因：</td>
+	      	<td width="80%" class="dialogTd" colspan="3"><input class="easyui-validatebox inputreadonly" type="text" name="ywfqyy" id="ywfqyy" value="${varMap.ywfqyy}"  style="width: 619px;" maxlength="50" readonly="readonly" /></td>	    	
+  		</tr>
+	   

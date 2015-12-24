@@ -1,16 +1,22 @@
 package com.founder.zdrygl.workflow.utils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.config.SystemConfig;
+import com.founder.framework.organization.department.bean.OrgOrganization;
+import com.founder.framework.organization.department.service.OrgOrganizationService;
+import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.zdrygl.base.model.ZdryZb;
-import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
+import com.founder.zdrygl.workflow.exception.BaseWorkflowException;
 /**
  * ****************************************************************************
  * @Package:      [com.founder.zdrygl.workflow.utils.WorkflowUtil.java]  
@@ -25,6 +31,13 @@ import com.founder.zdrygl.core.utils.ZdryConstant;
  */
 @Component 
 public class WorkflowUtil {
+
+	@Resource(name = "orgPositionService")
+	private OrgPositionService orgPositionService;
+	
+	@Resource(name = "orgOrganizationService")
+	private OrgOrganizationService orgOrganizationService;
+	
 	@Autowired
 	private ZdryConstant zdryConstant;
 	/**
@@ -80,5 +93,30 @@ public class WorkflowUtil {
 		map.put("zdrylxName", zdryConstant.getValueOfZdryDict(zdryzb.getZdrygllxdm()));
 		return map;
 	}
-	
+	/**
+	 * @throws BaseWorkflowException 
+	 * 
+	 * @Title: camZazdTaskOwner
+	 * @Description: (获取监督部门审批人员)
+	 * @param @param syrkSyrkxxzb
+	 * @param @param zdry_jzd_zrqdm
+	 * @param @param orgLevel
+	 * @param @param posId
+	 * @param @return    设定文件
+	 * @return String    返回类型
+	 * @throws
+	 */
+	public String camZazdTaskOwner(String orgLevel, String posId) throws BaseWorkflowException {
+		String taskParameter = null;
+		String orgName = "治安管理支队派出所工作大队";
+		String systemXzqh = SystemConfig.getString("systemXzqh")==null?"210000":SystemConfig.getString("systemXzqh");
+		List<OrgOrganization>  orgLst = orgOrganizationService.queryList(orgName,orgLevel,systemXzqh);
+		if(orgLst.size() > 0 && orgLst.size()==1){
+			taskParameter = orgLst.get(0).getOrgcode() + "_"
+					+ orgPositionService.queryByPosid(posId).getId().toString();
+		}else{
+			throw new BaseWorkflowException("未定义" + orgName);
+		}
+		return taskParameter;
+	}
 }
