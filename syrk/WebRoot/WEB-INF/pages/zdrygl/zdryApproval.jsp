@@ -19,6 +19,7 @@
     	
     
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center"></tr>
+			<!-- show base information  -->
 			${renderedTaskForm}
 			<c:choose>
 			   <c:when test="${splx=='1'}"> 
