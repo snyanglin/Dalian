@@ -22,8 +22,10 @@
 	            <entry key="level" value="1"/>  <!-- default, 1级流程 -->
 	            <!-- 非正常上访，肇事肇祸/轻微精神病人，需要治安支队派出所管理大队大队长审批 -->
 	            <entry key="spgwL1_zazd" value="DDZ"/> 
+	            <entry key="spgwL1_zazd_lv" value="30"/> 
 	            <!-- 其他类型都由所长审批 -->
 	            <entry key="spgwL1_sz" value="SZ"/>   
+	            <entry key="spgwL1_sz_lv" value="32"/>   
 	          </map>  
 	      </property>  
 	    </bean>  
@@ -51,7 +53,7 @@
 	          <map>  
 	            <entry key="level" value="1"/>  <!-- default, 1级流程 -->
 	            <entry key="spgwL1" value="SZ"/>  
-	            <entry key="spgwdj" value="32"/>  <!-- 审批岗位等级 -->
+	            <entry key="spgwL1_lv" value="32"/>  <!-- 审批岗位等级 -->
 	          </map>  
 	      </property>  
 	    </bean>  
