@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import com.founder.framework.utils.StringUtils;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -260,6 +261,7 @@ public class ZdryApprovalController extends BaseController {
 	 * @throws
 	 */
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/queryList", method = RequestMethod.POST)
 	public @ResponseBody EasyUIPage queryList(EasyUIPage page,
 			@RequestParam(value = "rows") Integer rows, ZdryWorkflowVO entity,
@@ -875,6 +877,7 @@ public class ZdryApprovalController extends BaseController {
 				variables.put("jslx", zdryWorkflowVO.getSpjg());
 				variables.put("spjg", "1");
 			}
+			variables.put("ywfqyy", zdryWorkflowVO.getYwfqyy());
 			//gtldrApproval
 			variables.put("approvalMethod", "gtldrApproval");
 			taskService.completeTask(zdryWorkflowVO.getTaskId(), variables); // 执行任务
