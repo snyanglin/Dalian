@@ -550,5 +550,13 @@ public class ZdryZdryhsbVO  implements Serializable {
 	public void setXt_zxyy(String xt_zxyy) {
 		this.xt_zxyy = xt_zxyy;
 	}
+
+	public String getXfbmdm() {
+		return xfbmdm;
+	}
+
+	public void setXfbmdm(String xfbmdm) {
+		this.xfbmdm = xfbmdm;
+	}
 }
 

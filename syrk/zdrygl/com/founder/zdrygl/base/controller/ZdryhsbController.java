@@ -91,7 +91,12 @@ public class ZdryhsbController extends BaseController{
 		sessionBean = this.getSessionBean(sessionBean);
 		page.setPagePara(rows);
 		entity.setSspcs(sessionBean.getExtendMap().get("ssPcsCode"));
-
+		if ("".equals(entity.getXm())){
+			entity.setXm(null);
+		}
+		if ("".equals(entity.getZjhm())){
+			entity.setZjhm(null);
+		}
 		EasyUIPage easyUIPage = zdryZdryhsbService.queryList(page, entity);
 		List zdryHsbList = easyUIPage.getRows();
 
@@ -196,6 +201,7 @@ public class ZdryhsbController extends BaseController{
 				mv.addObject("zdrylbdm", zdryLczywblb2.getZdrylbdm());
 				mv.addObject("glffdm", zdryLczywblb2.getZdrk_glffdm());
 				mv.addObject("lglydm", zdryLczywblb2.getZdrk_lglydm());
+				mv.addObject("xfbmdm", zdryLczywblb2.getXfbmdm());
 			}
 		}
 
@@ -304,7 +310,6 @@ public class ZdryhsbController extends BaseController{
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
 	}
-
 
 }
 

@@ -218,10 +218,10 @@
 				AND CYZJDM = #zdryZdryhsbVO.cyzjdm#
 			</isNotNull>
 			<isNotNull  property="zdryZdryhsbVO.zjhm">
-				AND ZJHM = #zdryZdryhsbVO.zjhm#
+				AND ZJHM LIKE '%$zdryZdryhsbVO.zjhm$%'
 			</isNotNull>
 			<isNotNull  property="zdryZdryhsbVO.xm">
-				AND XM = #zdryZdryhsbVO.xm#
+				AND XM LIKE '%$zdryZdryhsbVO.xm$%'
 			</isNotNull>
 			<isNotNull  property="zdryZdryhsbVO.xbdm">
 				AND XBDM = #zdryZdryhsbVO.xbdm#
