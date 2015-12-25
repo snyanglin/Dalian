@@ -97,6 +97,12 @@ public class ZdryhsbController extends BaseController{
 		if ("".equals(entity.getZjhm())){
 			entity.setZjhm(null);
 		}
+		if (null==entity.getHszt()){
+			entity.setHszt("0");
+		}
+		if (null==entity.getXfbmdm()){
+			entity.setXfbmdm("ZA");
+		}
 		EasyUIPage easyUIPage = zdryZdryhsbService.queryList(page, entity);
 		List zdryHsbList = easyUIPage.getRows();
 

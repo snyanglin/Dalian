@@ -142,7 +142,6 @@ public class ZdryZdryhsbService {
 
     public EasyUIPage queryList(EasyUIPage page, ZdryZdryhsbVO entity) {
         entity.setXt_zxbz("0");
-        entity.setHszt("0");
         return zdryZdryhsbDao.queryList(page, entity);
     }
 
