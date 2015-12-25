@@ -58,7 +58,7 @@ public class ZdryzbService implements ZdryService {
 		zdryzb.setGlzt(ZdryConstant.LGSQ);
 		zdryzb.setGlbm(sessionBean.getUserOrgCode());//管理部门
 		BaseService.setSaveProperties(zdryzb, sessionBean);
-		RyRyjbxxb ryjbxxb = ryRyjbxxbService.queryById(((ZdryZb)entity.getZdrycx()).getRyid());//人员基本信息	
+		RyRyjbxxb ryjbxxb = ryRyjbxxbService.queryById(((ZdryZb)entity.getZdryzb()).getRyid());//人员基本信息
 		ZdryZbUtil.copyAttributes(ryjbxxb, zdryzb);
 		zdryZdryZbDao.insert(zdryzb);
 	}

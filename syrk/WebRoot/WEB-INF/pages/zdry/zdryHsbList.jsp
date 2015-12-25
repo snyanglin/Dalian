@@ -40,16 +40,12 @@
                         <tbody>
                         <tr>
                             <td class="toolbarTd" style="width:280px">
-                                管辖派出所：<input type="text" name="sspcs" id="sspcs" class="easyui-validatebox"
-                                             style="width:160px;"/>
-                            </td>
-                            <td class="toolbarTd" style="width:280px">
-                                核实状态：<select name="hszt" id="hszt"><option value="">请选择</option>
+                                核实状态：<select name="hszt" id="hszt">
                                 <option value="0">未核实</option>
                                 <option value="1">已核实</option></select>
                             </td>
                             <td class="toolbarTd" style="width:280px">
-                                主管单位：<select name="xfbmdm" id="xfbmdm"><option value="">请选择</option>
+                                主管单位：<select name="xfbmdm" id="xfbmdm">
                                 <option value="ZA">治安</option>
                                 <option value="GA">国保</option>
                             </select></td>
@@ -57,7 +53,7 @@
                         </tr>
                         <tr>
                             <td class="toolbarTd" style="width:240px">
-                                姓名：<input type="text" name="xm" class="easyui-validatebox"
+                                姓名：<input type="text" name="xm" id="xm" class="easyui-validatebox"
                                           style="width:160px"/>
                             </td>
                             <td class="toolbarTd" style="width:280px">
@@ -132,11 +128,21 @@
 
     //查询按钮
     function queryButton() {
-        var zjhm = document.getElementById("zjhm").value;
-        var xm = document.getElementById("xm").value;
+        var zjhm =$("#zjhm").val();
+        var xm = $("#xm").val();
+        var hszt = $('#hszt option:selected') .val();
+        var xfbmdm = $('#xfbmdm option:selected') .val();
+        if(zjhm==""){
+            zjhm=null;
+        }
+        if(xm==""){
+            xm=null;
+        }
         $('#dg').datagrid('reload', {
             'zjhm': zjhm,
-            'xm': xm
+            'xm': xm,
+            'hszt': hszt,
+            'xfbmdm': xfbmdm
         });
     }
 

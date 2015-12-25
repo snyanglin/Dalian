@@ -318,7 +318,7 @@ public class ZdryZdryhsbService {
         paraObj.put("zdrylxName", zdryConstant.getValueOfZdryDict(StringUtils.isBlank(zdryHsb.getZdrygllxdm())?"01":zdryHsb.getZdrygllxdm()));
         paraObj.put("suggestion", spyj);
         paraObj.put("jslx", "0");
-        jwzhMessageService.sendMessage("MESSAGE_ZDRYGL_ZDHSSPJG",paraObj,"0",zdryHsb.getXt_zhxgrid());
+        jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDHSSPJG,paraObj,"0",zdryHsb.getXt_zhxgrid());
         BaseService.setUpdateProperties(zdryHsb, sessionBean);
         zdryZdryhsbDao.update(zdryHsb);
     }

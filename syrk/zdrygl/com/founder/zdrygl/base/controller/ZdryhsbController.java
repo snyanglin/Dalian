@@ -91,7 +91,12 @@ public class ZdryhsbController extends BaseController{
 		sessionBean = this.getSessionBean(sessionBean);
 		page.setPagePara(rows);
 		entity.setSspcs(sessionBean.getExtendMap().get("ssPcsCode"));
-
+		if ("".equals(entity.getXm())){
+			entity.setXm(null);
+		}
+		if ("".equals(entity.getZjhm())){
+			entity.setZjhm(null);
+		}
 		EasyUIPage easyUIPage = zdryZdryhsbService.queryList(page, entity);
 		List zdryHsbList = easyUIPage.getRows();
 
