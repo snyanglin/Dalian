@@ -98,7 +98,7 @@ public class ZdryZbUtil {
 	 * @throws
 	 */
 	public static void copyAttributes(RyRyjbxxb source, ZdryZb target) {
-		if(source == null) return;
+		if(source!=null && source.getHjd_mlpdm()!= null) return;
 		target.setHjd_dzid(source.getHjd_dzid());
 		target.setHjd_dzxz(source.getHjd_dzxz());
 		target.setHjd_mlpdm(source.getHjd_mlpdm());

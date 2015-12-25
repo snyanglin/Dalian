@@ -55,6 +55,12 @@ public class Shbspdwjs extends WorkflowDelegate {
 
 				}else if("".equals(sqrOrgLevel)){//省厅环保大队申请的
 					
+				}else{
+					try {
+						throw new Exception("无法定义审批人，只有分县局环保大队和市局环保大队才能申请！");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 				
 			}else if(splevel.equals("2")){//二级审批
