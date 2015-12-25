@@ -99,6 +99,7 @@ if(ywlx==2){
 }
 var filterStr='${filterStr}';
 var filterZdStr='${filterZdStr}';
+var xfbmdm='${xfbmdm}';
 var mainTabID = "${mainTabID}";
 $(document).ready(function(){
 
@@ -136,8 +137,8 @@ $(document).ready(function(){
 
      }
 
-
     $('#zdrygllxdm').combobox('setValue', '${zdrygllxdm}');
+    $('#zdrylbStr').combobox('setValue', '${zdrylbdm}');
 
 	var zdryHsbId = $("#zdryHsbId").val();
 	if(zdryHsbId != null && zdryHsbId != ""){
@@ -163,11 +164,11 @@ function doInit(paramArray) {
 
 	}
 	//如果列管类型为监管，不准所有列管
-	if(filterStr=="1"&&ywlx=="1"){
+	if(xfbmdm=="ZA"&&filterStr=="1"&&ywlx=="1"){
 		$('#zdrygllxdm').combobox('setDataFilter', '999');
 		alert("此人已被列‘监管对象’或正在申请中，不可再列管其他类型");
 		parent.$("#"+windowID).window("close");
-	}else if(filterStr&&ywlx=="1"){
+	}else if(xfbmdm=="ZA"&&filterStr&&ywlx=="1"){
 		$('#zdrygllxdm').combobox('setDataFilter', '999');
 		alert("此人已被本辖区列管或正在申请中，不可再列管其他类型");
 		parent.$("#"+windowID).window("close");

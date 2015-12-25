@@ -201,6 +201,7 @@ public class ZdryhsbController extends BaseController{
 				mv.addObject("zdrylbdm", zdryLczywblb2.getZdrylbdm());
 				mv.addObject("glffdm", zdryLczywblb2.getZdrk_glffdm());
 				mv.addObject("lglydm", zdryLczywblb2.getZdrk_lglydm());
+				mv.addObject("xfbmdm", zdryLczywblb2.getXfbmdm());
 			}
 		}
 
@@ -309,7 +310,6 @@ public class ZdryhsbController extends BaseController{
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
 	}
-
 
 }
 

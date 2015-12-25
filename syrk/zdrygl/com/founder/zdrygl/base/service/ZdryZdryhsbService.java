@@ -3,6 +3,7 @@ package com.founder.zdrygl.base.service;
 
 import javax.annotation.Resource;
 
+import com.founder.drools.base.zdry.service.ZdryRuleService;
 import com.founder.framework.annotation.MethodAnnotation;
 import com.founder.framework.config.SystemConfig;
 import com.founder.framework.dictionary.service.SysDictGlService;
@@ -30,6 +31,7 @@ import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,7 +64,7 @@ import java.util.Map;
 @Service
 @Transactional
 public class ZdryZdryhsbService {
-
+    private Logger logger = Logger.getLogger(this.getClass());
     @Resource
     private ZdryZdryhsbDao zdryZdryhsbDao;
     @Resource
@@ -84,6 +86,8 @@ public class ZdryZdryhsbService {
     private ZdryConstant zdryConstant;
     @Autowired
     private JProcessDefinitionService processDefinitionService;
+    @Autowired
+    private ZdryRuleService zdryRuleService;
 
     /**
      * 新增<br>
@@ -156,13 +160,16 @@ public class ZdryZdryhsbService {
         String displayStr = "";
         String filterStr = "";
         String filterZdStr = "";
-
+        String filterylgStr="";
+        StringBuffer ylgStr=new StringBuffer();
         for (int i = 0; i < list.size(); ++i) {
             ZdryZdryzbVO zdryZdryzbVO =  list.get(i);
             if (zdryZdryzbVO.getZdrygllxdm().equals("01")) {
                 filterStr = "01";
             }
-
+            if (ylgStr.indexOf(zdryZdryzbVO.getZdrygllxdm())<0){
+                ylgStr.append(zdryZdryzbVO.getZdrygllxdm()).append(",");
+            }
             if (zdryZdryzbVO.getSyrkid().equals(syrkid)) {
                 displayStr = displayStr +  ((Map) dictMap).get(zdryZdryzbVO.getZdrygllxdm());
                 if (!StringUtils.isBlank(zdryZdryzbVO.getJgbmmc()) && "1".equals(zdryZdryzbVO.getSfsjsp())) {
@@ -199,10 +206,18 @@ public class ZdryZdryhsbService {
         if (!StringUtils.isBlank(displayStr)) {
             displayStr = displayStr.substring(0, displayStr.length() - 1);
         }
-
+        if (ylgStr.length()>0){
+            filterylgStr=ylgStr.substring(0,ylgStr.length()-1);
+        }
         returnMap.put("displayStr", displayStr);
         returnMap.put("filterStr", filterStr);
         returnMap.put("filterZdStr", filterZdStr);
+        returnMap.put("filterylgStr", filterylgStr);
+        try {
+            returnMap.put("filterklgStr", zdryRuleService.getKcglx(filterylgStr));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return returnMap;
     }
 
