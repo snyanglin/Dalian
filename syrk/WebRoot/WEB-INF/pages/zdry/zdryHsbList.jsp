@@ -47,7 +47,7 @@
                             <td class="toolbarTd" style="width:280px">
                                 主管单位：<select name="xfbmdm" id="xfbmdm">
                                 <option value="ZA">治安</option>
-                                <option value="GA">国保</option>
+                                <option value="GB">国保</option>
                             </select></td>
 
                         </tr>
@@ -62,7 +62,7 @@
                             </td>
                             <td class="toolbarTd" align="left">
                                 <a class="easyui-linkbutton" iconCls="icon-search" onclick="queryButton();">查询</a>
-                                <a class="easyui-linkbutton" iconCls="icon-reload" onclick="Export('核实列表');">导出</a>
+                                <a class="easyui-linkbutton" iconCls="icon-reload" onclick="clearCase()">重置</a>
                             </td>
                         </tr>
                         </tbody>
@@ -178,7 +178,7 @@
 
     function Export(strXlsName) {
         var exportGrid=$('#dg');
-        var f = $('<form action="<%=contextPath%>/WEB-INF/pages/zdry/zdryhsbExport.jsp" method="post" id="fm1"></form>');
+        var f = $('<form action="<%=contextPath%>/zdryHsb/export" method="post" id="fm1"></form>');
         var i = $('<input type="hidden" id="txtContent" name="txtContent" />');
         var l = $('<input type="hidden" id="txtName" name="txtName" />');
         i.val(ChangeToTable(exportGrid));
