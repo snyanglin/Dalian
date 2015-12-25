@@ -62,8 +62,8 @@ public class JgdxqjSuccess extends WorkflowDelegate{
 			Map<String,Object> paraObj = workflowUtil.getMessageParam(sessionBean,zdryzb);//获取消息的参数
 			paraObj.put("result", "qjSuccess");
 			jwzhMessageService.sendMessage("MESSAGE_ZDRYGL_JGDXQXJSPJG",paraObj);
-		} catch(BussinessException aa){
-			 throw  new BussinessException("重点人员请假出错");//抛出异常  
+		} catch(Exception e){
+			e.printStackTrace();
 		}
 
 	}
