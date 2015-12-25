@@ -25,6 +25,7 @@ import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
+import com.founder.zdrygl.workflow.utils.ZdryZbUtil;
 /**
  * ****************************************************************************
  * @Package:      [com.founder.zdrygl.base.service.ZdryzbService.java]  
@@ -56,7 +57,9 @@ public class ZdryzbService implements ZdryService {
 		zdryzb.setId(UUID.create());
 		zdryzb.setGlzt(ZdryConstant.LGSQ);
 		zdryzb.setGlbm(sessionBean.getUserOrgCode());//管理部门
-		BaseService.setSaveProperties(zdryzb, sessionBean);		
+		BaseService.setSaveProperties(zdryzb, sessionBean);
+		RyRyjbxxb ryjbxxb = ryRyjbxxbService.queryById(((ZdryZb)entity.getZdrycx()).getRyid());//人员基本信息	
+		ZdryZbUtil.copyAttributes(ryjbxxb, zdryzb);
 		zdryZdryZbDao.insert(zdryzb);
 	}
 	
@@ -156,7 +159,7 @@ public class ZdryzbService implements ZdryService {
 		zdry_old.setGlzt(ZdryConstant.ZDSQ);
 		updateZdry(sessionBean,zdry_old);				
 		if(!isDelete(entity.getZdrycx())){
-			BeanUtils.copyProperties(entity.getZdrycx(), entity.getZdryzb());
+			//BeanUtils.copyProperties(entity.getZdryzb(),entity.getZdrycx() );//ZdryZb为新数据对象，不可以copy覆盖
 			lg(sessionBean, entity);
 		}
 	}
@@ -181,6 +184,9 @@ public class ZdryzbService implements ZdryService {
 		deleteZdry(sessionBean,old);
 		if(!isDelete(entity.getZdrycx())){
 			ZdryZb newZb = new ZdryZb();
+			BeanUtils.copyProperties(tmpZb,newZb );//ZdryZb为新数据对象，不可以copy覆盖
+			//copy yid,syrkid,hjd info
+			ZdryZbUtil.copyAttributes((ZdryZb)entity.getZdrycx(), newZb);
 			newZb.setId( entity.getZdryzbId());
 			newZb.setGlzt(ZdryConstant.YLG);
 			//变更录入人信息:为下次转递提供正确的原辖区民警信息
@@ -206,6 +212,7 @@ public class ZdryzbService implements ZdryService {
 		if(!isDelete(entity.getZdrycx())){
 			ZdryZb newZb = new ZdryZb();
 			newZb.setId( entity.getZdryzbId());
+			newZb.setXt_zxyy(((ZdryZb)entity.getZdryzb()).getXt_zxyy());
 			deleteZdry(sessionBean,newZb);
 		}
 	}

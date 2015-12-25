@@ -43,8 +43,11 @@
 		    			<input type="text" name="zdryZdryzb.zdrylb" id="zdrylbStr"  class="easyui-combotree" style="width:300px;"
 	    			data-options="onlyLeaf:true,valueField:'id',textField:'text',
 	    			multiple:false,required:true,panelWidth:400,method:'get',lines:true,tipPosition:'left'" >	
-	    			<A href="#" onclick="viewWorkflowDialog();">查看流程图</a> 
 		    	</td>
+		    </tr>
+		    <tr class="dialogTr">
+		    	<td width="20%" class="dialogTd" align="right">流程图:</td>
+		    	<td width="30%" class="dialogTd" colspan="3"><a href="#" onclick="viewWorkflowDialog();">查看</a> </td>		    	
 		    </tr>
 		    
 		    </table> 		
@@ -99,11 +102,25 @@ function zdrylxChange(newVal){
 	}		
 }
 function viewWorkflowDialog(){
-	var processDefinitionKey = "ln_zl";
-	var url = '/syrk/diagram/diagram/' + processDefinitionKey;
-	var result=window.open(url,'newWindow','modal=yes,height=600px,width=900px,resizable=yes,z-look=yes,alwaysRaised=yes'); 
-	window.onfocus=function (){result.focus();};
-
+	var zdrygllxdm = $("#zdrygllxdm").val();
+	var processDefinitionKey =null;
+	$.ajax({
+		async:false,
+		type:"POST",
+		url:"<%= basePath%>wf/getProcDefId/5/" + zdrygllxdm,
+		dataType:"json",
+		success:function(data){
+			if (data && data.length>0) {
+				processDefinitionKey = data;
+				var url = '/syrk/diagram/diagram/' + processDefinitionKey;
+				var result=window.open(url,'_blank','modal=yes,height=600px,width=900px,resizable=yes,z-look=yes,alwaysRaised=yes'); 
+				window.onfocus=function (){result.focus();};
+			}else{
+				alert("Workflow is not found.");
+			}				
+		}
+	});   
+	
 }
 </script>
 </html>

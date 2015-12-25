@@ -141,7 +141,10 @@
 			$("#spjg1").bind("click", function(event) { $("#UsDiv").hide(); $("#PoDiv").hide(); $("#nextsplxDiv").hide(); }); 
 	
 			}
-
+		$("#cdDiv").hide();
+		$("#spjg0").bind("click", function(event) { $("#cdDiv").hide();});
+		$("#spjg1").bind("click", function(event) { $("#cdDiv").hide();}); 
+		$("#spjg2").bind("click", function(event) { $("#cdDiv").show();});
 		
 		loadclearSelect();
 		$("#spjg1").bind("click", function(event) { 
