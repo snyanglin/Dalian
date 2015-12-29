@@ -40,28 +40,38 @@
                     <table  border="0" width="1000">
                         <tbody>
                         <tr>
-                            <td class="toolbarTd" style="width:280px">
-                                核实状态：<select name="hszt" id="hszt">
+                            <td width="20%" class="dialogTd" align="right">核实状态：</td>
+                            <td width="30%" class="dialogTd">
+                                <select name="hszt" id="hszt" class="easyui-combobox" style="width:200px">
                                 <option value="0">未核实</option>
-                                <option value="1">已核实</option></select>
+                                <option value="1">已核实列管</option>
+                                <option value="2">已核实撤管</option>
+                                <option value="4">申请核实撤管</option></select>
                             </td>
-                            <td class="toolbarTd" style="width:280px">
-                                主管单位：<select name="xfbmdm" id="xfbmdm">
+                            <td width="20%" class="dialogTd" align="right">主管单位：</td>
+                            <td width="30%" class="dialogTd">
+                                <select name="xfbmdm" id="xfbmdm" class="easyui-combobox" style="width:200px">
                                 <option value="ZA">治安</option>
                                 <option value="GB">国保</option>
                             </select></td>
 
                         </tr>
                         <tr>
-                            <td class="toolbarTd" style="width:240px">
-                                姓名：<input type="text" name="xm" id="xm" class="easyui-validatebox"
-                                          style="width:160px"/>
+                            <td width="20%" class="dialogTd" align="right">姓名：</td>
+                            <td width="30%" class="dialogTd">
+                                <input type="text" name="xm" id="xm" class="easyui-validatebox"
+                                       style="width:200px"/>
                             </td>
-                            <td class="toolbarTd" style="width:280px">
-                                证件号码：<input type="text" name="zjhm" id="zjhm" class="easyui-validatebox"
-                                            style="width:160px;"/>
+                            <td width="20%" class="dialogTd" align="right">证件号码：</td>
+                            <td width="30%" class="dialogTd">
+                                <input type="text" name="zjhm" id="zjhm" class="easyui-validatebox"
+                                            style="width:200px"/>
                             </td>
-                            <td class="toolbarTd" align="left">
+
+
+                        </tr>
+                        <tr>
+                            <td class="toolbarTd" align="center" colspan="4">
                                 <a class="easyui-linkbutton" iconCls="icon-search" onclick="queryButton();">查询</a>
                                 <a class="easyui-linkbutton" iconCls="icon-reload" onclick="clearCase()">重置</a>
                             </td>
@@ -135,8 +145,8 @@
     function queryButton() {
         var zjhm =$("#zjhm").val();
         var xm = $("#xm").val();
-        var hszt = $('#hszt option:selected') .val();
-        var xfbmdm = $('#xfbmdm option:selected') .val();
+        var hszt = $("#hszt").combobox('getValue');
+        var xfbmdm = $("#xfbmdm").combobox('getValue');
         if(zjhm==""){
             zjhm=null;
         }
