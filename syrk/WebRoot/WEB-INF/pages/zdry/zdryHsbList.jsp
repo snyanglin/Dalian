@@ -50,10 +50,10 @@
                             </td>
                             <td width="20%" class="dialogTd" align="right">主管单位：</td>
                             <td width="30%" class="dialogTd">
-                                <select name="xfbmdm" id="xfbmdm" class="easyui-combobox" style="width:200px">
-                                <option value="ZA">治安</option>
-                                <option value="GB">国保</option>
-                            </select></td>
+                                <input class="easyui-combobox" type="text"  name="xfbmdm" id="xfbmdm" class="easyui-combobox" style="width:200px"
+                                       data-options="url: contextPath + '/common/dict/BD_D_ZDRYHSBXFBM.js',
+					                    valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'right'"/>
+                            </td>
 
                         </tr>
                         <tr>

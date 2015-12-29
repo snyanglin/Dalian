@@ -15,18 +15,15 @@ import org.springframework.stereotype.Repository;
 
 import com.founder.framework.base.dao.BaseDaoImpl;
 import com.founder.framework.base.entity.SessionBean;
-import com.founder.framework.base.service.BaseService;
 import com.founder.framework.message.bean.SysMessage;
 import com.founder.framework.organization.assign.vo.OrgUserInfo;
 import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.framework.utils.StringUtils;
-import com.founder.framework.utils.UUID;
-import com.founder.ggfw.bean.Ywxtgzrwb;
 import com.founder.ggfw.dao.YwxtgzrwbDao;
 
 @Repository("sysMessageDao")
-public class SysMessageDao extends BaseDaoImpl {
+public class SysMessageDao extends BaseDaoImpl implements ISysMessageDao {
 
 	private Logger logger = Logger.getLogger(this.getClass());
 
@@ -907,6 +904,21 @@ public class SysMessageDao extends BaseDaoImpl {
 			insert("Message.saves", list);
 		}
 		return sb.toString().substring(0, sb.toString().lastIndexOf(","));
+	}
+
+	@Override
+	public void updateYwxtgzrwbByClr(Object o, SessionBean sessionBean) {
+
+	}
+
+	@Override
+	public String lxdhBgTx(Map<String, Object> map, SessionBean sessionBean, boolean b) {
+		return null;
+	}
+
+	@Override
+	public void updateYwxtgzrwbByCjr(Object o, SessionBean sessionBean) {
+
 	}
 
 }
