@@ -244,7 +244,7 @@ public class ZdryZdryhsbService {
             var12.printStackTrace();
         }
         zdryZdryzb.setGlbm(sessionBean.getUserOrgCode());
-        zdryZdryzb.setGxzrqdm(sessionBean.getUserManageOrgCode());
+        zdryZdryzb.setGxzrqdm(sessionBean.getUserOrgCode());
         String zdrygllxdm = zdryVO.getZdryZdryzb().getZdrygllxdm();// 重点人员类型
         ZdryService zdryService = zdryFactory.createZdryService(zdrygllxdm,zdryZdryzb,zdryVO.getZdrylbdx());
         ZOBean entity = new ZOBean(zdryZdryzb, zdryVO.getZdrylbdx());
