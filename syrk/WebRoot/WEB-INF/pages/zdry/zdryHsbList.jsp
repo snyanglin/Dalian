@@ -43,10 +43,8 @@
                             <td width="20%" class="dialogTd" align="right">核实状态：</td>
                             <td width="30%" class="dialogTd">
                                 <select name="hszt" id="hszt" class="easyui-combobox" style="width:200px">
-                                <option value="0">未核实</option>
-                                <option value="1">已核实列管</option>
-                                <option value="2">已核实撤管</option>
-                                <option value="4">申请核实撤管</option></select>
+                                <option value="0,3">未核实</option>
+                                <option value="1,2">已核实</option></select>
                             </td>
                             <td width="20%" class="dialogTd" align="right">主管单位：</td>
                             <td width="30%" class="dialogTd">
