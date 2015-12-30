@@ -98,7 +98,7 @@
         var hsButton = '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="syrkAdd(\'' + row['zjhm'] + '\')">新增实有人口</a>&nbsp;';
         if (row.syrkid) {
             hsButton = '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="doHslg(this,' + index + ')">核实列管</a>&nbsp;'
-            if (xfbm == "ZA") {
+            if (xfbm == "0" && hszt!=3) {
                 var other = '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="doHscg(this,' + index + ')">核实撤管</a>&nbsp;' +
                         '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="doHszd(this,' + index + ')">转递</a>&nbsp;';
                 hsButton += other;
