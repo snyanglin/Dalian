@@ -17,6 +17,8 @@
     	<input type="hidden" id="lxdh" name="zdryZdryzb.zdrylb" value="${zdryZb.zdryZdryzb.zdrylb}" />
     	<input type="hidden" id="zdrygllxdm" name="zdryZdryzb.zdrygllxdm" value="${zdryZb.zdryZdryzb.zdrygllxdm}" />
     	<input type="hidden" id="lxdh" name="zdryZdryzb.cyzjdm" value="${zdryZb.zdryZdryzb.cyzjdm}" />
+    	<input type="hidden" id="syrkid" name="zdryZdryzb.syrkid" value="${zdryZb.zdryZdryzb.syrkid }" />
+    	<input type="hidden" id="ryid" name="zdryZdryzb.ryid" value="${zdryZb.zdryZdryzb.ryid }" />
     	
 		<jsp:include page="zdryYwzd.jsp"></jsp:include>
 	    <div data-options="region:'center', split:true" style="width:500px; border-width: 0px;">

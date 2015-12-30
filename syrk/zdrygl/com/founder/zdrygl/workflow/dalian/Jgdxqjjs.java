@@ -1,5 +1,6 @@
 package com.founder.zdrygl.workflow.dalian;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -8,21 +9,16 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
 
-import com.founder.bzdz.service.DzService;
-import com.founder.bzdz.vo.BzdzxxbVO;
 import com.founder.framework.exception.BussinessException;
-import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.position.service.OrgPositionService;
-import com.founder.syrkgl.bean.RyRyjbxxb;
-import com.founder.syrkgl.bean.SyrkSyrkxxzb;
-import com.founder.syrkgl.service.RyRyjbxxbService;
-import com.founder.syrkgl.service.SyrkSyrkxxzbService;
 import com.founder.workflow.bean.BaseWorkFlowBean;
 import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
+import com.founder.zdrygl.base.service.wf.WfywEnum;
 import com.founder.zdrygl.workflow.exception.BaseWorkflowException;
+import com.founder.zdrygl.workflow.utils.WorkflowUtil;
 /**
  * ****************************************************************************
  * @Package:      [com.founder.activiti.demo.workflow.dalian.Jgdxqjjs.java]  
@@ -45,46 +41,25 @@ public class Jgdxqjjs extends WorkflowDelegate{
 	@Resource(name = "orgPositionService")
 	private OrgPositionService orgPositionService;
 
-	@Resource(name = "dzService")
-	private DzService dzService;
+	@Resource(name="workflowUtil")
+	private WorkflowUtil workflowUtil;
 
 	@Resource(name = "zdryQueryService")
 	private ZdryInfoQueryService zdryQueryService;
 
-	@Resource(name = "syrkSyrkxxzbService")
-	private SyrkSyrkxxzbService syrkSyrkxxzbService;
-
-	@Resource(name = "ryRyjbxxbService")
-	private RyRyjbxxbService ryRyjbxxbService;
 	@Override
 	public void doBusiness(BaseWorkFlowBean arg0) {
 		Map<String, Object> variables = arg0.getProcessVariables();
-		String zdry_jzd_mlpdm = null;
 		try {
 			String zdryId = (String) variables.get("zdryId");
 			ZdryZb zdryZb = (ZdryZb) zdryQueryService.queryById(zdryId);
-			String syrkSyrkxxzbId = zdryZb.getSyrkid();
-			SyrkSyrkxxzb syrkSyrkxxzb = syrkSyrkxxzbService
-					.queryById(syrkSyrkxxzbId);
-			if (syrkSyrkxxzb != null) {
-				zdry_jzd_mlpdm = syrkSyrkxxzb.getJzd_mlpdm();// 重点人员居住地门楼盘代码
-			} else {
-				// 查询人员基本信息表
-				RyRyjbxxb ryRyjbxxb = ryRyjbxxbService.queryByCyzjdmZjhm(
-						zdryZb.getCyzjdm(), zdryZb.getZjhm());
-				zdry_jzd_mlpdm = ryRyjbxxb.getJzd_mlpdm();
-			}
-			String zdry_jzd_zrqdm = dzService.queryMldzDx(zdry_jzd_mlpdm)
-					.getZrqdm();// 重点人员居住地责任区
-			String variableKey = "sz";
-			String taskOwner = camSzTaskOwner(syrkSyrkxxzb, zdry_jzd_zrqdm, "32", "SZ");
-			//setLocalVariable("isSz",true);
+			
+			LinkedHashMap<String,String> wfParams = workflowUtil.getWorkflowParamBean(WfywEnum.JGDXQJ);
+			String taskOwner = workflowUtil.camSzTaskOwner(zdryZb,wfParams.get("spgwL1_lv"),wfParams.get("spgwL1"));
 			if(taskOwner == null){
 				throw new BaseWorkflowException("没有对应的组织或岗位。");
 			}
-			setLocalVariable(variableKey, taskOwner);
-			//setLocalVariable("businessType", "1");
-			//setLocalVariable("org", orgOrganization);
+			setLocalVariable("sz", taskOwner);
 			setLocalVariable("approvalMethod", "szApproval");
 
 		} catch (BussinessException aa) {
@@ -95,46 +70,6 @@ public class Jgdxqjjs extends WorkflowDelegate{
 			ee.printStackTrace();
 		}
 
-	}
-	/**
-	 * 
-	 * @Title: camSzTaskOwner
-	 * @Description: 設置task owner
-	 * @param @param syrkSyrkxxzb
-	 * @param @param zdry_jzd_zrqdm
-	 * @param @param orgLevel
-	 * @param @param posId
-	 * @param @param variableKey    设定文件
-	 * @return void    返回类型
-	 * @throws
-	 */
-	private String camSzTaskOwner(SyrkSyrkxxzb syrkSyrkxxzb,
-			String zdry_jzd_zrqdm, String orgLevel, String posId) {
-		String zdry_hjd_mlpdm = null;
-		OrgOrganization orgOrganization = null;
-		String taskParameter = null;
-		if (syrkSyrkxxzb != null) {
-			zdry_hjd_mlpdm = syrkSyrkxxzb.getHjd_mlpdm();// 重点人员户籍地门楼盘代码
-		}
-		BzdzxxbVO bzdzxxbVO = dzService.queryMldzDx(zdry_hjd_mlpdm);
-		if (zdry_hjd_mlpdm == null || bzdzxxbVO == null) {
-			orgOrganization = orgOrganizationService.queryUpOrgByLevel(
-					zdry_jzd_zrqdm, orgLevel);
-			String fsxOrgCode = orgOrganization.getOrgcode();// 得到本名等级为三级，派出所部门code
-			taskParameter = fsxOrgCode + "_"
-					+ orgPositionService.queryByPosid(posId).getId().toString(); // 部门code+所长岗位ID
-		} else {
-
-			String zdry_hjd_zrqdm = dzService.queryMldzDx(zdry_hjd_mlpdm)
-					.getZrqdm();// 重点人员户籍地责任区
-			orgOrganization = orgOrganizationService.queryUpOrgByLevel(
-					zdry_hjd_zrqdm, orgLevel);
-			String fsxOrgCode = orgOrganization.getOrgcode();// 得到本名等级为三级，派出所部门code
-			taskParameter = fsxOrgCode + "_"
-					+ orgPositionService.queryByPosid(posId).getId().toString(); // 部门code+所长岗位ID
-		}
-		
-		return taskParameter;
 	}
 	/**
 	 * 
