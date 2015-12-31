@@ -206,7 +206,7 @@
 				AND SSPCS = #zdryZdryhsbVO.sspcs#
 			</isNotNull>
 			<isNotNull  property="zdryZdryhsbVO.hszt">
-				AND HSZT = #zdryZdryhsbVO.hszt#
+				AND HSZT IN ($zdryZdryhsbVO.hszt$)
 			</isNotNull>
 			<isNotNull  property="zdryZdryhsbVO.zdrygllxdm">
 				AND ZDRYGLLXDM = #zdryZdryhsbVO.zdrygllxdm#

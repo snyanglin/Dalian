@@ -61,8 +61,7 @@ public class DlZdywjs extends WorkflowDelegate {
 			
 			//设定流程新责任区负责人
 			OrgOrganization targetOrgOrganization = orgOrganizationService.queryByOrgcode(sszrqdm);
-			String beanId = WorkflowUtil.buildWorkflowKey(WfywEnum.ZD.getValue());
-			LinkedHashMap<String,String> wfParams = SpringContextHolder.getBean(beanId);
+			LinkedHashMap<String,String> wfParams = workflowUtil.getWorkflowParamBean(WfywEnum.ZD);
 			String taskParameter = targetOrgOrganization.getOrgcode() + "_"
 					+ orgPositionService.queryByPosid(wfParams.get("spgwL1")).getId().toString(); // 责任区部门code+民警岗位ID
 			setLocalVariable("spmj", taskParameter);

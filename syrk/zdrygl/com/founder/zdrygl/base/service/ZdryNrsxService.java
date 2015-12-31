@@ -5,7 +5,9 @@ import javax.annotation.Resource;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
 import com.founder.zdrygl.base.dao.ZdryNrsxdxxxbDao;
+import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 import com.founder.zdrygl.base.model.ZdryNrsxdxxxb;
+import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.decorator.ZdryServiceDecorator;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.Zdry;
@@ -27,6 +29,8 @@ public class ZdryNrsxService  extends ZdryServiceDecorator{
 
 	@Resource(name="zdryNrsxdxxxbDao")
 	private ZdryNrsxdxxxbDao  zdryNrsxdxxxbDao;
+	@Resource
+	private ZdryZdryZbDao zdryZdryZbDao;
 
 	public ZdryNrsxService(ZdryService zdryService) {
 		super(zdryService);
@@ -37,6 +41,11 @@ public class ZdryNrsxService  extends ZdryServiceDecorator{
 	 */
 	@Override
 	protected void lg_(SessionBean sessionBean,Zdry zdrylbdx) {
+		ZdryZb zdryZb=new ZdryZb();
+		zdryZb.setId(zdrylbdx.getId());
+		zdryZb.setGlzt("2");//纳入视线 不需要审批
+		BaseService.setUpdateProperties(zdryZb,sessionBean);
+		zdryZdryZbDao.update(zdryZb);
 		insert(sessionBean,zdrylbdx);
 	}
 

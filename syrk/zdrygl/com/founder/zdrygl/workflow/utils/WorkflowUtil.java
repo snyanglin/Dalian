@@ -1,6 +1,7 @@
 package com.founder.zdrygl.workflow.utils;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,12 +10,20 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.founder.bzdz.service.DzService;
+import com.founder.bzdz.vo.BzdzxxbVO;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.config.SystemConfig;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.position.service.OrgPositionService;
+import com.founder.syrkgl.bean.RyRyjbxxb;
+import com.founder.syrkgl.bean.SyrkSyrkxxzb;
+import com.founder.syrkgl.service.RyRyjbxxbService;
+import com.founder.syrkgl.service.SyrkSyrkxxzbService;
 import com.founder.zdrygl.base.model.ZdryZb;
+import com.founder.zdrygl.base.service.wf.WfywEnum;
+import com.founder.zdrygl.core.utils.SpringContextHolder;
 import com.founder.zdrygl.core.utils.ZdryConstant;
 import com.founder.zdrygl.workflow.exception.BaseWorkflowException;
 /**
@@ -40,6 +49,16 @@ public class WorkflowUtil {
 	
 	@Autowired
 	private ZdryConstant zdryConstant;
+
+	@Resource(name = "dzService")
+	private DzService dzService;
+	
+	@Resource(name = "ryRyjbxxbService")
+	private RyRyjbxxbService ryRyjbxxbService;
+
+	@Resource(name = "syrkSyrkxxzbService")
+	private SyrkSyrkxxzbService syrkSyrkxxzbService;
+	
 	/**
 	 * 
 	 * @Title: buildWorkflowKey
@@ -118,5 +137,70 @@ public class WorkflowUtil {
 			throw new BaseWorkflowException("未定义" + orgName);
 		}
 		return taskParameter;
+	}
+	/**
+	 * 
+	 * @Title: camSzTaskOwner
+	 * @Description: (计算工作指定委任人)
+	 * @param @param ryId
+	 * @param @param orgLevel
+	 * @param @param posId
+	 * @param @return    设定文件
+	 * @return String    返回类型
+	 * @throws
+	 */
+	public String camSzTaskOwner(ZdryZb zdryZb, String orgLevel, String posId) {
+		String zdry_hjd_mlpdm = null;
+		OrgOrganization orgOrganization = null;
+		String taskParameter = null;
+		String zdry_jzd_mlpdm = null;
+		
+		SyrkSyrkxxzb syrkSyrkxxzb = syrkSyrkxxzbService.queryById(zdryZb.getSyrkid());
+		if (syrkSyrkxxzb != null) {
+			zdry_jzd_mlpdm = syrkSyrkxxzb.getJzd_mlpdm();// 重点人员居住地门楼盘代码
+		} else {
+			// 查询人员基本信息表
+			RyRyjbxxb ryRyjbxxb = ryRyjbxxbService.queryByCyzjdmZjhm(
+					zdryZb.getCyzjdm(), zdryZb.getZjhm());
+			zdry_jzd_mlpdm = ryRyjbxxb.getJzd_mlpdm();
+		}
+		String zdry_jzd_zrqdm = dzService.queryMldzDx(zdry_jzd_mlpdm)
+				.getZrqdm();// 重点人员居住地责任区
+		if (syrkSyrkxxzb != null) {
+			zdry_hjd_mlpdm = syrkSyrkxxzb.getHjd_mlpdm();// 重点人员户籍地门楼盘代码
+		}
+		BzdzxxbVO bzdzxxbVO = dzService.queryMldzDx(zdry_hjd_mlpdm);
+		if (zdry_hjd_mlpdm == null || bzdzxxbVO == null) {
+			orgOrganization = orgOrganizationService.queryUpOrgByLevel(
+					zdry_jzd_zrqdm, orgLevel);
+			String fsxOrgCode = orgOrganization.getOrgcode();// 得到本名等级为三级，派出所部门code
+			taskParameter = fsxOrgCode + "_"
+					+ orgPositionService.queryByPosid(posId).getId().toString(); // 部门code+所长岗位ID
+		} else {
+
+			String zdry_hjd_zrqdm = dzService.queryMldzDx(zdry_hjd_mlpdm)
+					.getZrqdm();// 重点人员户籍地责任区
+			orgOrganization = orgOrganizationService.queryUpOrgByLevel(
+					zdry_hjd_zrqdm, orgLevel);
+			String fsxOrgCode = orgOrganization.getOrgcode();// 得到本名等级为三级，派出所部门code
+			taskParameter = fsxOrgCode + "_"
+					+ orgPositionService.queryByPosid(posId).getId().toString(); // 部门code+所长岗位ID
+		}
+		
+		return taskParameter;
+	}
+	/**
+	 * 
+	 * @Title: getWorkflowParamBean
+	 * @Description: (获取指定业务流程的参数)
+	 * @param @param ywEnum
+	 * @param @return    设定文件
+	 * @return LinkedHashMap<String,String>    返回类型
+	 * @throws
+	 */
+	public LinkedHashMap<String,String> getWorkflowParamBean(WfywEnum ywEnum){
+		String beanId = WorkflowUtil.buildWorkflowKey(ywEnum.getValue());
+		LinkedHashMap<String,String> wfParams = SpringContextHolder.getBean(beanId);
+		return wfParams;
 	}
 }

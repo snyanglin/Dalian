@@ -98,10 +98,7 @@ public class ZdryhsbController extends BaseController{
 			entity.setZjhm(null);
 		}
 		if (null==entity.getHszt()){
-			entity.setHszt("0");
-		}
-		if (null==entity.getXfbmdm()){
-			entity.setXfbmdm("ZA");
+			entity.setHszt("0,3");
 		}
 		EasyUIPage easyUIPage = zdryZdryhsbService.queryList(page, entity);
 		List zdryHsbList = easyUIPage.getRows();
@@ -222,30 +219,13 @@ public class ZdryhsbController extends BaseController{
 		return mv;
 	}
 
+
 	/**
-	 * 准备审核
-	 * @param messageid
-	 * @param zdryHsbId
-     * @return
+	 * 核实转递准备
+	 * @param id
+	 * @return
+	 * @throws BussinessException
      */
-	@RequestMapping(value = "/creatCgApporval",method = RequestMethod.GET)
-	public ModelAndView creatCgApporval(String messageid, String zdryHsbId) {
-		ModelAndView mv = new ModelAndView("zdry/zdryLCApproval");
-		SessionBean sessionBean = this.getSessionBean();
-		ZdryZdryhsb zdryHsb = zdryZdryhsbService.queryById(zdryHsbId);
-		ZdryVO zdryVO = new ZdryVO();
-		ZdryZb zdryZdryzb = new ZdryZb();
-		zdryZdryzb.setXm(zdryHsb.getXm());
-		zdryZdryzb.setZjhm(zdryHsb.getZjhm());
-		zdryZdryzb.setZdrygllxdm(zdryHsb.getZdrygllxdm());
-		zdryVO.setZdryZdryzb(zdryZdryzb);
-		mv.addObject("zdryVO", zdryVO);
-		mv.addObject("zdryHsbId", zdryHsbId);
-		mv.addObject("messageid", messageid);
-		return mv;
-	}
-
-
 	@RequestMapping(value = "/hszd",method = RequestMethod.GET)
 	public ModelAndView hszd(String id) throws BussinessException {
 		ModelAndView mv = new ModelAndView("zdry/zdryHszd");

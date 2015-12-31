@@ -54,16 +54,14 @@ public class ZdryzbService implements ZdryService {
 	@Override
 	public void lg(SessionBean sessionBean, ZOBean entity) {
 		ZdryZb zdryzb = (ZdryZb) entity.getZdryzb();
-		if(zdryzb.getRyid()!= null){
+		/*if(zdryzb.getRyid()!= null){
 			RyRyjbxxb ryjbxxb = ryRyjbxxbService.queryById(zdryzb.getRyid());//人员基本信息
 			ZdryZbUtil.copyAttributes(ryjbxxb, zdryzb);
-		}
+		}*/
 		zdryzb.setId(UUID.create());
 		zdryzb.setGlzt(ZdryConstant.LGSQ);
 		zdryzb.setGlbm(sessionBean.getUserOrgCode());//管理部门
 		BaseService.setSaveProperties(zdryzb, sessionBean);
-		RyRyjbxxb ryjbxxb = ryRyjbxxbService.queryById(((ZdryZb)entity.getZdryzb()).getRyid());//人员基本信息
-		ZdryZbUtil.copyAttributes(ryjbxxb, zdryzb);
 		zdryZdryZbDao.insert(zdryzb);
 	}
 	
