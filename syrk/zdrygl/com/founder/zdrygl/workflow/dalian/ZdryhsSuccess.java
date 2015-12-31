@@ -8,12 +8,14 @@ import com.founder.framework.exception.BussinessException;
 import com.founder.framework.message.service.JwzhMessageService;
 import com.founder.zdrygl.base.model.ZdryZdryhsb;
 import com.founder.zdrygl.base.service.ZdryZdryhsbService;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
 
 import com.founder.workflow.bean.BaseWorkFlowBean;
 import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
+
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.util.WebUtils;
@@ -52,6 +54,11 @@ public class ZdryhsSuccess extends WorkflowDelegate {
 				request, AppConst.USER_SESSION);
 		zdryZdryhsbService.saveApproval("1",spyj,zdryHsbId,sessionBean);
 		log.debug("核实成功 ");
+	}
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

@@ -237,5 +237,10 @@ public class Zaywjs extends WorkflowDelegate{
 	public void notifyOtherJzdxq(){
 		System.out.println("### 通知实有人口其他居住地辖区:" + service.toString());
 	}
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

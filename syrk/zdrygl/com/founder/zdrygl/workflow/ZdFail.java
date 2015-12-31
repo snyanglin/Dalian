@@ -62,6 +62,11 @@ public class ZdFail extends WorkflowDelegate{
 		ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
 		zdryService.zdFail(sessionBean,entity);
 	}
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

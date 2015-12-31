@@ -151,5 +151,10 @@ public class Jgdxqjjs extends WorkflowDelegate{
 	public void qjFail(){
 		System.out.println("### 请假失败");
 	}
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

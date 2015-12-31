@@ -65,6 +65,11 @@ public class JgdxqjFail extends WorkflowDelegate {
 		jwzhMessageService.sendMessage("MESSAGE_ZDRYGL_JGDXQXJSPJG",paraObj);
 		log.debug("请假失败 ");
 	}
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

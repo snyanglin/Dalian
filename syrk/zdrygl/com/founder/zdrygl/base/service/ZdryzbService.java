@@ -17,7 +17,9 @@ import com.founder.framework.base.service.BaseService;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.utils.UUID;
 import com.founder.syrkgl.bean.RyRyjbxxb;
+import com.founder.syrkgl.bean.SyrkSyrkxxzb;
 import com.founder.syrkgl.service.RyRyjbxxbService;
+import com.founder.syrkgl.service.SyrkSyrkxxzbService;
 import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrycx;
@@ -46,18 +48,18 @@ public class ZdryzbService implements ZdryService {
 	
 	@Autowired
 	private ZdryConstant zdryConstant;
-	
-	@Resource(name = "ryRyjbxxbService")
-	private RyRyjbxxbService ryRyjbxxbService;
+
+	@Resource(name = "syrkSyrkxxzbService")
+	private SyrkSyrkxxzbService syrkSyrkxxzbService;
  
 	@MethodAnnotation(value = "列管", type = logType.insert)
 	@Override
 	public void lg(SessionBean sessionBean, ZOBean entity) {
 		ZdryZb zdryzb = (ZdryZb) entity.getZdryzb();
-		/*if(zdryzb.getRyid()!= null){
-			RyRyjbxxb ryjbxxb = ryRyjbxxbService.queryById(zdryzb.getRyid());//人员基本信息
+		if(zdryzb.getSyrkid()!= null){
+			SyrkSyrkxxzb ryjbxxb = syrkSyrkxxzbService.queryById(zdryzb.getSyrkid());//人员基本信息
 			ZdryZbUtil.copyAttributes(ryjbxxb, zdryzb);
-		}*/
+		}
 		zdryzb.setId(UUID.create());
 		zdryzb.setGlzt(ZdryConstant.LGSQ);
 		zdryzb.setGlbm(sessionBean.getUserOrgCode());//管理部门
@@ -173,7 +175,7 @@ public class ZdryzbService implements ZdryService {
 		//ZdryGzb zdryGzb=zdryZdryZbDao.queryByZdrylx(zdryzb.getZdrygllxdm(),SystemConfig.getString("zdryQY"));
 		//if(zdryGzb!=null && "1".equals(zdryGzb.getSfslg())){//双列管，查询户籍地管理部门
 		ZdryZb tmpZb = (ZdryZb)entity.getZdryzb();
-		RyRyjbxxb ryjbxxb = ryRyjbxxbService.queryById(tmpZb.getRyid());//人员基本信息	
+		SyrkSyrkxxzb ryjbxxb = syrkSyrkxxzbService.queryById(tmpZb.getSyrkid());//人员基本信息	
 		String gxbm = "";
 		if(ryjbxxb!=null && ryjbxxb.getHjd_mlpdm()!= null){
 			//String zdry_hjd_zrqdm = dzService.queryMldzDx(ryjbxxb.getHjd_mlpdm()).getZrqdm();

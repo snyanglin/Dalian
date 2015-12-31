@@ -1,6 +1,5 @@
 package com.founder.zdrygl.workflow;
 
-import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +20,6 @@ import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
-import com.founder.zdrygl.workflow.utils.ZdryZbUtil;
 
 
 
@@ -86,7 +84,20 @@ public class ZdSuccess extends WorkflowDelegate{
 		String xt_lrip = (String) variables.get("xt_lrip");
 		if(xt_lrip!=null) zdryzb.setXt_lrip(xt_lrip);
 		ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
+		//put sqrId/sqrName to sessionBean, to support send message
+		sessionBean.getExtendMap().put("sqrId", variables.get("sqrId").toString());
+		sessionBean.getExtendMap().put("sqrName", variables.get("sqrName").toString());
+		ZdMsgType msgType = (ZdMsgType) (variables.get("msgType")==null?null:variables.get("msgType"));
+		if( msgType != null && msgType.getName().equals("1")){
+			//民警接收
+			entity.setMsgType(msgType.getValue());
+		}
 		zdryService.zdSuccess(sessionBean,entity);
+	}
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

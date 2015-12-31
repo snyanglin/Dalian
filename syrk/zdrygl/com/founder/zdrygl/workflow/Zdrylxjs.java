@@ -75,6 +75,12 @@ public class Zdrylxjs extends WorkflowDelegate{
 		// arg0.setVariableLocal("zdrylx", zdrylx);
 		setVariable("zdrylx", zdrylx);
 	}
+
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

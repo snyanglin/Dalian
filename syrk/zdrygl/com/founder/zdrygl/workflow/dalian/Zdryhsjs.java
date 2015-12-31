@@ -11,6 +11,7 @@ import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.ldym.util.SystemConfig;
 import com.founder.syrkgl.bean.SyrkSyrkxxzb;
 import com.founder.zdrygl.workflow.exception.BaseWorkflowException;
+
 import org.springframework.stereotype.Component;
 
 import com.founder.framework.exception.BussinessException;
@@ -197,5 +198,10 @@ public class Zdryhsjs extends WorkflowDelegate{
 			throw new BaseWorkflowException("未定义" + orgName);
 		}
 		return taskParameter;
+	}
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
 	}
 }

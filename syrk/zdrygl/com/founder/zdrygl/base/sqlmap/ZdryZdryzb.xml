@@ -110,6 +110,12 @@
 			<isNotNull prepend="," property="zywtjxsbx"><![CDATA[ zywtjxsbx = #zywtjxsbx#]]></isNotNull>
 			<isNotNull prepend="," property="glbm"><![CDATA[ glbm = #glbm#]]></isNotNull>
 			<isNotNull prepend="," property="cxbm"><![CDATA[ cxbm = #cxbm#]]></isNotNull>
+			<!-- #xt_lrrxm#,#xt_lrrid#,#xt_lrrbm#,#xt_lrrbmid#,#xt_lrip# -->
+			<isNotNull prepend="," property="xt_lrrxm"><![CDATA[ xt_lrrxm = #xt_lrrxm#]]></isNotNull>
+			<isNotNull prepend="," property="xt_lrrid"><![CDATA[ xt_lrrid = #xt_lrrid#]]></isNotNull>
+			<isNotNull prepend="," property="xt_lrrbm"><![CDATA[ xt_lrrbm = #xt_lrrbm#]]></isNotNull>
+			<isNotNull prepend="," property="xt_lrrbmid"><![CDATA[ xt_lrrbmid = #xt_lrrbmid#]]></isNotNull>
+			<isNotNull prepend="," property="xt_lrip"><![CDATA[ xt_lrip = #xt_lrip#]]></isNotNull>
 			,<include refid="updateXtzd"/>				
 		</dynamic>
 		<![CDATA[ where ID = #id#]]>	

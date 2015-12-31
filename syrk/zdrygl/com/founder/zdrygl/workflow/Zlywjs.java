@@ -10,7 +10,6 @@ import com.founder.framework.exception.BussinessException;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.organization.position.service.OrgPositionService;
-
 import com.founder.workflow.bean.BaseWorkFlowBean;
 import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 
@@ -53,6 +52,12 @@ public class Zlywjs extends WorkflowDelegate{
 			 throw  new BussinessException("重点人员转类出错");//抛出异常  
 		}
 
+	}
+
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

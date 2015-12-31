@@ -44,6 +44,12 @@ public class Zdjs extends WorkflowDelegate{
 		setLocalVariable("zrqmj", taskParameter);
 	
 	}
+
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

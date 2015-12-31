@@ -68,4 +68,10 @@ public class DlLcgcg  extends WorkflowDelegate {
 		}
 	}
 
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

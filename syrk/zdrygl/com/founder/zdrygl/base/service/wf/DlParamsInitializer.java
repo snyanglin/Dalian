@@ -198,6 +198,7 @@ public class DlParamsInitializer implements IfParamInitializer {
 		variables.put("sspcsdm", zb.getGxpcsdm());//转递派出所--
 		variables.put("sszrqdm", zb.getGxzrqdm());//转递责任区--
 		variables.put("ywfqyy", zb.getBz());//转递原因
+		variables.put("sqrId", sessionBean.getUserId());//转递发起人ID
 		variables.put("sqrName", sessionBean.getUserName());//转递发起人名称
 		variables.put("sqrbmdm", sessionBean.getUserOrgCode());//转递发起人名称
 		variables.put("zdrylx", zb.getZdrygllxdm());//重点人员类型

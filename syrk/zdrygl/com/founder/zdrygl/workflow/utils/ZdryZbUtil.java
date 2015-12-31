@@ -2,6 +2,7 @@ package com.founder.zdrygl.workflow.utils;
 
 import com.founder.framework.exception.BussinessException;
 import com.founder.syrkgl.bean.RyRyjbxxb;
+import com.founder.syrkgl.bean.SyrkSyrkxxzb;
 import com.founder.zdrygl.base.model.ZdryFzcsfryxxb;
 import com.founder.zdrygl.base.model.ZdryJgdxxxb;
 import com.founder.zdrygl.base.model.ZdryNrsxdxxxb;
@@ -98,7 +99,24 @@ public class ZdryZbUtil {
 	 * @throws
 	 */
 	public static void copyAttributes(RyRyjbxxb source, ZdryZb target) {
-		if(source!=null && source.getHjd_mlpdm()!= null) return;
+		if(source==null && source.getHjd_mlpdm()== null) return;
+		target.setHjd_dzid(source.getHjd_dzid());
+		target.setHjd_dzxz(source.getHjd_dzxz());
+		target.setHjd_mlpdm(source.getHjd_mlpdm());
+		target.setHjd_mlpxz(source.getHjd_mlpxz());
+		target.setHjd_xzqhdm(source.getHjd_xzqhdm());
+	}
+	/**
+	 * 
+	 * @Title: copyAttributes
+	 * @Description: (这里用一句话描述这个方法的作用)
+	 * @param @param source
+	 * @param @param target    设定文件
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public static void copyAttributes(SyrkSyrkxxzb source, ZdryZb target) {
+		if(source==null && source.getHjd_mlpdm()== null) return;
 		target.setHjd_dzid(source.getHjd_dzid());
 		target.setHjd_dzxz(source.getHjd_dzxz());
 		target.setHjd_mlpdm(source.getHjd_mlpdm());

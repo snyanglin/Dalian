@@ -261,6 +261,7 @@ public class LnParamsInitializer implements IfParamInitializer {
 		variables.put("sspcsdm", zdryZdryVo.getSspcsdm());//转递派出所--
 		variables.put("sszrqdm", zdryZdryVo.getSszrqdm());//转递责任区--
 		variables.put("ywfqyy", zdryZdryVo.getYwfqyy());//转递原因
+		variables.put("sqrId", sessionBean.getUserId());//转递发起人ID
 		variables.put("sqrName", sessionBean.getUserName());//转递发起人名称
 		variables.put("sqrbmdm", sessionBean.getUserOrgCode());//转递发起人名称
 		variables.put("zdrylx", zb.getZdrygllxdm());//重点人员类型

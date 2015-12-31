@@ -5,12 +5,14 @@ import java.util.Map;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
 import com.founder.zdrygl.base.service.ZdryZdryhsbService;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
 
 import com.founder.workflow.bean.BaseWorkFlowBean;
 import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
+
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.util.WebUtils;
@@ -49,6 +51,11 @@ public class ZdryhsFail extends WorkflowDelegate {
 				request, AppConst.USER_SESSION);
 		zdryZdryhsbService.saveApproval("0",spyj,zdryHsbId,sessionBean);
 		log.debug("核实失败 ");
+	}
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

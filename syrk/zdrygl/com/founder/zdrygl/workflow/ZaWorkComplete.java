@@ -46,6 +46,12 @@ public class ZaWorkComplete extends WorkflowDelegate{
 	//	zdryZdryzbService.update(zdryZdryzb, sessionBean);
 		System.out.print("21212SSSSSSSSSSSSSSSSSSS");
 	}
+
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

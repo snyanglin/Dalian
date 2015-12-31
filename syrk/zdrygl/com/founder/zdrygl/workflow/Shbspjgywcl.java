@@ -114,4 +114,10 @@ public void doBusiness(BaseWorkFlowBean arg0) {
 
 }
 
+@Override
+public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+	// TODO Auto-generated method stub
+	
+}
+
 }

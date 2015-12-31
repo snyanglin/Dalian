@@ -64,6 +64,11 @@ public class ZlFail extends WorkflowDelegate {
 		ZdryZbUtil.setXtZxyy(zdrylbdx, "审批未通过");
 		zdryService.zlFail(sessionBean,entity);
 	}
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

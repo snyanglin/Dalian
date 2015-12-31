@@ -16,7 +16,7 @@ import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.base.service.wf.WfywEnum;
-import com.founder.zdrygl.core.utils.SpringContextHolder;
+import com.founder.zdrygl.workflow.ZdMsgType;
 import com.founder.zdrygl.workflow.exception.BaseWorkflowException;
 import com.founder.zdrygl.workflow.utils.WorkflowUtil;
 
@@ -88,6 +88,19 @@ public class DlZdywjs extends WorkflowDelegate {
 			e.printStackTrace();
 		}
 	}
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf,String msgType){
+		if(msgType.trim().equals("1")|| msgType.trim().equals("2")){
+			//1, 通知民警审批
+			//this.setVariable("msgType",ZdMsgType.JSSUCCESS);
+		}else if(msgType.trim().equals("3")|| msgType.trim().equals("4")){
+			//1, 民警接收转递
+			this.setVariable("msgType",ZdMsgType.JSSUCCESS);
+		}else if(msgType.trim().equals("5")){
+			//1, 裁决
+			//this.setVariable("msgType",ZdMsgType.JSSUCCESS);
+		}
+	}
 	/**
 	 * 
 	 * @Title: notifyAllPersons
@@ -136,3 +149,4 @@ public class DlZdywjs extends WorkflowDelegate {
 		
 	}
 }
+

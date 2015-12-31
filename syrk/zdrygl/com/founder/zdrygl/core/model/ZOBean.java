@@ -28,6 +28,8 @@ public class ZOBean {
 	
 	private Zdry zdrycx;
 	
+	private String msgType;//消息发送类型，如工作通知，审批成功/失败通知，裁决结果通知，......
+	
 	private StartProcessInstance startProcessInstance;
 
 	public Zdry getZdryzb() {
@@ -73,4 +75,13 @@ public class ZOBean {
 	public void setZdrycx(Zdry zdrycx) {
 		this.zdrycx = zdrycx;
 	}
+
+	public String getMsgType() {
+		return msgType;
+	}
+
+	public void setMsgType(String msgType) {
+		this.msgType = msgType;
+	}
+	
 }

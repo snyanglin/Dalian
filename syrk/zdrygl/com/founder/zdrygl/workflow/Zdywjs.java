@@ -269,4 +269,9 @@ public class Zdywjs extends WorkflowDelegate {
 		System.out.println("### 通知共同领导裁决人员");
 		
 	}
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
+	}
 }

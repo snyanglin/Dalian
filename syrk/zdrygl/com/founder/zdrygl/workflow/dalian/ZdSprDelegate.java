@@ -39,4 +39,10 @@ public class ZdSprDelegate extends WorkflowDelegate {
 		this.setLocalVariable("xt_lrip", sessionBean.getRemoteAddr());//录入IP
 	}
 
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

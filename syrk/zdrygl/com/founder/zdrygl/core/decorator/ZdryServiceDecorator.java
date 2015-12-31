@@ -157,26 +157,38 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 
 	@Override
 	public final void zdSuccess(SessionBean sessionBean , ZOBean entity) {
-		//转递不涉及子表的修改
-		ZdryZb zb = (ZdryZb) entity.getZdryzb();
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());//获取消息的参数
-		paraObj.put("result", "zdSuccess");
+		if(entity.getMsgType()!=null && !entity.getMsgType().trim().equals("")){
+			paraObj.put("result", entity.getMsgType());
+		}else{
+			paraObj.put("result", "zdSuccess");
+		}
 		paraObj.put("zdryId", entity.getZdryzbId());
-		paraObj.put("jsrUserId", zb.getXt_zhxgrid());
-		paraObj.put("jsrUserName", zb.getXt_zhxgrxm());
+
+		//put sqrId/sqrName into map, to support send message
+		paraObj.put("jsrUserId", sessionBean.getExtendMap().get("sqrId"));
+		paraObj.put("jsrUserName", sessionBean.getExtendMap().get("sqrName"));
+		//clear used data
+		sessionBean.getExtendMap().remove("sqrId");
+		sessionBean.getExtendMap().remove("sqrName");
+		
 		zdryService.zdSuccess(sessionBean ,entity);
 		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDSPJG,paraObj);
 	} 
 
 	@Override
 	public final void zdFail(SessionBean sessionBean , ZOBean entity) {
-		//转递不涉及子表的修改
-		ZdryZb zb = (ZdryZb) entity.getZdryzb();
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());//获取消息的参数
 		paraObj.put("result", "zdFail");
 		paraObj.put("zdryId", entity.getZdryzbId());
-		paraObj.put("jsrUserId", zb.getXt_zhxgrid());
-		paraObj.put("jsrUserName", zb.getXt_zhxgrxm());
+		
+		//put sqrId/sqrName into map, to support send message
+		paraObj.put("jsrUserId", sessionBean.getExtendMap().get("sqrId"));
+		paraObj.put("jsrUserName", sessionBean.getExtendMap().get("sqrName"));
+		//clear used data
+		sessionBean.getExtendMap().remove("sqrId");
+		sessionBean.getExtendMap().remove("sqrName");
+		
 		zdryService.zdFail(sessionBean,entity);
 		zdFail_(sessionBean, entity.getZdrylbdx());
 		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDSPJG,paraObj);

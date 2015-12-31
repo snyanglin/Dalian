@@ -75,6 +75,12 @@ public class DlWorkReject extends WorkflowDelegate {
 		}else if(sqlxdm.equals("04")){//请假
 		}
 	}
+
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

@@ -44,6 +44,12 @@ public class Sgafywjs extends WorkflowDelegate {
 		variables.put("szsp", taskParameter);
 
 	}
+
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }

@@ -63,6 +63,11 @@ public class ZlSuccess extends WorkflowDelegate{
 		
 //		TODO zdryService.zlSuccess(sessionBean);
 	}
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

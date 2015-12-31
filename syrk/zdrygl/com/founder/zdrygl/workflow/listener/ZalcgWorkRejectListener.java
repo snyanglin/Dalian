@@ -3,6 +3,7 @@ package com.founder.zdrygl.workflow.listener;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
+
 import com.founder.workflow.bean.BaseWorkFlowBean;
 /**
  * ****************************************************************************
@@ -30,6 +31,12 @@ public class ZalcgWorkRejectListener extends WorkRejectListener {
 			targetTaskDefinitionKey = "usertask6";//"usertask6";//"exclusivegateway5";
 			
 		}
+	}
+
+	@Override
+	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
