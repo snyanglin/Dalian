@@ -502,8 +502,8 @@ public class ZdryZdryzbControl extends BaseController {
 //			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(), spi.getVariables());
 			ZOBean entity = new ZOBean(zb_new, zdryVO.getZdrylbdx());
 			entity.setZdrycx(zdrycg);
-			if (!StringUtils.isBlank(zb_new.getZdrygllxdm())) {
-				entity.setStartProcessInstance(spi);//modify by zhoulijun 2015-12-31撤管没有选类型 不用启动流程
+			if (!"07".equals(zb_old.getZdrygllxdm())){
+				entity.setStartProcessInstance(spi);//modify by zhoulijun 2015-12-31 纳入视线 撤管不用启动流程
 			}
 			zdryService.cg(sessionBean,entity);
 

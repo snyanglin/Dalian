@@ -96,8 +96,11 @@ public class ZdryzbService implements ZdryService {
 			BeanUtils.copyProperties(entity.getZdrycx(), entity.getZdryzb());
 			lg(sessionBean, entity);
 		}else {
-			old.setGlzt(ZdryConstant.YCG);
-			deleteZdry(sessionBean,old);
+			old=(ZdryZb)zdryZdryZbDao.queryById(old.getId());
+			if ("07".equals(old.getZdrygllxdm())){
+				old.setGlzt(ZdryConstant.YCG);
+				deleteZdry(sessionBean,old);
+			}
 		}
 	}
 
