@@ -101,6 +101,7 @@ var filterStr='${filterStr}';
 var filterZdStr='${filterZdStr}';
 var xfbmdm='${xfbmdm}';
 var mainTabID = "${mainTabID}";
+var displayStr = "${displayStr}";
 $(document).ready(function(){
 
 	$("#jgdxDiv").hide();
@@ -164,14 +165,23 @@ function doInit(paramArray) {
 
 	}
 	//如果列管类型为监管，不准所有列管
-	if(xfbmdm=="ZA"&&filterStr=="1"&&ywlx=="1"){
+	console.info("filterStr="+filterStr)
+	if(xfbmdm=="0"&&filterStr=="1"&&ywlx=="1"){
 		$('#zdrygllxdm').combobox('setDataFilter', '999');
 		alert("此人已被列‘监管对象’或正在申请中，不可再列管其他类型");
 		parent.$("#"+windowID).window("close");
-	}else if(xfbmdm=="ZA"&&filterStr&&ywlx=="1"){
+	}else if(xfbmdm=="0"&&filterStr&&ywlx=="1"){
 		$('#zdrygllxdm').combobox('setDataFilter', '999');
 		alert("此人已被本辖区列管或正在申请中，不可再列管其他类型");
 		parent.$("#"+windowID).window("close");
+	}
+	if(xfbmdm=="1"){
+		$('#zdrygllxdm').combobox('setDataFilter', '20');
+		if(displayStr.indexOf("国宝重点人员")>=0){
+			alert("此人已被本辖区列管或正在申请中，不可再列管");
+			parent.$("#"+windowID).window("close");
+		}
+
 	}
 	if(filterZdStr=='9999'&&ywlx=="2"){
 		alert("此人所有重点人员类型状态都为进行中状态不可再撤管和转递");
