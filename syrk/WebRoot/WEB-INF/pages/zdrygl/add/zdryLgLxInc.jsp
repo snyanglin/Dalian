@@ -21,16 +21,16 @@ if (userInfo != null) {
 					<input class="easyui-combobox" type="text" id="jglbdm" name="zdryJgdxxxb.jglbdm" style="width:200px;" value="${zdryVO.zdryJgdxxxb.jglbdm }"
 					data-options="url: contextPath + '/common/dict/DL_D_JGLBDM.js',valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:false,tipPosition:'right',onChange:jglbChange"/>
 				</td>
-				<td width="20%" class="dialogTd" align="right"></td>
-				<td width="30%" class="dialogTd"></td>
+				<td width="20%" class="dialogTd" align="right">监管单位：</td>
+				<td width="30%" class="dialogTd"><input class="easyui-validatebox " data-options="required:false,tipPosition:'left'"  type="text" name="zdryJgdxxxb.jgdwmc" id="jgdwmc" style="width: 200px;" value="${zdryVO.zdryJgdxxxb.jgdwmc}"
+														maxlength="50" value=""/></td>
 			</tr>
 		    <tr class="dialogTr">
 				<td width="20%" class="dialogTd" align="right">判决机关：</td>
 				<td width="30%" class="dialogTd"><input class="easyui-validatebox" data-options="required:false,tipPosition:'right'" type="text" name="zdryJgdxxxb.pjjgmc" id="pjjgmc" style="width: 200px;"  value="${zdryVO.zdryJgdxxxb.pjjgmc}"
 					maxlength="50" value="" /></td>
-				<td width="20%" class="dialogTd" align="right">监管单位：</td>
-				<td width="30%" class="dialogTd"><input class="easyui-validatebox " data-options="required:false,tipPosition:'left'"  type="text" name="zdryJgdxxxb.jgdwmc" id="jgdwmc" style="width: 200px;" value="${zdryVO.zdryJgdxxxb.jgdwmc}" 
-					maxlength="50" value=""/></td>
+				<td width="20%" class="dialogTd" align="right"></td>
+				<td width="30%" class="dialogTd"></td>
 			</tr>
 			<tr class="dialogTr">
 				<td width="20%" class="dialogTd" align="right">犯罪性质：</td>
@@ -290,6 +290,7 @@ function zdrylxChange(newVal,oldVal){
 			success:function(data){
 				if (data && data.length>0) {
 					setInputReadonly("zdrylbStr", false);
+					setComboRequired("zdrylbStr", true);//存在此项数据，就必填
 					$('#zdrylbStr').combotree('tree').tree('loadData', data);
 				}else{				
 					$('#zdrylbStr').combotree('tree').tree('loadData', '');

@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
+import com.founder.framework.utils.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -501,7 +502,9 @@ public class ZdryZdryzbControl extends BaseController {
 //			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(), spi.getVariables());
 			ZOBean entity = new ZOBean(zb_new, zdryVO.getZdrylbdx());
 			entity.setZdrycx(zdrycg);
-			entity.setStartProcessInstance(spi);
+			if (!StringUtils.isBlank(zb_new.getZdrygllxdm())) {
+				entity.setStartProcessInstance(spi);//modify by zhoulijun 2015-12-31撤管没有选类型 不用启动流程
+			}
 			zdryService.cg(sessionBean,entity);
 
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
