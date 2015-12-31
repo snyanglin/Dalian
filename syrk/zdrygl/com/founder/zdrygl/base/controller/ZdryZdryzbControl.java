@@ -355,7 +355,9 @@ public class ZdryZdryzbControl extends BaseController {
 				klgStrBuffer.append(temp.getZdrygllxdm());
 			}
 		}
-
+		if (resStrBuffer.length()==0||klgStrBuffer.length()==0){
+			return "";
+		}
 		return resStrBuffer.append("/").append(klgStrBuffer).toString();
 	}
 
