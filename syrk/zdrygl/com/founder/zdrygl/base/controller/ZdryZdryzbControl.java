@@ -485,7 +485,7 @@ public class ZdryZdryzbControl extends BaseController {
 						+ zdryConstant.getGlztStr(zb_old.getGlzt())
 						+ "】，不能办理其他业务");
 			}
-
+			zdryVO.setCglxdm(zb_old.getZdrygllxdm());//撤管类型代码
 			Zdrycx zdrycg = new Zdrycx();
 			BeanUtils.copyProperties(zb_old, zdrycg);
 
