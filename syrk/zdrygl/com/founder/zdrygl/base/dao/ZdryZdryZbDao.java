@@ -229,11 +229,11 @@ public class ZdryZdryZbDao extends BaseDaoImpl implements ZdryZdryzbDaoService {
 	}
 
 	public List<ZdryZdryzbVO> queryZdryVoByRyid(String ryid) {
-		return this.queryForList("ZdryZdryzb.queryZdryVOByRyid", ryid);
+		return queryForList("ZdryZdryzb.queryZdryVOByRyid", ryid);
 	}
 
 	public ZdryZb queryBySyrkidAndgllx(String syrkid, String gllx) {
-		HashMap map = new HashMap();
+		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("syrkid", syrkid);
 		map.put("gllx", gllx);
 		return (ZdryZb)this.queryForObject("ZdryZdryzb.queryBySyrkidAndgllx", map);

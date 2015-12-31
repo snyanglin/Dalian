@@ -14,7 +14,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
-import com.founder.framework.config.SystemConfig;
 import com.founder.framework.utils.TreeDataBuilder;
 import com.founder.framework.utils.TreeNode;
 import com.founder.zdrygl.core.dao.ZdryInitializeDao;
@@ -130,7 +129,9 @@ public class ZdryConstant implements ApplicationListener<ContextRefreshedEvent> 
 	}
 	
 	public void createTreeJS(){
-		String JSPath = SystemConfig.getString("webRootPath") + "/common/dict/";	
+		String webRootPath = getClass().getResource("/").getFile().toString() ;
+		String JSPath = webRootPath.substring(0,webRootPath.lastIndexOf("/WEB-INF")) + "/common/dict/";	
+//		String JSPath = SystemConfig.getString("webRootPath") + "/common/dict/";	
 		String tableNameUpper = "BD_D_ZDRYGLLX";
 		try{		
 		//生成管理类型字典js		
