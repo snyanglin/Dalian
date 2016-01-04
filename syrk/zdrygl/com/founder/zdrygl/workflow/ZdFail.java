@@ -55,7 +55,9 @@ public class ZdFail extends WorkflowDelegate{
 		ZOBean entity = new ZOBean(zdryzb, zdrylbdx);
 		Zdrycx zdrycx = (Zdrycx) variables.get("zdrycx");
 		entity.setZdrycx(zdrycx);
-
+		//put sqrId/sqrName to sessionBean, to support send message
+		sessionBean.getExtendMap().put("sqrId", variables.get("sqrId").toString());
+		sessionBean.getExtendMap().put("sqrName", variables.get("sqrName").toString());
 		//add sp reason
 		zdryzb.setXt_zxyy("审批未通过");
 		ZdryZbUtil.setXtZxyy(zdrylbdx, "审批未通过");
