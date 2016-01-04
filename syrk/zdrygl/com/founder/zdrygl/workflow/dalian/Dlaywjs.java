@@ -78,7 +78,7 @@ public class Dlaywjs extends WorkflowDelegate{
 				taskOwner = workflowUtil.camZazdTaskOwner(wfParams.get("spgwL1_zazd_lv"),wfParams.get("spgwL1_zazd"));
 				HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 				SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
-				setVariable("sqrOrgId",sessionBean.getUserOrgId());
+				setVariable("sqrOrgId",sessionBean.getUserOrgCode());
 				setVariable("isSz",false);
 			} else {
 				taskOwner = workflowUtil.camSzTaskOwner(zdryZb, wfParams.get("spgwL1_sz_lv"), wfParams.get("spgwL1_sz"));
