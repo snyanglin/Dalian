@@ -3,21 +3,23 @@ package com.founder.zdrygl.core.decorator;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.founder.framework.message.bean.MessageDict;
-import com.founder.framework.message.service.JwzhMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.exception.BussinessException;
+import com.founder.framework.message.bean.MessageDict;
+import com.founder.framework.message.service.JwzhMessageService;
 import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.workflow.service.inteface.JProcessDefinitionService;
 import com.founder.zdrygl.base.model.ZdryZb;
+import com.founder.zdrygl.base.model.Zdrycx;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
+import com.founder.zdrygl.workflow.utils.ZdryZbUtil;
 
 /**
  * ****************************************************************************
@@ -44,7 +46,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
     
     @Autowired
 	private ZdryConstant zdryConstant;
-
+	
 	public ZdryServiceDecorator(ZdryService zdryService){
 		this.zdryService = zdryService;
 	}
@@ -76,7 +78,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	@Override
 	public final void lgFail(SessionBean sessionBean, ZOBean entity) {
 		zdryService.lgFail(sessionBean,entity);
-		lgFail_(sessionBean, entity.getZdrylbdx());
+		lgFail_(sessionBean, entity.getZdrycx());
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());
 		paraObj.put("result", "lgFail");
 		paraObj.put("zdryId", entity.getZdryzbId());
@@ -101,6 +103,11 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	@Override
 	public final void cgSuccess(SessionBean sessionBean , ZOBean entity) {
 		zdryService.cgSuccess(sessionBean,entity);
+		//注销原子表列管记录
+		Zdry subZdry = ZdryZbUtil.getZdrylbdx( (Zdrycx) entity.getZdrycx());
+		subZdry.setId(entity.getZdrycx().getId());
+		cgFail_(sessionBean, subZdry);
+		//发送消息
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());
 		paraObj.put("result", "cgSuccess");
 		paraObj.put("zdryId", entity.getZdryzbId());
@@ -263,6 +270,10 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	}
 	
 	private void sendMessage(String xxlx ,Map<String,Object> source ){
+		try{
 		jwzhMessageService.sendMessage(xxlx,source);
+		}catch(Exception e){
+			
+		}
 	}
 }

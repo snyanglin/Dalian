@@ -143,9 +143,23 @@
 	
 			}
 		$("#cdDiv").hide();
-		$("#spjg0").bind("click", function(event) { $("#cdDiv").hide();});
-		$("#spjg1").bind("click", function(event) { $("#cdDiv").hide();}); 
-		$("#spjg2").bind("click", function(event) { $("#cdDiv").show();});
+		$("#orgname").removeAttr("class");
+		$("#orgname").removeAttr("data-options");
+		$("#spjg0").bind("click", function(event) { 
+			$("#cdDiv").hide(); 
+			$("#orgname").removeAttr("class");
+			$("#orgname").removeAttr("data-options");
+			 });
+		$("#spjg1").bind("click", function(event) { 
+			$("#cdDiv").hide(); 
+			$("#orgname").removeAttr("class");
+			$("#orgname").removeAttr("data-options");
+			 }); 
+		$("#spjg2").bind("click", function(event) { 
+			$("#cdDiv").show(); 
+			$("#orgname").addClass("easyui-validatebox"); 
+			$("#orgname").attr("data-options", "required:true"); });
+		
 		
 		loadclearSelect();
 		$("#spjg1").bind("click", function(event) { 
@@ -174,7 +188,6 @@
 				onSubmit: function() {
 				},
 				success: function(result) {
-				//	alert("212");
 					doSubmitResult(result, null, null);
 					window.parent.refresh();
 					window.parent.$('#windowWithoutSave').dialog('close');
