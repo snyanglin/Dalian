@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
+import com.founder.framework.utils.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -354,7 +355,9 @@ public class ZdryZdryzbControl extends BaseController {
 				klgStrBuffer.append(temp.getZdrygllxdm());
 			}
 		}
-
+		if (resStrBuffer.length()==0||klgStrBuffer.length()==0){
+			return "";
+		}
 		return resStrBuffer.append("/").append(klgStrBuffer).toString();
 	}
 
@@ -482,7 +485,7 @@ public class ZdryZdryzbControl extends BaseController {
 						+ zdryConstant.getGlztStr(zb_old.getGlzt())
 						+ "】，不能办理其他业务");
 			}
-
+			zdryVO.setCglxdm(zb_old.getZdrygllxdm());//撤管类型代码
 			Zdrycx zdrycg = new Zdrycx();
 			BeanUtils.copyProperties(zb_old, zdrycg);
 
@@ -501,7 +504,9 @@ public class ZdryZdryzbControl extends BaseController {
 //			zdryService.setStartProcessInstance(spi.getProcessKey(), spi.getApplyUserId(), spi.getVariables());
 			ZOBean entity = new ZOBean(zb_new, zdryVO.getZdrylbdx());
 			entity.setZdrycx(zdrycg);
-			entity.setStartProcessInstance(spi);
+			if (!"07".equals(zb_old.getZdrygllxdm())){
+				entity.setStartProcessInstance(spi);//modify by zhoulijun 2015-12-31 纳入视线 撤管不用启动流程
+			}
 			zdryService.cg(sessionBean,entity);
 
 			model.put(AppConst.STATUS, AppConst.SUCCESS);

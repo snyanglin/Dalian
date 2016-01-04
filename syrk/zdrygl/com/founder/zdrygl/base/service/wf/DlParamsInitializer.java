@@ -102,11 +102,12 @@ public class DlParamsInitializer implements IfParamInitializer {
 
 	private void prepareCg(StartProcessInstance spi, SessionBean sessionBean, ZdryVO zdryVO, Map<String, Object> variables) {
 		String zdryxm = zdryVO.getZdryZdryzb().getXm();
+
 		ZdryZb zdryZdryzb = zdryVO.getZdryZdryzb();
-		String zdrylxmc = zdryConstant.getValueOfZdryDict(zdryZdryzb.getZdrygllxdm());
+		String zdrylxmc = zdryConstant.getValueOfZdryDict(zdryVO.getCglxdm());
 		
 
-		variables.put("zdrylx", zdryZdryzb.getZdrygllxdm());// 人员类型
+		variables.put("zdrylx", zdryVO.getCglxdm());// 人员类型
 		variables.put("zdryzb", zdryVO.getZdryZdryzb());
 		variables.put("zdrylbdx", zdryVO.getZdrylbdx());
 		
