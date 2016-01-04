@@ -619,7 +619,7 @@
 	<!-- 常控预警详情-->
     <select id="queryJbxx" parameterClass="ckyj" resultClass="ckyj">
         select *  from syrk_syrkxxzb a  
-		left join (select * from ZDRY_ZDRYZB_NEW c where c.xt_zhxgsj = (select max(d.xt_zhxgsj) from ZDRY_ZDRYZB_NEW d)) e on e.zjhm = a.zjhm
+		left join (select * from ZDRY_ZDRYZB c where c.xt_zhxgsj = (select max(d.xt_zhxgsj) from ZDRY_ZDRYZB d)) e on e.zjhm = a.zjhm
 		where  a.xt_zhxgsj = (select max(b.xt_zhxgsj) from syrk_syrkxxzb b)
 		 and  rownum = 1
 		      <isNotEmpty prepend="and" property="sfzh">
