@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import com.founder.framework.message.bean.MessageDict;
 import com.founder.framework.message.service.JwzhMessageService;
+import com.founder.zdrygl.base.message.MessageDictZdrygl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,8 +61,8 @@ public class ZdryPsjdbService extends BaseService {
 		paraObj.put("fsrOrgName", sessionBean.getUserOrgName());//发送人机构名
 		paraObj.put("fsrOrgCode", sessionBean.getUserOrgCode());//发送人机构代码
 		paraObj.put("zdryId", entity.getZdryid());//发送人机构代码
-		paraObj.put("nrjy",entity.getNrjy());//内容既要
-		jwzhMessageService.sendMessage("MESSAGE_ZDRYGL_JGDXPSJDTX",paraObj);
+		paraObj.put("nrjy",entity);
+		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.JGDXPSJDTX,paraObj);
 	}
 	
 	public void update(ZdryPsjdb entity, SessionBean sessionBean) {
