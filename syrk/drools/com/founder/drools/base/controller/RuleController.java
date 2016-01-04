@@ -98,7 +98,7 @@ public class RuleController extends BaseController {
 	 */
 	@RestfulAnnotation(valiField = "syrkId", serverId = "3")
 	@RequestMapping(value = "/getSyrkJzdZrq/{syrkId}", method = {RequestMethod.GET})
-	public @ResponseBody Object[][] getSyrkJzdZrq(@PathVariable String syrkId){
+	public @ResponseBody String[][] getSyrkJzdZrq(@PathVariable String syrkId){
 		SyrkSyrkxxzb syrkEntity=syrkSyrkxxzbService.queryById(syrkId);//根据实有人口ID查询当前的实有人口总表
 		if(syrkEntity==null)
 			return null;
@@ -119,7 +119,7 @@ public class RuleController extends BaseController {
 		}
 		
 		//处理返回的数组
-		Object[][] jsrAry=new Object[list.size()][4];
+		String[][] jsrAry=new String[list.size()][4];
 		for(int i=0;i<list.size();i++){
 			entity=list.get(i);
 			jsrAry[i][0]=entity.getGxzrqdm();//接收机构代码
