@@ -358,11 +358,11 @@ public class ZdryZdryzbControl extends BaseController {
             }
 
             resStrBuffer.append(resStrBuffer.length() > 0 ? "，" : "");// 中文符号，显示页面用
-            klgStrBuffer.append(klgStrBuffer.length() > 0 ? "," : "");// 英文符号，后续查询用
 
             resStrBuffer.append(orgName).append(zdryConstant.zdryDict().get(
                     temp.getZdrygllxdm()));
             if (isSameGlbm) {
+                klgStrBuffer.append(klgStrBuffer.length() > 0 ? "," : "");// 英文符号，后续查询用
                 klgStrBuffer.append(temp.getZdrygllxdm());//本辖区已列管类型
             }
         }
