@@ -78,10 +78,17 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	@Override
 	public final void lgFail(SessionBean sessionBean, ZOBean entity) {
 		zdryService.lgFail(sessionBean,entity);
-		lgFail_(sessionBean, entity.getZdrycx());
+		if(entity.getZdrycx()!=null){
+			lgFail_(sessionBean, entity.getZdrycx());
+		}
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());
 		paraObj.put("result", "lgFail");
 		paraObj.put("zdryId", entity.getZdryzbId());
+		paraObj.put("isJdbm", sessionBean.getExtendMap().get("isJdbm"));
+		paraObj.put("sqrOrgId", sessionBean.getExtendMap().get("sqrOrgId"));
+		//remove attributes from session map;
+		sessionBean.getExtendMap().remove("isJdbm");
+		sessionBean.getExtendMap().remove("sqrOrgId");
 		sendMessage(MessageDict.ZDRYGL.LGSPJG,paraObj);
 	}
 	
@@ -104,9 +111,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	public final void cgSuccess(SessionBean sessionBean , ZOBean entity) {
 		zdryService.cgSuccess(sessionBean,entity);
 		//注销原子表列管记录
-		Zdry subZdry = ZdryZbUtil.getZdrylbdx( (Zdrycx) entity.getZdrycx());
-		subZdry.setId(entity.getZdrycx().getId());
-		cgFail_(sessionBean, subZdry);
+		cgFail_(sessionBean, entity.getZdrylbdx());
 		//发送消息
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());
 		paraObj.put("result", "cgSuccess");
