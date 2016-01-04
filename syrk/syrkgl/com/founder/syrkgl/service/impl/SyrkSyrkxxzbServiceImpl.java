@@ -848,4 +848,17 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 		
 		return this.syrkSyrkxxzbDao.queryList(entity);
 	}
+
+	/***
+	 *
+	 * @Title: queryHsbSyrkidByZjhm
+	 * @Description: TODO(根据身份证和所属责任区查询实有人口ID)
+	 * @param @param zjhm
+	 * @param @param sessionBean    设定文件
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public List<SyrkSyrkxxzb> queryHsbSyrkidByZjhm(Map<String,String> map){
+		return syrkSyrkxxzbDao.queryForList("SyrkSyrkxxzb.querySyrkByZjhm", map);
+	}
 }
