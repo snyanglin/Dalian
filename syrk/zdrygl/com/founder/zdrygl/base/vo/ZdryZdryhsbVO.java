@@ -20,6 +20,7 @@ import com.founder.framework.annotation.FieldDesc;
 
 public class ZdryZdryhsbVO  implements Serializable {
 
+	private static final long serialVersionUID = 3904875445049446414L;
 	@FieldDesc("重点人员核实ID") private String id;
 	@FieldDesc("数据来源") private String sjly;
 	@FieldDesc("来源ID") private String lyid;

@@ -71,7 +71,7 @@ public class ZdryZdrykcxxbDao extends BaseDaoImpl {
 
 	/**
 	 * @Title: queryById
-	 * @Description: TODO(根据ID查询单条记录)
+	 * @Description: (根据ID查询单条记录)
 	 * @param @param id
 	 * @param @return 设定文件
 	 * @return ZdryZdrykcxxb 返回类型

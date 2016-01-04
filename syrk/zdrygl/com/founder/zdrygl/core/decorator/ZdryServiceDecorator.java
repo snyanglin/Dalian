@@ -3,17 +3,16 @@ package com.founder.zdrygl.core.decorator;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.founder.framework.message.bean.MessageDict;
-import com.founder.framework.message.service.JwzhMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.exception.BussinessException;
+import com.founder.framework.message.bean.MessageDict;
+import com.founder.framework.message.service.JwzhMessageService;
 import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.workflow.service.inteface.JProcessDefinitionService;
-import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
@@ -264,5 +263,18 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	
 	private void sendMessage(String xxlx ,Map<String,Object> source ){
 		jwzhMessageService.sendMessage(xxlx,source);
+	}
+	
+	private boolean startProcessInstance(ZOBean entity){
+		if(entity.getStartProcessInstance()!=null){
+			entity.setProcessInstanceBusinessKey(entity.getZdryzb().getId());
+			entity.getStartProcessInstance().getVariables().put("zdryId", entity.getZdryzbId());
+			entity.getStartProcessInstance().getVariables().put("zdryZb", entity.getZdryzb());
+			entity.getStartProcessInstance().getVariables().put("zdrycx", entity.getZdrycx());
+			entity.getStartProcessInstance().getVariables().put("zdrylbdx", entity.getZdrylbdx());
+			startProcessInstance(entity.getStartProcessInstance());
+			return true;
+		}
+		return false;
 	}
 }
