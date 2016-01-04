@@ -4,11 +4,17 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.util.WebUtils;
 
+import com.founder.framework.base.entity.SessionBean;
+import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
@@ -70,10 +76,13 @@ public class Dlaywjs extends WorkflowDelegate{
 					|| zdrygllxdm.equals("06")) {
 				variableKey = "zazd";
 				taskOwner = workflowUtil.camZazdTaskOwner(wfParams.get("spgwL1_zazd_lv"),wfParams.get("spgwL1_zazd"));
-				setLocalVariable("isSz",false);
+				HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+				SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
+				setVariable("sqrOrgId",sessionBean.getUserOrgId());
+				setVariable("isSz",false);
 			} else {
 				taskOwner = workflowUtil.camSzTaskOwner(zdryZb, wfParams.get("spgwL1_sz_lv"), wfParams.get("spgwL1_sz"));
-				setLocalVariable("isSz",true);
+				setVariable("isSz",true);
 			}
 			if(taskOwner == null){
 				throw new BaseWorkflowException("没有对应的组织或岗位。");
@@ -82,6 +91,7 @@ public class Dlaywjs extends WorkflowDelegate{
 			setLocalVariable("businessType", "1");
 			setLocalVariable("org", orgOrganization);
 			setLocalVariable("approvalMethod", "szApproval");
+
 
 		} catch (BussinessException aa) {
 			throw new BussinessException("未找到该重点人员户籍地址信息，请补充");// 抛出异常

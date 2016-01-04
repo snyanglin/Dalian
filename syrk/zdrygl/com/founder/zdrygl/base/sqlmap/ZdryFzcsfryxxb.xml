@@ -13,7 +13,7 @@
 	<select id="queryViewByMap" parameterClass="Map" resultClass="zdryFzcsfryxxb">
 		<![CDATA[ 
 			select  t.ID,t.XXSB,t.SFYY,t.JKBM,t.JKJBDM,t.SFRYLBDM,t.YJJSFSX,t.WJJSFSX,t.ZZYLDD,t.JFBM,t.JFBM,t.CFQK,  t1.ZDRYLB as BZ
-			from ZDRY_FZCSFRYXXB t, ZDRY_ZDRYZB_NEW t1 					
+			from ZDRY_FZCSFRYXXB t, ZDRY_ZDRYZB t1
 			where t.ID = #id#  and t.id=t1.id and t.XT_ZXBZ = '0' and t1.xt_zxbz='0'			
   		]]>
 	</select>

@@ -68,10 +68,17 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	@Override
 	public final void lgFail(SessionBean sessionBean, ZOBean entity) {
 		zdryService.lgFail(sessionBean,entity);
-		lgFail_(sessionBean, entity.getZdrycx());
+		if(entity.getZdrycx()!=null){
+			lgFail_(sessionBean, entity.getZdrycx());
+		}
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());
 		paraObj.put("result", "lgFail");
 		paraObj.put("zdryId", entity.getZdryzbId());
+		paraObj.put("isJdbm", sessionBean.getExtendMap().get("isJdbm"));
+		paraObj.put("sqrOrgId", sessionBean.getExtendMap().get("sqrOrgId"));
+		//remove attributes from session map;
+		sessionBean.getExtendMap().remove("isJdbm");
+		sessionBean.getExtendMap().remove("sqrOrgId");
 		sendMessage(MessageDict.ZDRYGL.LGSPJG,paraObj);
 	}
 	
