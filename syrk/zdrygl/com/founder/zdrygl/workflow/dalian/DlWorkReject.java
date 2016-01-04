@@ -55,22 +55,21 @@ public class DlWorkReject extends WorkflowDelegate {
 		entity.setZdrycx(zdrycx);
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
-		
 		String sqlxdm=(String) variables.get("sqlxdm");//申请类型
-		/*String zdryId=(String) arg0.getVariable("zdryId");
-		String zdryxm=(String) arg0.getVariable("xm");
-		String ywsqrId=(String) arg0.getVariable("applyUserId");
-		String cghZdryId=(String) arg0.getVariable("cghZdryId");
-		String spyj=(String) arg0.getVariable("spyj");
-		String spr=sessionBean.getUserId();
-		String spbm=sessionBean.getUserOrgCode();*/
-
 		//add sp reason
 		zdryzb.setXt_zxyy("审批未通过");
 		ZdryZbUtil.setXtZxyy(zdrylbdx, "审批未通过");
 		if(sqlxdm.equals("01")){//列管
+			Boolean isSzObj 	= (Boolean) variables.get("isSz");
+			
+			String isJdbm 	= (isSzObj==true?new Boolean(false):new Boolean(true)).toString();
+			sessionBean.getExtendMap().put("isJdbm", isJdbm);
+			sessionBean.getExtendMap().put("sqrOrgId", variables.get("sqrOrgId").toString());
 			zdryService.lgFail(sessionBean,entity);
 		}else if(sqlxdm.equals("02")){//撤管
+			Zdry subZdry = ZdryZbUtil.getZdrylbdx( (Zdrycx) entity.getZdrycx());
+			subZdry.setId(entity.getZdrycx().getId());
+			entity.setZdrylbdx(subZdry);
 			zdryService.cgFail(sessionBean,entity);
 		}else if(sqlxdm.equals("04")){//请假
 		}
