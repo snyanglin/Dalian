@@ -41,7 +41,7 @@
 					data-options="url: contextPath +'/common/dict/BD_D_ZDRYGLLX.js',dataFilter:'${kcgStr }',  
 					valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'right',onChange:zdrylxChange"/>
 
-	    			<input type="text" name="zdryZdryzb.zdrylb" id="zdrylbStr"  class="easyui-combotree" style="width:420px;"
+	    			<input type="text" name="zdryZdryzb.zdrylb" id="zdrylbStr"  class="easyui-combotree" style="width:357px;"
 	    			data-options="onlyLeaf:true,valueField:'id',textField:'text',
 	    			multiple:false,required:false,panelWidth:400,method:'get',lines:true,tipPosition:'left'" >
 	    			<!-- <A href="#" onclick="viewWorkflowDialog();">查看流程图</a> --> 	    			

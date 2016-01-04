@@ -53,7 +53,7 @@ public class JgdxqjSuccess extends WorkflowDelegate{
 					.getRequestAttributes()).getRequest();
 			SessionBean sessionBean = (SessionBean) WebUtils.getSessionAttribute(
 					request, AppConst.USER_SESSION);
-			entity.setSpjg("1");//不同意，不准假
+			entity.setSpjg("1");//同意，准假
 			entity.setSpyj(spyj);
 			ZdryJgdxqxjdjbService.updateSp(entity, sessionBean);
 			//send message

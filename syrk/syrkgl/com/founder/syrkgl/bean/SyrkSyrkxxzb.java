@@ -86,6 +86,8 @@ public class SyrkSyrkxxzb extends BaseEntity implements Serializable {
 	//地图图层ID
 	private int drawSrid;
 	
+	@FieldDesc("备注") private String bz;
+	
 	public String getDrawRadius() {
 		return drawRadius;
 	}
@@ -325,5 +327,15 @@ public class SyrkSyrkxxzb extends BaseEntity implements Serializable {
 	public void setGxzrqdm(String gxzrqdm) {
 		this.gxzrqdm = gxzrqdm;
 	}
+
+	public String getBz() {
+		return bz;
+	}
+
+	public void setBz(String bz) {
+		this.bz = bz;
+	}
+	
+	
 
 }
