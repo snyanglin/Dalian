@@ -275,10 +275,6 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	}
 	
 	private void sendMessage(String xxlx ,Map<String,Object> source ){
-		try{
 		jwzhMessageService.sendMessage(xxlx,source);
-		}catch(Exception e){
-			
-		}
 	}
 }
