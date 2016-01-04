@@ -12,6 +12,7 @@ import com.founder.syrkgl.bean.RyRyjbxxb;
 import com.founder.syrkgl.bean.SyrkSyrkxxzb;
 import com.founder.syrkgl.dao.SyrkSyrkxxzbDao;
 import com.founder.syrkgl.service.RyRyjbxxbService;
+import com.founder.syrkgl.service.SyrkSyrkxxzbService;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.base.vo.ZdryVO;
@@ -74,6 +75,8 @@ public class ZdryhsbController extends BaseController{
 	@Autowired
 	public ZdryAbstractFactory zdryFactory;
 
+	@Resource
+	private SyrkSyrkxxzbService syrkSyrkxxzbService;
 
 
 
@@ -97,7 +100,10 @@ public class ZdryhsbController extends BaseController{
 		if ("".equals(entity.getZjhm())){
 			entity.setZjhm(null);
 		}
-		if (null==entity.getHszt()){
+		if ("".equals(entity.getXfbmdm())){
+			entity.setXfbmdm(null);
+		}
+		if ("".equals(entity.getHszt())|| StringUtils.isBlank(entity.getHszt())){
 			entity.setHszt("0,3");
 		}
 		EasyUIPage easyUIPage = zdryZdryhsbService.queryList(page, entity);
@@ -109,7 +115,7 @@ public class ZdryhsbController extends BaseController{
 			HashMap map = new HashMap();
 			map.put("zjhm", zdryHsb.getZjhm());
 			map.put("gxzrqdm", sessionBean.getUserOrgCode());
-			List list = this.syrkSyrkxxzbDao.queryHsbSyrkidByZjhm(map);
+			List list =syrkSyrkxxzbService.queryHsbSyrkidByZjhm(map);
 
 			if(list.size() > 0) {
 				quertEntity = (SyrkSyrkxxzb)list.get(0);

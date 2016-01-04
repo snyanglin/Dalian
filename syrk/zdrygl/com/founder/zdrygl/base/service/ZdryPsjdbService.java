@@ -2,6 +2,8 @@ package com.founder.zdrygl.base.service;
 
 import javax.annotation.Resource;
 
+import com.founder.framework.message.bean.MessageDict;
+import com.founder.framework.message.service.JwzhMessageService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +12,9 @@ import com.founder.framework.base.service.BaseService;
 import com.founder.framework.utils.UUID;
 import com.founder.zdrygl.base.dao.ZdryPsjdbDao;
 import com.founder.zdrygl.base.model.ZdryPsjdb;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ****************************************************************************
@@ -29,6 +34,8 @@ public class ZdryPsjdbService extends BaseService {
 
 	@Resource(name = "zdryPsjdbDao")
 	private ZdryPsjdbDao zdryPsjdbDao;
+	@Resource
+	private JwzhMessageService jwzhMessageService;
 
 	/**
 	 * @Title: queryById
@@ -47,6 +54,14 @@ public class ZdryPsjdbService extends BaseService {
 		BaseService.setSaveProperties(entity, sessionBean);
 		zdryPsjdbDao.save(entity, sessionBean);
 		//sendMessage(entity, sessionBean);
+		Map paraObj=new HashMap();
+		paraObj.put("fsrName", sessionBean.getUserName());//发送人姓名
+		paraObj.put("fsrUserCode", sessionBean.getUserId());//发送人代码
+		paraObj.put("fsrOrgName", sessionBean.getUserOrgName());//发送人机构名
+		paraObj.put("fsrOrgCode", sessionBean.getUserOrgCode());//发送人机构代码
+		paraObj.put("zdryId", entity.getZdryid());//发送人机构代码
+		paraObj.put("nrjy",entity.getNrjy());//内容既要
+		jwzhMessageService.sendMessage("MESSAGE_ZDRYGL_JGDXPSJDTX",paraObj);
 	}
 	
 	public void update(ZdryPsjdb entity, SessionBean sessionBean) {

@@ -1,6 +1,7 @@
 package com.founder.syrkgl.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.founder.framework.annotation.MethodAnnotation;
 import com.founder.framework.annotation.TypeAnnotation;
@@ -197,5 +198,16 @@ public interface SyrkSyrkxxzbService {
 	 * @throws
 	 */
 	public void synchronizeSyrkxxzb(SyrkWlhryxxb entity);
+
+	/***
+	 *
+	 * @Title: queryHsbSyrkidByZjhm
+	 * @Description: TODO(根据身份证和所属责任区查询实有人口ID)
+	 * @param @param zjhm
+	 * @param @param sessionBean    设定文件
+	 * @return void    返回类型
+	 * @throws
+	 */
+	public List<SyrkSyrkxxzb> queryHsbSyrkidByZjhm(Map<String,String> map);
 
 }

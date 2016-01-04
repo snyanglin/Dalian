@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.founder.framework.annotation.MethodAnnotation;
@@ -173,6 +175,7 @@ public class ZdryzbService implements ZdryService {
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRES_NEW, rollbackFor=Exception.class)   
 	public void zdSuccess(SessionBean sessionBean, ZOBean entity) {
 		
 		//先把管辖部门和管理部门设置相同，如果是双列管，再设置为户籍地管理部门

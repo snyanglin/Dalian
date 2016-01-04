@@ -43,7 +43,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
     
     @Autowired
 	private ZdryConstant zdryConstant;
-
+	
 	public ZdryServiceDecorator(ZdryService zdryService){
 		this.zdryService = zdryService;
 	}
@@ -53,14 +53,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		zdryService.lg(sessionBean, entity);
 		setZdrylbdxId(entity);
 		lg_(sessionBean,entity.getZdrylbdx());
-		if(entity.getStartProcessInstance()!=null && entity.getStartProcessInstance().isHasWorkflow()){
-			entity.setProcessInstanceBusinessKey(entity.getZdryzb().getId());
-			entity.getStartProcessInstance().getVariables().put("zdryId", entity.getZdryzbId());
-			entity.getStartProcessInstance().getVariables().put("zdryZb", entity.getZdryzb());
-			entity.getStartProcessInstance().getVariables().put("zdrycx", entity.getZdrycx());
-			entity.getStartProcessInstance().getVariables().put("zdrylbdx", entity.getZdrylbdx());
-			startProcessInstance(entity.getStartProcessInstance());
-		}
+		startProcessInstance(entity);
 	}
 
 	@Override
@@ -75,7 +68,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	@Override
 	public final void lgFail(SessionBean sessionBean, ZOBean entity) {
 		zdryService.lgFail(sessionBean,entity);
-		lgFail_(sessionBean, entity.getZdrylbdx());
+		lgFail_(sessionBean, entity.getZdrycx());
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());
 		paraObj.put("result", "lgFail");
 		paraObj.put("zdryId", entity.getZdryzbId());
@@ -87,19 +80,15 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		zdryService.cg(sessionBean, entity);
 		setZdrylbdxId(entity);
 		cg_(sessionBean,entity.getZdrylbdx());
-		if(entity.getStartProcessInstance()!=null  && entity.getStartProcessInstance().isHasWorkflow()){
-			entity.setProcessInstanceBusinessKey(entity.getZdryzb().getId());
-			entity.getStartProcessInstance().getVariables().put("zdryId", entity.getZdryzbId());
-			entity.getStartProcessInstance().getVariables().put("zdryZb", entity.getZdryzb());
-			entity.getStartProcessInstance().getVariables().put("zdrycx", entity.getZdrycx());
-			entity.getStartProcessInstance().getVariables().put("zdrylbdx", entity.getZdrylbdx());
-			startProcessInstance(entity.getStartProcessInstance());
-		}
+		startProcessInstance(entity);
 	}
 	
 	@Override
 	public final void cgSuccess(SessionBean sessionBean , ZOBean entity) {
 		zdryService.cgSuccess(sessionBean,entity);
+		//注销原子表列管记录
+		cgFail_(sessionBean, entity.getZdrylbdx());
+		//发送消息
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());
 		paraObj.put("result", "cgSuccess");
 		paraObj.put("zdryId", entity.getZdryzbId());
@@ -144,14 +133,7 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		zdryService.zd(sessionBean,entity);//新加，改变状态
 		setZdrylbdxId(entity);
 		zd_(sessionBean,entity.getZdrylbdx());
-		if(entity.getStartProcessInstance()!=null){
-			entity.setProcessInstanceBusinessKey(entity.getZdryzb().getId());
-			entity.getStartProcessInstance().getVariables().put("zdryId", entity.getZdryzbId());
-			entity.getStartProcessInstance().getVariables().put("zdryZb", entity.getZdryzb());
-			entity.getStartProcessInstance().getVariables().put("zdrycx", entity.getZdrycx());
-			entity.getStartProcessInstance().getVariables().put("zdrylbdx", entity.getZdrylbdx());
-			startProcessInstance(entity.getStartProcessInstance());
-		}
+		startProcessInstance(entity);
 	}
 
 	@Override
@@ -262,11 +244,15 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 	}
 	
 	private void sendMessage(String xxlx ,Map<String,Object> source ){
+		try{
 		jwzhMessageService.sendMessage(xxlx,source);
+		}catch(Exception e){
+			
+		}
 	}
 	
 	private boolean startProcessInstance(ZOBean entity){
-		if(entity.getStartProcessInstance()!=null){
+		if(entity.getStartProcessInstance()!=null && entity.getStartProcessInstance().isHasWorkflow()){
 			entity.setProcessInstanceBusinessKey(entity.getZdryzb().getId());
 			entity.getStartProcessInstance().getVariables().put("zdryId", entity.getZdryzbId());
 			entity.getStartProcessInstance().getVariables().put("zdryZb", entity.getZdryzb());
@@ -277,4 +263,6 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		}
 		return false;
 	}
+	
+	
 }

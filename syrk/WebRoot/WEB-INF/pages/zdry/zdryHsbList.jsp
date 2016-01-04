@@ -92,7 +92,7 @@
         var zjhm = row.zjhm;
         var xfbm = row.xfbmdm;
         var hszt = row.hszt;
-        if(hszt!="0"){
+        if(hszt!="0" && hszt!="3"){
             return;
         }
         var hsButton = '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="syrkAdd(\'' + row['zjhm'] + '\')">新增实有人口</a>&nbsp;';
@@ -150,6 +150,9 @@
         }
         if(xm==""){
             xm=null;
+        }
+        if(hszt=="0"){
+            hszt=null;
         }
         $('#dg').datagrid('reload', {
             'zjhm': zjhm,

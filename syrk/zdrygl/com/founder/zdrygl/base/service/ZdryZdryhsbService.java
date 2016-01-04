@@ -256,14 +256,7 @@ public class ZdryZdryhsbService {
         zdryService.lg(sessionBean, entity);
         zdryZdryzb.setGlzt("2");
         zdryZdryZbDao.update(zdryZdryzb);
-
-        Map returnMap = null;
-        try {
-            returnMap = saveLczywb(zdryZdryzb, sessionBean);
-        } catch (BussinessException e) {
-            e.printStackTrace();
-        }
-        return returnMap;
+        return saveLczywb(zdryZdryzb, sessionBean);
     }
 
 
@@ -287,9 +280,10 @@ public class ZdryZdryhsbService {
         paraObj.put("zdryName", zdryZdyzb.getXm());
         paraObj.put("zdryGllxdm", zdryZdyzb.getZdrygllxdm());
         paraObj.put("zdrylxName", zdryConstant.getValueOfZdryDict(zdryZdyzb.getZdrygllxdm()));
-        String  jsr = getSzIdBy(sessionBean.getUserOrgCode());
-        if (!StringUtils.isBlank(jsr)){
-            jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDRYHS, paraObj,MessageDict.JSLX_TO_USER,jsr);
+        String jsr = getSzIdBy(sessionBean.getUserOrgCode());
+        if (!StringUtils.isBlank(jsr)) {
+            logger.debug("准备发送消息");
+            jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDRYHS, paraObj, MessageDict.JSLX_TO_USER, jsr);
         }
         returnMap.put("zdryZbId", zdryZdyzb.getId());
         return returnMap;
@@ -340,16 +334,13 @@ public class ZdryZdryhsbService {
             jsr = getSzIdBy(sessionBean.getUserOrgCode());
         }
         if (!StringUtils.isBlank(jsr)) {
-            try {
-                jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDHSSPSQ, paraObj, MessageDict.JSLX_TO_USER, jsr);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDHSSPSQ, paraObj, MessageDict.JSLX_TO_USER, jsr);
         }
     }
 
     /**
      * 保存审批结果
+     *
      * @param spjg
      * @param spyj
      * @param zdryHsbId
@@ -376,19 +367,14 @@ public class ZdryZdryhsbService {
         paraObj.put("zdrylxName", zdryConstant.getValueOfZdryDict(StringUtils.isBlank(zdryHsb.getZdrygllxdm()) ? "01" : zdryHsb.getZdrygllxdm()));
         paraObj.put("suggestion", spyj);
         paraObj.put("jslx", "0");
-
-        try {
-            jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDHSSPJG, paraObj, MessageDict.JSLX_TO_USER, zdryHsb.getXt_zhxgrid());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDHSSPJG, paraObj, MessageDict.JSLX_TO_USER, zdryHsb.getXt_zhxgrid());
         BaseService.setUpdateProperties(zdryHsb, sessionBean);
         zdryZdryhsbDao.update(zdryHsb);
     }
 
     /**
      * 核实转递
+     *
      * @param entity
      * @param sessionBean
      */
@@ -411,16 +397,13 @@ public class ZdryZdryhsbService {
         jsdx.put("jrsOrgCode", entity.getSspcs());
         jsdx.put("inculdeSubOrg", false);
         jsdx.put("noRepeatUser", false);
-        try {
-            jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDRYDHS,paraObj,MessageDict.JSLX_TO_ORG,jsdx);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDRYDHS, paraObj, MessageDict.JSLX_TO_ORG, jsdx);
 
     }
 
     /**
      * 获取 所长id
+     *
      * @param orgCode
      * @return
      */
@@ -438,11 +421,12 @@ public class ZdryZdryhsbService {
 
     /**
      * 获取治安支队大队长ID
+     *
      * @return
      */
     public String getZazdCodeBy() {
         String orgName = "治安管理支队派出所工作大队";
-        String systemXzqh = com.founder.ldym.util.SystemConfig.getString("systemXzqh") == null ? "210000" : com.founder.ldym.util.SystemConfig.getString("systemXzqh");
+        String systemXzqh = com.founder.ldym.util.SystemConfig.getString("systemXzqh");
         List<OrgOrganization> orgLst = orgOrganizationService.queryList(orgName, "30", systemXzqh);
         List<OrgUserInfo> list;
         if (orgLst.size() > 0 && orgLst.size() == 1) {
