@@ -61,10 +61,12 @@ public class DlWorkReject extends WorkflowDelegate {
 		ZdryZbUtil.setXtZxyy(zdrylbdx, "审批未通过");
 		if(sqlxdm.equals("01")){//列管
 			Boolean isSzObj 	= (Boolean) variables.get("isSz");
-			
 			String isJdbm 	= (isSzObj==true?new Boolean(false):new Boolean(true)).toString();
 			sessionBean.getExtendMap().put("isJdbm", isJdbm);
-			sessionBean.getExtendMap().put("sqrOrgId", variables.get("sqrOrgId").toString());
+			Object orgCodeObj = variables.get("sqrOrgId");
+			if(orgCodeObj != null){
+				sessionBean.getExtendMap().put("sqrOrgId", orgCodeObj.toString());
+			}
 			zdryService.lgFail(sessionBean,entity);
 		}else if(sqlxdm.equals("02")){//撤管
 			Zdry subZdry = ZdryZbUtil.getZdrylbdx( (Zdrycx) entity.getZdrycx());
