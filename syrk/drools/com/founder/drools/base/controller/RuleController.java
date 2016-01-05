@@ -150,6 +150,22 @@ public class RuleController extends BaseController {
 		return syrkEntity;		
 	}
 	
+	/**
+	 * 
+	 * @Title: getDictCt
+	 * @Description: TODO(根据字典编号和代码获取字典)
+	 * @param @param zdbh 字典编号
+	 * @param @param dm 代码
+	 * @param @return    设定文件
+	 * @return String    返回类型
+	 * @throw
+	 */
+	@RestfulAnnotation(valiField = "zdbh,dm", serverId = "3")
+	@RequestMapping(value = "/getDictCt", method = {RequestMethod.GET})
+	public @ResponseBody String getDictCt(String zdbh, String dm){
+		return sysDictService.getDictCt(zdbh, dm);
+	}
+	
 	private String getOrgName(String orgCode){
 		try{
 			OrgOrganization org=orgOrganizationService.queryByOrgcode(orgCode);
