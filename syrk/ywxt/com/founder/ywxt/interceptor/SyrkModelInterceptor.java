@@ -397,39 +397,39 @@ public class SyrkModelInterceptor {
 		Method lxdhMethod = lxdhP.getReadMethod();
 		String lxdh = (String) lxdhMethod.invoke(obj);
 		//查询5大人口对象联系方式为这个电话并且证件号码不相同的数据
-		List<SyrkCzrkxxb> czrkList =syrkCzrkxxbDao.queryRyByLxdh(lxdh,ryid);
-		List<SyrkJwryxxb> JwryList =syrkJwryxxbDao.queryRyByLxdh(lxdh,ryid);
-		List<SyrkJzrkxxb> JzrkList =syrkJzrkxxbDao.queryRyByLxdh(lxdh,ryid);
-		List<SyrkLdrkxxb> LdrkList =syrkLdrkxxbDao.queryRyByLxdh(lxdh,ryid);
-		List<SyrkWlhryxxb> WlhryList =syrkWlhryxxbDao.queryRyByLxdh(lxdh,ryid);
+		List<SyrkCzrkxxb> czrkList =syrkCzrkxxbDao.queryRyByLxdh(lxdh);
+		List<SyrkJwryxxb> JwryList =syrkJwryxxbDao.queryRyByLxdh(lxdh);
+		List<SyrkJzrkxxb> JzrkList =syrkJzrkxxbDao.queryRyByLxdh(lxdh);
+		List<SyrkLdrkxxb> LdrkList =syrkLdrkxxbDao.queryRyByLxdh(lxdh);
+		List<SyrkWlhryxxb> WlhryList =syrkWlhryxxbDao.queryRyByLxdh(lxdh);
 		//这里判断重复的，由于5类人内身份证字段有2个为gmsfzhm有3个为zjhm无法统一，只有单位做判断，这里逻辑重复度
 		for (int i = 0; i < czrkList.size(); i++) {
 			SyrkCzrkxxb syrkCzrkxxb =czrkList.get(i);
-			if(!zjhm.equals(syrkCzrkxxb.getGmsfhm())){
+			if(!zjhm.equals(syrkCzrkxxb.getGmsfhm())&& !ryid.equals(syrkCzrkxxb.getRyid())){
 				xtByCzrk(obj, syrkCzrkxxb, xtFactory.RYLXDH);
 			}
 		}
 		for (int i = 0; i < JwryList.size(); i++) {
 			SyrkJwryxxb syrkJwryxxb =JwryList.get(i);
-			if(!zjhm.equals(syrkJwryxxb.getZjhm())){
+			if(!zjhm.equals(syrkJwryxxb.getZjhm())&& !ryid.equals(syrkJwryxxb.getRyid())){
 				xtByJwry(obj, syrkJwryxxb, xtFactory.RYLXDH);
 			}
 		}
 		for (int i = 0; i < JzrkList.size(); i++) {
 			SyrkJzrkxxb syrkJzrkxxb =JzrkList.get(i);
-			if(!zjhm.equals(syrkJzrkxxb.getGmsfhm())){
+			if(!zjhm.equals(syrkJzrkxxb.getGmsfhm())&& !ryid.equals(syrkJzrkxxb.getRyid())){
 				xtByJzrk(obj, syrkJzrkxxb, xtFactory.RYLXDH);
 			}
 		}
 		for (int i = 0; i < LdrkList.size(); i++) {
 			SyrkLdrkxxb syrkLdrkxxb =LdrkList.get(i);
-			if(!zjhm.equals(syrkLdrkxxb.getZjhm())){
+			if(!zjhm.equals(syrkLdrkxxb.getZjhm())&& !ryid.equals(syrkLdrkxxb.getRyid())){
 				xtByLdrk(obj, syrkLdrkxxb, xtFactory.RYLXDH);
 			}
 		}
 		for (int i = 0; i < WlhryList.size(); i++) {
 			SyrkWlhryxxb syrkWlhryxxb =WlhryList.get(i);
-			if(!zjhm.equals(syrkWlhryxxb.getZjhm())){
+			if(!zjhm.equals(syrkWlhryxxb.getZjhm())&& !ryid.equals(syrkWlhryxxb.getRyid())){
 				xtByWlhry(obj, syrkWlhryxxb, xtFactory.RYLXDH);
 			}
 		}
@@ -540,6 +540,7 @@ public class SyrkModelInterceptor {
 			fqMap.put("xm", (String)new PropertyDescriptor("wwm", obj.getClass()).getReadMethod().invoke(obj));
 		}
 		fqMap.put("lxdh", syrkWlhryxxb.getLxdh());
+		fqMap.put("ryid", (String)new PropertyDescriptor("ryid", obj.getClass()).getReadMethod().invoke(obj));
 		Ywxtcyryxxb ywxtcyryxxb=new Ywxtcyryxxb();
 		ywxtcyryxxb.setCyrid((String)new PropertyDescriptor("xt_lrrid", obj.getClass()).getReadMethod().invoke(obj));
 		ywxtcyryxxb.setCyrxm((String)new PropertyDescriptor("xt_lrrxm", obj.getClass()).getReadMethod().invoke(obj));
@@ -611,6 +612,7 @@ public class SyrkModelInterceptor {
 			fqMap.put("xm", (String)new PropertyDescriptor("wwm", obj.getClass()).getReadMethod().invoke(obj));
 		}
 		fqMap.put("lxdh", syrkLdrkxxb.getLxdh());
+		fqMap.put("ryid", (String)new PropertyDescriptor("ryid", obj.getClass()).getReadMethod().invoke(obj));
 		Ywxtcyryxxb ywxtcyryxxb=new Ywxtcyryxxb();
 		ywxtcyryxxb.setCyrid((String)new PropertyDescriptor("xt_lrrid", obj.getClass()).getReadMethod().invoke(obj));
 		ywxtcyryxxb.setCyrxm((String)new PropertyDescriptor("xt_lrrxm", obj.getClass()).getReadMethod().invoke(obj));
@@ -684,6 +686,7 @@ public class SyrkModelInterceptor {
 			fqMap.put("xm", (String)new PropertyDescriptor("wwm", obj.getClass()).getReadMethod().invoke(obj));
 		}
 		fqMap.put("lxdh", syrkjzrkxxb.getLxdh());
+		fqMap.put("ryid", (String)new PropertyDescriptor("ryid", obj.getClass()).getReadMethod().invoke(obj));
 		Ywxtcyryxxb ywxtcyryxxb=new Ywxtcyryxxb();
 		ywxtcyryxxb.setCyrid((String)new PropertyDescriptor("xt_lrrid", obj.getClass()).getReadMethod().invoke(obj));
 		ywxtcyryxxb.setCyrxm((String)new PropertyDescriptor("xt_lrrxm", obj.getClass()).getReadMethod().invoke(obj));
@@ -756,6 +759,7 @@ public class SyrkModelInterceptor {
 			fqMap.put("xm", (String)new PropertyDescriptor("wwm", obj.getClass()).getReadMethod().invoke(obj));
 		}
 		fqMap.put("lxdh", syrkJwryxxb.getLxdh());
+		fqMap.put("ryid", (String)new PropertyDescriptor("ryid", obj.getClass()).getReadMethod().invoke(obj));
 		Ywxtcyryxxb ywxtcyryxxb=new Ywxtcyryxxb();
 		ywxtcyryxxb.setCyrid((String)new PropertyDescriptor("xt_lrrid", obj.getClass()).getReadMethod().invoke(obj));
 		ywxtcyryxxb.setCyrxm((String)new PropertyDescriptor("xt_lrrxm", obj.getClass()).getReadMethod().invoke(obj));
@@ -827,6 +831,7 @@ public class SyrkModelInterceptor {
 		fqMap.put("id", (String)new PropertyDescriptor("id", obj.getClass()).getReadMethod().invoke(obj));
 		fqMap.put("xm",  (String)new PropertyDescriptor("xm", obj.getClass()).getReadMethod().invoke(obj));
 		fqMap.put("lxdh", syrkCzrkxxb.getLxdh());
+		fqMap.put("ryid", (String)new PropertyDescriptor("ryid", obj.getClass()).getReadMethod().invoke(obj));
 		Ywxtcyryxxb ywxtcyryxxb=new Ywxtcyryxxb();
 		ywxtcyryxxb.setCyrid((String)new PropertyDescriptor("xt_lrrid", obj.getClass()).getReadMethod().invoke(obj));
 		ywxtcyryxxb.setCyrxm((String)new PropertyDescriptor("xt_lrrxm", obj.getClass()).getReadMethod().invoke(obj));
