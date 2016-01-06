@@ -72,10 +72,9 @@ public class SyrkCzrkxxbDao extends BaseDaoImpl {
 	 * @return List<SyrkCzrkxxb>    返回类型
 	 * @throws
 	 */
-	public List<SyrkCzrkxxb> queryRyByLxdh(String lxdh,String ryid){
+	public List<SyrkCzrkxxb> queryRyByLxdh(String lxdh){
 		Map<String,String> map =new  HashMap<String,String>();
 		map.put("lxdh", lxdh);
-		map.put("ryid", ryid);
 		return queryForList("SyrkCzrkxxb.queryByLxdh", map);
 	}
 }

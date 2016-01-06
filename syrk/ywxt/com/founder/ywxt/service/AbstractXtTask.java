@@ -109,6 +109,16 @@ public abstract class AbstractXtTask implements XtTaskService {
 			jsCyr.setCyrxm(sessionBean.getUserName());
 		}
 		
+		//维护接收方信息，判断条件：（不是领导裁定） 且 （当前登录人不是发起人） 且 （接收人信息为空）
+		if(sessionBean != null && approvalLevel<APPROVALLEVEL && !fqCyr.getCyrid().equals(sessionBean.getUserId()) && StringUtils.isBlank(jsCyr.getCyrid()) ){
+			//有些情况下，参与人员可能为空
+			//如：实有人口注销协同
+			//因为发协同的时候，不知道谁能接收协同任务
+			//所以，如果发现参与人为空的情况，人工补充一下
+			jsCyr.setCyrid(sessionBean.getUserId());
+			jsCyr.setCyrxm(sessionBean.getUserName());
+		}
+		
 		if ("0".equals(xtjg)&&approvalLevel<APPROVALLEVEL) {//如果当前等级小于配置等级,找寻共同上级,进行裁定
 			sysmessage=sysMessageDao.query(sysmessage);
 			String url="/ywxt/creatRyxt?xtId="+(String)map.get("xtId")+"&approvalLevel="+(approvalLevel+1)+"&xtType="+xtType;

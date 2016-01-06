@@ -18,7 +18,7 @@
 	
 	<!-- 根据联系电话查询业务数据 -->
 	<select id="queryByLxdh" parameterClass="Map" resultClass="syrkLdrkxxb">
-		<![CDATA[ select * from SYRK_LDRKXXB t where LXDH = #lxdh# and XT_ZXBZ = '0' and ryid<>#ryid#  ]]>
+		<![CDATA[ select * from SYRK_LDRKXXB t where LXDH = #lxdh# and XT_ZXBZ = '0' ]]>
 	</select>
 	<!-- 新增 -->
 	<insert id="save" parameterClass="syrkLdrkxxb">
