@@ -15,8 +15,7 @@ import org.springframework.web.util.WebUtils;
 
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.components.AppConst;
-import com.founder.framework.message.bean.MessageDict;
-import com.founder.framework.message.service.impl.JwzhMessageServiceImpl;
+import com.founder.framework.message.service.JwzhMessageService;
 import com.founder.workflow.bean.BaseWorkFlowBean;
 import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
 import com.founder.zdrygl.base.model.ZdryJgdxqxjdjb;
@@ -37,8 +36,10 @@ import com.founder.zdrygl.workflow.utils.WorkflowUtil;
  */
 @Component
 public class JgdxqjFail extends WorkflowDelegate {
-    @Autowired
-    private JwzhMessageServiceImpl jwzhMessageService;
+    
+	@Autowired
+    private JwzhMessageService jwzhMessageService;
+    
     @Resource(name="workflowUtil")
     private WorkflowUtil workflowUtil;
     
@@ -49,7 +50,7 @@ public class JgdxqjFail extends WorkflowDelegate {
 	public void doBusiness(BaseWorkFlowBean arg0) {
 		Map<String,Object> variables = arg0.getProcessVariables();
 		String spyj=(String) variables.get("spyj");
-		String zdrylx = (String) variables.get("zdrylx");
+//		String zdrylx = (String) variables.get("zdrylx");
 		ZdryZb zdryzb = (ZdryZb) variables.get("zdryZb");
 		ZdryJgdxqxjdjb entity = (ZdryJgdxqxjdjb) variables.get("jgdx");
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
