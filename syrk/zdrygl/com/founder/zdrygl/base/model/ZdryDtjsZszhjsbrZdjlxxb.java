@@ -7,61 +7,52 @@ import com.founder.framework.base.entity.BaseEntity;
 
 /**
  * ****************************************************************************
- * @Package:      [com.founder.qbld.bean.Shgxrb.java]  
- * @ClassName:    [Zdjlb]   
+ * @Package:      [com.founder.zdrygl.bean.ZdryDtjsZszhjsbrZdjlxxb.java]  
+ * @ClassName:    [ZdryDtjsZszhjsbrZdjlxxb]   
  * @Description:  [诊断信息表]   
- * @Author:       [yu_sun@founder.com.cn]  
- * @CreateDate:   [2015-6-4 上午10:11:58]   
+ * @Author:       [cong_rihong@founder.com.cn]  
+ * @CreateDate:   [2015-12-15 上午10:11:58]   
  * @UpdateUser:   [founder(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateDate:   [2015-6-4 上午10:11:58，(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015-12-15 上午10:11:58，(如多次修改保留历史记录，增加修改记录)]   
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
-@DBInfoAnnotation(tableName = "QBLD_SK_ZDRY_ZSZHJSBR_ZDJL", pk = "ID")
+@DBInfoAnnotation(tableName = "ZDRY_DTJS_ZSZHJSBR_ZDJL", pk = "ID")
 public class ZdryDtjsZszhjsbrZdjlxxb extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@FieldDesc("ID")
 	private String id;
-	@FieldDesc("XXBH")
-	private String xxbh;
-	@FieldDesc("ZDDH")
+	@FieldDesc("诊断单号")
 	private String zddh;
-	@FieldDesc("ZDSJ")
+	@FieldDesc("诊断时间")
 	private String zdsj;
-	@FieldDesc("QZJG")
+	@FieldDesc("诊断结果")
 	private String qzjg;
-	@FieldDesc("QZDW")
+	@FieldDesc("诊断单位？")
 	private String qzdw;
-	@FieldDesc("QZYY")
+	@FieldDesc("确诊医院")
 	private String qzyy;
-	@FieldDesc("QZYS")
+	@FieldDesc("确诊医师")
 	private String qzys;
-	@FieldDesc("JDR")
+	@FieldDesc("鉴定人")
 	private String jdr;
-	@FieldDesc("QZYSLXDH")
+	@FieldDesc("确诊医生联系电话")
 	private String qzyslxdh;
-	@FieldDesc("JDRLXDH")
+	@FieldDesc("鉴定人联系电话")
 	private String jdrlxdh;
-	@FieldDesc("ZDGCMS")
+	@FieldDesc("诊断过程描述")
 	private String zdgcms;
-	@FieldDesc("TJSJ")
-	private String tjsj;
-	@FieldDesc("XGSJ")
-	private String xgsj;
+	
+	@FieldDesc("重点人员证件号码")
+	private String zdryzjhm;
 	
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getXxbh() {
-		return xxbh;
-	}
-	public void setXxbh(String xxbh) {
-		this.xxbh = xxbh;
 	}
 	public String getZddh() {
 		return zddh;
@@ -123,17 +114,12 @@ public class ZdryDtjsZszhjsbrZdjlxxb extends BaseEntity implements Serializable 
 	public void setZdgcms(String zdgcms) {
 		this.zdgcms = zdgcms;
 	}
-	public String getTjsj() {
-		return tjsj;
+	public String getZdryzjhm() {
+		return zdryzjhm;
 	}
-	public void setTjsj(String tjsj) {
-		this.tjsj = tjsj;
+	public void setZdryzjhm(String zdryzjhm) {
+		this.zdryzjhm = zdryzjhm;
 	}
-	public String getXgsj() {
-		return xgsj;
-	}
-	public void setXgsj(String xgsj) {
-		this.xgsj = xgsj;
-	}
+
 	
 }

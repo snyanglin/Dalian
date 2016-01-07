@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZdryDtjsZdxsfzqkxxb">
+
+	<typeAlias alias="zdryDtjsZdxsfzqkxxb" type="com.founder.zdrygl.base.model.ZdryDtjsZdxsfzqkxxb" />
+
+    <select id="queryById" parameterClass="String" resultClass="zdryDtjsZdxsfzqkxxb">
+		<![CDATA[ select * from ZDRY_DTJS_ZDXSFZQKXXB t where ID = #id#  and rownum = 1  ]]>
+	</select>
+
+	
+   <select id="queryByZdryZjhm" parameterClass="Map" resultClass="zdryDtjsZdxsfzqkxxb">
+		<![CDATA[ 
+		 SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+	        select * from ZDRY_DTJS_ZDXSFZQKXXB t where zdryzjhm = #entity.zdryzjhm# and xt_zxbz='0' ]]>
+			 
+		 <![CDATA[   order by xt_cjsj desc) M  WHERE ROWNUM <= #end# ) WHERE R > #begin#]]> 	
+	</select>
+	
+	<select id="queryCountByZdryZjhm" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ 
+		
+	        select count(id) from ZDRY_DTJS_ZDXSFZQKXXB t where zdryzjhm = #entity.zdryzjhm# and xt_zxbz='0' ]]>
+			 
+	</select>
+	
+    <update id="update" parameterClass="zdryDtjsZdxsfzqkxxb">
+    <![CDATA[ update ZDRY_DTJS_ZDXSFZQKXXB ]]>	
+		<dynamic prepend="set">			
+					 <isNotNull prepend="," property="sslb"><![CDATA[ SSLB=#sslb# ]]></isNotNull>
+					 <isNotNull prepend="," property="sslbxl"><![CDATA[ SSLBXL=#sslbxl# ]]></isNotNull>
+					 <isNotNull prepend="," property="zasd"><![CDATA[ ZASD=#zasd# ]]></isNotNull>
+					 <isNotNull prepend="," property="zagj"><![CDATA[ ZAGJ=#zagj# ]]></isNotNull>
+					 <isNotNull prepend="," property="zagjly"><![CDATA[ ZAGJLY=#zagjly# ]]></isNotNull>
+					 <isNotNull prepend="," property="zatd"><![CDATA[ ZATD=#zatd# ]]></isNotNull>
+					 <isNotNull prepend="," property="xzdx"><![CDATA[ XZDX=#xzdx# ]]></isNotNull>
+					 <isNotNull prepend="," property="xzwp"><![CDATA[ XZWP=#xzwp# ]]></isNotNull>
+					 <isNotNull prepend="," property="xzcs"><![CDATA[ XZCS=#xzcs# ]]></isNotNull>
+					 <isNotNull prepend="," property="sfcd"><![CDATA[ SFCD=#sfcd# ]]></isNotNull>
+					 <isNotNull prepend="," property="xzsj"><![CDATA[ XZSJ=#xzsj# ]]></isNotNull>
+					 <isNotNull prepend="," property="xzfs"><![CDATA[ XZFS=#xzfs# ]]></isNotNull>
+					 <isNotNull prepend="," property="xzdq"><![CDATA[ XZDQ=#xzdq# ]]></isNotNull>
+					 <isNotNull prepend="," property="gkzysx"><![CDATA[ GKZYSX=#gkzysx# ]]></isNotNull>
+					 <isNotNull prepend="," property="sfthza"><![CDATA[ SFTHZA=#sfthza# ]]></isNotNull>
+					 <isNotNull prepend="," property="jhfs"><![CDATA[ JHFS=#jhfs# ]]></isNotNull>
+					 <isNotNull prepend="," property="zaddlfs"><![CDATA[ ZADDLFS=#zaddlfs# ]]></isNotNull>
+					 <isNotNull prepend="," property="yddlfs"><![CDATA[ YDDLFS=#yddlfs# ]]></isNotNull>
+					 <isNotNull prepend="," property="aqlxfs"><![CDATA[ AQLXFS=#aqlxfs# ]]></isNotNull>
+					 <isNotNull prepend="," property="aqqtlxfs"><![CDATA[ AQQTLXFS=#aqqtlxfs# ]]></isNotNull>
+					 <isNotNull prepend="," property="azlxfs"><![CDATA[ AZLXFS=#azlxfs# ]]></isNotNull>
+					 <isNotNull prepend="," property="azqtlxfs"><![CDATA[ AZQTLXFS=#azqtlxfs# ]]></isNotNull>
+					 <isNotNull prepend="," property="ahlxfs"><![CDATA[ AHLXFS=#ahlxfs# ]]></isNotNull>
+					 <isNotNull prepend="," property="ahqtlxfs"><![CDATA[ AHQTLXFS=#ahqtlxfs# ]]></isNotNull>
+					 <isNotNull prepend="," property="xzqd"><![CDATA[ XZQD=#xzqd# ]]></isNotNull>
+					 <isNotNull prepend="," property="xzff"><![CDATA[ XZFF=#xzff# ]]></isNotNull>
+					 <isNotNull prepend="," property="zdryzjhm"><![CDATA[ ZDRYZJHM=#zdryzjhm# ]]></isNotNull>								
+			,<include refid="updateXtzd"/>	
+		</dynamic>
+		<![CDATA[ where ID = #id#]]>	
+    
+    </update> 	
+     
+    <!-- 插入人员写实表 -->
+    <insert id="save" parameterClass="zdryDtjsZdxsfzqkxxb">
+        <![CDATA[ insert into ZDRY_DTJS_ZDXSFZQKXXB (ID,SSLB,SSLBXL,ZASD,ZAGJ,ZAGJLY,ZATD,XZDX,XZWP,XZCS,SFCD,XZSJ,XZFS,XZDQ,GKZYSX,SFTHZA,JHFS,ZADDLFS,YDDLFS,AQLXFS,AQQTLXFS,AZLXFS,AZQTLXFS,AHLXFS,AHQTLXFS,XZQD,XZFF,ZDRYZJHM,]]><include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#,#sslb#,#sslbxl#,#zasd#,#zagj#,#zagjly#,#zatd#,#xzdx#,#xzwp#,#xzcs#,#sfcd#,#xzsj#,#xzfs#,#xzdq#,#gkzysx#,#sfthza#,#jhfs#,#zaddlfs#,#yddlfs#,#aqlxfs#,#aqqtlxfs#,#azlxfs#,#azqtlxfs#,#ahlxfs#,#ahqtlxfs#,#xzqd#,#xzff#,#zdryzjhm#,]]>
+		<include refid="insertXtzdVal"/>)
+    </insert>
+    
+    <update id="delete" parameterClass="zdryDtjsZdxsfzqkxxb">
+		<![CDATA[ update ZDRY_DTJS_ZDXSFZQKXXB set ]]><include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>	
+	</update>
+</sqlMap>

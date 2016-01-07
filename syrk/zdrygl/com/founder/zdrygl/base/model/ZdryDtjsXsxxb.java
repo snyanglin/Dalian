@@ -24,23 +24,15 @@ public class ZdryDtjsXsxxb extends BaseEntity implements Serializable {
 
 	@FieldDesc("ID")
 	private String id;
-	@FieldDesc("写实信息编号")
-	private String xsxxbh;
-	@FieldDesc("重点人员证件号码")
+	@FieldDesc("证件号码")
 	private String zdry_zjhm;
 	@FieldDesc("核实时间")
 	private String hssj;
-	@FieldDesc("核实地点区划")
-	private String hsddqh;
-	@FieldDesc("核实地点名称")
-	private String hsddmc;
-	@FieldDesc("核实地点祥址")
-	private String hsddxz;
 	@FieldDesc("在籍状态")
 	private String zjzt;
 	@FieldDesc("离开时间")
 	private String lksj;
-	@FieldDesc("前往省市")
+	@FieldDesc("去往省市")
 	private String qwss;
 	@FieldDesc("在控状态")
 	private String zkzt;
@@ -54,31 +46,29 @@ public class ZdryDtjsXsxxb extends BaseEntity implements Serializable {
 	private String sjsr;
 	@FieldDesc("经济来源")
 	private String jjly;
-	@FieldDesc("工作单位")
-	private String gzdw;
-	@FieldDesc("工作单位祥址")
+	@FieldDesc("工作单位id")
+	private String gzdwid;
+	@FieldDesc("工作单位名称")
+	private String gzdwmc;
+	@FieldDesc("工作单位详址")
 	private String gzdwxz;
-	@FieldDesc("居住地区划")
-	private String jzdqh;
 	@FieldDesc("管辖单位代码")
 	private String gxdwdm;
 	@FieldDesc("管辖单位名称")
 	private String gxdwmc;
-	@FieldDesc("居住地祥址")
-	private String jzdxz;
 	@FieldDesc("核实情况描述")
 	private String hsqkms;
 	@FieldDesc("人员类别信息")
 	private String rylbxx;
-	@FieldDesc("采集时间")
+	@FieldDesc("采集实际")
 	private String cjsj;
-	@FieldDesc("修改时间")
+	@FieldDesc("修改实际")
 	private String xgsj;
 	@FieldDesc("填写人单位代码")
 	private String txrdwdm;
 	@FieldDesc("填写人单位名称")
 	private String txrdwmc;
-	@FieldDesc("填写人ID")
+	@FieldDesc("填写人id")
 	private String txrid;
 	@FieldDesc("填写人名称")
 	private String txrmc;
@@ -92,19 +82,46 @@ public class ZdryDtjsXsxxb extends BaseEntity implements Serializable {
 	private String txrsfzh;
 	@FieldDesc("在控类型")
 	private String zklx;
-	@FieldDesc("YJZQ")
+	@FieldDesc("约见周期")
 	private String yjzq;
+	@FieldDesc("核实地行政区划代码")
+	private String hsd_xzqhdm;
+	@FieldDesc("核实地门楼牌代码")
+	private String hsd_mlpdm;
+	@FieldDesc("核实地地址详址")
+	private String hsd_dzxz;
+	@FieldDesc("核实地门楼牌详址")
+	private String hsd_mlpxz;
+	@FieldDesc("核实地地址id")
+	private String hsd_dzid;
+	@FieldDesc("居住地行政区划代码")
+	private String jzd_xzqhdm;
+	@FieldDesc("居住地门楼牌代码")
+	private String jzd_mlpdm;
+	@FieldDesc("居住地门楼牌详址")
+    private String jzd_mlpxz;
+	
+	@FieldDesc("居住地地址id")
+	private String jzd_dzid;
+	@FieldDesc("居住地地址详址")
+	private String jzd_dzxz;
+	
+	
+	private String zdryid;
+	
+	
+	
+	public String getZdryid() {
+		return zdryid;
+	}
+	public void setZdryid(String zdryid) {
+		this.zdryid = zdryid;
+	}
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getXsxxbh() {
-		return xsxxbh;
-	}
-	public void setXsxxbh(String xsxxbh) {
-		this.xsxxbh = xsxxbh;
 	}
 	public String getZdry_zjhm() {
 		return zdry_zjhm;
@@ -117,24 +134,6 @@ public class ZdryDtjsXsxxb extends BaseEntity implements Serializable {
 	}
 	public void setHssj(String hssj) {
 		this.hssj = hssj;
-	}
-	public String getHsddqh() {
-		return hsddqh;
-	}
-	public void setHsddqh(String hsddqh) {
-		this.hsddqh = hsddqh;
-	}
-	public String getHsddmc() {
-		return hsddmc;
-	}
-	public void setHsddmc(String hsddmc) {
-		this.hsddmc = hsddmc;
-	}
-	public String getHsddxz() {
-		return hsddxz;
-	}
-	public void setHsddxz(String hsddxz) {
-		this.hsddxz = hsddxz;
 	}
 	public String getZjzt() {
 		return zjzt;
@@ -190,23 +189,23 @@ public class ZdryDtjsXsxxb extends BaseEntity implements Serializable {
 	public void setJjly(String jjly) {
 		this.jjly = jjly;
 	}
-	public String getGzdw() {
-		return gzdw;
+	public String getGzdwid() {
+		return gzdwid;
 	}
-	public void setGzdw(String gzdw) {
-		this.gzdw = gzdw;
+	public void setGzdwid(String gzdwid) {
+		this.gzdwid = gzdwid;
+	}
+	public String getGzdwmc() {
+		return gzdwmc;
+	}
+	public void setGzdwmc(String gzdwmc) {
+		this.gzdwmc = gzdwmc;
 	}
 	public String getGzdwxz() {
 		return gzdwxz;
 	}
 	public void setGzdwxz(String gzdwxz) {
 		this.gzdwxz = gzdwxz;
-	}
-	public String getJzdqh() {
-		return jzdqh;
-	}
-	public void setJzdqh(String jzdqh) {
-		this.jzdqh = jzdqh;
 	}
 	public String getGxdwdm() {
 		return gxdwdm;
@@ -219,12 +218,6 @@ public class ZdryDtjsXsxxb extends BaseEntity implements Serializable {
 	}
 	public void setGxdwmc(String gxdwmc) {
 		this.gxdwmc = gxdwmc;
-	}
-	public String getJzdxz() {
-		return jzdxz;
-	}
-	public void setJzdxz(String jzdxz) {
-		this.jzdxz = jzdxz;
 	}
 	public String getHsqkms() {
 		return hsqkms;
@@ -310,5 +303,66 @@ public class ZdryDtjsXsxxb extends BaseEntity implements Serializable {
 	public void setYjzq(String yjzq) {
 		this.yjzq = yjzq;
 	}
+	public String getHsd_xzqhdm() {
+		return hsd_xzqhdm;
+	}
+	public void setHsd_xzqhdm(String hsd_xzqhdm) {
+		this.hsd_xzqhdm = hsd_xzqhdm;
+	}
+	public String getHsd_mlpdm() {
+		return hsd_mlpdm;
+	}
+	public void setHsd_mlpdm(String hsd_mlpdm) {
+		this.hsd_mlpdm = hsd_mlpdm;
+	}
+	public String getHsd_dzxz() {
+		return hsd_dzxz;
+	}
+	public void setHsd_dzxz(String hsd_dzxz) {
+		this.hsd_dzxz = hsd_dzxz;
+	}
+	public String getHsd_mlpxz() {
+		return hsd_mlpxz;
+	}
+	public void setHsd_mlpxz(String hsd_mlpxz) {
+		this.hsd_mlpxz = hsd_mlpxz;
+	}
+	public String getHsd_dzid() {
+		return hsd_dzid;
+	}
+	public void setHsd_dzid(String hsd_dzid) {
+		this.hsd_dzid = hsd_dzid;
+	}
+	public String getJzd_xzqhdm() {
+		return jzd_xzqhdm;
+	}
+	public void setJzd_xzqhdm(String jzd_xzqhdm) {
+		this.jzd_xzqhdm = jzd_xzqhdm;
+	}
+	public String getJzd_mlpdm() {
+		return jzd_mlpdm;
+	}
+	public void setJzd_mlpdm(String jzd_mlpdm) {
+		this.jzd_mlpdm = jzd_mlpdm;
+	}
+	public String getJzd_mlpxz() {
+		return jzd_mlpxz;
+	}
+	public void setJzd_mlpxz(String jzd_mlpxz) {
+		this.jzd_mlpxz = jzd_mlpxz;
+	}
+	public String getJzd_dzid() {
+		return jzd_dzid;
+	}
+	public void setJzd_dzid(String jzd_dzid) {
+		this.jzd_dzid = jzd_dzid;
+	}
+	public String getJzd_dzxz() {
+		return jzd_dzxz;
+	}
+	public void setJzd_dzxz(String jzd_dzxz) {
+		this.jzd_dzxz = jzd_dzxz;
+	}
+
 	
 }

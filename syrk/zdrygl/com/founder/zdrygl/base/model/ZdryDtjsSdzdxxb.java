@@ -10,47 +10,45 @@ import com.founder.framework.base.entity.BaseEntity;
  * @Package:      [com.founder.zdrygl.bean.ZdryDtjsSdzdxxb.java]  
  * @ClassName:    [ZdryDtjsSdzdxxb]   
  * @Description:  [重点人员 动态记实 涉毒-制毒 属性 表]   
- * @Author:       [zhang.hai@founder.com.cn]  
- * @CreateDate:   [2015年8月13日 下午7:06:04]   
- * @UpdateUser:   [ZhangHai(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateDate:   [2015年8月13日 下午7:06:04，(如多次修改保留历史记录，增加修改记录)]   
+ * @Author:       [cong_rihong@founder.com.cn]  
+ * @CreateDate:   [2015年12月15日 下午7:06:04]   
+ * @UpdateUser:   [cong_rihong(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年12月15日 下午7:06:04，(如多次修改保留历史记录，增加修改记录)]   
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
 @DBInfoAnnotation(tableName = "ZDRY_DTJS_SDZDXXB", pk = "id")
 public class ZdryDtjsSdzdxxb extends BaseEntity implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4828562130510302100L;
 	@FieldDesc("ID")
 	private String id;
-	@FieldDesc("DPZL")
+	@FieldDesc("毒品种类")
 	private String dpzl;
-	@FieldDesc("ZDHXP")
+	@FieldDesc("制毒化学品")
 	private String zdhxp;
-	@FieldDesc("ZDHXPQT")
+	@FieldDesc("制毒化学品其他")
 	private String zdhxpqt;
-	@FieldDesc("DPQX")
+	@FieldDesc("毒品去向")
 	private String dpqx;
-	@FieldDesc("DPQXQT")
+	@FieldDesc("毒品去向其他")
 	private String dpqxqt;
-	@FieldDesc("SHDZQX")
+	@FieldDesc("毒资取向")
 	private String shdzqx;
-	@FieldDesc("XSBH")
+	@FieldDesc("写实信息编号")
 	private String xsbh;
-	@FieldDesc("XGSJ")
-	private String xgsj;
-	@FieldDesc("CJSJ")
-	private String cjsj;
-	@FieldDesc("DPZLQT")
+	@FieldDesc("毒品种类其他")
 	private String dpzlqt;
-	@FieldDesc("ZDRYZJHM")
+	@FieldDesc("重点人证件号码")
 	private String zdryzjhm;
-	@FieldDesc("FMDD")
+	@FieldDesc("贩毒地点")
 	private String fmdd;
-	@FieldDesc("DZQXQT")
+	@FieldDesc("毒资取向其他")
 	private String dzqxqt;
-	
 	public String getId() {
 		return id;
 	}
@@ -99,18 +97,6 @@ public class ZdryDtjsSdzdxxb extends BaseEntity implements Serializable {
 	public void setXsbh(String xsbh) {
 		this.xsbh = xsbh;
 	}
-	public String getXgsj() {
-		return xgsj;
-	}
-	public void setXgsj(String xgsj) {
-		this.xgsj = xgsj;
-	}
-	public String getCjsj() {
-		return cjsj;
-	}
-	public void setCjsj(String cjsj) {
-		this.cjsj = cjsj;
-	}
 	public String getDpzlqt() {
 		return dpzlqt;
 	}
@@ -136,4 +122,6 @@ public class ZdryDtjsSdzdxxb extends BaseEntity implements Serializable {
 		this.dzqxqt = dzqxqt;
 	}
 
+	
+	
 }

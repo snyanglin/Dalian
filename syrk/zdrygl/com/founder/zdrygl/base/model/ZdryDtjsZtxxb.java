@@ -10,10 +10,10 @@ import com.founder.framework.base.entity.BaseEntity;
  * @Package:      [com.founder.zdrygl.bean.ZdryDtjsZtxxb.java]  
  * @ClassName:    [ZdryDtjsZtxxb]   
  * @Description:  [重点人员 动态记实 在逃跑 属性表]   
- * @Author:       [zhang.hai@founder.com.cn]  
+ * @Author:       [cong_rihong@founder.com.cn]  
  * @CreateDate:   [2015年8月13日 下午7:10:27]   
- * @UpdateUser:   [ZhangHai(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateDate:   [2015年8月13日 下午7:10:27，(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateUser:   [congrihong(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年12月7日 下午7:10:27，(如多次修改保留历史记录，增加修改记录)]   
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
@@ -24,52 +24,39 @@ public class ZdryDtjsZtxxb extends BaseEntity implements Serializable {
 	
 	@FieldDesc("ID")
 	private String id;
-	@FieldDesc("XSXXBH")
-	private String xsxxbh;
-	@FieldDesc("SSLB")
+	@FieldDesc("所属类别")
 	private String sslb;
-	@FieldDesc("ZTLX")
+	@FieldDesc("在逃类型")
 	private String ztlx;
-	@FieldDesc("LASJ")
+	@FieldDesc("立案时间")
 	private String lasj;
-	@FieldDesc("LADWDM")
+	@FieldDesc("立案单位代码")
 	private String ladwdm;
-	@FieldDesc("LADWMC")
+	@FieldDesc("立案单位名称")
 	private String ladwmc;
-	@FieldDesc("TPSJ")
+	@FieldDesc("逃跑时间")
 	private String tpsj;
-	@FieldDesc("TPFX")
+	@FieldDesc("逃跑方向")
 	private String tpfx;
-	@FieldDesc("LTRQ")
+	@FieldDesc("立逃日期")
 	private String ltrq;
-	@FieldDesc("LTDWDM")
+	@FieldDesc("立逃单位代码")
 	private String ltdwdm;
-	@FieldDesc("LTDWMC")
+	@FieldDesc("立逃单位名称")
 	private String ltdwmc;
-	@FieldDesc("AJLB")
+	@FieldDesc("案件类别")
 	private String ajlb;
-	@FieldDesc("DBJB")
+	@FieldDesc("督捕级别")
 	private String dbjb;
-	@FieldDesc("AQMS")
+	@FieldDesc("案情描述")
 	private String aqms;
-	@FieldDesc("TXRQ")
-	private String txrq;
-	@FieldDesc("XGRQ")
-	private String xgrq;
-	@FieldDesc("ZDRYZJHM")
+	@FieldDesc("重点证件号码")
 	private String zdryzjhm;
-	
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getXsxxbh() {
-		return xsxxbh;
-	}
-	public void setXsxxbh(String xsxxbh) {
-		this.xsxxbh = xsxxbh;
 	}
 	public String getSslb() {
 		return sslb;
@@ -149,18 +136,6 @@ public class ZdryDtjsZtxxb extends BaseEntity implements Serializable {
 	public void setAqms(String aqms) {
 		this.aqms = aqms;
 	}
-	public String getTxrq() {
-		return txrq;
-	}
-	public void setTxrq(String txrq) {
-		this.txrq = txrq;
-	}
-	public String getXgrq() {
-		return xgrq;
-	}
-	public void setXgrq(String xgrq) {
-		this.xgrq = xgrq;
-	}
 	public String getZdryzjhm() {
 		return zdryzjhm;
 	}
@@ -168,4 +143,5 @@ public class ZdryDtjsZtxxb extends BaseEntity implements Serializable {
 		this.zdryzjhm = zdryzjhm;
 	}
 
+	
 }

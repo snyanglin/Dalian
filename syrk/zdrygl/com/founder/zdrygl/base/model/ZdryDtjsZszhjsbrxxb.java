@@ -10,10 +10,10 @@ import com.founder.framework.base.entity.BaseEntity;
  * @Package:      [com.founder.zdrygl.bean.ZdryDtjsZszhjsbrxxb.java]  
  * @ClassName:    [ZdryDtjsZszhjsbrxxb]   
  * @Description:  [重点人员 动态记实 肇事肇祸精神病人 属性表]   
- * @Author:       [zhang.hai@founder.com.cn]  
- * @CreateDate:   [2015年8月13日 下午7:09:25]   
- * @UpdateUser:   [ZhangHai(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateDate:   [2015年8月13日 下午7:09:25，(如多次修改保留历史记录，增加修改记录)]   
+ * @Author:       [cong_rihong@founder.com.cn]  
+ * @CreateDate:   [2015年12月15日 下午7:09:25]   
+ * @UpdateUser:   [cong_rihong(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年12月15日 下午7:09:25，(如多次修改保留历史记录，增加修改记录)]   
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
@@ -24,44 +24,23 @@ public class ZdryDtjsZszhjsbrxxb extends BaseEntity implements Serializable {
 
 	@FieldDesc("ID")
 	private String id;
-	@FieldDesc("XXBH")
-	private String xxbh;
-	@FieldDesc("XSXXBH")
-	private String xsxxbh;
-	@FieldDesc("SSLB")
+	@FieldDesc("所属类别")
 	private String sslb;
-	@FieldDesc("BRLB")
+	@FieldDesc("病人类别")
 	private String brlb;
-	@FieldDesc("XSZK")
+	@FieldDesc("现实状况")
 	private String xszk;
-	@FieldDesc("BQMS")
+	@FieldDesc("病情描述")
 	private String bqms;
-	@FieldDesc("ZYBY")
+	@FieldDesc("病情描述")
 	private String zyby;
-	@FieldDesc("TJSJ")
-	private String tjsj;
-	@FieldDesc("XGSJ")
-	private String xgsj;
-	@FieldDesc("ZDRYZJHM")
+	@FieldDesc("重点人证件号码")
 	private String zdryzjhm;
-	
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getXxbh() {
-		return xxbh;
-	}
-	public void setXxbh(String xxbh) {
-		this.xxbh = xxbh;
-	}
-	public String getXsxxbh() {
-		return xsxxbh;
-	}
-	public void setXsxxbh(String xsxxbh) {
-		this.xsxxbh = xsxxbh;
 	}
 	public String getSslb() {
 		return sslb;
@@ -93,18 +72,6 @@ public class ZdryDtjsZszhjsbrxxb extends BaseEntity implements Serializable {
 	public void setZyby(String zyby) {
 		this.zyby = zyby;
 	}
-	public String getTjsj() {
-		return tjsj;
-	}
-	public void setTjsj(String tjsj) {
-		this.tjsj = tjsj;
-	}
-	public String getXgsj() {
-		return xgsj;
-	}
-	public void setXgsj(String xgsj) {
-		this.xgsj = xgsj;
-	}
 	public String getZdryzjhm() {
 		return zdryzjhm;
 	}
@@ -112,4 +79,5 @@ public class ZdryDtjsZszhjsbrxxb extends BaseEntity implements Serializable {
 		this.zdryzjhm = zdryzjhm;
 	}
 
+	
 }

@@ -109,9 +109,8 @@ public class ZdryShbzdryxxb extends BaseEntity  implements Serializable,Zdry{
 	private String rkbm;
 	@FieldDesc("备注")
 	private String bz;
-	
-/** TODO 不确定有用没
- * 	private String ryid;
+
+ 	private String ryid;
 	
 	private String qx;//view和edit
 
@@ -127,7 +126,7 @@ public class ZdryShbzdryxxb extends BaseEntity  implements Serializable,Zdry{
 	}
 	public void setRyid(String ryid) {
 		this.ryid = ryid;
-	}*/	
+	}	
 	
 	public String getZywtjxsbx() {
 		return zywtjxsbx;
