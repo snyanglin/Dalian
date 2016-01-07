@@ -10,9 +10,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
-import com.founder.framework.organization.department.service.OrgOrganizationService;
-import com.founder.framework.utils.StringUtils;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +32,7 @@ import com.founder.framework.components.AppConst;
 import com.founder.framework.config.SystemConfig;
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.exception.RestException;
+import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.syrkgl.bean.SyrkSyrkxxzb;

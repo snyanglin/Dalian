@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZdryDtjsZtxxb">
+
+	<typeAlias alias="zdryDtjsZtxxb" type="com.founder.zdrygl.base.model.ZdryDtjsZtxxb" />
+
+	
+		
+   <select id="queryPageByZdryZjhm" parameterClass="Map" resultClass="zdryDtjsZtxxb">
+		<![CDATA[ 
+		 SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+	        select * from ZDRY_DTJS_ZTXXB t where zdryzjhm = #entity.zdryzjhm# and xt_zxbz='0' ]]>
+			 
+		 <![CDATA[   order by xt_cjsj desc) M  WHERE ROWNUM <= #end# ) WHERE R > #begin#]]> 	
+	</select>
+	
+	<select id="queryCountByZdryZjhm" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ 
+		
+	        select count(id) from ZDRY_DTJS_ZTXXB t where zdryzjhm = #entity.zdryzjhm# and xt_zxbz='0' ]]>
+			 
+	</select>
+
+</sqlMap>

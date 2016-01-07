@@ -169,7 +169,6 @@ public class ZdryhsbController extends BaseController{
 			model.put("status", "success");
 			model.put("message", "申请发起成功");
 		} catch (Exception var7) {
-			var7.printStackTrace();
 			this.logger.error(var7.getLocalizedMessage(), var7);
 			model.put("status", "error");
 			model.put("message", "申请发起失败");

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.founder.framework.config.SystemConfig;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,9 +19,7 @@ import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
 import com.founder.framework.components.AppConst;
 import com.founder.framework.utils.UUID;
-import com.founder.syrkgl.bean.RyRyjbxxb;
 import com.founder.syrkgl.bean.SyrkSyrkxxzb;
-import com.founder.syrkgl.service.RyRyjbxxbService;
 import com.founder.syrkgl.service.SyrkSyrkxxzbService;
 import com.founder.zdrygl.base.dao.ZdryZdryZbDao;
 import com.founder.zdrygl.base.model.ZdryZb;
@@ -99,7 +98,7 @@ public class ZdryzbService implements ZdryService {
 			lg(sessionBean, entity);
 		}else {
 			old=(ZdryZb)zdryZdryZbDao.queryById(old.getId());
-			if ("07".equals(old.getZdrygllxdm())){
+			if ("210200".equals(SystemConfig.getString("systemXzqh")) && "07".equals(old.getZdrygllxdm())){
 				old.setGlzt(ZdryConstant.YCG);
 				deleteZdry(sessionBean,old);
 			}

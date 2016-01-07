@@ -9,11 +9,11 @@ import com.founder.framework.base.entity.BaseEntity;
  * ****************************************************************************
  * @Package:      [com.founder.zdrygl.bean.ZdryDtjsSfxxb.java]  
  * @ClassName:    [ZdryDtjsSfxxb]   
- * @Description:  [重点人员 动态记实 涉访 属性 表]   
- * @Author:       [zhang.hai@founder.com.cn]  
- * @CreateDate:   [2015年8月13日 下午7:06:43]   
+ * @Description:  [重点人员 动态记实 上访 属性 表]   
+ * @Author:       [cong_rihong@founder.com.cn]  
+ * @CreateDate:   [2015年12月9日 下午7:06:43]   
  * @UpdateUser:   [ZhangHai(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateDate:   [2015年8月13日 下午7:06:43，(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年12月9日 下午7:06:43，(如多次修改保留历史记录，增加修改记录)]   
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
@@ -24,47 +24,48 @@ public class ZdryDtjsSfxxb extends BaseEntity implements Serializable {
 
 	@FieldDesc("ID")
 	private String id;
-	@FieldDesc("XSXXBH")
+	@FieldDesc("写实信息编号")
 	private String xsxxbh;
-	@FieldDesc("SSLB")
+	@FieldDesc("所属类别")
 	private String sslb;
-	@FieldDesc("SSQT")
+	@FieldDesc("所属群体")
 	private String ssqt;
-	@FieldDesc("SFSJ")
+	@FieldDesc("上访时间")
 	private String sfsj;
-	@FieldDesc("SFDD")
+	@FieldDesc("上访地点")
 	private String sfdd;
-	@FieldDesc("BBDWMC")
+	@FieldDesc("包保单位名称")
 	private String bbdwmc;
-	@FieldDesc("BBLD")
+	@FieldDesc("包保领导")
 	private String bbld;
-	@FieldDesc("SFFS")
+	@FieldDesc("上访方式")
 	private String sffs;
-	@FieldDesc("CZJG")
+	@FieldDesc("处置结果")
 	private String czjg;
-	@FieldDesc("CZRY")
+	@FieldDesc("处置人员")
 	private String czry;
-	@FieldDesc("SQJB")
+	@FieldDesc("诉求级别")
 	private String sqjb;
-	@FieldDesc("SFXF")
+	@FieldDesc("是否息访")
 	private String sfxf;
-	@FieldDesc("YJJB")
+	@FieldDesc("预警级别")
 	private String yjjb;
-	@FieldDesc("LXDH")
+	@FieldDesc("联系电话")
 	private String lxdh;
-	@FieldDesc("ZYYY")
+	@FieldDesc("主要原由")
 	private String zyyy;
-	@FieldDesc("ZYSQ")
+	@FieldDesc("主要事情")
 	private String zysq;
-	@FieldDesc("SFGCMS")
+	@FieldDesc("上访过程描述")
 	private String sfgcms;
-	@FieldDesc("TJSJ")
+	@FieldDesc("填写时间")
 	private String tjsj;
-	@FieldDesc("XGSJ")
+	@FieldDesc("修改时间")
 	private String xgsj;
-	@FieldDesc("ZDRYZJHM")
+	@FieldDesc("重点人员证件号码")
 	private String zdryzjhm;
-	
+	@FieldDesc("所属类别细类")
+	private String sslbxl;
 	public String getId() {
 		return id;
 	}
@@ -191,5 +192,12 @@ public class ZdryDtjsSfxxb extends BaseEntity implements Serializable {
 	public void setZdryzjhm(String zdryzjhm) {
 		this.zdryzjhm = zdryzjhm;
 	}
+	public String getSslbxl() {
+		return sslbxl;
+	}
+	public void setSslbxl(String sslbxl) {
+		this.sslbxl = sslbxl;
+	}
+
 
 }

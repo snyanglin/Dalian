@@ -98,10 +98,10 @@
 			    <td width="30%" class="dialogTd"><input type="text" name="zdryJgdxqxjdjb.xjrq" id="xjrq" class="easyui-validatebox" style="width: 200px;"
   											    onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d'})" data-options="validType:['date[\'yyyy-MM-dd\']'],tipPosition:'left'" /></td>
 	    	</tr>
-		    <tr class="dialogTr">
+		  <!--   <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">流程图:</td>
 		    	<td width="30%" class="dialogTd" colspan="3"><a href="#" onclick="viewWorkflowDialog();">查看</a> </td>		    	
-		    </tr>
+		    </tr> -->
 	    </table>
 	    
 	</form>

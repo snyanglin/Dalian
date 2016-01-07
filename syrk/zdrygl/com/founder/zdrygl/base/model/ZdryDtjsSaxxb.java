@@ -10,10 +10,10 @@ import com.founder.framework.base.entity.BaseEntity;
  * @Package:      [com.founder.qbld.bean.Shgxrb.java]  
  * @ClassName:    [Saxxb]   
  * @Description:  [涉案信息表]   
- * @Author:       [yu_sun@founder.com.cn]  
- * @CreateDate:   [2015-6-4 上午10:11:58]   
+ * @Author:       [cong_rihong@founder.com.cn]  
+ * @CreateDate:   [2015-12-14 上午10:11:58]   
  * @UpdateUser:   [founder(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateDate:   [2015-6-4 上午10:11:58，(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015-12-14 上午10:11:58，(如多次修改保留历史记录，增加修改记录)]   
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
