@@ -28,12 +28,13 @@ public class ZdryVOValidator extends BaseValidator{
 	@Override
 	public void execute(Object paramObject, Errors paramErrors) {		
 		try{
+			//验证取消了
 					
-			RuleBean ruleBean = zdryRuleService.validateZdryVO(paramObject);
-		
-			if(ruleBean.getResStatus()==1){
-				paramErrors.reject("验证失败，失败原因："+ruleBean.getResponse());//此错误保存在getGlobalError中				
-			}
+//			RuleBean ruleBean = zdryRuleService.validateZdryVO(paramObject);
+//		
+//			if(ruleBean.getResStatus()==1){
+//				paramErrors.reject("验证失败，失败原因："+ruleBean.getResponse());//此错误保存在getGlobalError中				
+//			}
 			
 			
 		}catch(Exception e){
