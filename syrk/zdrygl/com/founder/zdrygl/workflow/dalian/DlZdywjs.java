@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.organization.department.bean.OrgOrganization;
 import com.founder.framework.organization.department.service.OrgOrganizationService;
+import com.founder.framework.organization.position.bean.OrgPosition;
 import com.founder.framework.organization.position.service.OrgPositionService;
 import com.founder.workflow.bean.BaseWorkFlowBean;
 import com.founder.workflow.service.activiti.lisener.WorkflowDelegate;
@@ -62,8 +63,9 @@ public class DlZdywjs extends WorkflowDelegate {
 			//设定流程新责任区负责人
 			OrgOrganization targetOrgOrganization = orgOrganizationService.queryByOrgcode(sszrqdm);
 			LinkedHashMap<String,String> wfParams = workflowUtil.getWorkflowParamBean(WfywEnum.ZD);
+			OrgPosition orgPos = orgPositionService.queryByPosid(wfParams.get("spgwL1"));
 			String taskParameter = targetOrgOrganization.getOrgcode() + "_"
-					+ orgPositionService.queryByPosid(wfParams.get("spgwL1")).getId().toString(); // 责任区部门code+民警岗位ID
+					+ orgPos==null?null:orgPos.getId().toString(); // 责任区部门code+民警岗位ID
 			setLocalVariable("spmj", taskParameter);
 			setVariable("xglbm", targetOrgOrganization.getOrgcode());
 			setVariable("yglbm",orgOrganizationService.queryByOrgcode(zdrycx.getGxzrqdm()).getOrgcode());
@@ -71,7 +73,7 @@ public class DlZdywjs extends WorkflowDelegate {
 			//设定转递裁决人员:
 			orgOrganization = orgOrganizationService.queryUpOrgByLevel(current_jzd_zrqdm, "32");
 			OrgOrganization newOrgOrganization = orgOrganizationService.queryUpOrgByLevel(target_jzd_zrqdm, "32");
-			nextTaskOwner = workflowUtil.camZazdTaskOwner("30", "DDZ");
+			nextTaskOwner = workflowUtil.camZazdTaskOwner(wfParams.get("zdcj_zazd_lv"), wfParams.get("zdcj_zazd"));
 			setVariable("gtld", nextTaskOwner);
 			
 			// set Other parameters

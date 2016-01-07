@@ -59,28 +59,28 @@ public class WorkflowService  extends BaseService {
 		String suffixName = null;
 		String systemXzqh = SystemConfig.getString(AppConst.XZQH)==null?"210000":SystemConfig.getString(AppConst.XZQH);
 		if("210000".equals(systemXzqh)){//辽宁
-			if(zdrygllxdm == "01"){
+			if(zdrygllxdm.equals("01")){
 				//社区矫正人员
 				suffixName="sqjz";
-			}else if(zdrygllxdm == "02"){
+			}else if(zdrygllxdm.equals("02")){
 				//重点人口
 				suffixName="zalcg";
-			}else if(zdrygllxdm == "03"){
+			}else if(zdrygllxdm .equals("03")){
 				//肇事肇祸精神病人
 				suffixName="zalcg";
-			}else if(zdrygllxdm == "04"){
+			}else if(zdrygllxdm .equals("04")){
 				//非正常上访重点人员
 				suffixName="zalcg";
-			}else if(zdrygllxdm == "05"){
+			}else if(zdrygllxdm.equals("05")){
 				//涉公安访重点人员
 				suffixName="sgaf_lcg";
-			}else if(zdrygllxdm == "06"){
+			}else if(zdrygllxdm.equals("06")){
 				//其他关注对象
 				suffixName="szsp";
-			}else if(zdrygllxdm == "07"){
+			}else if(zdrygllxdm.equals("07")){
 				//涉环保重点人员
 				suffixName="shb_lcg";
-			}else if(zdrygllxdm == "08"){
+			}else if(zdrygllxdm.equals("08")){
 				//涉枪涉爆重点人员
 				suffixName="zalcg";
 			}

@@ -44,22 +44,26 @@ public class DlWorkReject extends WorkflowDelegate {
 
 	@Override
 	public void doBusiness(BaseWorkFlowBean arg0) {
+		ZdryService zdryService = null;
 		Map<String,Object> variables = arg0.getProcessVariables();
-		
 		String zdrylx = (String) variables.get("zdrylx");
 		ZdryZb zdryzb = (ZdryZb) variables.get("zdryZb");
 		Zdry zdrylbdx = (Zdry) variables.get("zdrylbdx");
-		ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
-		ZOBean entity = new ZOBean(zdryzb, zdrylbdx);
 		Zdrycx zdrycx = (Zdrycx) variables.get("zdrycx");
-		entity.setZdrycx(zdrycx);
+		
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		SessionBean sessionBean=(SessionBean)WebUtils.getSessionAttribute(request, AppConst.USER_SESSION);
 		String sqlxdm=(String) variables.get("sqlxdm");//申请类型
+		
 		//add sp reason
 		zdryzb.setXt_zxyy("审批未通过");
 		ZdryZbUtil.setXtZxyy(zdrylbdx, "审批未通过");
+		
+		ZOBean entity = new ZOBean(zdryzb, zdrylbdx);
+		entity.setZdrycx(zdrycx);
+		
 		if(sqlxdm.equals("01")){//列管
+			zdryService = zdryFactory.createZdryService(zdrylx);
 			Boolean isSzObj 	= (Boolean) variables.get("isSz");
 			String isJdbm 	= (isSzObj==true?new Boolean(false):new Boolean(true)).toString();
 			sessionBean.getExtendMap().put("isJdbm", isJdbm);
@@ -69,9 +73,7 @@ public class DlWorkReject extends WorkflowDelegate {
 			}
 			zdryService.lgFail(sessionBean,entity);
 		}else if(sqlxdm.equals("02")){//撤管
-			Zdry subZdry = ZdryZbUtil.getZdrylbdx( (Zdrycx) entity.getZdrycx());
-			subZdry.setId(entity.getZdrycx().getId());
-			entity.setZdrylbdx(subZdry);
+			zdryService = zdryFactory.createZdryService(zdrycx.getZdrygllxdm());
 			zdryService.cgFail(sessionBean,entity);
 		}else if(sqlxdm.equals("04")){//请假
 		}
