@@ -15,6 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.founder.framework.base.service.BaseService;
 import com.founder.service.attachment.bean.ZpfjFjxxb;
 import com.founder.service.attachment.dao.ZpfjFjxxbDao;
+import com.founder.syrkgl.bean.RyRyjbxxb;
+import com.founder.syrkgl.service.RyRyjbxxbService;
+import com.founder.zdrygl.base.dao.ZdryDtjsXsDao;
 import com.founder.zdrygl.base.dao.ZdryEditDao;
 import com.founder.zdrygl.base.dao.ZdryFzcsfryxxbDao;
 import com.founder.zdrygl.base.dao.ZdryJgdxqxjdjbDao;
@@ -31,6 +34,7 @@ import com.founder.zdrygl.base.dao.ZdryZagltdxxbDao;
 import com.founder.zdrygl.base.dao.ZdryZdrkxxbDao;
 import com.founder.zdrygl.base.dao.ZdryZdrykcxxbDao;
 import com.founder.zdrygl.base.dao.ZdryZszhjsbrxxbDao;
+import com.founder.zdrygl.base.model.ZdryDtjsXsxxb;
 import com.founder.zdrygl.base.model.ZdryFzcsfryxxb;
 import com.founder.zdrygl.base.model.ZdryJgdxqxjdjb;
 import com.founder.zdrygl.base.model.ZdryJgdxxxb;
@@ -42,6 +46,7 @@ import com.founder.zdrygl.base.model.ZdrySqjzryxxb;
 import com.founder.zdrygl.base.model.ZdrySqsbzdryxxb;
 import com.founder.zdrygl.base.model.ZdryWffzjlxxb;
 import com.founder.zdrygl.base.model.ZdryZagltdxxb;
+import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.ZdryZdrkxxb;
 import com.founder.zdrygl.base.model.ZdryZdrykcxxb;
 import com.founder.zdrygl.base.model.ZdryZszhjsbrxxb;
@@ -107,7 +112,13 @@ public class ZdryEditService extends BaseService {
 	private ZdryWffzjlxxbDao zdryWffzjlxxbDao;
 	@Resource(name = "zdryZdrykcxxbDao")
 	private ZdryZdrykcxxbDao zdryZdrykcxxbDao;
+	@Resource
+	private ZdryDtjsXsDao zdryDtjsXsDao;
+	@Resource
+	private ZdryInfoQueryService zdryInfoQueryService;
 	
+	@Resource
+	private RyRyjbxxbService ryRyjbxxbService;
 	/**
 	 * 
 	 * @Title: queryYwglgn
@@ -417,4 +428,21 @@ public class ZdryEditService extends BaseService {
 	}
 
 				*/
+	/**
+	 * 动态纪实写实基本信息
+	 * @param map
+	 * @return
+	 */
+	/**
+	 * 动态纪实写实基本信息
+	 * @param map
+	 * @return
+	 */
+	public List<ZdryDtjsXsxxb> dtjsxsjbxx_query(Map<String,Object> map){
+		  String id = map.get("zdryid").toString();
+	        ZdryZb zb = (ZdryZb) this.zdryInfoQueryService.queryById(id);
+	        RyRyjbxxb ryjbxxb = this.ryRyjbxxbService.queryById(zb.getRyid());
+		
+		return this.zdryDtjsXsDao.queryZdryDtjsXsxxbByZdryZjhm(ryjbxxb.getZjhm());
+	}
 }
