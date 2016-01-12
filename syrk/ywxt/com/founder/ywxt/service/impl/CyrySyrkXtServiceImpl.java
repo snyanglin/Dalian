@@ -85,7 +85,7 @@ public class CyrySyrkXtServiceImpl extends AbstractXtTask {
 						+ ywxtcyryxxb.getCyrxm()
 						+ "录入从业人员"
 						+ fqMap.get("xm")
-						+ "为" + fqMap.get("dzxz") + "居住,请确认是否录入张三为你辖区实有人口";
+						+ "为" + fqMap.get("dzxz") + "居住,请确认是否录入"+fqMap.get("xm")+"为你辖区实有人口";
 				fqrxxb = ywxtcyryxxb;
 			}
 			if ("接收".equals(ywxtcyryxxb.getXtdz())) {
