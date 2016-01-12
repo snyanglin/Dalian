@@ -735,7 +735,11 @@
 		</isNotEmpty>
        )
     </insert>
-    
+
+	<select id="queryZdryDtjsXsxxbByZdryZjhm" parameterClass="String" resultClass="zdryDtjsXsxxb">
+		<![CDATA[ select * from ZDRY_DTJS_XSXXB t where zdry_zjhm = #zdryZjhm# and xt_zxbz='0'  order by xt_cjsj desc]]>
+	</select>
+
     <!-- 人员写实列表信息 -->
 	<select id="queryRyxsList" parameterClass="Map" resultClass="zdryDtjsXsxxb">
       select * from ( select rownum r ,m.* from (
@@ -867,4 +871,5 @@
 				    zjhm like '%$zdryb.zjhm$%'
 			  </isNotEmpty>
     </select>
+
 </sqlMap>

@@ -13,7 +13,7 @@
 	<select id="queryViewByMap" parameterClass="Map" resultClass="zdryShbzdryxxb">
 		<![CDATA[ 
 			select  t.ID,t.SFSWDM,t.AJLBDM,t.ZATDDM,t.JYAQ,t.CFJG,t.JCHDDQ,t.JL,t.ZWBH,t.SJMJ,t.RKBM,  t1.ZDRYLB as BZ
-			from ZDRY_SHBZDRYXXB t, ZDRY_ZDRYZB t1
+			from ZDRY_SHBZDRYXXB t, ZDRY_ZDRYZB t1 					
 			where t.ID = #id#  and t.id=t1.id and t.XT_ZXBZ = '0' and t1.xt_zxbz='0'			
   		]]>
 	</select>
@@ -76,5 +76,37 @@
 	<update id="delete" parameterClass="zdryShbzdryxxb">
 		<![CDATA[ update ZDRY_SHBZDRYXXB set ]]><include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>	
 	</update>
-
+		<!-- 涉环保重点人员列表数据  -->
+	<select id="query" parameterClass="Map" resultClass="zdryShbzdryxxb">
+	       <![CDATA[SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+		       SELECT * 
+		          FROM  ZDRY_SHBZDRYXXB T1 left join ZDRY_ZDRYZB T2 ON T1.ID=T2.ID 
+		       WHERE T2.XT_ZXBZ = '0' and T2.ZDRYGLLXDM='07' and T2.GLZT in(2,3,5) and (T1.xt_lrrbmid=#userOrgCode# or ssfxjdm=#userOrgCode#)]]> 
+		       <isNotEmpty prepend="AND" property="zdryShbzdryxxb.xm">
+		            T1.XM LIKE '%'||#zdryShbzdryxxb.xm#||'%'
+		       </isNotEmpty>
+		       <isNotEmpty prepend="AND" property="zdryShbzdryxxb.zjhm">
+		       		T1.ZJHM LIKE '%'||#zdryShbzdryxxb.zjhm#||'%'		       
+		       </isNotEmpty>
+		       <isNotEmpty prepend="AND" property="zdryShbzdryxxb.dz_jzdzxz">
+		       		T1.dz_jzdzxz LIKE '%'||#zdryShbzdryxxb.dz_jzdzxz#||'%'		       
+		       </isNotEmpty>
+		  <![CDATA[  ORDER BY T2.$sort$ $order$) M  WHERE ROWNUM <= #end# ) WHERE R > #begin#]]> 
+	</select>
+<!--列表总数统计 -->
+    <select id="queryCount" parameterClass="Map" resultClass="Integer">
+		    <![CDATA[
+		       SELECT count(*) 
+		          FROM  ZDRY_SHBZDRYXXB T1 left join ZDRY_ZDRYZB T2 ON T1.ID=T2.ID 
+		       WHERE T2.XT_ZXBZ = '0' and T2.ZDRYGLLXDM='07' and T2.GLZT in(2,3,5) and (T1.xt_lrrbmid=#userOrgCode# or ssfxjdm=#userOrgCode#) ]]> 
+		       <isNotEmpty prepend="AND" property="zdryShbzdryxxb.xm">
+		            T1.XM LIKE '%'||#zdryShbzdryxxb.xm#||'%'
+		       </isNotEmpty>
+		       <isNotEmpty prepend="AND" property="zdryShbzdryxxb.zjhm">
+		       		T1.ZJHM LIKE '%'||#zdryShbzdryxxb.zjhm#||'%'		       
+		       </isNotEmpty>
+		       <isNotEmpty prepend="AND" property="zdryShbzdryxxb.dz_jzdzxz">
+		       		T1.dz_jzdzxz LIKE '%'||#zdryShbzdryxxb.dz_jzdzxz#||'%'		       
+		       </isNotEmpty>
+	</select>
 </sqlMap>

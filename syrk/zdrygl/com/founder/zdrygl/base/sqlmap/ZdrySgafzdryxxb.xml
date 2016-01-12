@@ -5,6 +5,122 @@
 	
 	<typeAlias alias="zdrySgafzdryxxb" type="com.founder.zdrygl.base.model.ZdrySgafzdryxxb" />
 	
+	<!-- 涉公安访重点人员列表数据  -->
+	<select id="queryList" parameterClass="Map" resultClass="zdrySgafzdryxxb">
+	       <![CDATA[SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+		       SELECT * 
+		          FROM ZDRY_SGAFZDRYXXB T2 
+		       WHERE T2.XT_ZXBZ = '0' ]]> 
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.xm">
+				     T2.XM LIKE '%'||#zdrySgafzdryxxb.xm#||'%'
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.pc"> T2.pc = #zdrySgafzdryxxb.pc# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.xbdm"> T2.xbdm = #zdrySgafzdryxxb.xbdm# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.gmsfhm"> T2.gmsfhm = #zdrySgafzdryxxb.gmsfhm# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.sfganbfdm"> T2.sfganbfdm = #zdrySgafzdryxxb.sfganbfdm# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.hjd_xzqhdm"> T2.hjd_xzqhdm = #zdrySgafzdryxxb.hjd_xzqhdm# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.hjd_mlpdm"> T2.hjd_mlpdm = #zdrySgafzdryxxb.hjd_mlpdm# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.hjd_mlpxz"> T2.hjd_mlpxz = #zdrySgafzdryxxb.hjd_mlpxz# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.hjd_dzid"> T2.hjd_dzid = #zdrySgafzdryxxb.hjd_dzid# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.hjd_dzxz"> T2.hjd_dzxz = #zdrySgafzdryxxb.hjd_dzxz# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.jzd_xzqhdm"> T2.jzd_xzqhdm = #zdrySgafzdryxxb.jzd_xzqhdm# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.jzd_mlpdm"> T2.jzd_mlpdm = #zdrySgafzdryxxb.jzd_mlpdm# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.jzd_mlpxz"> T2.jzd_mlpxz = #zdrySgafzdryxxb.jzd_mlpxz# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.jzd_dzid"> T2.jzd_dzid = #zdrySgafzdryxxb.jzd_dzid# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.jzd_dzxz"> T2.jzd_dzxz like '%$zdrySgafzdryxxb.jzd_dzxz$%'</isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.jzd_zbx"> T2.jzd_zbx = #zdrySgafzdryxxb.jzd_zbx# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.jzd_zby"> T2.jzd_zby = #zdrySgafzdryxxb.jzd_zby# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.xfsqjzsqk"> T2.xfsqjzsqk = #zdrySgafzdryxxb.xfsqjzsqk# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.sssj"> T2.sssj = #zdrySgafzdryxxb.sssj# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.sjzrld"> T2.sjzrld = #zdrySgafzdryxxb.sjzrld# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.sjzrdw"> T2.sjzrdw = #zdrySgafzdryxxb.sjzrdw# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.sjzrdwld"> T2.sjzrdwld = #zdrySgafzdryxxb.sjzrdwld# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.ssfj"> T2.ssfj = #zdrySgafzdryxxb.ssfj# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.fjzrld"> T2.fjzrld = #zdrySgafzdryxxb.fjzrld# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.fjzrdw"> T2.fjzrdw = #zdrySgafzdryxxb.fjzrdw# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.fjzrdwld"> T2.fjzrdwld = #zdrySgafzdryxxb.fjzrdwld# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.sspcs"> T2.sspcs = #zdrySgafzdryxxb.sspcs# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.pcszrld"> T2.pcszrld = #zdrySgafzdryxxb.pcszrld# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.sszrq"> T2.sszrq = #zdrySgafzdryxxb.sszrq# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.zrqmj"> T2.zrqmj = #zdrySgafzdryxxb.zrqmj# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.mjlxdh"> T2.mjlxdh = #zdrySgafzdryxxb.mjlxdh# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.sfxk"> T2.sfxk = #zdrySgafzdryxxb.sfxk# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.sqxkdw"> T2.sqxkdw = #zdrySgafzdryxxb.sqxkdw# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.ajgxdw"> T2.ajgxdw = #zdrySgafzdryxxb.ajgxdw# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.gxdwlxr"> T2.gxdwlxr = #zdrySgafzdryxxb.gxdwlxr# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.gxdwlxdh"> T2.gxdwlxdh = #zdrySgafzdryxxb.gxdwlxdh# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.condition">
+					<![CDATA[ T2.GMSFHM || T2.XM || T2.jzd_dzxz   like '%$zdrySgafzdryxxb.condition$%']]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.searchStatus">
+					<![CDATA[ $zdrySgafzdryxxb.searchStatus$]]>
+				</isNotEmpty>
+		  <![CDATA[  ORDER BY T2.$sort$ $order$) M  WHERE ROWNUM <= #end# ) WHERE R > #begin#]]> 
+	</select>
+	
+	<!--列表总数统计 -->
+    <select id="queryListCount" parameterClass="Map" resultClass="Integer">
+		    <![CDATA[
+		       SELECT count(1)
+		           FROM ZDRY_SGAFZDRYXXB T2 
+		       WHERE T2.XT_ZXBZ = '0' ]]> 
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.xm">
+				     T2.XM LIKE '%'||#zdrySgafzdryxxb.xm#||'%'
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.pc"> T2.pc = #zdrySgafzdryxxb.pc# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.xm"> T2.xm = #zdrySgafzdryxxb.xm# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.xbdm"> T2.xbdm = #zdrySgafzdryxxb.xbdm# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.gmsfhm"> T2.gmsfhm = #zdrySgafzdryxxb.gmsfhm# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.sfganbfdm"> T2.sfganbfdm = #zdrySgafzdryxxb.sfganbfdm# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.hjd_xzqhdm"> T2.hjd_xzqhdm = #zdrySgafzdryxxb.hjd_xzqhdm# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.hjd_mlpdm"> T2.hjd_mlpdm = #zdrySgafzdryxxb.hjd_mlpdm# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.hjd_mlpxz"> T2.hjd_mlpxz = #zdrySgafzdryxxb.hjd_mlpxz# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.hjd_dzid"> T2.hjd_dzid = #zdrySgafzdryxxb.hjd_dzid# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.hjd_dzxz"> T2.hjd_dzxz = #zdrySgafzdryxxb.hjd_dzxz# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.jzd_xzqhdm"> T2.jzd_xzqhdm = #zdrySgafzdryxxb.jzd_xzqhdm# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.jzd_mlpdm"> T2.jzd_mlpdm = #zdrySgafzdryxxb.jzd_mlpdm# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.jzd_mlpxz"> T2.jzd_mlpxz = #zdrySgafzdryxxb.jzd_mlpxz# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.jzd_dzid"> T2.jzd_dzid = #zdrySgafzdryxxb.jzd_dzid# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.jzd_dzxz"> T2.jzd_dzxz = #zdrySgafzdryxxb.jzd_dzxz# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.jzd_zbx"> T2.jzd_zbx = #zdrySgafzdryxxb.jzd_zbx# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.jzd_zby"> T2.jzd_zby = #zdrySgafzdryxxb.jzd_zby# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.xfsqjzsqk"> T2.xfsqjzsqk = #zdrySgafzdryxxb.xfsqjzsqk# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.sssj"> T2.sssj = #zdrySgafzdryxxb.sssj# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.sjzrld"> T2.sjzrld = #zdrySgafzdryxxb.sjzrld# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.sjzrdw"> T2.sjzrdw = #zdrySgafzdryxxb.sjzrdw# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.sjzrdwld"> T2.sjzrdwld = #zdrySgafzdryxxb.sjzrdwld# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.ssfj"> T2.ssfj = #zdrySgafzdryxxb.ssfj# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.fjzrld"> T2.fjzrld = #zdrySgafzdryxxb.fjzrld# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.fjzrdw"> T2.fjzrdw = #zdrySgafzdryxxb.fjzrdw# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.fjzrdwld"> T2.fjzrdwld = #zdrySgafzdryxxb.fjzrdwld# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.sspcs"> T2.sspcs = #zdrySgafzdryxxb.sspcs# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.pcszrld"> T2.pcszrld = #zdrySgafzdryxxb.pcszrld# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.sszrq"> T2.sszrq = #zdrySgafzdryxxb.sszrq# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.zrqmj"> T2.zrqmj = #zdrySgafzdryxxb.zrqmj# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.mjlxdh"> T2.mjlxdh = #zdrySgafzdryxxb.mjlxdh# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.sfxk"> T2.sfxk = #zdrySgafzdryxxb.sfxk# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.sqxkdw"> T2.sqxkdw = #zdrySgafzdryxxb.sqxkdw# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.ajgxdw"> T2.ajgxdw = #zdrySgafzdryxxb.ajgxdw# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.gxdwlxr"> T2.gxdwlxr = #zdrySgafzdryxxb.gxdwlxr# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.gxdwlxdh"> T2.gxdwlxdh = #zdrySgafzdryxxb.gxdwlxdh# </isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.condition">
+					<![CDATA[ T2.GMSFHM || T2.XM || T2.jzd_dzxz like '%$zdrySgafzdryxxb.condition$%']]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="zdrySgafzdryxxb.searchStatus">
+					<![CDATA[ $zdrySgafzdryxxb.searchStatus$]]>
+				</isNotEmpty>
+		</select>
+	
+	<!-- 查重点人员类型的sql删除了，改为在zdrylxylbdybDao中查 -->
+	<select id="queryCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ select count(1) from zdry_sgafzdryxxb t where t.gmsfhm = #gmsfhm# and t.xt_zxbz = '0']]>
+	</select>
+
+	<!-- 查询最大批次 -->
+	<select id="queryMaxPc" parameterClass="zdrySgafzdryxxb" resultClass="zdrySgafzdryxxb">
+		<![CDATA[ select MAX(SUBSTR(PC,-5)) as pc from zdry_sgafzdryxxb t ]]>
+	</select>
+	
 	<!-- 查询单条（根据主键） -->
 	<select id="queryById" parameterClass="String" resultClass="zdrySgafzdryxxb">
 		<![CDATA[ select * from ZDRY_SGAFZDRYXXB t where ID = #id#  and rownum = 1 ]]>
@@ -13,7 +129,7 @@
 	<select id="queryViewByMap" parameterClass="Map" resultClass="zdrySgafzdryxxb">
 		<![CDATA[ 
 			select t.ID,t.PC,t.XM,t.XBDM,t.GMSFHM,t.SFGANBFDM,t.SFXK,t.XFSQJZSQK,t.SQXKDW,t.SQXKDWMC,  t1.ZDRYLB as BZ
-			from ZDRY_SGAFZDRYXXB t, ZDRY_ZDRYZB t1
+			from ZDRY_SGAFZDRYXXB t, ZDRY_ZDRYZB t1 					
 			where t.ID = #id#  and t.id=t1.id and t.XT_ZXBZ = '0' and t1.xt_zxbz='0'			
   		]]>
 	</select>

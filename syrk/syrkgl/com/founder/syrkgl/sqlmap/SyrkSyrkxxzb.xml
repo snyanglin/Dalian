@@ -389,4 +389,23 @@
 		select JZD_DZID from SYRK_SYRKXXZB a where
 		a.gxzrqdm=#gxzrqdm# and a.ryid = #ryid# and a.xt_zxbz = '0'
 	</select>
+
+	<!-- 根据ZJHM、JZD_DZID条件，查询实有人口详细信息【服务接口】 -->
+	<select id="querySyrkxxzb" parameterClass="syrkSyrkxxzb" resultClass="syrkSyrkxxzb">
+		SELECT *
+		FROM SYRK_SYRKXXZB T
+		WHERE T.XT_ZXBZ = '0'
+		<isNotEmpty prepend="AND" property="cyzjdm">
+			T.CYZJDM = #cyzjdm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="zjhm">
+			T.ZJHM = #zjhm#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="jzd_dzid">
+			T.JZD_DZID = #jzd_dzid#
+		</isNotEmpty>
+
+		AND ROWNUM = 1
+	</select>
+
 </sqlMap>

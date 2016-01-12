@@ -1,14 +1,14 @@
 package com.founder.zdrygl.base.model;
 
-import java.io.Serializable;
-
 import com.founder.framework.annotation.DBInfoAnnotation;
 import com.founder.framework.annotation.FieldDesc;
 import com.founder.framework.base.entity.BaseEntity;
 import com.founder.zdrygl.core.model.Zdry;
 
+import java.io.Serializable;
+
 @DBInfoAnnotation(tableName = "ZDRY_SGAFZDRYXXB", pk = "id")
-public class ZdrySgafzdryxxb extends BaseEntity implements Serializable,Zdry{
+public class ZdrySgafzdryxxb extends BaseEntity implements Serializable,Zdry {
 
 	/**
 	 * 

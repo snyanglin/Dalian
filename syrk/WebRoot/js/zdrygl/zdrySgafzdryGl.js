@@ -259,7 +259,7 @@ SgafzdryGl.datagridProcessFormater = function(val,row,index){
 //		}
 		
 		if(!rowData.ssfj) {//待处理
-			formatterStr = '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="SgafzdryGl.doXiaFa('+index+')">下发</a>&nbsp;';
+			formatterStr = '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="SgafzdryGl.doXiaFa('+index+',this)">下发</a>&nbsp;';
 		}
 		formatterStr += '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="SgafzdryGl.doEdit('+index+')">查看</a>&nbsp;';
 	}else if(orglevel=="21"){//分县局
@@ -271,7 +271,7 @@ SgafzdryGl.datagridProcessFormater = function(val,row,index){
 		//		
 		//	}
 		if(!rowData.sspcs) {//待处理
-			formatterStr = '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="SgafzdryGl.doXiaFa('+index+')">下发</a>&nbsp;';
+			formatterStr = '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="SgafzdryGl.doXiaFa('+index+',this)">下发</a>&nbsp;';
 		}
 		formatterStr += '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="SgafzdryGl.doEdit('+index+')">查看</a>&nbsp;';
 	}else if(orglevel=="32"){//派出所
@@ -281,7 +281,7 @@ SgafzdryGl.datagridProcessFormater = function(val,row,index){
 		//		
 		//	}
 		if(!rowData.sszrq) {//待处理
-			formatterStr = '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="SgafzdryGl.doXiaFa('+index+')">下发</a>&nbsp;';
+			formatterStr = '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="SgafzdryGl.doXiaFa('+index+',this)">下发</a>&nbsp;';
 		}
 		formatterStr += '&nbsp;<a class="link" href="javascript:javascript:void(0)" onclick="SgafzdryGl.doEdit('+index+')">查看</a>&nbsp;';
 		
@@ -323,30 +323,40 @@ SgafzdryGl.onClickRow = function(rowIndex,rowData){
  */
 SgafzdryGl.zdryAdd = function(){
 	 //关闭所有器已经打开的气泡框
-	 //SgafzdryGl.map._MapApp.closeInfoWindow();
-	 menu_open('涉公安访重点人员新增','/zdrySgafzdryGl/addView');
+	 menu_open('涉公安访重点人员新增','/zdrySgafzdryGl/addView?tabid='+getMainTabID());
 };
 
+SgafzdryGl.loadGrid = function(){
+	$('#dg').datagrid('load');
+}
 
-SgafzdryGl.doXiaFa = function(index){
+SgafzdryGl.doXiaFa = function(index,obj){
 	
 	var rows = $('#dg').datagrid('getData');
 	var rowData = rows.rows[index];
 	
-	var dialogUrl = basePath + 'zdrySgafzdryGl/viewXiaFa/'+rowData.id
-	$('#ddtest').dialog({    
-	    title: '涉公安访重点人员下发',    
-	    width: 700,    
-	    height: 500,    
-	    closed: true,    
-	    cache: false,    
-	    href: dialogUrl,    
-	    modal: true,
-	    onLoad:function(){    
-	    	initPage();
-	    }
-	});    
-	$("#ddtest").window("open");
+//	var dialogUrl = basePath + 'zdrySgafzdryGl/viewXiaFa/'+rowData.id
+//	$('#ddtest').dialog({    
+//	    title: '涉公安访重点人员下发',    
+//	    width: 700,    
+//	    height: 500,    
+//	    closed: true,    
+//	    cache: false,    
+//	    href: dialogUrl,    
+//	    modal: true,
+//	    onLoad:function(){    
+//	    	initPage();
+//	    }
+//	});    
+//	$("#ddtest").window("open");
+	
+	var editUrl = contextPath + '/zdrySgafzdryGl/viewXiaFa?id='+rowData.id+"&tabid="+getMainTabID();
+	datagridAdd(obj, 'addWindow', null, {
+		title : '涉公安访重点人员下发',
+		url : editUrl,
+		width : 850,
+		height : 500
+	}, '您是否要保存数据？');
 }
 
 /**

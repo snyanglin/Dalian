@@ -8,9 +8,12 @@
 	<typeAlias alias="zdrylgxxVO" type="com.founder.zdrygl.base.vo.ZdrylgxxVO" />
 	
 	<!-- 业务办理菜单查询  -->
-	<select id="queryYwglgn" parameterClass="String" resultClass="zdrygnVO">
+	<select id="queryYwglgn" parameterClass="Map" resultClass="zdrygnVO">
 		SELECT A.ID,A.SYRKLX,A.ZDRYLX,A.PX,A.GNID,B.GNBH,B.GNMC,B.GNANMC,B.GNANURL,B.GNLXDM,B.GNDYBM,B.BCTSXX
 		       FROM SYS_ZDRKGNPZB A,SYS_GNB B WHERE A.GNID=B.ID(+) AND  B.GNLXDM = #gnlxdm#
+		<isNotEmpty prepend="and" property="rylbdm">
+			A.ZDRYLX= #rylbdm#
+		</isNotEmpty>
 		 and A.XT_ZXBZ='0' and B.XT_ZXBZ='0' ORDER BY A.PX
 	</select>
 	

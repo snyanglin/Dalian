@@ -36,7 +36,7 @@
   <body class="easyui-layout" data-options="fit:true,border:false">
        <div data-options="region:'center',border:false" style="width:538px;">
            <table id="dg" class="easyui-datagrid"
-	              	data-options="url:'<%=contextPath%>/zdryzb/shbzdry/list',
+	              	data-options="url:'<%=contextPath%>/shb/shbzdry/list',
 						selectOnCheck:true,
 		        		checkOnSelect:true,
 		        		rownumbers:true,
@@ -111,7 +111,7 @@
 	
 	/* menu_open(rowData.xm + '', '/zdryzb/' + rowData.ryid + '/' + rowData.syrkid
 			+ '/view' + '?mainTabID=' + getMainTabID()); */
-    menu_open(rowData.xm +'','/zdryzb/shbzdry/edit?zdryid='+rowData.id+"&type="+rowData.qx+"&mainTabID="+getMainTabID());
+    menu_open(rowData.xm +'','/shb/shbzdry/edit?zdryid='+rowData.id+"&type="+rowData.qx+"&mainTabID="+getMainTabID());
   //  menu_open('涉环保重点人员编辑','/syrkGl/add?mainTabID='+getMainTabID()+'&invokeJSMethod=SyrkGl.queryButton');
 };
 
@@ -124,7 +124,7 @@ function view(linkObject, index){
 
 	/* menu_open(rowData.xm + '', '/zdryzb/' + rowData.ryid + '/' + rowData.syrkid
 			+ '/view' + '?mainTabID=' + getMainTabID()); */
-    menu_open(rowData.xm +'','/zdryzb/shbzdry/edit?zdryid='+rowData.id+"&type="+rowData.qx+"&mainTabID="+getMainTabID());
+    menu_open(rowData.xm +'','/shb/shbzdry/edit?zdryid='+rowData.id+"&type="+rowData.qx+"&mainTabID="+getMainTabID());
   //  menu_open('涉环保重点人员编辑','/syrkGl/add?mainTabID='+getMainTabID()+'&invokeJSMethod=SyrkGl.queryButton');
 };
 
@@ -151,7 +151,7 @@ function resetButton(){
 
 //新增
 function addLg(){
-	menu_open('涉环保重点人员登记', '/zdryzb/shbAddPre');
+	menu_open('涉环保重点人员登记', '/shb/shbAddPre');
 }
 
 </script>

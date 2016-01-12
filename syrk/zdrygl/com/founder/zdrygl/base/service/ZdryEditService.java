@@ -8,6 +8,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.founder.zdrygl.base.dao.*;
+import com.founder.zdrygl.base.model.*;
+import com.founder.zdrygl.core.dao.ZdryDtjsXsDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,36 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.founder.framework.base.service.BaseService;
 import com.founder.service.attachment.bean.ZpfjFjxxb;
 import com.founder.service.attachment.dao.ZpfjFjxxbDao;
-import com.founder.zdrygl.base.dao.ZdryEditDao;
-import com.founder.zdrygl.base.dao.ZdryFzcsfryxxbDao;
-import com.founder.zdrygl.base.dao.ZdryJgdxqxjdjbDao;
-import com.founder.zdrygl.base.dao.ZdryJgdxxxbDao;
-import com.founder.zdrygl.base.dao.ZdryJkbjllxxbDao;
-import com.founder.zdrygl.base.dao.ZdryNrsxdxxxbDao;
-import com.founder.zdrygl.base.dao.ZdryPsjdbDao;
-import com.founder.zdrygl.base.dao.ZdrySgafzdryxxbDao;
-import com.founder.zdrygl.base.dao.ZdryShbzdryxxbDao;
-import com.founder.zdrygl.base.dao.ZdrySqjzryxxbDao;
-import com.founder.zdrygl.base.dao.ZdrySqsbzdryxxbDao;
-import com.founder.zdrygl.base.dao.ZdryWffzjlxxbDao;
-import com.founder.zdrygl.base.dao.ZdryZagltdxxbDao;
-import com.founder.zdrygl.base.dao.ZdryZdrkxxbDao;
-import com.founder.zdrygl.base.dao.ZdryZdrykcxxbDao;
-import com.founder.zdrygl.base.dao.ZdryZszhjsbrxxbDao;
-import com.founder.zdrygl.base.model.ZdryFzcsfryxxb;
-import com.founder.zdrygl.base.model.ZdryJgdxqxjdjb;
-import com.founder.zdrygl.base.model.ZdryJgdxxxb;
-import com.founder.zdrygl.base.model.ZdryJkbjllxxb;
-import com.founder.zdrygl.base.model.ZdryNrsxdxxxb;
-import com.founder.zdrygl.base.model.ZdryPsjdb;
-import com.founder.zdrygl.base.model.ZdrySgafzdryxxb;
-import com.founder.zdrygl.base.model.ZdrySqjzryxxb;
-import com.founder.zdrygl.base.model.ZdrySqsbzdryxxb;
-import com.founder.zdrygl.base.model.ZdryWffzjlxxb;
-import com.founder.zdrygl.base.model.ZdryZagltdxxb;
-import com.founder.zdrygl.base.model.ZdryZdrkxxb;
-import com.founder.zdrygl.base.model.ZdryZdrykcxxb;
-import com.founder.zdrygl.base.model.ZdryZszhjsbrxxb;
+import com.founder.syrkgl.bean.RyRyjbxxb;
+import com.founder.syrkgl.service.RyRyjbxxbService;
 import com.founder.zdrygl.base.vo.ZdrygnVO;
 import com.founder.zdrygl.base.vo.ZdryxxzsVO;
 import com.founder.zdrygl.core.utils.ZdryConstant;
@@ -107,18 +82,41 @@ public class ZdryEditService extends BaseService {
 	private ZdryWffzjlxxbDao zdryWffzjlxxbDao;
 	@Resource(name = "zdryZdrykcxxbDao")
 	private ZdryZdrykcxxbDao zdryZdrykcxxbDao;
-	
+	@Resource
+	private ZdryQbxxbDao zdryQbxxbDao;
+	@Resource
+	private ZdryDtjsXsDao zdryDtjsXsDao;
+	@Resource
+	private ZdryInfoQueryService zdryInfoQueryService;
+
+	@Resource
+	private RyRyjbxxbService ryRyjbxxbService;
+
 	/**
 	 * 
 	 * @Title: queryYwglgn
 	 * @Description: TODO(业务办理菜单查询)
 	 * @param @param gnlxdm
+	 * @param @param rylbdm 人员类别代码，重点人员管理类型代码
 	 * @param @return    设定文件
 	 * @return List<ZdrygnVO>    返回类型
 	 * @throw
 	 */
-	public List<ZdrygnVO> queryYwglgn(String gnlxdm) {
-		return zdryEditDao.queryYwglgn(gnlxdm);
+	public List<ZdrygnVO> queryYwglgn(String gnlxdm,String rylbdm) {
+		return zdryEditDao.queryYwglgn(gnlxdm,rylbdm);
+	}
+
+	/**
+	 * 动态纪实写实基本信息
+	 * @param map
+	 * @return
+	 */
+	public List<ZdryDtjsXsxxb> dtjsxsjbxx_query(Map<String,Object> map){
+		  String id = map.get("zdryid").toString();
+	        ZdryZb zb = (ZdryZb) this.zdryInfoQueryService.queryById(id);
+	        RyRyjbxxb ryjbxxb = this.ryRyjbxxbService.queryById(zb.getRyid());
+
+		return this.zdryDtjsXsDao.queryZdryDtjsXsxxbByZdryZjhm(ryjbxxb.getZjhm());
 	}
 
 	/**
@@ -167,13 +165,13 @@ public class ZdryEditService extends BaseService {
 		temp = zdryEditDao.queryRyzsxx(map);
 		if(temp != null && !temp.isEmpty()){
 			map.put("xxdxlxdm","2");
-			for (int i = 0; i < temp.size(); i++) {				
+			for (int i = 0; i < temp.size(); i++) {
 				map.put("dlbh",temp.get(i).getXxbh().substring(0, 2));
 				temp.get(i).setList( zdryEditDao.queryRyzsxx(map));
 			}
 			infoList.addAll(temp);
 		}
-		
+
 		//实现排序接口
 		Comparator<Object> c = new Comparator<Object>(){
 			public int compare( Object a, Object b ){
@@ -188,7 +186,7 @@ public class ZdryEditService extends BaseService {
 		return infoList;
 	}
 
-	
+
 	public void delete_xxzsnrb(Map<String, Object> map) {
 		zdryEditDao.delete_xxzsnrb(map);
 	}	
@@ -397,13 +395,35 @@ public class ZdryEditService extends BaseService {
 		return zdryZdrykcxxbDao.queryViewList(map);
 	}
 
-	/*
+	/**
+	 *
+	 * @Title: zdryQbxxb_query
+	 * @Description: TODO(情报人员信息查询)
+	 * @param @param map
+	 * @param @return    设定文件
+	 * @return ZdryQbxxb    返回类型
+	 * @throw
+	 */
+	public ZdryQbxxb qbry_query(Map<String, Object> map) {
+		ZdryQbxxb entity = (ZdryQbxxb)zdryQbxxbDao.queryViewByMap(map);
+		entity.setBz(zdryConstant.zdryDict().get(entity.getBz()));
+		return entity;
+	}
 	
+	/**
+	 *
+	 * @Title: shbzdry_query
+	 * @Description: TODO(涉环保重点人员查询)
+	 * @param @param map
+	 * @param @return    设定文件
+	 * @return ZdryShbzdryxxb    返回类型
+	 * @throw
+	 */
 	public ZdryShbzdryxxb shbzdry_query (Map<String,Object> map){
-		return zdryShbzdryxxbDao.queryZsxxById((String) map.get("zdryid"));
+		return (ZdryShbzdryxxb) zdryShbzdryxxbDao.queryViewByMap(map);
 	}
 
-	
+	/*
 	public List<ZdryXdryxxb> zdryXdryxxb_query(Map<String, Object> map) {
 		List<ZdryXdryxxb> list=zdryXdryxxbDao.queryList((String) map.get("zdryid"));
 

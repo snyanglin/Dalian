@@ -1,12 +1,11 @@
 package com.founder.zdrygl.base.model;
 
-import java.io.Serializable;
-
 import com.founder.framework.annotation.DBInfoAnnotation;
 import com.founder.framework.annotation.FieldDesc;
 import com.founder.framework.base.entity.BaseEntity;
 import com.founder.zdrygl.core.model.Zdry;
 
+import java.io.Serializable;
 
 
 /***
@@ -22,7 +21,7 @@ import com.founder.zdrygl.core.model.Zdry;
  * @Version:      [v1.0]
  */
 @DBInfoAnnotation(tableName = "ZDRY_SHBZDRYXXB", pk = "id")
-public class ZdryShbzdryxxb extends BaseEntity  implements Serializable,Zdry{
+public class ZdryShbzdryxxb extends BaseEntity  implements Serializable,Zdry {
 
 	
 	/**
@@ -109,9 +108,8 @@ public class ZdryShbzdryxxb extends BaseEntity  implements Serializable,Zdry{
 	private String rkbm;
 	@FieldDesc("备注")
 	private String bz;
-	
-/** TODO 不确定有用没
- * 	private String ryid;
+
+ 	private String ryid;
 	
 	private String qx;//view和edit
 
@@ -127,7 +125,7 @@ public class ZdryShbzdryxxb extends BaseEntity  implements Serializable,Zdry{
 	}
 	public void setRyid(String ryid) {
 		this.ryid = ryid;
-	}*/	
+	}	
 	
 	public String getZywtjxsbx() {
 		return zywtjxsbx;

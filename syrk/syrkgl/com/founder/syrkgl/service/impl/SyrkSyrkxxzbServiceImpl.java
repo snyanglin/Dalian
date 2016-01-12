@@ -849,6 +849,19 @@ public class SyrkSyrkxxzbServiceImpl extends BaseService implements
 		return this.syrkSyrkxxzbDao.queryList(entity);
 	}
 
+	/**
+	 * @Title: querySyrkxxzb
+	 * @描述: 根据ZJHM、JZD_DZID条件，查询实有人口详细信息【服务接口】
+	 * @作者: zhang_guoliang@founder.com
+	 * @参数: SyrkSyrkxxzb
+	 * @日期： 2015-12-01 下午12:40:32
+	 * @返回值: SyrkSyrkxxzb
+	 * @throws
+	 */
+	public SyrkSyrkxxzb querySyrkxxzb(SyrkSyrkxxzb entity) {
+		return syrkSyrkxxzbDao.querySyrkxxzb(entity);
+	}
+
 	/***
 	 *
 	 * @Title: queryHsbSyrkidByZjhm

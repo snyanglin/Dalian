@@ -119,4 +119,9 @@ public class ZdryDtjsXsDao extends BaseDaoImpl {
 		Integer count = (Integer) queryForObject("ZdryDtjsXs.queryClxxCount", map);
 		return count.longValue();
 	}
+
+	public List<ZdryDtjsXsxxb> queryZdryDtjsXsxxbByZdryZjhm(String zdryZjhm){
+		return (List<ZdryDtjsXsxxb>)queryForList("ZdryDtjsXs.queryZdryDtjsXsxxbByZdryZjhm", zdryZjhm);
+
+	}
 }

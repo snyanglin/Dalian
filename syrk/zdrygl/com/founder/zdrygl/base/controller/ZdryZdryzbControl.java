@@ -35,20 +35,25 @@ import com.founder.framework.components.AppConst;
 import com.founder.framework.config.SystemConfig;
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.exception.RestException;
+import com.founder.framework.organization.department.service.OrgOrganizationService;
 import com.founder.framework.utils.DateUtils;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.syrkgl.bean.SyrkSyrkxxzb;
+import com.founder.syrkgl.service.RyRylxfsxxbService;
 import com.founder.syrkgl.service.SyrkSyrkxxzbService;
 import com.founder.workflow.bean.StartProcessInstance;
 import com.founder.zdrygl.base.model.ZdryZb;
 import com.founder.zdrygl.base.model.Zdrycx;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
+import com.founder.zdrygl.base.service.ZdrySgafzdryxxbService;
 import com.founder.zdrygl.base.service.wf.LcgFlagEnum;
 import com.founder.zdrygl.base.service.wf.WorkFlowParametersInitialService;
 import com.founder.zdrygl.base.validator.ZdryVOValidator;
 import com.founder.zdrygl.base.vo.ZdryVO;
+import com.founder.zdrygl.base.vo.ZdryZdryzbVO;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
+import com.founder.zdrygl.core.inteface.ZdryZdryzbDaoService;
 import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
 import com.founder.zdrygl.core.utils.ZdryConstant;
@@ -91,6 +96,17 @@ public class ZdryZdryzbControl extends BaseController {
     private SyrkSyrkxxzbService syrkSyrkxxzbService;
     @Resource
     private OrgOrganizationService orgOrganizationService;
+
+    @Resource
+    private ZdrySgafzdryxxbService zdrySgafzdryxxbService;
+
+    @Resource
+    private ZdryZdryzbDaoService ZdryZdryzbDaoService;
+
+    @Resource
+    private RyRylxfsxxbService ryRylxfsxxbService;
+
+//    private zdryCar
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -388,7 +404,7 @@ public class ZdryZdryzbControl extends BaseController {
         String klgStr;
         try {
             if (ylglxStr == "" || ylglxStr == null) {
-                Map ins=zdryConstant.zdryServiceMap();
+                Map ins = zdryConstant.zdryServiceMap();
                 ins.remove("00");
                 klgStr = ins.keySet().toString();
                 klgStr = klgStr.replaceAll(",", "|");
@@ -400,7 +416,7 @@ public class ZdryZdryzbControl extends BaseController {
             if ("".equals(klgStr)) {// 没有可列管的类型，不能返回“”，此时应该没有匹配的选项
                 klgStr = "999999";
             } else {//有可同时列管的类型
-				/*大连需求：同一辖区内同一个监督部门管理的重点人员管理类型间不允许重复列管*/
+                /*大连需求：同一辖区内同一个监督部门管理的重点人员管理类型间不允许重复列管*/
                 if ("210200".equals(SystemConfig.getString(AppConst.XZQH))) {//大连
                     SessionBean sessionBean = getSessionBean();
                     SyrkSyrkxxzb syrkSyrkxxzb = syrkSyrkxxzbService.queryById(syrkid);
@@ -408,8 +424,8 @@ public class ZdryZdryzbControl extends BaseController {
                     if (syrkSyrkxxzb != null) {
                         List<ZdryZb> list = (List<ZdryZb>) zdryQueryService.queryListByRyid(syrkSyrkxxzb.getRyid());
                         for (ZdryZb zb : list) {
-                            if (!sessionBean.getUserOrgCode().equals(zb.getGlbm())){
-                                hasOtherlg=true;
+                            if (!sessionBean.getUserOrgCode().equals(zb.getGlbm())) {
+                                hasOtherlg = true;
                             }
                             if (!sessionBean.getUserOrgCode().equals(zb.getGlbm()) && "01".equals(zb.getZdrygllxdm())) {
                                 logger.debug("其他辖区已列管监管对象，本辖区不能再列管其他类型");
@@ -446,10 +462,10 @@ public class ZdryZdryzbControl extends BaseController {
 
                         }
                     }
-                    if (hasOtherlg){
+                    if (hasOtherlg) {
                         String klgAry[] = klgStr.split("\\|");
                         for (int index = 0; index < klgAry.length; index++) {
-                            if ("#02#04#06#07#".indexOf(klgAry[index]) < 0){
+                            if ("#02#04#06#07#".indexOf(klgAry[index]) < 0) {
                                 logger.debug("其他辖区已列管，本辖区不能再列管本类型：" + klgAry[index]);
                                 klgStr = klgStr.replace(klgAry[index], "999999");
                             }
@@ -565,6 +581,68 @@ public class ZdryZdryzbControl extends BaseController {
         }
         mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
         return mv;
+    }
+
+    @RequestMapping(value = "/{zdrySgafzdryxxbId}/sgafview", method = RequestMethod.GET)
+    public ModelAndView sgafview(@PathVariable(value = "zdrySgafzdryxxbId") String zdrySgafzdryxxbId,
+                                 @RequestParam(value = "mode", defaultValue = "edit") String mode, String mainTabID, SessionBean sessionBean)
+            throws BussinessException {
+
+        ModelAndView mv = new ModelAndView("zdrygl/edit/zdryEdit");
+        String ryid = zdrySgafzdryxxbService.queryRyidByZdrySgafzdryId(zdrySgafzdryxxbId);
+
+        ZdryZb zdryZb = new ZdryZb();
+        // ryid可能为空
+        if (ryid != null && ryid.length() > 0) {
+            zdryZb.setRyid(ryid);
+        } else {
+            zdryZb.setId(zdrySgafzdryxxbId);
+        }
+        List<?> zdryList = zdryQueryService.queryListByEntity(zdryZb);
+        if (zdryList.isEmpty())
+            throw new BussinessException("Zdry not Exist");
+
+        ZdryZb temp = null;
+        List<Map<String, String>> zdrylxList = new ArrayList<Map<String, String>>();
+        String zdrygllxmc;
+        StringBuffer zdrylxBuffer = new StringBuffer();// 已列管类型名字
+
+        for (int i = 0; i < zdryList.size(); i++) {
+            temp = (ZdryZb) zdryList.get(i);
+
+            // 只取当前重点人员id的重点人员类型
+            if (temp.getId().equals(zdrySgafzdryxxbId)) {
+                mv.addObject("zdry", temp);
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("zdryid", temp.getId());
+                map.put("zdrylx", temp.getZdrygllxdm());
+                zdrylxList.add(map);
+            }
+
+            // 已列管 重点人员 类型
+            zdrygllxmc = zdryConstant.zdryDict().get(temp.getZdrygllxdm());
+            if (zdrygllxmc != null && zdrygllxmc.length() > 0
+                    && !"4".equals(temp.getGlzt())) {
+                if (zdrylxBuffer.length() > 0)
+                    zdrylxBuffer.append(" ");
+                zdrylxBuffer.append(zdrygllxmc);
+            }
+
+        }
+
+        String zdrylxStr = zdrylxBuffer.toString();
+        if (zdrylxStr.length() > 17) {
+            mv.addObject("zdrylxMore", zdrylxBuffer.toString());// 全部的已列管类型
+            zdrylxStr = zdrylxStr.subSequence(0, 17) + "……";
+        }
+        mv.addObject("zdrylx", zdrylxStr);// 简化的已列管类型
+        mv.addObject("zdrylxList", zdrylxList);
+        mv.addObject("zdrylxJson", new Gson().toJson(zdrylxList));
+        mv.addObject("mainTabID", mainTabID);
+        mv.addObject("mode", mode);
+
+        return mv;
+
     }
 
 }
