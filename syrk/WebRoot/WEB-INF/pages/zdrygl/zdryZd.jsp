@@ -88,10 +88,10 @@
 		    		<input type="file" name="uploadFile" id="uploadFile" style="width:628px;" class="easyui-validatebox" data-options="tipPosition:'left',invalidMessage:'请选择要上传的转递依据'" />
 				</td>
 		    </tr>	
-		    <tr class="dialogTr">
+		   <!--  <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">流程图:</td>
 		    	<td width="30%" class="dialogTd" colspan="3"><a href="#" onclick="viewWorkflowDialog();">查看</a> </td>		    	
-		    </tr>	    
+		    </tr>	     -->
 	    	</table>
 	    </div>
     </form>

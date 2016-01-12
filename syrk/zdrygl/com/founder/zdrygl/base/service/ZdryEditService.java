@@ -107,19 +107,6 @@ public class ZdryEditService extends BaseService {
 	}
 
 	/**
-	 * 动态纪实写实基本信息
-	 * @param map
-	 * @return
-	 */
-	public List<ZdryDtjsXsxxb> dtjsxsjbxx_query(Map<String,Object> map){
-		  String id = map.get("zdryid").toString();
-	        ZdryZb zb = (ZdryZb) this.zdryInfoQueryService.queryById(id);
-	        RyRyjbxxb ryjbxxb = this.ryRyjbxxbService.queryById(zb.getRyid());
-
-		return this.zdryDtjsXsDao.queryZdryDtjsXsxxbByZdryZjhm(ryjbxxb.getZjhm());
-	}
-
-	/**
 	 * 
 	 * @Title: queryRyzsxx
 	 * @Description: TODO(人员展示信息菜单查询)
@@ -165,13 +152,13 @@ public class ZdryEditService extends BaseService {
 		temp = zdryEditDao.queryRyzsxx(map);
 		if(temp != null && !temp.isEmpty()){
 			map.put("xxdxlxdm","2");
-			for (int i = 0; i < temp.size(); i++) {
+			for (int i = 0; i < temp.size(); i++) {				
 				map.put("dlbh",temp.get(i).getXxbh().substring(0, 2));
 				temp.get(i).setList( zdryEditDao.queryRyzsxx(map));
 			}
 			infoList.addAll(temp);
 		}
-
+		
 		//实现排序接口
 		Comparator<Object> c = new Comparator<Object>(){
 			public int compare( Object a, Object b ){
@@ -186,7 +173,7 @@ public class ZdryEditService extends BaseService {
 		return infoList;
 	}
 
-
+	
 	public void delete_xxzsnrb(Map<String, Object> map) {
 		zdryEditDao.delete_xxzsnrb(map);
 	}	
@@ -437,4 +424,21 @@ public class ZdryEditService extends BaseService {
 	}
 
 				*/
+	/**
+	 * 动态纪实写实基本信息
+	 * @param map
+	 * @return
+	 */
+	/**
+	 * 动态纪实写实基本信息
+	 * @param map
+	 * @return
+	 */
+	public List<ZdryDtjsXsxxb> dtjsxsjbxx_query(Map<String,Object> map){
+		  String id = map.get("zdryid").toString();
+	        ZdryZb zb = (ZdryZb) this.zdryInfoQueryService.queryById(id);
+	        RyRyjbxxb ryjbxxb = this.ryRyjbxxbService.queryById(zb.getRyid());
+
+		return this.zdryDtjsXsDao.queryZdryDtjsXsxxbByZdryZjhm(ryjbxxb.getZjhm());
+	}
 }

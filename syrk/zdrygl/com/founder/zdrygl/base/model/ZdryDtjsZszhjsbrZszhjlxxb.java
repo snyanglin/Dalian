@@ -24,52 +24,41 @@ public class ZdryDtjsZszhjsbrZszhjlxxb extends BaseEntity implements Serializabl
 
 	@FieldDesc("ID")
 	private String id;
-	@FieldDesc("XXBH")
-	private String xxbh;
-	@FieldDesc("ZSZHLB")
+	@FieldDesc("肇事肇祸类别")
 	private String zszhlb;
-	@FieldDesc("SFSJ")
+	@FieldDesc("事发时间")
 	private String sfsj;
-	@FieldDesc("SFDD")
+	@FieldDesc("事发地点")
 	private String sfdd;
-	@FieldDesc("CLJG")
+	@FieldDesc("处理结果")
 	private String cljg;
-	@FieldDesc("JDJG")
+	@FieldDesc("鉴定机构")
 	private String jdjg;
-	@FieldDesc("JDJGBH")
+	@FieldDesc("鉴定结果")
 	private String jdjgbh;
-	@FieldDesc("JDDH")
+	@FieldDesc("鉴定单号")
 	private String jddh;
-	@FieldDesc("JDR")
+	@FieldDesc("鉴定人")
 	private String jdr;
-	@FieldDesc("JDRLXDH")
+	@FieldDesc("鉴定人联系电话")
 	private String jdrlxdh;
-	@FieldDesc("BAMJ")
+	@FieldDesc("办案民警")
 	private String bamj;
-	@FieldDesc("MJLXFS")
+	@FieldDesc("民警联系方式")
 	private String mjlxfs;
-	@FieldDesc("SSGAJGMC")
+	@FieldDesc("所属公安机关")
 	private String ssgajgmc;
-	@FieldDesc("TJSJ")
-	private String tjsj;
-	@FieldDesc("XGSJ")
-	private String xgsj;
-	@FieldDesc("SSGAJGDM")
+	@FieldDesc("所属公安机构代码")
 	private String ssgajgdm;
-	@FieldDesc("SJGCMS")
+	@FieldDesc("事件过程描述")
 	private String sjgcms;
-	
+	@FieldDesc("重点人员证件号码")
+	private String zdryzjhm;
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getXxbh() {
-		return xxbh;
-	}
-	public void setXxbh(String xxbh) {
-		this.xxbh = xxbh;
 	}
 	public String getZszhlb() {
 		return zszhlb;
@@ -143,18 +132,6 @@ public class ZdryDtjsZszhjsbrZszhjlxxb extends BaseEntity implements Serializabl
 	public void setSsgajgmc(String ssgajgmc) {
 		this.ssgajgmc = ssgajgmc;
 	}
-	public String getTjsj() {
-		return tjsj;
-	}
-	public void setTjsj(String tjsj) {
-		this.tjsj = tjsj;
-	}
-	public String getXgsj() {
-		return xgsj;
-	}
-	public void setXgsj(String xgsj) {
-		this.xgsj = xgsj;
-	}
 	public String getSsgajgdm() {
 		return ssgajgdm;
 	}
@@ -167,5 +144,12 @@ public class ZdryDtjsZszhjsbrZszhjlxxb extends BaseEntity implements Serializabl
 	public void setSjgcms(String sjgcms) {
 		this.sjgcms = sjgcms;
 	}
+	public String getZdryzjhm() {
+		return zdryzjhm;
+	}
+	public void setZdryzjhm(String zdryzjhm) {
+		this.zdryzjhm = zdryzjhm;
+	}
+
 	
 }

@@ -4,7 +4,6 @@ import com.founder.framework.annotation.TypeAnnotation;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.utils.EasyUIPage;
 import com.founder.zdrygl.base.model.ZdryShbzdryxxb;
-
 /***
  * ****************************************************************************
  * @Package:      [com.founder.zdrygl.service.ZdryShbzdryxxbService.java]  
@@ -30,7 +29,7 @@ public interface ZdryShbzdryxxbService {
 	 * @return EasyUIPage    返回类型
 	 * @throws
 	 */
-	public EasyUIPage queryList(ZdryShbzdryxxb entity, EasyUIPage page, SessionBean sessionBean);
+	public EasyUIPage queryList(ZdryShbzdryxxb entity, EasyUIPage page,SessionBean sessionBean);
 	
 
 	/**
@@ -38,7 +37,7 @@ public interface ZdryShbzdryxxbService {
 	 * @param entity
 	 * @param sessionBean
 	 */
-	public void update(ZdryShbzdryxxb entity, SessionBean sessionBean);
+	public void update(ZdryShbzdryxxb entity,SessionBean sessionBean);
 	
 	
 	/**

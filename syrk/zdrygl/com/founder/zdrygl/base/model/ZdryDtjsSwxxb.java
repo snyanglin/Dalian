@@ -10,48 +10,39 @@ import com.founder.framework.base.entity.BaseEntity;
  * @Package:      [com.founder.zdrygl.bean.ZdryDtjsSwxxb.java]  
  * @ClassName:    [ZdryDtjsSwxxb]   
  * @Description:  [重点人员 动态记实 涉稳 属性 表]   
- * @Author:       [zhang.hai@founder.com.cn]  
- * @CreateDate:   [2015年8月13日 下午7:07:27]   
- * @UpdateUser:   [ZhangHai(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateDate:   [2015年8月13日 下午7:07:27，(如多次修改保留历史记录，增加修改记录)]   
+ * @Author:       [cong_rihong@founder.com.cn]  
+ * @CreateDate:   [2015年12月8日 下午7:07:27]   
+ * @UpdateUser:   [congrihong(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年12月8日 下午7:07:27，(如多次修改保留历史记录，增加修改记录)]   
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
 @DBInfoAnnotation(tableName = "ZDRY_DTJS_SWXXB", pk = "id")
 public class ZdryDtjsSwxxb extends BaseEntity implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8958976114056037088L;
 	@FieldDesc("ID")
 	private String id;
-	@FieldDesc("XSXXBH")
-	private String xsxxbh;
-	@FieldDesc("SSLB")
+	@FieldDesc("所属类别")
 	private String sslb;
-	@FieldDesc("SSLBXL")
+	@FieldDesc("所属类别细类")
 	private String sslbxl;
-	@FieldDesc("SSZZ")
-	private String sszz;
-	@FieldDesc("QKGS")
+	@FieldDesc("所属组织")
+	private String sszzdm;	
+	@FieldDesc("所属组织名称")
+	private String sszzmc;
+	@FieldDesc("情况概述")
 	private String qkgs;
-	@FieldDesc("TXRQ")
-	private String txrq;
-	@FieldDesc("XGRQ")
-	private String xgrq;
-	@FieldDesc("ZDRYZJHM")
+	@FieldDesc("重点人证件号码")
 	private String zdryzjhm;
-	
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getXsxxbh() {
-		return xsxxbh;
-	}
-	public void setXsxxbh(String xsxxbh) {
-		this.xsxxbh = xsxxbh;
 	}
 	public String getSslb() {
 		return sslb;
@@ -65,11 +56,18 @@ public class ZdryDtjsSwxxb extends BaseEntity implements Serializable {
 	public void setSslbxl(String sslbxl) {
 		this.sslbxl = sslbxl;
 	}
-	public String getSszz() {
-		return sszz;
+	public String getSszzdm() {
+		return sszzdm;
 	}
-	public void setSszz(String sszz) {
-		this.sszz = sszz;
+	public void setSszzdm(String sszz) {
+		this.sszzdm = sszz;
+	}
+	
+	public String getSszzmc() {
+		return sszzmc;
+	}
+	public void setSszzmc(String sszzmc) {
+		this.sszzmc = sszzmc;
 	}
 	public String getQkgs() {
 		return qkgs;
@@ -77,22 +75,11 @@ public class ZdryDtjsSwxxb extends BaseEntity implements Serializable {
 	public void setQkgs(String qkgs) {
 		this.qkgs = qkgs;
 	}
-	public String getTxrq() {
-		return txrq;
-	}
-	public void setTxrq(String txrq) {
-		this.txrq = txrq;
-	}
-	public String getXgrq() {
-		return xgrq;
-	}
-	public void setXgrq(String xgrq) {
-		this.xgrq = xgrq;
-	}
 	public String getZdryzjhm() {
 		return zdryzjhm;
 	}
 	public void setZdryzjhm(String zdryzjhm) {
 		this.zdryzjhm = zdryzjhm;
 	}
+
 }

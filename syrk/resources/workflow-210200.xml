@@ -44,7 +44,10 @@
 	            <entry key="spgwL2_05_10" value="SJGLY"/> 
         		<!-- 治安 ：01，02，03，04，06，08 -->
 	            <entry key="spgwL2_default_21" value="FXJZAYWZG,FXJGLY"/>  
-	            <entry key="spgwL2_default_10" value="SJGLY"/>   
+	            <entry key="spgwL2_default_10" value="SJGLY"/> 
+	            
+	            <entry key="zdcj_zazd" value="DDZ"/> 
+	            <entry key="zdcj_zazd_lv" value="30"/>   
 	          </map>  
 	      </property>  
 	    </bean>  

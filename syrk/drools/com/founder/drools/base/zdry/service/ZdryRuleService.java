@@ -217,8 +217,10 @@ public class ZdryRuleService {
 		return resMap;
 	}
 	
+	/* 验证取消了
 	public RuleBean validateZdryVO(Object paramObj) throws Exception{
 		RuleBean ruleBean=droolsRequest.requestDroolsServer(SystemConfig.getString(AppConst.XZQH)+"_ZDRY_VALIDATION", "ZdryVO", paramObj);
 		return ruleBean;					
 	}
+	*/
 }

@@ -20,6 +20,7 @@ import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
+import com.founder.zdrygl.workflow.utils.ZdryZbUtil;
 
 /**
  * ****************************************************************************
@@ -62,8 +63,12 @@ public class DlLcgcg  extends WorkflowDelegate {
 		entity.setZdrycx(zdrycx);
 		if ("01".equals(sqlxdm)){
 			zdryService.lgSuccess(sessionBean,entity);
-		}else if ("02".equals(sqlxdm))
+		}else if ("02".equals(sqlxdm)){
+			Zdry subZdry = ZdryZbUtil.getZdrylbdx( (Zdrycx) entity.getZdrycx());
+			subZdry.setId(entity.getZdrycx().getId());
+			entity.setZdrylbdx(subZdry);
 			zdryService.cgSuccess(sessionBean,entity);
+		}
 		else if ("04".equals(sqlxdm)) {// 请假
 		}
 	}

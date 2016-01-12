@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZdryDtjsShgxrxxb">
+
+	<typeAlias alias="zdryDtjsShgxrxxb" type="com.founder.zdrygl.base.model.ZdryDtjsShgxrxxb" />
+
+    <select id="queryById" parameterClass="String" resultClass="zdryDtjsShgxrxxb">
+		<![CDATA[ select * from ZDRY_DTJS_SHGXRYXX t where ID = #id#  and rownum = 1  ]]>
+	</select>
+
+	
+   <select id="queryByZdryZjhm" parameterClass="Map" resultClass="zdryDtjsShgxrxxb">
+		<![CDATA[ 
+		 SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
+	        select * from ZDRY_DTJS_SHGXRYXX t where zdryzjhm = #entity.zdryzjhm# and xt_zxbz='0' ]]>
+			 
+		 <![CDATA[   order by xt_cjsj desc) M  WHERE ROWNUM <= #end# ) WHERE R > #begin#]]> 	
+	</select>
+	
+	<select id="queryCountByZdryZjhm" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ 
+		
+	        select count(id) from ZDRY_DTJS_SHGXRYXX t where zdryzjhm = #entity.zdryzjhm# and xt_zxbz='0' ]]>
+			 
+	</select>
+	
+    <update id="update" parameterClass="zdryDtjsShgxrxxb">
+    <![CDATA[ update ZDRY_DTJS_SHGXRYXX ]]>	
+		<dynamic prepend="set">			
+				 <isNotNull prepend="," property="zdryzjhm"><![CDATA[ ZDRYZJHM=#zdryzjhm# ]]></isNotNull>
+				 <isNotNull prepend="," property="zjlx"><![CDATA[ ZJLX=#zjlx# ]]></isNotNull>
+				 <isNotNull prepend="," property="zjhm"><![CDATA[ ZJHM=#zjhm# ]]></isNotNull>
+				 <isNotNull prepend="," property="bjzdrybh"><![CDATA[ BJZDRYBH=#bjzdrybh# ]]></isNotNull>
+				 <isNotNull prepend="," property="sjzdrybh"><![CDATA[ SJZDRYBH=#sjzdrybh# ]]></isNotNull>
+				 <isNotNull prepend="," property="xm"><![CDATA[ XM=#xm# ]]></isNotNull>
+				 <isNotNull prepend="," property="xmpy"><![CDATA[ XMPY=#xmpy# ]]></isNotNull>
+				 <isNotNull prepend="," property="mz"><![CDATA[ MZ=#mz# ]]></isNotNull>
+				 <isNotNull prepend="," property="xb"><![CDATA[ XB=#xb# ]]></isNotNull>
+				 <isNotNull prepend="," property="gx"><![CDATA[ GX=#gx# ]]></isNotNull>
+				 <isNotNull prepend="," property="gj"><![CDATA[ GJ=#gj# ]]></isNotNull>
+				 <isNotNull prepend="," property="hjqh"><![CDATA[ HJQH=#hjqh# ]]></isNotNull>
+				 <isNotNull prepend="," property="hjdpcsdm"><![CDATA[ HJDPCSDM=#hjdpcsdm# ]]></isNotNull>
+				 <isNotNull prepend="," property="hjdpcs"><![CDATA[ HJDPCS=#hjdpcs# ]]></isNotNull>
+				 <isNotNull prepend="," property="hjdxz"><![CDATA[ HJDXZ=#hjdxz# ]]></isNotNull>
+				 <isNotNull prepend="," property="xzdqh"><![CDATA[ XZDQH=#xzdqh# ]]></isNotNull>
+				 <isNotNull prepend="," property="gxdwdm"><![CDATA[ GXDWDM=#gxdwdm# ]]></isNotNull>
+				 <isNotNull prepend="," property="gxdw"><![CDATA[ GXDW=#gxdw# ]]></isNotNull>
+				 <isNotNull prepend="," property="xzdxz"><![CDATA[ XZDXZ=#xzdxz# ]]></isNotNull>
+				 <isNotNull prepend="," property="zdrylbbj"><![CDATA[ ZDRYLBBJ=#zdrylbbj# ]]></isNotNull>
+				 <isNotNull prepend="," property="zdryxl"><![CDATA[ ZDRYXL=#zdryxl# ]]></isNotNull>
+				 <isNotNull prepend="," property="cym"><![CDATA[ CYM=#cym# ]]></isNotNull>
+				 <isNotNull prepend="," property="ch"><![CDATA[ CH=#ch# ]]></isNotNull>
+				 <isNotNull prepend="," property="zzmm"><![CDATA[ ZZMM=#zzmm# ]]></isNotNull>
+				 <isNotNull prepend="," property="zjxy"><![CDATA[ ZJXY=#zjxy# ]]></isNotNull>
+				 <isNotNull prepend="," property="csrq"><![CDATA[ CSRQ=#csrq# ]]></isNotNull>
+				 <isNotNull prepend="," property="hyzk"><![CDATA[ HYZK=#hyzk# ]]></isNotNull>
+				 <isNotNull prepend="," property="whcd"><![CDATA[ WHCD=#whcd# ]]></isNotNull>
+				 <isNotNull prepend="," property="sg"><![CDATA[ SG=#sg# ]]></isNotNull>
+				 <isNotNull prepend="," property="tz"><![CDATA[ TZ=#tz# ]]></isNotNull>
+				 <isNotNull prepend="," property="zc"><![CDATA[ ZC=#zc# ]]></isNotNull>
+				 <isNotNull prepend="," property="xh"><![CDATA[ XH=#xh# ]]></isNotNull>
+				 <isNotNull prepend="," property="ky"><![CDATA[ KY=#ky# ]]></isNotNull>
+				 <isNotNull prepend="," property="tc"><![CDATA[ TC=#tc# ]]></isNotNull>
+				 <isNotNull prepend="," property="xqah"><![CDATA[ XQAH=#xqah# ]]></isNotNull>
+				 <isNotNull prepend="," property="tmtz"><![CDATA[ TMTZ=#tmtz# ]]></isNotNull>
+				 <isNotNull prepend="," property="tsbj"><![CDATA[ TSBJ=#tsbj# ]]></isNotNull>
+				 <isNotNull prepend="," property="dna"><![CDATA[ DNA=#dna# ]]></isNotNull>
+				 <isNotNull prepend="," property="xx"><![CDATA[ XX=#xx# ]]></isNotNull>
+				 <isNotNull prepend="," property="zwbh"><![CDATA[ ZWBH=#zwbh# ]]></isNotNull>
+				 <isNotNull prepend="," property="zy"><![CDATA[ ZY=#zy# ]]></isNotNull>
+				 <isNotNull prepend="," property="sjsr"><![CDATA[ SJSR=#sjsr# ]]></isNotNull>
+				 <isNotNull prepend="," property="jjly"><![CDATA[ JJLY=#jjly# ]]></isNotNull>
+				 <isNotNull prepend="," property="gzdwqh"><![CDATA[ GZDWQH=#gzdwqh# ]]></isNotNull>
+				 <isNotNull prepend="," property="gzdw"><![CDATA[ GZDW=#gzdw# ]]></isNotNull>
+				 <isNotNull prepend="," property="gzdwxz"><![CDATA[ GZDWXZ=#gzdwxz# ]]></isNotNull>
+				 <isNotNull prepend="," property="lxfs"><![CDATA[ LXFS=#lxfs# ]]></isNotNull>	
+			,<include refid="updateXtzd"/>	
+		</dynamic>
+		<![CDATA[ where ID = #id#]]>	
+    
+    </update> 	
+     
+    <!-- 插入人员写实表 -->
+    <insert id="save" parameterClass="zdryDtjsShgxrxxb">
+        <![CDATA[ insert into ZDRY_DTJS_SHGXRYXX (ID,ZDRYZJHM,ZJLX,ZJHM,BJZDRYBH,SJZDRYBH,XM,XMPY,MZ,XB,GX,GJ,HJQH,HJDPCSDM,HJDPCS,HJDXZ,XZDQH,GXDWDM,GXDW,XZDXZ,ZDRYLBBJ,ZDRYXL,CYM,CH,ZZMM,ZJXY,CSRQ,HYZK,WHCD,SG,TZ,ZC,XH,KY,TC,XQAH,TMTZ,TSBJ,DNA,XX,ZWBH,ZY,SJSR,JJLY,GZDWQH,GZDW,GZDWXZ,LXFS,]]><include refid="insertXtzd"/>)
+		<![CDATA[ values (#id#,#zdryzjhm#,#zjlx#,#zjhm#,#bjzdrybh#,#sjzdrybh#,#xm#,#xmpy#,#mz#,#xb#,#gx#,#gj#,#hjqh#,#hjdpcsdm#,#hjdpcs#,#hjdxz#,#xzdqh#,#gxdwdm#,#gxdw#,#xzdxz#,#zdrylbbj#,#zdryxl#,#cym#,#ch#,#zzmm#,#zjxy#,#csrq#,#hyzk#,#whcd#,#sg#,#tz#,#zc#,#xh#,#ky#,#tc#,#xqah#,#tmtz#,#tsbj#,#dna#,#xx#,#zwbh#,#zy#,#sjsr#,#jjly#,#gzdwqh#,#gzdw#,#gzdwxz#,#lxfs#,]]>
+		<include refid="insertXtzdVal"/>)
+    </insert>
+    
+    <update id="delete" parameterClass="zdryDtjsShgxrxxb">
+		<![CDATA[ update ZDRY_DTJS_SHGXRYXX set ]]><include refid="deleteXtzd"/><![CDATA[ where ID = #id# ]]>	
+	</update>
+</sqlMap>

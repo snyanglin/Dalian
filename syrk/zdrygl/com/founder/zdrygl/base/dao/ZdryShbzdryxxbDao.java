@@ -1,5 +1,13 @@
 package com.founder.zdrygl.base.dao;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Repository;
+
 import com.founder.framework.base.dao.BaseDaoImpl;
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.organization.department.bean.OrgOrganization;
@@ -9,12 +17,6 @@ import com.founder.framework.utils.StringUtils;
 import com.founder.zdrygl.base.model.ZdryShbzdryxxb;
 import com.founder.zdrygl.core.inteface.ZdryGllxEntityDaoService;
 import com.founder.zdrygl.core.model.Zdry;
-import org.springframework.stereotype.Repository;
-
-import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * ****************************************************************************
@@ -29,11 +31,11 @@ import java.util.Map;
  * @Version:      [v1.0]
  */
 @Repository("zdryShbzdryxxbDao")
-public class ZdryShbzdryxxbDao extends BaseDaoImpl implements ZdryGllxEntityDaoService {
+public class ZdryShbzdryxxbDao extends BaseDaoImpl implements ZdryGllxEntityDaoService{
 
 	@Resource
 	private OrgOrganizationService orgOrganizationService;
-	
+
 	@Override
 	public void insert(Zdry zdry) {
 		ZdryShbzdryxxb shb = (ZdryShbzdryxxb)zdry;
@@ -64,7 +66,7 @@ public class ZdryShbzdryxxbDao extends BaseDaoImpl implements ZdryGllxEntityDaoS
 		return (Zdry)super.queryForObject("ZdryShbzdryxxb.queryViewByMap", queryMap);
 	}
 	/**
-	 * 
+	 *
 	 * @Title: querySyrk
 	 * @Description: TODO(查询列表，涉环保重点人员单独查询)
 	 * @param @param entity
@@ -73,7 +75,7 @@ public class ZdryShbzdryxxbDao extends BaseDaoImpl implements ZdryGllxEntityDaoS
 	 * @return EasyUIPage    返回类型
 	 * @throws
 	 */
-	public EasyUIPage queryList(ZdryShbzdryxxb entity, EasyUIPage page, SessionBean sessionBean) {
+	public EasyUIPage queryList(ZdryShbzdryxxb entity, EasyUIPage page,SessionBean sessionBean) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("begin", page.getBegin());
 		map.put("end", page.getEnd());
@@ -86,31 +88,31 @@ public class ZdryShbzdryxxbDao extends BaseDaoImpl implements ZdryGllxEntityDaoS
 		map.put("sort", sort);
 		map.put("order", order);
 		map.put("zdryShbzdryxxb", entity);
-		
+
 		String userOrgCode=sessionBean.getUserOrgCode();
 		String userOrgLevel=sessionBean.getUserOrgLevel();
-		if("30".equals(userOrgLevel)){			
+		if("30".equals(userOrgLevel)){
 			map.put("userOrgCode", userOrgCode);
 		}else if("31".equals(userOrgLevel)){
 			OrgOrganization parentOrganization=this.orgOrganizationService.queryParentOrgByOrgcode(userOrgCode);
 			map.put("userOrgCode", parentOrganization.getOrgcode());
 		}
 		page.setTotal((Integer) queryForObject("ZdryShbzdryxxb.queryCount", map)==null?0:(Integer) queryForObject("ZdryShbzdryxxb.queryCount", map));
-		//orgCode2orgName set to sszrqdm 
+		//orgCode2orgName set to sszrqdm
 		List<ZdryShbzdryxxb> list =queryForList("ZdryShbzdryxxb.query", map);
 		for(ZdryShbzdryxxb xxb:list){
 			OrgOrganization fxj = orgOrganizationService.queryByOrgcode(xxb.getSsfxjdm());
 			xxb.setSsfxjdm(fxj.getOrgname());
-			
-			if("30".equals(userOrgLevel)){			
+
+			if("30".equals(userOrgLevel)){
 				xxb.setQx("view");
 			}else if("31".equals(userOrgLevel)){
 				xxb.setQx("edit");
 			}
-			
+
 		}
 		page.setRows(list);
 		return page;
-		
+
 	}
 }

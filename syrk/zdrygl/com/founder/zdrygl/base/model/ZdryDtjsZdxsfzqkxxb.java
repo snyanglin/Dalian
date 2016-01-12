@@ -1,6 +1,7 @@
 package com.founder.zdrygl.base.model;
 
 import java.io.Serializable;
+
 import com.founder.framework.annotation.DBInfoAnnotation;
 import com.founder.framework.annotation.FieldDesc;
 import com.founder.framework.base.entity.BaseEntity;
@@ -10,92 +11,82 @@ import com.founder.framework.base.entity.BaseEntity;
  * @Package:      [com.founder.zdrygl.bean.ZdryDtjsZdxsfzqkxxb.java]  
  * @ClassName:    [ZdryDtjsZdxsfzqkxxb]   
  * @Description:  [重点人员 动态记实 重大刑事犯罪前科 属性表]   
- * @Author:       [zhang.hai@founder.com.cn]  
- * @CreateDate:   [2015年8月13日 下午7:20:24]   
- * @UpdateUser:   [ZhangHai(如多次修改保留历史记录，增加修改记录)]   
- * @UpdateDate:   [2015年8月13日 下午7:20:24，(如多次修改保留历史记录，增加修改记录)]   
+ * @Author:       [cong_rihong@founder.com.cn]  
+ * @CreateDate:   [2015年12月10日 下午7:20:24]   
+ * @UpdateUser:   [cong_rihong(如多次修改保留历史记录，增加修改记录)]   
+ * @UpdateDate:   [2015年12月10日 下午7:20:24，(如多次修改保留历史记录，增加修改记录)]   
  * @UpdateRemark: [说明本次修改内容,(如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
 @DBInfoAnnotation(tableName = "ZDRY_DTJS_ZDXSFZQKXXB", pk = "id")
 public class ZdryDtjsZdxsfzqkxxb extends BaseEntity implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-
-	@FieldDesc("ID")
-	private String id;
-	@FieldDesc("XSXXBH")
-	private String xsxxbh;
-	@FieldDesc("SSLB")
-	private String sslb;
-	@FieldDesc("SSLBXL")
-	private String sslbxl;
-	@FieldDesc("ZASD")
-	private String zasd;
-	@FieldDesc("ZAGJ")
-	private String zagj;
-	@FieldDesc("ZAGJLY")
-	private String zagjly;
-	@FieldDesc("ZATD")
-	private String zatd;
-	@FieldDesc("XZDX")
-	private String xzdx;
-	@FieldDesc("XZWP")
-	private String xzwp;
-	@FieldDesc("XZCS")
-	private String xzcs;
-	@FieldDesc("SFCD")
-	private String sfcd;
-	@FieldDesc("XZSJ")
-	private String xzsj;
-	@FieldDesc("XZFS")
-	private String xzfs;
-	@FieldDesc("XZDQ")
-	private String xzdq;
-	@FieldDesc("GKZYSX")
-	private String gkzysx;
-	@FieldDesc("SFTHZA")
-	private String sfthza;
-	@FieldDesc("JHFS")
-	private String jhfs;
-	@FieldDesc("ZADDLFS")
-	private String zaddlfs;
-	@FieldDesc("YDDLFS")
-	private String yddlfs;
-	@FieldDesc("AQLXFS")
-	private String aqlxfs;
-	@FieldDesc("AQQTLXFS")
-	private String aqqtlxfs;
-	@FieldDesc("AZLXFS")
-	private String azlxfs;
-	@FieldDesc("AZQTLXFS")
-	private String azqtlxfs;
-	@FieldDesc("AHLXFS")
-	private String ahlxfs;
-	@FieldDesc("AHQTLXFS")
-	private String ahqtlxfs;
-	@FieldDesc("TJSJ")
-	private String tjsj;
-	@FieldDesc("XGSJ")
-	private String xgsj;
-	@FieldDesc("XZQD")
-	private String xzqd;
-	@FieldDesc("XZFF")
-	private String xzff;
-	@FieldDesc("ZDRYZJHM")
-	private String zdryzjhm;
 	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2182933894699278318L;
+	@FieldDesc("id")
+	private String id;
+	@FieldDesc("所属类别")
+	private String sslb;
+	@FieldDesc("所示类别细类")
+	private String sslbxl;
+	@FieldDesc("作案手段")
+	private String zasd;
+	@FieldDesc("作案工具")
+	private String zagj;
+	@FieldDesc("作案工具来源")
+	private String zagjly;
+	@FieldDesc("作案特点")
+	private String zatd;
+	@FieldDesc("选择对象")
+	private String xzdx;
+	@FieldDesc("选择物品")
+	private String xzwp;
+	@FieldDesc("选择处所")
+	private String xzcs;
+	@FieldDesc("是否踩点")
+	private String sfcd;
+	@FieldDesc("选择时机")
+	private String xzsj;
+	@FieldDesc("销赃方式？？？？？？")
+	private String xzfs;
+	@FieldDesc("销赃地区")
+	private String xzdq;
+	@FieldDesc("管控注意事项")
+	private String gkzysx;
+	@FieldDesc("是否团伙作案")
+	private String sfthza;
+	@FieldDesc("结伙方式")
+	private String jhfs;
+	@FieldDesc("作案地逗留方式")
+	private String zaddlfs;
+	@FieldDesc("异地逗留方式")
+	private String yddlfs;
+	@FieldDesc("案前联系方式")
+	private String aqlxfs;
+	@FieldDesc("案前其他联系方式")
+	private String aqqtlxfs;
+	@FieldDesc("案中联系方式")
+	private String azlxfs;
+	@FieldDesc("案中其他联系方式")
+	private String azqtlxfs;
+	@FieldDesc("案后联系方式")
+	private String ahlxfs;
+	@FieldDesc("案后其他联系方式")
+	private String ahqtlxfs;
+	@FieldDesc("销赃渠道")
+	private String xzqd;
+	@FieldDesc("销赃方法？？？？？？？？")
+	private String xzff;
+	@FieldDesc("重点人证件号码")
+	private String zdryzjhm;
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getXsxxbh() {
-		return xsxxbh;
-	}
-	public void setXsxxbh(String xsxxbh) {
-		this.xsxxbh = xsxxbh;
 	}
 	public String getSslb() {
 		return sslb;
@@ -240,18 +231,6 @@ public class ZdryDtjsZdxsfzqkxxb extends BaseEntity implements Serializable {
 	}
 	public void setAhqtlxfs(String ahqtlxfs) {
 		this.ahqtlxfs = ahqtlxfs;
-	}
-	public String getTjsj() {
-		return tjsj;
-	}
-	public void setTjsj(String tjsj) {
-		this.tjsj = tjsj;
-	}
-	public String getXgsj() {
-		return xgsj;
-	}
-	public void setXgsj(String xgsj) {
-		this.xgsj = xgsj;
 	}
 	public String getXzqd() {
 		return xzqd;
