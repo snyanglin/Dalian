@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 
 import com.founder.zdrygl.base.dao.*;
 import com.founder.zdrygl.base.model.*;
-import com.founder.zdrygl.core.dao.ZdryDtjsXsDao;
+import com.founder.zdrygl.base.dao.ZdryDtjsXsDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
