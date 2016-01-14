@@ -33,12 +33,14 @@
 						<div data-options="region:'center', split:true" style="width:800px; border-width: 0px;">
 							<form action="<%=basePath%>zdryzb/saveLg" id="shbForm" name="shbForm" method="post" enctype="multipart/form-data">
 
-								<input type="hidden" id="zdrygllxdm" name="zdryZdryzb.zdrygllxdm" value="07" />
-								<input type="hidden" id="zdrylb" name="zdryZdryzb.zdrylb" value="07" />
+								<input type="hidden" id="id" name="zdryZdryzb.id" value="${zdryZdryzbVO.id}" />
+								<input type="hidden" id="zdrygllxdm" name="zdryZdryzb.zdrygllxdm" value="30" />
+								<input type="hidden" id="zdrylb" name="zdryZdryzb.zdrylb" value="30" />
+								<input type="hidden" id="syrkid" name="zdryZdryzb.syrkid" value="${syrkxxb.id }" />
+								<input type="hidden" id="ryid" name="zdryZdryzb.ryid" value="${syrkxxb.ryid }" />
 
 
 								<table border="0" cellpadding="0" cellspacing="10" width="800px" align="center">
-									<input type="hidden" id="ryid" name="zdryZdryzb.ryid" value="${zdryZdryzb.ryid}"/>
 									<tr>
 										<td width="20%" class="dialogTd" align="right">证件种类：</td>
 										<td width="30%" class="dialogTd"><input class="easyui-combobox" type="text" id="cyzjdm" name="zdryZdryzb.cyzjdm" value="${cyzjdm}" style="width:200px;"
@@ -156,7 +158,7 @@
 											<input type="hidden" id="dz_jzd_mlpxz" name="zdryZdryzb.jzd_mlpxz" value="${dz_jzd_mlpxz}"/>
 										</td>
 										<td width="30%" class="dialogTd" align="left">
-											<input class="easyui-combobox" id="jzd2" style="width:200px;" value="${fn:replace(zdryZdryzb.jzd_zxz, zdryZdryzb.jzd_mlpxz,'')}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
+											<input class="easyui-combobox" id="jzd2" style="width:200px;" value="${fn:replace(zdryZdryzb.jzd_zxz, zdryZdryzb.jzd_mlpxz,"")}" data-options="required:false,mode:'remote',method:'post',panelHeight: 22,valueField:'id',textField:'text',selectOnNavigation:false">
 											<input type="hidden" id="dz_jzdzdm" name="zdryZdryzb.jzd_zdm" value="${dz_jzdzdm}"/>
 											<input type="hidden" id="dz_jzdzssxdm" name="zdryZdryzb.jzd_zssxdm" value="${dz_jzdzssxdm}"/>
 											<input type="hidden" id="dz_jzdzxz" name="zdryZdryzb.jzd_zxz" value="${dz_jzdzxz}"/>
@@ -230,13 +232,10 @@
 </body>
 <script type="text/javascript">
 	$(document).ready(function(){
-
 		if(<%=userOrgLevel%>=="31"){
 			$("#ssfxjdm").combobox("setValue", "<%=ssfxj%>");
 			setInputReadonly("ssfxjdm", true);
 		}
-
-
 	});
 
 
