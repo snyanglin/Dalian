@@ -13,7 +13,6 @@
     	<input type="hidden" id="id" name="id" value="${zdryZb.zdryZdryzb.id}" />
     	<input type="hidden" id="zdryZdryzb.id" name="zdryZdryzb.id" value="${zdryZb.zdryZdryzb.id}" />
     	<input type="hidden" id="zdryZdryzbVO.id" name="zdryZdryzbVO.id" value="${zdryZb.zdryZdryzb.id}" />
-    	<input type="hidden" id="lxdh" name="zdryZdryzb.zdrylb" value="${zdryZb.zdryZdryzb.zdrylb}" />
     	<input type="hidden" id="zdrygllxdm" name="zdryZdryzb.zdrygllxdm" value="${zdryZb.zdryZdryzb.zdrygllxdm}" />
     	
     	<input type="hidden" id="zdrylbmc" name="zdryZdryzbVO.zdrylbmc" value="${zdryVO.zdryZdryzbVO.zdrylbmc}" />    

@@ -81,7 +81,7 @@
 	       <![CDATA[SELECT * FROM ( SELECT ROWNUM R ,M.* FROM (
 		       SELECT * 
 		          FROM  ZDRY_SHBZDRYXXB T1 left join ZDRY_ZDRYZB T2 ON T1.ID=T2.ID 
-		       WHERE T2.XT_ZXBZ = '0' and T2.ZDRYGLLXDM='07' and T2.GLZT in(2,3,5) and (T1.xt_lrrbmid=#userOrgCode# or ssfxjdm=#userOrgCode#)]]> 
+		       WHERE T2.XT_ZXBZ = '0' and T2.ZDRYGLLXDM='30' and T2.GLZT in(2,3,5) and (T1.xt_lrrbmid=#userOrgCode# or ssfxjdm=#userOrgCode#)]]>
 		       <isNotEmpty prepend="AND" property="zdryShbzdryxxb.xm">
 		            T1.XM LIKE '%'||#zdryShbzdryxxb.xm#||'%'
 		       </isNotEmpty>
@@ -98,7 +98,7 @@
 		    <![CDATA[
 		       SELECT count(*) 
 		          FROM  ZDRY_SHBZDRYXXB T1 left join ZDRY_ZDRYZB T2 ON T1.ID=T2.ID 
-		       WHERE T2.XT_ZXBZ = '0' and T2.ZDRYGLLXDM='07' and T2.GLZT in(2,3,5) and (T1.xt_lrrbmid=#userOrgCode# or ssfxjdm=#userOrgCode#) ]]> 
+		       WHERE T2.XT_ZXBZ = '0' and T2.ZDRYGLLXDM='30' and T2.GLZT in(2,3,5) and (T1.xt_lrrbmid=#userOrgCode# or ssfxjdm=#userOrgCode#) ]]>
 		       <isNotEmpty prepend="AND" property="zdryShbzdryxxb.xm">
 		            T1.XM LIKE '%'||#zdryShbzdryxxb.xm#||'%'
 		       </isNotEmpty>

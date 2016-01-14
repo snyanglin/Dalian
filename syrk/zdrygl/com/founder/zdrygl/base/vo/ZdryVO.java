@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.founder.framework.components.AppConst;
 import com.founder.framework.config.SystemConfig;
+import com.founder.framework.utils.BeanUtils;
 import com.founder.zdrygl.base.model.ZdryFzcsfryxxb;
 import com.founder.zdrygl.base.model.ZdryJgdxqxjdjb;
 import com.founder.zdrygl.base.model.ZdryJgdxxxb;
@@ -139,8 +140,14 @@ public class ZdryVO implements Serializable {
 				return this.zdrySgafzdryxxb;
 			//if("06".equals(zdryZdryzb.getZdrygllxdm()))//其他关注对象
 			//	return this.
-			if("07".equals(zdryZdryzb.getZdrygllxdm()))//涉环保重点人员
+			if("07".equals(zdryZdryzb.getZdrygllxdm())) {//涉环保重点人员
+				try {
+					BeanUtils.copyObjectSameProperties(zdryZdryzb, zdryShbzdryxxb);
+					BeanUtils.copyObjectSameProperties(zdryShbzdryxxb, zdryZdryzb);
+				} catch (Exception e) {
+				}
 				return this.zdryShbzdryxxb;
+			}
 			if("08".equals(zdryZdryzb.getZdrygllxdm()))//涉枪涉爆重点人员
 				return this.zdrySqsbzdryxxb;
 		}else{
@@ -166,6 +173,17 @@ public class ZdryVO implements Serializable {
 			}
 			if("07".equals(zdryZdryzb.getZdrygllxdm())){//纳入实现对象
 				return this.zdryNrsxdxxxb;
+			}
+			if("30".equals(zdryZdryzb.getZdrygllxdm())) {//涉环保重点人员
+				try {
+					BeanUtils.copyObjectSameProperties(zdryZdryzb, zdryShbzdryxxb);
+					BeanUtils.copyObjectSameProperties(zdryShbzdryxxb, zdryZdryzb);
+				} catch (Exception e) {
+				}
+				return this.zdryShbzdryxxb;
+			}
+			if("40".equals(zdryZdryzb.getZdrygllxdm())) {//涉公安访重点人员
+				return this.zdrySgafzdryxxb;
 			}
 		}
 		
@@ -270,6 +288,12 @@ public class ZdryVO implements Serializable {
 			}
 			if("07".equals(zdrygllxdm)){//纳入实现对象
 				this.zdryNrsxdxxxb = (ZdryNrsxdxxxb) zdry;				
+			}
+			if("30".equals(zdryZdryzb.getZdrygllxdm())){//涉环保重点人员
+				this.zdryShbzdryxxb=(ZdryShbzdryxxb) zdry;
+			}
+			if("40".equals(zdryZdryzb.getZdrygllxdm())){//涉公安访重点人员
+				this.zdrySgafzdryxxb=(ZdrySgafzdryxxb) zdry;
 			}
 		}
 		

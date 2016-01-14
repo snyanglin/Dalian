@@ -19,10 +19,11 @@ import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.ZOBean;
 import com.founder.zdrygl.core.model.Zdry;
+import com.founder.zdrygl.workflow.utils.ZdryZbUtil;
 
 /**
  * ****************************************************************************
- * 
+ *
  * @Package: [com.founder.zdrygl.workflow.Lcgcg.java]
  * @ClassName: [Lcgcg]
  * @Description: [列撤管成功]
@@ -52,9 +53,13 @@ public class Lcgcg  extends WorkflowDelegate {
 		SessionBean sessionBean = (SessionBean) WebUtils.getSessionAttribute(
 				request, AppConst.USER_SESSION);
 		/*
-		 * String spr = sessionBean.getUserId(); 
+		 * String spr = sessionBean.getUserId();
 		 * String spbm =sessionBean.getUserOrgCode();
 		 */
+
+		zdryzb.setXt_zxyy("审批通过");
+		ZdryZbUtil.setXtZxyy(zdrylbdx, "审批通过");
+
 		ZdryService zdryService = zdryFactory.createZdryService(zdrylx);
 		ZOBean entity = new ZOBean(zdryzb, zdrylbdx);
 		if ("01".equals(sqlxdm)){
@@ -68,7 +73,7 @@ public class Lcgcg  extends WorkflowDelegate {
 	@Override
 	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

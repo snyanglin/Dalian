@@ -16,7 +16,7 @@ import com.founder.zdrygl.core.utils.ZdryConstant;
 public class LnParamsInitializer implements IfParamInitializer {
 	ZdryConstant zdryConstant;
 	ZdryInfoQueryService zdryQueryService;
-	
+
 	public LnParamsInitializer() {
 		super();
 	}
@@ -39,19 +39,19 @@ public class LnParamsInitializer implements IfParamInitializer {
 		Map<String, Object> variables = new HashMap<String, Object>();
 		StartProcessInstance spi = new StartProcessInstance();
 		spi.setApplyUserId(sessionBean.getUserId());
-		
+
 		variables.put("sqrName", sessionBean.getUserName());// 申请人姓名
 		variables.put("sqrOrgCode", sessionBean.getUserOrgCode());// 设置申请人组织机构代码
 		variables.put("sqrOrgLevel", sessionBean.getUserOrgLevel());// 设置申请人组织机构级别
 		variables.put("lrrzrq", sessionBean.getUserOrgCode());// 录入人管辖责任区
 		variables.put("applyUserId", sessionBean.getUserId());
-		
+
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String createTime = formatter.format(new Date());// 申请时间
 		variables.put("createTime", createTime);
-		
+
 		variables.put("sqlxdm", lcgFlag.getValue());// 申请类型
-		
+
 		if(lcgFlag.getValue().equals("01")){
 			//列管
 			prepareLg(spi,sessionBean,zdryVO,variables);
@@ -79,17 +79,17 @@ public class LnParamsInitializer implements IfParamInitializer {
 		variables.put("lrrzrq", lrrzrq);//录入人管辖责任区
  		variables.put("zdryId", zdryVO.getZdryZdryzb().getId()); //重点人员总表Id
 		variables.put("zdryName", zdryVO.getXm());
-		variables.put("zdrylxmc", zdryVO.getZdryZdryzbVO().getZdrygllxmc());//人员类型名称	
+		variables.put("zdrylxmc", zdryVO.getZdryZdryzbVO().getZdrygllxmc());//人员类型名称
 		variables.put("yzdrylbmc", zdryVO.getZdryZdryzbVO().getZdrylbmc());//转递前类型
 		variables.put("xzdrylbmc", zdryVO.getZdryZdryzbVO().getZdrylbmc());//转递后类型
 		variables.put("yzdrylb", zdryVO.getZdryZdryzbVO().getZdrylb());//转递前类别
 		variables.put("xzdrylb", zdryVO.getZdryZdryzb().getZdrylb());//转递后类别
 		variables.put("zdrylx", zdryVO.getZdryZdryzb().getZdrygllxdm());
-		
+
 		variables.put("xm", zdryVO.getXm());//被列管人员姓名
 		variables.put("zjhm", zdryVO.getZjhm());//证件号码
-		variables.put("sqlx", "重点人口转类");//申请类型	  			
-	    variables.put("sqyj", zdryVO.getYwsqyy());//申请意见		
+		variables.put("sqlx", "重点人口转类");//申请类型
+	    variables.put("sqyj", zdryVO.getYwsqyy());//申请意见
 		variables.put("sqlxdm", "03");//列管01  撤管02 专类03
 		variables.put("approvalMethod", "szzlApproval");
 		variables.put("sqyj", "申请将"+zdryVO.getXm()+"转换重点人员类别");
@@ -103,12 +103,12 @@ public class LnParamsInitializer implements IfParamInitializer {
 		String zdryxm = zdryVO.getZdryZdryzb().getXm();
 		ZdryZb zdryZdryzb = zdryVO.getZdryZdryzb();
 		String zdrylxmc = zdryConstant.getValueOfZdryDict(zdryZdryzb.getZdrygllxdm());
-		
+
 
 		variables.put("zdrylx", zdryZdryzb.getZdrygllxdm());// 人员类型
 		variables.put("zdryzb", zdryVO.getZdryZdryzb());
 		variables.put("zdrylbdx", zdryVO.getZdrylbdx());
-		
+
 		variables.put("zdryId", zdryZdryzb.getId()); // 重点人员总表Id
 		variables.put("zdrylxmc", zdrylxmc);// 人员类型名称
 		variables.put("xm", zdryxm);// 被列管人员姓名
@@ -117,9 +117,9 @@ public class LnParamsInitializer implements IfParamInitializer {
 		// variables.put("splx", "重点人口列管");//审批类型
 		variables.put("sqyj", zdryVO.getYwsqyy());// 申请意见
 		variables.put("zdryName", zdryxm);// 申请意见
-		
+
 		if (zdryZdryzb.getZdrygllxdm().equals("07")) {// 环保
-			variables.put("sqlx", "纳入视线撤管");
+			variables.put("sqlx", "涉环保撤管");
 			variables.put("splevel", "1");// 设置审批级别，一级审批
 			variables.put("approvalMethod", "shbApproval");
 			variables.put("zdryId", zdryZdryzb.getId());
@@ -174,12 +174,12 @@ public class LnParamsInitializer implements IfParamInitializer {
 		String zdryxm = zdryVO.getZdryZdryzb().getXm();
 		ZdryZb zdryZdryzb = zdryVO.getZdryZdryzb();
 		String zdrylxmc = zdryConstant.getValueOfZdryDict(zdryZdryzb.getZdrygllxdm());
-		
+
 
 		variables.put("zdrylx", zdryZdryzb.getZdrygllxdm());// 人员类型
 		variables.put("zdryzb", zdryVO.getZdryZdryzb());
 		variables.put("zdrylbdx", zdryVO.getZdrylbdx());
-		
+
 		variables.put("zdryId", zdryZdryzb.getId()); // 重点人员总表Id
 		variables.put("zdrylxmc", zdrylxmc);// 人员类型名称
 		variables.put("xm", zdryxm);// 被列管人员姓名
@@ -188,7 +188,7 @@ public class LnParamsInitializer implements IfParamInitializer {
 		// variables.put("splx", "重点人口列管");//审批类型
 		variables.put("sqyj", zdryVO.getYwsqyy());// 申请意见
 		variables.put("zdryName", zdryxm);// 申请意见
-		
+
 		if (zdryZdryzb.getZdrygllxdm().equals("07")) {// 环保
 			variables.put("sqlx", "涉环保");
 			variables.put("splevel", "1");// 设置审批级别，一级审批
@@ -248,7 +248,7 @@ public class LnParamsInitializer implements IfParamInitializer {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		variables.put("sqsj",formatter.format(new Date())); //申请时间
 		variables.put("sqlx", "转递流程：" + zdryVO.getXm());// 申请类型
-		
+
 		variables.put("zdryId", zdryVO.getZdryZdryzb().getId()); //重点人员总表Id
 		variables.put("zdryName",zdryVO.getXm());//重点人员姓名
 		variables.put("xm", zdryVO.getXm());//被列管人员姓名
@@ -256,7 +256,7 @@ public class LnParamsInitializer implements IfParamInitializer {
 		variables.put("zjhm", zdryVO.getZjhm());//证件号码
 		variables.put("yjzddz", zdryZdryVo.getDz_hjdzmlpxz());//原居住地址	--
 		variables.put("ygxpcsdm", zdryZdryVo.getYgxpcsdm());//原居住地址所属派出所代码
-		variables.put("ygxzrqdm", zdryZdryVo.getYgxzrqdm());//原居住地址所属责任区代码	
+		variables.put("ygxzrqdm", zdryZdryVo.getYgxzrqdm());//原居住地址所属责任区代码
 		variables.put("zddz", zb.getJzd_mlpxz());//转递地址
 		variables.put("sspcsdm", zdryZdryVo.getSspcsdm());//转递派出所--
 		variables.put("sszrqdm", zdryZdryVo.getSszrqdm());//转递责任区--
