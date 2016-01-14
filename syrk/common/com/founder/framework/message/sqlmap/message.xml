@@ -291,8 +291,8 @@
 			from (select x.* from (
 				select distinct a.ID as ORGID, a.ORGCODE,a.ORGNAME,c.ID,c.USERID,c.USERNAME from ORG_ORGANIZATION a,ORG_ORG_USER b,ORG_USER c 
 				where a.ORGCODE in ($orgCodeCondition$) and a.XT_ZXBZ = '0' and a.ID = b.ORGID and b.USERID = c.ID and c.XT_ZXBZ = '0') x,
-				ORG_POSITION d,ORG_ORG_POS e,ORG_POS_USER f where d.ID = e.POSID and d.XT_ZXBZ = '0' and e.ID = f.POSID  and d.POSID in ($posIdCondition$) 
-				and x.ID = f.USERID) t ]]>
+				ORG_POSITION d,ORG_ORG_POS e,ORG_POS_USER f where d.ID = e.POSID and d.XT_ZXBZ = '0' and e.POSID = f.POSID  and d.POSID in ($posIdCondition$) 
+				and x.ID = f.USERID and x.orgid=e.orgid) t ]]>
 	</insert>
 	
 	<!-- 新增（根据多个 orgcode，接收类型为部门）-->
