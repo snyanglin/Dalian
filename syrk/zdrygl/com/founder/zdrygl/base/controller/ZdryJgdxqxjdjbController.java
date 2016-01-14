@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,16 +18,11 @@ import com.founder.framework.components.AppConst;
 import com.founder.framework.exception.BussinessException;
 import com.founder.framework.exception.RuleException;
 import com.founder.framework.utils.DateUtils;
-import com.founder.workflow.bean.StartProcessInstance;
-import com.founder.workflow.service.inteface.JProcessDefinitionService;
 import com.founder.zdrygl.base.model.ZdryJgdxqxjdjb;
 import com.founder.zdrygl.base.service.ZdryInfoQueryService;
 import com.founder.zdrygl.base.service.ZdryJgdxqxjdjbService;
-import com.founder.zdrygl.base.service.wf.LcgFlagEnum;
-import com.founder.zdrygl.base.service.wf.WorkFlowParametersInitialService;
 import com.founder.zdrygl.base.vo.ZdryVO;
 import com.founder.zdrygl.core.model.Zdry;
-import com.founder.zdrygl.core.utils.ZdryConstant;
 import com.google.gson.Gson;
 
 @Controller
@@ -37,17 +31,14 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 
 	private Logger logger = Logger.getLogger(this.getClass());
 
-	@Autowired
-	private ZdryConstant zdryConstant;
-
+	
 	@Resource(name = "zdryJgdxqxjdjbService")
 	private ZdryJgdxqxjdjbService zdryJgdxqxjdjbService;
 
 	@Resource(name = "zdryQueryService")
 	private ZdryInfoQueryService zdryQueryService;
 
-	@Autowired
-	private JProcessDefinitionService processDefinitionService;
+	
 
 	/**
 	 * 
@@ -61,13 +52,9 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView add(String zdryid) {
 		
-		ModelAndView mv = new ModelAndView(getViewName(null));
-		Map<String, Object> map = new HashMap<String, Object>();
+		ModelAndView mv = new ModelAndView();
 		if(!zdryJgdxqxjdjbService.sfnqj(zdryid)){
-			map.put(AppConst.STATUS, AppConst.FAIL);
-			map.put(AppConst.MESSAGES, "该重点人员还有未销假的请假申请，不能再请假");
-			mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));
-			return mv;
+			throw new BussinessException("该重点人员还有未销假的请假申请，不能再请假");
 		}
 		mv.setViewName("zdrygl/edit/zdryJgdxqxjdjbAdd");
 		ZdryJgdxqxjdjb entity = new ZdryJgdxqxjdjb();
@@ -100,15 +87,7 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 			return mv;
 		}
 		try {
-			Zdry zdryzb = zdryQueryService.queryById(zdryVO.getZdryJgdxqxjdjb().getZdryid());
-			zdryJgdxqxjdjbService.save(zdryVO.getZdryJgdxqxjdjb(), sessionBean);
-			// start process
-			WorkFlowParametersInitialService wfpis = new WorkFlowParametersInitialService(zdryConstant,zdryQueryService);
-			StartProcessInstance spi = wfpis.initialProcessInstance(sessionBean, zdryVO,LcgFlagEnum.QXJ);
-			spi.getVariables().put("zdryZb", zdryzb);
-			spi.getVariables().put("jgdx", zdryVO.getZdryJgdxqxjdjb());
-			processDefinitionService.startProcessInstance(spi.getApplyUserId(),spi.getProcessKey(), spi.getBusinessKey(), spi.getVariables());
-
+			zdryJgdxqxjdjbService.save(zdryVO.getZdryJgdxqxjdjb(), sessionBean,zdryVO);
 			map.put(AppConst.STATUS, AppConst.SUCCESS);
 			map.put(AppConst.MESSAGES, getAddSuccess());
 			map.put(AppConst.SAVE_ID, "" + zdryVO.getZdryJgdxqxjdjb().getId()); // 返回主键
@@ -180,7 +159,7 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ModelAndView updateView(@PathVariable(value = "id")String id, SessionBean sessionBean) {
-		ModelAndView mv = new ModelAndView("zdrygl/edit/zdryJgdxqxjdjbAdd");
+		ModelAndView mv = new ModelAndView("zdrygl/edit/zdryJgdxqxjdjbInfo");
 		ZdryVO vo = new ZdryVO();
 		vo.setZdryJgdxqxjdjb(zdryJgdxqxjdjbService.queryById(id));
 		mv.addObject("entity",vo);

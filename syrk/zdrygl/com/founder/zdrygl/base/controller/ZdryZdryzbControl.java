@@ -47,7 +47,6 @@ import com.founder.zdrygl.base.service.wf.LcgFlagEnum;
 import com.founder.zdrygl.base.service.wf.WorkFlowParametersInitialService;
 import com.founder.zdrygl.base.validator.ZdryVOValidator;
 import com.founder.zdrygl.base.vo.ZdryVO;
-import com.founder.zdrygl.base.vo.ZdryZdryzbVO;
 import com.founder.zdrygl.core.factory.ZdryAbstractFactory;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.inteface.ZdryZdryzbDaoService;
@@ -335,6 +334,70 @@ public class ZdryZdryzbControl extends BaseController {
 
         return mv;
     }
+    
+  /*  @RequestMapping(value = "/{ryid}/{id}/view" ,method = RequestMethod.GET)
+	public @ResponseBody ModelAndView view(@PathVariable(value="ryid")String ryid,
+			@RequestParam(value = "mode", defaultValue = "edit") String mode, String mainTabID,
+			@PathVariable(value = "id") String id) throws BussinessException {
+		ModelAndView mv = new ModelAndView("zdrygl/edit/zdryEdit");
+
+		List zdryList = zdryZdryzbService.queryList(ryid);
+
+		*//**
+		 * 1. syrkid 判断是否当前人管理 2. glzt 只查2，3
+		 *//*
+		if (zdryList.isEmpty())
+			throw new BussinessException("syrk.notExist");
+
+		ZdryZdryzbVO temp = null;
+		List<Map<String, String>> zdrylxList = new ArrayList<Map<String, String>>();
+		Map<String, String> map = null;
+		StringBuffer zdrylxBuffer = new StringBuffer();// 本人管理类型
+		int sort = 0;
+		for (int i = 0; i < zdryList.size(); i++) {
+			map = new HashMap<String, String>();
+			temp = (ZdryZdryzbVO) zdryList.get(i);
+
+			map.put("zdryid", temp.getId());
+			map.put("zdrylx", temp.getZdrygllxdm());
+			map.put("fz", temp.getFz());
+
+			// 已列管 重点人员 类型
+			if (zdrylxBuffer.length() > 0)
+				zdrylxBuffer.append(" ");
+			zdrylxBuffer.append(temp.getZdrygllxmc());
+
+			// 只取当前重点人员id的重点人员类型
+			if (temp.getId().equals(id)) {
+				zdrylxList.add(map);
+			}
+		}
+		((ZdryZdryzbVO) zdryList.get(0)).setId(id);// 设置从列表点击过来的重点人员id，区分后续操作是哪个类型
+		// gem
+		// 信息就一条。所以这里查询联系电话
+		String lxdh = ryRylxfsxxbService.queryLastLxfs(ryid);
+		((ZdryZdryzbVO) zdryList.get(0)).setLxdh(lxdh);
+		// 查询重点人员车辆监控状态表
+		// String zjhm = ((ZdryZdryzbVO)zdryList.get(0)).getZjhm();
+		String flag = zdryCarTrailService.queryTrailJkb(lxdh) == null ? "0" : "1";
+		((ZdryZdryzbVO) zdryList.get(0)).setXt_jkbz(flag);
+		// gem end
+
+		mv.addObject("zdry", zdryList.get(0));
+		mv.addObject("mode", mode);
+
+		String zdrylxStr = zdrylxBuffer.toString();
+		if (zdrylxStr.length() > 17) {
+			mv.addObject("zdrylxMore", zdrylxBuffer.toString());
+			zdrylxStr = zdrylxStr.subSequence(0, 17) + "……";
+		}
+		mv.addObject("zdrylx", zdrylxStr);
+		mv.addObject("zdrylxList", zdrylxList);
+		mv.addObject("zdrylxJson", new Gson().toJson(zdrylxList));
+		mv.addObject("mainTabID", mainTabID);
+
+		return mv;
+	}*/
 
     /**
      * @param @param  ryid

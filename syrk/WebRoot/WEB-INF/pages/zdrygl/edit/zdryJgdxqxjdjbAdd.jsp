@@ -96,7 +96,7 @@
 			    								onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d',minDate:'#F{$dp.$D(\'qjrq\') }'})" data-options="validType:['date[\'yyyy-MM-dd\']'],tipPosition:'right'" style="width: 200px;"/></td>
 			   	<td width="20%" class="dialogTd" align="right">销假日期：</td>
 			    <td width="30%" class="dialogTd"><input type="text" name="zdryJgdxqxjdjb.xjrq" id="xjrq" class="easyui-validatebox" style="width: 200px;"  value="${entity.zdryJgdxqxjdjb.xjrq}"
-  											    onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d'})" data-options="validType:['date[\'yyyy-MM-dd\']'],tipPosition:'left'" /></td>
+  											    onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d',minDate:'#F{$dp.$D(\'sjfh_rq\') }'})" data-options="validType:['date[\'yyyy-MM-dd\']'],tipPosition:'left'" /></td>
 	    	</tr>
 		  <!--   <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">流程图:</td>
@@ -126,8 +126,14 @@ function doInit(paramArray) {
 		});
 	}
 	if($("#spjg").val()==""){
-		setInputReadonly('sjfh_rq',true);
-		setInputReadonly('xjrq',true);
+		if($("#pk").val() == ""){	
+			setInputReadonly('sjfh_rq',true);
+			setInputReadonly('xjrq',true);
+		}else{
+			$("table input,textarea").each(function(){
+				setInputReadonly($(this).attr("id"),true);
+			});
+		}
 	}
 }
 
@@ -138,6 +144,8 @@ function beforeSubmit() {
 	/* }else if($("#spjg").val() != "0"){
 	 	return false;*/
 	}else{
+		if($("#spjg").val()==""){ return false ;}
+		
 		$("#_method").val('PUT');
 		$("#dataForm").attr('action', contextPath + '/zdryJgdxqxjdjb/' + $("#pk").val());
 	}
