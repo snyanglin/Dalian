@@ -11,6 +11,7 @@
 	<resultMap class="java.util.HashMap" id="ZdryDict">
 	  <result property="key" column="lbdm"/>
 	  <result property="value" column="bz"/>
+	  <result property="fz" column="fz"/>
 	</resultMap>
 	
 	<!-- 根据区域代码取重点人员类别对应CLASS -->
@@ -20,7 +21,7 @@
 	
 	<!-- 根据区域代码取重点人员字典-->
 	<select id="queryZdryDict" parameterClass="Map" resultMap="ZdryDict">
-		<![CDATA[ select lbdm   , bz  from ZDRY_ZDRYLXYLBDYB  where  XT_ZXBZ = '0']]> 
+		<![CDATA[ select lbdm   , bz,fz  from ZDRY_ZDRYLXYLBDYB  where  XT_ZXBZ = '0']]> 
 			<isNotEmpty prepend="and" property="lbdm_p">
 				lbdm_p = #lbdm_p#
 			</isNotEmpty>

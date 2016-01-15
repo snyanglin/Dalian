@@ -7,13 +7,9 @@
 </head>
 <div class="easyui-layout" data-options="fit:true">
 	<form action="<%=basePath%>zdryzb/saveLg"  id="dataFormZdry" name="dataFormZdry" method="post" enctype="multipart/form-data">
-    	<input type="hidden" id="id" name="zdryZdryzb.id" value="${zdryZdryzbVO.id}" />   	
-    	<input type="hidden" id="zdryShbzdryxxb.id" name="zdryShbzdryxxb.id" value="${zdryZdryzbVO.id}" />
-    	<input type="hidden" id="zdryLczywblb.ywblr_id" name="zdryLczywblb.ywblr_id" value="${zdryLczywblb.ywblr_id}" />
-    	<input type="hidden" id="zdryHsbId" name="zdryHsbId" value="${zdryHsbId}" />
+    	<input type="hidden" id="id" name="zdryZdryzb.id"  />   	
     	<input type="hidden" id="syrkid" name="zdryZdryzb.syrkid" value="${syrkxxb.id }" />
     	<input type="hidden" id="ryid" name="zdryZdryzb.ryid" value="${syrkxxb.ryid }" />
-    	<input type="hidden" id="ky_jzrq" name="zdrySqjzryxxb.ky_jzrq" value="2015-12-30" />
     	
 	    <div data-options="region:'center', split:true" style="width:100%; border-width: 0px;">
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
@@ -161,7 +157,7 @@
 		    	<td width="20%" class="dialogTd" align="right">重点人员类型：</td>
 		    	<td width="80%" class="dialogTd" colspan="3">
 					<input class="easyui-combobox" type="text"  id="zdrygllxdm" name="zdryZdryzb.zdrygllxdm"   style="width:200px;" value=""
-					data-options="url: contextPath +'/common/dict/BD_D_ZDRYGLLX.js',  
+					data-options="url: contextPath +'/common/dict/BD_D_ZDRYGLLX.js',  fzFilter:'ZA',
 					valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'right',onChange:zdrylxChange"/>
 
 	    			<input type="text" name="zdryZdryzb.zdrylb" id="zdrylbStr"  class="easyui-combotree" style="width:300px;"
