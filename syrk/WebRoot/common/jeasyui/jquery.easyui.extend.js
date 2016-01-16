@@ -178,6 +178,8 @@ function getIEVersion() {
 		panelOptionsNumber: 10,
 
 		loaded: false,
+		
+		fzFilter: '',//分组过滤
 
 		dataFilter: '',
 		
@@ -195,10 +197,13 @@ function getIEVersion() {
 			}
 			else {
 				var py = row['py'];
+				var fz = row['fz'];//分组
 				if (py) {
 					returnValue = row[opts.valueField].indexOf(str) == 0 || row[opts.textField].toUpperCase().indexOf(str) >= 0 || row['py'].indexOf(str) >= 0;
 				}
-				else {
+				else if (fz) {
+					returnValue = row[opts.valueField].indexOf(str) == 0 || row[opts.textField].toUpperCase().indexOf(str) >= 0 || row['fz'].indexOf(str) >= 0;
+				}else{
 					returnValue = row[opts.valueField].indexOf(str) == 0 || row[opts.textField].toUpperCase().indexOf(str) >= 0;
 				}
 			}
@@ -275,6 +280,9 @@ function getIEVersion() {
 		
 		loadFilter: function(data) {
 			var opts = $(this).combobox('options');
+			//分组过滤
+			data=fzFilter(opts,data);
+			
 			var dataFilter = opts.dataFilter;
 			if (dataFilter == "") {
 				return data;
@@ -1197,6 +1205,30 @@ function getEvent() {
 	}
 	else if (e.preventDefault) {
 		e.stopPropagation();
+	}
+}
+ 
+ function fzFilter(opts,data) {//过滤分组
+	 var fzFilter = opts.fzFilter;
+	 if (fzFilter == "") {
+		 return data;
+	 }else {
+		 var resultData = [];
+		 if (fzFilter.indexOf("^") == -1 && fzFilter.indexOf("*") == -1 && fzFilter.indexOf("|") == -1 && fzFilter.indexOf("+") == -1 
+				&& fzFilter.indexOf("?") == -1 && fzFilter.indexOf("$") == -1 && fzFilter.indexOf("(") == -1 && fzFilter.indexOf(")") == -1 
+				&& fzFilter.indexOf("{") == -1 && fzFilter.indexOf("}") == -1 && fzFilter.indexOf("[") == -1 && fzFilter.indexOf("]") == -1 
+				&& fzFilter.indexOf(".") == -1) {
+			fzFilter = "^" + fzFilter;
+		}
+		var regExp = new RegExp(fzFilter); 
+		for (var i = 0; i < data.length; i++) {
+			var row = data[i];
+			var v = row['fz'] + '';
+			if (regExp.test(v)) {
+				resultData.push(row);
+			}
+		}
+		return resultData;
 	}
 }
  
