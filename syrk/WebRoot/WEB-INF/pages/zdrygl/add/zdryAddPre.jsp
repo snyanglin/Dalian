@@ -167,7 +167,7 @@
 	    			<input type="text" name="zdryZdryzb.zdrylb" id="zdrylbStr"  class="easyui-combotree" style="width:300px;"
 	    			data-options="onlyLeaf:true,valueField:'id',textField:'text',
 	    			multiple:false,required:true,panelWidth:400,method:'get',lines:true,tipPosition:'left'" />
-	    			<!-- <A href="#" onclick="viewWorkflowDialog();">查看流程图</a>  -->
+	    			<A href="javascript:void(0)" onclick="viewWorkflowDialog();">查看流程图</a>
 		    	</td>
 		    </tr>
 		    </table>
@@ -208,7 +208,7 @@ $(document).ready(function(){
 		$('#glffdm').combobox('setValue', '${glffdm}');
 		$('#lglydm').combobox('setValue', '${lglydm}');
 	}
-	
+	$("#zdrygllxdm").combobox("setDataFilter", "[0-1][0-9]");
 	//查询已列管类型和可列管类型
 	queryYlglx($("#ryid").val(),$("#syrkid").val());
 });
@@ -255,12 +255,12 @@ function queryYlglx(ryid,syrkid){
 				queryKlglx(resAry[1],syrkid);//查询可列管类型				
 			}else{
 				$("#ylglxTr").hide();
-				$("#zdrygllxdm").combobox("setDataFilter", "");
+				$("#zdrygllxdm").combobox("setDataFilter", "0[0-9]");
 			}
 		},		
 		error: function() {
 			$("#ylglxTr").hide();
-			$("#zdrygllxdm").combobox("setDataFilter", "");
+			$("#zdrygllxdm").combobox("setDataFilter", "[0-1][0-9]");
 		}
 	});		
 }
@@ -278,11 +278,11 @@ function queryKlglx(ylglxStr,syrkid){
 				$("#zdrygllxdm").combobox("setValue", "");
 				$('#zdrylbStr').combotree('tree').tree('loadData', [''])
 			}else{
-				$("#zdrygllxdm").combobox("setDataFilter", "");					
+				$("#zdrygllxdm").combobox("setDataFilter", "0[0-9]");
 			}
 		},		
 		error: function() {
-			$("#zdrygllxdm").combobox("setDataFilter", "");	
+			$("#zdrygllxdm").combobox("setDataFilter", "0[0-9]");
 		}
 	});	
 }
@@ -385,6 +385,10 @@ function ryxxTag(index){
 }
 function viewWorkflowDialog(){
 	var zdrygllxdm = $("#zdrygllxdm").val();
+	if(zdrygllxdm==""){
+		alert("请选择重点人员类型！");
+		return;
+	}
 	var processDefinitionKey =null;
 	$.ajax({
 		async:false,

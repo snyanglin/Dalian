@@ -44,10 +44,10 @@
 	    			multiple:false,required:true,panelWidth:400,method:'get',lines:true,tipPosition:'left'" >	
 		    	</td>
 		    </tr>
-		 <!--    <tr class="dialogTr">
+		     <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">流程图:</td>
 		    	<td width="30%" class="dialogTd" colspan="3"><a href="#" onclick="viewWorkflowDialog();">查看</a> </td>		    	
-		    </tr> -->
+		    </tr>
 		    
 		    </table> 		
 	    		    	

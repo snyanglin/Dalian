@@ -465,8 +465,9 @@ public class ZdryZdryzbControl extends BaseController {
         try {
             if (ylglxStr == "" || ylglxStr == null) {
                 Map ins = zdryConstant.zdryServiceMap();
-                ins.remove("00");
+                //ins.remove("00"); 这个00对应的是重点人员主表Service不能remove,只能去除klgStr中的临时变量
                 klgStr = ins.keySet().toString();
+                klgStr=klgStr.replace("00,","");
                 klgStr = klgStr.replaceAll(",", "|");
                 klgStr = klgStr.replaceAll(" ", "");
                 klgStr = klgStr.substring(1, klgStr.length() - 1);
@@ -478,13 +479,19 @@ public class ZdryZdryzbControl extends BaseController {
             } else {//有可同时列管的类型
                 /*大连需求：同一辖区内同一个监督部门管理的重点人员管理类型间不允许重复列管*/
                 if ("210200".equals(SystemConfig.getString(AppConst.XZQH))) {//大连
+                    String ary[] = klgStr.split("\\|");
+                    for (int index = 0; index < ary.length; index++){
+                        if (ary[index].indexOf("0")!=0){
+                            klgStr = klgStr.replace(ary[index], "999999");
+                        }
+                    }
                     SessionBean sessionBean = getSessionBean();
                     SyrkSyrkxxzb syrkSyrkxxzb = syrkSyrkxxzbService.queryById(syrkid);
                     boolean hasOtherlg = false;//是否有其他辖区
                     if (syrkSyrkxxzb != null) {
                         List<ZdryZb> list = (List<ZdryZb>) zdryQueryService.queryListByRyid(syrkSyrkxxzb.getRyid());
                         for (ZdryZb zb : list) {
-                            if (!sessionBean.getUserOrgCode().equals(zb.getGlbm())) {
+                            if (!sessionBean.getUserOrgCode().equals(zb.getGlbm()) && "#20#30#40#".indexOf(zb.getZdrygllxdm())<0) {
                                 hasOtherlg = true;
                             }
                             if (!sessionBean.getUserOrgCode().equals(zb.getGlbm()) && "01".equals(zb.getZdrygllxdm())) {
