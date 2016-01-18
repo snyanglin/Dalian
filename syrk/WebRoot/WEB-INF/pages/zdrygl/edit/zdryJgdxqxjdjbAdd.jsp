@@ -13,7 +13,7 @@
     <form action="" id="dataForm" name="dataForm" method="post">
 	    
 	    <input type="hidden" id="_method" name="_method" value=""/>
-	    <input type='hidden' name='id' id="pk" value="${entity.zdryJgdxqxjdjb.id}" />
+	    <input type='hidden' name='zdryJgdxqxjdjb.id' id="pk" value="${entity.zdryJgdxqxjdjb.id}" />
 	    <input type="hidden" id="zdryid" name="zdryJgdxqxjdjb.zdryid" value="${entity.zdryJgdxqxjdjb.zdryid}" />
 
 	    <table border="0" cellpadding="0" cellspacing="10" width="846" align="left">
@@ -92,16 +92,16 @@
 		    </tr>
 		    <tr class="dialogTr">
 	    		<td width="20%" class="dialogTd" align="right">实际返回日期：</td>
-			    <td width="30%" class="dialogTd"><input type="text" name="zdryJgdxqxjdjb.sjfh_rq" id="sjfh_rq" class="easyui-validatebox"  
+			    <td width="30%" class="dialogTd"><input type="text" name="zdryJgdxqxjdjb.sjfh_rq" id="sjfh_rq" class="easyui-validatebox"  value="${entity.zdryJgdxqxjdjb.sjfh_rq}"
 			    								onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d',minDate:'#F{$dp.$D(\'qjrq\') }'})" data-options="validType:['date[\'yyyy-MM-dd\']'],tipPosition:'right'" style="width: 200px;"/></td>
 			   	<td width="20%" class="dialogTd" align="right">销假日期：</td>
-			    <td width="30%" class="dialogTd"><input type="text" name="zdryJgdxqxjdjb.xjrq" id="xjrq" class="easyui-validatebox" style="width: 200px;"
-  											    onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d'})" data-options="validType:['date[\'yyyy-MM-dd\']'],tipPosition:'left'" /></td>
+			    <td width="30%" class="dialogTd"><input type="text" name="zdryJgdxqxjdjb.xjrq" id="xjrq" class="easyui-validatebox" style="width: 200px;"  value="${entity.zdryJgdxqxjdjb.xjrq}"
+  											    onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d',minDate:'#F{$dp.$D(\'sjfh_rq\') }'})" data-options="validType:['date[\'yyyy-MM-dd\']'],tipPosition:'left'" /></td>
 	    	</tr>
-		  <!--   <tr class="dialogTr">
+		     <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">流程图:</td>
 		    	<td width="30%" class="dialogTd" colspan="3"><a href="#" onclick="viewWorkflowDialog();">查看</a> </td>		    	
-		    </tr> -->
+		    </tr>
 	    </table>
 	    
 	</form>
@@ -125,9 +125,15 @@ function doInit(paramArray) {
 				setInputReadonly($(this).attr("id"),true);
 		});
 	}
-	if( $("#pk").val() == "" ) {
-		setInputReadonly('sjfh_rq',true);
-		setInputReadonly('xjrq',true);
+	if($("#spjg").val()==""){
+		if($("#pk").val() == ""){	
+			setInputReadonly('sjfh_rq',true);
+			setInputReadonly('xjrq',true);
+		}else{
+			$("table input,textarea").each(function(){
+				setInputReadonly($(this).attr("id"),true);
+			});
+		}
 	}
 }
 
@@ -135,9 +141,11 @@ function beforeSubmit() {
 	if ($("#pk").val() == "") {
 		$("#_method").val('');
 		$("#dataForm").attr('action', contextPath + '/zdryJgdxqxjdjb/save');
-	}else if($("#spjg").val() != "0"){
-		return false;
+	/* }else if($("#spjg").val() != "0"){
+	 	return false;*/
 	}else{
+		if($("#spjg").val()==""){ return false ;}
+		
 		$("#_method").val('PUT');
 		$("#dataForm").attr('action', contextPath + '/zdryJgdxqxjdjb/' + $("#pk").val());
 	}

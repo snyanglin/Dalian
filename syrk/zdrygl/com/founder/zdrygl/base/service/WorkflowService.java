@@ -85,7 +85,15 @@ public class WorkflowService  extends BaseService {
 				suffixName="zalcg";
 			}
 		}else if("210200".equals(systemXzqh)){//大连
-			suffixName="zalcg";
+			switch (zdrygllxdm){
+				case "30":
+					suffixName="shb_lcg";
+					break;
+				default:
+					suffixName="zalcg";
+					break;
+			}
+
 		}else{
 			throw new BussinessException("未定义行政区域代码" + systemXzqh + "的流程!");
 		}

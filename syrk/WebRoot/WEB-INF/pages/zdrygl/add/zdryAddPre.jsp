@@ -7,13 +7,9 @@
 </head>
 <div class="easyui-layout" data-options="fit:true">
 	<form action="<%=basePath%>zdryzb/saveLg"  id="dataFormZdry" name="dataFormZdry" method="post" enctype="multipart/form-data">
-    	<input type="hidden" id="id" name="zdryZdryzb.id" value="${zdryZdryzbVO.id}" />   	
-    	<input type="hidden" id="zdryShbzdryxxb.id" name="zdryShbzdryxxb.id" value="${zdryZdryzbVO.id}" />
-    	<input type="hidden" id="zdryLczywblb.ywblr_id" name="zdryLczywblb.ywblr_id" value="${zdryLczywblb.ywblr_id}" />
-    	<input type="hidden" id="zdryHsbId" name="zdryHsbId" value="${zdryHsbId}" />
+    	<input type="hidden" id="id" name="zdryZdryzb.id"  />   	
     	<input type="hidden" id="syrkid" name="zdryZdryzb.syrkid" value="${syrkxxb.id }" />
     	<input type="hidden" id="ryid" name="zdryZdryzb.ryid" value="${syrkxxb.ryid }" />
-    	<input type="hidden" id="ky_jzrq" name="zdrySqjzryxxb.ky_jzrq" value="2015-12-30" />
     	
 	    <div data-options="region:'center', split:true" style="width:100%; border-width: 0px;">
 			<table border="0" cellpadding="0" cellspacing="10" width="100%" align="center">
@@ -157,17 +153,17 @@
 		    	</td>
 		    </tr>	  
 
-		   <tr class="dialogTr"> 
+		    <tr class="dialogTr"> 
 		    	<td width="20%" class="dialogTd" align="right">重点人员类型：</td>
 		    	<td width="80%" class="dialogTd" colspan="3">
 					<input class="easyui-combobox" type="text"  id="zdrygllxdm" name="zdryZdryzb.zdrygllxdm"   style="width:200px;" value=""
-					data-options="url: contextPath +'/common/dict/BD_D_ZDRYGLLX.js',  
+					data-options="url: contextPath +'/common/dict/BD_D_ZDRYGLLX.js',  fzFilter:'ZA',
 					valueField:'id',textField:'text',selectOnNavigation:false,method:'get',required:true,tipPosition:'right',onChange:zdrylxChange"/>
 
 	    			<input type="text" name="zdryZdryzb.zdrylb" id="zdrylbStr"  class="easyui-combotree" style="width:300px;"
 	    			data-options="onlyLeaf:true,valueField:'id',textField:'text',
-	    			multiple:false,required:true,panelWidth:400,method:'get',lines:true,tipPosition:'left'" >
-	    			<!-- <A href="#" onclick="viewWorkflowDialog();">查看流程图</a>  -->
+	    			multiple:false,required:true,panelWidth:400,method:'get',lines:true,tipPosition:'left'" />
+	    			<A href="javascript:void(0)" onclick="viewWorkflowDialog();">查看流程图</a>
 		    	</td>
 		    </tr>
 		    </table>
@@ -208,7 +204,7 @@ $(document).ready(function(){
 		$('#glffdm').combobox('setValue', '${glffdm}');
 		$('#lglydm').combobox('setValue', '${lglydm}');
 	}
-	
+	$("#zdrygllxdm").combobox("setDataFilter", "[0-1][0-9]");
 	//查询已列管类型和可列管类型
 	queryYlglx($("#ryid").val(),$("#syrkid").val());
 });
@@ -255,12 +251,12 @@ function queryYlglx(ryid,syrkid){
 				queryKlglx(resAry[1],syrkid);//查询可列管类型				
 			}else{
 				$("#ylglxTr").hide();
-				$("#zdrygllxdm").combobox("setDataFilter", "");
+				$("#zdrygllxdm").combobox("setDataFilter", "0[0-9]");
 			}
 		},		
 		error: function() {
 			$("#ylglxTr").hide();
-			$("#zdrygllxdm").combobox("setDataFilter", "");
+			$("#zdrygllxdm").combobox("setDataFilter", "[0-1][0-9]");
 		}
 	});		
 }
@@ -278,11 +274,11 @@ function queryKlglx(ylglxStr,syrkid){
 				$("#zdrygllxdm").combobox("setValue", "");
 				$('#zdrylbStr').combotree('tree').tree('loadData', [''])
 			}else{
-				$("#zdrygllxdm").combobox("setDataFilter", "");					
+				$("#zdrygllxdm").combobox("setDataFilter", "0[0-9]");
 			}
 		},		
 		error: function() {
-			$("#zdrygllxdm").combobox("setDataFilter", "");	
+			$("#zdrygllxdm").combobox("setDataFilter", "0[0-9]");
 		}
 	});	
 }
@@ -385,6 +381,10 @@ function ryxxTag(index){
 }
 function viewWorkflowDialog(){
 	var zdrygllxdm = $("#zdrygllxdm").val();
+	if(zdrygllxdm==""){
+		alert("请选择重点人员类型！");
+		return;
+	}
 	var processDefinitionKey =null;
 	$.ajax({
 		async:false,

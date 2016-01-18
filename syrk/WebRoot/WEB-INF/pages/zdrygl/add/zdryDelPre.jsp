@@ -44,7 +44,7 @@
 	    			<input type="text" name="zdryZdryzb.zdrylb" id="zdrylbStr"  class="easyui-combotree" style="width:357px;"
 	    			data-options="onlyLeaf:true,valueField:'id',textField:'text',
 	    			multiple:false,required:false,panelWidth:400,method:'get',lines:true,tipPosition:'left'" >
-	    			<!-- <A href="#" onclick="viewWorkflowDialog();">查看流程图</a> --> 	    			
+					<A href="#" onclick="viewWorkflowDialog();">查看流程图</a>
 		    	</td>
 		    </tr>
 		    
@@ -109,6 +109,10 @@ function afterSubmit() {
 }
 function viewWorkflowDialog(){
 	var zdrygllxdm = $("#zdrygllxdm").val();
+	if(zdrygllxdm==""){
+		alert("请选择重点人员类型！");
+		return;
+	}
 	var processDefinitionKey =null;
 	$.ajax({
 		async:false,

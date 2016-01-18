@@ -13,7 +13,6 @@
     	<input type="hidden" id="id" name="id" value="${zdryZb.zdryZdryzb.id}" />
     	<input type="hidden" id="zdryZdryzb.id" name="zdryZdryzb.id" value="${zdryZb.zdryZdryzb.id}" />
     	<input type="hidden" id="zdryZdryzbVO.id" name="zdryZdryzbVO.id" value="${zdryZb.zdryZdryzb.id}" />
-    	<input type="hidden" id="lxdh" name="zdryZdryzb.zdrylb" value="${zdryZb.zdryZdryzb.zdrylb}" />
     	<input type="hidden" id="zdrygllxdm" name="zdryZdryzb.zdrygllxdm" value="${zdryZb.zdryZdryzb.zdrygllxdm}" />
     	
     	<input type="hidden" id="zdrylbmc" name="zdryZdryzbVO.zdrylbmc" value="${zdryVO.zdryZdryzbVO.zdrylbmc}" />    
@@ -45,10 +44,10 @@
 	    			multiple:false,required:true,panelWidth:400,method:'get',lines:true,tipPosition:'left'" >	
 		    	</td>
 		    </tr>
-		 <!--    <tr class="dialogTr">
+		     <tr class="dialogTr">
 		    	<td width="20%" class="dialogTd" align="right">流程图:</td>
 		    	<td width="30%" class="dialogTd" colspan="3"><a href="#" onclick="viewWorkflowDialog();">查看</a> </td>		    	
-		    </tr> -->
+		    </tr>
 		    
 		    </table> 		
 	    		    	

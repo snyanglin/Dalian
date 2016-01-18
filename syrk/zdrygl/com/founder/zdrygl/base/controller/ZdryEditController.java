@@ -132,8 +132,8 @@ public class ZdryEditController extends BaseController {
 	 * @throws
 	 */
 	@RequestMapping(value = "/queryYwglgn", method = RequestMethod.POST)
-	public @ResponseBody List<ZdrygnVO> queryYwglgn(String gnlxdm) {
-		return zdryEditService.queryYwglgn(gnlxdm);
+	public @ResponseBody List<ZdrygnVO> queryYwglgn(String gnlxdm,String rylbdm) {
+		return zdryEditService.queryYwglgn(gnlxdm,rylbdm);
 	}
 	
 	/**

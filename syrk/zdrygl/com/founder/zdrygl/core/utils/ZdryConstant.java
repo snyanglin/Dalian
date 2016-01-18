@@ -198,6 +198,7 @@ public class ZdryConstant implements ApplicationListener<ContextRefreshedEvent> 
 				TreeNode treeNode = new TreeNode();
 				treeNode.setId((String)dictMap.get("key"));
 				treeNode.setText((String)dictMap.get("value"));	
+				treeNode.setFz((String)dictMap.get("fz"));
 				if(!"999999".equals(lbdm_p)){//需要查询子列表
 					treeNode.setChildren(queryChildNodeList(treeNode));
 				}

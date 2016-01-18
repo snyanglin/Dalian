@@ -182,6 +182,8 @@ function doInit(paramArray) {
 			parent.$("#"+windowID).window("close");
 		}
 
+	}else {
+		$('#zdrygllxdm').combobox('setDataFilter', "0[0-9]");
 	}
 	if(filterZdStr=='9999'&&ywlx=="2"){
 		alert("此人所有重点人员类型状态都为进行中状态不可再撤管和转递");

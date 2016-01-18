@@ -35,7 +35,7 @@ public class ZdryShbzdryxxbDao extends BaseDaoImpl implements ZdryGllxEntityDaoS
 
 	@Resource
 	private OrgOrganizationService orgOrganizationService;
-	
+
 	@Override
 	public void insert(Zdry zdry) {
 		ZdryShbzdryxxb shb = (ZdryShbzdryxxb)zdry;
@@ -66,7 +66,7 @@ public class ZdryShbzdryxxbDao extends BaseDaoImpl implements ZdryGllxEntityDaoS
 		return (Zdry)super.queryForObject("ZdryShbzdryxxb.queryViewByMap", queryMap);
 	}
 	/**
-	 * 
+	 *
 	 * @Title: querySyrk
 	 * @Description: TODO(查询列表，涉环保重点人员单独查询)
 	 * @param @param entity
@@ -88,31 +88,31 @@ public class ZdryShbzdryxxbDao extends BaseDaoImpl implements ZdryGllxEntityDaoS
 		map.put("sort", sort);
 		map.put("order", order);
 		map.put("zdryShbzdryxxb", entity);
-		
+
 		String userOrgCode=sessionBean.getUserOrgCode();
 		String userOrgLevel=sessionBean.getUserOrgLevel();
-		if("30".equals(userOrgLevel)){			
+		if("30".equals(userOrgLevel)){
 			map.put("userOrgCode", userOrgCode);
 		}else if("31".equals(userOrgLevel)){
 			OrgOrganization parentOrganization=this.orgOrganizationService.queryParentOrgByOrgcode(userOrgCode);
 			map.put("userOrgCode", parentOrganization.getOrgcode());
 		}
 		page.setTotal((Integer) queryForObject("ZdryShbzdryxxb.queryCount", map)==null?0:(Integer) queryForObject("ZdryShbzdryxxb.queryCount", map));
-		//orgCode2orgName set to sszrqdm 
+		//orgCode2orgName set to sszrqdm
 		List<ZdryShbzdryxxb> list =queryForList("ZdryShbzdryxxb.query", map);
 		for(ZdryShbzdryxxb xxb:list){
 			OrgOrganization fxj = orgOrganizationService.queryByOrgcode(xxb.getSsfxjdm());
 			xxb.setSsfxjdm(fxj.getOrgname());
-			
-			if("30".equals(userOrgLevel)){			
+
+			if("30".equals(userOrgLevel)){
 				xxb.setQx("view");
 			}else if("31".equals(userOrgLevel)){
 				xxb.setQx("edit");
 			}
-			
+
 		}
 		page.setRows(list);
 		return page;
-		
+
 	}
 }

@@ -1,6 +1,7 @@
 package com.founder.zdrygl.base.dao;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,13 +31,17 @@ public class ZdryEditDao extends BaseDaoImpl {
 	 * @Title: queryYwglgn
 	 * @Description: TODO(业务办理菜单查询)
 	 * @param @param gnlxdm
+	 * @param @param rylbdm 人员类别代码，重点人员管理类型代码
 	 * @param @return    设定文件
 	 * @return List<ZdrygnVO>    返回类型
 	 * @throw
 	 */
 	@SuppressWarnings("unchecked")
-	public List<ZdrygnVO> queryYwglgn(String gnlxdm) {
-		return queryForList("ZdryEdit.queryYwglgn", gnlxdm);
+	public List<ZdrygnVO> queryYwglgn(String gnlxdm,String rylbdm) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("gnlxdm", gnlxdm);
+		map.put("rylbdm", rylbdm);
+		return queryForList("ZdryEdit.queryYwglgn", map);
 	}
 
 	/**

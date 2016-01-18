@@ -301,12 +301,8 @@ public class DmController extends BaseController {
 		if (null != sessionBean) {
 			Map<String,String> map = new HashMap<String, String>();
 			map.put("xzqhdm", xzqhdm);
-			String orgBiztype = sessionBean.getUserOrgBiztype();
-			if(!"12".equals(orgBiztype)){
-				//不是内保登陆，需要关联派出所查询
-				String pcsdm = (String) sessionBean.getExtendMap().get("ssPcsCode");
-				map.put("pcsdm", pcsdm);
-			}
+			String pcsdm = (String) sessionBean.getExtendMap().get("ssPcsCode");
+			map.put("pcsdm", pcsdm);
 			comboxlist = dmService.queryDictDm(map);
 		}
 		return comboxlist;

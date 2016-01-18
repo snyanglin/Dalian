@@ -63,7 +63,7 @@ public class ZdryShbService  extends ZdryServiceDecorator{
 	 * 
 	 * @Title: update_
 	 * @Description: (子表（重点人口）修改)
-	 * @param @param sessionBean    设定文件
+ * @param @param sessionBean    设定文件
 	 * @return void    返回类型
 	 * @throw
 	 */

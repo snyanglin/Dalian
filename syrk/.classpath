@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="qbry"/>
 	<classpathentry kind="src" path="xjpt"/>
 	<classpathentry kind="src" path="sydw_dl"/>
 	<classpathentry kind="src" path="jzym"/>

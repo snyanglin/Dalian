@@ -14,7 +14,7 @@ $(document).ready(function(){
 	initComboBox("hjdsssxdm", contextPath + "/common/dict/GB_D_XZQHDMLIST.js"); 
 
 	// 地址选择初始化
-	//initAddressSearch("hjd1", {zrqdm:zrqdm}, "hjd_mlpdm", "hjd_mlpxz", "hjd2", {text:"hjd_dzxz",dzxzqh:"hjd_xzqhdm",id:"hjd_dzid"}, null, null);
+	initAddressSearch("hjd1", {zrqdm:zrqdm}, "hjd_mlpdm", "hjd_mlpxz", "hjd2", {text:"hjd_dzxz",dzxzqh:"hjd_xzqhdm",id:"hjd_dzid"}, null, null);
 	initAddressSearch("jzd1", {zrqdm:'#zrqdm'}, "dz_jzdzmlpdm", "dz_jzd_mlpxz", "jzd2", {text:"dz_jzdzxz",dzxzqh:"dz_jzdzssxdm",id:"dz_jzdzdm"}, null, null);
 });
          

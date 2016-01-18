@@ -1,7 +1,5 @@
 package com.founder.zdrygl.base.service;
 
-import javax.annotation.Resource;
-
 import com.founder.framework.base.entity.SessionBean;
 import com.founder.framework.base.service.BaseService;
 import com.founder.zdrygl.base.dao.ZdrySgafzdryxxbDao;
@@ -9,6 +7,10 @@ import com.founder.zdrygl.base.model.ZdrySgafzdryxxb;
 import com.founder.zdrygl.core.decorator.ZdryServiceDecorator;
 import com.founder.zdrygl.core.inteface.ZdryService;
 import com.founder.zdrygl.core.model.Zdry;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 /**
  * ****************************************************************************
@@ -22,9 +24,9 @@ import com.founder.zdrygl.core.model.Zdry;
  * @UpdateRemark: [说明本次修改内容, (如多次修改保留历史记录，增加修改记录)]  
  * @Version:      [v1.0]
  */
-public class ZdrySgafService  extends ZdryServiceDecorator{
+public class ZdrySgafService extends ZdryServiceDecorator {
 
-	@Resource(name="zdrySgafzdryxxbDao")
+	@Resource
 	private ZdrySgafzdryxxbDao zdrySgafzdryxxbDao;
 
 	public ZdrySgafService(ZdryService zdryService) {

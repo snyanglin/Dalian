@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ZdryQbxxb">
+	
+	<typeAlias alias="zdryQbxxb" type="com.founder.zdrygl.base.model.ZdryQbxxb" />
+
+	<!-- 新增 -->
+	<insert id="save" parameterClass="zdryQbxxb">
+		insert into ZDRY_QBRYXXB (id
+		<isNotEmpty prepend="," property="bjzdrybh"><![CDATA[ bjzdrybh]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xm"><![CDATA[ xm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xmhypy"><![CDATA[ xmhypy]]></isNotEmpty>
+		<isNotEmpty prepend="," property="wwxm"><![CDATA[ wwxm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xbdm"><![CDATA[ xbdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="csrq"><![CDATA[ csrq]]></isNotEmpty>
+		<isNotEmpty prepend="," property="gjdm"><![CDATA[ gjdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="gmsfhm"><![CDATA[ gmsfhm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="qtzjhm"><![CDATA[ qtzjhm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="mzdm"><![CDATA[ mzdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jgssxdm"><![CDATA[ jgssxdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="hjd"><![CDATA[ hjd]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xzd"><![CDATA[ xzd]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xzdpcsmc"><![CDATA[ xzdpcsmc]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xzdpcsdm"><![CDATA[ xzdpcsdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jzd"><![CDATA[ jzd]]></isNotEmpty>
+		<isNotEmpty prepend="," property="gxdwmc"><![CDATA[ gxdwmc]]></isNotEmpty>
+		<isNotEmpty prepend="," property="gxdwdm"><![CDATA[ gxdwdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="ladwmc"><![CDATA[ ladwmc]]></isNotEmpty>
+		<isNotEmpty prepend="," property="ladwdm"><![CDATA[ ladwdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="lasj"><![CDATA[ lasj]]></isNotEmpty>
+		<isNotEmpty prepend="," property="bjzdryrksj"><![CDATA[ bjzdryrksj]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zdrylb"><![CDATA[ zdrylb]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zdrygllxdm"><![CDATA[ zdrygllxdm]]></isNotEmpty>
+		<isNotEmpty prepend="," property="yxx"><![CDATA[ yxx]]></isNotEmpty>
+		<isNotEmpty prepend="," property="etldate"><![CDATA[ etldate]]></isNotEmpty>
+		<isNotEmpty prepend="," property="syrkid"><![CDATA[ syrkid]]></isNotEmpty>
+		<isNotEmpty prepend="," property="qbzd"><![CDATA[ qbzd]]></isNotEmpty>
+		<isNotEmpty prepend="," property="qbdd"><![CDATA[ qbdd]]></isNotEmpty>
+		<isNotEmpty prepend="," property="qbpcs"><![CDATA[ qbpcs]]></isNotEmpty>
+		<isNotEmpty prepend="," property="qbzrq"><![CDATA[ qbzrq]]></isNotEmpty>
+		<isNotEmpty prepend="," property="qbzdmc"><![CDATA[ qbzdmc]]></isNotEmpty>
+		<isNotEmpty prepend="," property="qbddmc"><![CDATA[ qbddmc]]></isNotEmpty>
+		<isNotEmpty prepend="," property="qbpcsmc"><![CDATA[ qbpcsmc]]></isNotEmpty>
+		<isNotEmpty prepend="," property="qbzrqmc"><![CDATA[ qbzrqmc]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dqjb"><![CDATA[ dqjb]]></isNotEmpty>
+		<isNotEmpty prepend="," property="glzt"><![CDATA[ glzt]]></isNotEmpty>
+		<isNotEmpty prepend="," property="bz"><![CDATA[ bz]]></isNotEmpty>
+		,
+		<include refid="insertXtzd" />
+		) values (#id#
+		<isNotEmpty prepend="," property="bjzdrybh"><![CDATA[#bjzdrybh#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xm"><![CDATA[#xm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xmhypy"><![CDATA[#xmhypy#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="wwxm"><![CDATA[#wwxm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xbdm"><![CDATA[#xbdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="csrq"><![CDATA[#csrq#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="gjdm"><![CDATA[#gjdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="gmsfhm"><![CDATA[#gmsfhm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="qtzjhm"><![CDATA[#qtzjhm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="mzdm"><![CDATA[#mzdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jgssxdm"><![CDATA[#jgssxdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="hjd"><![CDATA[#hjd#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xzd"><![CDATA[#xzd#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xzdpcsmc"><![CDATA[#xzdpcsmc#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="xzdpcsdm"><![CDATA[#xzdpcsdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="jzd"><![CDATA[#jzd#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="gxdwmc"><![CDATA[#gxdwmc#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="gxdwdm"><![CDATA[#gxdwdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="ladwmc"><![CDATA[#ladwmc#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="ladwdm"><![CDATA[#ladwdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="lasj"><![CDATA[#lasj#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="bjzdryrksj"><![CDATA[#bjzdryrksj#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zdrylb"><![CDATA[#zdrylb#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="zdrygllxdm"><![CDATA[#zdrygllxdm#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="yxx"><![CDATA[#yxx#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="etldate"><![CDATA[#etldate#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="syrkid"><![CDATA[#syrkid#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="qbzd"><![CDATA[#qbzd#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="qbdd"><![CDATA[#qbdd#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="qbpcs"><![CDATA[#qbpcs#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="qbzrq"><![CDATA[#qbzrq#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="qbzdmc"><![CDATA[#qbzdmc#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="qbddmc"><![CDATA[#qbddmc#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="qbpcsmc"><![CDATA[#qbpcsmc#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="qbzrqmc"><![CDATA[#qbzrqmc#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="dqjb"><![CDATA[#dqjb#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="glzt"><![CDATA[#glzt#]]></isNotEmpty>
+		<isNotEmpty prepend="," property="bz"><![CDATA[#bz#]]></isNotEmpty>
+		,
+		<include refid="insertXtzdVal" />
+		)
+	</insert>
+
+	<!-- 更新 -->
+	<update id="update" parameterClass="zdryQbxxb">
+		<![CDATA[ update ZDRY_QBRYXXB ]]>	
+		<dynamic prepend="set">			
+			<isNotNull prepend="," property="bjzdrybh"><![CDATA[ bjzdrybh = #bjzdrybh#]]></isNotNull>
+			<isNotNull prepend="," property="xm"><![CDATA[ xm = #xm#]]></isNotNull>
+			<isNotNull prepend="," property="xmhypy"><![CDATA[ xmhypy = #xmhypy#]]></isNotNull>
+			<isNotNull prepend="," property="wwxm"><![CDATA[ wwxm = #wwxm#]]></isNotNull>
+			<isNotNull prepend="," property="xbdm"><![CDATA[ xbdm = #xbdm#]]></isNotNull>
+			<isNotNull prepend="," property="csrq"><![CDATA[ csrq = #csrq#]]></isNotNull>
+			<isNotNull prepend="," property="gjdm"><![CDATA[ gjdm = #gjdm#]]></isNotNull>
+			<isNotNull prepend="," property="gmsfhm"><![CDATA[ gmsfhm = #gmsfhm#]]></isNotNull>
+			<isNotNull prepend="," property="qtzjhm"><![CDATA[ qtzjhm = #qtzjhm#]]></isNotNull>
+			<isNotNull prepend="," property="mzdm"><![CDATA[ mzdm = #mzdm#]]></isNotNull>
+			<isNotNull prepend="," property="jgssxdm"><![CDATA[ jgssxdm = #jgssxdm#]]></isNotNull>
+			<isNotNull prepend="," property="hjd"><![CDATA[ hjd = #hjd#]]></isNotNull>
+			<isNotNull prepend="," property="xzd"><![CDATA[ xzd = #xzd#]]></isNotNull>
+			<isNotNull prepend="," property="xzdpcsmc"><![CDATA[ xzdpcsmc = #xzdpcsmc#]]></isNotNull>
+			<isNotNull prepend="," property="xzdpcsdm"><![CDATA[ xzdpcsdm = #xzdpcsdm#]]></isNotNull>
+			<isNotNull prepend="," property="jzd"><![CDATA[ jzd = #jzd#]]></isNotNull>
+			<isNotNull prepend="," property="gxdwmc"><![CDATA[ gxdwmc = #gxdwmc#]]></isNotNull>
+			<isNotNull prepend="," property="gxdwdm"><![CDATA[ gxdwdm = #gxdwdm#]]></isNotNull>
+			<isNotNull prepend="," property="ladwmc"><![CDATA[ ladwmc = #ladwmc#]]></isNotNull>
+			<isNotNull prepend="," property="ladwdm"><![CDATA[ ladwdm = #ladwdm#]]></isNotNull>
+			<isNotNull prepend="," property="lasj"><![CDATA[ lasj = #lasj#]]></isNotNull>
+			<isNotNull prepend="," property="bjzdryrksj"><![CDATA[ bjzdryrksj = #bjzdryrksj#]]></isNotNull>
+			<isNotNull prepend="," property="zdrylb"><![CDATA[ zdrylb = #zdrylb#]]></isNotNull>
+			<isNotNull prepend="," property="zdrygllxdm"><![CDATA[ zdrygllxdm = #zdrygllxdm#]]></isNotNull>
+			<isNotNull prepend="," property="yxx"><![CDATA[ yxx = #yxx#]]></isNotNull>
+			<isNotNull prepend="," property="etldate"><![CDATA[ etldate = #etldate#]]></isNotNull>
+			<isNotNull prepend="," property="syrkid"><![CDATA[ syrkid = #syrkid#]]></isNotNull>
+			<isNotNull prepend="," property="qbzd"><![CDATA[ qbzd = #qbzd#]]></isNotNull>
+			<isNotNull prepend="," property="qbzdmc"><![CDATA[ qbzdmc = #qbzdmc#]]></isNotNull>
+			<isNotNull prepend="," property="qbdd"><![CDATA[ qbdd = #qbdd#]]></isNotNull>
+			<isNotNull prepend="," property="qbddmc"><![CDATA[ qbddmc = #qbddmc#]]></isNotNull>
+			<isNotNull prepend="," property="qbpcs"><![CDATA[ qbpcs = #qbpcs#]]></isNotNull>
+			<isNotNull prepend="," property="qbpcsmc"><![CDATA[ qbpcsmc = #qbpcsmc#]]></isNotNull>
+			<isNotNull prepend="," property="qbzrq"><![CDATA[ qbzrq = #qbzrq#]]></isNotNull>
+			<isNotNull prepend="," property="qbzrqmc"><![CDATA[ qbzrqmc = #qbzrqmc#]]></isNotNull>
+			<isNotNull prepend="," property="dqjb"><![CDATA[ dqjb = #dqjb#]]></isNotNull>
+			<isNotNull prepend="," property="glzt"><![CDATA[ glzt = #glzt#]]></isNotNull>
+			<isNotNull prepend="," property="bz"><![CDATA[ bz = #bz#]]></isNotNull>
+			,<include refid="updateXtzd"/>				
+		</dynamic>
+		<![CDATA[ where ID = #id#]]>	
+	</update>
+	
+	<select id="queryByEntity" parameterClass="zdryQbxxb" resultClass="zdryQbxxb">
+		<![CDATA[ select * from ZDRY_QBRYXXB where rownum = 1 and xt_zxbz = '0']]>
+	    <isNotEmpty prepend="and" property="id"> ID = #id#</isNotEmpty>
+		<isNotEmpty prepend="and" property="bjzdrybh"> BJZDRYBH = #bjzdrybh#</isNotEmpty>
+		<isNotEmpty prepend="and" property="xm"> XM = #xm#</isNotEmpty>
+		<isNotEmpty prepend="and" property="xmhypy"> XMHYPY = #xmhypy#</isNotEmpty>
+		<isNotEmpty prepend="and" property="wwxm"> WWXM = #wwxm#</isNotEmpty>
+		<isNotEmpty prepend="and" property="xbdm"> XBDM = #xbdm#</isNotEmpty>
+		<isNotEmpty prepend="and" property="csrq"> CSRQ = #csrq#</isNotEmpty>
+		<isNotEmpty prepend="and" property="gjdm"> GJDM = #gjdm#</isNotEmpty>
+		<isNotEmpty prepend="and" property="gmsfhm"> GMSFHM = #gmsfhm#</isNotEmpty>
+		<isNotEmpty prepend="and" property="qtzjhm"> QTZJHM = #qtzjhm#</isNotEmpty>
+		<isNotEmpty prepend="and" property="mzdm"> MZDM = #mzdm#</isNotEmpty>
+		<isNotEmpty prepend="and" property="jgssxdm"> JGSSXDM = #jgssxdm#</isNotEmpty>
+		<isNotEmpty prepend="and" property="hjd"> HJD = #hjd#</isNotEmpty>
+		<isNotEmpty prepend="and" property="xzd"> XZD = #xzd#</isNotEmpty>
+		<isNotEmpty prepend="and" property="xzdpcsmc"> XZDPCSMC = #xzdpcsmc#</isNotEmpty>
+		<isNotEmpty prepend="and" property="xzdpcsdm"> XZDPCSDM = #xzdpcsdm#</isNotEmpty>
+		<isNotEmpty prepend="and" property="jzd"> JZD = #jzd#</isNotEmpty>
+		<isNotEmpty prepend="and" property="gxdwmc"> GXDWMC = #gxdwmc#</isNotEmpty>
+		<isNotEmpty prepend="and" property="gxdwdm"> GXDWDM = #gxdwdm#</isNotEmpty>
+		<isNotEmpty prepend="and" property="ladwmc"> LADWMC = #ladwmc#</isNotEmpty>
+		<isNotEmpty prepend="and" property="ladwdm"> LADWDM = #ladwdm#</isNotEmpty>
+		<isNotEmpty prepend="and" property="lasj"> LASJ = #lasj#</isNotEmpty>
+		<isNotEmpty prepend="and" property="bjzdryrksj"> BJZDRYRKSJ = #bjzdryrksj#</isNotEmpty>
+		<isNotEmpty prepend="and" property="zdrylb"> ZDRYLB = #zdrylb#</isNotEmpty>
+		<isNotEmpty prepend="and" property="zdrygllxdm"> ZDRYGLLXDM = #zdrygllxdm#</isNotEmpty>
+		<isNotEmpty prepend="and" property="yxx"> YXX = #yxx#</isNotEmpty>
+		<isNotEmpty prepend="and" property="etldate"> ETLDATE = #etldate#</isNotEmpty>
+		<isNotEmpty prepend="and" property="syrkid"> SYRKID = #syrkid#</isNotEmpty>
+		<isNotEmpty prepend="and" property="qbzd"> QBZD = #qbzd#</isNotEmpty>
+		<isNotEmpty prepend="and" property="qbdd"> QBDD = #qbdd#</isNotEmpty>
+		<isNotEmpty prepend="and" property="qbpcs"> QBPCS = #qbpcs#</isNotEmpty>
+		<isNotEmpty prepend="and" property="qbzrq"> QBZRQ = #qbzrq#</isNotEmpty>
+		<isNotEmpty prepend="and" property="dqjb"> DQJB = #dqjb#</isNotEmpty>
+		<isNotEmpty prepend="and" property="glzt"> GLZT = #glzt#</isNotEmpty>
+		<isNotEmpty prepend="and" property="bz"> BZ = #bz#</isNotEmpty>
+	</select>
+	
+	<!-- 情报人员管理列表数据【总数】 -->
+	<select id="queryCount" parameterClass="Map" resultClass="Integer">
+		<![CDATA[ SELECT COUNT(*)
+	          FROM ZDRY_QBRYXXB where XT_ZXBZ='0' ]]>
+	        <isNotEmpty prepend="and" property="entity.qbzd"> QBZD = #entity.qbzd#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.qbdd"> QBDD = #entity.qbdd#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.qbpcs"> QBPCS = #entity.qbpcs#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.qbzrq"> QBZRQ = #entity.qbzrq#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.zdrygllxdm"> ZDRYGLLXDM = #entity.zdrygllxdm#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.xm">
+			 	XM LIKE '%'||#entity.xm#||'%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.zdrylb"> ZDRYLB= #entity.zdrylb#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.gmsfhm"> GMSFHM = #entity.gmsfhm#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.xbdm"> XBDM = #entity.xbdm#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.gjdm"> GJDM = #entity.gjdm#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.xzd"> 
+				XZD LIKE '%'||#entity.xzd#||'%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.hjd">
+			 	HJD LIKE '%'||#entity.hjd#||'%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.dqjb"> DQJB = #entity.dqjb#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.bjzdrybh"> BJZDRYBH = #entity.bjzdrybh#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.glzt"> GLZT = #entity.glzt#</isNotEmpty>
+	</select>
+	
+	<!-- 情报人员管理列表数据【分页总数】 -->
+	<select id="query" parameterClass="Map" resultClass="ZdryQbxxb">
+			<![CDATA[select * from ( 
+		            select a.* , rownum r   from 
+		               (select *  from ZDRY_QBRYXXB where XT_ZXBZ='0']]>
+		    <isNotEmpty prepend="and" property="entity.qbzd"> QBZD = #entity.qbzd#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.qbdd"> QBDD = #entity.qbdd#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.qbpcs"> QBPCS = #entity.qbpcs#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.qbzrq"> QBZRQ = #entity.qbzrq#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.zdrygllxdm"> ZDRYGLLXDM = #entity.zdrygllxdm#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.xm">
+			 	XM LIKE '%'||#entity.xm#||'%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.zdrylb"> ZDRYLB= #entity.zdrylb#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.gmsfhm"> GMSFHM = #entity.gmsfhm#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.xbdm"> XBDM = #entity.xbdm#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.gjdm"> GJDM = #entity.gjdm#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.xzd"> 
+				XZD LIKE '%'||#entity.xzd#||'%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.hjd">
+			 	HJD LIKE '%'||#entity.hjd#||'%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.dqjb"> DQJB = #entity.dqjb#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.bjzdrybh"> BJZDRYBH = #entity.bjzdrybh#</isNotEmpty>
+			<isNotEmpty prepend="and" property="entity.glzt"> GLZT = #entity.glzt#</isNotEmpty>           
+		    <![CDATA[ order by $sort$ $order$  ) a where rownum <= #end# ) where r > #begin#]]>
+	</select>
+	
+	<!-- 重点人员详情页面展示用 -->
+	<select id="queryViewByMap" parameterClass="Map" resultClass="zdryQbxxb">
+		<![CDATA[ 
+			select t.ID,t.BJZDRYBH,t.XM,t.XMHYPY,t.WWXM,t.XBDM,t.CSRQ,t.GJDM,t.GMSFHM,t.QTZJHM,t.MZDM,t.JGSSXDM,t.HJD,t.XZD,t.XZDPCSMC,t.XZDPCSDM,t.JZD,t.GXDWMC,t.GXDWDM,t.LADWMC,t.LADWDM,t.LASJ,t.BJZDRYRKSJ,t.YXX,t.ETLDATE,t.SYRKID,t.QBZD,t.QBDD,t.QBPCS,t.QBZRQ,t.DQJB,t.GLZT,t.ZDRYGLLXDM, t1.ZDRYLB as BZ
+			from ZDRY_QBRYXXB t, ZDRY_ZDRYZB t1 					
+			where t.ID = #id#  and t.id=t1.id and t.XT_ZXBZ = '0' and t1.xt_zxbz='0'			
+  		]]>
+	</select>
+	
+</sqlMap>
