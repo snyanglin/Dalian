@@ -58,7 +58,7 @@ public class ZdryRuleService {
 				
 				ruleBean=droolsRequest.requestDroolsServer(SystemConfig.getString(AppConst.XZQH)+"_ZDRY_KTSLGLX", ylglxAry[i], null);
 				if(ruleBean.getResStatus()==1){
-					throw new RuntimeException("Drools Exception:"+ruleBean.getResponse());			
+					throw new RuleException("Drools Exception:"+ruleBean.getResponse());
 				}
 				klgList = (List<String>) ruleBean.getResponse();
 					
@@ -76,7 +76,7 @@ public class ZdryRuleService {
 			}else{//还没有可列管类型，所以本次查询结果全都可列管
 				ruleBean=droolsRequest.requestDroolsServer(SystemConfig.getString(AppConst.XZQH)+"_ZDRY_KTSLGLX", ylglxAry[i], null);
 				if(ruleBean.getResStatus()==1){
-					throw new RuntimeException("Drools Exception:"+ruleBean.getResponse());			
+					throw new RuleException("Drools Exception:"+ruleBean.getResponse());
 				}
 				klgList = (List<String>) ruleBean.getResponse();
 				if(klgList!=null){
@@ -107,7 +107,7 @@ public class ZdryRuleService {
 	public String getKcglx(String zdrylxdm) throws Exception{
 		RuleBean ruleBean=droolsRequest.requestDroolsServer(SystemConfig.getString(AppConst.XZQH)+"_ZDRY_CGLX", zdrylxdm, null);
 		if(ruleBean.getResStatus()==1){
-			throw new RuntimeException("Drools Exception:"+ruleBean.getResponse());			
+			throw new RuleException("Drools Exception:"+ruleBean.getResponse());
 		}
 		List<String> list = (List<String>) ruleBean.getResponse();
 				
@@ -140,7 +140,7 @@ public class ZdryRuleService {
 		try {
 			RuleBean ruleBean = droolsRequest.requestDroolsServer(SystemConfig.getString(AppConst.XZQH)+"_ZDRY_SFKZL", zdrylxdm, null);
 			if(ruleBean.getResStatus()==1){
-				throw new RuntimeException("Drools Exception:"+ruleBean.getResponse());			
+				throw new RuleException("Drools Exception:"+ruleBean.getResponse());
 			}
 			return "0".equals(ruleBean.getResponse());
 		} catch (Exception e) {
@@ -164,7 +164,7 @@ public class ZdryRuleService {
 		try {
 			RuleBean ruleBean = droolsRequest.requestDroolsServer(SystemConfig.getString(AppConst.XZQH)+"_ZDRY_SFSLG", zdrylxdm, null);
 			if(ruleBean.getResStatus()==1){
-				throw new RuntimeException("Drools Exception:"+ruleBean.getResponse());			
+				throw new RuleException("Drools Exception:"+ruleBean.getResponse());
 			}
 			if("0".equals(ruleBean.getResponse())){//双列管
 				return "2";
@@ -210,7 +210,7 @@ public class ZdryRuleService {
 	public Map<String,String> getZdryLxJgbmMap() throws Exception{
 		RuleBean ruleBean = droolsRequest.requestDroolsServer(SystemConfig.getString(AppConst.XZQH)+"_ZDRYJGBM","GETJGBM",null);
 		if(ruleBean.getResStatus()==1){
-			throw new RuntimeException("Drools Exception:"+ruleBean.getResponse());			
+			throw new RuleException("Drools Exception:"+ruleBean.getResponse());
 		}
 		
 		Map<String,String> resMap=(Map) ruleBean.getResponse();

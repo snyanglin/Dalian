@@ -94,7 +94,7 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			map.put(AppConst.STATUS, AppConst.FAIL);
-			map.put(AppConst.MESSAGES, getAddFail());
+			map.put(AppConst.MESSAGES, getAddFail()+e.getLocalizedMessage());
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));
 		return mv;
@@ -141,7 +141,7 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			map.put(AppConst.STATUS, AppConst.FAIL);
-			map.put(AppConst.MESSAGES, getUpdateFail());
+			map.put(AppConst.MESSAGES, getUpdateFail()+e.getLocalizedMessage());
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));
 		return mv;
@@ -218,7 +218,7 @@ public class ZdryJgdxqxjdjbController extends BaseController {
 			if(e instanceof RuleException){
 				map.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
 			}else{
-				map.put(AppConst.MESSAGES, "审批失败！");
+				map.put(AppConst.MESSAGES, "审批失败！"+e.getLocalizedMessage());
 			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));

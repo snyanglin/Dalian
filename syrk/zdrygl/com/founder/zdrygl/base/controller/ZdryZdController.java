@@ -212,7 +212,7 @@ public class ZdryZdController extends BaseController {
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage(), e);
 			model.put(AppConst.STATUS, AppConst.FAIL);
-			model.put(AppConst.MESSAGES, getAddFail());
+			model.put(AppConst.MESSAGES, getAddFail()+e.getLocalizedMessage());
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;
