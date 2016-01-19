@@ -2,6 +2,7 @@ package com.founder.zdrygl.base.service;
 
 import javax.annotation.Resource;
 
+import com.founder.framework.exception.BussinessException;
 import com.founder.framework.message.bean.MessageDict;
 import com.founder.framework.message.service.JwzhMessageService;
 import com.founder.zdrygl.base.message.MessageDictZdrygl;
@@ -62,7 +63,12 @@ public class ZdryPsjdbService extends BaseService {
 		paraObj.put("fsrOrgCode", sessionBean.getUserOrgCode());//发送人机构代码
 		paraObj.put("zdryId", entity.getZdryid());//发送人机构代码
 		paraObj.put("nrjy",entity);
-		jwzhMessageService.sendMessage(MessageDict.ZDRYGL.JGDXPSJDTX,paraObj);
+		try {
+			jwzhMessageService.sendMessage(MessageDict.ZDRYGL.JGDXPSJDTX,paraObj);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BussinessException("发送消息出错："+e.getLocalizedMessage());
+		}
 	}
 	
 	public void update(ZdryPsjdb entity, SessionBean sessionBean) {

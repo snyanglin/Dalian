@@ -83,7 +83,7 @@ public class ZdryPsjdbController extends BaseController {
 			e.printStackTrace();
 			logger.error(e.getMessage(), e);
 			map.put(AppConst.STATUS, AppConst.FAIL);
-			map.put(AppConst.MESSAGES, getAddFail());
+			map.put(AppConst.MESSAGES, getAddFail()+e.getLocalizedMessage());
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));
 		return mv;
@@ -130,7 +130,7 @@ public class ZdryPsjdbController extends BaseController {
 			e.printStackTrace();
 			logger.error(e.getMessage(), e);
 			map.put(AppConst.STATUS, AppConst.FAIL);
-			map.put(AppConst.MESSAGES, getUpdateFail());
+			map.put(AppConst.MESSAGES, getUpdateFail()+e.getLocalizedMessage());
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));
 		return mv;

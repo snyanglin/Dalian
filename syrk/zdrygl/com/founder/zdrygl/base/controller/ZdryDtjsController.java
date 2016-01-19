@@ -117,6 +117,7 @@ public class ZdryDtjsController extends BaseController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.put(AppConst.STATUS, AppConst.FAIL);
+			model.put(AppConst.MESSAGES,getAddFail()+e.getLocalizedMessage());
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
 		return mv;

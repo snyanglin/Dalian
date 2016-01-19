@@ -97,7 +97,7 @@ public class ZdryDtjsXsMoreController extends BaseController {
 			} catch (Exception e) {
 				e.printStackTrace();
 				map.put(AppConst.STATUS, AppConst.FAIL);
-				map.put(AppConst.MESSAGES, getDeleteFail());
+				map.put(AppConst.MESSAGES, getDeleteFail()+e.getLocalizedMessage());
 			}
 			mv.addObject(AppConst.MESSAGES, new Gson().toJson(map));
 		    

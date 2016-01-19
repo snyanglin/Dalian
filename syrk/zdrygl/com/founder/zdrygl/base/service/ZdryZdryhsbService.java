@@ -283,7 +283,12 @@ public class ZdryZdryhsbService {
         String jsr = getSzIdBy(sessionBean.getUserOrgCode());
         if (!StringUtils.isBlank(jsr)) {
             logger.debug("准备发送消息");
-            jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDRYHS, paraObj, MessageDict.JSLX_TO_USER, jsr);
+            try {
+                jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDRYHS, paraObj, MessageDict.JSLX_TO_USER, jsr);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new BussinessException("发送消息出错："+e.getLocalizedMessage());
+            }
         }
         returnMap.put("zdryZbId", zdryZdyzb.getId());
         return returnMap;
@@ -334,7 +339,12 @@ public class ZdryZdryhsbService {
             jsr = getSzIdBy(sessionBean.getUserOrgCode());
         }
         if (!StringUtils.isBlank(jsr)) {
-            jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDHSSPSQ, paraObj, MessageDict.JSLX_TO_USER, jsr);
+            try {
+                jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDHSSPSQ, paraObj, MessageDict.JSLX_TO_USER, jsr);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new BussinessException("发送消息出错："+e.getLocalizedMessage());
+            }
         }
     }
 
@@ -367,7 +377,12 @@ public class ZdryZdryhsbService {
         paraObj.put("zdrylxName", zdryConstant.getValueOfZdryDict(StringUtils.isBlank(zdryHsb.getZdrygllxdm()) ? "01" : zdryHsb.getZdrygllxdm()));
         paraObj.put("suggestion", spyj);
         paraObj.put("jslx", "0");
-        jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDHSSPJG, paraObj, MessageDict.JSLX_TO_USER, zdryHsb.getXt_zhxgrid());
+        try {
+            jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDHSSPJG, paraObj, MessageDict.JSLX_TO_USER, zdryHsb.getXt_zhxgrid());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BussinessException("发送消息出错："+e.getLocalizedMessage());
+        }
         BaseService.setUpdateProperties(zdryHsb, sessionBean);
         zdryZdryhsbDao.update(zdryHsb);
     }
@@ -397,7 +412,12 @@ public class ZdryZdryhsbService {
         jsdx.put("jrsOrgCode", entity.getSspcs());
         jsdx.put("inculdeSubOrg", false);
         jsdx.put("noRepeatUser", false);
-        jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDRYDHS, paraObj, MessageDict.JSLX_TO_ORG, jsdx);
+        try {
+            jwzhMessageService.sendMessage(MessageDict.ZDRYGL.ZDRYDHS, paraObj, MessageDict.JSLX_TO_ORG, jsdx);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BussinessException("发送消息出错："+e.getLocalizedMessage());
+        }
 
     }
 

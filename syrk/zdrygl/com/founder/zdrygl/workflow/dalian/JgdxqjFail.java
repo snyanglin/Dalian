@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.founder.framework.exception.BussinessException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +64,12 @@ public class JgdxqjFail extends WorkflowDelegate {
 		//send message
 		Map<String,Object> paraObj = workflowUtil.getMessageParam(sessionBean,zdryzb);//获取消息的参数
 		paraObj.put("result", "qjSuccess");
-		jwzhMessageService.sendMessage("MESSAGE_ZDRYGL_JGDXQXJSPJG",paraObj);
+		try {
+			jwzhMessageService.sendMessage("MESSAGE_ZDRYGL_JGDXQXJSPJG",paraObj);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BussinessException("发送消息出错："+e.getLocalizedMessage());
+		}
 		log.debug("请假失败 ");
 	}
 	@Override

@@ -484,7 +484,7 @@ public class ZdryApprovalController extends BaseController {
 			if(e instanceof RuleException){
 				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
 			}else{
-				model.put(AppConst.MESSAGES, "审批失败！");
+				model.put(AppConst.MESSAGES, "审批失败！"+e.getLocalizedMessage());
 			}
 				
 		}
@@ -538,7 +538,7 @@ public class ZdryApprovalController extends BaseController {
 			if(e instanceof RuleException){
 				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
 			}else{
-				model.put(AppConst.MESSAGES, "审批失败！");
+				model.put(AppConst.MESSAGES, "审批失败！"+e.getLocalizedMessage());
 			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
@@ -611,7 +611,7 @@ public class ZdryApprovalController extends BaseController {
 			if(e instanceof RuleException){
 				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
 			}else{
-				model.put(AppConst.MESSAGES, "审批失败！");
+				model.put(AppConst.MESSAGES, "审批失败！"+e.getLocalizedMessage());
 			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
@@ -649,7 +649,7 @@ public class ZdryApprovalController extends BaseController {
 			if(e instanceof RuleException){
 				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
 			}else{
-				model.put(AppConst.MESSAGES, "审批失败！");
+				model.put(AppConst.MESSAGES, "审批失败！"+e.getLocalizedMessage());
 			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
@@ -698,7 +698,7 @@ public class ZdryApprovalController extends BaseController {
 			if(e instanceof RuleException){
 				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
 			}else{
-				model.put(AppConst.MESSAGES, "审批失败！");
+				model.put(AppConst.MESSAGES, "审批失败！"+e.getLocalizedMessage());
 			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
@@ -735,7 +735,7 @@ public class ZdryApprovalController extends BaseController {
 			if(e instanceof RuleException){
 				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
 			}else{
-				model.put(AppConst.MESSAGES, "审批失败！");
+				model.put(AppConst.MESSAGES, "审批失败！"+e.getLocalizedMessage());
 			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
@@ -770,7 +770,7 @@ public class ZdryApprovalController extends BaseController {
 			if(e instanceof RuleException){
 				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
 			}else{
-				model.put(AppConst.MESSAGES, "审批失败！");
+				model.put(AppConst.MESSAGES, "审批失败！"+e.getLocalizedMessage());
 			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
@@ -801,7 +801,7 @@ public class ZdryApprovalController extends BaseController {
 			if(e instanceof RuleException){
 				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
 			}else{
-				model.put(AppConst.MESSAGES, "审批失败！");
+				model.put(AppConst.MESSAGES, "审批失败！"+e.getLocalizedMessage());
 			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
@@ -840,7 +840,7 @@ public class ZdryApprovalController extends BaseController {
 			if(e instanceof RuleException){
 				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
 			}else{
-				model.put(AppConst.MESSAGES, "审批失败！");
+				model.put(AppConst.MESSAGES, "审批失败！"+e.getLocalizedMessage());
 			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
@@ -889,7 +889,7 @@ public class ZdryApprovalController extends BaseController {
 			if(e instanceof RuleException){
 				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
 			}else{
-				model.put(AppConst.MESSAGES, "审批失败！");
+				model.put(AppConst.MESSAGES, "审批失败！"+e.getLocalizedMessage());
 			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
@@ -939,7 +939,7 @@ public class ZdryApprovalController extends BaseController {
 			if(e instanceof RuleException){
 				model.put(AppConst.MESSAGES, "审批失败:规则平台异常，"+e.getLocalizedMessage());
 			}else{
-				model.put(AppConst.MESSAGES, "审批失败！");
+				model.put(AppConst.MESSAGES, "审批失败！"+e.getLocalizedMessage());
 			}
 		}
 		mv.addObject(AppConst.MESSAGES, new Gson().toJson(model));
