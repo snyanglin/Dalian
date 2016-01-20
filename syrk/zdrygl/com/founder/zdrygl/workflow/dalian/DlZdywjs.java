@@ -65,7 +65,7 @@ public class DlZdywjs extends WorkflowDelegate {
 			LinkedHashMap<String,String> wfParams = workflowUtil.getWorkflowParamBean(WfywEnum.ZD);
 			OrgPosition orgPos = orgPositionService.queryByPosid(wfParams.get("spgwL1"));
 			String taskParameter = targetOrgOrganization.getOrgcode() + "_"
-					+ orgPos==null?null:orgPos.getId().toString(); // 责任区部门code+民警岗位ID
+					+ (orgPos==null?null:orgPos.getId().toString()); // 责任区部门code+民警岗位ID
 			setLocalVariable("spmj", taskParameter);
 			setVariable("xglbm", targetOrgOrganization.getOrgcode());
 			setVariable("yglbm",orgOrganizationService.queryByOrgcode(zdrycx.getGxzrqdm()).getOrgcode());
