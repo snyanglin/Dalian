@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.founder.zdrygl.core.model.ZOBean;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +61,9 @@ public class ZlSuccess extends WorkflowDelegate{
 //		zdryZdryzb.setZdrylb(xzdrylb);
 //		zdryZdryzbService.update(zdryZdryzb, sessionBean);
 
-		
-//		TODO zdryService.zlSuccess(sessionBean);
+		zdryzb.setXt_zxyy(zdryzb.getXt_zxyy() + ";转类为"+zdryzb.getZdrylb());
+		ZOBean entity = new ZOBean(zdryzb, zdrylbdx);
+		zdryService.zlSuccess(sessionBean,entity);
 	}
 	@Override
 	public void sendMsgByType(BaseWorkFlowBean bwf, String msgType) {
