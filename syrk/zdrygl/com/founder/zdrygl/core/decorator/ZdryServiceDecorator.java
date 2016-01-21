@@ -62,10 +62,8 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		Map<String,Object> paraObj = getMessageParam(sessionBean,entity.getZdryzb());
 		paraObj.put("result", "lgSuccess");
 		paraObj.put("zdryId", entity.getZdryzbId());
-		if ("30".equals(paraObj.get("zdryGllxdm"))){
-			return;//涉环保发消息 规则报错，暂时不发。
-		}
 		sendMessage(MessageDict.ZDRYGL.LGSPJG,paraObj);
+		String stop="stop";
 	}
 	
 	@Override
