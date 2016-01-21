@@ -63,7 +63,6 @@ public abstract class ZdryServiceDecorator implements ZdryService{
 		paraObj.put("result", "lgSuccess");
 		paraObj.put("zdryId", entity.getZdryzbId());
 		sendMessage(MessageDict.ZDRYGL.LGSPJG,paraObj);
-		String stop="stop";
 	}
 	
 	@Override
