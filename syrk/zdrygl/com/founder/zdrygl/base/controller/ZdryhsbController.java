@@ -67,8 +67,6 @@ public class ZdryhsbController extends BaseController{
 	@Resource
 	private ZdryZdryhsbService zdryZdryhsbService;
 	@Resource
-	private SyrkSyrkxxzbDao syrkSyrkxxzbDao;
-	@Resource
 	private ZdryInfoQueryService zdryInfoQueryService;
 	@Resource
 	private RyRyjbxxbService ryRyjbxxbService;
@@ -284,9 +282,7 @@ public class ZdryhsbController extends BaseController{
 		sessionBean = getSessionBean(sessionBean);
 		try {
 			zdryZdryhsbService.saveLg(zdryVO,  sessionBean);
-			ZdryZdryhsb e = zdryZdryhsbService.queryById(zdryVO.getZdryHsbId());
-			e.setHszt("1");
-			zdryZdryhsbService.update(e, sessionBean);
+
 			model.put(AppConst.STATUS, AppConst.SUCCESS);
 			model.put(AppConst.MESSAGES, getAddSuccess());
 		} catch (BussinessException e) {

@@ -256,6 +256,11 @@ public class ZdryZdryhsbService {
         zdryService.lg(sessionBean, entity);
         zdryZdryzb.setGlzt("2");
         zdryZdryZbDao.update(zdryZdryzb);
+        //add by zhoulj 修改核实记录信息 放到service事物中
+        ZdryZdryhsb e = queryById(zdryVO.getZdryHsbId());
+        e.setHszt("1");
+        update(e, sessionBean);
+        //end
         return saveLczywb(zdryZdryzb, sessionBean);
     }
 
