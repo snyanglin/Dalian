@@ -62,7 +62,7 @@ public class ZdryPsjdbService extends BaseService {
 		paraObj.put("fsrOrgName", sessionBean.getUserOrgName());//发送人机构名
 		paraObj.put("fsrOrgCode", sessionBean.getUserOrgCode());//发送人机构代码
 		paraObj.put("zdryId", entity.getZdryid());//发送人机构代码
-		paraObj.put("nrjy",entity);
+		paraObj.put("nrjy",entity.getNrjy());
 		try {
 			jwzhMessageService.sendMessage(MessageDict.ZDRYGL.JGDXPSJDTX,paraObj);
 		} catch (Exception e) {
