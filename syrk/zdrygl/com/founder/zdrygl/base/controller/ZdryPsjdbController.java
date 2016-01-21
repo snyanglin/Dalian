@@ -68,7 +68,7 @@ public class ZdryPsjdbController extends BaseController {
 	 * @return ModelAndView    返回类型
 	 * @throws
 	 */
-	@RestfulAnnotation(valiField = "zdryid,py_sj,pydd,cjry,nrjy", serverId = "3")
+//	@RestfulAnnotation(valiField = "zdryid,py_sj,pydd,cjry,nrjy", serverId = "3")
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ModelAndView save(ZdryPsjdb entity, SessionBean sessionBean) {
 		ModelAndView mv = new ModelAndView(getViewName(sessionBean));
@@ -80,7 +80,6 @@ public class ZdryPsjdbController extends BaseController {
 			map.put(AppConst.MESSAGES, getAddSuccess());
 			map.put(AppConst.SAVE_ID, "" + entity.getId()); // 返回主键
 		} catch (Exception e) {
-			e.printStackTrace();
 			logger.error(e.getMessage(), e);
 			map.put(AppConst.STATUS, AppConst.FAIL);
 			map.put(AppConst.MESSAGES, getAddFail()+e.getLocalizedMessage());
@@ -115,7 +114,7 @@ public class ZdryPsjdbController extends BaseController {
 	 * @return ModelAndView    返回类型
 	 * @throws
 	 */
-	@RestfulAnnotation(valiField = "id,zdryid,py_sj,pydd,cjry,nrjy", serverId = "3")
+//	@RestfulAnnotation(valiField = "id,zdryid,py_sj,pydd,cjry,nrjy", serverId = "3")
 	@RequestMapping(value = "/{id}", method = { RequestMethod.POST,
 			RequestMethod.PUT })
 	public ModelAndView update(ZdryPsjdb entity, SessionBean sessionBean) {
@@ -127,7 +126,6 @@ public class ZdryPsjdbController extends BaseController {
 			map.put(AppConst.STATUS, AppConst.SUCCESS);
 			map.put(AppConst.MESSAGES, getUpdateSuccess());
 		} catch (Exception e) {
-			e.printStackTrace();
 			logger.error(e.getMessage(), e);
 			map.put(AppConst.STATUS, AppConst.FAIL);
 			map.put(AppConst.MESSAGES, getUpdateFail()+e.getLocalizedMessage());
